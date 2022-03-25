@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2021-03-03 11:54+0100\n"
+"PO-Revision-Date: 2022-03-18 20:36+0100\n"
 "Last-Translator: José Manuel Delicado <jmdaweb@hotmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Dialog text shown when trying to install the add-on on an older version of Windows.
@@ -24,10 +24,12 @@ msgid ""
 "You are using an older version of Windows. This add-on requires Windows 10 "
 "or later."
 msgstr ""
+"Estás ejecutando una versión antigua de Windows. Este complemento necesita "
+"Windows 10 o posterior."
 
 #. Translators: title of the dialog shown when trying to install the add-on on an old version of Windows.
 msgid "Old Windows version"
-msgstr ""
+msgstr "Versión de Windows antigua"
 
 #. Translators: announced in SPL Creator and Remote VT
 #. when trying to perform playlist status commands while outside of playlist editor.
@@ -140,7 +142,6 @@ msgstr ""
 "añadir, cambiar o eliminar comentarios de pista"
 
 #. Translators: The text of the help command in SPL Assistant layer.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -204,11 +205,9 @@ msgstr ""
 "formatos.\n"
 "F9: Marca la pista actual como inicio de análisis de tiempo de la pista.\n"
 "F10: Realiza el análisis de tiempo de la pista.\n"
-"F12: Cambia a un perfil de cambio instantáneo.\n"
-"Shift+F1: abre una guía de usuario en línea."
+"F12: Cambia a un perfil de cambio instantáneo."
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -276,8 +275,7 @@ msgstr ""
 "formatos.\n"
 "F9: Marca la pista actual como inicio de análisis de tiempo de la pista.\n"
 "F10: Realiza el análisis de tiempo de la pista.\n"
-"F12: Cambia a un perfil de cambio instantáneo.\n"
-"Shift+F1: abre una guía de usuario en línea."
+"F12: Cambia a un perfil de cambio instantáneo."
 
 #. Translators: the label for a menu item in NVDA Preferences menu
 #. to open SPL Studio add-on settings.

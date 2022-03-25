@@ -2,7 +2,7 @@
 
 * Autoren: Geoff Shang, Joseph Lee und weitere Mitwirkende
 * [Stabile Version herunterladen][1]
-* NVDA compatibility: 2021.3 and later
+* NVDA-Kompatibilität: 2021.3 und neuer
 
 Dieses Zusatzpaket bietet eine verbesserte Nutzung von StationPlaylist
 Studio und anderen StationPlaylist-Anwendungen sowie Dienstprogramme zur
@@ -16,14 +16,15 @@ Weitere Informationen zur Erweiterung finden Sie in der
 WICHTIGE HINWEISE:
 
 * Diese Erweiterung unterstützt die StationPlaylist Suite 5.30 oder neuer.
-* Some add-on features will be disabled or limited if NVDA is running in
-  secure mode such as in logon screen.
+* Einige Funktionen der Erweiterung werden deaktiviert oder eingeschränkt,
+  sobald NVDA im Abgesicherten Modus ausgeführt wird, z. B. während der
+  Windows-Anmeldung.
 * Wenn Sie Windows 8 oder höher verwenden, setzen Sie die Reduzierung der
   Lautstärke anderer Audioquellen auf "nie" im Dialog Sprachausgabe im
   NVDA-Einstellungsmenü.
-* Starting from 2018, [changelogs for old add-on releases][3] will be found
-  on GitHub. This add-on readme will list changes from version 22.03 (2022)
-  onwards.
+* Seit 2018 sind [Änderungsprotokolle für alte Versionen der Erweiterung][3]
+  auf GitHub zu finden. Die Readme der Erweiterung listet Änderungen ab
+  Version 22.03 (2022) auf.
 * Während die Studio-Software läuft, können Sie gespeicherte Einstellungen
   speichern, wieder laden oder Zusatzeinstellungen auf die Standardwerte
   zurücksetzen, indem Sie Strg+NVDA+C, Strg+NVDA+R einmal bzw. Strg+NVDA+R
@@ -107,16 +108,16 @@ StationPlaylist, suchen Sie dann nicht zugewiesene Befehle aus der Liste
 unten und wählen Sie "Hinzufügen" aus, geben Sie dann die Taste oder
 Tastenkombination ein, welche Sie verwenden möchten.
 
-Important: some of these commands will not work if NVDA is running in secure
-mode such as from login screen.
+Wichtig: Einige dieser Befehle funktionieren nicht, wenn NVDA im
+Abgesicherten Modus ausgeführt wird, z. B. während der Windows-Anmeldung.
 
-* Switching to SPL Studio window from any program (unavailable in secure
-  mode).
-* SPL Controller layer (unavailable in secure mode).
-* Announcing Studio status such as track playback from other programs
-  (unavailable in secure mode).
-* Announcing encoder connection status from any program (unavailable in
-  secure mode).
+* Das Wechseln zum SPL-Studio-Fenster aus einer beliebigen Anwendung heraus
+  ist (im Abgesicherten Modus) nicht verfügbar.
+* Die SPL-Steuerung ist (im Abgesicherten Modus) nicht verfügbar.
+* Die Mitteilungen des Studio-Status, wie z. B. die Wiedergabe von Titeln
+  aus anderen Anwendungen ist (im Abgesicherten Modus) nicht verfügbar.
+* Ansage des Encoder-Verbindungsstatus aus einer beliebigen Anwendung heraus
+  ist (im Abgesicherten Modus nicht verfügbar.
 * Befehlsschicht des SPL-Assistenten im SPL-Studio.
 * Meldet die Studiozeit einschließlich Sekunden.
 * Meldet die Temperatur.
@@ -222,8 +223,8 @@ Der SPL-Controller bietet eine Befehlsschicht, mit der Sie SPL-Studio von
 anderen Befehl, um verschiedene Studio-Funktionen auszuführen (z.B. Mikrofon
 ein/aus oder nächsten Titel abspielen).
 
-Important: SPL Controller layer commands are disabled if NVDA is running in
-secure mode.
+Wichtig: Die Befehle in der SPL-Steuerung sind deaktiviert, sobald NVDA im
+Abgesicherten Modus ausgeführt wird.
 
 Die verfügbaren Befehle für den SPL-Controller sind:
 
@@ -334,10 +335,11 @@ Textformat, eine HTML-Tabelle oder eine Liste).
 
 ## Konfigurationsdialog
 
-From studio window, you can press Alt+NVDA+0 to open the add-on
-configuration dialog. Alternatively, go to NVDA's preferences menu and
-select SPL Studio Settings item. Not all settings are available if NVDA is
-running in secure mode.
+Im Studio-Fenster können Sie Alt+NVDA+0 drücken, um das Dialogfeld für die
+Konfiguration der Erweiterung zu öffnen oder  auch das Einstellungsmenü von
+NVDA aufrufen und dort den Eintrag für die Einstellung des SPL-Studios
+auswählen. Nicht alle Einstellungen sind verfügbar, sobald NVDA im
+Abgesicherten Modus läuft.
 
 ## Dialogfeld der Sendeprofile
 
@@ -356,35 +358,37 @@ die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
 ## Version 22.03
 
-This is the last stable version to support Studio 5.30 as wel as Windows 7
-Service Pack 1, 8, and 8.1.
+Dies ist die letzte Version, die sowohl Studio 5.30 als auch Windows 7
+Service Pack 1, 8 und 8.1 unterstützt.
 
-* NVDA 2021.3 or later is required.
-* A warning message will be displayed when attempting to install the add-on
-  on Windows 7, 8, and 8.1.
-* It is no longer possible to perform the following commands if NVDA is
-  running in secure mode: all SPL Controller layer commands, switching to
-  Studio from other programs, obtaining Studio status and encoder status
-  from other programs.
-* It is no longer possible to copy track comments to the clipboard or add or
-  change comments if NVDA is running in secure mode.
-* It is no longer possible to copy playlist transcripts to clipboard or save
-  it to a file if NVDA is running in secure mode. Only viewing transcripts
-  will be allowed in secure mode.
-* To improve security, online user guide command from SPL Assistant
-  (Shift+F1) has been removed.
-* It is no longer possible to create, copy, rename, delete, or configure
-  instant switch status for broadcast profiles if NVDA is running in secure
-  mode.
-* It is no longer possible to configure advanced add-on settings or reset
-  settings to defaults from add-on settings screen if NVDA is running in
-  secure mode.
-* In Studio, NVDA will no longer do nothing or play error tones if
-  attempting to obtain playlist snapshots (SPL Assistant, F8) if the loaded
-  playlist consists only of hour markers.
-* In Creator 6.0, NVDA will no longer appear to do nothing when one of the
-  columns explorer column is "Date Restriction" as the column has been
-  renamed to "Restrictions".
+* NVDA 2021.3 oder neuer wird benötigt.
+* Beim Versuch, die Erweiterung unter Windows 7, 8 und 8.1 zu installieren,
+  wird eine Warnung angezeigt.
+* Es ist nicht mehr möglich, die folgenden Befehle auszuführen, wenn NVDA im
+  Abgesicherten Modus läuft: Alle Befehle der SPL-Steuerung, Wechsel zu
+  Studio aus anderen Anwendungen, Abrufen des Studio-Status und des
+  Encoder-Status aus anderen Anwendungen.
+* Es ist nicht mehr möglich, Track-Kommentare in die Zwischenablage zu
+  kopieren oder Kommentare hinzuzufügen oder zu ändern, wenn NVDA im
+  Abgesicherten Modus läuft.
+* Es ist nicht mehr möglich, Wiedergabelisten-Transkripte in die
+  Zwischenablage zu kopieren oder in einer Datei zu speichern, wenn NVDA im
+  Abgesicherten Modus ausgeführt wird. Im abgesicherten Modus ist nur noch
+  das Anzeigen von Abschriften möglich.
+* Um die Sicherheit zu erhöhen, wurde der Befehl "Online-Benutzerhandbuch"
+  aus dem SPL-Assistenten (Umschalt+F1) entfernt.
+* Das Erstellen, Kopieren, Umbenennen, Löschen oder Konfigurieren des
+  Sofortwechselstatus für Broadcast-Profile ist nicht mehr möglich, wenn
+  NVDA im Abgesicherten Modus ausgeführt wird.
+* Es ist nicht mehr möglich, erweiterte Einstellungen der Erweiterung zu
+  konfigurieren oder Einstellungen auf Standardwerte zurückzusetzen, wenn
+  NVDA im Abgesicherten Modus läuft.
+* In Studio gibt NVDA beim Versuch, Snapshots der Wiedergabeliste zu
+  erhalten (SPL-Assistent, F8), keine Fehlermeldungen mehr aus, wenn die
+  geladene Wiedergabeliste nur aus Stundenmarkierungen besteht.
+* In Creator 6.0 ist NVDA nicht mehr untätig, wenn eine der Spalten des
+  Explorers "Datumseinschränkung" lautet, da die Spalte in "Einschränkungen"
+  umbenannt wurde.
 
 ## Ältere Versionen
 
