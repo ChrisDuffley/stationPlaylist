@@ -885,7 +885,7 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.windowClassName == "TTntListView.UnicodeClass":
 			if role == controlTypes.Role.LISTITEM:
 				# Track item window style has changed in Studio 5.31.
-				trackItemWindowStyle = 1443991617 if self.productVersion >= "5.31" else 1443991625
+				trackItemWindowStyle = 1443991617
 				if abs(windowStyle - trackItemWindowStyle) % 0x100000 == 0:
 					clsList.insert(0, StudioPlaylistViewerItem)
 				else:
