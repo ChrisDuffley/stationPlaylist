@@ -12,9 +12,9 @@ For more information about the add-on, read the [add-on guide][2].
 
 IMPORTANT NOTES:
 
-* This add-on requires StationPlaylist suite 5.30 or later.
+* This add-on requires StationPlaylist suite 5.40 or later.
 * Some add-on features will be disabled or limited if NVDA is running in secure mode such as in logon screen.
-* If using Windows 8 or later, for best experience, disable audio ducking mode.
+* For best experience, disable audio ducking mode.
 * Starting from 2018, [changelogs for old add-on releases][3] will be found on GitHub. This add-on readme will list changes from version 22.03 (2022) onwards.
 * While Studio is running, you can save, reload saved settings, or reset add-on settings to defaults by pressing Control+NVDA+C, Control+NVDA+R once, or Control+NVDA+R three times, respectively. This is also applicable to encoder settings - you can save and reset (not reload) encoder settings if using encoders.
 
@@ -207,7 +207,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 22.03
 
-This is the last stable version to support Studio 5.30 as wel as Windows 7 Service Pack 1, 8, and 8.1.
+This is the last stable version to support Studio 5.3x as wel as Windows 7 Service Pack 1, 8, and 8.1.
 
 * NVDA 2021.3 or later is required.
 * A warning message will be displayed when attempting to install the add-on on Windows 7, 8, and 8.1.
