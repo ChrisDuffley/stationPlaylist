@@ -10,7 +10,7 @@
 # For SPL Studio Controller, focus movement and other utilities,
 # see the global plugin version of this app module.
 
-# Minimum version: SPL 5.30, NVDA 2021.3.
+# Minimum version: SPL 5.40, NVDA 2021.3.
 
 # #155 (21.03): remove __future__ import when NVDA runs under Python 3.10.
 from __future__ import annotations
@@ -65,7 +65,7 @@ def finally_(func, final):
 
 
 # Make sure the broadcaster is running a compatible version.
-SPLMinVersion = "5.30"
+SPLMinVersion = "5.40"
 
 # Threads pool.
 micAlarmT: Optional[threading.Timer] = None
