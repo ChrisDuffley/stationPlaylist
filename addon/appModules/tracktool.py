@@ -22,14 +22,7 @@ addonHandler.initTranslation()
 # This is just a thinly disguised indexOf function from Studio's track item class.
 def indexOf(ttVersion: str) -> tuple[str, ...]:
 	# Nine columns per line for each tuple.
-	if ttVersion < "5.31":
-		return (
-			"Artist", "Title", "Duration", "Cue", "Overlap", "Intro", "Outro", "Segue", "Hook Start",
-			"Hook Len", "Year", "Album", "CD Code", "URL 1", "URL 2", "Genre", "Mood", "Energy",
-			"Tempo", "BPM", "Gender", "Rating", "Filename", "Client", "Other", "Intro Link", "Outro Link",
-			"ReplayGain", "Record Label", "ISRC"
-		)
-	elif "5.31" <= ttVersion < "6.0":
+	if ttVersion < "6.0":
 		return (
 			"Artist", "Title", "Duration", "Cue", "Overlap", "Intro", "Outro", "Segue", "Hook Start",
 			"Hook Len", "Year", "Album", "CD Code", "URL 1", "URL 2", "Genre", "Mood", "Energy",
