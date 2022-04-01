@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2021-05-07 01:06-0700\n"
+"PO-Revision-Date: 2022-03-28 16:20+0200\n"
 "Last-Translator: Iván Novegil Cancelas <ivan.novegil.cancelas@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Dialog text shown when trying to install the add-on on an older version of Windows.
@@ -24,15 +24,17 @@ msgid ""
 "You are using an older version of Windows. This add-on requires Windows 10 "
 "or later."
 msgstr ""
+"Estás utilizando unha versión antiga de Windows. Este complemento require "
+"Windows 10 ou posterior."
 
 #. Translators: title of the dialog shown when trying to install the add-on on an old version of Windows.
 msgid "Old Windows version"
-msgstr ""
+msgstr "Versión antiga de Windows"
 
 #. Translators: announced in SPL Creator and Remote VT
 #. when trying to perform playlist status commands while outside of playlist editor.
 msgid "You are not in playlist editor"
-msgstr "Non estás no editor de lista de reprodución"
+msgstr "Non estás no editor de listas de reprodución"
 
 #. Translators: Presented when microphone has been active for a while.
 msgid "Microphone active"
@@ -139,7 +141,6 @@ msgstr ""
 "engadir, cambiar ou borrar comentarios de pista"
 
 #. Translators: The text of the help command in SPL Assistant layer.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -174,6 +175,7 @@ msgid ""
 msgstr ""
 "Despois de entrar no SPL Assistant, preme:\n"
 "A: Automatización.\n"
+"C: Anunciar nome da pista actualmente en reprodución.\n"
 "D: tempo restante para a lista de reprodución.\n"
 "E: Estado xeral dos metadatos do streaming.\n"
 "Shift+1 ata shift+4, sift+0: Estado dos Metadatos do streaming para o "
@@ -201,11 +203,9 @@ msgstr ""
 "Shift+F8: Obter transcricións da lista de reprodución en varios formatos.\n"
 "F9: Marca a pista actual coma  comezo de análise de tempo da pista.\n"
 "F10: Realiza a análise de tempo da pista.\n"
-"F12: Cambia a un perfil de cambio instantáneo.\n"
-"Shift+F1: Abre a guía de usuario en liña."
+"F12: Cambia a un perfil de cambio instantáneo."
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -272,8 +272,7 @@ msgstr ""
 "Shift+F8: Obter transcricións da lista de reprodución en varios formatos.\n"
 "F9: Marca a pista actual coma  comezo de análise de tempo da pista.\n"
 "F10: Realiza a análise de tempo da pista.\n"
-"F12: Cambia a un perfil de cambio instantáneo.\n"
-"Shift+F1: Abre a guía de usuario en liña."
+"F12: Cambia a un perfil de cambio instantáneo."
 
 #. Translators: the label for a menu item in NVDA Preferences menu
 #. to open SPL Studio add-on settings.
