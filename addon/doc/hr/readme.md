@@ -2,7 +2,7 @@
 
 * Autori: Geoff Shang, Joseph Lee i drugi doprinositelji
 * Preuzmi [stabilnu verziju][1]
-* NVDA compatibility: 2021.3 and later
+* NVDA kompatibilnost: 2021.3 i nadalje
 
 Ovaj paket dodataka omogućava bolje korištenje programa StationPlaylist
 Studio i drugih StationPlaylist programa te pruža alate za kontrolu programa
@@ -14,13 +14,13 @@ Za daljnje informacije o dodatku pročitaj [priručnik za dodatke][2].
 VAŽNE NAPOMENE:
 
 * Ovaj dodatak zahtijeva StationPlaylist izdanje 5.30 ili noviju verziju.
-* Some add-on features will be disabled or limited if NVDA is running in
-  secure mode such as in logon screen.
+* Neke funkcije dodatka bit će deaktivirane ili ograničeno raditi, ako NVDA
+  radi u sigurnom modusu kao što je prozor prijave.
 * Korisnicima sustava Windows 8 ili novijeg, preporučamo deaktivirati modus
   stišavanja zvuka.
-* Starting from 2018, [changelogs for old add-on releases][3] will be found
-  on GitHub. This add-on readme will list changes from version 22.03 (2022)
-  onwards.
+* Od 2018. godine pa nadalje, [zapisi o promjenama za stara izdanja][3]
+  nalaze se na GitHubu. Readme datoteka dodatka sadrži popis promjena od
+  verzije 22.03 (2022) i nadalje.
 * Dok je Studio pokrenut, moguće je spremiti postavke, ponovo učitati
   spremljene postavke ili resetirati postavke dodatka na standardne
   vrijednosti pritiskom tipki kontrol+NVDA+C, pritiskom tipki kontrol+NVDA+R
@@ -78,8 +78,8 @@ Većina njih radi samo u programu Studio, ukoliko nešto drugo nije navedeno.
   Creator, Remote VT i Track Tool): prikaži podatke svih stupaca u snimci na
   prozoru modusa pregledavanja.
 * NVDA+V tijekom fokusiranja na snimku (samo u prikazu popisa snimaka za
-  Studio): mijenja najavljivanje snimke između ekranskog i prilagođenog
-  redoslijeda.
+  Studio): mijenja najavljivanje stupca snimaka između ekranskog i
+  prilagođenog redoslijeda.
 * Alt+NVDA+C tijekom fokusiranja na snimku (samo u prikazu popisa snimaka za
   Studio): najavljuje komentare snimke, ukoliko ih ima.
 * Alt+NVDA+0 u prozoru Studija: otvara dijaloški okvir za konfiguriranje
@@ -99,13 +99,13 @@ donjeg popisa, odaberi „Dodaj” i upiši gestu koju želiš koristiti.
 Important: some of these commands will not work if NVDA is running in secure
 mode such as from login screen.
 
-* Switching to SPL Studio window from any program (unavailable in secure
-  mode).
-* SPL Controller layer (unavailable in secure mode).
-* Announcing Studio status such as track playback from other programs
-  (unavailable in secure mode).
-* Announcing encoder connection status from any program (unavailable in
-  secure mode).
+* Prebacivanje na SPL Studio prozor iz bilo koje aplikacije (nedostupno u
+  sigurnom modusu).
+* Sloj SPL Kontrolera (nedostupno u sigurnom modusu).
+* Najavljivanje stanja porgrama Studio, kao što je sviranje snimaka iz
+  drugih programa (nedostupno u sigurnom modusu).
+* Najavljivanje stanje veze kodera iz bilo kojeg programa (nedostupno u
+  sigurnom modusu).
 * Sloj SPL Asistent iz programa SPL Studio.
 * Najavi vrijeme sa sekundama iz programa SPL Studio.
 * Najavljivanje temperature.
@@ -207,8 +207,8 @@ Kontroler i NVDA će izgovoriti: „SPL Kontroler.” Pritisni neku drugu naredb
 za upravljanje raznim Studio postavkama, kao što je uključivanje ili
 isključivanje mikrofona ili sviranje sljedeće snimke.
 
-Important: SPL Controller layer commands are disabled if NVDA is running in
-secure mode.
+Važno: Naredbe sloja SPL Kontrolera su deaktivirane ako NVDA čitač radi u
+sigurnom modusu.
 
 Dostupne naredbe za SPL Kontroler su:
 
@@ -283,15 +283,16 @@ mjesta u stupcima se prikazuju bez obzira na redoslijed stupaca na ekranu i
 mogu se konfigurirati u dijaloškom okviru postavki dodataka u kategoriji
 istraživača stupaca.
 
-## Track column announcement
+## Najavljivanje stupca snimaka
 
-You can ask NVDA to announce track columns found in Studio's playlist viewer
-in the order it appears on screen or using a custom order and/or exclude
-certain columns. Press NVDA+V to toggle this behavior while focused on a
-track in Studio's playlist viewer. To customize column inclusion and order,
-from column announcement settings panel in add-on settings, uncheck
-"Announce columns in the order shown on screen" and then customize included
-columns and/or column order.
+Možeš zatražiti da NVDA najavi stupce snimaka koje se nalaze u pregledniku
+popisa za reprodukciju programa Studio redoslijedom kojim se pojavljuju na
+ekranu ili pomoću prilagođenog redoslijeda. Također mođeš isključi određene
+stupce. Pritisni NVDA+V za mijenjanje ovog ponašanja dok je fokusirana jedna
+snimka u pregledniku popisa za reprodukciju Studija. Za prilagođavanje
+uključivanja stupaca i njihov redoslijed, na ploči postavki najava stupaca u
+postavkama dodatka, deaktiviraj „Najavi stupce redoslijedom prikazanim na
+ekranuu”, a zatim prilagodi uključene stupce i/ili redoslijed stupaca.
 
 ## Statistika popisa snimaka
 
@@ -311,10 +312,10 @@ format običnog teksta, HTML tablice ili popisa.
 
 ## Dijaloški okvir konfiguracije
 
-From studio window, you can press Alt+NVDA+0 to open the add-on
-configuration dialog. Alternatively, go to NVDA's preferences menu and
-select SPL Studio Settings item. Not all settings are available if NVDA is
-running in secure mode.
+U prozoru programa Studio možeš pritisnuti Alt+NVDA+0 za otvaranje
+dijaloškog okvira za konfiguraciju dodatka. Alternativno, idi na NVDA
+izbornik Postavke i odaberi stavku SPL Studio postavke. Neke postavke nisu
+dostupne ako NVDA radi u sigurnom modusu.
 
 ## Dijaloški okvir profila emitiranja
 
@@ -331,12 +332,12 @@ operacijskim sustavom Windows 8 ili novijim i ako imaš instaliran NVDA
 na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri prsta. Zatim
 koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
-## Version 22.03
+## Verzija 22.03
 
-This is the last stable version to support Studio 5.30 as wel as Windows 7
-Service Pack 1, 8, and 8.1.
+Ovo je zadnja stabilna verzija koja podržava Studio 5.30 kao i Windows 7
+servisni paket 1, 8 i 8.1.
 
-* NVDA 2021.3 or later is required.
+* Potrebna je NVDA verzija 2021.3 ili novija.
 * A warning message will be displayed when attempting to install the add-on
   on Windows 7, 8, and 8.1.
 * It is no longer possible to perform the following commands if NVDA is

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2021-02-28 18:35+0100\n"
+"PO-Revision-Date: 2022-04-24 13:22+0200\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: \n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 
@@ -24,10 +24,12 @@ msgid ""
 "You are using an older version of Windows. This add-on requires Windows 10 "
 "or later."
 msgstr ""
+"Koristiš stariju verziju Windows sustava. Ovaj dodatak zahtijeva Windows 10 "
+"ili noviju verziju."
 
 #. Translators: title of the dialog shown when trying to install the add-on on an old version of Windows.
 msgid "Old Windows version"
-msgstr ""
+msgstr "Stara Windows verzija"
 
 #. Translators: announced in SPL Creator and Remote VT
 #. when trying to perform playlist status commands while outside of playlist editor.
@@ -139,7 +141,6 @@ msgstr ""
 "za dodavanje, mijenjanje ili uklanjanje komentara"
 
 #. Translators: The text of the help command in SPL Assistant layer.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -202,11 +203,9 @@ msgstr ""
 "Šift+F8: Dobavi prijepis popisa snimaka u raznim formatima.\n"
 "F9: Označi trenutačnu snimku kao početak za vremensku analizu snimaka.\n"
 "F10: Izvrši vremensku analizu snimke.\n"
-"F12: Prebaci na trenutnu promjenu profila.\n"
-"Šift+F1: Otvori korisnički priručnik na internetu."
+"F12: Prebaci na trenutnu promjenu profila."
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -273,8 +272,7 @@ msgstr ""
 "Šift+F8: Dobavi prijepis popisa snimaka u raznim formatima.\n"
 "F9: Označi trenutačnu snimku kao početak za vremensku analizu snimaka.\n"
 "F10: Izvrši vremensku analizu snimke.\n"
-"F12: Prebaci na trenutnu promjenu profila.\n"
-"Šift+F1: Otvori korisnički priručnik na internetu."
+"F12: Prebaci na trenutnu promjenu profila."
 
 #. Translators: the label for a menu item in NVDA Preferences menu
 #. to open SPL Studio add-on settings.
