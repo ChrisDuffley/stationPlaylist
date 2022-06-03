@@ -96,8 +96,8 @@ prozoru programa Studio, otvori „Postavke” u NVDA izborniku, a zatim „Ulaz
 geste”. Rasklopi kategoriju StationPlaylist. Pronađi nedodijeljene naredbe s
 donjeg popisa, odaberi „Dodaj” i upiši gestu koju želiš koristiti.
 
-Important: some of these commands will not work if NVDA is running in secure
-mode such as from login screen.
+Važno: neke od ovih naredbi neće raditi ako NVDA radi u sigurnom načinu
+rada, kao što je ekran za prijavu.
 
 * Prebacivanje na SPL Studio prozor iz bilo koje aplikacije (nedostupno u
   sigurnom modusu).
