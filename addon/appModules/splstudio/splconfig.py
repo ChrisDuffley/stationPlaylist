@@ -94,10 +94,8 @@ class ConfigHub(ChainMap):
 		# 17.10: config restrictions such as in-memory config come from command line.
 		# 22.01: although SPL Utilities global plugin can inform NVDA about the below command-line switches,
 		# handle them here also in case NVDA starts while focused on Studio window.
-		# Also appArgsExtra was renamed to unknownAppArgs.
-		extraAppArgs = globalVars.appArgsExtra if hasattr(globalVars, "appArgsExtra") else globalVars.unknownAppArgs
-		self._configInMemory: bool = "--spl-configinmemory" in extraAppArgs
-		self._normalProfileOnly: bool = "--spl-normalprofileonly" in extraAppArgs
+		self._configInMemory: bool = "--spl-configinmemory" in globalVars.unknownAppArgs
+		self._normalProfileOnly: bool = "--spl-normalprofileonly" in globalVars.unknownAppArgs
 		if self.configInMemory:
 			self._normalProfileOnly = True
 		# For presentational purposes.
