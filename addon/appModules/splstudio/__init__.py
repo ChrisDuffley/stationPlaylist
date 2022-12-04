@@ -146,14 +146,6 @@ class SPLTrackItem(sysListView32.ListItem):
 	def indexOf(self, columnHeader: str) -> Optional[int]:
 		return None
 
-	@scriptHandler.script(gesture="kb:control+alt+home")
-	def script_firstColumn(self, gesture):
-		self._moveToColumnNumber(1)
-
-	@scriptHandler.script(gesture="kb:control+alt+end")
-	def script_lastColumn(self, gesture):
-		self._moveToColumnNumber(self.childCount)
-
 	@scriptHandler.script(
 		description=_(
 			# Translators: input help mode message for column explorer commands.
