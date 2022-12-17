@@ -102,6 +102,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		super(GlobalPlugin, self).__init__()
 		# Tell NVDA that the add-on accepts additional command-line switches.
 		addonHandler.isCLIParamKnown.register(processArgs)
+		# SPL Streamer provides a streaming UI on top of SPL Engine components, thus treat it as an alias.
+		import appModuleHandler
+		appModuleHandler.registerExecutableWithAppModule("splstreamer", "splengine")
 
 	# Global layer environment (see Studio app module for more information).
 
