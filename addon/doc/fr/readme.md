@@ -2,7 +2,7 @@
 
 * Auteurs: Geoff Shang, Joseph Lee et d'autres contributeurs.
 * Télécharger [version stable][1]
-* Compatibilité NVDA: 2021.3 et ultérieures.
+* NVDA compatibility: 2022.3 and later
 
 Cette extension améliore l'utilisation de Station Playlist Studio, mais elle
 fournit aussi des utilitaires pour contrôler le Studio où que vous soyez.
@@ -12,12 +12,10 @@ l'extension][2].
 
 NOTES IMPORTANTES :
 
-* Cette extension nécessite  StationPlaylist Studio 5.30 ou version
-  ultérieure.
+* This add-on requires StationPlaylist suite 5.40 or later.
 * Some add-on features will be disabled or limited if NVDA is running in
   secure mode such as in logon screen.
-* Si vous utilisez Windows 8 ou ultérieur, pour une meilleure expérience,
-  désactiver le Mode d'atténuation audio.
+* For best experience, disable audio ducking mode.
 * Starting from 2018, [changelogs for old add-on releases][3] will be found
   on GitHub. This add-on readme will list changes from version 22.03 (2022)
   onwards.
@@ -69,9 +67,6 @@ contraire.
 * Contrôle+Alt+flèche gauche/droite (Si une piste est en focus dans Studio,
   Creator, et l'Outil de piste): Annoncer colonne de piste
   précédente/suivante.
-* Control+Alt+Début/Fin (si une piste est en focus dans Studio, Creator,
-  Remote VT et Track Tool) : accédez à la première/dernière colonne de
-  piste.
 * Contrôle+Alt+flèche haut/bas (si une piste est en focus  dans Studio,
   Creator, Remote VT, ou Track Tool): aller à la piste précédente ou
   suivante et annoncer des colonnes spécifiques
@@ -350,12 +345,20 @@ Alt+NVDA+P depuis la fenêtre Studio.
 
 ## Mode tactile SPL
 
-Si vous utilisez Studio sur un ordinateur possédant un écran tactile
-fonctionnant sous Windows 8 ou version ultérieure et NVDA 2012.3 ou version
-ultérieure installé, vous pouvez exécuter certaines commandes Studio depuis
-un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
-basculer en mode SPL, puis utilisez les commandes tactile énumérées
-ci-dessus pour exécuter des commandes.
+If you are using Studio on a touchscreen computer with NVDA installed, you
+can perform some Studio commands from the touchscreen. First use three
+finger tap to switch to SPL mode, then use the touch commands listed above
+to perform commands.
+
+## Version 23.01
+
+* NVDA 2022.3 or later is required.
+* Windows 10 or later is required as Windows 7, 8, and 8.1 are no longer
+  supported by Microsoft as of January 2023.
+* Removed first and last track column commands (Control+Alt+Home/End) as
+  NVDA includes these commands.
+* Removed Streamer app module and buffer size edit field workaround as
+  Streamer has become an alias module for SPL Engine.
 
 ## Version 22.03
 

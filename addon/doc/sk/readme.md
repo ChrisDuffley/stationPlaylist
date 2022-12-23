@@ -2,7 +2,7 @@
 
 * Autori: Geoff Shang, Joseph Lee a ďalší
 * Stiahnuť [stabilnú verziu][1]
-* NVDA compatibility: 2021.3 and later
+* NVDA compatibility: 2022.3 and later
 
 Doplnok zlepšuje prístupnosť Station Playlist Studio a ďalších pridružených
 aplikácií a tiež umožňuje ovládať Station Playlist mimo hlavného okna
@@ -13,11 +13,10 @@ For more information about the add-on, read the [add-on guide][2].
 
 Dôležité:
 
-* This add-on requires StationPlaylist suite 5.30 or later.
+* This add-on requires StationPlaylist suite 5.40 or later.
 * Some add-on features will be disabled or limited if NVDA is running in
   secure mode such as in logon screen.
-* Ak používate Systém od verzie Windows 8, odporúčame vám vypnúť funkciu
-  automatického stišovania.
+* For best experience, disable audio ducking mode.
 * Starting from 2018, [changelogs for old add-on releases][3] will be found
   on GitHub. This add-on readme will list changes from version 22.03 (2022)
   onwards.
@@ -56,8 +55,6 @@ Väčšina skratiek je určených pre Studio, ak nie je uvedené inak.
 * Ctrl+Alt+šípky doľava a doprava (pri zobrazení skladby v oknách Studio,
   Creator, Remote VT, a Track Tool): presunie kurzor na predchádzajúci alebo
   nasledujúci stĺpec.
-* Ctrl+Alt+home a end (pri zobrazení skladby v oknách Studio, Creator,
-  Remote VT, a Track Tool): presunie kurzor na prvý alebo posledný stĺpec.
 * Ctrl+Alt+šípky hore a dole (pri zobrazení skladby v okne Studio): presunie
   kurzor na nasledujúcu alebo predchádzajúcu skladbu a oznámi vybraté
   metadáta.
@@ -295,10 +292,20 @@ skratkou alt+nvda+p.
 
 ## Dotykový režim
 
-Ak máte k dispozícii dotykovú obrazovku, používate Windows od verzie 8 a
-NVDA  od verzie 2012.3, môžete na ovládanie doplnku použiť dotykové
-príkazy. Najprv je potrebné dotknúť sa obrazovky tromi prstami. Následne
-vykonajte gestá spomenúté vyššie v tomto návode.
+If you are using Studio on a touchscreen computer with NVDA installed, you
+can perform some Studio commands from the touchscreen. First use three
+finger tap to switch to SPL mode, then use the touch commands listed above
+to perform commands.
+
+## Version 23.01
+
+* NVDA 2022.3 or later is required.
+* Windows 10 or later is required as Windows 7, 8, and 8.1 are no longer
+  supported by Microsoft as of January 2023.
+* Removed first and last track column commands (Control+Alt+Home/End) as
+  NVDA includes these commands.
+* Removed Streamer app module and buffer size edit field workaround as
+  Streamer has become an alias module for SPL Engine.
 
 ## Version 22.03
 
