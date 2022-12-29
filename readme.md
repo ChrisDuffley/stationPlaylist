@@ -202,7 +202,14 @@ You can save settings for specific shows into broadcast profiles. These profiles
 
 ## SPL touch mode
 
-If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+If you are using Studio on a touchscreen computer with NVDA installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Version 23.01
+
+* NVDA 2022.3 or later is required.
+* Windows 10 or later is required as Windows 7, 8, and 8.1 are no longer supported by Microsoft as of January 2023.
+* Removed first and last track column commands (Control+Alt+Home/End) as NVDA includes these commands.
+* Removed Streamer app module and buffer size edit field workaround as Streamer has become an alias module for SPL Engine.
 
 ## Version 22.03
 
