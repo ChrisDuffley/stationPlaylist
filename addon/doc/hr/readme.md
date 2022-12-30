@@ -339,8 +339,8 @@ to perform commands.
 
 ## Verzija 22.03
 
-Ovo je zadnja stabilna verzija koja podržava Studio 5.30 kao i Windows 7
-servisni paket 1, 8 i 8.1.
+This is the last stable version to support Studio 5.3x as wel as Windows 7
+Service Pack 1, 8, and 8.1.
 
 * Potrebna je NVDA verzija 2021.3 ili novija.
 * A warning message will be displayed when attempting to install the add-on

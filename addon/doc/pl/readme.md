@@ -346,8 +346,8 @@ to perform commands.
 
 ## Wersja 22.03
 
-Jest to ostatnia stabilna wersja obsługująca Studio 5.30 jako Windows 7 z
-dodatkiem Service Pack 1, 8 i 8.1.
+This is the last stable version to support Studio 5.3x as wel as Windows 7
+Service Pack 1, 8, and 8.1.
 
 * Wymagana jest nvda 2021.3 lub nowsza.
 * Podczas próby zainstalowania dodatku w systemie Windows 7, 8 i 8.1

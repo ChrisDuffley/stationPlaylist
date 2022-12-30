@@ -2,7 +2,7 @@
 
 * Autores: Geoff Shang, Joseph Lee e outros colaboradores
 * Descargar [versión estable][1]
-* NVDA compatibility: 2022.3 and later
+* Compatibilidade con NVDA: 2022.2 en diante
 
 Este paquete de complementos proporciona unhha utilización mellorada do
 Station Playlist Studio e outras apps de Station Playlist, así como
@@ -14,11 +14,11 @@ Para máis información sobre o complemento, le a [guía do complemento][2].
 
 NOTAS IMPORTANTES:
 
-* This add-on requires StationPlaylist suite 5.40 or later.
-* algunhas características do complemento desactivaranse ou limitaranse se
+* Este complemento require o paquete StationPlaylist 5.40 ou posterior.
+* Algunhas características do complemento desactivaranse ou limitaranse se
   NVDA se está executando en modo seguro, como por exemplo na pantalla de
   inicio de sesión.
-* For best experience, disable audio ducking mode.
+* Para unha mellor experiencia, deshabilita o modo atenuación de audio.
 * A partires de 2018, os [rexistros de cambios para versións vellas][3]
   atoparanse en GitHub. Este readme do complemento listará cambios dende a
   versión 22.03 (2022) en diante.
@@ -342,24 +342,25 @@ que se pode acceder premendo NVDA+Alt+P dende a ventá de Studio.
 
 ## Modo Táctil do SPL
 
-If you are using Studio on a touchscreen computer with NVDA installed, you
-can perform some Studio commands from the touchscreen. First use three
-finger tap to switch to SPL mode, then use the touch commands listed above
-to perform commands.
+Se estás a usar o Studio nunha computadora con pantalla tactil con NVDA
+instalado, podes realizar algunhas ordes do Studio dende a pantalla
+tactil. Primeiro usa un toque con tres dedos para cambiar a modo SPL, logo
+usa as ordes tactiles listadas arriba para realizar ordes.
 
-## Version 23.01
+## Versión 23.01
 
-* NVDA 2022.3 or later is required.
-* Windows 10 or later is required as Windows 7, 8, and 8.1 are no longer
-  supported by Microsoft as of January 2023.
-* Removed first and last track column commands (Control+Alt+Home/End) as
-  NVDA includes these commands.
-* Removed Streamer app module and buffer size edit field workaround as
-  Streamer has become an alias module for SPL Engine.
+* Require NVDA 2022.3 ou posterior.
+* Requírese Windows 10 ou posterior xa que Windows 7, 8, e 8.1 xa non se
+  soportan dende Microsoft dende xaneiro do 2023.
+* Eliminadas as ordes de primeira e última columna de pista
+  (Control+Alt+Inicio/Final) xa que NVDA inclúe eses comandos.
+* Eliminados o módulo de aplicación para Streamer e o método para superar o
+  problema coa caixa de edición de tamaño do búfer, xa que Streamer se
+  convertiu nun módulo alias para SPL Engine.
 
 ## Versión 22.03
 
-Ésta é a derradeira versión estable que soporta Studio 5.30 así como Windows
+Ésta é a derradeira versión estable que soporta Studio 5.3x así como Windows
 7 Service Pack 1, 8, e 8.1.
 
 * Requírese NVDA 2021.3 ou posterior.

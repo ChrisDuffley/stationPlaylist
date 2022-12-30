@@ -359,7 +359,7 @@ to perform commands.
 
 ## Version 22.03
 
-This is the last stable version to support Studio 5.30 as wel as Windows 7
+This is the last stable version to support Studio 5.3x as wel as Windows 7
 Service Pack 1, 8, and 8.1.
 
 * NVDA 2021.3 or later is required.

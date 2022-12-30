@@ -365,7 +365,7 @@ tareas.
 
 ## Versión 22.03
 
-Esta es la última versión estable que soporta Studio 5.30, así como Windows
+Esta es la última versión estable que soporta Studio 5.3x, así como Windows
 7 Service Pack 1, 8 y 8.1.
 
 * Se requiere NVDA 2021.3 o posterior.

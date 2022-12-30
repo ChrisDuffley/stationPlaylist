@@ -2,7 +2,7 @@
 
 * Autoren: Geoff Shang, Joseph Lee und weitere Mitwirkende
 * [Stabile Version herunterladen][1]
-* NVDA compatibility: 2022.3 and later
+* NVDA-Kompatibilität: 2022.3 und neuer
 
 Dieses Zusatzpaket bietet eine verbesserte Nutzung von StationPlaylist
 Studio und anderen StationPlaylist-Anwendungen sowie Dienstprogramme zur
@@ -15,11 +15,12 @@ Weitere Informationen zur Erweiterung finden Sie in der
 
 WICHTIGE HINWEISE:
 
-* This add-on requires StationPlaylist suite 5.40 or later.
+* Diese NVDA-Erweiterung erfordert StationPlaylist Suite 5.40 oder neuer.
 * Einige Funktionen der Erweiterung werden deaktiviert oder eingeschränkt,
   sobald NVDA im Abgesicherten Modus ausgeführt wird, z. B. während der
   Windows-Anmeldung.
-* For best experience, disable audio ducking mode.
+* Für ein optimales Sound-Erlebnis sollten Sie den Modus für die
+  Verringerung der Audio-Quellen deaktivieren.
 * Seit 2018 sind [Änderungsprotokolle für alte Versionen der Erweiterung][3]
   auf GitHub zu finden. Die Readme der Erweiterung listet Änderungen ab
   Version 22.03 (2022) auf.
@@ -345,25 +346,27 @@ zugegriffen werden kann.
 
 ## SPL-Touchmodus
 
-If you are using Studio on a touchscreen computer with NVDA installed, you
-can perform some Studio commands from the touchscreen. First use three
-finger tap to switch to SPL mode, then use the touch commands listed above
-to perform commands.
+Wenn Sie Studio auf einem Computer mit Touchscreen und installiertem NVDA
+verwenden, können Sie einige Studio-Befehle über den Touchscreen
+ausführen. Wechseln Sie zunächst mit drei Fingern in den SPL-Modus und
+verwenden Sie dann die oben aufgeführten Touch-Befehle, um Befehle
+auszuführen.
 
 ## Version 23.01
 
-* NVDA 2022.3 or later is required.
-* Windows 10 or later is required as Windows 7, 8, and 8.1 are no longer
-  supported by Microsoft as of January 2023.
-* Removed first and last track column commands (Control+Alt+Home/End) as
-  NVDA includes these commands.
-* Removed Streamer app module and buffer size edit field workaround as
-  Streamer has become an alias module for SPL Engine.
+* NVDA 2022.3 oder neuer wird benötigt.
+* Windows 10 oder neuer ist erforderlich, da Windows 7, 8 und 8.1 ab Januar
+  2023 nicht mehr von Microsoft unterstützt werden.
+* Die Befehle für die erste und letzte Spurspalte (Strg+Alt+Pos1/Ende)
+  wurden entfernt, da NVDA diese Befehle enthält.
+* Das Streamer-Anwendungsmodul und die Umgehung des
+  Puffergrößen-Bearbeitungsfelds wurden entfernt, da Streamer ein
+  Alias-Modul für die SPL-Engine geworden ist.
 
 ## Version 22.03
 
-Dies ist die letzte Version, die sowohl Studio 5.30 als auch Windows 7
-Service Pack 1, 8 und 8.1 unterstützt.
+Dies ist die letzte Version, die Studio 5.3x sowie Windows 7 Service Pack 1,
+Windows 8 und 8.1 unterstützt.
 
 * NVDA 2021.3 oder neuer wird benötigt.
 * Beim Versuch, die Erweiterung unter Windows 7, 8 und 8.1 zu installieren,
