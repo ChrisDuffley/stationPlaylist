@@ -15,7 +15,7 @@ IMPORTANT NOTES:
 * This add-on requires StationPlaylist suite 5.40 or later.
 * Some add-on features will be disabled or limited if NVDA is running in secure mode such as in logon screen.
 * For best experience, disable audio ducking mode.
-* Starting from 2018, [changelogs for old add-on releases][3] will be found on GitHub. This add-on readme will list changes from version 22.03 (2022) onwards.
+* Starting from 2018, [changelogs for old add-on releases][3] will be found on GitHub. This add-on readme will list changes from version 23.01 (2023) onwards.
 * While Studio is running, you can save, reload saved settings, or reset add-on settings to defaults by pressing Control+NVDA+C, Control+NVDA+R once, or Control+NVDA+R three times, respectively. This is also applicable to encoder settings - you can save and reset (not reload) encoder settings if using encoders.
 
 ## Shortcut keys
@@ -214,21 +214,6 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 * Windows 10 or later is required as Windows 7, 8, and 8.1 are no longer supported by Microsoft as of January 2023.
 * Removed first and last track column commands (Control+Alt+Home/End) as NVDA includes these commands.
 * Removed Streamer app module and buffer size edit field workaround as Streamer has become an alias module for SPL Engine.
-
-## Version 22.03
-
-This is the last stable version to support Studio 5.3x as wel as Windows 7 Service Pack 1, 8, and 8.1.
-
-* NVDA 2021.3 or later is required.
-* A warning message will be displayed when attempting to install the add-on on Windows 7, 8, and 8.1.
-* It is no longer possible to perform the following commands if NVDA is running in secure mode: all SPL Controller layer commands, switching to Studio from other programs, obtaining Studio status and encoder status from other programs.
-* It is no longer possible to copy track comments to the clipboard or add or change comments if NVDA is running in secure mode.
-* It is no longer possible to copy playlist transcripts to clipboard or save it to a file if NVDA is running in secure mode. Only viewing transcripts will be allowed in secure mode.
-* To improve security, online user guide command from SPL Assistant (Shift+F1) has been removed.
-* It is no longer possible to create, copy, rename, delete, or configure instant switch status for broadcast profiles if NVDA is running in secure mode.
-* It is no longer possible to configure advanced add-on settings or reset settings to defaults from add-on settings screen if NVDA is running in secure mode.
-* In Studio, NVDA will no longer do nothing or play error tones if attempting to obtain playlist snapshots (SPL Assistant, F8) if the loaded playlist consists only of hour markers.
-* In Creator 6.0, NVDA will no longer appear to do nothing when one of the columns explorer column is "Date Restriction" as the column has been renamed to "Restrictions".
 
 ## Older releases
 
