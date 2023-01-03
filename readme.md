@@ -2,7 +2,7 @@
 
 * Authors: Geoff Shang, Joseph Lee and other contributors
 * Download [stable version][1]
-* NVDA compatibility: 2022.3 and later
+* NVDA compatibility: 2022.4 and later
 
 Note: I (Joseph Lee) am looking for people who will maintain StationPlaylist add-on from April 1, 2022 onwards.
 
@@ -203,6 +203,10 @@ You can save settings for specific shows into broadcast profiles. These profiles
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer with NVDA installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Version 23.02
+
+* NVDA 2022.4 or later is required.
 
 ## Version 23.01
 
