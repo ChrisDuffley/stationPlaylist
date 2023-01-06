@@ -19,17 +19,20 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 
-#. Translators: Dialog text shown when trying to install the add-on on an older version of Windows.
-msgid ""
-"You are using an older version of Windows. This add-on requires Windows 10 "
-"or later."
+#. StationPlaylist add-on requires Windows 10 21H2 or later.
+#. Translators: title of the error dialog shown when trying to install the add-on in unsupported systems.
+#. Unsupported systems include Windows versions earlier than 10 and unsupported feature updates.
+msgid "Unsupported Windows release"
 msgstr ""
-"Koristiš stariju verziju Windows sustava. Ovaj dodatak zahtijeva Windows 10 "
-"ili noviju verziju."
 
-#. Translators: title of the dialog shown when trying to install the add-on on an old version of Windows.
-msgid "Old Windows version"
-msgstr "Stara Windows verzija"
+#. Translators: Dialog text shown when trying to install the add-on on
+#. releases earlier than minimum supported release.
+#, python-brace-format
+msgid ""
+"You are using {releaseName} ({build}), a Windows release not supported by "
+"this add-on.\n"
+"This add-on requires {supportedReleaseName} ({supportedBuild}) or later."
+msgstr ""
 
 #. Translators: announced in SPL Creator and Remote VT
 #. when trying to perform playlist status commands while outside of playlist editor.
@@ -1887,3 +1890,13 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist programe.\n"
 "Također, dodaje globalne naredbama za Studio s bilo kojeg mjesta."
+
+#~ msgid ""
+#~ "You are using an older version of Windows. This add-on requires Windows "
+#~ "10 or later."
+#~ msgstr ""
+#~ "Koristiš stariju verziju Windows sustava. Ovaj dodatak zahtijeva Windows "
+#~ "10 ili noviju verziju."
+
+#~ msgid "Old Windows version"
+#~ msgstr "Stara Windows verzija"

@@ -21,9 +21,9 @@ WICHTIGE HINWEISE:
   Windows-Anmeldung.
 * Für ein optimales Sound-Erlebnis sollten Sie den Modus für die
   Verringerung der Audio-Quellen deaktivieren.
-* Seit 2018 sind [Änderungsprotokolle für alte Versionen der Erweiterung][3]
-  auf GitHub zu finden. Die Readme der Erweiterung listet Änderungen ab
-  Version 22.03 (2022) auf.
+* Starting from 2018, [changelogs for old add-on releases][3] will be found
+  on GitHub. This add-on readme will list changes from version 23.01 (2023)
+  onwards.
 * Während die Studio-Software läuft, können Sie gespeicherte Einstellungen
   speichern, wieder laden oder Zusatzeinstellungen auf die Standardwerte
   zurücksetzen, indem Sie Strg+NVDA+C, Strg+NVDA+R einmal bzw. Strg+NVDA+R
@@ -362,40 +362,6 @@ auszuführen.
 * Das Streamer-Anwendungsmodul und die Umgehung des
   Puffergrößen-Bearbeitungsfelds wurden entfernt, da Streamer ein
   Alias-Modul für die SPL-Engine geworden ist.
-
-## Version 22.03
-
-Dies ist die letzte Version, die Studio 5.3x sowie Windows 7 Service Pack 1,
-Windows 8 und 8.1 unterstützt.
-
-* NVDA 2021.3 oder neuer wird benötigt.
-* Beim Versuch, die Erweiterung unter Windows 7, 8 und 8.1 zu installieren,
-  wird eine Warnung angezeigt.
-* Es ist nicht mehr möglich, die folgenden Befehle auszuführen, wenn NVDA im
-  Abgesicherten Modus läuft: Alle Befehle der SPL-Steuerung, Wechsel zu
-  Studio aus anderen Anwendungen, Abrufen des Studio-Status und des
-  Encoder-Status aus anderen Anwendungen.
-* Es ist nicht mehr möglich, Track-Kommentare in die Zwischenablage zu
-  kopieren oder Kommentare hinzuzufügen oder zu ändern, wenn NVDA im
-  Abgesicherten Modus läuft.
-* Es ist nicht mehr möglich, Wiedergabelisten-Transkripte in die
-  Zwischenablage zu kopieren oder in einer Datei zu speichern, wenn NVDA im
-  Abgesicherten Modus ausgeführt wird. Im abgesicherten Modus ist nur noch
-  das Anzeigen von Abschriften möglich.
-* Um die Sicherheit zu erhöhen, wurde der Befehl "Online-Benutzerhandbuch"
-  aus dem SPL-Assistenten (Umschalt+F1) entfernt.
-* Das Erstellen, Kopieren, Umbenennen, Löschen oder Konfigurieren des
-  Sofortwechselstatus für Broadcast-Profile ist nicht mehr möglich, wenn
-  NVDA im Abgesicherten Modus ausgeführt wird.
-* Es ist nicht mehr möglich, erweiterte Einstellungen der Erweiterung zu
-  konfigurieren oder Einstellungen auf Standardwerte zurückzusetzen, wenn
-  NVDA im Abgesicherten Modus läuft.
-* In Studio gibt NVDA beim Versuch, Snapshots der Wiedergabeliste zu
-  erhalten (SPL-Assistent, F8), keine Fehlermeldungen mehr aus, wenn die
-  geladene Wiedergabeliste nur aus Stundenmarkierungen besteht.
-* In Creator 6.0 ist NVDA nicht mehr untätig, wenn eine der Spalten des
-  Explorers "Datumseinschränkung" lautet, da die Spalte in "Einschränkungen"
-  umbenannt wurde.
 
 ## Ältere Versionen
 

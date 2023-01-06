@@ -18,9 +18,9 @@ Ważne uwagi:
 * Niektóre funkcje dodatkowe zostaną wyłączone lub ograniczone, jeśli NVDA
   działa w trybie bezpiecznym, na przykład na ekranie logowania.
 * For best experience, disable audio ducking mode.
-* Począwszy od 2018 r., [dzienniki zmian dla starych wydań dodatków][3]
-  można znaleźć na GitHub. Ten dodatek readme będzie zawierał listę zmian
-  począwszy od wersji 22.03 (2022).
+* Starting from 2018, [changelogs for old add-on releases][3] will be found
+  on GitHub. This add-on readme will list changes from version 23.01 (2023)
+  onwards.
 * Gdy Studio jest uruchomione, możesz zapisać, ponownie załadować zapisane
   ustawienia lub zresetować ustawienia dodatków do ustawień domyślnych,
   naciskając odpowiednio Control+ NVDA + C, Control + NVDA + R raz lub
@@ -343,38 +343,6 @@ to perform commands.
   NVDA includes these commands.
 * Removed Streamer app module and buffer size edit field workaround as
   Streamer has become an alias module for SPL Engine.
-
-## Wersja 22.03
-
-This is the last stable version to support Studio 5.3x as wel as Windows 7
-Service Pack 1, 8, and 8.1.
-
-* Wymagana jest nvda 2021.3 lub nowsza.
-* Podczas próby zainstalowania dodatku w systemie Windows 7, 8 i 8.1
-  zostanie wyświetlony komunikat ostrzegawczy.
-* Nie jest już możliwe wykonywanie następujących poleceń, jeśli NVDA działa
-  w trybie bezpiecznym: wszystkie polecenia warstwy kontrolera SPL,
-  przełączanie się do Studio z innych programów, uzyskiwanie statusu Studio
-  i statusu kodera z innych programów.
-* Nie można już kopiować komentarzy do schowka ani dodawać ani zmieniać
-  komentarzy, jeśli NVDA działa w trybie bezpiecznym.
-* Nie można już kopiować transkrypcji list odtwarzania do schowka ani
-  zapisywać ich w pliku, jeśli NVDA działa w trybie bezpiecznym. Tylko
-  wyświetlanie transkrypcji będzie dozwolone w trybie bezpiecznym.
-* Aby zwiększyć bezpieczeństwo, usunięto polecenie podręcznika użytkownika
-  online z Asystenta SPL (Shift+F1).
-* Nie można już tworzyć, kopiować, zmieniać nazwy, usuwać ani konfigurować
-  stanu natychmiastowego przełącznika dla profili emisji, jeśli NVDA działa
-  w trybie bezpiecznym.
-* Nie jest już możliwe skonfigurowanie zaawansowanych ustawień dodatków ani
-  zresetowanie ustawień domyślnych z ekranu ustawień dodatku, jeśli NVDA
-  działa w trybie bezpiecznym.
-* W Studio NVDA nie będzie już nic robić ani odtwarzać dźwięków błędów,
-  jeśli próbuje uzyskać migawki list odtwarzania (SPL Assistant, F8), jeśli
-  załadowana lista odtwarzania składa się tylko ze znaczników godzin.
-* W Creator 6.0 NVDA nie będzie już nic robić, gdy jedną z kolumn
-  eksploratora kolumn jest "Date Restriction", ponieważ nazwa kolumny
-  została zmieniona na "Restrictions".
 
 ## Starsze wersje
 

@@ -19,9 +19,9 @@ NOTAS IMPORTANTES:
   NVDA se está executando en modo seguro, como por exemplo na pantalla de
   inicio de sesión.
 * Para unha mellor experiencia, deshabilita o modo atenuación de audio.
-* A partires de 2018, os [rexistros de cambios para versións vellas][3]
-  atoparanse en GitHub. Este readme do complemento listará cambios dende a
-  versión 22.03 (2022) en diante.
+* Starting from 2018, [changelogs for old add-on releases][3] will be found
+  on GitHub. This add-on readme will list changes from version 23.01 (2023)
+  onwards.
 * Cando Studio está en execución, podes gardar, recargar as opcións
   gardadas, ou restablecer as opcións do complemento ás de fábrica premendo
   Control+NVDA+C, Control+NVDA+R unha vez, ou Control+NVDA+R tres veces,
@@ -357,38 +357,6 @@ usa as ordes tactiles listadas arriba para realizar ordes.
 * Eliminados o módulo de aplicación para Streamer e o método para superar o
   problema coa caixa de edición de tamaño do búfer, xa que Streamer se
   convertiu nun módulo alias para SPL Engine.
-
-## Versión 22.03
-
-Ésta é a derradeira versión estable que soporta Studio 5.3x así como Windows
-7 Service Pack 1, 8, e 8.1.
-
-* Requírese NVDA 2021.3 ou posterior.
-* Amosarase unha mensaxe de advertencia ao tentar instalar o complemento en
-  Windows 7, 8, e 8.1.
-* Xa non é posible realizar os seguintes xestos se NVDA se está executando
-  en modo seguro: todos os atallos da capa de SPL Controller, cambiar a
-  Studio dende outros programas, obter estado de Studio e estado do
-  codificador dende outros programas.
-* Xa non é posible copiar os comentarios da pista ó portapapeis ou engadir
-  ou cambiar os comentarios se NVDA se está executando en modo seguro.
-* Xa non é posible copiar as transcricións de listas de reprodución ou
-  gardalas nun arquivo se NVDA se está executando en modo seguro. Só se
-  permitirá ver as transcricións en modo seguro.
-* Para mellorar a seguridade, as ordes da guía de usuario en liña do SPL
-  Assistant (Shift+F1) elimináronse.
-* Xa non é posible crear, copiar, renomear, eliminar, ou configurar o estado
-  de cambio instantáneo para perfiles de emisión se NVDA está en modo
-  seguro.
-* Xa non é posible configurar as opcións avanzadas do complemento ou
-  restablecer as opcións por defecto dende a pantalla de opcións do
-  complemento se NVDA se está executando en modo seguro.
-* En Studio, NVDA xa non fará nada nin reproducirá tons de erro ao tentar
-  obter capturas de lista de reprodución (SPL Assistant, F8) se a lista de
-  reprodución cargada consiste soamente de marcadores de hora.
-* En Creator 6.0, NVDA xa non parecerá non facer nada cando unha das
-  columnas do explorador de columnas sexa "Date restriction" (restrición de
-  data) xa que a columna se renomeou a "Restricións".
 
 ## Versións vellas
 

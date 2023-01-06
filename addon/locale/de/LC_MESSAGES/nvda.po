@@ -19,17 +19,20 @@ msgstr ""
 "X-Generator: Poedit 3.0.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#. Translators: Dialog text shown when trying to install the add-on on an older version of Windows.
-msgid ""
-"You are using an older version of Windows. This add-on requires Windows 10 "
-"or later."
+#. StationPlaylist add-on requires Windows 10 21H2 or later.
+#. Translators: title of the error dialog shown when trying to install the add-on in unsupported systems.
+#. Unsupported systems include Windows versions earlier than 10 and unsupported feature updates.
+msgid "Unsupported Windows release"
 msgstr ""
-"Sie verwenden eine ältere Version von Windows. Diese Erweiterung benötigt "
-"Windows 10 oder neuer."
 
-#. Translators: title of the dialog shown when trying to install the add-on on an old version of Windows.
-msgid "Old Windows version"
-msgstr "Alte Windows-Version"
+#. Translators: Dialog text shown when trying to install the add-on on
+#. releases earlier than minimum supported release.
+#, python-brace-format
+msgid ""
+"You are using {releaseName} ({build}), a Windows release not supported by "
+"this add-on.\n"
+"This add-on requires {supportedReleaseName} ({supportedBuild}) or later."
+msgstr ""
 
 #. Translators: announced in SPL Creator and Remote VT
 #. when trying to perform playlist status commands while outside of playlist editor.
@@ -1929,3 +1932,13 @@ msgstr ""
 "Verbessert die Unterstützung für StationPlaylist.\n"
 "Des weiteren fügt es Tastenkombinationen für das Studio aus beliebigen "
 "Programmen hinzu."
+
+#~ msgid ""
+#~ "You are using an older version of Windows. This add-on requires Windows "
+#~ "10 or later."
+#~ msgstr ""
+#~ "Sie verwenden eine ältere Version von Windows. Diese Erweiterung benötigt "
+#~ "Windows 10 oder neuer."
+
+#~ msgid "Old Windows version"
+#~ msgstr "Alte Windows-Version"

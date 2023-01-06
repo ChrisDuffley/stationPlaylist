@@ -21,7 +21,7 @@ NOTAS IMPORTANTES:
 * Para una mejor experiencia, deshabilita el modo atenuación de audio.
 * A partir de 2018, los [registros de cambios para versiones antiguas][3] se
   encontrarán en GitHub. Este léeme del complemento listará cambios desde la
-  versión 22.03 (2022) en adelante.
+  versión 23.01 (2023) en adelante.
 * Cuando Studio está en ejecución, se pueden guardar, restablecer o poner
   los valores de fábrica del complemento pulsando control+NVDA+c,
   control+NVDA+r una vez o control+NVDA+r tres veces, respectivamente. Esto
@@ -362,38 +362,6 @@ tareas.
 * Se han eliminado el módulo de aplicación de Streamer y el parche para el
   cuadro de edición de tamaño de búfer, ya que Streamer se ha convertido en
   un módulo alias del motor de SPL.
-
-## Versión 22.03
-
-Esta es la última versión estable que soporta Studio 5.3x, así como Windows
-7 Service Pack 1, 8 y 8.1.
-
-* Se requiere NVDA 2021.3 o posterior.
-* Se mostrará un mensaje de aviso al intentar instalar el complemento en
-  Windows 7, 8 y 8.1.
-* Ya no es posible realizar las siguientes órdenes si NVDA se ejecuta en
-  modo seguro: todas las órdenes de la capa del controlador de SPL, pasar a
-  Studio desde otros programas y obtener el estado de Studio y los
-  codificadores desde otros programas.
-* Ya no es posible copiar los comentarios de pista al portapapeles o cambiar
-  comentarios si NVDA se ejecuta en modo seguro.
-* Ya no es posible copiar transcripciones de listas de reproducción al
-  portapapeles o guardarlas en un archivo si NVDA se ejecuta en modo
-  seguro. En este modo, sólo se permite verlas.
-* Para mejorar la seguridad, la orden de la guía de usuario en línea del
-  asistente de SPL (shift+f1) se ha eliminado.
-* Ya no es posible crear, copiar, renombrar, eliminar o configurar el estado
-  de conmutación para perfiles de emisión si NVDA se ejecuta en modo seguro.
-* Ya no es posible configurar opciones avanzadas del complemento o
-  restablecer a valores por defecto desde la pantalla de opciones del
-  complemento si NVDA se ejecuta en modo seguro.
-* En Studio, NVDA ya no parecerá hacer nada o reproducirá tonos de error si
-  se intentan obtener instantáneas de la lista de reproducción (asistente de
-  SPL, f8) si la lista de reproducción cargada sólo contiene marcadores
-  horarios.
-* En Creator 6.0, NVDA ya no parecerá hacer nada cuando una columna del
-  explorador de columnas sea "restricción de fecha", ya que la columna se ha
-  renombrado como "restricciones".
 
 ## Versiones antiguas
 
