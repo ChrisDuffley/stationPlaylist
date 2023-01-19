@@ -250,7 +250,9 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 			)
 		):
 			trackNamePieces = []
-			includeColumnHeaders = config.conf["documentFormatting"]["reportTableHeaders"]
+			# NVDA 2022.4 changes table header values from a boolean to an integer
+			# (1 = report rows and columns, 3 = report columns).
+			includeColumnHeaders = config.conf["documentFormatting"]["reportTableHeaders"] in (1, 3)
 			# Include status (actual item name as reported by MSAA) if present.
 			if self.firstChild.name:
 				trackNamePieces.append(self.firstChild.name)
