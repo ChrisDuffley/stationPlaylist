@@ -2,7 +2,7 @@
 
 * Autori: Geoff Shang, Joseph Lee i drugi doprinositelji
 * Preuzmi [stabilnu verziju][1]
-* NVDA compatibility: 2022.3 and later
+* NVDA kompatibilnost: 2022.4 i novije verzije
 
 Ovaj paket dodataka omogućava bolje korištenje programa StationPlaylist
 Studio i drugih StationPlaylist programa te pruža alate za kontrolu programa
@@ -13,13 +13,13 @@ Za daljnje informacije o dodatku pročitaj [priručnik za dodatke][2].
 
 VAŽNE NAPOMENE:
 
-* This add-on requires StationPlaylist suite 5.40 or later.
+* Ovaj dodatak zahtijeva StationPlaylist izdanje 5.40 ili noviju verziju.
 * Neke funkcije dodatka bit će deaktivirane ili ograničeno raditi, ako NVDA
   radi u sigurnom modusu kao što je prozor prijave.
-* For best experience, disable audio ducking mode.
-* Starting from 2018, [changelogs for old add-on releases][3] will be found
-  on GitHub. This add-on readme will list changes from version 23.01 (2023)
-  onwards.
+* Za najbolje iskustvo, deaktiviraj modus stišavanja zvuka.
+* Od 2018. godine pa nadalje, [zapisi o promjenama za stara izdanja][3] se
+  nalaze na GitHubu. Readme datoteka dodatka sadrži popis promjena od
+  verzije 23.01 (2023.) i nadalje.
 * Dok je Studio pokrenut, moguće je spremiti postavke, ponovo učitati
   spremljene postavke ili resetirati postavke dodatka na standardne
   vrijednosti pritiskom tipki kontrol+NVDA+C, pritiskom tipki kontrol+NVDA+R
@@ -322,18 +322,18 @@ programa Studio.
 
 ## Dodirni modus za SPL
 
-If you are using Studio on a touchscreen computer with NVDA installed, you
-can perform some Studio commands from the touchscreen. First use three
-finger tap to switch to SPL mode, then use the touch commands listed above
-to perform commands.
+Ako koristiš Studio na računalu s ekranom osjetljivim na dodir i
+instaliranim NVDA čitačem, neke Studio naredbe možeš izvršiti na ekranu
+osjetljivim na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri
+prsta. Zatim koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
-## Version 23.01
+## Verzija 23.01
 
-* NVDA 2022.3 or later is required.
-* Windows 10 or later is required as Windows 7, 8, and 8.1 are no longer
-  supported by Microsoft as of January 2023.
-* Removed first and last track column commands (Control+Alt+Home/End) as
-  NVDA includes these commands.
+* Zahtijeva NVDA 2022.3 ili noviju verziju.
+* Zahtijeva Windows 10 ili noviju verziju, jer od siječnja 2023. Microsoft
+  više ne pordržava Windows 7, 8 i 8.1.
+* Uklonjene su naredbe za prvi i zadnji stupac snimaka
+  (Kontrol+Alt+Home/End) jer su te naredbe uključene u NVDA čitaču.
 * Removed Streamer app module and buffer size edit field workaround as
   Streamer has become an alias module for SPL Engine.
 

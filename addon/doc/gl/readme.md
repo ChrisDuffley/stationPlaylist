@@ -2,7 +2,7 @@
 
 * Autores: Geoff Shang, Joseph Lee e outros colaboradores
 * Descargar [versión estable][1]
-* Compatibilidade con NVDA: 2022.2 en diante
+* Compatibilidade con NVDA: 2022.4 e posterior
 
 Este paquete de complementos proporciona unhha utilización mellorada do
 Station Playlist Studio e outras apps de Station Playlist, así como
@@ -19,9 +19,9 @@ NOTAS IMPORTANTES:
   NVDA se está executando en modo seguro, como por exemplo na pantalla de
   inicio de sesión.
 * Para unha mellor experiencia, deshabilita o modo atenuación de audio.
-* Starting from 2018, [changelogs for old add-on releases][3] will be found
-  on GitHub. This add-on readme will list changes from version 23.01 (2023)
-  onwards.
+* A partires de 2018, os [rexistros de cambios para versións vellas][3]
+  atoparanse en GitHub. Este readme do complemento listará cambios dende a
+  versión 23.01 (2023) en diante.
 * Cando Studio está en execución, podes gardar, recargar as opcións
   gardadas, ou restablecer as opcións do complemento ás de fábrica premendo
   Control+NVDA+C, Control+NVDA+R unha vez, ou Control+NVDA+R tres veces,
