@@ -327,6 +327,14 @@ instaliranim NVDA čitačem, neke Studio naredbe možeš izvršiti na ekranu
 osjetljivim na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri
 prsta. Zatim koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
+## Version 23.02
+
+* NVDA 2022.4 or later is required.
+* Windows 10 21H2 (November 2021 Update/build 19044) or later is required.
+* In Studio's playlist viewer, NVDA will not announce column headers such as
+  artist and title if table headers setting is set to either "rows and
+  columns" or "columns" in NVDA's document formatting settings panel.
+
 ## Verzija 23.01
 
 * Zahtijeva NVDA 2022.3 ili noviju verziju.

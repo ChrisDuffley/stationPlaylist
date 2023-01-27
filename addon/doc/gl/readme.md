@@ -347,6 +347,14 @@ instalado, podes realizar algunhas ordes do Studio dende a pantalla
 tactil. Primeiro usa un toque con tres dedos para cambiar a modo SPL, logo
 usa as ordes tactiles listadas arriba para realizar ordes.
 
+## Version 23.02
+
+* NVDA 2022.4 or later is required.
+* Windows 10 21H2 (November 2021 Update/build 19044) or later is required.
+* In Studio's playlist viewer, NVDA will not announce column headers such as
+  artist and title if table headers setting is set to either "rows and
+  columns" or "columns" in NVDA's document formatting settings panel.
+
 ## Versión 23.01
 
 * Require NVDA 2022.3 ou posterior.

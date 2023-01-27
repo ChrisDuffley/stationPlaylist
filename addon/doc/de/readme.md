@@ -352,6 +352,14 @@ ausführen. Wechseln Sie zunächst mit drei Fingern in den SPL-Modus und
 verwenden Sie dann die oben aufgeführten Touch-Befehle, um Befehle
 auszuführen.
 
+## Version 23.02
+
+* NVDA 2022.4 or later is required.
+* Windows 10 21H2 (November 2021 Update/build 19044) or later is required.
+* In Studio's playlist viewer, NVDA will not announce column headers such as
+  artist and title if table headers setting is set to either "rows and
+  columns" or "columns" in NVDA's document formatting settings panel.
+
 ## Version 23.01
 
 * NVDA 2022.3 oder neuer wird benötigt.

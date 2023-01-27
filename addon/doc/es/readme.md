@@ -352,6 +352,16 @@ táctil. Primero utiliza un toque con tres dedos para cambiar a modo SPL,
 entonces utiliza las órdenes táctiles listadas arriba para llevar a cabo
 tareas.
 
+## Versión 23.02
+
+* Se requiere NVDA 2022.4 o posterior.
+* Se requiere Windows 10 21H2 (actualización de noviembre de 2021 /
+  compilación 19044) o posterior.
+* En el visualizador de listas de reproducción de Studio, NVDA no anunciará
+  cabeceras de columna como la de artista o título si se ha configurado el
+  ajuste de cabeceras de tabla a "filas y columnas" o "columnas" en el panel
+  de opciones de formateado de documentos de NVDA.
+
 ## Versión 23.01
 
 * Se requiere NVDA 2022.3 o posterior.
