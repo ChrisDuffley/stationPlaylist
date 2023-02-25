@@ -15,7 +15,7 @@ IMPORTANT NOTES:
 * This add-on requires StationPlaylist suite 5.40 or later.
 * Some add-on features will be disabled or limited if NVDA is running in secure mode such as in logon screen.
 * For best experience, disable audio ducking mode.
-* Starting from 2018, [changelogs for old add-on releases][3] will be found on GitHub. This add-on readme will list changes from version 23.01 (2023) onwards.
+* Starting from 2018, [changelogs for old add-on releases][3] will be found on GitHub. This add-on readme will list changes from version 23.02 (2023) onwards.
 * While Studio is running, you can save, reload saved settings, or reset add-on settings to defaults by pressing Control+NVDA+C, Control+NVDA+R once, or Control+NVDA+R three times, respectively. This is also applicable to encoder settings - you can save and reset (not reload) encoder settings if using encoders.
 
 ## Shortcut keys
@@ -209,13 +209,6 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 * NVDA 2022.4 or later is required.
 * Windows 10 21H2 (November 2021 Update/build 19044) or later is required.
 * In Studio's playlist viewer, NVDA will not announce column headers such as artist and title if table headers setting is set to either "rows and columns" or "columns" in NVDA's document formatting settings panel.
-
-## Version 23.01
-
-* NVDA 2022.3 or later is required.
-* Windows 10 or later is required as Windows 7, 8, and 8.1 are no longer supported by Microsoft as of January 2023.
-* Removed first and last track column commands (Control+Alt+Home/End) as NVDA includes these commands.
-* Removed Streamer app module and buffer size edit field workaround as Streamer has become an alias module for SPL Engine.
 
 ## Older releases
 
