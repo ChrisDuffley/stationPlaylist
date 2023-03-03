@@ -22,7 +22,7 @@ WICHTIGE HINWEISE:
 * Für ein optimales Sound-Erlebnis sollten Sie den Modus für die
   Verringerung der Audio-Quellen deaktivieren.
 * Starting from 2018, [changelogs for old add-on releases][3] will be found
-  on GitHub. This add-on readme will list changes from version 23.01 (2023)
+  on GitHub. This add-on readme will list changes from version 23.02 (2023)
   onwards.
 * Während die Studio-Software läuft, können Sie gespeicherte Einstellungen
   speichern, wieder laden oder Zusatzeinstellungen auf die Standardwerte
@@ -359,17 +359,6 @@ auszuführen.
 * In Studio's playlist viewer, NVDA will not announce column headers such as
   artist and title if table headers setting is set to either "rows and
   columns" or "columns" in NVDA's document formatting settings panel.
-
-## Version 23.01
-
-* NVDA 2022.3 oder neuer wird benötigt.
-* Windows 10 oder neuer ist erforderlich, da Windows 7, 8 und 8.1 ab Januar
-  2023 nicht mehr von Microsoft unterstützt werden.
-* Die Befehle für die erste und letzte Spurspalte (Strg+Alt+Pos1/Ende)
-  wurden entfernt, da NVDA diese Befehle enthält.
-* Das Streamer-Anwendungsmodul und die Umgehung des
-  Puffergrößen-Bearbeitungsfelds wurden entfernt, da Streamer ein
-  Alias-Modul für die SPL-Engine geworden ist.
 
 ## Ältere Versionen
 

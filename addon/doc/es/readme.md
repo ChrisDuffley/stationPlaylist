@@ -21,7 +21,7 @@ NOTAS IMPORTANTES:
 * Para una mejor experiencia, deshabilita el modo atenuación de audio.
 * A partir de 2018, los [registros de cambios para versiones antiguas][3] se
   encontrarán en GitHub. Este léeme del complemento listará cambios desde la
-  versión 23.01 (2023) en adelante.
+  versión 23.02 (2023) en adelante.
 * Cuando Studio está en ejecución, se pueden guardar, restablecer o poner
   los valores de fábrica del complemento pulsando control+NVDA+c,
   control+NVDA+r una vez o control+NVDA+r tres veces, respectivamente. Esto
@@ -361,17 +361,6 @@ tareas.
   cabeceras de columna como la de artista o título si se ha configurado el
   ajuste de cabeceras de tabla a "filas y columnas" o "columnas" en el panel
   de opciones de formateado de documentos de NVDA.
-
-## Versión 23.01
-
-* Se requiere NVDA 2022.3 o posterior.
-* Se requiere Windows 10 o posterior, ya que Microsoft no soporta Windows 7,
-  8 y 8.1 a partir de enero de 2023.
-* Se han eliminado las órdenes de primera y última columna de pista
-  (control+alt+inicio / fin), ya que NVDA incluye estas órdenes.
-* Se han eliminado el módulo de aplicación de Streamer y el parche para el
-  cuadro de edición de tamaño de búfer, ya que Streamer se ha convertido en
-  un módulo alias del motor de SPL.
 
 ## Versiones antiguas
 

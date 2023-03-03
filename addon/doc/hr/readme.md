@@ -17,9 +17,9 @@ VAŽNE NAPOMENE:
 * Neke funkcije dodatka bit će deaktivirane ili ograničeno raditi, ako NVDA
   radi u sigurnom modusu kao što je prozor prijave.
 * Za najbolje iskustvo, deaktiviraj modus stišavanja zvuka.
-* Od 2018. godine pa nadalje, [zapisi o promjenama za stara izdanja][3] se
-  nalaze na GitHubu. Readme datoteka dodatka sadrži popis promjena od
-  verzije 23.01 (2023.) i nadalje.
+* Od 2018. godine pa nadalje, [zapisi o promjenama za stara izdanja
+  dodatka][3] se nalaze na GitHubu. Readme datoteka dodatka sadrži popis
+  promjena od verzije 23.02 (2023.) i nadalje.
 * Dok je Studio pokrenut, moguće je spremiti postavke, ponovo učitati
   spremljene postavke ili resetirati postavke dodatka na standardne
   vrijednosti pritiskom tipki kontrol+NVDA+C, pritiskom tipki kontrol+NVDA+R
@@ -73,11 +73,11 @@ Većina njih radi samo u programu Studio, ukoliko nešto drugo nije navedeno.
 * Kontrol+NVDA+- (crtica tijekom fokusiranja jedne snimke u programu Studio,
   Creator, Remote VT i Track Tool): prikaži podatke svih stupaca u snimci na
   prozoru modusa pregledavanja.
-* NVDA+V tijekom fokusiranja na snimku (samo u prikazu popisa snimaka za
-  Studio): mijenja najavljivanje stupca snimaka između ekranskog i
+* NVDA+V tijekom fokusiranja na snimku (samo u prikazu popisa snimaka
+  programa Studio): mijenja najavljivanje stupca snimaka između ekranskog i
   prilagođenog redoslijeda.
-* Alt+NVDA+C tijekom fokusiranja na snimku (samo u prikazu popisa snimaka za
-  Studio): najavljuje komentare snimke, ukoliko ih ima.
+* Alt+NVDA+C tijekom fokusiranja na snimku (samo u prikazu popisa snimaka
+  programa Studio): najavljuje komentare snimke, ukoliko ih ima.
 * Alt+NVDA+0 u prozoru Studija: otvara dijaloški okvir za konfiguriranje
   dodataka.
 * Alt+NVDA+P u prozoru Studija: otvara dijaloški okvir za profile
@@ -327,23 +327,15 @@ instaliranim NVDA čitačem, neke Studio naredbe možeš izvršiti na ekranu
 osjetljivim na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri
 prsta. Zatim koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
-## Version 23.02
+## Verzija 23.02
 
-* NVDA 2022.4 or later is required.
-* Windows 10 21H2 (November 2021 Update/build 19044) or later is required.
-* In Studio's playlist viewer, NVDA will not announce column headers such as
-  artist and title if table headers setting is set to either "rows and
-  columns" or "columns" in NVDA's document formatting settings panel.
-
-## Verzija 23.01
-
-* Zahtijeva NVDA 2022.3 ili noviju verziju.
-* Zahtijeva Windows 10 ili noviju verziju, jer od siječnja 2023. Microsoft
-  više ne pordržava Windows 7, 8 i 8.1.
-* Uklonjene su naredbe za prvi i zadnji stupac snimaka
-  (Kontrol+Alt+Home/End) jer su te naredbe uključene u NVDA čitaču.
-* Removed Streamer app module and buffer size edit field workaround as
-  Streamer has become an alias module for SPL Engine.
+* Potrebna je NVDA verzija 2022.4 ili novija.
+* Potreban je sustav Windows 10 21H2 (aktualizirana verzija iz studenog
+  2021./izgradnja 19044) ili novija verzija.
+* U pregledniku popisa snimaka programa Studio, NVDA neće najavljivati
+  zaglavlja stupaca kao što su izvođač i naslov ako je postavka zaglavlja
+  tablice postavljena na „Redci i stupci” ili „Stupci” u NVDA ploči postavki
+  formatiranja dokumenta.
 
 ## Starija izdanja
 
