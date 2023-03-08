@@ -214,7 +214,7 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 
 Please see changelog link for release notes for old add-on releases.
 
-[1]: https://addons.nvda-project.org/files/get.php?file=spl
+[1]: https://addons.nvda-project.org/files/get.php?file=stationPlaylist
 
 [2]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
