@@ -362,7 +362,7 @@ versões de complemento antigas.
 
 [[!tag dev stable]]
 
-[1]: https://addons.nvda-project.org/files/get.php?file=spl
+[1]: https://addons.nvda-project.org/files/get.php?file=stationPlaylist
 
 [2]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
