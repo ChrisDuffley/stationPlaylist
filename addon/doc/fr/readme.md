@@ -282,8 +282,8 @@ Pour apprendre les affectations de panier, à partir de SPL Studio, appuyez
 sur Alt+NVDA+3. Appuyer une fois sur la commande panier vous indiquera quel
 jingle est affecté à la commande. Appuyez deux fois sur la commande panier
 pour jouer le jingle. Appuyez sur Alt+NVDA+3 pour quitter l'explorateur de
-panier. Consultez le guide des modules complémentaires pour plus
-d'informations sur l'explorateur de panier.
+panier. Consultez le guide de l'extension pour plus d'informations sur
+l'explorateur de panier.
 
 ## Analyse de durée de piste
 
