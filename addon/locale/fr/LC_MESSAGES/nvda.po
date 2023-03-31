@@ -656,8 +656,8 @@ msgid ""
 "The SPL Assistant layer command. See the add-on guide for more information "
 "on available commands."
 msgstr ""
-"La commande couche Assistant SPL. Consultez la documentation du module "
-"complémentaire pour plus d'informations sur les commandes disponibles."
+"La commande couche Assistant SPL. Consultez la documentation de"
+"l'extension pour plus d'informations sur les commandes disponibles."
 
 #. Translators: Presented when SPL Assistant cannot be invoked.
 msgid "Failed to locate Studio main window, cannot enter SPL Assistant"
@@ -831,10 +831,10 @@ msgid ""
 "settings to factory defaults?"
 msgstr ""
 "Un changement immédiat ou un profils basé sur l'heure est actif. "
-"Réinitialiser les paramètres du module complémentaire Studio signifie que le "
+"Réinitialiser les paramètres de l'extension Studio signifie que le "
 "profil normal deviendra actif et que les paramètres du changement de profil "
 "resteront dans un état imprévisible. Voulez-vous vraiment réinitialiser les "
-"paramètres du module complémentaire Studio aux paramètres d’usine?"
+"paramètres de l'extension Studio aux paramètres d’usine?"
 
 #. Translators: The title of the confirmation dialog for Studio add-on settings reset.
 msgid "SPL Studio add-on reset"
@@ -1422,8 +1422,8 @@ msgstr "Effacer les commentaires de piste"
 #. Translators: A message to warn about resetting SPL config settings to factory defaults.
 msgid "Are you sure you wish to reset SPL add-on settings to defaults?"
 msgstr ""
-"Êtes-vous sûr de vouloir réinitialiser les paramètres du module "
-"complémentaire SPL  aux valeurs par défaut ?"
+"Êtes-vous sûr de vouloir réinitialiser les paramètres de "
+"l'extension SPL  aux valeurs par défaut ?"
 
 #. Translators: The title of the warning dialog.
 msgid "Warning"
@@ -1841,8 +1841,8 @@ msgstr "SPL Studio n'est pas en cours d'exécution."
 #. Translators: Input help mode message for a layer command in StationPlaylist add-on.
 msgid "SPl Controller layer command. See add-on guide for available commands."
 msgstr ""
-"Commande couche Contrôleur SPl. Consultez la documentation du module "
-"complémentaire pour les commandes disponibles."
+"Commande couche Contrôleur SPl. Consultez la documentation de "
+"l'extension pour les commandes disponibles."
 
 #. Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
 msgid ""
