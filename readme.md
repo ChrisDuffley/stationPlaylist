@@ -1,10 +1,8 @@
 # StationPlaylist #
 
-* Authors: Geoff Shang, Joseph Lee and other contributors
+* Authors: Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)
 * Download [stable version][1]
 * NVDA compatibility: 2022.4 and later
-
-Note: I (Joseph Lee) am looking for people who will maintain StationPlaylist add-on from April 1, 2022 onwards.
 
 This add-on package provides improved usage of StationPlaylist Studio and other StationPlaylist apps, as well as providing utilities to control Studio from anywhere. Supported apps include Studio, Creator, Track Tool, VT Recorder, and Streamer, as well as SAM, SPL, and AltaCast encoders.
 
@@ -204,6 +202,10 @@ You can save settings for specific shows into broadcast profiles. These profiles
 
 If you are using Studio on a touchscreen computer with NVDA installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 23.05
+
+* To reflect the maintainer change, the manifest has been updated to indicate as such.
+
 ## Version 23.02
 
 * NVDA 2022.4 or later is required.
@@ -212,10 +214,10 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 
 ## Older releases
 
-Please see changelog link for release notes for old add-on releases.
+Please see the [changelog][3] for release notes for old add-on releases.
 
 [1]: https://addons.nvda-project.org/files/get.php?file=stationPlaylist
 
-[2]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
+[2]: https://github.com/chrisDuffley/stationplaylist/wiki/SPLAddonGuide
 
-[3]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
+[3]: https://github.com/ChrisDuffley/stationplaylist/wiki/splchangelog

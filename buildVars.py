@@ -27,11 +27,11 @@ addon_info = {
 	# version
 	"addon_version": "23.05",
 	# Author(s)
-	"addon_author": "Christopher Duffley <nvda@chrisduffley.com> (formerly by Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)",
+	"addon_author": "Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)",
 	# URL for the add-on documentation support
 	"addon_url": "https://github.com/ChrisDuffley/stationPlaylist",
 	# URL for the add-on repository where the source code can be found
-	"addon_sourceURL": "https://github.com/ChrisDuffley/stationplaylist",
+	"addon_sourceURL": "https://github.com/ChrisDuffley/stationPlaylist",
 	# Documentation file name
 	"addon_docFileName": "readme.html",
 	# Minimum NVDA version supported (e.g. "2018.3.0", minor version is optional)
