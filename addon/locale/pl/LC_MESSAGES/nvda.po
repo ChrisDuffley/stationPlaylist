@@ -17,14 +17,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.9\n"
 
-#. Translators: Dialog text shown when trying to install the add-on on an older version of Windows.
-msgid ""
-"You are using an older version of Windows. This add-on requires Windows 10 "
-"or later."
+#. StationPlaylist add-on requires Windows 10 21H2 or later.
+#. Translators: title of the error dialog shown when trying to install the add-on in unsupported systems.
+#. Unsupported systems include Windows versions earlier than 10 and unsupported feature updates.
+msgid "Unsupported Windows release"
 msgstr ""
 
-#. Translators: title of the dialog shown when trying to install the add-on on an old version of Windows.
-msgid "Old Windows version"
+#. Translators: Dialog text shown when trying to install the add-on on
+#. releases earlier than minimum supported release.
+#, python-brace-format
+msgid ""
+"You are using {releaseName} ({build}), a Windows release not supported by "
+"this add-on.\n"
+"This add-on requires {supportedReleaseName} ({supportedBuild}) or later."
 msgstr ""
 
 #. Translators: announced in SPL Creator and Remote VT
@@ -1826,9 +1831,10 @@ msgstr "Pomoc kontrolera SPL"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#, fuzzy
 msgid ""
-"Enhances support for StationPlaylist apps.\n"
-"In addition, adds global commands for the studio from everywhere."
+"Enhances support for StationPlaylist apps. In addition, adds global commands "
+"for the Studio application from everywhere."
 msgstr ""
 "Poprawia dostępność StationPlaylist.\n"
 "Ponadto, dodaje globalne komendy dla studia, dostępne z każdego miejsca."

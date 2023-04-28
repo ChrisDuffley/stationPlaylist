@@ -1929,9 +1929,10 @@ msgstr "Hilfe zur SPL-Steuerung"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#, fuzzy
 msgid ""
-"Enhances support for StationPlaylist apps.\n"
-"In addition, adds global commands for the studio from everywhere."
+"Enhances support for StationPlaylist apps. In addition, adds global commands "
+"for the Studio application from everywhere."
 msgstr ""
 "Verbessert die Unterstützung für StationPlaylist.\n"
 "Des weiteren fügt es Tastenkombinationen für das Studio aus beliebigen "
