@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-01-06 20:06+0100\n"
+"PO-Revision-Date: 2023-04-28 21:17+0200\n"
 "Last-Translator: José Manuel Delicado <jmdaweb@hotmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -1913,10 +1913,9 @@ msgstr "Ayuda del SPL Controller"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
-#, fuzzy
 msgid ""
 "Enhances support for StationPlaylist apps. In addition, adds global commands "
 "for the Studio application from everywhere."
 msgstr ""
-"Mejora el soporte para las aplicaciones de StationPlaylist.\n"
-"Además, agrega comandos globales para el estudio desde cualquier parte."
+"Mejora el soporte para las aplicaciones de StationPlaylist. Además, agrega "
+"órdenes globales para la aplicación de Studio desde cualquier parte."
