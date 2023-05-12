@@ -1,8 +1,9 @@
 # StationPlaylist #
-
-* Autoren: Geoff Shang, Joseph Lee und weitere Mitwirkende
+* Authors: Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee
+  <joseph.lee22590@gmail.com>, originally by Geoff Shang and other
+  contributors)
 * [Stabile Version herunterladen][1]
-* NVDA compatibility: 2022.4 and later
+* NVDA-Kompatibilität: 2022.4 und neuer
 
 Dieses Zusatzpaket bietet eine verbesserte Nutzung von StationPlaylist
 Studio und anderen StationPlaylist-Anwendungen sowie Dienstprogramme zur
@@ -21,9 +22,10 @@ WICHTIGE HINWEISE:
   Windows-Anmeldung.
 * Für ein optimales Sound-Erlebnis sollten Sie den Modus für die
   Verringerung der Audio-Quellen deaktivieren.
-* Starting from 2018, [changelogs for old add-on releases][3] will be found
-  on GitHub. This add-on readme will list changes from version 23.02 (2023)
-  onwards.
+* Bereits seit 2018 sind [Versionsänderungen für alte Versionen dieser
+  NVDA-Erweiterung][3] auf GitHub zu finden. Diese Readme der
+  NVDA-Erweiterung enthält nur noch Änderungen, die ab Version 23.02 (2023)
+  gemacht worden sind.
 * Während die Studio-Software läuft, können Sie gespeicherte Einstellungen
   speichern, wieder laden oder Zusatzeinstellungen auf die Standardwerte
   zurücksetzen, indem Sie Strg+NVDA+C, Strg+NVDA+R einmal bzw. Strg+NVDA+R
@@ -352,23 +354,30 @@ ausführen. Wechseln Sie zunächst mit drei Fingern in den SPL-Modus und
 verwenden Sie dann die oben aufgeführten Touch-Befehle, um Befehle
 auszuführen.
 
+## Version 23.05
+
+* To reflect the maintainer change, the manifest has been updated to
+  indicate as such.
+
 ## Version 23.02
 
-* NVDA 2022.4 or later is required.
-* Windows 10 21H2 (November 2021 Update/build 19044) or later is required.
-* In Studio's playlist viewer, NVDA will not announce column headers such as
-  artist and title if table headers setting is set to either "rows and
-  columns" or "columns" in NVDA's document formatting settings panel.
+* NVDA 2022.4 oder neuer wird benötigt.
+* Windows 10 Version 21H2 (November 2021 Update bzw. Build 19044) oder neuer
+  wird benötigt.
+* In der Ansicht für die Wiedergabelisten im Studio zeigt NVDA keine
+  Spaltenüberschriften wie Interpret und Titel an, wenn die Einstellung für
+  Tabellenüberschriften in den Einstellungen für die Dokument-Formatierungen
+  in NVDA entweder auf "Zeilen und Spalten" oder "Spalten" gesetzt ist.
 
 ## Ältere Versionen
 
-Für weitere Änderungsnotizen beachten Sie den Link zu den Änderungsnotizen
-älterer Erweiterungsversionen.
+Please see the [changelog][3] for release notes for old add-on releases.
+
 
 [[!tag dev stable]]
 
 [1]: https://www.nvaccess.org/addonStore/legacy?file=stationPlaylist
 
-[2]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
+[2]: https://github.com/chrisDuffley/stationplaylist/wiki/SPLAddonGuide
 
-[3]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
+[3]: https://github.com/ChrisDuffley/stationplaylist/wiki/splchangelog

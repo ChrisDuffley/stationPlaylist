@@ -1,24 +1,27 @@
 # StationPlaylist #
-
-* Auteurs: Geoff Shang, Joseph Lee et d'autres contributeurs.
+* Auteurs : Christopher Duffley <nvda@chrisduffley.com> (anciennement Joseph
+  Lee <Joseph.lee22590@gmail.com>, à l'origine par Geoff Shang et d'autres
+  contributeurs)
 * Télécharger [version stable][1]
-* NVDA compatibility: 2022.4 and later
+* Compatibilité NVDA : 2022.4 et ultérieures.
 
 Cette extension améliore l'utilisation de Station Playlist Studio, mais elle
 fournit aussi des utilitaires pour contrôler le Studio où que vous soyez.
 
-Pour plus d'informations sur l'extension, veuillez lire le [guidede
+Pour plus d'informations sur l'extension, veuillez lire le [guide de
 l'extension][2].
 
 NOTES IMPORTANTES :
 
-* This add-on requires StationPlaylist suite 5.40 or later.
-* Some add-on features will be disabled or limited if NVDA is running in
-  secure mode such as in logon screen.
-* For best experience, disable audio ducking mode.
-* Starting from 2018, [changelogs for old add-on releases][3] will be found
-  on GitHub. This add-on readme will list changes from version 23.02 (2023)
-  onwards.
+* Cette extension nécessite StationPlaylist suite 5.40 ou version
+  ultérieure.
+* Certaines fonctionnalités de l'extension seront désactivées ou limitées si
+  NVDA s'exécute en mode sécurisé, comme dans l'écran de connexion.
+* Pour une meilleure expérience, désactiver le Mode d'atténuation audio.
+* À partir de 2018, les [changelogs des anciennes versions de
+  l'extension][3] seront disponibles sur GitHub. Ce fichier readme de
+  l'extension listera les modifications apportées à partir de la version
+  23.02 (2023).
 * Pendant que Studio est en cours d'exécution, vous pouvez sauvegarder,
   recharger les paramètres sauvegardés, ou rétablir les paramètres par
   défaut de l'extension en pressant Contrôle+NVDA+C, Contrôle+NVDA+R une
@@ -41,18 +44,18 @@ contraire.
   minutes en haut de l'heure. Appuyez deux fois sur cette commande pour
   annoncer les minutes et les secondes jusqu'au début de l'heure.
 * Alt+NVDA+1 (faire glisser deux doigts vers la droite en mode SPL) à partir
-  de la fenêtre Studio : ouvre la catégorie des alarmes dans le dialogue de
+  de la fenêtre Studio : ouvre la catégorie des alarmes dans le dialogue de
   configuration de l'extension de Studio.
 * Alt+NVDA+1 à partir de l'éditeur de liste de lecture du créateur et de
-  l'éditeur de liste de lecture à distance VT : annonce l'heure programmée
+  l'éditeur de liste de lecture à distance VT : annonce l'heure programmée
   pour la liste de lecture chargée.
 * Alt+NVDA+2 à partir de l'éditeur de liste de lecture de Creator et de
-  l'éditeur de liste de lecture Remote VT : annonce la durée totale de la
+  l'éditeur de liste de lecture Remote VT : annonce la durée totale de la
   liste de lecture.
 * Alt+NVDA+3 depuis la fenêtre de Studio : Basculer l'explorateur de panier
   pour apprendre les assignations de panier.
 * Alt+NVDA+3 à partir de l'éditeur de liste de lecture de Creator et de
-  l'éditeur de liste de lecture Remote VT : annonce quand la lecture de la
+  l'éditeur de liste de lecture Remote VT : annonce quand la lecture de la
   piste sélectionnée est programmée.
 * Alt+NVDA+4 de Creator's Playlist Editor et Remote VT playlist editor :
   annonce la rotation et la catégorie associées à la playlist chargée.
@@ -71,21 +74,21 @@ contraire.
   Creator, Remote VT, ou Track Tool): aller à la piste précédente ou
   suivante et annoncer des colonnes spécifiques
 * Contrôle+NVDA+1 à 0 (si une piste est en focus dans Studio, Creator (y
-  compris Playlist Editor), Remote VT et Track Tool) : annonce le contenu de
+  compris Playlist Editor), Remote VT et Track Tool) : annonce le contenu de
   la colonne pour une colonne spécifiée (les dix premières colonnes par
   défaut). Appuyez deux fois sur cette commande pour afficher les
   informations de la colonne dans une fenêtre en mode navigation.
 * Contrôle+NVDA+- (trait d'union si une piste est en focus dans Studio,
-  Creator, Remote VT et Track Tool) : affiche les données de toutes les
+  Creator, Remote VT et Track Tool) : affiche les données de toutes les
   colonnes d'une piste dans une fenêtre en mode navigation.
 * NVDA+V si une piste est en focus (visualiseur de playlist de Studio
-  uniquement) : bascule l'annonce de la colonne de piste entre l'ordre de
+  uniquement) : bascule l'annonce de la colonne de piste entre l'ordre de
   l'écran et l'ordre personnalisé.
 * Alt+NVDA+C si une piste est en focus (Studio uniquement): annonce les
   commentaires de piste le cas échéant.
 * Alt+NVDA+0 depuis la fenêtre de Studio : Ouvre le dialogue de
   configuration de l'extension Studio.
-* Alt+NVDA+P à partir de la fenêtre Studio : ouvre le dialogue des profils
+* Alt+NVDA+P à partir de la fenêtre Studio : ouvre le dialogue des profils
   de diffusion Studio.
 * Alt+NVDA+F1: Ouvre le dialogue de bienvenue.
 
@@ -98,16 +101,16 @@ le menu NVDA, Préférences, puis Gestes de commande. Développez la catégorie
 StationPlaylist, puis localisez les commandes non assignées dans la liste et
 sélectionnez "Ajouter" puis tapez le geste que vous désirez utiliser.
 
-Important: some of these commands will not work if NVDA is running in secure
-mode such as from login screen.
+Important : certaines de ces commandes ne fonctionneront pas si NVDA
+s'exécute en mode sécurisé, tel que à partir de l'écran de connexion.
 
-* Switching to SPL Studio window from any program (unavailable in secure
-  mode).
-* SPL Controller layer (unavailable in secure mode).
-* Announcing Studio status such as track playback from other programs
-  (unavailable in secure mode).
-* Announcing encoder connection status from any program (unavailable in
-  secure mode).
+* Basculement vers la fenêtre SPL Studio depuis n'importe quel programme
+  (indisponible en mode sécurisé).
+* Couche du Contrôleur SPL (indisponible en mode sécurisé).
+* Annonçant le statut de Studio, comme la lecture de pistes à partir
+  d'autres programmes (indisponible en mode sécurisé).
+* Annonce de l'état de connexion de l'encodeur à partir de n'importe quel
+  programme (indisponible en mode sécurisé).
 * Couche Assistant SPL depuis SPL Studio.
 * Annoncer le temps y compris les secondes depuis SPL Studio.
 * Annonce de la température.
@@ -128,7 +131,7 @@ encodeurs:
 
 * F9 : Connecte l'encodeur sélectionné.
 * F10 (encodeur SAM uniquement) : Déconnectez l'encodeur sélectionné.
-* Contrôle+F9 : Connecte tous les encodeurs.
+* Contrôle+F9 : Connecte tous les encodeurs.
 * Contrôle+F10 (encodeur SAM uniquement) : Déconnecter tous les encodeurs.
 * F11 : Détermine si NVDA bascule vers la fenêtre Studio pour l'encodeur
   sélectionné  si connecté.
@@ -139,7 +142,7 @@ encodeurs:
 * Contrôle+F12 : Ouvre un dialogue pour sélectionner l'encodeur que vous
   avez supprimé (afin de réaligner les étiquettes de flux et les paramètres
   de l'encodeur).
-* Alt+NVDA+0 et F12 : Ouvre le dialogue paramètres  de l'encodeur pour
+* Alt+NVDA+0 et F12 : Ouvre le dialogue paramètres  de l'encodeur pour
   configurer des options telles que l'étiquette de flux.
 
 De plus, les commandes pour visualiser la colonne sont disponibles, y
@@ -221,34 +224,34 @@ couche Contrôleur SPL, et NVDA dira, "Contrôleur SPL." Appuyez sur une autre
 commande pour contrôler divers paramètres Studio comme activer/désactiver un
 microphone ou lire la piste suivante.
 
-Important: SPL Controller layer commands are disabled if NVDA is running in
-secure mode.
+Important : Les commandes en couche du contrôleur SPL sont désactivées si
+NVDA s'exécute en mode sécurisé.
 
 Les commandes disponibles pour le Contrôleur SPL sont:
 
-* P : lire la prochaine piste sélectionnée.
-* U : mettre en pause ou reprendre la lecture.
-* S : Arrête la piste avec un fondu sortant.
-* T : Arrêt immédiat.
-* M : Activer le microphone.
-* Maj+M : Désactiver le microphone.
-* A : Activer l'automatisation.
-* Maj+A : Désactiver l'automatisation.
-* L : Active l'entrée ligne.
-* Maj+l : Désactive l'entrée ligne.
-* R :  Temps restant pour la piste en cours de lecture.
+* P : lire la prochaine piste sélectionnée.
+* U : mettre en pause ou reprendre la lecture.
+* S : Arrête la piste avec un fondu sortant.
+* T : Arrêt immédiat.
+* M : Activer le microphone.
+* Maj+M : Désactiver le microphone.
+* A : Activer l'automatisation.
+* Maj+A : Désactiver l'automatisation.
+* L : Active l'entrée ligne.
+* Maj+L : Désactive l'entrée ligne.
+* R :  Temps restant pour la piste en cours de lecture.
 * Maj+R : Contrôle de la progression du balayage de la bibliothèque en
   cours.
-* C : annoncer le titre et la durée de la piste en cours de lecture.
-* Maj+C :  annoncer le titre et la durée de la prochaine piste, le cas
+* C : annoncer le titre et la durée de la piste en cours de lecture.
+* Maj+C :  annoncer le titre et la durée de la prochaine piste, le cas
   échéant.
-* E : Statut de la connexion de l'encodeur.
-* I : Nombre d'auditeurs.
-* Q : diverses informations sur l'état de Studio, y compris si une piste est
+* E : Statut de la connexion de l'encodeur.
+* I : Nombre d'auditeurs.
+* Q : diverses informations sur l'état de Studio, y compris si une piste est
   en cours de lecture, le microphone est activé et d'autres.
 * Appuyez sur les touches de panier (F1, Contrôle+1, par exemple) pour lire
   les paniers assignés à partir de n'importe où.
-* H : Aide de couche.
+* H: Aide de couche.
 
 ## Alarmes piste et microphone
 
@@ -278,7 +281,7 @@ Selon l'édition, SPL Studio permet d'assigné jusq'à 96 paniers pendant la
 lecture. NVDA vous permet d'entendre quel panier ou jingle est assigné à ces
 commandes.
 
-Pour apprendre les affectations de panier, à partir de SPL Studio, appuyez
+Pour apprendre les assignations de panier, à partir de SPL Studio, appuyez
 sur Alt+NVDA+3. Appuyer une fois sur la commande panier vous indiquera quel
 jingle est affecté à la commande. Appuyez deux fois sur la commande panier
 pour jouer le jingle. Appuyez sur Alt+NVDA+3 pour quitter l'explorateur de
@@ -307,13 +310,15 @@ catégorie explorateur de colonnes.
 
 ## Annonce des colonnes des pistes
 
-You can ask NVDA to announce track columns found in Studio's playlist viewer
-in the order it appears on screen or using a custom order and/or exclude
-certain columns. Press NVDA+V to toggle this behavior while focused on a
-track in Studio's playlist viewer. To customize column inclusion and order,
-from column announcement settings panel in add-on settings, uncheck
-"Announce columns in the order shown on screen" and then customize included
-columns and/or column order.
+Vous pouvez demander à NVDA d'annoncer des colonnes de piste trouvées dans
+la visionneuse de playlist de Studio dans l'ordre où il apparaît sur l'écran
+ou en utilisant l'ordre personnalisé et / ou exclure certaines
+colonnes. Appuyez sur NVDA+V pour basculer ce comportement tandis que le
+focus est mis sur une piste dans la visionneuse de playlist de Studio. Pour
+l'ordre et l'inclusion des colonnes personnalisées à partir du panneau de
+paramètres annonces de colonne dans les paramètres de l'extension, décochez
+"Annoncer les colonnes dans l'ordre affichés sur l'écran" puis personnaliser
+les colonnes incluses et / ou l'ordre de colonne.
 
 ## Instantanés de playlist
 
@@ -331,10 +336,10 @@ liste.
 
 ## Boîte de dialogue configuration
 
-From studio window, you can press Alt+NVDA+0 to open the add-on
-configuration dialog. Alternatively, go to NVDA's preferences menu and
-select SPL Studio Settings item. Not all settings are available if NVDA is
-running in secure mode.
+Depuis la fenêtre studio, vous pouvez appuyer sur Alt+NVDA+0 pour ouvrir la
+boîte de dialogue configuration de l'extension. Sinon, allez dans le menu
+préférences de NVDA et sélectionnez l'élément Paramètres SPL Studio. Tous
+les paramètres ne sont pas disponibles si NVDA s'exécute en mode sécurisé.
 
 ## Dialogue profils de diffusion
 
@@ -345,28 +350,38 @@ Alt+NVDA+P depuis la fenêtre Studio.
 
 ## Mode tactile SPL
 
-If you are using Studio on a touchscreen computer with NVDA installed, you
-can perform some Studio commands from the touchscreen. First use three
-finger tap to switch to SPL mode, then use the touch commands listed above
-to perform commands.
+Si vous utilisez Studio sur un ordinateur possédant un écran tactile avec
+NVDA installé, vous pouvez exécuter certaines commandes Studio depuis un
+écran tactile. Tout d'abord utiliser une tape à trois doigts pour basculer
+en mode SPL, puis utilisez les commandes tactile énumérées ci-dessus pour
+exécuter des commandes.
+
+## Version 23.05
+
+* Pour refléter le changement du mainteneur, le manifeste a été mis à jour
+  pour indiquer en tant que tel.
 
 ## Version 23.02
 
-* NVDA 2022.4 or later is required.
-* Windows 10 21H2 (November 2021 Update/build 19044) or later is required.
-* In Studio's playlist viewer, NVDA will not announce column headers such as
-  artist and title if table headers setting is set to either "rows and
-  columns" or "columns" in NVDA's document formatting settings panel.
+* NVDA 2022.4 ou ultérieur est requis.
+* Windows 10 21H2 (Mise à jour Novembre 2021 / build 19044) ou ultérieure
+  est requise.
+* Dans la visionneuse de playlist de Studio, NVDA n'annoncera pas les
+  en-têtes de colonne tels que l'artiste et le titre si le paramètre
+  d'en-têtes des tableaux est défini sur En-têtes "Lignes et colonnes" ou
+  "Colonnes" dans le panneau Mise en Forme des Documents dans les Paramètres
+  de NVDA
 
 ## Anciennes versions
 
-S'il vous plaît voir le lien changelog pour les notes de version  pour les
+S'il vous plaît voir le [changelog][3] pour les notes de version  pour les
 anciennes versions de l'extension.
+
 
 [[!tag dev stable]]
 
 [1]: https://www.nvaccess.org/addonStore/legacy?file=stationPlaylist
 
-[2]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
+[2]: https://github.com/chrisDuffley/stationplaylist/wiki/SPLAddonGuide
 
-[3]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
+[3]: https://github.com/ChrisDuffley/stationplaylist/wiki/splchangelog

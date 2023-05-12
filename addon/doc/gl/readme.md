@@ -1,6 +1,7 @@
 # StationPlaylist #
-
-* Autores: Geoff Shang, Joseph Lee e outros colaboradores
+* Authors: Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee
+  <joseph.lee22590@gmail.com>, originally by Geoff Shang and other
+  contributors)
 * Descargar [versión estable][1]
 * Compatibilidade con NVDA: 2022.4 e posterior
 
@@ -347,6 +348,11 @@ instalado, podes realizar algunhas ordes do Studio dende a pantalla
 tactil. Primeiro usa un toque con tres dedos para cambiar a modo SPL, logo
 usa as ordes tactiles listadas arriba para realizar ordes.
 
+## Version 23.05
+
+* To reflect the maintainer change, the manifest has been updated to
+  indicate as such.
+
 ## Versión 23.02
 
 * Require NVDA 2022.4 ou posterior.
@@ -359,13 +365,13 @@ usa as ordes tactiles listadas arriba para realizar ordes.
 
 ## Versións vellas
 
-Por favor consulta a liga changelog para notas da versión para versións
-vellas do complemento.
+Please see the [changelog][3] for release notes for old add-on releases.
+
 
 [[!tag dev stable]]
 
 [1]: https://www.nvaccess.org/addonStore/legacy?file=stationPlaylist
 
-[2]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
+[2]: https://github.com/chrisDuffley/stationplaylist/wiki/SPLAddonGuide
 
-[3]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
+[3]: https://github.com/ChrisDuffley/stationplaylist/wiki/splchangelog

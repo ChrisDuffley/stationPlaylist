@@ -1,6 +1,7 @@
 # StationPlaylist #
-
-* Autori: Geoff Shang, Joseph Lee i drugi doprinositelji
+* Authors: Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee
+  <joseph.lee22590@gmail.com>, originally by Geoff Shang and other
+  contributors)
 * Preuzmi [stabilnu verziju][1]
 * NVDA kompatibilnost: 2022.4 i novije verzije
 
@@ -327,6 +328,11 @@ instaliranim NVDA čitačem, neke Studio naredbe možeš izvršiti na ekranu
 osjetljivim na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri
 prsta. Zatim koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
+## Version 23.05
+
+* To reflect the maintainer change, the manifest has been updated to
+  indicate as such.
+
 ## Verzija 23.02
 
 * Potrebna je NVDA verzija 2022.4 ili novija.
@@ -339,12 +345,13 @@ prsta. Zatim koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
 ## Starija izdanja
 
-Pogledaj poveznicu zapisnika promjena za stara izdanja dodatka.
+Please see the [changelog][3] for release notes for old add-on releases.
+
 
 [[!tag dev stable]]
 
 [1]: https://www.nvaccess.org/addonStore/legacy?file=stationPlaylist
 
-[2]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
+[2]: https://github.com/chrisDuffley/stationplaylist/wiki/SPLAddonGuide
 
-[3]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
+[3]: https://github.com/ChrisDuffley/stationplaylist/wiki/splchangelog

@@ -1,6 +1,7 @@
 # Station Playlist #
-
-* Autori: Geoff Shang, Joseph Lee a ďalší
+* Authors: Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee
+  <joseph.lee22590@gmail.com>, originally by Geoff Shang and other
+  contributors)
 * Stiahnuť [stabilnú verziu][1]
 * NVDA compatibility: 2022.4 and later
 
@@ -297,6 +298,11 @@ can perform some Studio commands from the touchscreen. First use three
 finger tap to switch to SPL mode, then use the touch commands listed above
 to perform commands.
 
+## Version 23.05
+
+* To reflect the maintainer change, the manifest has been updated to
+  indicate as such.
+
 ## Version 23.02
 
 * NVDA 2022.4 or later is required.
@@ -307,13 +313,13 @@ to perform commands.
 
 ## Staršie verzie
 
-Výpis zmien pre staršie verzie doplnku nájdete na samostatnej stránke
-(anglicky).
+Please see the [changelog][3] for release notes for old add-on releases.
+
 
 [[!tag dev stable]]
 
 [1]: https://www.nvaccess.org/addonStore/legacy?file=stationPlaylist
 
-[2]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
+[2]: https://github.com/chrisDuffley/stationplaylist/wiki/SPLAddonGuide
 
-[3]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
+[3]: https://github.com/ChrisDuffley/stationplaylist/wiki/splchangelog

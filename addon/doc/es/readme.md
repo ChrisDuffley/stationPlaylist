@@ -1,6 +1,7 @@
 # StationPlaylist #
-
-* Autores: Geoff Shang, Joseph Lee y otros colaboradores
+* Autores: Christopher Duffley <nvda@chrisduffley.com> (antes Joseph Lee
+  <joseph.lee22590@gmail.com>, originalmente de Geoff Shang y otros
+  colaboradores)
 * Descargar [Versión estable][1]
 * Compatibilidad con NVDA: de 2022.4 en adelante
 
@@ -352,6 +353,11 @@ táctil. Primero utiliza un toque con tres dedos para cambiar a modo SPL,
 entonces utiliza las órdenes táctiles listadas arriba para llevar a cabo
 tareas.
 
+## Versión 23.05
+
+* Para reflejar el cambio de responsable del mantenimiento, se ha
+  actualizado el manifiesto.
+
 ## Versión 23.02
 
 * Se requiere NVDA 2022.4 o posterior.
@@ -364,13 +370,14 @@ tareas.
 
 ## Versiones antiguas
 
-Por favor consulta el enlace changelog para notas de la versión para
+Por favor consulta el [registro de cambios][3] para notas de la versión para
 versiones antiguas del complemento.
+
 
 [[!tag dev stable]]
 
 [1]: https://www.nvaccess.org/addonStore/legacy?file=stationPlaylist
 
-[2]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
+[2]: https://github.com/chrisDuffley/stationplaylist/wiki/SPLAddonGuide
 
-[3]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
+[3]: https://github.com/ChrisDuffley/stationplaylist/wiki/splchangelog
