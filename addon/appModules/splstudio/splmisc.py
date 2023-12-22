@@ -800,7 +800,7 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 		self.transcriptFormat.SetSelection(0)
 
 		# Translators: one of the playlist transcript actions.
-		self.transcriptActions = [		_("view transcript")]
+		self.transcriptActions = [_("view transcript")]
 		# 22.03 (security): disable clipboard copying or file saving functions in secure mode.
 		if not globalVars.appArgs.secure:
 			# Translators: one of the playlist transcript actions.
