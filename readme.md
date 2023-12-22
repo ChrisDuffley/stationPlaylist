@@ -66,17 +66,17 @@ Important: some of these commands will not work if NVDA is running in secure mod
 
 ## Additional commands when using encoders
 
-The following commands are available when using encoders:
+The following commands are available when using encoders, and the ones used for toggling options for on-connection behavior such as focusing to Studio, playing the first track, and toggling of background monitoring can be assigned through the Input Gestures dialog in NVDA menu, Preferences, Input Gestures, under the StationPlaylist category:
 
 * F9: connect the selected encoder.
 * F10 (SAM encoder only): Disconnect the selected encoder.
 * Control+F9: Connect all encoders.
 * Control+F10 (SAM encoder only): Disconnect all encoders.
-* F11: Toggles whether NVDA will switch to Studio window for the selected encoder if connected.
+* Control+Shift+F11: Toggles whether NVDA will switch to Studio window for the selected encoder if connected.
 * Shift+F11: Toggles whether Studio will play the first selected track when encoder is connected to a streaming server.
 * Control+F11: Toggles background monitoring of the selected encoder.
 * Control+F12: opens a dialog to select the encoder you have deleted (to realign encoder labels and settings).
-* Alt+NVDA+0 and F12: Opens encoder settings dialog to configure options such as encoder label.
+* Alt+NVDA+0 or F12: Opens encoder settings dialog to configure options such as encoder label.
 
 In addition, column review commands are available, including:
 
@@ -201,6 +201,10 @@ You can save settings for specific shows into broadcast profiles. These profiles
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer with NVDA installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Version 24.01
+
+* The commands for the Encoder Settings dialog for use with the SPL and SAM Encoders are now assignable, meaning that you can change them from their defaults under the StationPlaylist category in NVDA Menu > Preferences > Input Gestures. The ones that are not assignable are the connect and disconnect commands. Also, to prevent command conflicts and make much easier use of this command on remote servers, the default gesture for switching to Studio after connecting is now Control+Shift+F11 (previously just F11). All of these can of course still be toggled from the Encoder Settings dialog (NVDA+Alt+0 or F12).
 
 ## Version 23.05
 
