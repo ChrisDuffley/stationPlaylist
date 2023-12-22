@@ -525,7 +525,8 @@ class Encoder(IAccessible):
 	@scriptHandler.script(
 		# Translators: Input help mode message for an encoder settings command.
 		description=_("Toggles whether NVDA will switch to Studio when connected to a streaming server."),
-		gesture="kb:f11"
+		category=_("StationPlaylist"),
+		gesture="kb:control+shift+f11"
 	)
 	def script_toggleFocusToStudio(self, gesture):
 		if not self.focusToStudio:
@@ -541,6 +542,7 @@ class Encoder(IAccessible):
 	@scriptHandler.script(
 		# Translators: Input help mode message for an encoder settings command.
 		description=_("Toggles whether Studio will play the first song when connected to a streaming server."),
+		category=_("StationPlaylist"),
 		gesture="kb:shift+f11"
 	)
 	def script_togglePlay(self, gesture):
@@ -557,6 +559,7 @@ class Encoder(IAccessible):
 	@scriptHandler.script(
 		# Translators: Input help mode message for an encoder settings command.
 		description=_("Toggles whether NVDA will monitor the selected encoder in the background."),
+		category=_("StationPlaylist"),
 		gesture="kb:control+f11"
 	)
 	def script_toggleBackgroundEncoderMonitor(self, gesture):
@@ -590,6 +593,7 @@ class Encoder(IAccessible):
 	@scriptHandler.script(
 		# Translators: Input help mode message for an encoder settings command.
 		description=_("Opens a dialog to erase encoder labels and settings from an encoder that was deleted."),
+		category=_("StationPlaylist"),
 		gesture="kb:control+f12"
 	)
 	def script_encoderLabelsSettingsEraser(self, gesture):
