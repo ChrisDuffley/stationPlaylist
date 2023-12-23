@@ -11,6 +11,7 @@ import scriptHandler
 import globalVars
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 from winUser import user32, sendMessage, OBJID_CLIENT, getWindowText
+import versionInfo
 import addonHandler
 addonHandler.initTranslation()
 
@@ -90,6 +91,10 @@ def processArgs(cliArgument: str) -> bool:
 # 22.03 (security): disable the global plugin altogether in secure mode.
 def disableInSecureMode(cls):
 	return globalPluginHandler.GlobalPlugin if globalVars.appArgs.secure else cls
+
+
+# Enable speak on demand mode for several global plugin commands.
+speakOnDemand = {"speakOnDemand": True} if versionInfo.version_year >= 2024 else {}
 
 
 @disableInSecureMode
