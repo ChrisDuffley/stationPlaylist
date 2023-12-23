@@ -40,6 +40,7 @@ from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent, sysList
 from NVDAObjects.behaviors import Dialog
 import textInfos
 import tones
+import versionInfo
 from . import splbase
 from . import splconfig
 from . import splconfui
@@ -109,6 +110,10 @@ _SPLCategoryTones = {
 	"Timed Break Note": 208,
 	"<Manual Intro>": 600,
 }
+
+
+# Enable speak on demand mode for several app module commands.
+speakOnDemand = {"speakOnDemand": True} if versionInfo.version_year >= 2024 else {}
 
 
 # Routines for track items themselves (prepare for future work).
