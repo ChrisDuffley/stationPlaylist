@@ -2210,9 +2210,10 @@ class AppModule(appModuleHandler.AppModule):
 		script = appModuleHandler.AppModule.getScript(self, gesture)
 		if not script:
 			script = self.script_error
-		return finally_(script, self.finish)
+		return finally_(script, self.script_finish)
 
-	def finish(self):
+	@scriptHandler.script(**speakOnDemand)
+	def script_finish(self):
 		self.SPLAssistant = False
 		self.clearGestureBindings()
 		self.bindGestures(self.__gestures)
@@ -2221,7 +2222,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_error(self, gesture):
 		tones.beep(120, 100)
-		self.finish()
+		self.script_finish()
 
 	# SPL Assistant flag.
 	SPLAssistant = False
