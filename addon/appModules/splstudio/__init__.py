@@ -159,7 +159,9 @@ class SPLTrackItem(sysListView32.ListItem):
 		),
 		# 19.02: script decorator can take in a list of gestures, thus take advantage of it.
 		gestures=[f"kb:control+nvda+{i}" for i in range(10)],
-		category=_("StationPlaylist"))
+		category=_("StationPlaylist"),
+		**speakOnDemand
+	)
 	def script_columnExplorer(self, gesture):
 		# Due to the below formula, columns explorer will be restricted to number commands.
 		columnPos = int(gesture.displayName.split("+")[-1])
