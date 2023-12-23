@@ -486,7 +486,9 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 			"and press three times to open a dialog to add, change or remove track comments"
 		),
 		gesture="kb:Alt+NVDA+C",
-		category=_("StationPlaylist"))
+		category=_("StationPlaylist"),
+		**speakOnDemand
+	)
 	def script_announceTrackComment(self, gesture):
 		scriptRepeatCount = scriptHandler.getLastScriptRepeatCount()
 		# 21.03/20.09.6-LTS: do not allow many track comment dialog instances from appearing.
