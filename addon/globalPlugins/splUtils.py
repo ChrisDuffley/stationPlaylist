@@ -129,9 +129,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		script = globalPluginHandler.GlobalPlugin.getScript(self, gesture)
 		if not script:
 			script = self.script_error
-		return finally_(script, self.finish)
+		return finally_(script, self.script_finish)
 
-	def finish(self):
+	@scriptHandler.script(**speakOnDemand)
+	def script_finish(self):
 		# 21.03/20.09.6-LTS: clear SPL window handle.
 		global SPLWin
 		SPLWin = 0
