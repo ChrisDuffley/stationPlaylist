@@ -1278,7 +1278,9 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Message comes from Foobar 2000 app module, part of NVDA Core.
 		description=translate("Reports the remaining time of the currently playing track, if any"),
-		gestures=["kb:control+alt+t", "ts(SPL):2finger_flickDown"])
+		gestures=["kb:control+alt+t", "ts(SPL):2finger_flickDown"],
+		**speakOnDemand
+	)
 	def script_sayRemainingTime(self, gesture):
 		if splbase.studioIsRunning():
 			self.announceTime(splbase.studioAPI(3, 105), offset=1)
@@ -1286,7 +1288,9 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Message comes from Foobar 2000 app module, part of NVDA Core.
 		description=translate("Reports the elapsed time of the currently playing track, if any"),
-		gesture="kb:alt+shift+t")
+		gesture="kb:alt+shift+t",
+		**speakOnDemand
+	)
 	def script_sayElapsedTime(self, gesture):
 		if splbase.studioIsRunning():
 			self.announceTime(splbase.studioAPI(0, 105))
@@ -1297,7 +1301,9 @@ class AppModule(appModuleHandler.AppModule):
 			"Announces broadcaster time. "
 			"If pressed twice, reports minutes and seconds left to top of the hour."
 		),
-		gestures=["kb:shift+nvda+f12", "ts(SPL):2finger_flickUp"])
+		gestures=["kb:shift+nvda+f12", "ts(SPL):2finger_flickUp"],
+		**speakOnDemand
+	)
 	def script_sayBroadcasterTime(self, gesture):
 		if not splbase.studioIsRunning():
 			return
@@ -1330,7 +1336,9 @@ class AppModule(appModuleHandler.AppModule):
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
-		description=_("Announces time including seconds."))
+		description=_("Announces time including seconds."),
+		**speakOnDemand
+	)
 	def script_sayCompleteTime(self, gesture):
 		if not splbase.studioIsRunning():
 			return
