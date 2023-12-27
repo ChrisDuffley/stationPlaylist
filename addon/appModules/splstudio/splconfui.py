@@ -61,7 +61,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 		)
 		self.profiles.Bind(wx.EVT_LISTBOX, self.onProfileSelection)
 		self.profiles.SetSelection(self.profileNames.index(self.activeProfile))
-		changeProfilesSizer.Add(self.profiles, proportion=1.0)
+		changeProfilesSizer.Add(self.profiles, proportion=1)
 		changeProfilesSizer.AddSpacer(gui.guiHelper.SPACE_BETWEEN_BUTTONS_VERTICAL)
 
 		# Borrowed directly from NVDA Core (credit: NV Access)
