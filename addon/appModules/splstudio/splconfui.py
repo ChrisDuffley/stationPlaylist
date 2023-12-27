@@ -61,7 +61,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 		)
 		self.profiles.Bind(wx.EVT_LISTBOX, self.onProfileSelection)
 		self.profiles.SetSelection(self.profileNames.index(self.activeProfile))
-		changeProfilesSizer.Add(self.profiles, proportion=1.0)
+		changeProfilesSizer.Add(self.profiles, proportion=1)
 		changeProfilesSizer.AddSpacer(gui.guiHelper.SPACE_BETWEEN_BUTTONS_VERTICAL)
 
 		# Borrowed directly from NVDA Core (credit: NV Access)
@@ -431,7 +431,7 @@ class TriggersDialog(wx.Dialog):
 
 
 # A collection of general settings for the add-on.
-class GeneralSettingsPanel(gui.SettingsPanel):
+class GeneralSettingsPanel(gui.settingsDialogs.SettingsPanel):
 	# Message comes from NVDA Core.
 	title = translate("General")
 
@@ -578,7 +578,7 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 
 
 # Various alarm settings (outro, intro, microphone).
-class AlarmsPanel(gui.SettingsPanel):
+class AlarmsPanel(gui.settingsDialogs.SettingsPanel):
 	# Translators: title of a panel to configure various alarms and related settings.
 	title = _("Alarms")
 
@@ -669,7 +669,7 @@ class AlarmsPanel(gui.SettingsPanel):
 
 # Playlist snapshot flags
 # For things such as checkboxes for average duration and top category count.
-class PlaylistSnapshotsPanel(gui.SettingsPanel):
+class PlaylistSnapshotsPanel(gui.settingsDialogs.SettingsPanel):
 	# Translators: title of a panel to configure playlist snapshot information.
 	title = _("Playlist snapshots")
 
@@ -868,7 +868,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		self.onCancel(None)
 
 
-class MetadataStreamingPanel(gui.SettingsPanel):
+class MetadataStreamingPanel(gui.settingsDialogs.SettingsPanel):
 	# Translators: title of a panel to configure metadata streaming status
 	# for DSP encoder and four additional URL's.
 	title = _("Metadata streaming")
@@ -928,7 +928,7 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 # Select which track columns should be announced and in which order.
 # 18.08: also serves as a base dialog for Playlist Transcripts/column selector setting.
 # #97 (19.04): converted into a base panel (to be flagged as "abstract" later).
-class ColumnAnnouncementsBasePanel(gui.SettingsPanel):
+class ColumnAnnouncementsBasePanel(gui.settingsDialogs.SettingsPanel):
 
 	def _onMakeSettingsBase(self, sHelper, includedColumnsLabel):
 		# Provides common user interface elements for column inclusion/order controls across settings panels
@@ -1090,7 +1090,7 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 # Configure which column will be announced when Control+NVDA+number row keys are pressed.
 # In 2018, the panel will house Columns Explorer buttons, but eventually
 # columns combo boxes should be part of main settings interface.
-class ColumnsExplorerPanel(gui.SettingsPanel):
+class ColumnsExplorerPanel(gui.settingsDialogs.SettingsPanel):
 	# Translators: title of a panel to configure columns explorer settings.
 	title = _("Columns explorer")
 
@@ -1228,7 +1228,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 
 # Say status panel.
 # Houses options such as announcing cart names.
-class SayStatusPanel(gui.SettingsPanel):
+class SayStatusPanel(gui.settingsDialogs.SettingsPanel):
 	# Translators: title of a panel to configure various status announcements such as announcing listener count.
 	title = _("Status announcements")
 
@@ -1268,7 +1268,7 @@ class SayStatusPanel(gui.SettingsPanel):
 
 # Advanced options
 # This panel houses advanced options such as using SPL Controller command to invoke SPL Assistant.
-class AdvancedOptionsPanel(gui.SettingsPanel):
+class AdvancedOptionsPanel(gui.settingsDialogs.SettingsPanel):
 	# Message comes from NVDA Core.
 	title = translate("Advanced")
 
@@ -1388,7 +1388,7 @@ class ResetDialog(wx.Dialog):
 
 
 # Reset panel.
-class ResetSettingsPanel(gui.SettingsPanel):
+class ResetSettingsPanel(gui.settingsDialogs.SettingsPanel):
 	# Translators: title of a panel to reset add-on settings.
 	title = _("Reset settings")
 

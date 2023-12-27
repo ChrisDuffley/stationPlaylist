@@ -40,6 +40,7 @@ from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent, sysList
 from NVDAObjects.behaviors import Dialog
 import textInfos
 import tones
+import versionInfo
 from . import splbase
 from . import splconfig
 from . import splconfui
@@ -111,6 +112,10 @@ _SPLCategoryTones = {
 }
 
 
+# Enable speak on demand mode for several app module commands.
+speakOnDemand = {"speakOnDemand": True} if versionInfo.version_year >= 2024 else {}
+
+
 # Routines for track items themselves (prepare for future work).
 # #65 (18.07): this base class represents trakc items
 # across StationPlaylist suites such as Studio, Creator and Track Tool.
@@ -154,7 +159,9 @@ class SPLTrackItem(sysListView32.ListItem):
 		),
 		# 19.02: script decorator can take in a list of gestures, thus take advantage of it.
 		gestures=[f"kb:control+nvda+{i}" for i in range(10)],
-		category=_("StationPlaylist"))
+		category=_("StationPlaylist"),
+		**speakOnDemand
+	)
 	def script_columnExplorer(self, gesture):
 		# Due to the below formula, columns explorer will be restricted to number commands.
 		columnPos = int(gesture.displayName.split("+")[-1])
@@ -479,7 +486,9 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 			"and press three times to open a dialog to add, change or remove track comments"
 		),
 		gesture="kb:Alt+NVDA+C",
-		category=_("StationPlaylist"))
+		category=_("StationPlaylist"),
+		**speakOnDemand
+	)
 	def script_announceTrackComment(self, gesture):
 		scriptRepeatCount = scriptHandler.getLastScriptRepeatCount()
 		# 21.03/20.09.6-LTS: do not allow many track comment dialog instances from appearing.
@@ -1273,7 +1282,9 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Message comes from Foobar 2000 app module, part of NVDA Core.
 		description=translate("Reports the remaining time of the currently playing track, if any"),
-		gestures=["kb:control+alt+t", "ts(SPL):2finger_flickDown"])
+		gestures=["kb:control+alt+t", "ts(SPL):2finger_flickDown"],
+		**speakOnDemand
+	)
 	def script_sayRemainingTime(self, gesture):
 		if splbase.studioIsRunning():
 			self.announceTime(splbase.studioAPI(3, 105), offset=1)
@@ -1281,7 +1292,9 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Message comes from Foobar 2000 app module, part of NVDA Core.
 		description=translate("Reports the elapsed time of the currently playing track, if any"),
-		gesture="kb:alt+shift+t")
+		gesture="kb:alt+shift+t",
+		**speakOnDemand
+	)
 	def script_sayElapsedTime(self, gesture):
 		if splbase.studioIsRunning():
 			self.announceTime(splbase.studioAPI(0, 105))
@@ -1292,7 +1305,9 @@ class AppModule(appModuleHandler.AppModule):
 			"Announces broadcaster time. "
 			"If pressed twice, reports minutes and seconds left to top of the hour."
 		),
-		gestures=["kb:shift+nvda+f12", "ts(SPL):2finger_flickUp"])
+		gestures=["kb:shift+nvda+f12", "ts(SPL):2finger_flickUp"],
+		**speakOnDemand
+	)
 	def script_sayBroadcasterTime(self, gesture):
 		if not splbase.studioIsRunning():
 			return
@@ -1325,7 +1340,9 @@ class AppModule(appModuleHandler.AppModule):
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
-		description=_("Announces time including seconds."))
+		description=_("Announces time including seconds."),
+		**speakOnDemand
+	)
 	def script_sayCompleteTime(self, gesture):
 		if not splbase.studioIsRunning():
 			return
@@ -2197,9 +2214,10 @@ class AppModule(appModuleHandler.AppModule):
 		script = appModuleHandler.AppModule.getScript(self, gesture)
 		if not script:
 			script = self.script_error
-		return finally_(script, self.finish)
+		return finally_(script, self.script_finish)
 
-	def finish(self):
+	@scriptHandler.script(**speakOnDemand)
+	def script_finish(self):
 		self.SPLAssistant = False
 		self.clearGestureBindings()
 		self.bindGestures(self.__gestures)
@@ -2208,7 +2226,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_error(self, gesture):
 		tones.beep(120, 100)
-		self.finish()
+		self.script_finish()
 
 	# SPL Assistant flag.
 	SPLAssistant = False
@@ -2219,8 +2237,8 @@ class AppModule(appModuleHandler.AppModule):
 		description=_(
 			# Translators: Input help mode message for a layer command in StationPlaylist add-on.
 			"The SPL Assistant layer command. "
-			"See the add-on guide for more information on available commands."
-		)
+			"See the add-on guide for more information on available commands.",
+		), **speakOnDemand
 	)
 	def script_SPLAssistantToggle(self, gesture):
 		# Enter the layer command if an only if we're in the track list to allow easier gesture assignment.
@@ -2228,7 +2246,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Also, do not bother if the app module is not running.
 		if scriptHandler.getLastScriptRepeatCount() > 0:
 			gesture.send()
-			self.finish()
+			self.script_finish()
 			return
 		try:
 			# 7.0: Don't bother if handle to Studio isn't found.
@@ -2393,10 +2411,12 @@ class AppModule(appModuleHandler.AppModule):
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
-		description=_("Announces title of the next track if any"))
+		description=_("Announces title of the next track if any"),
+		**speakOnDemand
+	)
 	def script_sayNextTrackTitle(self, gesture):
 		if not splbase.studioIsRunning():
-			self.finish()
+			self.script_finish()
 			return
 		try:
 			if not splbase.studioAPI(0, 39):
@@ -2417,14 +2437,16 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when next track information is unavailable.
 			ui.message(_("Cannot find next track information"))
 		finally:
-			self.finish()
+			self.script_finish()
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
-		description=_("Announces title of the currently playing track"))
+		description=_("Announces title of the currently playing track"),
+		**speakOnDemand
+	)
 	def script_sayCurrentTrackTitle(self, gesture):
 		if not splbase.studioIsRunning():
-			self.finish()
+			self.script_finish()
 			return
 		try:
 			if not splbase.studioAPI(0, 39):
@@ -2449,14 +2471,16 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when current track information is unavailable.
 			ui.message(_("Cannot find current track information"))
 		finally:
-			self.finish()
+			self.script_finish()
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
-		description=_("Announces temperature and weather information"))
+		description=_("Announces temperature and weather information"),
+		**speakOnDemand
+	)
 	def script_sayTemperature(self, gesture):
 		if not splbase.studioIsRunning():
-			self.finish()
+			self.script_finish()
 			return
 		try:
 			obj = self.status(self.SPLTemperature)
@@ -2466,7 +2490,7 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when temperature information cannot be found.
 			ui.message(_("Weather information not found"))
 		finally:
-			self.finish()
+			self.script_finish()
 
 	def script_sayUpTime(self, gesture):
 		obj = self.status(self.SPLSystemStatus).firstChild
@@ -2531,7 +2555,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Marks focused track as start marker for various playlist analysis commands"))
 	def script_markTrackForAnalysis(self, gesture):
-		self.finish()
+		self.script_finish()
 		if self._trackAnalysisAllowed():
 			focus = api.getFocusObject()
 			if scriptHandler.getLastScriptRepeatCount() == 0:
@@ -2545,9 +2569,11 @@ class AppModule(appModuleHandler.AppModule):
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
-		description=_("Announces total length of tracks between analysis start marker and the current track"))
+		description=_("Announces total length of tracks between analysis start marker and the current track"),
+		**speakOnDemand
+	)
 	def script_trackTimeAnalysis(self, gesture):
-		self.finish()
+		self.script_finish()
 		if self._trackAnalysisAllowed():
 			if self._analysisMarker is None:
 				# Translators: Presented when track time analysis cannot be used because start marker is not set.
@@ -2579,13 +2605,15 @@ class AppModule(appModuleHandler.AppModule):
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
-		description=_("Presents playlist snapshot information such as number of tracks and top artists"))
+		description=_("Presents playlist snapshot information such as number of tracks and top artists"),
+		**speakOnDemand
+	)
 	def script_takePlaylistSnapshots(self, gesture):
 		if not splbase.studioIsRunning():
-			self.finish()
+			self.script_finish()
 			return
 		if not self._trackAnalysisAllowed(mustSelectTrack=False):
-			self.finish()
+			self.script_finish()
 			return
 		obj = api.getFocusObject()
 		if obj.role == controlTypes.Role.LIST:
@@ -2597,7 +2625,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Never allow this to be invoked more than twice, as it causes
 		# performance degredation and multiple HTML windows are opened.
 		if scriptCount >= 2:
-			self.finish()
+			self.script_finish()
 			return
 		# #55 (18.04): partial playlist snapshots require start and end range.
 		# Analysis marker is an integer, so locate the correct track.
@@ -2611,14 +2639,14 @@ class AppModule(appModuleHandler.AppModule):
 			end = obj.parent.getChild(analysisEnd).next
 		# Speak and braille on the first press, display a decorated HTML message for subsequent presses.
 		self.playlistSnapshotOutput(self.playlistSnapshots(start, end), scriptCount)
-		self.finish()
+		self.script_finish()
 
 	def script_playlistTranscripts(self, gesture):
 		if not splbase.studioIsRunning():
-			self.finish()
+			self.script_finish()
 			return
 		if not self._trackAnalysisAllowed(mustSelectTrack=False):
-			self.finish()
+			self.script_finish()
 			return
 		obj = api.getFocusObject()
 		if obj.role == controlTypes.Role.LIST:
@@ -2632,7 +2660,7 @@ class AppModule(appModuleHandler.AppModule):
 			splmisc._plTranscriptsDialogOpened = True
 		except RuntimeError:
 			wx.CallAfter(splmisc.plTranscriptsDialogError)
-		self.finish()
+		self.script_finish()
 
 	def script_switchProfiles(self, gesture):
 		# #118 (20.02): do not allow profile switching while add-on settings screen is shown.

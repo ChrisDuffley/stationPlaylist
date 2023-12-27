@@ -11,6 +11,7 @@ import scriptHandler
 import globalVars
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 from winUser import user32, sendMessage, OBJID_CLIENT, getWindowText
+import versionInfo
 import addonHandler
 addonHandler.initTranslation()
 
@@ -92,6 +93,10 @@ def disableInSecureMode(cls):
 	return globalPluginHandler.GlobalPlugin if globalVars.appArgs.secure else cls
 
 
+# Enable speak on demand mode for several global plugin commands.
+speakOnDemand = {"speakOnDemand": True} if versionInfo.version_year >= 2024 else {}
+
+
 @disableInSecureMode
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
@@ -124,9 +129,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		script = globalPluginHandler.GlobalPlugin.getScript(self, gesture)
 		if not script:
 			script = self.script_error
-		return finally_(script, self.finish)
+		return finally_(script, self.script_finish)
 
-	def finish(self):
+	@scriptHandler.script(**speakOnDemand)
+	def script_finish(self):
 		# 21.03/20.09.6-LTS: clear SPL window handle.
 		global SPLWin
 		SPLWin = 0
@@ -167,7 +173,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# This layer set allows the user to control various aspects of SPL Studio from anywhere.
 	@scriptHandler.script(
 		# Translators: Input help mode message for a layer command in StationPlaylist add-on.
-		description=_("SPl Controller layer command. See add-on guide for available commands.")
+		description=_("SPl Controller layer command. See add-on guide for available commands."),
+		**speakOnDemand
 	)
 	def script_SPLControllerPrefix(self, gesture):
 		global SPLWin
@@ -179,7 +186,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			if not foregroundAppMod.SPLConPassthrough():
 				# Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
 				ui.message(_("You are already in SPL Studio window. For status commands, use SPL Assistant commands."))
-				self.finish()
+				self.script_finish()
 				return
 			else:
 				foregroundAppMod.script_SPLAssistantToggle(gesture)
@@ -188,7 +195,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if SPLWin == 0:
 			# Translators: Presented when StationPlaylist Studio is not running.
 			ui.message(_("SPL Studio is not running."))
-			self.finish()
+			self.script_finish()
 			return
 		# No errors, so continue.
 		if not self.SPLController:
@@ -214,49 +221,49 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			ui.message(_("SPL Controller"))
 		else:
 			self.script_error(gesture)
-			self.finish()
+			self.script_finish()
 
 	# The layer commands themselves. Calls user32.SendMessage method for each script.
 
 	def script_automateOn(self, gesture):
 		sendMessage(SPLWin, 1024, 1, SPLAutomate)
-		self.finish()
+		self.script_finish()
 
 	def script_automateOff(self, gesture):
 		sendMessage(SPLWin, 1024, 0, SPLAutomate)
-		self.finish()
+		self.script_finish()
 
 	def script_micOn(self, gesture):
 		sendMessage(SPLWin, 1024, 1, SPLMic)
-		self.finish()
+		self.script_finish()
 
 	def script_micOff(self, gesture):
 		sendMessage(SPLWin, 1024, 0, SPLMic)
-		self.finish()
+		self.script_finish()
 
 	def script_micNoFade(self, gesture):
 		sendMessage(SPLWin, 1024, 2, SPLMic)
-		self.finish()
+		self.script_finish()
 
 	def script_lineInOn(self, gesture):
 		sendMessage(SPLWin, 1024, 1, SPLLineIn)
-		self.finish()
+		self.script_finish()
 
 	def script_lineInOff(self, gesture):
 		sendMessage(SPLWin, 1024, 0, SPLLineIn)
-		self.finish()
+		self.script_finish()
 
 	def script_stopFade(self, gesture):
 		sendMessage(SPLWin, 1024, 0, SPLStop)
-		self.finish()
+		self.script_finish()
 
 	def script_stopInstant(self, gesture):
 		sendMessage(SPLWin, 1024, 1, SPLStop)
-		self.finish()
+		self.script_finish()
 
 	def script_play(self, gesture):
 		sendMessage(SPLWin, 1024, 0, SPLPlay)
-		self.finish()
+		self.script_finish()
 
 	def script_pause(self, gesture):
 		playingNow = sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus)
@@ -267,7 +274,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			sendMessage(SPLWin, 1024, 0, SPLPause)
 		else:
 			sendMessage(SPLWin, 1024, 1, SPLPause)
-		self.finish()
+		self.script_finish()
 
 	def script_libraryScanProgress(self, gesture):
 		scanned = sendMessage(SPLWin, 1024, 1, SPLLibraryScanCount)
@@ -282,7 +289,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				itemCount=sendMessage(SPLWin, 1024, 0, SPLLibraryScanCount)
 			)
 		ui.message(scanMessage)
-		self.finish()
+		self.script_finish()
 
 	def script_listenerCount(self, gesture):
 		ui.message(
@@ -291,7 +298,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				listenerCount=sendMessage(SPLWin, 1024, 0, SPLListenerCount)
 			)
 		)
-		self.finish()
+		self.script_finish()
 
 	def script_remainingTime(self, gesture):
 		remainingTime = sendMessage(SPLWin, 1024, 3, SPLCurTrackPlaybackTime)
@@ -316,18 +323,19 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					ui.message("{hh:02d}:{mm:02d}:{ss:02d}".format(hh=hh, mm=mm, ss=ss))
 				else:
 					ui.message("{mm:02d}:{ss:02d}".format(mm=mm, ss=ss))
-		self.finish()
+		self.script_finish()
 
 	@scriptHandler.script(
 		# Translators: Input help message for a SPL Controller command.
-		description=_("Announces stream encoder status from other programs")
+		description=_("Announces stream encoder status from other programs"),
+		**speakOnDemand
 	)
 	def script_encoderStatus(self, gesture):
 		# Go through below procedure, as custom commands can be assigned for this script.
 		SPLHwnd = user32.FindWindowW("SPLStudio", None)
 		if not SPLHwnd:
 			ui.message(_("SPL Studio is not running."))
-			self.finish()
+			self.script_finish()
 			return
 		# #98: ask SPL Engine app module for encoder connection status,
 		# which in turn will call the one found in encoders support module.
@@ -338,18 +346,19 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		except Exception:
 			# Translators: presented if encoder connection status cannot be obtained.
 			ui.message(_("Cannot obtain encoder connection status"))
-		self.finish()
+		self.script_finish()
 
 	@scriptHandler.script(
 		# Translators: Input help message for a SPL Controller command.
-		description=_("Announces Studio status such as track playback status from other programs")
+		description=_("Announces Studio status such as track playback status from other programs"),
+		**speakOnDemand
 	)
 	def script_statusInfo(self, gesture):
 		# Go through below procedure, as custom commands can be assigned for this script.
 		SPLHwnd = user32.FindWindowW("SPLStudio", None)
 		if not SPLHwnd:
 			ui.message(_("SPL Studio is not running."))
-			self.finish()
+			self.script_finish()
 			return
 		# Studio 5.20 and later allows fetching status bar info from anywhere via Studio API,
 		# including playback and automation status.
@@ -381,17 +390,17 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		else:
 			statusInfo.append("Cart Edit Off")
 		ui.message("; ".join(statusInfo))
-		self.finish()
+		self.script_finish()
 
 	def script_currentTrackTitle(self, gesture):
 		studioAppMod = getNVDAObjectFromEvent(user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0).appModule
 		studioAppMod.script_sayCurrentTrackTitle(None)
-		self.finish()
+		self.script_finish()
 
 	def script_nextTrackTitle(self, gesture):
 		studioAppMod = getNVDAObjectFromEvent(user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0).appModule
 		studioAppMod.script_sayNextTrackTitle(None)
-		self.finish()
+		self.script_finish()
 
 	def script_cartsWithoutBorders(self, gesture):
 		try:
@@ -405,12 +414,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		cart = self.cartKeys.index(cart) + 1
 		cart *= modifier
 		sendMessage(SPLWin, 1024, cart, SPLCartPlayer)
-		self.finish()
+		self.script_finish()
 
 	def script_conHelp(self, gesture):
 		# Translators: The title for SPL Controller help screen.
 		ui.browseableMessage(SPLConHelp, title=_("SPL Controller help"))
-		self.finish()
+		self.script_finish()
 
 	__SPLControllerGestures = {
 		"kb:p": "play",
