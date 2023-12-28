@@ -36,6 +36,14 @@ def indexOf(ttVersion: str) -> tuple[str, ...]:
 			"Tempo", "BPM", "Gender", "Rating", "Filename", "Client", "Other", "Intro Link", "Outro Link",
 			"ReplayGain", "Record Label", "ISRC", "Language", "Restrictions", "Exclude from Requests"
 		)
+	else:
+		return (
+			"Artist", "Title", "Duration", "Cue", "Overlap", "Intro", "Outro", "Segue", "Hook Start",
+			"Hook Len", "Year", "Album", "CD Code", "URL 1", "URL 2", "Genre", "Mood", "Energy",
+			"Tempo", "BPM", "Gender", "Rating", "Filename", "Client", "Other", "Track Date", "Intro Link",
+			"Outro Link", "ReplayGain", "Record Label", "ISRC", "Language", "Restrictions", "Exclude from Requests"
+		)
+
 
 
 class TrackToolItem(SPLTrackItem):
