@@ -29,7 +29,7 @@ def indexOf(ttVersion: str) -> tuple[str, ...]:
 			"Tempo", "BPM", "Gender", "Rating", "Filename", "Client", "Other", "Intro Link", "Outro Link",
 			"ReplayGain", "Record Label", "ISRC", "Language"
 		)
-	else:
+	elif ttVersion.startswith("6.0"):
 		return (
 			"Artist", "Title", "Duration", "Cue", "Overlap", "Intro", "Outro", "Segue", "Hook Start",
 			"Hook Len", "Year", "Album", "CD Code", "URL 1", "URL 2", "Genre", "Mood", "Energy",
