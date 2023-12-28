@@ -1,6 +1,6 @@
 # SPL Studio base services
 # An app module and global plugin package for NVDA
-# Copyright 2018-2023 Joseph Lee, released under GPL.
+# Copyright 2018-2024 Joseph Lee, released under GPL.
 
 # Base services for Studio app module and support modules
 

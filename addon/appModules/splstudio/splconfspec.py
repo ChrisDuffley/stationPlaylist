@@ -1,6 +1,6 @@
 # SPL Studio Configuration Specifications
 # An app module and global plugin package for NVDA
-# Copyright 2020-2023 Joseph Lee, released under GPL.
+# Copyright 2020-2024 Joseph Lee, released under GPL.
 # Provides configuration specifications (confspec) for SPL add-on settings.
 # Split from SPL config module in 2020.
 # Idea borrowed from NVDA Core's configspec module (credit: NV Access).
