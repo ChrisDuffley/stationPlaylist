@@ -205,6 +205,7 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 
 ## Version preview
 
+* Initial support for StationPlaylist suite 6.10.
 * Most commands support speak on demand (NVDA 2024.1) so announcements can be spoken in this mode.
 
 ## Version 24.01
