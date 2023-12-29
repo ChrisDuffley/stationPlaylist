@@ -7,8 +7,6 @@
 # Each track is a list item with descriptions such as title, file name, intro time and so forth.
 # One can press TAB to move along the controls for Track Tool.
 
-# #155 (21.03): remove __future__ import when NVDA runs under Python 3.10.
-from __future__ import annotations
 from typing import Optional
 import appModuleHandler
 import addonHandler
