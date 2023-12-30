@@ -6,7 +6,7 @@
 # For UI surrounding this module, see splconfui module.
 # For the add-on settings specification, see splconfspec module.
 
-from typing import Any, Union
+from typing import Any
 import os
 import pickle
 from collections import ChainMap
@@ -548,7 +548,7 @@ class ConfigHub(ChainMap):
 	# A crucial kwarg is contained, and if so, profile flags set will be returned.
 	def getProfileFlags(
 		self, name: str, active: str | None = None, instant: str | None = None, contained: bool = False
-	) -> Union[str, set[str]]:
+	) -> str | set[str]:
 		flags = set()
 		if active is None:
 			active = self.activeProfile
