@@ -31,7 +31,6 @@ addonHandler.initTranslation()
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 SPLProfiles = os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "profiles")
-SPLConfig: Optional[ConfigHub] = None
 # The following settings can be changed in profiles:
 _mutatableSettings = ("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
 # 7.0: Profile-specific confspec (might be removed once a more optimal way to validate sections is found).
@@ -637,6 +636,8 @@ class ConfigHub(ChainMap):
 		current = self.profileIndexByName(newProfile)
 		self.profiles[current], self.profiles[former] = self.profiles[former], self.profiles[current]
 
+
+SPLConfig: ConfigHub | None = None
 
 # Default config spec container.
 # To be moved to a different place in 8.0.
