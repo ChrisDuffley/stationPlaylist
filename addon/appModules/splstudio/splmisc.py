@@ -4,7 +4,7 @@
 # Miscellaneous functions and user interfaces
 # Split from config module in 2015.
 
-from typing import Any, Optional
+from typing import Any
 import weakref
 import os
 import threading
@@ -363,9 +363,9 @@ _cartEditTimestamps: list[float] = []
 # Carts dictionary is used if and only if refresh is on, as it'll modify live carts.
 def cartExplorerInit(
 	StudioTitle: str,
-	cartFiles: Optional[list[str]] = None,
+	cartFiles: list[str] | None = None,
 	refresh: bool = False,
-	carts: Optional[dict[str, Any]] = None,
+	carts: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
 	global _cartEditTimestamps
 	log.debug("SPL: refreshing Cart Explorer" if refresh else "preparing cart Explorer")
@@ -443,7 +443,7 @@ def cartExplorerRefresh(studioTitle: str, currentCarts: dict[str, Any]) -> dict[
 # Gather streaming flags into a list.
 # 18.04: raise runtime error if list is nothing
 # (thankfully the splbase's StudioAPI will return None if Studio handle is not found).
-def metadataList() -> list[Optional[int]]:
+def metadataList() -> list[int | None]:
 	metadata = [splbase.studioAPI(pos, 36) for pos in range(5)]
 	# 21.03/20.09.6-LTS: make sure None is not included in metadata list,
 	# otherwise it results in no metadata data for streams.
@@ -456,7 +456,7 @@ def metadataList() -> list[Optional[int]]:
 # Metadata server connector, to be utilized from many modules.
 # Servers refer to a list of connection flags to pass to Studio API,
 # and if not present, will be pulled from add-on settings.
-def metadataConnector(servers: Optional[list[bool]] = None) -> None:
+def metadataConnector(servers: list[bool] | None = None) -> None:
 	if servers is None:
 		from . import splconfig
 
@@ -510,7 +510,7 @@ def metadataStatus() -> str:
 
 
 # Handle a case where instant profile ssitch occurs twice within the switch time-out.
-_earlyMetadataAnnouncer: Optional[threading.Timer] = None
+_earlyMetadataAnnouncer: threading.Timer | None = None
 
 
 # Internal metadata status announcer.
@@ -627,7 +627,7 @@ def copyPlaylistTranscriptsToClipboard(playlistTranscripts: list[str]) -> None:
 
 
 def savePlaylistTranscriptsToFile(
-	playlistTranscripts: list[str], extension: str, location: Optional[str] = None
+	playlistTranscripts: list[str], extension: str, location: str | None = None
 ) -> None:
 	# 22.03 (security): do not save transcripts to files in secure mode.
 	if globalVars.appArgs.secure:

@@ -6,7 +6,7 @@
 # For UI surrounding this module, see splconfui module.
 # For the add-on settings specification, see splconfspec module.
 
-from typing import Optional, Any, Union
+from typing import Any, Union
 import os
 import pickle
 from collections import ChainMap
@@ -77,7 +77,7 @@ class ConfigHub(ChainMap):
 	The default value is None, which means Studio (splstudio.exe) app module opened this.
 	"""
 
-	def __init__(self, splComponent: Optional[str] = None) -> None:
+	def __init__(self, splComponent: str | None = None) -> None:
 		# Check SPL components to make sure malicious actors don't tamper with it.
 		if splComponent is None:
 			splComponent = "splstudio"
@@ -101,7 +101,7 @@ class ConfigHub(ChainMap):
 		if self.configInMemory:
 			self._normalProfileOnly = True
 		# For presentational purposes.
-		self.profileNames: list[Optional[str]] = []
+		self.profileNames: list[str | None] = []
 		# 17.10: if config will be stored on RAM, this step is skipped, resulting in faster startup.
 		# But data conversion must take place.
 		if not self.configInMemory:
@@ -143,7 +143,7 @@ class ConfigHub(ChainMap):
 			self.instantSwitch = self.profiles[0]["InstantProfile"]
 		else:
 			self.instantSwitch = None
-		self.prevProfile: Optional[str] = None
+		self.prevProfile: str | None = None
 		# A bit vector used to store profile switching flags.
 		self._switchProfileFlags: int = 0
 		# Switch history is a stack of previously activated profile(s), replacing prev profile flag from 7.x days.
@@ -189,7 +189,7 @@ class ConfigHub(ChainMap):
 		path: str,
 		profileName: str = "",
 		prefill: bool = False,
-		parent: Optional[dict[Any, Any]] = None,
+		parent: dict[Any, Any] | None = None,
 		validateNow: bool = False,
 	) -> ConfigObj:
 		# 21.03/20.09.6-LTS: profile name should be defined to help config status dictionary.
@@ -322,7 +322,7 @@ class ConfigHub(ChainMap):
 
 	# Create profile: public function to access the two private ones above (used when creating a new profile).
 	# Mechanics borrowed from NVDA Core's config.conf with modifications for this add-on.
-	def createProfile(self, path: str, name: str, parent: Optional[dict[Any, Any]] = None) -> None:
+	def createProfile(self, path: str, name: str, parent: dict[Any, Any] | None = None) -> None:
 		# 17.10: No, not when restrictions are applied.
 		# 22.03 (security): also covers secure mode.
 		if self.configRestricted:
@@ -548,7 +548,7 @@ class ConfigHub(ChainMap):
 	# Optional keyword arguments are to be added when called from dialogs such as add-on settings.
 	# A crucial kwarg is contained, and if so, profile flags set will be returned.
 	def getProfileFlags(
-		self, name: str, active: Optional[str] = None, instant: Optional[str] = None, contained: bool = False
+		self, name: str, active: str | None = None, instant: str | None = None, contained: bool = False
 	) -> Union[str, set[str]]:
 		flags = set()
 		if active is None:
@@ -570,7 +570,7 @@ class ConfigHub(ChainMap):
 	# This involves promoting and demoting normal profile.
 	# 17.10: this will never be invoked if only normal profile is in use
 	# or if config was loaded from memory alone.
-	def switchProfile(self, prevProfile: Optional[str], newProfile: str, switchFlags: int) -> None:
+	def switchProfile(self, prevProfile: str | None, newProfile: str, switchFlags: int) -> None:
 		if self.normalProfileOnly or self.configInMemory:
 			raise RuntimeError(
 				"Only normal profile is in use or config was loaded from memory, cannot switch profiles"
@@ -600,7 +600,7 @@ class ConfigHub(ChainMap):
 	# The only difference is the switch type, which will then set appropriate flag
 	# to be passed to switchProfile method above, with xor used to set the flags.
 	# 20.06: time-based profile flag is gone (only instant switch flag remains).
-	def switchProfileStart(self, prevProfile: Optional[str], newProfile: str, switchType: str) -> None:
+	def switchProfileStart(self, prevProfile: str | None, newProfile: str, switchType: str) -> None:
 		if switchType != "instant":
 			raise RuntimeError("Incorrect profile switch type specified")
 		if switchType == "instant" and self.instantSwitchProfileActive:
@@ -615,7 +615,7 @@ class ConfigHub(ChainMap):
 			switchFlags=self._switchProfileFlags ^ self._profileSwitchFlags[switchType],
 		)
 
-	def switchProfileEnd(self, prevProfile: Optional[str], newProfile: str, switchType: str) -> None:
+	def switchProfileEnd(self, prevProfile: str | None, newProfile: str, switchType: str) -> None:
 		if switchType != "instant":
 			raise RuntimeError("Incorrect profile switch type specified")
 		if switchType == "instant" and not self.instantSwitchProfileActive:
@@ -632,7 +632,7 @@ class ConfigHub(ChainMap):
 
 	# Used from config dialog and other places.
 	# Show switch index is used when deleting profiles so it doesn't have to look up index for old profiles.
-	def swapProfiles(self, prevProfile: Optional[str], newProfile: str) -> None:
+	def swapProfiles(self, prevProfile: str | None, newProfile: str) -> None:
 		former = self.profileIndexByName(prevProfile if prevProfile is not None else self.switchHistory[-1])
 		current = self.profileIndexByName(newProfile)
 		self.profiles[current], self.profiles[former] = self.profiles[former], self.profiles[current]
