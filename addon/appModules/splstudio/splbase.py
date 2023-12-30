@@ -4,7 +4,6 @@
 
 # Base services for Studio app module and support modules
 
-from typing import Optional
 import ui
 from winUser import sendMessage, user32
 from logHandler import log
@@ -13,7 +12,7 @@ import addonHandler
 addonHandler.initTranslation()
 
 # Cache the handle to main Studio window.
-_SPLWin: Optional[int] = None
+_SPLWin: int | None = None
 
 
 # Check if Studio itself is running.
@@ -40,7 +39,7 @@ def studioIsRunning(justChecking: bool = False) -> bool:
 # 18.05: strengthen this by checking for the handle once more.
 # #92 (19.03): SendMessage function returns something from anything (including from dead window handles),
 # so really make sure Studio window handle is alive.
-def studioAPI(arg: int, command: int) -> Optional[int]:
+def studioAPI(arg: int, command: int) -> int | None:
 	if not studioIsRunning(justChecking=True):
 		return None
 	log.debug(f"SPL: Studio API wParem is {arg}, lParem is {command}")
