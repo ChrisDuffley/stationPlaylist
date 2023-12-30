@@ -4,7 +4,7 @@
 
 # Basic support for StationPlaylist Creator.
 
-from typing import Any, Optional
+from typing import Any
 import appModuleHandler
 import addonHandler
 import scriptHandler
@@ -86,7 +86,7 @@ def indexOf(creatorVersion: str) -> tuple[str, ...]:
 class SPLCreatorItem(SPLTrackItem):
 	"""An entry in SPL Creator (mostly tracks)."""
 
-	def indexOf(self, header: str) -> Optional[int]:
+	def indexOf(self, header: str) -> int | None:
 		# 22.03: Creator 6 renamed Date Restriction column to Restrictions.
 		if self.appModule.productVersion >= "6.0" and header == "Date Restriction":
 			header = "Restrictions"
