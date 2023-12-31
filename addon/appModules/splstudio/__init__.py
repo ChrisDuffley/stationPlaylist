@@ -884,31 +884,35 @@ class AppModule(appModuleHandler.AppModule):
 		nextHandler()
 
 	def event_NVDAObject_init(self, obj):
-		# From 0.01: previously focused item fires focus event when it shouldn't.
-		if (
-			obj.windowClassName == "TListView"
-			and obj.role in (controlTypes.Role.CHECKBOX, controlTypes.Role.LISTITEM)
-			and controlTypes.State.FOCUSED not in obj.states
-		):
-			obj.shouldAllowIAccessibleFocusEvent = False
-		# Radio button group names are not recognized as grouping, so work around this.
-		elif obj.windowClassName == "TRadioGroup":
-			obj.role = controlTypes.Role.GROUPING
-		# In certain edit fields and combo boxes, the field name is written to the screen,
-		# and there's no way to fetch the object for this text.
-		# Thus use review position text.
-		elif obj.windowClassName in ("TEdit", "TComboBox") and not obj.name:
-			import review
+		# Employ structural pattern matching to handle different window class names.
+		match obj.windowClassName:
+			case "TListView":
+				# From 0.01: previously focused item fires focus event when it shouldn't.
+				if (
+					obj.role in (controlTypes.Role.CHECKBOX, controlTypes.Role.LISTITEM)
+					and controlTypes.State.FOCUSED not in obj.states
+				):
+					obj.shouldAllowIAccessibleFocusEvent = False
+			case "TRadioGroup":
+				# Radio button group names are not recognized as grouping, so work around this.
+				obj.role = controlTypes.Role.GROUPING
+			case "TEdit" | "TComboBox":
+				# In certain edit fields and combo boxes, the field name is written to the screen,
+				# and there's no way to fetch the object for this text.
+				# Thus use review position text.
+				if not obj.name:
+					import review
 
-			fieldName, fieldObj = review.getScreenPosition(obj)
-			fieldName.expand(textInfos.UNIT_LINE)
-			if obj.windowClassName == "TComboBox":
-				obj.name = fieldName.text.replace(obj.windowText, "")
-			else:
-				obj.name = fieldName.text
-		# Status bar labels are not found in Studio 6 but is written to the screen.
-		elif obj.windowClassName == "TStatusBar" and obj.name is None:
-			obj.name = obj.displayText
+					fieldName, fieldObj = review.getScreenPosition(obj)
+					fieldName.expand(textInfos.UNIT_LINE)
+					if obj.windowClassName == "TComboBox":
+						obj.name = fieldName.text.replace(obj.windowText, "")
+					else:
+						obj.name = fieldName.text
+			case "TStatusBar":
+				# Status bar labels are not found in Studio 6 but is written to the screen.
+				if obj.name is None:
+					obj.name = obj.displayText
 
 	# Some controls which needs special routines.
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
@@ -917,27 +921,29 @@ class AppModule(appModuleHandler.AppModule):
 			windowStyle = obj.windowStyle
 		except AttributeError:
 			windowStyle = 0
-		if obj.windowClassName == "TTntListView.UnicodeClass":
-			if role == controlTypes.Role.LISTITEM:
-				# Track item window style has changed in Studio 5.31.
-				trackItemWindowStyle = 1443991617
-				if abs(windowStyle - trackItemWindowStyle) % 0x100000 == 0:
-					clsList.insert(0, StudioPlaylistViewerItem)
-				else:
-					clsList.insert(0, SPLStudioTrackItem)
-			# #69 (18.08): allow actual list views to be treated as SysListView32.List
-			# so column count and other data can be retrieved easily.
-			elif role == controlTypes.Role.LIST:
-				clsList.insert(0, sysListView32.List)
-		# 7.2: Recognize known dialogs.
-		elif obj.windowClassName in ("TDemoRegForm", "TOpenPlaylist"):
-			clsList.insert(0, Dialog)
-		# For Studio's About dialog to reverse dialog content traversal.
-		elif obj.windowClassName == "TAboutForm":
-			clsList.insert(0, ReversedDialog)
-		# Temporary cue time picker and friends.
-		elif obj.windowClassName == "TDateTimePicker":
-			clsList.insert(0, SPLTimePicker)
+		# Use structural pattern matching to detect overlay classes.
+		match obj.windowClassName:
+			case "TTntListView.UnicodeClass":
+				if role == controlTypes.Role.LISTITEM:
+					# Track item window style has changed in Studio 5.31.
+					trackItemWindowStyle = 1443991617
+					if abs(windowStyle - trackItemWindowStyle) % 0x100000 == 0:
+						clsList.insert(0, StudioPlaylistViewerItem)
+					else:
+						clsList.insert(0, SPLStudioTrackItem)
+				# #69 (18.08): allow actual list views to be treated as SysListView32.List
+				# so column count and other data can be retrieved easily.
+				elif role == controlTypes.Role.LIST:
+					clsList.insert(0, sysListView32.List)
+			# 7.2: Recognize known dialogs.
+			case "TDemoRegForm" | "TOpenPlaylist":
+				clsList.insert(0, Dialog)
+			# For Studio's About dialog to reverse dialog content traversal.
+			case "TAboutForm":
+				clsList.insert(0, ReversedDialog)
+			# Temporary cue time picker and friends.
+			case "TDateTimePicker":
+				clsList.insert(0, SPLTimePicker)
 
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
