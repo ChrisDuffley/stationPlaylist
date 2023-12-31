@@ -1530,15 +1530,17 @@ class AppModule(appModuleHandler.AppModule):
 			return False
 		playlistErrors = self.canPerformPlaylistCommands(announceErrors=False)
 		if playlistErrors == self.SPLPlaylistNotFocused:
-			if attemptLevel == 0:
-				# Translators: Presented when a user attempts to find tracks but is not at the track list.
-				ui.message(_("Track finder is available only in track list."))
-			elif attemptLevel == 1:
-				# Translators: Presented when a user attempts to find tracks but is not at the track list.
-				ui.message(_("Column search is available only in track list."))
-			elif attemptLevel == 2:
-				# Translators: Presented when a user attempts to find tracks but is not at the track list.
-				ui.message(_("Time range finder is available only in track list."))
+			# Different responses based on structural pattern matching results.
+			match attemptLevel:
+				case 0:
+					# Translators: Presented when a user attempts to find tracks but is not at the track list.
+					ui.message(_("Track finder is available only in track list."))
+				case 1:
+					# Translators: Presented when a user attempts to find tracks but is not at the track list.
+					ui.message(_("Column search is available only in track list."))
+				case 2:
+					# Translators: Presented when a user attempts to find tracks but is not at the track list.
+					ui.message(_("Time range finder is available only in track list."))
 			return False
 		# 17.06/15.8-LTS: use Studio API to find out if a playlist is even loaded,
 		# otherwise Track Finder will fail to notice a playlist.
