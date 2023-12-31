@@ -1991,22 +1991,20 @@ class AppModule(appModuleHandler.AppModule):
 		if not splbase.studioIsRunning():
 			return False
 		# #81 (18.12): just return result of consulting playlist dispatch along with error messages if any.
-		playlistErrors = self.canPerformPlaylistCommands(
-			mustSelectTrack=mustSelectTrack, announceErrors=False
-		)
-		if playlistErrors == self.SPLPlaylistNotFocused:
-			# Translators: Presented when playlist analyzer cannot be performed
-			# because user is not focused on playlist viewer.
-			ui.message(_("Not in playlist viewer, cannot perform playlist analysis."))
-			return False
-		elif playlistErrors == self.SPLPlaylistNotLoaded:
-			# Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
-			ui.message(_("No playlist to analyze."))
-			return False
-		elif playlistErrors == self.SPLPlaylistLastFocusUnknown:
-			# Translators: Presented when playlist analysis cannot be activated.
-			ui.message(_("No tracks are selected, cannot perform playlist analysis."))
-			return False
+		match self.canPerformPlaylistCommands(mustSelectTrack=mustSelectTrack, announceErrors=False):
+			case self.SPLPlaylistNotFocused:
+				# Translators: Presented when playlist analyzer cannot be performed
+				# because user is not focused on playlist viewer.
+				ui.message(_("Not in playlist viewer, cannot perform playlist analysis."))
+				return False
+			case self.SPLPlaylistNotLoaded:
+				# Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
+				ui.message(_("No playlist to analyze."))
+				return False
+			case self.SPLPlaylistLastFocusUnknown:
+				# Translators: Presented when playlist analysis cannot be activated.
+				ui.message(_("No tracks are selected, cannot perform playlist analysis."))
+				return False
 		return True
 
 	# Return total duration of a range of tracks.
