@@ -120,8 +120,8 @@ The following commands are available when using encoders:
 * F10 (SAM encoder only): Disconnect the selected encoder.
 * Control+F9: Connect all encoders.
 * Control+F10 (SAM encoder only): Disconnect all encoders.
-* F11: activează sau dezactivează dacă NVDA va comuta la fereastra Studio
-  pentru encoderul selectat dacă este conectat.
+* Control+Shift+F11: Toggles whether NVDA will switch to Studio window for
+  the selected encoder if connected.
 * Shift+F11: Activează sau dezactivează dacă Studio va reda prima piesă
   selectată atunci când encoderul este conectat la un server stream.
 * Control+F11: Activează sau dezactivează monitorizarea fundalului la
@@ -322,6 +322,18 @@ can perform some Studio commands from the touchscreen. First use three
 finger tap to switch to SPL mode, then use the touch commands listed above
 to perform commands.
 
+## Version 24.01
+
+* The commands for the Encoder Settings dialog for use with the SPL and SAM
+  Encoders are now assignable, meaning that you can change them from their
+  defaults under the StationPlaylist category in NVDA Menu > Preferences >
+  Input Gestures. The ones that are not assignable are the connect and
+  disconnect commands. Also, to prevent command conflicts and make much
+  easier use of this command on remote servers, the default gesture for
+  switching to Studio after connecting is now Control+Shift+F11 (previously
+  just F11). All of these can of course still be toggled from the Encoder
+  Settings dialog (NVDA+Alt+0 or F12).
+
 ## Version 23.05
 
 * To reflect the maintainer change, the manifest has been updated to
@@ -338,7 +350,6 @@ to perform commands.
 ## Distribuții mai vechi
 
 Please see the [changelog][3] for release notes for old add-on releases.
-
 
 [[!tag dev stable]]
 

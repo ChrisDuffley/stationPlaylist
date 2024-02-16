@@ -111,8 +111,8 @@ Dostupné sú tieto príkazy:
 * F10 (SAM encoder): Odpojí zvolený stream.
 * Ctrl+F9: Pripojiť všetky streami.
 * Ctrl+F10 (len SAM encoder): odpojí všetky streami.
-* F11: Aktivuje a deaktivuje automatické prepnutie do okna Studio po
-  pripojení.
+* Control+Shift+F11: Toggles whether NVDA will switch to Studio window for
+  the selected encoder if connected.
 * Shift+F11: určuje, či sa automaticky prehrá prvá vybratá skladba po
   pripojení na server.
 * Ctrl+F11: Zapína a vypína monitorovanie vybratého pripojenia na pozadí.
@@ -298,6 +298,18 @@ can perform some Studio commands from the touchscreen. First use three
 finger tap to switch to SPL mode, then use the touch commands listed above
 to perform commands.
 
+## Version 24.01
+
+* The commands for the Encoder Settings dialog for use with the SPL and SAM
+  Encoders are now assignable, meaning that you can change them from their
+  defaults under the StationPlaylist category in NVDA Menu > Preferences >
+  Input Gestures. The ones that are not assignable are the connect and
+  disconnect commands. Also, to prevent command conflicts and make much
+  easier use of this command on remote servers, the default gesture for
+  switching to Studio after connecting is now Control+Shift+F11 (previously
+  just F11). All of these can of course still be toggled from the Encoder
+  Settings dialog (NVDA+Alt+0 or F12).
+
 ## Version 23.05
 
 * To reflect the maintainer change, the manifest has been updated to
@@ -314,7 +326,6 @@ to perform commands.
 ## Staršie verzie
 
 Please see the [changelog][3] for release notes for old add-on releases.
-
 
 [[!tag dev stable]]
 
