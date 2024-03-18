@@ -137,8 +137,8 @@ Folgende Befehle stehen zur Verfügung, wenn Sie Encoder verwenden:
 * F10 (nur gleicher Encoder): Trennt den ausgewählten Encoder.
 * Strg+F9: Verbindet alle Encoder.
 * Strg+F10 (nur SAM-Encoder): Alle Encoder trennen.
-* F11: legt fest, ob NVDA zum Studio-Fenster für den ausgewählten Encoder
-  wechseln soll, wenn dieser angeschlossen ist.
+* Control+Shift+F11: Toggles whether NVDA will switch to Studio window for
+  the selected encoder if connected.
 * Shift+F11: legt fest, ob Studio den ersten ausgewählten Titel abspielen
   soll, wenn der Encoder an einen Streaming-Server angeschlossen ist.
 * Control+F11: Schaltet die Hintergrundüberwachnung des ausgewählten
@@ -354,6 +354,18 @@ ausführen. Wechseln Sie zunächst mit drei Fingern in den SPL-Modus und
 verwenden Sie dann die oben aufgeführten Touch-Befehle, um Befehle
 auszuführen.
 
+## Version 24.01
+
+* The commands for the Encoder Settings dialog for use with the SPL and SAM
+  Encoders are now assignable, meaning that you can change them from their
+  defaults under the StationPlaylist category in NVDA Menu > Preferences >
+  Input Gestures. The ones that are not assignable are the connect and
+  disconnect commands. Also, to prevent command conflicts and make much
+  easier use of this command on remote servers, the default gesture for
+  switching to Studio after connecting is now Control+Shift+F11 (previously
+  just F11). All of these can of course still be toggled from the Encoder
+  Settings dialog (NVDA+Alt+0 or F12).
+
 ## Version 23.05
 
 * To reflect the maintainer change, the manifest has been updated to
@@ -372,7 +384,6 @@ auszuführen.
 ## Ältere Versionen
 
 Please see the [changelog][3] for release notes for old add-on releases.
-
 
 [[!tag dev stable]]
 

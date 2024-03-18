@@ -124,8 +124,8 @@ Tijekom korištenja kodera dostupne su sljedeće naredbe:
 * F10 (samo SAM koder): Odspoji odabrani koder.
 * Kontrol+F9: Spoji sve kodere.
 * Kontrol+F10 (samo SAM koder): Odspoji sve kodere.
-* F11: Prekidač za mijenjanje NVDA čitača na prozor programa Studio za
-  odabrani koder, ako je povezan.
+* Control+Shift+F11: Toggles whether NVDA will switch to Studio window for
+  the selected encoder if connected.
 * Šift+F11: U programu Studio uključuje i isključuje sviranje prve odabrane
   snimke kad je koder povezan s poslužiteljem za internetski prijenos.
 * Kontrol+F11: Uključuje i isključuje praćenje odabranog kodera u pozadini.
@@ -328,6 +328,18 @@ instaliranim NVDA čitačem, neke Studio naredbe možeš izvršiti na ekranu
 osjetljivim na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri
 prsta. Zatim koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
+## Version 24.01
+
+* The commands for the Encoder Settings dialog for use with the SPL and SAM
+  Encoders are now assignable, meaning that you can change them from their
+  defaults under the StationPlaylist category in NVDA Menu > Preferences >
+  Input Gestures. The ones that are not assignable are the connect and
+  disconnect commands. Also, to prevent command conflicts and make much
+  easier use of this command on remote servers, the default gesture for
+  switching to Studio after connecting is now Control+Shift+F11 (previously
+  just F11). All of these can of course still be toggled from the Encoder
+  Settings dialog (NVDA+Alt+0 or F12).
+
 ## Version 23.05
 
 * To reflect the maintainer change, the manifest has been updated to
@@ -346,7 +358,6 @@ prsta. Zatim koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 ## Starija izdanja
 
 Please see the [changelog][3] for release notes for old add-on releases.
-
 
 [[!tag dev stable]]
 

@@ -132,8 +132,8 @@ Os seguintes comandos estão disponíveis ao usar codificadores — encoders:
 * F10 (somente codificador SAM): Desconecte o codificador selecionado.
 * Control+F9: Conecte todos os codificadores.
 * Control+F10 (somente codificador SAM): Desconecte todos os codificadores.
-* F11: Alterna se o NVDA mudará para a janela do Studio para o codificador
-  selecionado se conectado.
+* Control+Shift+F11: Toggles whether NVDA will switch to Studio window for
+  the selected encoder if connected.
 * Shift+F11: Define se o Studio reproduzirá a primeira faixa selecionada
   quando o codificador estiver conectado a um servidor de fluxo — streaming.
 * Control+F11: Alterna o monitoramento em segundo plano do codificador
@@ -348,6 +348,18 @@ can perform some Studio commands from the touchscreen. First use three
 finger tap to switch to SPL mode, then use the touch commands listed above
 to perform commands.
 
+## Version 24.01
+
+* The commands for the Encoder Settings dialog for use with the SPL and SAM
+  Encoders are now assignable, meaning that you can change them from their
+  defaults under the StationPlaylist category in NVDA Menu > Preferences >
+  Input Gestures. The ones that are not assignable are the connect and
+  disconnect commands. Also, to prevent command conflicts and make much
+  easier use of this command on remote servers, the default gesture for
+  switching to Studio after connecting is now Control+Shift+F11 (previously
+  just F11). All of these can of course still be toggled from the Encoder
+  Settings dialog (NVDA+Alt+0 or F12).
+
 ## Version 23.05
 
 * To reflect the maintainer change, the manifest has been updated to
@@ -364,7 +376,6 @@ to perform commands.
 ## Versões mais antigas
 
 Please see the [changelog][3] for release notes for old add-on releases.
-
 
 [[!tag dev stable]]
 
