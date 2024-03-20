@@ -2,7 +2,7 @@
 
 * Authors: Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)
 * Download [stable version][1]
-* NVDA compatibility: 2022.4 and later
+* NVDA compatibility: 2023.3.3 and later
 
 This add-on package provides improved usage of StationPlaylist Studio and other StationPlaylist apps, as well as providing utilities to control Studio from anywhere. Supported apps include Studio, Creator, Track Tool, VT Recorder, and Streamer, as well as SAM, SPL, and AltaCast encoders.
 
@@ -21,8 +21,8 @@ IMPORTANT NOTES:
 
 Most of these will work in Studio only unless otherwise specified. Unless noted otherwise, these commands support speak on demand mode.
 
-* Alt+Shift+T from Studio window: announce elapsed time for the currently playing trakc.
-* Control+Alt+T (two finger flick down in SPL touch mode) from Studio window: announce remaining time for the currently playing trakc.
+* Alt+Shift+T from Studio window: announce elapsed time for the currently playing track.
+* Control+Alt+T (two finger flick down in SPL touch mode) from Studio window: announce remaining time for the currently playing track.
 * NVDA+Shift+F12 (two finger flick up in SPL touch mode) from Studio window: announces broadcaster time such as 5 minutes to top of the hour. Pressing this command twice will announce minutes and seconds till top of the hour.
 * Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens alarms category in Studio add-on configuration dialog (does not support speak on demand).
 * Alt+NVDA+1 from Creator's Playlist Editor and Remote VT playlist editor: Announces scheduled time for the loaded playlist.
@@ -203,9 +203,11 @@ You can save settings for specific shows into broadcast profiles. These profiles
 
 If you are using Studio on a touchscreen computer with NVDA installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
-## Version preview
+## Version 24.03
 
-* Initial support for StationPlaylist suite 6.10.
+* Compatible with NVDA 2024.1.
+* NVDA 2023.3.3 or later is required.
+* Support for StationPlaylist suite 6.10.
 * Most commands support speak on demand (NVDA 2024.1) so announcements can be spoken in this mode.
 
 ## Version 24.01
