@@ -134,8 +134,8 @@ Las siguientes órdenes  están disponibles al utilizar los codificadores:
 * F10 (sólo codificador SAM): Desconecta el codificador seleccionado.
 * Control+f9: conecta todos los codificadores.
 * Control+F10 (sólo codificador SAM): Desconecta todos los codificadores.
-* F11: Activa o desactiva si NVDA cambiará a la ventana Studio para el
-  codificador seleccionador si está conectado.
+* Control+shift+F11: Activa o desactiva si NVDA cambiará a la ventana Studio
+  para el codificador seleccionado si está conectado.
 * Shift+F11: conmuta si Studio reproducirá la primera pista seleccionada
   cuando el codificador esté conectado a un servidor de streaming.
 * Control+F11: Conmuta el monitoreo de fondo del codificador seleccionado.
@@ -353,6 +353,19 @@ táctil. Primero utiliza un toque con tres dedos para cambiar a modo SPL,
 entonces utiliza las órdenes táctiles listadas arriba para llevar a cabo
 tareas.
 
+## Versión 24.01
+
+* Las órdenes del diálogo de opciones del codificador para usar con los
+  codificadores SAM y SPL son ahora asignables, lo que significa que puedes
+  cambiarlos desde sus valores por defecto en la categoría StationPlaylist
+  en el menú NVDA > Preferencias > Gestos de entrada. Los únicos gestos que
+  no son asignables son los de conectar y desconectar. Además, para evitar
+  conflictos de atajos y facilitar mucho más el uso de esta orden en
+  servidores remotos, el gesto por defecto para pasar a Studio tras conectar
+  es ahora control+shift+f11 (antes sólo f11). Todos estos se pueden
+  conmutar desde el diálogo de opciones del codificador, (NVDA+alt+0 o f12),
+  por supuesto.
+
 ## Versión 23.05
 
 * Para reflejar el cambio de responsable del mantenimiento, se ha
@@ -372,7 +385,6 @@ tareas.
 
 Por favor consulta el [registro de cambios][3] para notas de la versión para
 versiones antiguas del complemento.
-
 
 [[!tag dev stable]]
 

@@ -72,7 +72,7 @@ contraire.
   précédente/suivante.
 * Contrôle+Alt+flèche haut/bas (si une piste est en focus  dans Studio,
   Creator, Remote VT, ou Track Tool): aller à la piste précédente ou
-  suivante et annoncer des colonnes spécifiques
+  suivante et annoncer des colonnes spécifiques.
 * Contrôle+NVDA+1 à 0 (si une piste est en focus dans Studio, Creator (y
   compris Playlist Editor), Remote VT et Track Tool) : annonce le contenu de
   la colonne pour une colonne spécifiée (les dix premières colonnes par
@@ -118,7 +118,7 @@ s'exécute en mode sécurisé, tel que à partir de l'écran de connexion.
 * Annonçant le titre de la piste en cours de lecture.
 * Marquage de piste en cours pour le début de l'analyse de durée de piste.
 * Effectuer des analyses de durée de piste.
-* Prendre des instantanés de playlist
+* Prendre des instantanés de playlist.
 * Recherche de texte dans des colonnes spécifiques.
 * Trouver des piste avec une durée qui se situe dans un intervalle donné via
   la recherche de l'intervalle de temps.
@@ -133,8 +133,8 @@ encodeurs:
 * F10 (encodeur SAM uniquement) : Déconnectez l'encodeur sélectionné.
 * Contrôle+F9 : Connecte tous les encodeurs.
 * Contrôle+F10 (encodeur SAM uniquement) : Déconnecter tous les encodeurs.
-* F11 : Détermine si NVDA bascule vers la fenêtre Studio pour l'encodeur
-  sélectionné  si connecté.
+* Ctrl+Maj+F11 : Détermine si NVDA bascule vers la fenêtre Studio pour
+  l'encodeur sélectionné  si connecté.
 * Maj+F11: Détermine si Studio lit la première piste sélectionnée lorsque
   l'encodeur est connecté à un serveur de streaming.
 * Contrôle+F11 : Active ou désactive le contrôle en arrière-plan de
@@ -356,6 +356,20 @@ NVDA installé, vous pouvez exécuter certaines commandes Studio depuis un
 en mode SPL, puis utilisez les commandes tactile énumérées ci-dessus pour
 exécuter des commandes.
 
+## Version 24.01
+
+* Les commandes du dialogue Paramètres de l'encodeur à utiliser avec les
+  encodeurs SPL et SAM sont désormais assignables, ce qui signifie que vous
+  pouvez les modifier par rapport à leurs valeurs par défaut dans la
+  catégorie StationPlaylist dans Menu NVDA > Préférences > Gestes de
+  commandes. Celles qui ne sont pas attribuables sont les commandes de
+  connexion et de déconnexion. De plus, pour éviter les conflits de
+  commandes et faciliter l'utilisation de cette commande sur les serveurs
+  distants, le geste par défaut pour passer à Studio après la connexion est
+  désormais Ctrl+Maj+F11 (auparavant uniquement F11). Tous ces éléments
+  peuvent bien sûr toujours être activés à partir du dialogue Paramètres de
+  l'encodeur (NVDA+Alt+0 ou F12).
+
 ## Version 23.05
 
 * Pour refléter le changement du mainteneur, le manifeste a été mis à jour
@@ -370,13 +384,12 @@ exécuter des commandes.
   en-têtes de colonne tels que l'artiste et le titre si le paramètre
   d'en-têtes des tableaux est défini sur En-têtes "Lignes et colonnes" ou
   "Colonnes" dans le panneau Mise en Forme des Documents dans les Paramètres
-  de NVDA
+  de NVDA.
 
 ## Anciennes versions
 
 S'il vous plaît voir le [changelog][3] pour les notes de version  pour les
 anciennes versions de l'extension.
-
 
 [[!tag dev stable]]
 
