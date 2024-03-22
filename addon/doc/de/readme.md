@@ -1,9 +1,10 @@
 # StationPlaylist #
+
 * Authors: Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee
   <joseph.lee22590@gmail.com>, originally by Geoff Shang and other
   contributors)
 * [Stabile Version herunterladen][1]
-* NVDA-Kompatibilität: 2022.4 und neuer
+* NVDA compatibility: 2023.3.3 and later
 
 Dieses Zusatzpaket bietet eine verbesserte Nutzung von StationPlaylist
 Studio und anderen StationPlaylist-Anwendungen sowie Dienstprogramme zur
@@ -32,69 +33,70 @@ WICHTIGE HINWEISE:
   dreimal drücken. Dies gilt auch für die Encoder-Einstellungen - Sie können
   Encoder-Einstellungen speichern und zurücksetzen (nicht neu laden), wenn
   Sie Encoder verwenden.
+* Many commands will provide speech output while NVDA is in speak on demand
+  mode (NVDA 2024.1 and later).
 
 ## Tastenkürzel
 
-Die meisten davon funktionieren nur in Studio, sofern nicht anders
-angegeben.
+Most of these will work in Studio only unless otherwise specified. Unless
+noted otherwise, these commands support speak on demand mode.
 
-* Alt+Umschalt+T bei geöffnetem spl-Hauptfenster: zeigt die verstrichene
-  Zeit der Wiedergabe für den aktuellen Titel an.
-* Strg+Alt+T (nach unten  streichen mit zwei Fingern im SPL Touch-Modus) bei
-  aktivem spl-Hauptfenster: zeigt die verbleibende Zeit bei der Wiedergabe
-  des aktuellen Titels an.
+* Alt+Shift+T from Studio window: announce elapsed time for the currently
+  playing track.
+* Control+Alt+T (two finger flick down in SPL touch mode) from Studio
+  window: announce remaining time for the currently playing track.
 * NVDA+Umschalt+F12 (mit zwei Fingern nach oben wischen im SPL-Touch-Modus)
   aus dem Studio-Fenster: Zeigt die Sendezeit an z.B. 5 Minuten bis zur
   vollen Stunde. Wenn Sie diesen Befehl zweimal drücken, werden Minuten und
   Sekunden bis zur vollen Stunde angesagt.
-* Alt+NVDA+1 (im SPL-Modus mit zwei Fingern nach rechts wischen) aus dem
-  Studio-Fenster: Öffnet die Kategorie Alarm-Einstellungen im
-  Studio-Zusatzkonfigurationsfenster.
+* Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens
+  alarms category in Studio add-on configuration dialog (does not support
+  speak on demand).
 * Alt+NVDA+1 aus dem Playlist-Editor des Creators und dem
   Remote-VT-Playlist-Editor: Meldet die geplante Zeit für die
   Wiedergabeliste.
 * Alt+NVDA+2 aus dem Playlist-Editor des Creators und dem
   Remote-VT-Playlist-Editor: Meldet die Gesamtdauer der Wiedergabeliste.
-* Alt+NVDA+3 aus dem Studio-Fenster: legt den Cart-Explorer fest, um die
-  Zuordnung von Carts zu lernen.
+* Alt+NVDA+3 from Studio window: Toggles cart explorer to learn cart
+  assignments (does not support speak on demand).
 * Alt+NVDA+3 aus dem Playlist-Editor des Creators und dem
   Remote-VT-Playlist-Editor: Zeigt an, wann die Wiedergabe des ausgewählten
   Titels geplant ist.
 * Alt+NVDA+4 aus dem Playlist-Editor des Creators und dem
   Remote-VT-Playlist-Editor: Meldet die Rotation und die Kategorie, die mit
   der die Wiedergabeliste verbunden ist.
-* STRG+NVDA+f aus dem Studio-Fenster: Öffnet einen Dialog, um einen Titel
-  basierend auf Künstler oder Titelbezeichnung zu finden. Drücken Sie
-  NVDA+F3, um vorwärts zu suchen oder NVDA+Umschalt+F3, um rückwärts zu
-  suchen.
-* Alt+NVDA+R aus dem Studio-Fenster: Benachrichtigungseinstellungen für
-  Bibliothek-Scans.
-* Strg+Umschalt+X aus dem Studio-Fenster: Braille-Timer-Einstellungen.
-* Strg+Alt+Pfeil links/rechts (während der Fokus auf einer Spur in Studio,
-  Creator, Remote-Voice-Tracking und Track-Tool liegt): Zur
-  vorherigen/nächsten Track-Spalte wechseln.
-* Strg+Alt+Pfeil nach oben/unten (während der Fokus auf einem Track in
-  Studio, Creator, Remote-Voice-Tracking und Track-Tool liegt): Zum
-  vorherigen/nächsten Track gehen und bestimmte Spalten ansagen.
+* Control+NVDA+f from Studio window: Opens a dialog to find a track based on
+  artist or song name. Press NVDA+F3 to find forward or NVDA+Shift+F3 to
+  find backward (does not support speak on demand).
+* Alt+NVDA+R from Studio window: Steps through library scan announcement
+  settings (does not support speak on demand).
+* Control+Shift+X from Studio window: Steps through braille timer settings
+  (does not support speak on demand).
+* Control+Alt+left/right arrow (while focused on a track in Studio, Creator,
+  Remote VT, and Track Tool): Move to previous/next track column (does not
+  support speak on demand).
+* Control+Alt+up/down arrow (while focused on a track in Studio, Creator,
+  Remote VT, and Track Tool): Move to previous/next track and announce
+  specific columns (does not support speak on demand).
 * Strg+NVDA+1 bis 0 (während der Fokus auf einem Track in Studio, Creator
   (einschließlich im Playlist-Editor), Remote-VT und Track Tool liegt):
   Spalteninhalt für eine bestimmte Spalte ankündigen (standardmäßig die
   ersten zehn Spalten). Wenn Sie diesen Befehl zweimal drücken, werden die
   Spalteninformationen in einem Fenster im Blätternmodus angezeigt.
-* Strg+NVDA+- (Bindestrich bei Fokussierung auf eine Spur in Studio,
-  Creator, Remote-Voice-Tracking und Track-Tool): Anzeige der Daten für alle
-  Spalten einer Spur im Lesemodus.
-* NVDA+V bei Fokussierung auf einen Titel (nur für den
-  Wiedergabelisten-Betrachter von Studio): Schaltet die Ansage der
-  Titelspalte zwischen Bildschirmreihenfolge und benutzerdefinierter
-  Reihenfolge um.
+* Control+NVDA+- (hyphen while focused on a track in Studio, Creator, Remote
+  VT, and Track Tool): display data for all columns in a track on a browse
+  mode window (does not support speak on demand).
+* NVDA+V while focused on a track (Studio's playlist viewer only): toggles
+  track column announcement between screen order and custom order (does not
+  support speak on demand).
 * Alt+NVDA+C während der Fokus auf einem Titel steht, (nur
   Studio-Playlistenbetrachter): werden Titel-Kommentare falls vorhanden
   gemeldet.
-* Alt+NVDA+0 aus dem Studio-Fenster: Öffnet den Konfigurationsdialog der
-  SPL-Erweiterung.
-* Alt+NVDA+P aus dem Studio-Fenster: Öffnet die Studio-Sendeprofile.
-* Alt+NVDA+F1: öffnet das Willkommensdialog.
+* Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration
+  dialog (does not support speak on demand).
+* Alt+NVDA+P from Studio window: Opens the Studio broadcast profiles dialog
+  (does not support speak on demand).
+* Alt+NVDA+F1: Open welcome dialog (does not support speak on demand).
 
 ## Nicht zugewiesene Befehle
 
@@ -106,11 +108,11 @@ StationPlaylist, suchen Sie dann nicht zugewiesene Befehle aus der Liste
 unten und wählen Sie "Hinzufügen" aus, geben Sie dann die Taste oder
 Tastenkombination ein, welche Sie verwenden möchten.
 
-Wichtig: Einige dieser Befehle funktionieren nicht, wenn NVDA im
-Abgesicherten Modus ausgeführt wird, z. B. während der Windows-Anmeldung.
+Important: some of these commands will not work if NVDA is running in secure
+mode such as from login screen. Not all commands support speak on demand.
 
-* Das Wechseln zum SPL-Studio-Fenster aus einer beliebigen Anwendung heraus
-  ist (im Abgesicherten Modus) nicht verfügbar.
+* Switching to SPL Studio window from any program (unavailable in secure
+  mode, does not support speak on demand).
 * Die SPL-Steuerung ist (im Abgesicherten Modus) nicht verfügbar.
 * Die Mitteilungen des Studio-Status, wie z. B. die Wiedergabe von Titeln
   aus anderen Anwendungen ist (im Abgesicherten Modus) nicht verfügbar.
@@ -124,14 +126,20 @@ Abgesicherten Modus ausgeführt wird, z. B. während der Windows-Anmeldung.
 * Markiert den aktuellen Titel als Anfand für die Titel-Zeitanalyse.
 * Titel-Zeitanalyse durchführen.
 * Nimmt Statistiken für eine Wiedergabeliste auf.
-* Findet Text in bestimmten Spalten.
-* Findet über den Suchdialog für die Zeitspanne  Titel mit einer Dauer, die
-  in einem bestimmten Zeitraum liegt.
-* Schnelles Aktivieren oder Deaktivieren von Metadaten-Streaming.
+* Find text in specific columns (does not support speak on demand).
+* Find tracks with duration that falls within a given range via time range
+  finder (does not support speak on demand).
+* Quickly enable or disable metadata streaming (does not support speak on
+  demand).
 
 ## Zusätzliche Befehle bei der Encoder-Verwendung
 
-Folgende Befehle stehen zur Verfügung, wenn Sie Encoder verwenden:
+The following commands are available when using encoders, and the ones used
+for toggling options for on-connection behavior such as focusing to Studio,
+playing the first track, and toggling of background monitoring can be
+assigned through the Input Gestures dialog in NVDA menu, Preferences, Input
+Gestures, under the StationPlaylist category. These commands do not support
+speak on demand.
 
 * F9: Den ausgewählten Encoder verbinden.
 * F10 (nur gleicher Encoder): Trennt den ausgewählten Encoder.
@@ -145,11 +153,11 @@ Folgende Befehle stehen zur Verfügung, wenn Sie Encoder verwenden:
   Encoders ein- und aus.
 * Strg+F12: Öffnet ein Dialogfeld zur Auswahl des ausgelöschten Encoders
   (zur Neuausrichtung der Encoder-Beschreibung und Einstellungen).
-* Alt+NVDA+0 und F12: Öffnet das Dialogfeld für Encodereinstellungen zur
-  Konfiguration von Optionen wie z. B. Encoder-Beschreibungen.
+* Alt+NVDA+0 or F12: Opens encoder settings dialog to configure options such
+  as encoder label.
 
-Darüber hinaus stehen folgende Befehle für den Spaltenexplorer zur
-Verfügung:
+In addition, column review commands are available, including (supports speak
+on demand):
 
 * STRG+NVDA+1: Position des Encoders.
 * Strg+NVDA+2: Encoder-Beschreibung.
@@ -171,19 +179,19 @@ Liste (ein oder mehrere Befehle sind exklusiv für den Playlist-Viewer
 bestimmt). Sie können NVDA auch so konfigurieren, dass es Befehle von
 anderen Screenreadern simuliert.
 
-Folgende Befehle stehen zur Verfügung:
+The available commands are (most commands support speak on demand):
 
 * A: Automatisierung.
 * C (Umschalt+C im JAWS-Layout): Name des aktuell abgespielten Titels.
-* C (JAWS-Layout): Cart-Explorer umschalten (nur in der Ansicht der
-  Wiedergabelisten).
+* C (JAWS layout): Toggle cart explorer (playlist viewer only, does not
+  support speak on demand).
 * D (R in der JAWS-Darstellung): Restdauer der Playlist (wenn eine
   Fehlermeldung angezeigt wird, wechseln Sie zum Playlist-Viewer und geben
   Sie diesen Befehl ein).
 * E: Metadaten-Streaming-Status.
 * Umschalt+1 bis 4, Umschalt+0: Status für einzelne Metadaten-Streaming-URLs
   (0 ist für DSP-Encoder).
-* F: Titel suchen (nur im Playlist-Viewer).
+* F: Find track (playlist viewer only, does not support speak on demand).
 * H: Dauer der Titel in dieser Stunde.
 * Umschalt+H: Verbleibende Spieldauer für den Stundenplatzhalter.
 * I (L im JAWS-Layout): Anzahl der Zuhörer.
@@ -224,7 +232,8 @@ ein/aus oder nächsten Titel abspielen).
 Wichtig: Die Befehle in der SPL-Steuerung sind deaktiviert, sobald NVDA im
 Abgesicherten Modus ausgeführt wird.
 
-Die verfügbaren Befehle für den SPL-Controller sind:
+The available SPL Controller commands are (some commands support speak on
+demand):
 
 * P: Nächsten ausgewählten Titel abspielen.
 * U: Wiedergabe anhalten oder fortsetzen.
@@ -238,12 +247,14 @@ Die verfügbaren Befehle für den SPL-Controller sind:
 * Umschalt+L: Line-In-Eingang ausschalten.
 * R: Restzeit für den aktuell wiedergegebenen Titel.
 * Umschalt+R: Fortschritt des Bibliotheksscans.
-* C: Titel und Dauer des aktuell wiedergegebenen Titels.
-* Umschalt+C: Titel und Dauer des nachfolgenden Titels, falls vorhanden.
-* E: Verbindungsstatus des Encoders.
-* I: Zuhörer zählen.
-* F: Studio-Statusinformationen, z. B. ob ein Titel abgespielt wird, das
-  Mikrofon eingeschaltet ist und weitere.
+* C: Title and duration of the currently playing track (supports speak on
+  demand).
+* Shift+C: Title and duration of the upcoming track if any (supports speak
+  on demand).
+* E: Encoder connection status (supports speak on demand).
+* I: Listener count (supports speak on demand).
+* Q: Studio status information such as whether a track is playing,
+  microphone is on and others (supports speak on demand).
 * Cart-Tasten (z. B. F1, Strg+1): Spielen Sie zugewiesene Cart von überall
   aus.
 * H: Layer-Hilfe.
@@ -353,6 +364,14 @@ verwenden, können Sie einige Studio-Befehle über den Touchscreen
 ausführen. Wechseln Sie zunächst mit drei Fingern in den SPL-Modus und
 verwenden Sie dann die oben aufgeführten Touch-Befehle, um Befehle
 auszuführen.
+
+## Version 24.03
+
+* Compatible with NVDA 2024.1.
+* NVDA 2023.3.3 or later is required.
+* Support for StationPlaylist suite 6.10.
+* Most commands support speak on demand (NVDA 2024.1) so announcements can
+  be spoken in this mode.
 
 ## Version 24.01
 

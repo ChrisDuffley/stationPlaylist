@@ -1,9 +1,10 @@
 # StationPlaylist #
+
 * Autores: Christopher Duffley <nvda@chrisduffley.com> (antes Joseph Lee
   <joseph.lee22590@gmail.com>, originalmente de Geoff Shang y otros
   colaboradores)
 * Descargar [Versión estable][1]
-* Compatibilidad con NVDA: de 2022.4 en adelante
+* Compatibilidad con NVDA: de 2023.3.3 en adelante
 
 Este paquete de complementos proporciona una utilización mejorada de Station
 Playlist Studio y otras aplicaciones de StationPlaylist, así como utilidades
@@ -29,11 +30,14 @@ NOTAS IMPORTANTES:
   también se aplica a los ajustes del codificador - se pueden guardar y
   restablecer (pero no recargar) los ajustes del codificador si se usan los
   codificadores.
+* Muchas órdenes proporcionarán salida de voz mientras NVDA esté en el modo
+  de voz a petición (NVDA 2024.1 o posterior).
 
 ## Teclas de atajo
 
 La mayoría de estos funcionará sólo en Studio a menos que se indique lo
-contrario.
+contrario. A menos que se diga lo contrario, estas órdenes soportan el modo
+de voz a petición.
 
 * Alt+Shift+T desde la ventana de Studio: anuncia el tiempo transcurrido
   para la pista actual en reproducción.
@@ -46,15 +50,17 @@ contrario.
   anunciará los minutos y segundos hasta la hora.
 * Alt+NVDA+1 (deslizamiento hacia la derecha con dos dedos en el modo SPL)
   desde la ventana de Studio: abre la categoría Alarmas en el diálogo de
-  configuración del complemento de Studio.
+  configuración del complemento de Studio (no soporta el modo de voz a
+  petición).
 * Alt+NVDA+1 desde la ventana del editor de listas de reproducción de
   Creator o de Remote VT: anuncia la hora programada de la lista de
   reproducción cargada.
 * Alt+NVDA+2 desde la ventana del editor de listas de reproducción de
   Creator y de Remote VT: anuncia la duración total de la lista de
   reproducción.
-* Alt+NVDA+3 desde la ventana Studio: activa o desactiva el explorador de
-  cart para aprender las asignaciones de cart.
+* Alt+NVDA+3 desde la ventana de Studio: activa o desactiva el explorador de
+  cart para aprender las asignaciones de cart (no soporta el modo de voz a
+  petición).
 * Alt+NVDA+3 desde la ventana del editor de listas de reproducción de
   Creator y de Remote VT: indica para cuándo se ha programado la
   reproducción de la pista seleccionada.
@@ -63,18 +69,19 @@ contrario.
   lista de reproducción cargada.
 * Control+NVDA+f desde la ventana de Studio: Abre un diálogo para encontrar
   una pista sobre la base del artista o del nombre de la canción. Pulsa
-  NVDA+F3 para buscar hacia adelante o NVDA+Shift+F3 para buscar hacia
-  atrás.
+  NVDA+F3 para buscar hacia adelante o NVDA+Shift+F3 para buscar hacia atrás
+  (no soporta el modo de voz a petición).
 * Alt+NVDA+R desde la ventana de Studio: Pasos de las opciones de anunciado
-  del escaneado de biblioteca.
+  del escaneado de biblioteca (no soporta el modo de voz a petición).
 * Control+Shift+X desde la ventana de Studio: Pasos de las opciones del
-  temporizador braille.
+  temporizador braille (no soporta el modo de voz a petición).
 * Control+Alt+flecha derecha o izquierda (mientras se enfoca una pista en
   Studio, Creator, Remote VT o Track Tool): se mueve a la siguiente o
-  anterior columna de la pista.
+  anterior columna de la pista (no soporta el modo de voz a petición).
 * Control+Alt+flecha abajo/arriba (mientras se enfoque una pista en Studio,
   Creator, Remote VT o la herramienta de pista): se mueve a la pista
-  siguiente o anterior y anuncia columnas específicas.
+  siguiente o anterior y anuncia columnas específicas (no soporta el modo de
+  voz a petición).
 * Control+NVDA+1 a 0 (mientras se enfoque una pista en Studio, Creator
   (incluyendo su editor de listas de reproducción), Remote VT o Track Tool):
   Anuncia el contenido de la columna especificada (primeras diez columnas
@@ -82,17 +89,20 @@ contrario.
   columna en una ventana para modo navegación.
 * Control+NVDA+- (guión cuando una pista tiene el foco en Studio, Creator,
   Remote VT o herramienta de pista): mostrar datos de todas las columnas de
-  una pista en una ventana en modo exploración.
+  una pista en una ventana en modo exploración (no soporta el modo de voz a
+  petición).
 * NVDA+v cuando una pista tenga el foco (sólo en el visualizador de listas
   de reproducción de Studio): conmuta el anuncio de columnas de pista entre
-  orden en pantalla y orden personalizado.
+  orden en pantalla y orden personalizado (no soporta el modo de voz a
+  petición).
 * Alt+NVDA+C mientras se enfoca una pista (sólo en el visor de listas de
   reproducción de Studio): anuncia los comentarios de pista si los hay.
-* Alt+NVDA+0 desde la ventana Studio: abre el diálogo de configuración del
-  complemento para Studio.
+* Alt+NVDA+0 desde la ventana de Studio: abre el diálogo de configuración
+  del complemento para Studio (no soporta el modo de voz a petición).
 * Alt+NVDA+p desde la ventana de Studio: abre el diálogo de perfiles de
-  emisión de Studio.
-* Alt+NVDA+F1: abre el diálogo de bienvenida.
+  emisión de Studio (no soporta el modo de voz a petición).
+* Alt+NVDA+F1: abre el diálogo de bienvenida (no soporta el modo de voz a
+  petición).
 
 ## Órdenes sin asignar
 
@@ -104,10 +114,11 @@ busca las órdenes sin asignar de la siguiente lista, elige "Añadir" y teclea
 la orden que quieres usar.
 
 Importante: algunas de estas órdenes no funcionarán si NVDA se ejecuta en
-modo seguro, por ejemplo en la pantalla de inicio de sesión.
+modo seguro, por ejemplo en la pantalla de inicio de sesión. No todas las
+órdenes soportan el modo de voz a petición.
 
 * Cambiar a la ventana SPL Studio desde cualquier programa (no disponible en
-  modo seguro).
+  modo seguro, no soporta el modo de voz a petición).
 * Capa de controlador de SPL (no disponible en modo seguro)
 * Anunciar el estado de Studio tal como reproducción de pista desde otros
   programas (no disponible en modo seguro).
@@ -121,14 +132,21 @@ modo seguro, por ejemplo en la pantalla de inicio de sesión.
 * Marcando pista actual para comenzar el análisisx de tiempo de pista.
 * Realizando análisis de tiempo de pista.
 * Tomar instantáneas de la lista de reproducción.
-* Encontrar texto en columnas específicas.
+* Encontrar texto en columnas específicas (no soporta el modo de voz a
+  petición).
 * Encontrar pista con duración que caiga dentro de un rango dado a través de
-  buscador de rango de tiempo.
-* Habilitar o deshabilitar cíclicamente metadatos del streaming.
+  buscador de rango de tiempo (no soporta el modo de voz a petición).
+* Habilitar o deshabilitar rápidamente metadatos del streaming (no soporta
+  el modo de voz a petición).
 
 ## Órdenes adicionales al utilizar los codificadores
 
-Las siguientes órdenes  están disponibles al utilizar los codificadores:
+Las siguientes órdenes están disponibles al usar los codificadores, y las
+que se usan para conmutar opciones de comportamientos en conexión, tales
+como enfocar Studio, reproducir la primera pista, y conmutar la vigilancia
+en segundo plano se pueden asignar mediante el diálogo Gestos de entrada en
+el menú NVDA, Preferencias, Gestos de entrada, bajo la categoría
+StationPlaylist. Estas órdenes no soportan el modo de voz a petición.
 
 * F9: conecta el codificador seleccionado.
 * F10 (sólo codificador SAM): Desconecta el codificador seleccionado.
@@ -142,10 +160,11 @@ Las siguientes órdenes  están disponibles al utilizar los codificadores:
 * Control+F12: abre un diálogo para seleccionar el codificador que has
   eliminado (para realinear las etiquetas del codificador y las opciones del
   codificador).
-* Alt+NVDA+0 y f12: abre el diálogo opciones del codificador para configurar
+* Alt+NVDA+0 o f12: abre el diálogo opciones del codificador para configurar
   ajustes tales como su etiqueta.
 
-Además, las órdenes de revisión de columna están disponibles, incluyendo:
+Además, las órdenes de revisión de columna están disponibles, incluyendo
+(soporta modo de voz a petición):
 
 * Control+NVDA+1: posición del codificador.
 * Control+NVDA+2: etiqueta de codificador.
@@ -169,20 +188,22 @@ de la siguiente lista (una o más órdenes son exclusivas para el visualizador
 de lista de reproducción). También puedes configurar NVDA para emular
 órdenes de otros lectores de pantalla.
 
-Las órdenes disponibles son:
+Las órdenes disponibles son (la mayoría de ellas soportan el modo de voz a
+petición):
 
 * A: Automatización.
 * C (Shift+C en la distribución de JAWS): Título para la pista actualmente
   en reproducción.
 * C (distribución de JAWS): conmuta el explorador de cart (visualizador de
-  lista de reproducción sólo).
+  lista de reproducción sólo, no soporta el modo de voz a petición).
 * D (R en distribución JAWS): duración restante para la lista de
   reproducción (si se da un mensaje de error, se mueve al visualizador de
   lista de reproducción y entonces emite esta orden).
 * E: estado de metadatos del streaming.
 * Shift+1 hasta Shift+4, Shift+0: estado para los metadatos individuales de
   la URL del streaming (0 es para el codificador DSP).
-* F: busca pista (visualizador de lista de reproducción sólo).
+* F: busca pista (visualizador de lista de reproducción sólo, no soporta
+  modo de voz a petición).
 * H: Duración de la música para el actual espacio de tiempo.
 * Shift+H: duración restante de la pista o del slot horario.
 * I (L en la distribución de JAWS): recuento de oyentes.
@@ -227,7 +248,8 @@ activado/desactivado o reproducir la siguiente pista.
 Importante: las órdenes de capa del controlador de SPL se deshabilitan si
 NVDA se ejecuta en modo seguro.
 
-Las órdenes disponibles para el SPL Controller son:
+Las órdenes disponibles para el SPL Controller son (algunas soportan el modo
+de voz a petición):
 
 * P: reproducir la siguiente pista seleccionada.
 * U: pausar o reanudar la reproducción.
@@ -241,12 +263,15 @@ Las órdenes disponibles para el SPL Controller son:
 * Shift+L: desactivar línea de entrada.
 * R: tiempo restante de la pista actual en reproducción.
 * Shift+R: progreso del análisis de la biblioteca.
-* C: título y duración de la pista actualmente en reproducción.
-* Shift+C: título y duración de la siguiente pista, si la hay.
-* E: Estado de conexión del codificador.
-* I: recuento de oyentes.
+* C: título y duración de la pista actualmente en reproducción (soporta modo
+  de voz a petición).
+* Shift+C: título y duración de la siguiente pista, si la hay (soporta modo
+  de voz a petición).
+* E: Estado de conexión del codificador (soporta modo de voz a petición).
+* I: recuento de oyentes (soporta el modo de voz a petición).
 * Q: información de estado de Studio, que incluye si una pista se está
-  reproduciendo, el micrófono está encendido y demás.
+  reproduciendo, el micrófono está encendido y demás (soporta modo de voz a
+  petición).
 * Teclas de cart (F1, Control+1, por ejemplo): reproducir carts asignados
   desde cualquier lugar.
 * H: Ayuda de la capa.
@@ -352,6 +377,14 @@ instalado, puedes realizar algunas órdenes de Studio desde la pantalla
 táctil. Primero utiliza un toque con tres dedos para cambiar a modo SPL,
 entonces utiliza las órdenes táctiles listadas arriba para llevar a cabo
 tareas.
+
+## Versión 24.03
+
+* Compatible con NVDA 2024.1.
+* Se requiere NVDA 2023.3.3 o posterior.
+* Soporte para la suite StationPlaylist 6.10.
+* La mayoría de órdenes soportan el modo de voz a petición (NVDA 2024.1),
+  por lo que los anuncios se pueden verbalizar en este modo.
 
 ## Versión 24.01
 

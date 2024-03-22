@@ -1,9 +1,10 @@
 # Station Playlist #
+
 * Authors: Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee
   <joseph.lee22590@gmail.com>, originally by Geoff Shang and other
   contributors)
 * Stiahnuť [stabilnú verziu][1]
-* NVDA compatibility: 2022.4 and later
+* NVDA compatibility: 2023.3.3 and later
 
 Doplnok zlepšuje prístupnosť Station Playlist Studio a ďalších pridružených
 aplikácií a tiež umožňuje ovládať Station Playlist mimo hlavného okna
@@ -26,52 +27,64 @@ Dôležité:
   obnoviť pôvodné nastavenia skratkou nvda+ctrl+r stlačením trikrát rýchlo
   za sebou. Toto sa týka aj nastavení enkodéra. Tieto je však možné len
   uložiť alebo obnoviť.
+* Many commands will provide speech output while NVDA is in speak on demand
+  mode (NVDA 2024.1 and later).
 
 ## Klávesové skratky
 
-Väčšina skratiek je určených pre Studio, ak nie je uvedené inak.
+Most of these will work in Studio only unless otherwise specified. Unless
+noted otherwise, these commands support speak on demand mode.
 
-* alt+shift+T v okne  studio: Oznámy čas do konca práve prehrávanej skladby.
-* Ctrl+Alt+T v okne studio (švihnutie dvoma prstami v dotykovom režime):
-  Oznámy čas do konca práve prehrávanej skladby.
+* Alt+Shift+T from Studio window: announce elapsed time for the currently
+  playing track.
+* Control+Alt+T (two finger flick down in SPL touch mode) from Studio
+  window: announce remaining time for the currently playing track.
 * nvda+shift+F12 (švihnutie dvoma prstami hore v dotykovom režime) v okne
   Studio: oznámi čas vysielania, napríklad 5 minút do celej hodiny. Stlačené
   dvakrát rýchlo za sebou oznamuje minúty aj sekundy.
-* alt+NVDA+1 (švihnutie dvoma prstami doprava v dotykovom režime spl) v okne
-  Studio: otvorí kategóriu upozornenia v nastaveniach doplnku.
+* Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens
+  alarms category in Studio add-on configuration dialog (does not support
+  speak on demand).
 * alt+nvda+1 pri úprave playlistu v okne creator a Remote VT playlist
   editor: Oznámi plánovaný čas spustenia playlistu.
 * Alt+NVDA+2 pri úprave playlistu v okne creator a Remote VT playlist
   editor: Oznámi celkový čas skladieb v playliste.
-* alt+NVDA+3 v okne Studio : zapína a vypína prehliadač jinglov.
+* Alt+NVDA+3 from Studio window: Toggles cart explorer to learn cart
+  assignments (does not support speak on demand).
 * Alt+NVDA+3 pri úprave playlistu v okne creator a Remote VT playlist
   editor: Oznámi čas odohratia vybratej skladby.
 * Alt+NVDA+4 pri úprave playlistu v okne creator a Remote VT playlist
   editor: Oznámi kategóriu a rotáciu pre načítaný playlist.
-* Ctrl+NVDA+f v okne Studio: otvorí okno, v ktorom môžete nájsť skladbu
-  podľa názvu alebo interpreta. NVDA+F3 hľadá dopredu, NVDA+shift+F3 hľadá
-  dozadu.
-* Alt+NVDA+R v okne Studio: Prepína oznamovanie skenovania knižnice.
-* Ctrl+Shift+X v okne Studio: Prepína zobrazenie na braillovskom riadku.
-* Ctrl+Alt+šípky doľava a doprava (pri zobrazení skladby v oknách Studio,
-  Creator, Remote VT, a Track Tool): presunie kurzor na predchádzajúci alebo
-  nasledujúci stĺpec.
-* Ctrl+Alt+šípky hore a dole (pri zobrazení skladby v okne Studio): presunie
-  kurzor na nasledujúcu alebo predchádzajúcu skladbu a oznámi vybraté
-  metadáta.
+* Control+NVDA+f from Studio window: Opens a dialog to find a track based on
+  artist or song name. Press NVDA+F3 to find forward or NVDA+Shift+F3 to
+  find backward (does not support speak on demand).
+* Alt+NVDA+R from Studio window: Steps through library scan announcement
+  settings (does not support speak on demand).
+* Control+Shift+X from Studio window: Steps through braille timer settings
+  (does not support speak on demand).
+* Control+Alt+left/right arrow (while focused on a track in Studio, Creator,
+  Remote VT, and Track Tool): Move to previous/next track column (does not
+  support speak on demand).
+* Control+Alt+up/down arrow (while focused on a track in Studio, Creator,
+  Remote VT, and Track Tool): Move to previous/next track and announce
+  specific columns (does not support speak on demand).
 * Ctrl+NVDA+1 až 0 (Pri zobrazení skladby v okne Studio, Creator (vrátane
   úpravy playlistu), Remote VT, a Track Tool): Oznámi príslušné metadáta
   (prvých 10). Stlačené dvakrát rýchlo za sebou zobrazí metadáta v režime
   prehliadania.
-* Ctrl+NVDA+- (pomlčka pri zobrazení skladby v oknách Studio, Creator, a
-  Track Tool): Zobrazí všetky metadáta v režime prehliadania.
+* Control+NVDA+- (hyphen while focused on a track in Studio, Creator, Remote
+  VT, and Track Tool): display data for all columns in a track on a browse
+  mode window (does not support speak on demand).
 * NVDA+V while focused on a track (Studio's playlist viewer only): toggles
-  track column announcement between screen order and custom order.
+  track column announcement between screen order and custom order (does not
+  support speak on demand).
 * Alt+NVDA+C while focused on a track (Studio's playlist viewer only):
   announces track comments if any.
-* Alt+NVDA+0 z okna studio: Otvorí nastavenia doplnku.
-* Alt+NVDA+p z okna studio: Otvorí nastavenia vysielacích profilov.
-* Alt+NVDA+F1: Otvorí uvítací dialóg doplnku.
+* Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration
+  dialog (does not support speak on demand).
+* Alt+NVDA+P from Studio window: Opens the Studio broadcast profiles dialog
+  (does not support speak on demand).
+* Alt+NVDA+F1: Open welcome dialog (does not support speak on demand).
 
 ## Funkcie bez klávesových skratiek
 
@@ -82,10 +95,10 @@ StationPlaylist category, then locate unassigned commands from the list
 below and select "Add", then type the gesture you wish to use.
 
 Important: some of these commands will not work if NVDA is running in secure
-mode such as from login screen.
+mode such as from login screen. Not all commands support speak on demand.
 
 * Switching to SPL Studio window from any program (unavailable in secure
-  mode).
+  mode, does not support speak on demand).
 * SPL Controller layer (unavailable in secure mode).
 * Announcing Studio status such as track playback from other programs
   (unavailable in secure mode).
@@ -99,13 +112,20 @@ mode such as from login screen.
 * Označenie aktuálnej skladby ako počiatočnej na časovú analýzu.
 * Spustenie časovej analýzy.
 * Zobrazenie štatistiky playlistu.
-* Vyhľadanie textu v určených metadátach.
-* Vyhľadanie skladieb s určitou dĺžkou.
-* Zapnutie a vypnutie vysielania metadát.
+* Find text in specific columns (does not support speak on demand).
+* Find tracks with duration that falls within a given range via time range
+  finder (does not support speak on demand).
+* Quickly enable or disable metadata streaming (does not support speak on
+  demand).
 
 ## Ďalšie príkazy pre enkodéry
 
-Dostupné sú tieto príkazy:
+The following commands are available when using encoders, and the ones used
+for toggling options for on-connection behavior such as focusing to Studio,
+playing the first track, and toggling of background monitoring can be
+assigned through the Input Gestures dialog in NVDA menu, Preferences, Input
+Gestures, under the StationPlaylist category. These commands do not support
+speak on demand.
 
 * F9: Pripojiť zvolený stream.
 * F10 (SAM encoder): Odpojí zvolený stream.
@@ -118,10 +138,11 @@ Dostupné sú tieto príkazy:
 * Ctrl+F11: Zapína a vypína monitorovanie vybratého pripojenia na pozadí.
 * ctrl+F12: Otvorí okno na výber odstráneného streamu (kde môžete zmeniť
   názvy a nastavenia).
-* Alt+NVDA+0 and F12: Opens encoder settings dialog to configure options
-  such as encoder label.
+* Alt+NVDA+0 or F12: Opens encoder settings dialog to configure options such
+  as encoder label.
 
-Dostupné sú tieto príkazy na prezeranie stĺpcov:
+In addition, column review commands are available, including (supports speak
+on demand):
 
 * Ctrl+NVDA+1: Pozícia enkodéra.
 * Ctrl+NVDA+2: Názov pripojenia.
@@ -142,17 +163,18 @@ zobrazenie playlistu. V nastaveniach doplnku je navyše možné prepnúť skratk
 tak, aby simulovali správanie, na ktoré ste zvyknutí z iných čítačov
 obrazovky.
 
-Dostupné sú tieto príkazy:
+The available commands are (most commands support speak on demand):
 
 * A: autopylot.
 * C (Shift+C v rozložení pre JAWS): Oznámi názov prehrávanej skladby.
-* C (Rozloženie JAWS): Zobraziť jingle (len z playlistu).
+* C (JAWS layout): Toggle cart explorer (playlist viewer only, does not
+  support speak on demand).
 * D (R v rozložení pre JAWS): Oznámi ostávajúci čas do konca skladby. (Ak
   nefunguje, zopakujte skratku zo zobrazenia playlistu).
 * E: Oznámi Stav streamovania metadát.
 * Shift+1 až Shift+4: Stav jednotlivých pripojení. Shift+0: Stav pre DSP
   enkodér.
-* F: Nájsť skladbu (len zo zoznamu skladieb).
+* F: Find track (playlist viewer only, does not support speak on demand).
 * H: Oznámi Trvanie skladieb v aktuálnom hodinovom slote.
 * Shift+H: Oznámi zostávajúci čas skladieb v aktuálnom hodinovom slote.
 * I (L v rozložení pre JAWS): Oznámi počet pripojených poslucháčov.
@@ -189,7 +211,8 @@ nasledujúcej skladby.
 Important: SPL Controller layer commands are disabled if NVDA is running in
 secure mode.
 
-Dostupné sú tieto príkazy:
+The available SPL Controller commands are (some commands support speak on
+demand):
 
 * P: Play the next selected track.
 * U: Pause or unpause playback.
@@ -203,12 +226,14 @@ Dostupné sú tieto príkazy:
 * Shift+L: Turn off line-in input.
 * R: Remaining time for the currently playing track.
 * Shift+R: Library scan progress.
-* C: Title and duration of the currently playing track.
-* Shift+C: Title and duration of the upcoming track if any.
-* E: Encoder connection status.
-* I: Listener count.
+* C: Title and duration of the currently playing track (supports speak on
+  demand).
+* Shift+C: Title and duration of the upcoming track if any (supports speak
+  on demand).
+* E: Encoder connection status (supports speak on demand).
+* I: Listener count (supports speak on demand).
 * Q: Studio status information such as whether a track is playing,
-  microphone is on and others.
+  microphone is on and others (supports speak on demand).
 * Cart keys (F1, Control+1, for example): Play assigned carts from anywhere.
 * H: Layer help.
 
@@ -297,6 +322,14 @@ If you are using Studio on a touchscreen computer with NVDA installed, you
 can perform some Studio commands from the touchscreen. First use three
 finger tap to switch to SPL mode, then use the touch commands listed above
 to perform commands.
+
+## Version 24.03
+
+* Compatible with NVDA 2024.1.
+* NVDA 2023.3.3 or later is required.
+* Support for StationPlaylist suite 6.10.
+* Most commands support speak on demand (NVDA 2024.1) so announcements can
+  be spoken in this mode.
 
 ## Version 24.01
 

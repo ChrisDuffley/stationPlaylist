@@ -1,9 +1,10 @@
 # StationPlaylist #
+
 * Authors: Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee
   <joseph.lee22590@gmail.com>, originally by Geoff Shang and other
   contributors)
 * Tải về [phiên bản chính thức][1]
-* NVDA compatibility: 2022.4 and later
+* NVDA compatibility: 2023.3.3 and later
 
 Gói add-on này cung cấp sự cải thiện cho việc sử dụng StationPlaylist Studio
 và các ứng dụng StationPlaylist khác, cũng như cung cấp các tiện ích để điều
@@ -26,55 +27,64 @@ CÁC LƯU Ý QUAN TRỌNG:
   Control+NVDA+R một lần, hoặc Control+NVDA+R ba lần. điều này cũng được áp
   dụng cho các thiết lập mã hóa - bạn có thể lưu và khôi phục (không gọi
   lại) các thiết lập mã hóa nếu đang sử dụng chúng.
+* Many commands will provide speech output while NVDA is in speak on demand
+  mode (NVDA 2024.1 and later).
 
 ## Các phím tắt
 
-Hầu hết chúng chỉ hoạt động trong Studio cho đến khi thực hiện một số thiết
-lập khác.
+Most of these will work in Studio only unless otherwise specified. Unless
+noted otherwise, these commands support speak on demand mode.
 
-* Alt+Shift+T từ cửa sổ Studio: thông báo thời gian đã trôi qua của track
-  đang phát.
-* Control+Alt+T (vuốt xuống bằng hai ngón trong chế độ cảm ứng SPL) từ cửa
-  sổ Studio: thông báo thời gian còn lại của track đang phát.
+* Alt+Shift+T from Studio window: announce elapsed time for the currently
+  playing track.
+* Control+Alt+T (two finger flick down in SPL touch mode) from Studio
+  window: announce remaining time for the currently playing track.
 * NVDA+Shift+F12 (vuốt lên hai ngón trong chế độ chạm của SPL) từ cửa sổ
   Studio: thông báo thời gian phát thanh như là 5 phút đến đầu giờ. Bấm hai
   lần sẽ thông báo số phút và giây đến đầu giờ.
-* Alt+NVDA+1 (vuốt hai ngón qua trái trong chế độ SPL ) từ cửa sổ Studio: mở
-  phân loại báo hiệu trong hộp thoại cấu hình add-on Studio.
+* Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens
+  alarms category in Studio add-on configuration dialog (does not support
+  speak on demand).
 * Alt+NVDA+1 từ cửa sổ Creator's Playlist Editor và Remote VT playlist
   editor: thông báo thời gian đã lên lịch cho danh sách phát đã tải.
 * Alt+NVDA+2 từ cửa sổ Playlist Editor của Creator và Remote VT playlist
   editor: thông báo tổng thời gian của danh sách phát.
-* Alt+NVDA+3 từ cửa sổ Studio: bật tắt cart explorer để tìm hiểu cách gán
-  cart.
+* Alt+NVDA+3 from Studio window: Toggles cart explorer to learn cart
+  assignments (does not support speak on demand).
 * Alt+NVDA+3 từ cửa sổ  Playlist Editor của Creator và Remote VT playlist
   editor: thông báo khi các track được chọn đã lên lịch phát.
 * Alt+NVDA+4 từ cửa sổ Playlist Editor của Creator và Remote VT playlist
   editor: thông báo vòng xoay và phân loại đã kết hợp với danh sách phát đã
   tải.
-* Control+NVDA+f từ cửa sổ Studio: mở hộp thoại để tìm một track theo tên ca
-  sĩ hay bài hát. Bấm NvDA+F3 để tìm tiếp hoặc NVDA+Shift+F3 để tìm lùi.
-* Alt+NVDA+R từ cửa sổ Studio: chuyển đến các cài đặt thông báo quét thư
-  viện.
-* Control+Shift+X từ cửa sổ Studio: đi qua các cài đặt hẹn giờ chữ nổi.
-* Control+Alt+mũi tên trái phải (khi đứng ở một track trong Studio, Creator,
-  Remote VT và Track Tool): di chuyển đến cột trước / sau của track.
-* Control+Alt+mũi tên lên / xuống (khi đứng tại một track trong Studio,
-  Creator, Remote VTvà Track Tool): chuyển đến track trước hoặc kế và thông
-  báo các cột cụ thể.
+* Control+NVDA+f from Studio window: Opens a dialog to find a track based on
+  artist or song name. Press NVDA+F3 to find forward or NVDA+Shift+F3 to
+  find backward (does not support speak on demand).
+* Alt+NVDA+R from Studio window: Steps through library scan announcement
+  settings (does not support speak on demand).
+* Control+Shift+X from Studio window: Steps through braille timer settings
+  (does not support speak on demand).
+* Control+Alt+left/right arrow (while focused on a track in Studio, Creator,
+  Remote VT, and Track Tool): Move to previous/next track column (does not
+  support speak on demand).
+* Control+Alt+up/down arrow (while focused on a track in Studio, Creator,
+  Remote VT, and Track Tool): Move to previous/next track and announce
+  specific columns (does not support speak on demand).
 * Control+NVDA+1 đến 0 (khi đứng ở tại một track trong Studio, Creator (bao
   gồm Playlist Editor), Remote VT và Track Tool): thông báo nội dung cho một
   cột đã định. Bấm hai lần sẽ hiển thị thông tin trên cửa sổ duyệt tài liệu.
-* Control+NVDA+- (trừ khi con trỏ ở một track trong Studio, Creator, Remote
-  VT và Track Tool): hiển thị dữ liệu của tất cả các cột trong một track
-  trên một cửa sổ ở chế độ duyệt.
+* Control+NVDA+- (hyphen while focused on a track in Studio, Creator, Remote
+  VT, and Track Tool): display data for all columns in a track on a browse
+  mode window (does not support speak on demand).
 * NVDA+V while focused on a track (Studio's playlist viewer only): toggles
-  track column announcement between screen order and custom order.
+  track column announcement between screen order and custom order (does not
+  support speak on demand).
 * Alt+NVDA+C while focused on a track (Studio's playlist viewer only):
   announces track comments if any.
-* Alt+NVDA+0 từ cửa sổ Studio: mở hộp thoại cấu hình add-on của Studio.
-* Alt+NVDA+P từ cửa sổ Studio: mở hộp thoại các hồ sơ phát thanh của Studio.
-* Alt+NVDA+F1: mở hộp thoại chào mừng.
+* Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration
+  dialog (does not support speak on demand).
+* Alt+NVDA+P from Studio window: Opens the Studio broadcast profiles dialog
+  (does not support speak on demand).
+* Alt+NVDA+F1: Open welcome dialog (does not support speak on demand).
 
 ## Các lệnh chưa được gán thao tác
 
@@ -85,10 +95,10 @@ StationPlaylist category, then locate unassigned commands from the list
 below and select "Add", then type the gesture you wish to use.
 
 Important: some of these commands will not work if NVDA is running in secure
-mode such as from login screen.
+mode such as from login screen. Not all commands support speak on demand.
 
 * Switching to SPL Studio window from any program (unavailable in secure
-  mode).
+  mode, does not support speak on demand).
 * SPL Controller layer (unavailable in secure mode).
 * Announcing Studio status such as track playback from other programs
   (unavailable in secure mode).
@@ -102,14 +112,20 @@ mode such as from login screen.
 * Đánh dấu track hiện tại làm track bắt đầu phân tích track theo thời gian.
 * Thực hiện phân tích thời gian track.
 * Chụp ảnh danh sách phát.
-* Tìm kiếm văn bản trong các cột cụ thể.
-* Tìm track với  thời lượng trong khoảng thời gian cho trước thông qua tìm
-  kiếm theo khoảng thời gian.
-* Nhanh chóng bật hay tắt truyền siêu dữ liệu.
+* Find text in specific columns (does not support speak on demand).
+* Find tracks with duration that falls within a given range via time range
+  finder (does not support speak on demand).
+* Quickly enable or disable metadata streaming (does not support speak on
+  demand).
 
 ## Những lệnh cho thêm khi dùng các bộ mã hóa
 
-Các phím lệnh sau  đây hoạt động khi sử dụng các bộ mã hóa:
+The following commands are available when using encoders, and the ones used
+for toggling options for on-connection behavior such as focusing to Studio,
+playing the first track, and toggling of background monitoring can be
+assigned through the Input Gestures dialog in NVDA menu, Preferences, Input
+Gestures, under the StationPlaylist category. These commands do not support
+speak on demand.
 
 * F9: kết nối bộ mã hóa đã chọn.
 * F10 (chỉ khi dùng SAM encoder): ngắt kết nối bộ mã hóa đã chọn.
@@ -122,10 +138,11 @@ Các phím lệnh sau  đây hoạt động khi sử dụng các bộ mã hóa:
 * Control+F11: bật tắt chế độ theo dõi ngầm của bộ mã hóa được chọn.
 * Control+F12: mở hộp thoại chọn bộ mã hóa đã xóa (sắp xếp lại các cài đặt
   của nhãn phát và các bộ mã hóa).
-* Alt+NVDA+0 and F12: Opens encoder settings dialog to configure options
-  such as encoder label.
+* Alt+NVDA+0 or F12: Opens encoder settings dialog to configure options such
+  as encoder label.
 
-Ngoài ra, có các lệnh để xem lại cột bao gồm:
+In addition, column review commands are available, including (supports speak
+on demand):
 
 * Control+NVDA+1: vị trí mã hóa.
 * Control+NVDA+2: nhãn mã hóa.
@@ -145,19 +162,19 @@ Assistant layer rồi bấm một trong các phím trong danh sách dưới đâ
 nhiều lệnh chỉ dành riêng cho trình xem danh sách phát). Bạn cũng có thể cấu
 hình NvDA để mô phỏng lệnh theo kiểu của các trình đọc màn hình khác.
 
-Các lệnh được hỗ trợ bao gồm:
+The available commands are (most commands support speak on demand):
 
 * A: tự động hóa.
 * C (Shift+C trong kiểu phím lệnh của JAWS): tên của track đang phát.
-* C (Kiểu phím lệnh JAWS): bật tắt cart explorer (chỉ trong trình xem danh
-  sách phát).
+* C (JAWS layout): Toggle cart explorer (playlist viewer only, does not
+  support speak on demand).
 * D (R trong kiểu phím lệnh của JAWS): thời lượng còn lại của danh sách phát
   (nếu có thông báo lỗi, di chuyển đến trình xem danh sách phát và thực hiện
   lệnh này).
 * E: trạng thái truyền siêu dữ liệu.
 * Shift+1 đến Shift+4, Shift+0: trạng thái của URL truyền siêu dữ liệu cụ
   thể (0 cho DSP encoder).
-* F: tìm kiếm track (chỉ  khi ở trong trình xem danh sách phát).
+* F: Find track (playlist viewer only, does not support speak on demand).
 * H: thời lượng phát nhạc của khung giờ hiện tại.
 * Shift+H: thời lượng còn lại cho track của khung giờ hiện tại.
 * I (L trong kiểu phím lệnh của JAWS): đếm lượt người nghe.
@@ -197,7 +214,8 @@ Studio như bật / tắt microphone hoặc phát track kế.
 Important: SPL Controller layer commands are disabled if NVDA is running in
 secure mode.
 
-Các lệnh của bộ điều khiển SPL bao gồm:
+The available SPL Controller commands are (some commands support speak on
+demand):
 
 * P: Play the next selected track.
 * U: Pause or unpause playback.
@@ -211,12 +229,14 @@ Các lệnh của bộ điều khiển SPL bao gồm:
 * Shift+L: Turn off line-in input.
 * R: Remaining time for the currently playing track.
 * Shift+R: Library scan progress.
-* C: Title and duration of the currently playing track.
-* Shift+C: Title and duration of the upcoming track if any.
-* E: Encoder connection status.
-* I: Listener count.
+* C: Title and duration of the currently playing track (supports speak on
+  demand).
+* Shift+C: Title and duration of the upcoming track if any (supports speak
+  on demand).
+* E: Encoder connection status (supports speak on demand).
+* I: Listener count (supports speak on demand).
 * Q: Studio status information such as whether a track is playing,
-  microphone is on and others.
+  microphone is on and others (supports speak on demand).
 * Cart keys (F1, Control+1, for example): Play assigned carts from anywhere.
 * H: Layer help.
 
@@ -310,6 +330,14 @@ If you are using Studio on a touchscreen computer with NVDA installed, you
 can perform some Studio commands from the touchscreen. First use three
 finger tap to switch to SPL mode, then use the touch commands listed above
 to perform commands.
+
+## Version 24.03
+
+* Compatible with NVDA 2024.1.
+* NVDA 2023.3.3 or later is required.
+* Support for StationPlaylist suite 6.10.
+* Most commands support speak on demand (NVDA 2024.1) so announcements can
+  be spoken in this mode.
 
 ## Version 24.01
 

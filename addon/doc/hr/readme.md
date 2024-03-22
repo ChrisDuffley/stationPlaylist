@@ -1,9 +1,10 @@
 # StationPlaylist #
+
 * Authors: Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee
   <joseph.lee22590@gmail.com>, originally by Geoff Shang and other
   contributors)
 * Preuzmi [stabilnu verziju][1]
-* NVDA kompatibilnost: 2022.4 i novije verzije
+* NVDA compatibility: 2023.3.3 and later
 
 Ovaj paket dodataka omogućava bolje korištenje programa StationPlaylist
 Studio i drugih StationPlaylist programa te pruža alate za kontrolu programa
@@ -27,63 +28,67 @@ VAŽNE NAPOMENE:
   jednom ili pritiskom tipki kontrol+NVDA+R tri puta. Ovo se također
   primijenjuje na postavke kodera – moguće je spremiti i resetirati (ali ne
   ponovo učitati) postavke kodera, ako se koderi koriste.
+* Many commands will provide speech output while NVDA is in speak on demand
+  mode (NVDA 2024.1 and later).
 
 ## Tipkovni prečaci
 
-Većina njih radi samo u programu Studio, ukoliko nešto drugo nije navedeno.
+Most of these will work in Studio only unless otherwise specified. Unless
+noted otherwise, these commands support speak on demand mode.
 
-* Alt+Šift+T u prozoru Studija: najavi proteklo vrijeme trake koja
-  trenutačno svira.
-* Kontrol+Alt+T (klizanje s dva prsta prema dolje u dodirnom modusu SPL-a) u
-  prozoru Studija: najavi preostalo vrijeme snimke koja trenutačno svira.
+* Alt+Shift+T from Studio window: announce elapsed time for the currently
+  playing track.
+* Control+Alt+T (two finger flick down in SPL touch mode) from Studio
+  window: announce remaining time for the currently playing track.
 * NVDA+Šift+F12 (klizanje s dva prsta prema gore u dodirnom modusu SPL-a) u
   prozoru Studija: najavljuje vrijeme emitiranja kao što je 5 minuta do
   punog sata. Dvostrukim pritiskom ove naredbe objavit će se minute i
   sekunde do punog sata.
-* Alt+NVDA+1 (klizanje s dva prsta prema lijevo u dodirnom modusu SPL-a) u
-  prozoru Studija: otvara dijaloški okvir s postavkama alarma za uvodni dio
-  pjesme.
+* Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens
+  alarms category in Studio add-on configuration dialog (does not support
+  speak on demand).
 * Alt+NVDA+1 u prozoru Playlist Editora Creatora i Remote VT editoru popisa
   snimaka: najavljuje planirano vrijeme za učitani popisa snimaka.
 * Alt+NVDA+2 u prozoru Playlist Editora Creatora i Remote VT editoru popisa
   snimaka: najavljuje ukupno trajanje popisa snimaka.
-* Alt+NVDA+3 u prozoru programa Studio: uključuje i isključuje istraživača
-  džinglova za prikaz njima dodijeljenih naredbi.
+* Alt+NVDA+3 from Studio window: Toggles cart explorer to learn cart
+  assignments (does not support speak on demand).
 * Alt+NVDA+3 u prozoru Playlist Editora Creatora i Remote VT editoru popisa
   snimaka: najavljuje planirano vrijeme sviranja za odabranu snimku.
 * Alt+NVDA+4 u prozoru Playlist Editora Creatora i Remote VT editoru popisa
   snimaka: najavljuje rotaciju i povezanu kategoriju s učitanim popisom
   snimaka.
-* Kontrol+NVDA+f u prozoru Studija: otvara dijaloški okvir za pronalaženje
-  snimke na temelju izvođača ili pjesme. Pritisni NVDA+F3 za traženje prema
-  naprijed ili NVDA+Šift+F3 za traženje prema natrag.
-* Alt+NVDA+R u prozoru Studija: prolazi kroz postavke najave skeniranja
-  biblioteke.
-* Kontrol+Šift+X u prozoru Studija: prolazi kroz postavke brajeve štoperice.
-* Kontrol+Alt+strelica lijevo ili desno (tijekom fokusiranja jedne snimke u
-  programima Studio, Creator, Remote VT i Track Tool): prijeđi na prethodni
-  ili sljedeći stupac snimaka.
-* Kontrol+Alt+strelica gore ili dolje (tijekom fokusiranja na snimku u
-  programu Studio, Creator, Remote VT i Track Tool): prijeđi na prethodnu
-  ili sljedeću snimku i najavi određene stupce.
+* Control+NVDA+f from Studio window: Opens a dialog to find a track based on
+  artist or song name. Press NVDA+F3 to find forward or NVDA+Shift+F3 to
+  find backward (does not support speak on demand).
+* Alt+NVDA+R from Studio window: Steps through library scan announcement
+  settings (does not support speak on demand).
+* Control+Shift+X from Studio window: Steps through braille timer settings
+  (does not support speak on demand).
+* Control+Alt+left/right arrow (while focused on a track in Studio, Creator,
+  Remote VT, and Track Tool): Move to previous/next track column (does not
+  support speak on demand).
+* Control+Alt+up/down arrow (while focused on a track in Studio, Creator,
+  Remote VT, and Track Tool): Move to previous/next track and announce
+  specific columns (does not support speak on demand).
 * Kontrol+NVDA+1 do 0 (tijekom fokusiranja trake u programima Studio,
   Creator (uključujući Playlist Editor), Remote VT i Track Tool): najavi
   sadržaj stupca za određeni stupac (standardno za prvih deset
   stupaca). Pritisni naredbu dvaput za prikaz podataka stupca u prozoru
   modusa pregledavanja.
-* Kontrol+NVDA+- (crtica tijekom fokusiranja jedne snimke u programu Studio,
-  Creator, Remote VT i Track Tool): prikaži podatke svih stupaca u snimci na
-  prozoru modusa pregledavanja.
-* NVDA+V tijekom fokusiranja na snimku (samo u prikazu popisa snimaka
-  programa Studio): mijenja najavljivanje stupca snimaka između ekranskog i
-  prilagođenog redoslijeda.
+* Control+NVDA+- (hyphen while focused on a track in Studio, Creator, Remote
+  VT, and Track Tool): display data for all columns in a track on a browse
+  mode window (does not support speak on demand).
+* NVDA+V while focused on a track (Studio's playlist viewer only): toggles
+  track column announcement between screen order and custom order (does not
+  support speak on demand).
 * Alt+NVDA+C tijekom fokusiranja na snimku (samo u prikazu popisa snimaka
   programa Studio): najavljuje komentare snimke, ukoliko ih ima.
-* Alt+NVDA+0 u prozoru Studija: otvara dijaloški okvir za konfiguriranje
-  dodataka.
-* Alt+NVDA+P u prozoru Studija: otvara dijaloški okvir za profile
-  emitiranja.
-* Alt+NVDA+F1: otvara dijaloški okvir za dobrodošlicu.
+* Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration
+  dialog (does not support speak on demand).
+* Alt+NVDA+P from Studio window: Opens the Studio broadcast profiles dialog
+  (does not support speak on demand).
+* Alt+NVDA+F1: Open welcome dialog (does not support speak on demand).
 
 ## Nedodijeljene naredbe
 
@@ -93,11 +98,11 @@ prozoru programa Studio, otvori „Postavke” u NVDA izborniku, a zatim „Ulaz
 geste”. Rasklopi kategoriju StationPlaylist. Pronađi nedodijeljene naredbe s
 donjeg popisa, odaberi „Dodaj” i upiši gestu koju želiš koristiti.
 
-Važno: neke od ovih naredbi neće raditi ako NVDA radi u sigurnom načinu
-rada, kao što je ekran za prijavu.
+Important: some of these commands will not work if NVDA is running in secure
+mode such as from login screen. Not all commands support speak on demand.
 
-* Prebacivanje na SPL Studio prozor iz bilo koje aplikacije (nedostupno u
-  sigurnom modusu).
+* Switching to SPL Studio window from any program (unavailable in secure
+  mode, does not support speak on demand).
 * Sloj SPL Kontrolera (nedostupno u sigurnom modusu).
 * Najavljivanje stanja porgrama Studio, kao što je sviranje snimaka iz
   drugih programa (nedostupno u sigurnom modusu).
@@ -111,14 +116,20 @@ rada, kao što je ekran za prijavu.
 * Označavanje trenutačne snimke kao početak vremenske analize snimaka.
 * Izvršavanje vremenske analize snimaka.
 * Sastavi statistiku popisa snimaka.
-* Nađi tekst u određenim stupcima.
-* Nađi snimke čija trajanja odgovaraju određenom vremenskom rasponu, pomoću
-  pronalaženja vremenskog raspona.
-* Brzo aktiviraj ili deaktiviraj internetski prijenos metapodataka.
+* Find text in specific columns (does not support speak on demand).
+* Find tracks with duration that falls within a given range via time range
+  finder (does not support speak on demand).
+* Quickly enable or disable metadata streaming (does not support speak on
+  demand).
 
 ## Dodatne naredbe tijekom korištenja kodera
 
-Tijekom korištenja kodera dostupne su sljedeće naredbe:
+The following commands are available when using encoders, and the ones used
+for toggling options for on-connection behavior such as focusing to Studio,
+playing the first track, and toggling of background monitoring can be
+assigned through the Input Gestures dialog in NVDA menu, Preferences, Input
+Gestures, under the StationPlaylist category. These commands do not support
+speak on demand.
 
 * F9: Spoji odabrani koder.
 * F10 (samo SAM koder): Odspoji odabrani koder.
@@ -131,10 +142,11 @@ Tijekom korištenja kodera dostupne su sljedeće naredbe:
 * Kontrol+F11: Uključuje i isključuje praćenje odabranog kodera u pozadini.
 * Kontrol+F12: Otvara dijaloški okvir za biranje izbrisanih kodera (kako bi
   se uskladile oznake kodera i postavke).
-* Alt+NVDA+0 i F12: Otvara dijaloški okvir postavki kodera za konfiguriranje
-  opcija kao što je oznaka kodera.
+* Alt+NVDA+0 or F12: Opens encoder settings dialog to configure options such
+  as encoder label.
 
-Dodatno tome, dostupne su naredbe za pregled stupaca, uključujući sljedeće:
+In addition, column review commands are available, including (supports speak
+on demand):
 
 * Kontrol+NVDA+1: Pozicija kodera.
 * Kontrol+NVDA+2: Oznaka kodera.
@@ -155,18 +167,18 @@ donjeg popisa (jedna ili više naredbi se koriste isključivo u prikazu popisa
 snimaka). NVDA čitača možeš konfigurirati i na način, da oponaša naredbe
 drugih čitača ekrana.
 
-Dostupne naredbe su:
+The available commands are (most commands support speak on demand):
 
 * A: Automatizacija.
 * C (Šift+C u JAWS rasporedu): Naslov trenutačno svirane snimke.
-* C (JAWS raspored): Uključi ili isključi istraživača džinglova (samo u
-  prikazu popisa snimaka).
+* C (JAWS layout): Toggle cart explorer (playlist viewer only, does not
+  support speak on demand).
 * D (R u JAWS rasporedu): Preostalo vrijeme popisa snimaka (ako se pojavi
   greška, premjesti se na prikaz popisa snimaka te zadaj ovu naredbu).
 * E: Stanje internetskog prijenosa metapodataka.
 * Šift+1 do Šift+4, Šift+0: Stanje URL adresa pojedinih internetskih
   prijenosa metapodataka (0 je za DSP koder).
-* F: Nađi snimku (samo u prikazu popisa snimaka).
+* F: Find track (playlist viewer only, does not support speak on demand).
 * H: Trajanje snimaka trenutačnog jednosatnog slota.
 * Šift+H: Preostalo trajanje snimaka jednosatnog slota.
 * I (L u JAWS rasporedu): Broj slušatelja.
@@ -207,7 +219,8 @@ isključivanje mikrofona ili sviranje sljedeće snimke.
 Važno: Naredbe sloja SPL Kontrolera su deaktivirane ako NVDA čitač radi u
 sigurnom modusu.
 
-Dostupne naredbe za SPL Kontroler su:
+The available SPL Controller commands are (some commands support speak on
+demand):
 
 * P: Sviraj sljedeće odabrane snimke.
 * U: Pauza ili nastavljanje sviranja.
@@ -221,12 +234,14 @@ Dostupne naredbe za SPL Kontroler su:
 * Shift+L: Isključi line-in unos.
 * R: Preostalo vrijeme trenutačno svirane snimke.
 * Šift+R: Napredovanje skeniranja biblioteke.
-* C: Naslov i trajanje trenutačno svirane snimke.
-* Šift+C: Naslov i trajanje nadolazeće snimke, ako je ima.
-* E: Stanje veze kodera.
-* I: Broj slušatelja.
-* Q: Informacije o stanjima u programu Studio, npr. je li se svira neka
-  snimka, je li mikrofon uključen ili nije i drugo.
+* C: Title and duration of the currently playing track (supports speak on
+  demand).
+* Shift+C: Title and duration of the upcoming track if any (supports speak
+  on demand).
+* E: Encoder connection status (supports speak on demand).
+* I: Listener count (supports speak on demand).
+* Q: Studio status information such as whether a track is playing,
+  microphone is on and others (supports speak on demand).
 * Tipke za džinglove (npr. F1, Kontrol+1): Sviraj dodijeljene džinglove s
   bilo kojeg mjesta.
 * H: Pomoć za slojeve.
@@ -327,6 +342,14 @@ Ako koristiš Studio na računalu s ekranom osjetljivim na dodir i
 instaliranim NVDA čitačem, neke Studio naredbe možeš izvršiti na ekranu
 osjetljivim na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri
 prsta. Zatim koristi gore navedene dodirne naredbe za njihovo izvršavanje.
+
+## Version 24.03
+
+* Compatible with NVDA 2024.1.
+* NVDA 2023.3.3 or later is required.
+* Support for StationPlaylist suite 6.10.
+* Most commands support speak on demand (NVDA 2024.1) so announcements can
+  be spoken in this mode.
 
 ## Version 24.01
 

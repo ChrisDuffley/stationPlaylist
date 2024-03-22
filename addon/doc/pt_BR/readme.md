@@ -1,9 +1,10 @@
 # StationPlaylist #
+
 * Authors: Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee
   <joseph.lee22590@gmail.com>, originally by Geoff Shang and other
   contributors)
 * Baixe a [versão estável][1]
-* NVDA compatibility: 2022.4 and later
+* NVDA compatibility: 2023.3.3 and later
 
 Este pacote de complemento fornece uso aprimorado do StationPlaylist Studio
 e outros aplicativos StationPlaylist, além de fornecer utilitários para
@@ -30,67 +31,69 @@ NOTAS IMPORTANTES:
   configurações do codificador - você pode salvar e redefinir (não
   recarregar) as configurações do codificador se estiver usando
   codificadores.
+* Many commands will provide speech output while NVDA is in speak on demand
+  mode (NVDA 2024.1 and later).
 
 ## Teclas de atalho
 
-A maioria delas funcionará no Studio apenas a menos que seja especificado de
-outra forma.
+Most of these will work in Studio only unless otherwise specified. Unless
+noted otherwise, these commands support speak on demand mode.
 
-* Alt+Shift+T na janela do Studio: anuncia o tempo decorrido para a faixa
-  atualmente em reprodução.
-* Control+Alt+T (deslizar dois dedos para baixo no modo tátil SPL) na janela
-  do Studio: anuncia o tempo restante para a faixa atualmente em reprodução.
+* Alt+Shift+T from Studio window: announce elapsed time for the currently
+  playing track.
+* Control+Alt+T (two finger flick down in SPL touch mode) from Studio
+  window: announce remaining time for the currently playing track.
 * NVDA+Shift+F12 (deslizar com dois dedos para cima no modo tátil SPL) na
   janela do Studio: anuncia o tempo da emissora como 5 minutos para o início
   da hora. Pressionar este comando duas vezes anunciará os minutos e
   segundos até o início da hora.
-* Alt+NVDA+1 (deslizar com dois dedos para a direita no modo tátil SPL) na
-  janela do Studio: Abre a categoria de alarmes na caixa de diálogo de
-  configuração do complemento do Studio.
+* Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens
+  alarms category in Studio add-on configuration dialog (does not support
+  speak on demand).
 * Alt+NVDA+1 no Editor de Lista de Reprodução do Creator e no editor de
   lista de reprodução Remote VT: Anuncia a hora programada para a lista de
   reprodução — playlist — carregada.
 * Alt+NVDA+2 no Editor de Lista de Reprodução do Creator e editor de lista
   de reprodução Remote VT: Anuncia a duração total da lista de reprodução.
-* Alt+NVDA+3 na janela do Studio: Alterna o explorador do carrinho — cart —
-  para aprender as atribuições de carrinho.
+* Alt+NVDA+3 from Studio window: Toggles cart explorer to learn cart
+  assignments (does not support speak on demand).
 * Alt+NVDA+3 no Editor de Lista de Reprodução do Creator e editor de lista
   de reprodução Remote VT: Anuncia quando a faixa selecionada está
   programada para tocar.
 * Alt+NVDA+4 no Editor de Lista de Reprodução do Creator e editor de lista
   de reprodução Remote VT: Anuncia rotação e categoria associada à lista de
   reprodução carregada.
-* Control+NVDA+f na janela do Studio: Abre um diálogo para localizar uma
-  faixa baseada no intérprete ou nome da música. Pressione NVDA+F3 para
-  localizar para frente ou NVDA+Shift+F3 para localizar para trás.
-* Alt+NVDA+R na janela do Studio: Passa pelas configurações de anúncio de
-  varredura — scan — da biblioteca.
-* Control+Shift+X na janela do Studio: Passa pelas configurações do
-  temporizador braille.
-* Control+Alt+seta para esquerda/direita (enquanto focalizado numa faixa no
-  Studio, Creator, Remote VT e Ferramenta de Faixa): Move-se para a coluna
-  anterior/seguinte da faixa.
-* Control+Alt+seta para cima/baixo (enquanto focalizado numa faixa no
-  Studio, Creator, Remote VT e ferramenta de Faixa): Move-se para a faixa
-  anterior/seguinte e anuncia colunas específicas.
+* Control+NVDA+f from Studio window: Opens a dialog to find a track based on
+  artist or song name. Press NVDA+F3 to find forward or NVDA+Shift+F3 to
+  find backward (does not support speak on demand).
+* Alt+NVDA+R from Studio window: Steps through library scan announcement
+  settings (does not support speak on demand).
+* Control+Shift+X from Studio window: Steps through braille timer settings
+  (does not support speak on demand).
+* Control+Alt+left/right arrow (while focused on a track in Studio, Creator,
+  Remote VT, and Track Tool): Move to previous/next track column (does not
+  support speak on demand).
+* Control+Alt+up/down arrow (while focused on a track in Studio, Creator,
+  Remote VT, and Track Tool): Move to previous/next track and announce
+  specific columns (does not support speak on demand).
 * Control+NVDA+1 a 0 (enquanto focalizado numa faixa no Studio, Creator
   (incluindo o Editor de Lista de Reprodução), Remote VT e ferramenta de
   Faixa): Anuncia o conteúdo da coluna para uma coluna especificada (as
   primeiras dez colunas por padrão). Pressionar este comando duas vezes
   exibirá as informações da coluna numa janela em modo de navegação.
-* Control+NVDA+- (hífen enquanto focalizado numa faixa no Studio, Creator,
-  Remote VT e Ferramenta de Faixa): exibe dados para todas as colunas numa
-  trilha em uma janela do modo de navegação.
-* NVDA+V enquanto focalizado numa faixa (somente visualizador de lista de
-  reprodução do Studio): alterna o anúncio da coluna da faixa entre a ordem
-  da tela e a ordem personalizada.
+* Control+NVDA+- (hyphen while focused on a track in Studio, Creator, Remote
+  VT, and Track Tool): display data for all columns in a track on a browse
+  mode window (does not support speak on demand).
+* NVDA+V while focused on a track (Studio's playlist viewer only): toggles
+  track column announcement between screen order and custom order (does not
+  support speak on demand).
 * Alt+NVDA+C enquanto focalizado numa faixa (somente visualizador da lista
   de reprodução do Studio): anuncia os comentários da faixa, se houver.
-* Alt+NVDA+0 na janela do Studio: Abre o diálogo de configuração do
-  complemento do Studio.
-* Alt+NVDA+P na janela do Studio: abre o diálogo de perfis de transmissão —
-  broadcast — do Studio.
-* Alt+NVDA+F1: abre o diálogo de boas-vindas.
+* Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration
+  dialog (does not support speak on demand).
+* Alt+NVDA+P from Studio window: Opens the Studio broadcast profiles dialog
+  (does not support speak on demand).
+* Alt+NVDA+F1: Open welcome dialog (does not support speak on demand).
 
 ## Comandos não atribuídos
 
@@ -102,10 +105,10 @@ localize os comandos não atribuídos na lista abaixo e selecione "Adicionar"
 e digite o comando — gesto — que deseja usar.
 
 Important: some of these commands will not work if NVDA is running in secure
-mode such as from login screen.
+mode such as from login screen. Not all commands support speak on demand.
 
 * Switching to SPL Studio window from any program (unavailable in secure
-  mode).
+  mode, does not support speak on demand).
 * SPL Controller layer (unavailable in secure mode).
 * Announcing Studio status such as track playback from other programs
   (unavailable in secure mode).
@@ -119,14 +122,20 @@ mode such as from login screen.
 * Marcando a faixa atual para o início da análise do tempo da faixa.
 * Executando análise de tempo da faixa.
 * Tira instantâneos — snapshots — da lista de reprodução.
-* Localiza texto em colunas específicas.
-* Localiza faixas com duração dentro de um determinado intervalo por meio do
-  localizador de intervalo de tempo.
-* Habilita ou desabilita o fluxo — streaming — de metadados rapidamente.
+* Find text in specific columns (does not support speak on demand).
+* Find tracks with duration that falls within a given range via time range
+  finder (does not support speak on demand).
+* Quickly enable or disable metadata streaming (does not support speak on
+  demand).
 
 ## Comandos adicionais ao usar codificadores
 
-Os seguintes comandos estão disponíveis ao usar codificadores — encoders:
+The following commands are available when using encoders, and the ones used
+for toggling options for on-connection behavior such as focusing to Studio,
+playing the first track, and toggling of background monitoring can be
+assigned through the Input Gestures dialog in NVDA menu, Preferences, Input
+Gestures, under the StationPlaylist category. These commands do not support
+speak on demand.
 
 * F9: conecte o codificador selecionado.
 * F10 (somente codificador SAM): Desconecte o codificador selecionado.
@@ -140,11 +149,11 @@ Os seguintes comandos estão disponíveis ao usar codificadores — encoders:
   selecionado.
 * Control+F12: abre um diálogo para selecionar o codificador que você
   excluiu (para realinhar os rótulos e as configurações do codificador).
-* Alt+NVDA+0 e F12: Abre o diálogo de configurações do codificador para
-  configurar opções como o rótulo do codificador.
+* Alt+NVDA+0 or F12: Opens encoder settings dialog to configure options such
+  as encoder label.
 
-Além disso, comandos de revisão/exploração de coluna estão disponíveis,
-incluindo:
+In addition, column review commands are available, including (supports speak
+on demand):
 
 * Control+NVDA+1: Posição do codificador.
 * Control+NVDA+2: rótulo do codificador.
@@ -166,19 +175,19 @@ das teclas da lista abaixo (um ou mais comandos são exclusivos do
 visualizador da lista de reprodução). Você também pode configurar o NVDA
 para emular comandos de outros leitores de tela.
 
-Os comandos disponíveis são:
+The available commands are (most commands support speak on demand):
 
 * A: Automatização.
 * C (Shift+C no leiaute JAWS): Título para a faixa atualmente em reprodução.
-* C (leiaute JAWS): Alternar explorador de carrinho (somente visualizador de
-  lista de reprodução).
+* C (JAWS layout): Toggle cart explorer (playlist viewer only, does not
+  support speak on demand).
 * D (R no leiaute JAWS): Duração restante para a lista de reprodução (se uma
   mensagem de erro for dada, mova para o visualizador da lista de reprodução
   e, em seguida, execute este comando).
 * E: Status de fluxo de metadados.
 * Shift+1 a Shift+4, Shift+0: status para URLs de fluxo — streaming — de
   metadados individuais (0 é para codificador DSP).
-* F: Localizar faixa (somente visualizador da lista de reprodução).
+* F: Find track (playlist viewer only, does not support speak on demand).
 * H: Duração da música para a hora de programação.
 * Shift+H: duração restante da faixa para a hora de programação.
 * I (L no leiaute JAWS): Contagem de ouvintes.
@@ -221,7 +230,8 @@ microfone ou reproduzir a próxima faixa.
 Important: SPL Controller layer commands are disabled if NVDA is running in
 secure mode.
 
-Os comandos do Controlador SPL disponíveis são:
+The available SPL Controller commands are (some commands support speak on
+demand):
 
 * P: reproduz a próxima faixa selecionada.
 * U: pausa ou retoma a reprodução.
@@ -235,12 +245,14 @@ Os comandos do Controlador SPL disponíveis são:
 * Shift+L: Desativa a entrada de linha.
 * R: Tempo restante para a faixa atualmente em reprodução.
 * Shift+R: Progresso da varredura da biblioteca.
-* C: Título e duração da faixa atualmente em reprodução.
-* Shift+C: Título e duração da próxima faixa, se houver.
-* E: Status de conexão do codificador.
-* I: Contagem de ouvintes.
-* Q: Informações de status do Studio, como se uma faixa está sendo
-  reproduzida, se o microfone está ativado e outros.
+* C: Title and duration of the currently playing track (supports speak on
+  demand).
+* Shift+C: Title and duration of the upcoming track if any (supports speak
+  on demand).
+* E: Encoder connection status (supports speak on demand).
+* I: Listener count (supports speak on demand).
+* Q: Studio status information such as whether a track is playing,
+  microphone is on and others (supports speak on demand).
 * Teclas do carrinho (F1, Control+1, por exemplo): Reproduz carrinhos
   atribuídos de qualquer lugar.
 * H: Ajuda da camada.
@@ -347,6 +359,14 @@ If you are using Studio on a touchscreen computer with NVDA installed, you
 can perform some Studio commands from the touchscreen. First use three
 finger tap to switch to SPL mode, then use the touch commands listed above
 to perform commands.
+
+## Version 24.03
+
+* Compatible with NVDA 2024.1.
+* NVDA 2023.3.3 or later is required.
+* Support for StationPlaylist suite 6.10.
+* Most commands support speak on demand (NVDA 2024.1) so announcements can
+  be spoken in this mode.
 
 ## Version 24.01
 
