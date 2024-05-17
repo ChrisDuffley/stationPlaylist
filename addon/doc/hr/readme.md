@@ -4,7 +4,7 @@
   <joseph.lee22590@gmail.com>, originally by Geoff Shang and other
   contributors)
 * Preuzmi [stabilnu verziju][1]
-* NVDA compatibility: 2023.3.3 and later
+* NVDA kompatibilnost: 2023.3.3 i novije verzije
 
 Ovaj paket dodataka omogućava bolje korištenje programa StationPlaylist
 Studio i drugih StationPlaylist programa te pruža alate za kontrolu programa
@@ -343,15 +343,15 @@ instaliranim NVDA čitačem, neke Studio naredbe možeš izvršiti na ekranu
 osjetljivim na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri
 prsta. Zatim koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
-## Version 24.03
+## Verzija 24.03
 
 * Compatible with NVDA 2024.1.
-* NVDA 2023.3.3 or later is required.
-* Support for StationPlaylist suite 6.10.
+* Zahtijeva NVDA 2023.3.3 ili noviju verziju.
+* Podrška za StationPlaylist izdanje 6.10.
 * Most commands support speak on demand (NVDA 2024.1) so announcements can
   be spoken in this mode.
 
-## Version 24.01
+## Verzija 24.01
 
 * The commands for the Encoder Settings dialog for use with the SPL and SAM
   Encoders are now assignable, meaning that you can change them from their
@@ -363,7 +363,7 @@ prsta. Zatim koristi gore navedene dodirne naredbe za njihovo izvršavanje.
   just F11). All of these can of course still be toggled from the Encoder
   Settings dialog (NVDA+Alt+0 or F12).
 
-## Version 23.05
+## Verzija 23.05
 
 * To reflect the maintainer change, the manifest has been updated to
   indicate as such.
@@ -380,7 +380,8 @@ prsta. Zatim koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
 ## Starija izdanja
 
-Please see the [changelog][3] for release notes for old add-on releases.
+Pogledaj poveznicu [zapisnika promjena][3] za bilješke o starim izdanjima
+dodatka.
 
 [[!tag dev stable]]
 
