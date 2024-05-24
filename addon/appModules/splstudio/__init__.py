@@ -12,9 +12,7 @@
 
 # Minimum version: SPL 5.40, NVDA 2021.3.
 
-# #155 (21.03): remove __future__ import when NVDA runs under Python 3.10.
-from __future__ import annotations
-from typing import Any, Optional
+from typing import Any
 from functools import wraps
 import os
 import time
@@ -69,9 +67,9 @@ def finally_(func, final):
 SPLMinVersion = "5.40"
 
 # Threads pool.
-micAlarmT: Optional[threading.Timer] = None
+micAlarmT: threading.Timer | None = None
 micAlarmT2 = None
-libScanT: Optional[threading.Thread] = None
+libScanT: threading.Thread | None = None
 
 # Versions of Studio where library scanning functionality is broken.
 noLibScanMonitor: list[str] = []
@@ -148,7 +146,7 @@ class SPLTrackItem(sysListView32.ListItem):
 
 	# #103: provide an abstract index of function.
 	@abstractmethod
-	def indexOf(self, columnHeader: str) -> Optional[int]:
+	def indexOf(self, columnHeader: str) -> int | None:
 		return None
 
 	@scriptHandler.script(
@@ -292,7 +290,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	# 8.0: Make this a public function.
 	# #109 (19.08): now standardized around this function.
 	# #142 (20.09): do not ignore Status column (0) just because it is the name of the track as reported by MSAA.
-	def indexOf(self, columnHeader: str) -> Optional[int]:
+	def indexOf(self, columnHeader: str) -> int | None:
 		try:
 			columnHeaders = ["Status"] + splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 			return columnHeaders.index(columnHeader)
@@ -346,8 +344,8 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	# Readable flag will transform None into an empty string, suitable for output.
 	# #61 (18.07): readable flag will become a string parameter to be used in columns viewer.
 	def _getColumnContents(
-			self, columns: Optional[list[int]] = None, readable: bool = False
-	) -> list[Optional[str]]:
+			self, columns: list[int] | None = None, readable: bool = False
+	) -> list[str | None]:
 		if columns is None:
 			columns = list(range(18))
 		columnContents = [self._getColumnContentRaw(col) for col in columns]
@@ -676,7 +674,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Translators: Script category for StationPlaylist add-on commands in input gestures dialog.
 	scriptCategory = _("StationPlaylist")
-	_focusedTrack: Optional[Any] = None
+	_focusedTrack: Any | None = None
 	# Monitor Studio API routines.
 	_SPLStudioMonitor = None
 
@@ -818,7 +816,7 @@ class AppModule(appModuleHandler.AppModule):
 		# when library scan is happening via Insert Tracks dialog.
 		# #92 (19.01.1/18.09.7-LTS): if Studio dies, zero will be returned, so check for window handle once more.
 		# #155 (21.03): library scan count must be an integer.
-		libScanCount: Optional[int] = splbase.studioAPI(1, 32)
+		libScanCount: int | None = splbase.studioAPI(1, 32)
 		if libScanCount and libScanCount >= 0:
 			if not user32.FindWindowW("SPLStudio", None):
 				return
@@ -853,30 +851,34 @@ class AppModule(appModuleHandler.AppModule):
 		nextHandler()
 
 	def event_NVDAObject_init(self, obj):
-		# From 0.01: previously focused item fires focus event when it shouldn't.
-		if (
-			obj.windowClassName == "TListView"
-			and obj.role in (controlTypes.Role.CHECKBOX, controlTypes.Role.LISTITEM)
-			and controlTypes.State.FOCUSED not in obj.states
-		):
-			obj.shouldAllowIAccessibleFocusEvent = False
-		# Radio button group names are not recognized as grouping, so work around this.
-		elif obj.windowClassName == "TRadioGroup":
-			obj.role = controlTypes.Role.GROUPING
-		# In certain edit fields and combo boxes, the field name is written to the screen,
-		# and there's no way to fetch the object for this text.
-		# Thus use review position text.
-		elif obj.windowClassName in ("TEdit", "TComboBox") and not obj.name:
-			import review
-			fieldName, fieldObj = review.getScreenPosition(obj)
-			fieldName.expand(textInfos.UNIT_LINE)
-			if obj.windowClassName == "TComboBox":
-				obj.name = fieldName.text.replace(obj.windowText, "")
-			else:
-				obj.name = fieldName.text
-		# Status bar labels are not found in Studio 6 but is written to the screen.
-		elif obj.windowClassName == "TStatusBar" and obj.name is None:
-			obj.name = obj.displayText
+		# Employ structural pattern matching to handle different window class names.
+		match obj.windowClassName:
+			case "TListView":
+				# From 0.01: previously focused item fires focus event when it shouldn't.
+				if (
+					obj.role in (controlTypes.Role.CHECKBOX, controlTypes.Role.LISTITEM)
+					and controlTypes.State.FOCUSED not in obj.states
+				):
+					obj.shouldAllowIAccessibleFocusEvent = False
+			case "TRadioGroup":
+				# Radio button group names are not recognized as grouping, so work around this.
+				obj.role = controlTypes.Role.GROUPING
+			case "TEdit" | "TComboBox":
+				# In certain edit fields and combo boxes, the field name is written to the screen,
+				# and there's no way to fetch the object for this text.
+				# Thus use review position text.
+				if not obj.name:
+					import review
+					fieldName, fieldObj = review.getScreenPosition(obj)
+					fieldName.expand(textInfos.UNIT_LINE)
+					if obj.windowClassName == "TComboBox":
+						obj.name = fieldName.text.replace(obj.windowText, "")
+					else:
+						obj.name = fieldName.text
+			case "TStatusBar":
+				# Status bar labels are not found in Studio 6 but is written to the screen.
+				if obj.name is None:
+					obj.name = obj.displayText
 
 	# Some controls which needs special routines.
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
@@ -885,27 +887,29 @@ class AppModule(appModuleHandler.AppModule):
 			windowStyle = obj.windowStyle
 		except AttributeError:
 			windowStyle = 0
-		if obj.windowClassName == "TTntListView.UnicodeClass":
-			if role == controlTypes.Role.LISTITEM:
-				# Track item window style has changed in Studio 5.31.
-				trackItemWindowStyle = 1443991617
-				if abs(windowStyle - trackItemWindowStyle) % 0x100000 == 0:
-					clsList.insert(0, StudioPlaylistViewerItem)
-				else:
-					clsList.insert(0, SPLStudioTrackItem)
-			# #69 (18.08): allow actual list views to be treated as SysListView32.List
-			# so column count and other data can be retrieved easily.
-			elif role == controlTypes.Role.LIST:
-				clsList.insert(0, sysListView32.List)
-		# 7.2: Recognize known dialogs.
-		elif obj.windowClassName in ("TDemoRegForm", "TOpenPlaylist"):
-			clsList.insert(0, Dialog)
-		# For Studio's About dialog to reverse dialog content traversal.
-		elif obj.windowClassName == "TAboutForm":
-			clsList.insert(0, ReversedDialog)
-		# Temporary cue time picker and friends.
-		elif obj.windowClassName == "TDateTimePicker":
-			clsList.insert(0, SPLTimePicker)
+		# Use structural pattern matching to detect overlay classes.
+		match obj.windowClassName:
+			case "TTntListView.UnicodeClass":
+				if role == controlTypes.Role.LISTITEM:
+					# Track item window style has changed in Studio 5.31.
+					trackItemWindowStyle = 1443991617
+					if abs(windowStyle - trackItemWindowStyle) % 0x100000 == 0:
+						clsList.insert(0, StudioPlaylistViewerItem)
+					else:
+						clsList.insert(0, SPLStudioTrackItem)
+				# #69 (18.08): allow actual list views to be treated as SysListView32.List
+				# so column count and other data can be retrieved easily.
+				elif role == controlTypes.Role.LIST:
+					clsList.insert(0, sysListView32.List)
+			# 7.2: Recognize known dialogs.
+			case "TDemoRegForm" | "TOpenPlaylist":
+				clsList.insert(0, Dialog)
+			# For Studio's About dialog to reverse dialog content traversal.
+			case "TAboutForm":
+				clsList.insert(0, ReversedDialog)
+			# Temporary cue time picker and friends.
+			case "TDateTimePicker":
+				clsList.insert(0, SPLTimePicker)
 
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
@@ -1240,7 +1244,7 @@ class AppModule(appModuleHandler.AppModule):
 	# 16.12: Include hours by default unless told not to do so.
 	# #155 (21.03): time can be None, in which case it will do nothing.
 	def announceTime(
-			self, t: Optional[int], offset: Optional[int] = None, ms: bool = True, includeHours: Optional[bool] = None
+			self, t: int | None, offset: int | None = None, ms: bool = True, includeHours: bool | None = None
 	) -> None:
 		if t is None:
 			return
@@ -1253,7 +1257,7 @@ class AppModule(appModuleHandler.AppModule):
 	# 7.0: There will be times when one will deal with time in seconds.
 	# 16.12: For some cases, do not include hour slot when trying to conform to what Studio displays.)
 	def _ms2time(
-			self, t: int, offset: Optional[int] = None, ms: bool = True, includeHours: Optional[bool] = None
+			self, t: int, offset: int | None = None, ms: bool = True, includeHours: bool | None = None
 	) -> str:
 		if t <= 0:
 			return "00:00"
@@ -1417,7 +1421,7 @@ class AppModule(appModuleHandler.AppModule):
 	# This new function will be used by track finder and place marker locator.
 	# 17.08: now it is a list that records search history.
 	# 21.03: accept both None and str because it will be filtered to remove None anyway.
-	findText: Optional[list[str]] = None
+	findText: list[str] | None = None
 
 	def trackFinder(
 			self, text: str, obj: Any, directionForward: bool = True, column: list[int] = []
@@ -1481,15 +1485,17 @@ class AppModule(appModuleHandler.AppModule):
 			return False
 		playlistErrors = self.canPerformPlaylistCommands(announceErrors=False)
 		if playlistErrors == self.SPLPlaylistNotFocused:
-			if attemptLevel == 0:
-				# Translators: Presented when a user attempts to find tracks but is not at the track list.
-				ui.message(_("Track finder is available only in track list."))
-			elif attemptLevel == 1:
-				# Translators: Presented when a user attempts to find tracks but is not at the track list.
-				ui.message(_("Column search is available only in track list."))
-			elif attemptLevel == 2:
-				# Translators: Presented when a user attempts to find tracks but is not at the track list.
-				ui.message(_("Time range finder is available only in track list."))
+			# Different responses based on structural pattern matching results.
+			match attemptLevel:
+				case 0:
+					# Translators: Presented when a user attempts to find tracks but is not at the track list.
+					ui.message(_("Track finder is available only in track list."))
+				case 1:
+					# Translators: Presented when a user attempts to find tracks but is not at the track list.
+					ui.message(_("Column search is available only in track list."))
+				case 2:
+					# Translators: Presented when a user attempts to find tracks but is not at the track list.
+					ui.message(_("Time range finder is available only in track list."))
 			return False
 		# 17.06/15.8-LTS: use Studio API to find out if a playlist is even loaded,
 		# otherwise Track Finder will fail to notice a playlist.
@@ -1721,7 +1727,7 @@ class AppModule(appModuleHandler.AppModule):
 		if libScanT and libScanT.is_alive() and api.getForegroundObject().windowClassName == "TTrackInsertForm":
 			return
 		# #155 (21.03): ideally library scan count would be an integer.
-		libScanCount: Optional[int] = splbase.studioAPI(1, 32)
+		libScanCount: int | None = splbase.studioAPI(1, 32)
 		if libScanCount is not None and libScanCount < 0:
 			self.libraryScanning = False
 			return
@@ -1752,7 +1758,7 @@ class AppModule(appModuleHandler.AppModule):
 		# 17.04: Use the constant directly
 		# as Studio provides a convenient method to detect completion of library scans.
 		# #155 (21.03): And make sure it is an integer, too.
-		scanCount: Optional[int] = splbase.studioAPI(1, 32)
+		scanCount: int | None = splbase.studioAPI(1, 32)
 		while scanCount is not None and scanCount >= 0:
 			if not self.libraryScanning or not user32.FindWindowW("SPLStudio", None):
 				return
@@ -1797,7 +1803,7 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message(_("{itemCount} items scanned").format(itemCount=count))
 
 	# Place markers.
-	placeMarker: Optional[str] = None
+	placeMarker: str | None = None
 
 	# Is the place marker set on this track?
 	# Track argument is None (only useful for debugging purposes).
@@ -1899,7 +1905,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Return total length of the selected tracks upon request.
 	# Analysis command (SPL Assistant) will be assignable.
 	# Also gather various data about the playlist.
-	_analysisMarker: Optional[int] = None
+	_analysisMarker: int | None = None
 
 	# Trakc time analysis and playlist snapshots, and to some extent, some parts of playlist transcripts
 	# require main playlist viewer to be the foreground window.
@@ -1908,20 +1914,20 @@ class AppModule(appModuleHandler.AppModule):
 		if not splbase.studioIsRunning():
 			return False
 		# #81 (18.12): just return result of consulting playlist dispatch along with error messages if any.
-		playlistErrors = self.canPerformPlaylistCommands(mustSelectTrack=mustSelectTrack, announceErrors=False)
-		if playlistErrors == self.SPLPlaylistNotFocused:
-			# Translators: Presented when playlist analyzer cannot be performed
-			# because user is not focused on playlist viewer.
-			ui.message(_("Not in playlist viewer, cannot perform playlist analysis."))
-			return False
-		elif playlistErrors == self.SPLPlaylistNotLoaded:
-			# Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
-			ui.message(_("No playlist to analyze."))
-			return False
-		elif playlistErrors == self.SPLPlaylistLastFocusUnknown:
-			# Translators: Presented when playlist analysis cannot be activated.
-			ui.message(_("No tracks are selected, cannot perform playlist analysis."))
-			return False
+		match self.canPerformPlaylistCommands(mustSelectTrack=mustSelectTrack, announceErrors=False):
+			case self.SPLPlaylistNotFocused:
+				# Translators: Presented when playlist analyzer cannot be performed
+				# because user is not focused on playlist viewer.
+				ui.message(_("Not in playlist viewer, cannot perform playlist analysis."))
+				return False
+			case self.SPLPlaylistNotLoaded:
+				# Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
+				ui.message(_("No playlist to analyze."))
+				return False
+			case self.SPLPlaylistLastFocusUnknown:
+				# Translators: Presented when playlist analysis cannot be activated.
+				ui.message(_("No tracks are selected, cannot perform playlist analysis."))
+				return False
 		return True
 
 	# Return total duration of a range of tracks.
@@ -1951,7 +1957,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Data to be gathered comes from a set of flags.
 	# By default, playlist duration (including shortest and average),
 	# category summary and other statistics will be gathered.
-	def playlistSnapshots(self, obj: Any, end: Any, snapshotFlags: Optional[list[str]] = None) -> dict[str, Any]:
+	def playlistSnapshots(self, obj: Any, end: Any, snapshotFlags: list[str] | None = None) -> dict[str, Any]:
 		# #55 (18.05): is this a complete snapshot?
 		completePlaylistSnapshot = obj.IAccessibleChildID == 1 and end is None
 		# Track count and total duration are always included.
@@ -2502,7 +2508,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Sometimes, hour markers return seconds.999 due to rounding error, hence this must be taken care of here.
 		# #155 (21.03): Studio API can return None if Studio dies.
 		# Also, because this will become an integer tuple below, use Any type flag to tell Mypy to skip this line.
-		trackStarts: Optional[Any] = splbase.studioAPI(3, 27)
+		trackStarts: Any | None = splbase.studioAPI(3, 27)
 		if trackStarts is None:
 			return
 		trackStarts = divmod(trackStarts, 1000)
