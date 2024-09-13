@@ -333,11 +333,11 @@ an HTML table or a list.
 выберите пункт Настройки SPL Studio. Не все настройки доступны, если NVDA
 запущен в безопасном режиме.
 
-## Broadcast profiles dialog
+## Диалог профилей вещания
 
-You can save settings for specific shows into broadcast profiles. These
-profiles can be managed via SPL broadcast profiles dialog which can be
-accessed by pressing Alt+NVDA+P from Studio window.
+Вы можете сохранить настройки для определённых шоу в профилях вещания. Этими
+профилями можно управлять с помощью диалогового окна SPL broadcast profiles,
+доступ к которому можно получить, нажав Alt+NVDA+P в окне студии.
 
 ## Сенсорный режим SPL
 
