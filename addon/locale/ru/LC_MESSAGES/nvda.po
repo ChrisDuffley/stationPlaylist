@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 24.03\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2024-07-31 18:07+0300\n"
-"PO-Revision-Date: 2024-08-01 00:34+0300\n"
+"PO-Revision-Date: 2024-09-26 23:50+0300\n"
 "Last-Translator: Ruslan Kolodyazhni <rupelodn@gmail.com>\n"
 "Language-Team: Translators <nvda-translations@groups.io>\n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.5\n"
 
 #. StationPlaylist add-on requires Windows 10 21H2 or later.
 #. Translators: title of the error dialog shown when trying to install the add-on in unsupported systems.
@@ -210,6 +210,38 @@ msgid ""
 "F10: Perform track time analysis.\n"
 "F12: Switch to an instant switch profile."
 msgstr ""
+"После входа в Помощник SPL нажмите:\n"
+"A: Автоматизация.\n"
+"C: Объявить название воспроизводимой в данный момент дорожки.\n"
+"D: Оставшееся время списка воспроизведения.\n"
+"E: Общее состояние потоковой передачи метаданных.\n"
+"От Shift+1 до shift+4, shift+0: Состояние потоковой передачи метаданных для "
+"кодировщика DSP и четырех дополнительных URL.\n"
+"H: Продолжительность дорожек в этом часовом интервале.\n"
+"Shift+H: Продолжительность оставшихся дорожек в этом часовом интервале.\n"
+"I: Количество слушателей.\n"
+"K: Переместиться к дорожке с меткой места.\n"
+"Control+K: Установить дорожку с меткой места.\n"
+"L: Состояние линейного входа.\n"
+"M: Состояние микрофона.\n"
+"N: Следующая дорожка.\n"
+"P: Состояние воспроизведения.\n"
+"Shift+P: Высота текущей дорожки.\n"
+"R: Записать в файл.\n"
+"Shift+R: Наблюдение сканирования библиотеки.\n"
+"S: Запланированное время дорожки.\n"
+"Shift+S: Время до начала воспроизведения выбранной дорожки.\n"
+"T: Режим редактирования/вставки корзины.\n"
+"U: Время работы Studio.\n"
+"W: Погода и температура.\n"
+"Y: Модификация списка воспроизведения.\n"
+"F8: Сделать снимки списка воспроизведения, например число дорожек, самую "
+"длинную дорожку и т. д.\n"
+"Shift+F8: Получить расшифровки списков воспроизведения в различных "
+"форматах.\n"
+"F9: Отметить текущую дорожку как начало анализа времени дорожки.\n"
+"F10: Выполнить анализ времени дорожки.\n"
+"F12: Переключиться на профиль мгновенного переключения."
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
 #: addon\appModules\splstudio\__init__.py:534
@@ -247,6 +279,40 @@ msgid ""
 "F10: Perform track time analysis.\n"
 "F12: Switch to an instant switch profile."
 msgstr ""
+"После входа в помощник SPL нажмите:\n"
+"A: Автоматизация.\n"
+"C: Переключить обозреватель корзин.\n"
+"Shift+C: Объявить название воспроизводимой в данный момент дорожки.\n"
+"E: Общее состояние потоковой передачи метаданных.\n"
+"От Shift+1 до shift+4, shift+0: Состояние потоковой передачи метаданных для "
+"кодировщика DSP и четырех дополнительных URL.\n"
+"Shift+E: Записать в файл.\n"
+"F: Поисковик дорожек.\n"
+"H: Продолжительность дорожек в этом часовом интервале.\n"
+"Shift+H: Продолжительность оставшихся дорожек в этом часовом интервале.\n"
+"K: Переместиться к дорожке с меткой места.\n"
+"Control+K: Установить дорожку сметкой места.\n"
+"L: Количество слушателей.\n"
+"Shift+L: Состояние линейного входа.\n"
+"M: Состояние микрофона.\n"
+"N: Следующая дорожка.\n"
+"P: Состояние воспроизведения.\n"
+"Shift+P: Высота текущей дорожки.\n"
+"R: Оставшееся время списка воспроизведения.\n"
+"Shift+R: Наблюдение сканирования библиотеки.\n"
+"S: Запланированное время дорожки.\n"
+"Shift+S: Время до начала воспроизведения выбранной дорожки.\n"
+"T: Режим редактирования/вставки корзины.\n"
+"U: Время работы Studio.\n"
+"W: Погода и температура.\n"
+"Y: Модификация списка воспроизведения.\n"
+"F8: Сделать снимки списка воспроизведения, например количество дорожек, "
+"самую длинную дорожку и т. д.\n"
+"Shift+F8: Получить расшифровки списков воспроизведения в различных "
+"форматах.\n"
+"F9: Отметить текущую дорожку как начало анализа времени дорожки.\n"
+"F10: Выполнить анализ времени дорожки.\n"
+"F12: Переключиться на профиль мгновенного переключения."
 
 #. Translators: the label for a menu item in NVDA Preferences menu
 #. to open SPL Studio add-on settings.
@@ -267,7 +333,7 @@ msgstr "Сканирование завершено, найдено {scanCount} 
 #. Translators: Presented when cart modes are toggled while cart explorer is on.
 #: addon\appModules\splstudio\__init__.py:1074
 msgid "Cart explorer is active"
-msgstr ""
+msgstr "Обозреватель корзин активен"
 
 #. Translators: Presented when microphone was on for more than a specified time in microphone alarm dialog.
 #: addon\appModules\splstudio\__init__.py:1091
@@ -318,7 +384,7 @@ msgstr "Открывает диалог настройки дополнения 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 #: addon\appModules\splstudio\__init__.py:1375
 msgid "Opens SPL add-on broadcast profiles dialog."
-msgstr ""
+msgstr "Открывает диалог профилей вещания дополнения SPL."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 #: addon\appModules\splstudio\__init__.py:1382
@@ -349,7 +415,7 @@ msgstr "Поиск по столбцам доступен только в спи
 #. Translators: Presented when a user attempts to find tracks but is not at the track list.
 #: addon\appModules\splstudio\__init__.py:1492
 msgid "Time range finder is available only in track list."
-msgstr ""
+msgstr "Поиск диапазона времени доступен только в списке дорожек."
 
 #. Translators: Presented when a user wishes to find a track but didn't add any tracks.
 #: addon\appModules\splstudio\__init__.py:1499
@@ -399,37 +465,41 @@ msgstr ""
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 #: addon\appModules\splstudio\__init__.py:1635
 msgid "Toggles cart explorer to learn cart assignments."
-msgstr ""
+msgstr "Переключает проводник корзины для изучения назначений корзины."
 
 #. Translators: Presented when cart explorer cannot be entered.
 #: addon\appModules\splstudio\__init__.py:1646
 msgid "You are not in playlist viewer, cannot enter cart explorer"
 msgstr ""
+"Вы не в просмотрщике списков воспроизведения, не возможно войти в "
+"обозреватель корзин"
 
 #. Translators: presented when cart explorer could not be switched on.
 #: addon\appModules\splstudio\__init__.py:1655
 msgid "Some or all carts could not be assigned, cannot enter cart explorer"
 msgstr ""
+"Некоторые или все корзины не назначены, невозможно войти в обозреватель "
+"корзин"
 
 #. Translators: Presented when cart explorer is on.
 #: addon\appModules\splstudio\__init__.py:1661
 msgid "Entering cart explorer"
-msgstr ""
+msgstr "Вход в обозреватель корзин"
 
 #. Translators: Presented when cart explorer is off.
 #: addon\appModules\splstudio\__init__.py:1668
 msgid "Exiting cart explorer"
-msgstr ""
+msgstr "Выход из обозревателя корзины"
 
 #. Translators: Presented when cart command is unavailable.
 #: addon\appModules\splstudio\__init__.py:1681
 msgid "Cart command unavailable"
-msgstr ""
+msgstr "Команда корзины недоступна"
 
 #. Translators: Presented when there is no cart assigned to a cart command.
 #: addon\appModules\splstudio\__init__.py:1684
 msgid "Cart unassigned"
-msgstr ""
+msgstr "Корзина не назначена"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 #: addon\appModules\splstudio\__init__.py:1693
@@ -450,7 +520,7 @@ msgstr "в библиотеке {itemCount} элементов"
 #. Translators: Presented after library scan is done.
 #: addon\appModules\splstudio\__init__.py:1783
 msgid "Scan complete with {itemCount} items"
-msgstr ""
+msgstr "Сканирование завершено с {itemCount} элементами"
 
 #. Translators: Presented when library scan is in progress.
 #: addon\appModules\splstudio\__init__.py:1789
@@ -479,6 +549,8 @@ msgstr "Не удалось открыть диалог потоковой пе�
 #: addon\appModules\splstudio\__init__.py:1882
 msgid "Please return to playlist viewer before invoking this command."
 msgstr ""
+"Вернитесь в просмотрщик списков воспроизведения, прежде чем вызывать эту "
+"команду."
 
 #. Translators: an error message presented when performing some playlist commands
 #. while no playlist has been loaded.
@@ -492,12 +564,16 @@ msgstr "Список воспроизведения не был загружен
 msgid ""
 "Please select a track from playlist viewer before invoking this command."
 msgstr ""
+"Выберите дорожку в просмотрщике списков воспроизведения, прежде чем вызывать "
+"эту команду."
 
 #. Translators: Presented when playlist analyzer cannot be performed
 #. because user is not focused on playlist viewer.
 #: addon\appModules\splstudio\__init__.py:1915
 msgid "Not in playlist viewer, cannot perform playlist analysis."
 msgstr ""
+"Не в просмотрщике списков воспроизведения, невозможно выполнить анализ "
+"списка воспроизведения."
 
 #. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
 #: addon\appModules\splstudio\__init__.py:1919
@@ -670,7 +746,7 @@ msgstr "Объявляет название следующей дорожки, �
 #. Translators: Presented when there is no information for the next track.
 #: addon\appModules\splstudio\__init__.py:2428
 msgid "No next track scheduled"
-msgstr ""
+msgstr "Следующей дорожки не запланировано"
 
 #. Translators: Presented when next track information is unavailable.
 #: addon\appModules\splstudio\__init__.py:2438
@@ -715,7 +791,7 @@ msgstr "Число слушателей не найдено"
 #. Translators: Presented when attempting to start library scan.
 #: addon\appModules\splstudio\__init__.py:2546
 msgid "Monitoring library scan"
-msgstr ""
+msgstr "Наблюдение за сканированием библиотеки"
 
 #. Translators: Presented when library scan is already in progress.
 #: addon\appModules\splstudio\__init__.py:2552
@@ -727,16 +803,18 @@ msgstr "Выполняется сканирование"
 msgid ""
 "Marks focused track as start marker for various playlist analysis commands"
 msgstr ""
+"Помечает дорожки в фокусе как метку начала для различных команд анализа "
+"списка воспроизведения"
 
 #. Translators: Presented when track time analysis is turned on.
 #: addon\appModules\splstudio\__init__.py:2564
 msgid "Playlist analysis activated"
-msgstr ""
+msgstr "Анализ списка воспроизведения активирован"
 
 #. Translators: Presented when track time analysis is turned off.
 #: addon\appModules\splstudio\__init__.py:2568
 msgid "Playlist analysis deactivated"
-msgstr ""
+msgstr "Анализ списка воспроизведения отключён"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 #: addon\appModules\splstudio\__init__.py:2572
@@ -744,12 +822,16 @@ msgid ""
 "Announces total length of tracks between analysis start marker and the "
 "current track"
 msgstr ""
+"Объявляет общую продолжительность дорожек между меткой начала анализа и "
+"текущей дорожкой"
 
 #. Translators: Presented when track time analysis cannot be used because start marker is not set.
 #: addon\appModules\splstudio\__init__.py:2580
 msgid ""
 "No track selected as start of analysis marker, cannot perform time analysis"
 msgstr ""
+"Ни одна дорожка не выбрана в качестве метки начала анализа, невозможно "
+"выполнить анализ времени"
 
 #. Translators: Presented when time analysis is done for a number of tracks
 #. (example output: Tracks: 3, totaling 5:00).
@@ -763,8 +845,8 @@ msgid ""
 "Presents playlist snapshot information such as number of tracks and top "
 "artists"
 msgstr ""
-"Предоставляет информацию о снимке списка воспроизведения, такую как "
-"количество треков и лучшие исполнители"
+"Предоставляет информацию о снимке списка воспроизведения, такую как число "
+"дорожек и лучшие исполнители"
 
 #. Translators: Presented when trying to switch to an instant switch profile
 #. when add-on settings dialog is active.
@@ -775,43 +857,43 @@ msgstr "Открыт диалог настроек дополнения, пер�
 #. Translators: Presented when place marker cannot be set.
 #: addon\appModules\splstudio\__init__.py:2680
 msgid "No tracks found, cannot set place marker"
-msgstr ""
+msgstr "Дорожки не найдены, невозможно установить метку места"
 
 #. Translators: Presented when place marker track is set.
 #: addon\appModules\splstudio\__init__.py:2686
 msgid "place marker set"
-msgstr ""
+msgstr "выбрать метку места"
 
 #. Translators: Presented when attempting to place a place marker on an unsupported track.
 #: addon\appModules\splstudio\__init__.py:2689
 msgid "This track cannot be used as a place marker track"
-msgstr ""
+msgstr "Эту дорожку нельзя использовать в качестве дорожки метки места"
 
 #. Translators: Presented when no place marker is found.
 #: addon\appModules\splstudio\__init__.py:2708
 #: addon\appModules\splstudio\__init__.py:2713
 msgid "No place marker found"
-msgstr ""
+msgstr "Метка места не найдена"
 
 #. Translators: Status message for metadata streaming.
 #: addon\appModules\splstudio\__init__.py:2728
 msgid "Metadata streaming on URL {URLPosition} enabled"
-msgstr ""
+msgstr "Потоковая передача метаданных по URL {URLPosition} включена"
 
 #. Translators: Status message for metadata streaming.
 #: addon\appModules\splstudio\__init__.py:2731
 msgid "Metadata streaming on DSP encoder enabled"
-msgstr ""
+msgstr "Потоковая передача метаданных на кодировщике DSP включена"
 
 #. Translators: Status message for metadata streaming.
 #: addon\appModules\splstudio\__init__.py:2735
 msgid "Metadata streaming on URL {URLPosition} disabled"
-msgstr ""
+msgstr "Потоковая передача метаданных по URL {URLPosition} отключена"
 
 #. Translators: Status message for metadata streaming.
 #: addon\appModules\splstudio\__init__.py:2738
 msgid "Metadata streaming on DSP encoder disabled"
-msgstr ""
+msgstr "Потоковая передача метаданных на кодировщике DSP отключена"
 
 #. Translators: The title for SPL Assistant help screen.
 #: addon\appModules\splstudio\__init__.py:2745
@@ -1030,7 +1112,7 @@ msgstr "Объявлять о ходе сканирования и количе�
 #: addon\appModules\splstudio\splconfig.py:881
 #: addon\appModules\splstudio\splconfui.py:489
 msgid "Scan count"
-msgstr ""
+msgstr "Количество сканирований"
 
 #. Translators: title of a dialog to configure broadcast profiles.
 #: addon\appModules\splstudio\splconfui.py:37
@@ -1058,6 +1140,10 @@ msgid ""
 "previously active profile before opening broadcast profiles dialog to delete "
 "a profile."
 msgstr ""
+"Возможно, активен профиль мгновенного переключения или вы находитесь в "
+"процессе трансляции. В этом случае нажмите помощник SPL, F12, чтобы "
+"вернуться к ранее активному профилю, прежде чем открывать диалог профилей "
+"вещания для удаления профиля."
 
 #. Translators: Title of a dialog shown when profile cannot be deleted.
 #: addon\appModules\splstudio\splconfui.py:206
@@ -1103,7 +1189,7 @@ msgstr "Привязки профиля для {profileName}"
 #. to toggle if selected profile is an instant switch profile.
 #: addon\appModules\splstudio\splconfui.py:395
 msgid "This is an &instant switch profile"
-msgstr ""
+msgstr "Это профиль &мгновенного переключения"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to set status announcement between words and beeps.
@@ -1165,7 +1251,7 @@ msgstr ""
 #. Translators: The label for a setting in SPL add-on dialog to set vertical column.
 #: addon\appModules\splstudio\splconfui.py:508
 msgid "&Vertical column navigation announcement:"
-msgstr ""
+msgstr "Объявление в &вертикальном столбце навигации:"
 
 #. Translators: One of the options for vertical column navigation
 #. denoting NVDA will announce current column position (e.g. second column position from the left).
@@ -1200,6 +1286,8 @@ msgstr "Объявление комментария &дорожки:"
 #: addon\appModules\splstudio\splconfui.py:547
 msgid "Notify when located at &top or bottom of playlist viewer"
 msgstr ""
+"Уведомлять, когда он находится &вверху или внизу просмотрщика списка "
+"воспроизведения"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to enable requests alert.
@@ -1216,7 +1304,7 @@ msgstr "Аварийные сигналы"
 #. To set end of track alarm in seconds.
 #: addon\appModules\splstudio\splconfui.py:590
 msgid "&End of track alarm in seconds"
-msgstr ""
+msgstr "Сигнал &окончания дорожки в секундах"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to enable end of track alarm.
@@ -1228,7 +1316,7 @@ msgstr "&Уведомлять о приближении конца дорожк�
 #. To set trakc intro alarm in seconds.
 #: addon\appModules\splstudio\splconfui.py:604
 msgid "&Track intro alarm in seconds"
-msgstr ""
+msgstr "Сигнал вступления &дорожки в секундах"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to enable track intro alarm.
@@ -1240,13 +1328,13 @@ msgstr "&Уведомлять о приближении окончания вс�
 #. to set microphone active alarm in seconds.
 #: addon\appModules\splstudio\splconfui.py:618
 msgid "&Microphone alarm in seconds (0 disables the alarm)"
-msgstr ""
+msgstr "Сигнал &микрофона в секундах (0 отключает сигнал)"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to set microphone active alarm interval in seconds.
 #: addon\appModules\splstudio\splconfui.py:626
 msgid "Microphone alarm &interval in seconds"
-msgstr ""
+msgstr "&Интервал сигнала микрофона в секундах"
 
 #. Translators: One of the alarm notification options.
 #: addon\appModules\splstudio\splconfui.py:634
@@ -1275,18 +1363,21 @@ msgid ""
 "Select information to be included when obtaining playlist snapshots.\n"
 "\t\tTrack count and total duration are always included."
 msgstr ""
+"Выберите информацию, которая будет включена при получении снимков списка "
+"воспроизведения.\n"
+"\t\tВсегда учитывается количество дорожек и общая продолжительность."
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to include shortest and longest track duration in playlist snapshots window.
 #: addon\appModules\splstudio\splconfui.py:686
 msgid "Shortest and longest tracks"
-msgstr "Кратчайшие и длинейшие треки"
+msgstr "Кратчайшие и длинейшие дорожки"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to include average track duration in playlist snapshots window.
 #: addon\appModules\splstudio\splconfui.py:694
 msgid "Average track duration"
-msgstr "Средняя продолжительность трека"
+msgstr "Средняя продолжительность дорожки"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to include track artist count in playlist snapshots window.
@@ -1329,6 +1420,8 @@ msgstr "Число лучших жанров (0 отображает все жа
 #: addon\appModules\splstudio\splconfui.py:750
 msgid "&Show results window when playlist snapshots command is performed once"
 msgstr ""
+"&Показывать окно результатов при однократном выполнении команды снимков "
+"списка воспроизведения"
 
 #. Translators: Title of a dialog to configure metadata streaming status
 #. for DSP encoder and four additional URL's.
@@ -1369,13 +1462,13 @@ msgstr "Когда запустится Studio"
 #. Translators: One of the metadata notification settings.
 #: addon\appModules\splstudio\splconfui.py:884
 msgid "When instant switch profile is active"
-msgstr ""
+msgstr "Когда активен профиль мгновенного переключения"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to be notified that metadata streaming is enabled.
 #: addon\appModules\splstudio\splconfui.py:888
 msgid "&Metadata streaming notification and connection"
-msgstr ""
+msgstr "Уведомление о потоковой передаче &метаданных и подключения"
 
 #. WX's native CheckListBox isn't user friendly.
 #. Therefore use checkboxes laid out across the top.
@@ -1387,7 +1480,7 @@ msgstr ""
 #. to configure streaming status for metadata streams.
 #: addon\appModules\splstudio\splconfui.py:904
 msgid "&Select the URL for metadata streaming upon request:"
-msgstr ""
+msgstr "&Выберите URL-адрес для потоковой передачи метаданных по запросу:"
 
 #. Translators: The label for a group in SPL add-on settings
 #. to select column announcement order.
@@ -1408,12 +1501,16 @@ msgid ""
 "Studio's playlist viewer, uncheck 'Announce columns in the order shown on "
 "screen' and configure column inclusion and order."
 msgstr ""
+"Чтобы применить пользовательский порядок и включение столбцов при объявлении "
+"столбцов дорожек в просмотрщике списков воспроизведения Studio, снимите "
+"флажок \"Объявлять столбцы в порядке, показанном на экране\" и настройте "
+"включение и порядок столбцов."
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to toggle custom column announcement.
 #: addon\appModules\splstudio\splconfui.py:1038
 msgid "Announce columns in the &order shown on screen"
-msgstr ""
+msgstr "Объявлять столбцы в &порядке, показанном на экране"
 
 #. Translators: Help text to select columns to be announced.
 #: addon\appModules\splstudio\splconfui.py:1046
@@ -1435,6 +1532,8 @@ msgid ""
 "&Select columns to be included in playlist transcripts\n"
 "(artist and title are always included):"
 msgstr ""
+"Выберите столбцы для включения в рас&шифровки списка воспроизведения\n"
+"(артист и название всегда включены):"
 
 #. Translators: title of a panel to configure columns explorer settings.
 #: addon\appModules\splstudio\splconfui.py:1095
@@ -1490,7 +1589,7 @@ msgstr "Объявления о состоянии"
 #. to announce scheduled time.
 #: addon\appModules\splstudio\splconfui.py:1240
 msgid "Announce &scheduled time for the selected track"
-msgstr ""
+msgstr "Объявлять & запланированное время для выбранной дорожки"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to announce listener count.
@@ -1502,7 +1601,7 @@ msgstr "Объявлять &количество слушателей"
 #. to announce currently playing cart.
 #: addon\appModules\splstudio\splconfui.py:1252
 msgid "&Announce name of the currently playing cart"
-msgstr ""
+msgstr "Объявлять название текущей воспроизводимой &корзины"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to announce player position for the current and next tracks.
@@ -1511,6 +1610,8 @@ msgid ""
 "Include track player &position when announcing current and next track "
 "information"
 msgstr ""
+"Включить проигрыватель и позицию дорожки при объявлении информации о текущей "
+"и следующей дорожке"
 
 #. Translators: The label for a checkbox in SPL add-on settings
 #. to toggle if SPL Controller command can be used to invoke Assistant layer.
@@ -1548,7 +1649,7 @@ msgstr "Удалить настройки кодировщика"
 #. to reset track comments.
 #: addon\appModules\splstudio\splconfui.py:1329
 msgid "Erase track comments"
-msgstr "Стереть коментарии трека"
+msgstr "Стереть коментарии дорожки"
 
 #. Translators: A message to warn about resetting SPL config settings to factory defaults.
 #: addon\appModules\splstudio\splconfui.py:1347
@@ -1623,12 +1724,12 @@ msgstr "Введите или выберите текст для поиска в
 #. Translators: The label in track finder to search columns.
 #: addon\appModules\splstudio\splmisc.py:104
 msgid "C&olumn to search:"
-msgstr ""
+msgstr "Столбец&для поиска:"
 
 #. Translators: The title of a dialog to find tracks with duration within a specified range.
 #: addon\appModules\splstudio\splmisc.py:178
 msgid "Time range finder"
-msgstr ""
+msgstr "Поиск диапазона времени"
 
 #. Translators: the label for a group to specify minimum track duration in time range finder dialog.
 #: addon\appModules\splstudio\splmisc.py:187
@@ -1661,7 +1762,7 @@ msgstr "Минимальная продолжительность больше �
 #. between minimum and maximum duration is not found.
 #: addon\appModules\splstudio\splmisc.py:257
 msgid "No track with duration between minimum and maximum duration."
-msgstr "Нет трека с длительностью от минимальной до максимальной."
+msgstr "Нет дорожки с длительностью от минимальной до максимальной."
 
 #. Translators: Standard error title for find error (copy this from main nvda.po).
 #: addon\appModules\splstudio\splmisc.py:259
@@ -1677,32 +1778,34 @@ msgstr ""
 #. Translators: Status message for metadata streaming.
 #: addon\appModules\splstudio\splmisc.py:439
 msgid "No metadata streaming URL's defined"
-msgstr ""
+msgstr "Не назначен URL-адрес потоковой передачи метаданных"
 
 #. Translators: Status message for metadata streaming.
 #: addon\appModules\splstudio\splmisc.py:442
 msgid "Metadata streaming configured for DSP encoder"
-msgstr ""
+msgstr "Потоковая передача метаданных настроена для кодировщика DSP"
 
 #. Translators: Status message for metadata streaming.
 #: addon\appModules\splstudio\splmisc.py:451
 msgid "Metadata streaming configured for DSP encoder and URL {URL}"
 msgstr ""
+"Потоковая передача метаданных настроена для кодировщика DSP и URL {URL}"
 
 #. Translators: Status message for metadata streaming.
 #: addon\appModules\splstudio\splmisc.py:454
 msgid "Metadata streaming configured for URL {URL}"
-msgstr ""
+msgstr "Потоковая передача метаданных настроена для URL {URL}"
 
 #. Translators: Status message for metadata streaming.
 #: addon\appModules\splstudio\splmisc.py:460
 msgid "Metadata streaming configured for DSP encoder and URL's {URL}"
 msgstr ""
+"Потоковая передача метаданных настроена для кодировщика DSP и URL {URL}"
 
 #. Translators: Status message for metadata streaming.
 #: addon\appModules\splstudio\splmisc.py:463
 msgid "Metadata streaming configured for URL's {URL}"
-msgstr ""
+msgstr "Потоковая передача метаданных настроена для URL {URL}"
 
 #. Translators: the Playlist transcripts dialog title.
 #: addon\appModules\splstudio\splmisc.py:563
@@ -1728,7 +1831,7 @@ msgstr "весь список воспроизведения"
 #. Translators: one of the playlist transcripts range options.
 #: addon\appModules\splstudio\splmisc.py:780
 msgid "start to current item"
-msgstr ""
+msgstr "начать с текущего элемента"
 
 #. Translators: one of the playlist transcripts range options.
 #: addon\appModules\splstudio\splmisc.py:782
@@ -1780,7 +1883,7 @@ msgstr ""
 #. Translators: Title of the encoder settings error dialog.
 #: addon\appModules\splengine\encoders.py:71
 msgid "SPL add-on Encoder settings error"
-msgstr ""
+msgstr "Ошибка настроек кодировщика дополнения SPL"
 
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 #: addon\appModules\splengine\encoders.py:228
@@ -1803,25 +1906,26 @@ msgstr "&Фокус на Studio при подключении"
 #. to set if NVDA should play the next track when connected.
 #: addon\appModules\splengine\encoders.py:251
 msgid "&Play first track when connected"
-msgstr "&Воспроизведение первого трека при подключении"
+msgstr "&Воспроизведение первой дорожки при подключении"
 
 #. Translators: A checkbox in encoder settings
 #. to set if NVDA should monitor the status of this encoder in the background.
 #: addon\appModules\splengine\encoders.py:257
 msgid "Enable background connection &monitoring"
-msgstr ""
+msgstr "Включить фоновое & наблюдение за соединением"
 
 #. Translators: A checkbox in encoder settings
 #. to set if NVDA should play connection progress tone.
 #: addon\appModules\splengine\encoders.py:263
 msgid "Play connection status &beep while connecting"
 msgstr ""
+"Воспроизводить &звуковой сигнал о состоянии соединения во время подключения"
 
 #. Translators: A checkbox in encoder settings
 #. to set if NVDA should announce connection progress until an encoder connects.
 #: addon\appModules\splengine\encoders.py:269
 msgid "Announce connection &status until encoder connects"
-msgstr ""
+msgstr "Объявлять &состояние соединения до тех пор, пока не подключится кодер"
 
 #. Translators: presented when no streaming encoders were found when trying to obtain connection status.
 #: addon\appModules\splengine\encoders.py:330
@@ -1837,7 +1941,7 @@ msgstr "Одновременно может быть активен только
 #. Translators: presented when at least one encoder is connected.
 #: addon\appModules\splengine\encoders.py:344
 msgid "Connected encoders: {encodersConnected}"
-msgstr ""
+msgstr "Подключенные кодировщики: {encodersConnected}"
 
 #. Translators: presented when no encoders are connected.
 #: addon\appModules\splengine\encoders.py:349
@@ -1897,23 +2001,24 @@ msgstr "Не воспроизводить первую дорожку после
 msgid ""
 "Toggles whether NVDA will monitor the selected encoder in the background."
 msgstr ""
+"Переключает, будет ли NVDA отслеживать выбранный кодировщик в фоновом режиме."
 
 #. Translators: Presented when toggling the setting
 #. to monitor the selected encoder in the background.
 #: addon\appModules\splengine\encoders.py:575
 msgid "Monitoring encoder {encoderNumber}"
-msgstr ""
+msgstr "Наблюдение за кодировщиком {encoderNumber}"
 
 #. Translators: Presented when toggling the setting
 #. to monitor the selected encoder in the background.
 #: addon\appModules\splengine\encoders.py:581
 msgid "Encoder {encoderNumber} will not be monitored"
-msgstr ""
+msgstr "Кодировщик {encoderNumber} не будет наблюдаться"
 
 #. Translators: Announced when background encoder monitoring is canceled.
 #: addon\appModules\splengine\encoders.py:596
 msgid "Encoder monitoring canceled"
-msgstr ""
+msgstr "Наблюдение за кодировщиком отменено"
 
 #. Translators: Input help mode message for an encoder settings command.
 #: addon\appModules\splengine\encoders.py:600
@@ -1928,6 +2033,7 @@ msgstr ""
 #: addon\appModules\splengine\encoders.py:609
 msgid "Enter the position of the encoder you wish to delete or will delete"
 msgstr ""
+"Введите позицию кодировщика, который вы хотите удалить или будете удалять"
 
 #. Translators: The title of the encoder settings eraser dialog.
 #: addon\appModules\splengine\encoders.py:611
@@ -2032,15 +2138,15 @@ msgstr ""
 "U: Пауза.\n"
 "S: Остановить с затуханием.\n"
 "T: Мгновенная остановка.\n"
-"C: Объявить название и продолжительность воспроизводимого в данный момент "
-"трека.\n"
+"C: Объявить название и продолжительность воспроизводимой в данный момент "
+"дорожки.\n"
 "E: Сообщить о подключенных кодерах, если они есть.\n"
 "I: Объявить количество слушателей.\n"
 "Q: Объявить информацию состояния Studio.\n"
-"R: Оставшееся время воспроизводимого трека.\n"
+"R: Оставшееся время воспроизводимой дорожки.\n"
 "Shift+R: Ход сканирования библиотеки.\n"
-"Function keys and number row keys with or without Shift, Alt, and Control "
-"keys: Play carts."
+"Функциональные клавиши и клавиши цифрового ряда с клавишами Shift, Alt и "
+"Control или без них: воспроизводить корзины."
 
 #. Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
 #: addon\globalPlugins\splUtils.py:149
@@ -2079,7 +2185,7 @@ msgstr "Панель управления SPL"
 #: addon\globalPlugins\splUtils.py:272
 msgid "There is no track playing. Try pausing while a track is playing."
 msgstr ""
-"Трек не воспроизводится. Попробуйте приостановить воспроизведение трека."
+"Дорожка не воспроизводится. Попробуйте приостановить воспроизведение дорожки."
 
 #. Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
 #: addon\globalPlugins\splUtils.py:283
@@ -2099,7 +2205,7 @@ msgstr "Количество слушателей: {listenerCount}"
 #. Translators: Presented when no track is playing in StationPlaylist Studio.
 #: addon\globalPlugins\splUtils.py:307
 msgid "There is no track playing."
-msgstr "Трек не воспроизводится."
+msgstr "Дорожка не воспроизводится."
 
 #. Translators: Input help message for a SPL Controller command.
 #: addon\globalPlugins\splUtils.py:330
@@ -2117,7 +2223,7 @@ msgid ""
 "Announces Studio status such as track playback status from other programs"
 msgstr ""
 "Объявляет состояние Studio из других программ, например, состояние "
-"воспроизведения трека"
+"воспроизведения дорожки"
 
 #. Translators: The title for SPL Controller help screen.
 #: addon\globalPlugins\splUtils.py:421
