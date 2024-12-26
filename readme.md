@@ -1,8 +1,6 @@
 # StationPlaylist #
 
 * Authors: Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)
-* Download [stable version][1]
-* NVDA compatibility: 2023.3.3 and later
 
 This add-on package provides improved usage of StationPlaylist Studio and other StationPlaylist apps, as well as providing utilities to control Studio from anywhere. Supported apps include Studio, Creator, Track Tool, VT Recorder, and Streamer, as well as SAM, SPL, and AltaCast encoders.
 
@@ -202,6 +200,13 @@ You can save settings for specific shows into broadcast profiles. These profiles
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer with NVDA installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Version 25.01
+
+* 64-bit Windows 10 22H2 (build 19045) or later is required.
+* Download links for add-on releases are no longer included in add-on documentation. You can download the add-on from NV Access add-on store.
+* Switched linting tool from Flake8 to Ruff and reformatted add-on modules to better align with NVDA coding standards.
+* Removed support for automatic add-on updates feature from Add-on Updater add-on.
 
 ## Version 24.03
 
