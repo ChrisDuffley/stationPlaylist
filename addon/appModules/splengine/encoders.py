@@ -24,6 +24,7 @@ import gui
 import wx
 import versionInfo
 import addonHandler
+
 addonHandler.initTranslation()
 
 # Various SPL IPC tags.
@@ -66,9 +67,11 @@ def loadEncoderConfig() -> None:
 		encoderConfig = configobj.ConfigObj(encoderConfigPath)
 		wx.CallAfter(
 			# Translators: Message displayed if errors were found in encoder configuration file.
-			gui.messageBox, _("Your encoder settings had errors and were reset to defaults."),
+			gui.messageBox,
+			_("Your encoder settings had errors and were reset to defaults."),
 			# Translators: Title of the encoder settings error dialog.
-			_("SPL add-on Encoder settings error"), wx.OK | wx.ICON_ERROR
+			_("SPL add-on Encoder settings error"),
+			wx.OK | wx.ICON_ERROR,
 		)
 		return
 	# Read encoder labels.
@@ -101,9 +104,12 @@ def _removeEncoderID(encoderType: str, pos: str) -> None:
 	encoderID = " ".join([encoderType, pos])
 	# Go through each feature map/set, remove the encoder ID and manipulate encoder positions.
 	for encoderSettings in (
-		SPLEncoderLabels, SPLFocusToStudio,
-		SPLPlayAfterConnecting, SPLBackgroundMonitor,
-		SPLNoConnectionTone, SPLConnectionStopOnError
+		SPLEncoderLabels,
+		SPLFocusToStudio,
+		SPLPlayAfterConnecting,
+		SPLBackgroundMonitor,
+		SPLNoConnectionTone,
+		SPLConnectionStopOnError,
 	):
 		# 21.03/20.09.6-LTS: encoder settings must be either a set or a dictionary unless changed in the future.
 		if not isinstance(encoderSettings, (set, dict)):
@@ -131,7 +137,9 @@ def _removeEncoderID(encoderType: str, pos: str) -> None:
 					encoderSettings.remove(item)
 					encoderSettings.add("{} {}".format(encoderType, int(item.split()[-1]) - 1))
 				elif isinstance(encoderSettings, dict):
-					encoderSettings["{} {}".format(encoderType, int(item.split()[-1]) - 1)] = encoderSettings.pop(item)
+					encoderSettings["{} {}".format(encoderType, int(item.split()[-1]) - 1)] = (
+						encoderSettings.pop(item)
+					)
 
 
 # Save encoder labels and flags, called when closing app modules and/or config save command is pressed.
@@ -173,10 +181,14 @@ def cleanup(appTerminating: bool = False, reset: bool = False) -> None:
 		config.post_configSave.unregister(saveEncoderConfig)
 		config.post_configReset.unregister(resetEncoderConfig)
 	for flag in [
-		encoderConfig, SPLEncoderLabels,
-		SPLFocusToStudio, SPLPlayAfterConnecting,
-		SPLBackgroundMonitor, SPLBackgroundMonitorThreads,
-		SPLNoConnectionTone, SPLConnectionStopOnError
+		encoderConfig,
+		SPLEncoderLabels,
+		SPLFocusToStudio,
+		SPLPlayAfterConnecting,
+		SPLBackgroundMonitor,
+		SPLBackgroundMonitorThreads,
+		SPLNoConnectionTone,
+		SPLConnectionStopOnError,
 	]:
 		if flag is not None:
 			flag.clear()
@@ -200,7 +212,6 @@ _configDialogOpened = False
 
 
 class EncoderConfigDialog(wx.Dialog):
-
 	# Instance check comes from NVDA Core's Add-ons Manager (credit: NV Access)
 	@classmethod
 	def _instance(cls):
@@ -231,6 +242,7 @@ class EncoderConfigDialog(wx.Dialog):
 		encoderConfigHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 		# And to close this automatically when Studio dies.
 		from appModules.splstudio import splactions
+
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 		global _configDialogOpened
 		_configDialogOpened = True
@@ -249,7 +261,9 @@ class EncoderConfigDialog(wx.Dialog):
 		# Translators: A checkbox in encoder settings
 		# to set if NVDA should play the next track when connected.
 		playAfterConnectingLabel = _("&Play first track when connected")
-		self.playAfterConnecting = encoderConfigHelper.addItem(wx.CheckBox(self, label=playAfterConnectingLabel))
+		self.playAfterConnecting = encoderConfigHelper.addItem(
+			wx.CheckBox(self, label=playAfterConnectingLabel)
+		)
 		self.playAfterConnecting.SetValue(obj.playAfterConnecting)
 
 		# Translators: A checkbox in encoder settings
@@ -307,6 +321,7 @@ class EncoderConfigDialog(wx.Dialog):
 # Announce connected encoders if any.
 def announceEncoderConnectionStatus() -> None:
 	import windowUtils
+
 	# For SAM encoders, descend into encoder window after locating the foreground window.
 	# For others, look for a specific SysListView32 control.
 	desktopHwnd = api.getDesktopObject().windowHandle
@@ -489,7 +504,10 @@ class Encoder(IAccessible):
 	# By default background encoding (no manual connect) is assumed.
 	def connectStart(self, manualConnect: bool = False) -> None:
 		# 20.09: don't bother if another thread is monitoring this encoder.
-		if self.encoderId in SPLBackgroundMonitorThreads and SPLBackgroundMonitorThreads[self.encoderId].is_alive():
+		if (
+			self.encoderId in SPLBackgroundMonitorThreads
+			and SPLBackgroundMonitorThreads[self.encoderId].is_alive()
+		):
 			return
 		statusThread = threading.Thread(
 			target=self.reportConnectionStatus, kwargs=dict(manualConnect=manualConnect)
@@ -511,6 +529,7 @@ class Encoder(IAccessible):
 		# #150 (20.10/20.09.2-LTS): announce a message if Studio window is minimized.
 		if self.focusToStudio:
 			import windowUtils
+
 			try:
 				studioWindow = windowUtils.findDescendantWindow(
 					api.getDesktopObject().windowHandle, visible=True, className="TStudioForm"
@@ -531,7 +550,7 @@ class Encoder(IAccessible):
 		# Translators: Input help mode message for an encoder settings command.
 		description=_("Toggles whether NVDA will switch to Studio when connected to a streaming server."),
 		category=_("StationPlaylist"),
-		gesture="kb:control+shift+f11"
+		gesture="kb:control+shift+f11",
 	)
 	def script_toggleFocusToStudio(self, gesture):
 		if not self.focusToStudio:
@@ -546,9 +565,11 @@ class Encoder(IAccessible):
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for an encoder settings command.
-		description=_("Toggles whether Studio will play the first song when connected to a streaming server."),
+		description=_(
+			"Toggles whether Studio will play the first song when connected to a streaming server."
+		),
 		category=_("StationPlaylist"),
-		gesture="kb:shift+f11"
+		gesture="kb:shift+f11",
 	)
 	def script_togglePlay(self, gesture):
 		if not self.playAfterConnecting:
@@ -565,7 +586,7 @@ class Encoder(IAccessible):
 		# Translators: Input help mode message for an encoder settings command.
 		description=_("Toggles whether NVDA will monitor the selected encoder in the background."),
 		category=_("StationPlaylist"),
-		gesture="kb:control+f11"
+		gesture="kb:control+f11",
 	)
 	def script_toggleBackgroundEncoderMonitor(self, gesture):
 		if scriptHandler.getLastScriptRepeatCount() == 0:
@@ -597,9 +618,11 @@ class Encoder(IAccessible):
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for an encoder settings command.
-		description=_("Opens a dialog to erase encoder labels and settings from an encoder that was deleted."),
+		description=_(
+			"Opens a dialog to erase encoder labels and settings from an encoder that was deleted."
+		),
 		category=_("StationPlaylist"),
-		gesture="kb:control+f12"
+		gesture="kb:control+f12",
 	)
 	def script_encoderLabelsSettingsEraser(self, gesture):
 		# 17.12: early versions of wxPython 4 does not have number entry dialog, so replace it with a combo box.
@@ -609,21 +632,24 @@ class Encoder(IAccessible):
 			_("Enter the position of the encoder you wish to delete or will delete"),
 			# Translators: The title of the encoder settings eraser dialog.
 			_("Encoder label and settings eraser"),
-			choices=[str(pos) for pos in range(1, self.simpleParent.childCount)]
+			choices=[str(pos) for pos in range(1, self.simpleParent.childCount)],
 		)
 		dlg.SetSelection(self.IAccessibleChildID - 1)
 
 		def callback(result):
 			if result == wx.ID_OK:
 				_removeEncoderID(self.encoderType, dlg.GetStringSelection())
+
 		gui.runScriptModalDialog(dlg, callback)
 
 	# stream settings.
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
-		description=_("Shows encoder settings dialog to configure various encoder settings such as encoder label."),
+		description=_(
+			"Shows encoder settings dialog to configure various encoder settings such as encoder label."
+		),
 		gestures=["kb:alt+NVDA+0", "kb:f12"],
-		category=_("StationPlaylist")
+		category=_("StationPlaylist"),
 	)
 	def script_openEncoderConfigDialog(self, gesture):
 		try:
@@ -634,10 +660,13 @@ class Encoder(IAccessible):
 			gui.mainFrame.postPopup()
 		except RuntimeError:
 			from ..skipTranslation import translate
+
 			wx.CallAfter(
 				# Translators: Text of the dialog when another encoder settings dialog is open.
-				gui.messageBox, _("Another encoder settings dialog is open."),
-				translate("Error"), style=wx.OK | wx.ICON_ERROR
+				gui.messageBox,
+				_("Another encoder settings dialog is open."),
+				translate("Error"),
+				style=wx.OK | wx.ICON_ERROR,
 			)
 
 	# Announce complete time including seconds (slight change from global commands version).
@@ -649,30 +678,27 @@ class Encoder(IAccessible):
 		),
 		gesture="kb:NVDA+F12",
 		category=_("StationPlaylist"),
-		**speakOnDemand
+		**speakOnDemand,
 	)
 	def script_encoderDateTime(self, gesture):
 		import winKernel
+
 		if scriptHandler.getLastScriptRepeatCount() == 0:
 			text = winKernel.GetTimeFormatEx(winKernel.LOCALE_NAME_USER_DEFAULT, 0, None, None)
 		else:
-			text = winKernel.GetDateFormatEx(winKernel.LOCALE_NAME_USER_DEFAULT, winKernel.DATE_LONGDATE, None, None)
+			text = winKernel.GetDateFormatEx(
+				winKernel.LOCALE_NAME_USER_DEFAULT, winKernel.DATE_LONGDATE, None, None
+			)
 		ui.message(text)
 
 	# Various column announcement scripts.
 	# This base class implements encoder position and labels.
-	@scriptHandler.script(
-		gesture="kb:control+NVDA+1",
-		**speakOnDemand
-	)
+	@scriptHandler.script(gesture="kb:control+NVDA+1", **speakOnDemand)
 	def script_announceEncoderPosition(self, gesture):
 		# Translators: describes the current encoder position.
 		ui.message(_("Position: {pos}").format(pos=self.IAccessibleChildID))
 
-	@scriptHandler.script(
-		gesture="kb:control+NVDA+2",
-		**speakOnDemand
-	)
+	@scriptHandler.script(gesture="kb:control+NVDA+2", **speakOnDemand)
 	def script_announceEncoderLabel(self, gesture):
 		try:
 			encoderLabel = self.encoderLabel
@@ -812,6 +838,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 
 	def _samContextMenu(self, presses: int) -> None:
 		import itertools
+
 		keyboardHandler.KeyboardInputGesture.fromName("applications").send()
 		for key in itertools.repeat("downArrow", presses):
 			keyboardHandler.KeyboardInputGesture.fromName(key).send()
@@ -831,24 +858,15 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		self._samContextMenu(7)
 
 	# Announce SAM columns: encoder name/type, status and description.
-	@scriptHandler.script(
-		gesture="kb:control+NVDA+3",
-		**speakOnDemand
-	)
+	@scriptHandler.script(gesture="kb:control+NVDA+3", **speakOnDemand)
 	def script_announceEncoderFormat(self, gesture):
 		ui.message("{0}: {1}".format(self.getChild(1).columnHeaderText, self.encoderFormat))
 
-	@scriptHandler.script(
-		gesture="kb:control+NVDA+4",
-		**speakOnDemand
-	)
+	@scriptHandler.script(gesture="kb:control+NVDA+4", **speakOnDemand)
 	def script_announceEncoderStatus(self, gesture):
 		ui.message("{0}: {1}".format(self.getChild(2).columnHeaderText, self.getChild(2).name))
 
-	@scriptHandler.script(
-		gesture="kb:control+NVDA+5",
-		**speakOnDemand
-	)
+	@scriptHandler.script(gesture="kb:control+NVDA+5", **speakOnDemand)
 	def script_announceEncoderStatusDesc(self, gesture):
 		ui.message("{0}: {1}".format(self.getChild(3).columnHeaderText, self.getChild(3).name))
 
@@ -895,7 +913,11 @@ class SPLEncoder(Encoder):
 				connected = False
 				if manualConnect and connecting:
 					manualConnect = False
-			elif "Unable to connect" in messageCache or "Failed" in messageCache or status == "AutoConnect stopped.":
+			elif (
+				"Unable to connect" in messageCache
+				or "Failed" in messageCache
+				or status == "AutoConnect stopped."
+			):
 				if manualConnect and not self.announceStatusUntilConnected:
 					manualConnect = False
 				connected = False
@@ -929,7 +951,7 @@ class SPLEncoder(Encoder):
 	@scriptHandler.script(
 		# Translators: input hep command for an encoder connection command.
 		description=_("Connects the selected encoder."),
-		gesture="kb:f9"
+		gesture="kb:f9",
 	)
 	def script_connect(self, gesture):
 		if self.getChild(1).name not in ("Disconnected", "AutoConnect stopped."):
@@ -944,7 +966,7 @@ class SPLEncoder(Encoder):
 	@scriptHandler.script(
 		# Translators: input hep command for an encoder connection command.
 		description=_("Connects all encoders."),
-		gesture="kb:control+f9"
+		gesture="kb:control+f9",
 	)
 	def script_connectAll(self, gesture):
 		connectButton = api.getForegroundObject().getChild(2)
@@ -958,17 +980,11 @@ class SPLEncoder(Encoder):
 			self.connectStart(manualConnect=True)
 
 	# Announce SPL Encoder columns: encoder settings and transfer rate.
-	@scriptHandler.script(
-		gesture="kb:control+NVDA+3",
-		**speakOnDemand
-	)
+	@scriptHandler.script(gesture="kb:control+NVDA+3", **speakOnDemand)
 	def script_announceEncoderSettings(self, gesture):
 		ui.message("{0}: {1}".format(self.firstChild.columnHeaderText, self.encoderFormat))
 
-	@scriptHandler.script(
-		gesture="kb:control+NVDA+4",
-		**speakOnDemand
-	)
+	@scriptHandler.script(gesture="kb:control+NVDA+4", **speakOnDemand)
 	def script_announceEncoderTransfer(self, gesture):
 		ui.message("{0}: {1}".format(self.getChild(1).columnHeaderText, self.getChild(1).name))
 

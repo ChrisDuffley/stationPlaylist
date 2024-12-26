@@ -34,11 +34,11 @@ encoderSettingsLabels = {
 # This is an indirect jump due to SPL Controller's encoder connection status  command.
 def announceEncoderConnectionStatus() -> None:
 	from . import encoders
+
 	encoders.announceEncoderConnectionStatus()
 
 
 class AppModule(appModuleHandler.AppModule):
-
 	def terminate(self):
 		super(AppModule, self).terminate()
 		# 6.3: Memory leak results if encoder flag sets and other encoder support maps aren't cleaned up.
@@ -52,6 +52,7 @@ class AppModule(appModuleHandler.AppModule):
 		# if both SPL Engine and Streamer are active and one of them dies.
 		# For now, ignore this condition.
 		from . import encoders
+
 		encoders.cleanup(appTerminating=True)
 
 	def event_NVDAObject_init(self, obj):
@@ -85,6 +86,7 @@ class AppModule(appModuleHandler.AppModule):
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		# Detect encoders.
 		from . import encoders
+
 		if obj.windowClassName == "TListView":
 			# #87: add support for table navigation commands
 			# by coercing encoder list and entries into SysListView32 family.
