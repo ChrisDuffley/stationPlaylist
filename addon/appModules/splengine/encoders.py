@@ -2,9 +2,6 @@
 # Copyright 2015-2025 Joseph Lee, released under GPL.
 # Split from main global plugin in 2015, transferred to SPL Engine app module in 2020.
 
-# #155 (21.03): remove __future__ import when NVDA runs under Python 3.10.
-from __future__ import annotations
-from typing import Optional
 import threading
 import time
 import os
@@ -401,7 +398,7 @@ class Encoder(IAccessible):
 	# Get and set encoder labels (hence encoder label is not really a property, although it may appear to be so).
 
 	@property
-	def encoderLabel(self) -> Optional[str]:
+	def encoderLabel(self) -> str | None:
 		return SPLEncoderLabels.get(self.encoderId, None)
 
 	@encoderLabel.setter
