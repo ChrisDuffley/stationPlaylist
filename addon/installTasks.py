@@ -5,6 +5,7 @@
 # Partly based on other add-ons, particularly Place Markers by Noelia Martinez (thanks add-on authors).
 
 import addonHandler
+
 addonHandler.initTranslation()
 
 
@@ -15,6 +16,7 @@ def onInstall():
 	import wx
 	import winVersion
 	import globalVars
+
 	# Do not present dialogs if minimal mode is set.
 	currentWinVer = winVersion.getWinVer()
 	# StationPlaylist add-on requires Windows 10 21H2 or later.
@@ -34,8 +36,10 @@ def onInstall():
 					releaseName=currentWinVer.releaseName,
 					build=currentWinVer.build,
 					supportedReleaseName=minimumWinVer.releaseName,
-					supportedBuild=minimumWinVer.build
-				), unsupportedWindowsReleaseTitle, wx.OK | wx.ICON_ERROR
+					supportedBuild=minimumWinVer.build,
+				),
+				unsupportedWindowsReleaseTitle,
+				wx.OK | wx.ICON_ERROR,
 			)
 		raise RuntimeError("Attempting to install StationPlaylist add-on on Windows releases earlier than 10")
 	profiles = os.path.join(os.path.dirname(__file__), "..", "stationPlaylist", "profiles")
