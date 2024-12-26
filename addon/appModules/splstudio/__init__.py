@@ -2376,6 +2376,7 @@ class AppModule(appModuleHandler.AppModule):
 			return
 
 	# Status table keys
+	SPLPlayStatus = 0
 	SPLSystemStatus = 1
 	SPLNextTrackTitle = 3
 	SPLNextPlayer = 4
@@ -2402,6 +2403,7 @@ class AppModule(appModuleHandler.AppModule):
 			SPLTemperature: [7, 0],  # Temperature for the current city.
 		},
 		"6": {
+			SPLPlayStatus: [-1, -3],  # Play status, mic, control keys (Studio 6.10 and later), etc.
 			SPLSystemStatus: [-1, -2],  # The second status bar containing system status such as up time.
 			SPLNextTrackTitle: [-1, 1, 2, 0],  # Name and duration of the next track if any.
 			SPLNextPlayer: [-1, 1, 2, 1],  # Name and duration of the next track if any.
