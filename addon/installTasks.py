@@ -5,19 +5,15 @@
 # Partly based on other add-ons, particularly Place Markers by Noelia Martinez (thanks add-on authors).
 
 import addonHandler
+import os
+import shutil
+import gui
+import winVersion
 
 addonHandler.initTranslation()
 
 
 def onInstall():
-	import os
-	import shutil
-	import gui
-	import wx
-	import winVersion
-	import globalVars
-
-	# Do not present dialogs if minimal mode is set.
 	currentWinVer = winVersion.getWinVer()
 	# StationPlaylist add-on requires Windows 10 22H2 or later.
 	minimumWinVer = winVersion.WIN10_22H2
