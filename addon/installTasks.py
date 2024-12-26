@@ -20,9 +20,6 @@ def onInstall():
 	# Do not present dialogs if minimal mode is set.
 	currentWinVer = winVersion.getWinVer()
 	# StationPlaylist add-on requires Windows 10 22H2 or later.
-	# Translators: title of the error dialog shown when trying to install the add-on in unsupported systems.
-	# Unsupported systems include Windows versions earlier than 10 and unsupported feature updates.
-	unsupportedWindowsReleaseTitle = _("Unsupported Windows release")
 	minimumWinVer = winVersion.WIN10_22H2
 	if currentWinVer < minimumWinVer:
 		gui.messageBox(
@@ -37,7 +34,8 @@ def onInstall():
 				supportedReleaseName=minimumWinVer.releaseName,
 				supportedBuild=minimumWinVer.build,
 			),
-			unsupportedWindowsReleaseTitle,
+			# Translators: dialog title shown when trying to install the add-on in unsupported systems.
+			_("Unsupported Windows release"),
 		)
 		raise RuntimeError("Attempting to install StationPlaylist add-on on Windows releases earlier than 10")
 	profiles = os.path.join(os.path.dirname(__file__), "..", "stationPlaylist", "profiles")
