@@ -204,7 +204,7 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 
 ## Version 25.01
 
-* 64-bit Windows 10 22H2 (build 19045) or later is required.
+* 64-bit Windows 10 21H2 (build 19044) or later is required.
 * Download links for add-on releases are no longer included in add-on documentation. You can download the add-on from NV Access add-on store.
 * Switched linting tool from Flake8 to Ruff and reformatted add-on modules to better align with NVDA coding standards.
 * Removed support for automatic add-on updates feature from Add-on Updater add-on.
