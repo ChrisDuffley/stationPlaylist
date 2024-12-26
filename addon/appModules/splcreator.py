@@ -1,6 +1,6 @@
 # StationPlaylist Creator
 # An app module and global plugin package for NVDA
-# Copyright 2016-2024 Joseph Lee, released under GPL.
+# Copyright 2016-2025 Joseph Lee, released under GPL.
 
 # Basic support for StationPlaylist Creator.
 

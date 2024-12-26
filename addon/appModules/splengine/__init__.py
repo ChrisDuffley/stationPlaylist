@@ -1,5 +1,5 @@
 # StationPlaylist DSP Engine
-# Copyright 2019-2024 Joseph Lee, released under GPL.
+# Copyright 2019-2025 Joseph Lee, released under GPL.
 
 # SPL Audio Processing Engine
 # Home to various DSP DLL's including encoders.

@@ -1,6 +1,6 @@
 # StationPlaylist Track Tool
 # An app module for NVDA
-# Copyright 2014-2024 Joseph Lee, released under gPL.
+# Copyright 2014-2025 Joseph Lee, released under gPL.
 # Functionality is based on JFW scripts for SPL Track Tool by Brian Hartgen.
 
 # Track Tool allows a broadcaster to manage track intros, cues and so forth.
