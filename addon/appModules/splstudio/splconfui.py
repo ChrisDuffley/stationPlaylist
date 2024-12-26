@@ -20,6 +20,7 @@ import addonHandler
 from . import splconfig
 from . import splactions
 from ..skipTranslation import translate
+
 addonHandler.initTranslation()
 
 # Due to syntax/variable name issues, the actual add-on settings class can be found at the end of this module.
@@ -102,7 +103,9 @@ class BroadcastProfilesDialog(wx.Dialog):
 			self.deleteButton.Disable()
 			self.triggerButton.Disable()
 		profilesListGroupContents.Add(buttonHelper.sizer)
-		profilesListGroupSizer.Add(profilesListGroupContents, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+		profilesListGroupSizer.Add(
+			profilesListGroupContents, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL
+		)
 		broadcastProfilesHelper.addItem(profilesListGroupSizer)
 		# Used as sanity check in case switch profile is renamed or deleted.
 		self.switchProfileRenamed = False
@@ -162,9 +165,11 @@ class BroadcastProfilesDialog(wx.Dialog):
 		profilePos = self.profileNames.index(oldName)
 		with wx.TextEntryDialog(
 			# Message comes from NVDA Core.
-			self, translate("New name:"),
+			self,
+			translate("New name:"),
 			# Message comes from NVDA Core.
-			translate("Rename Profile"), value=oldName
+			translate("Rename Profile"),
+			value=oldName,
 		) as d:
 			if d.ShowModal() == wx.ID_CANCEL:
 				return
@@ -177,7 +182,9 @@ class BroadcastProfilesDialog(wx.Dialog):
 			gui.messageBox(
 				# Message comes from NVDA Core.
 				translate("That profile already exists. Please choose a different name."),
-				translate("Error"), wx.OK | wx.ICON_ERROR, self
+				translate("Error"),
+				wx.OK | wx.ICON_ERROR,
+				self,
 			)
 			return
 		if self.switchProfile == oldName:
@@ -203,30 +210,42 @@ class BroadcastProfilesDialog(wx.Dialog):
 					"before opening broadcast profiles dialog to delete a profile."
 				),
 				# Translators: Title of a dialog shown when profile cannot be deleted.
-				_("Profile delete error"), wx.OK | wx.ICON_ERROR, self
+				_("Profile delete error"),
+				wx.OK | wx.ICON_ERROR,
+				self,
 			)
 			return
 		name = self.profiles.GetStringSelection().split(" <")[0]
 		# 17.11/15.10-lts: ask once more if deleting an active profile.
 		if name == self.activeProfile:
-			if gui.messageBox(
-				# Translators: The confirmation prompt displayed
-				# when the user requests to delete the active broadcast profile.
-				_("You are about to delete the currently active profile. Select yes if you wish to proceed."),
-				# Translators: The title of the confirmation dialog for deletion of a profile.
-				_("Delete active profile"),
-				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
-			) == wx.NO:
+			if (
+				gui.messageBox(
+					# Translators: The confirmation prompt displayed
+					# when the user requests to delete the active broadcast profile.
+					_(
+						"You are about to delete the currently active profile. Select yes if you wish to proceed."
+					),
+					# Translators: The title of the confirmation dialog for deletion of a profile.
+					_("Delete active profile"),
+					wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION,
+					self,
+				)
+				== wx.NO
+			):
 				return
 		index = self.profiles.Selection
 		profilePos = self.profileNames.index(name)
-		if gui.messageBox(
-			# Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
-			_("Are you sure you want to delete this profile? This cannot be undone."),
-			# Message comes from NVDA Core.
-			translate("Confirm Deletion"),
-			wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
-		) == wx.NO:
+		if (
+			gui.messageBox(
+				# Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
+				_("Are you sure you want to delete this profile? This cannot be undone."),
+				# Message comes from NVDA Core.
+				translate("Confirm Deletion"),
+				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION,
+				self,
+			)
+			== wx.NO
+		):
 			return
 		splconfig.SPLConfig.deleteProfile(name)
 		# 17.11: make sure to connect to the right set of metadata servers
@@ -272,7 +291,9 @@ class BroadcastProfilesDialog(wx.Dialog):
 			flags = self.getProfileFlags(profile)
 		action = getattr(flags, action)
 		action(flag)
-		self.profiles.SetString(index, profile if not len(flags) else "{0} <{1}>".format(profile, ", ".join(flags)))
+		self.profiles.SetString(
+			index, profile if not len(flags) else "{0} <{1}>".format(profile, ", ".join(flags))
+		)
 
 	def onChangeState(self, evt):
 		selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
@@ -300,7 +321,6 @@ class BroadcastProfilesDialog(wx.Dialog):
 
 # New broadcast profile dialog: Modification of new config profile dialog from NVDA Core.
 class NewProfileDialog(wx.Dialog):
-
 	def __init__(self, parent, copy=False):
 		self.copy = copy
 		if not self.copy:
@@ -320,7 +340,9 @@ class NewProfileDialog(wx.Dialog):
 			self.baseProfiles = newProfileSizerHelper.addLabeledControl(
 				# Translators: The label for a setting in SPL add-on dialog
 				# to select a base  profile for copying.
-				_("&Base profile:"), wx.Choice, choices=parent.profileNames
+				_("&Base profile:"),
+				wx.Choice,
+				choices=parent.profileNames,
 			)
 			self.baseProfiles.SetSelection(parent.profiles.GetSelection())
 
@@ -343,7 +365,9 @@ class NewProfileDialog(wx.Dialog):
 			gui.messageBox(
 				# Message comes from NVDA Core.
 				translate("That profile already exists. Please choose a different name."),
-				translate("Error"), wx.OK | wx.ICON_ERROR, self
+				translate("Error"),
+				wx.OK | wx.ICON_ERROR,
+				self,
 			)
 			return
 		namePath = name + ".ini"
@@ -358,8 +382,7 @@ class NewProfileDialog(wx.Dialog):
 			# #140 (20.07): it isn't enough to copy dictionaries.
 			# Deep copy (config.dict()) must be performed to avoid accidental reference manipulation.
 			baseProfile = {
-				sect: key for sect, key in baseConfig.dict().items()
-				if sect in splconfig._mutatableSettings
+				sect: key for sect, key in baseConfig.dict().items() if sect in splconfig._mutatableSettings
 			}
 		splconfig.SPLConfig.createProfile(newProfilePath, name, parent=baseProfile)
 		parent.profileNames.append(name)
@@ -380,7 +403,6 @@ class NewProfileDialog(wx.Dialog):
 # and allows one to configure when to trigger this profile.
 # As of 20.07, the only trigger flag is instant switch profile.
 class TriggersDialog(wx.Dialog):
-
 	def __init__(self, parent, profile):
 		# Translators: The title of the broadcast profile triggers dialog.
 		title = _("Profile triggers for {profileName}").format(profileName=profile)
@@ -413,7 +435,9 @@ class TriggersDialog(wx.Dialog):
 		if self.instantSwitchCheckbox.Value:
 			if parent.switchProfile is not None and (self.profile != parent.switchProfile):
 				# Instant switch flag is set on another profile, so remove the flag first.
-				parent.setProfileFlags(parent.profileNames.index(parent.switchProfile), "discard", _("instant switch"))
+				parent.setProfileFlags(
+					parent.profileNames.index(parent.switchProfile), "discard", _("instant switch")
+				)
 			parent.setProfileFlags(self.selection, "add", _("instant switch"))
 			parent.switchProfile = self.profile
 		else:
@@ -448,7 +472,7 @@ class GeneralSettingsPanel(gui.settingsDialogs.SettingsPanel):
 			# Translators: One of the message verbosity levels.
 			("beginner", _("beginner")),
 			# Translators: One of the message verbosity levels.
-			("advanced", _("advanced"))
+			("advanced", _("advanced")),
 		]
 		# Translators: the label for a setting in SPL add-on settings
 		# to set message verbosity.
@@ -467,7 +491,7 @@ class GeneralSettingsPanel(gui.settingsDialogs.SettingsPanel):
 			# Translators: One of the braille timer settings.
 			("intro", _("Track intro")),
 			# Translators: One of the braille timer settings.
-			("both", _("Track intro and ending"))
+			("both", _("Track intro and ending")),
 		]
 		# Translators: the label for a setting in SPL add-on settings
 		# to configure braille timer.
@@ -486,7 +510,7 @@ class GeneralSettingsPanel(gui.settingsDialogs.SettingsPanel):
 			# Translators: One of the library scan announcement settings.
 			("progress", _("Scan progress")),
 			# Translators: One of the library scan announcement settings.
-			("numbers", _("Scan count"))
+			("numbers", _("Scan count")),
 		]
 		# Translators: The label for a setting in SPL add-on settings
 		# to control library scan announcement.
@@ -520,7 +544,9 @@ class GeneralSettingsPanel(gui.settingsDialogs.SettingsPanel):
 		# Translators: the label for a setting in SPL add-on settings
 		# to toggle category sound announcement.
 		categorySoundsLabel = _("&Beep for different track categories")
-		self.categorySoundsCheckbox = generalSettingsHelper.addItem(wx.CheckBox(self, label=categorySoundsLabel))
+		self.categorySoundsCheckbox = generalSettingsHelper.addItem(
+			wx.CheckBox(self, label=categorySoundsLabel)
+		)
 		self.categorySoundsCheckbox.SetValue(splconfig.SPLConfig["General"]["CategorySounds"])
 
 		self.trackCommentValues = [
@@ -530,7 +556,7 @@ class GeneralSettingsPanel(gui.settingsDialogs.SettingsPanel):
 			# Translators: One of the track comment notification settings.
 			("beep", _("Beep")),
 			# Translators: One of the track comment notification settings.
-			("both", _("Both"))
+			("both", _("Both")),
 		]
 		# Translators: the label for a setting in SPL add-on settings
 		# to set how track comments are announced.
@@ -551,28 +577,32 @@ class GeneralSettingsPanel(gui.settingsDialogs.SettingsPanel):
 		# Translators: the label for a setting in SPL add-on settings
 		# to enable requests alert.
 		requestsAlertLabel = _("Play a sound when listener &requests arrive")
-		self.requestsAlertCheckbox = generalSettingsHelper.addItem(wx.CheckBox(self, label=requestsAlertLabel))
+		self.requestsAlertCheckbox = generalSettingsHelper.addItem(
+			wx.CheckBox(self, label=requestsAlertLabel)
+		)
 		self.requestsAlertCheckbox.SetValue(splconfig.SPLConfig["General"]["RequestsAlert"])
 
 	def onSave(self):
 		splconfig.SPLConfig["General"]["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
-		splconfig.SPLConfig["General"]["MessageVerbosity"] = (
-			self.verbosityLevels[self.verbosityList.GetSelection()][0]
-		)
-		splconfig.SPLConfig["General"]["BrailleTimer"] = (
-			self.brailleTimerValues[self.brailleTimerList.GetSelection()][0]
-		)
-		splconfig.SPLConfig["General"]["LibraryScanAnnounce"] = (
-			self.libScanValues[self.libScanList.GetSelection()][0]
-		)
+		splconfig.SPLConfig["General"]["MessageVerbosity"] = self.verbosityLevels[
+			self.verbosityList.GetSelection()
+		][0]
+		splconfig.SPLConfig["General"]["BrailleTimer"] = self.brailleTimerValues[
+			self.brailleTimerList.GetSelection()
+		][0]
+		splconfig.SPLConfig["General"]["LibraryScanAnnounce"] = self.libScanValues[
+			self.libScanList.GetSelection()
+		][0]
 		splconfig.SPLConfig["General"]["TimeHourAnnounce"] = self.hourAnnounceCheckbox.Value
 		splconfig.SPLConfig["General"]["VerticalColumnAnnounce"] = (
-			self.verticalColumnsList.GetStringSelection() if self.verticalColumnsList.GetSelection() != 0 else None
+			self.verticalColumnsList.GetStringSelection()
+			if self.verticalColumnsList.GetSelection() != 0
+			else None
 		)
 		splconfig.SPLConfig["General"]["CategorySounds"] = self.categorySoundsCheckbox.Value
-		splconfig.SPLConfig["General"]["TrackCommentAnnounce"] = (
-			self.trackCommentValues[self.trackCommentList.GetSelection()][0]
-		)
+		splconfig.SPLConfig["General"]["TrackCommentAnnounce"] = self.trackCommentValues[
+			self.trackCommentList.GetSelection()
+		][0]
 		splconfig.SPLConfig["General"]["TopBottomAnnounce"] = self.topBottomCheckbox.Value
 		splconfig.SPLConfig["General"]["RequestsAlert"] = self.requestsAlertCheckbox.Value
 
@@ -589,8 +619,11 @@ class AlarmsPanel(gui.settingsDialogs.SettingsPanel):
 		# To set end of track alarm in seconds.
 		outroAlarmLabel = _("&End of track alarm in seconds")
 		self.outroAlarmEntry = alarmsCenterHelper.addLabeledControl(
-			outroAlarmLabel, gui.nvdaControls.SelectOnFocusSpinCtrl,
-			min=1, max=59, initial=splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"]
+			outroAlarmLabel,
+			gui.nvdaControls.SelectOnFocusSpinCtrl,
+			min=1,
+			max=59,
+			initial=splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"],
 		)
 
 		# Translators: the label for a setting in SPL add-on settings
@@ -603,8 +636,11 @@ class AlarmsPanel(gui.settingsDialogs.SettingsPanel):
 		# To set trakc intro alarm in seconds.
 		introAlarmLabel = _("&Track intro alarm in seconds")
 		self.introAlarmEntry = alarmsCenterHelper.addLabeledControl(
-			introAlarmLabel, gui.nvdaControls.SelectOnFocusSpinCtrl,
-			min=1, max=9, initial=splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"]
+			introAlarmLabel,
+			gui.nvdaControls.SelectOnFocusSpinCtrl,
+			min=1,
+			max=9,
+			initial=splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"],
 		)
 
 		# Translators: the label for a setting in SPL add-on settings
@@ -617,16 +653,22 @@ class AlarmsPanel(gui.settingsDialogs.SettingsPanel):
 		# to set microphone active alarm in seconds.
 		micAlarmLabel = _("&Microphone alarm in seconds (0 disables the alarm)")
 		self.micAlarmEntry = alarmsCenterHelper.addLabeledControl(
-			micAlarmLabel, gui.nvdaControls.SelectOnFocusSpinCtrl,
-			min=0, max=7200, initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]
+			micAlarmLabel,
+			gui.nvdaControls.SelectOnFocusSpinCtrl,
+			min=0,
+			max=7200,
+			initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"],
 		)
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to set microphone active alarm interval in seconds.
 		micIntervalLabel = _("Microphone alarm &interval in seconds")
 		self.micIntervalEntry = alarmsCenterHelper.addLabeledControl(
-			micIntervalLabel, gui.nvdaControls.SelectOnFocusSpinCtrl,
-			min=0, max=60, initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"]
+			micIntervalLabel,
+			gui.nvdaControls.SelectOnFocusSpinCtrl,
+			min=0,
+			max=60,
+			initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"],
 		)
 
 		self.alarmAnnounceValues = [
@@ -635,7 +677,7 @@ class AlarmsPanel(gui.settingsDialogs.SettingsPanel):
 			# Translators: One of the alarm notification options.
 			("message", _("message")),
 			# Translators: One of the alarm notification options.
-			("both", _("both beep and message"))
+			("both", _("both beep and message")),
 		]
 		# Translators: The label for a setting in SPL add-on settings
 		# to configure alarm announcement type.
@@ -648,9 +690,9 @@ class AlarmsPanel(gui.settingsDialogs.SettingsPanel):
 		self.alarmAnnounceList.SetSelection(selection)
 
 	def onSave(self):
-		splconfig.SPLConfig["General"]["AlarmAnnounce"] = (
-			self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
-		)
+		splconfig.SPLConfig["General"]["AlarmAnnounce"] = self.alarmAnnounceValues[
+			self.alarmAnnounceList.GetSelection()
+		][0]
 		splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.outroAlarmEntry.GetValue()
 		splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroToggleCheckBox.GetValue()
 		splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"] = self.introAlarmEntry.GetValue()
@@ -662,6 +704,7 @@ class AlarmsPanel(gui.settingsDialogs.SettingsPanel):
 		# At least try notifying the app module that microphone alarm settings have changed.
 		from winUser import OBJID_CLIENT
 		from NVDAObjects.IAccessible import getNVDAObjectFromEvent
+
 		studioWindow = getNVDAObjectFromEvent(user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0)
 		if studioWindow is not None:
 			studioWindow.appModule.actionProfileSwitched()
@@ -687,7 +730,9 @@ class PlaylistSnapshotsPanel(gui.settingsDialogs.SettingsPanel):
 		self.playlistDurationMinMaxCheckbox = playlistSnapshotsHelper.addItem(
 			wx.CheckBox(self, label=durationMinMaxLabel)
 		)
-		self.playlistDurationMinMaxCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"])
+		self.playlistDurationMinMaxCheckbox.SetValue(
+			splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"]
+		)
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to include average track duration in playlist snapshots window.
@@ -695,7 +740,9 @@ class PlaylistSnapshotsPanel(gui.settingsDialogs.SettingsPanel):
 		self.playlistDurationAverageCheckbox = playlistSnapshotsHelper.addItem(
 			wx.CheckBox(self, label=durationAverageLabel)
 		)
-		self.playlistDurationAverageCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"])
+		self.playlistDurationAverageCheckbox.SetValue(
+			splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"]
+		)
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to include track artist count in playlist snapshots window.
@@ -709,8 +756,11 @@ class PlaylistSnapshotsPanel(gui.settingsDialogs.SettingsPanel):
 		# to set top artist count limit in playlist snapshots window.
 		artistCountLimitLabel = _("Top artist count (0 displays all artists)")
 		self.playlistArtistCountLimit = playlistSnapshotsHelper.addLabeledControl(
-			artistCountLimitLabel, gui.nvdaControls.SelectOnFocusSpinCtrl,
-			min=0, max=10, initial=splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"]
+			artistCountLimitLabel,
+			gui.nvdaControls.SelectOnFocusSpinCtrl,
+			min=0,
+			max=10,
+			initial=splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"],
 		)
 
 		# Translators: the label for a setting in SPL add-on settings
@@ -725,8 +775,11 @@ class PlaylistSnapshotsPanel(gui.settingsDialogs.SettingsPanel):
 		# to set top track category count limit in playlist snapshots window.
 		categoryCountLimitLabel = _("Top category count (0 displays all categories)")
 		self.playlistCategoryCountLimit = playlistSnapshotsHelper.addLabeledControl(
-			categoryCountLimitLabel, gui.nvdaControls.SelectOnFocusSpinCtrl,
-			min=0, max=10, initial=splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"]
+			categoryCountLimitLabel,
+			gui.nvdaControls.SelectOnFocusSpinCtrl,
+			min=0,
+			max=10,
+			initial=splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"],
 		)
 
 		# Translators: the label for a setting in SPL add-on settings
@@ -741,13 +794,18 @@ class PlaylistSnapshotsPanel(gui.settingsDialogs.SettingsPanel):
 		# to set top track genre count limit in playlist snapshots window.
 		genreCountLimitLabel = _("Top genre count (0 displays all genres)")
 		self.playlistGenreCountLimit = playlistSnapshotsHelper.addLabeledControl(
-			genreCountLimitLabel, gui.nvdaControls.SelectOnFocusSpinCtrl,
-			min=0, max=10, initial=splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"]
+			genreCountLimitLabel,
+			gui.nvdaControls.SelectOnFocusSpinCtrl,
+			min=0,
+			max=10,
+			initial=splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"],
 		)
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to show playlist snapshots window when the snapshots command is pressed once.
-		resultsWindowOnFirstPressLabel = _("&Show results window when playlist snapshots command is performed once")
+		resultsWindowOnFirstPressLabel = _(
+			"&Show results window when playlist snapshots command is performed once"
+		)
 		self.resultsWindowOnFirstPressCheckbox = playlistSnapshotsHelper.addItem(
 			wx.CheckBox(self, label=resultsWindowOnFirstPressLabel)
 		)
@@ -757,11 +815,17 @@ class PlaylistSnapshotsPanel(gui.settingsDialogs.SettingsPanel):
 
 	def onSave(self):
 		splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"] = self.playlistDurationMinMaxCheckbox.Value
-		splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"] = self.playlistDurationAverageCheckbox.Value
+		splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"] = (
+			self.playlistDurationAverageCheckbox.Value
+		)
 		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCount"] = self.playlistArtistCountCheckbox.Value
-		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"] = self.playlistArtistCountLimit.GetValue()
+		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"] = (
+			self.playlistArtistCountLimit.GetValue()
+		)
 		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCount"] = self.playlistCategoryCountCheckbox.Value
-		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"] = self.playlistCategoryCountLimit.GetValue()
+		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"] = (
+			self.playlistCategoryCountLimit.GetValue()
+		)
 		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCount"] = self.playlistGenreCountCheckbox.Value
 		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"] = self.playlistGenreCountLimit.GetValue()
 		splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"] = (
@@ -775,8 +839,7 @@ metadataStreamLabels = ("DSP encoder", "URL 1", "URL 2", "URL 3", "URL 4")
 
 
 class MetadataStreamingDialog(wx.Dialog):
-	"""A dialog to toggle metadata streaming quickly and optionally save changes to add-on configuration.
-	"""
+	"""A dialog to toggle metadata streaming quickly and optionally save changes to add-on configuration."""
 
 	@classmethod
 	def _instance(cls):
@@ -815,11 +878,14 @@ class MetadataStreamingDialog(wx.Dialog):
 		# Add checkboxes for each stream, beginning with the DSP encoder.
 		# #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
 		from . import splmisc
+
 		streams = splmisc.metadataList()
 		self.checkedStreams = metadataSizerHelper.addLabeledControl(
 			# Translators: the label for a setting in SPL add-on settings
 			# to configure streaming status for metadata streams.
-			_("&Stream:"), CustomCheckListBox, choices=metadataStreamLabels
+			_("&Stream:"),
+			CustomCheckListBox,
+			choices=metadataStreamLabels,
 		)
 		for stream in range(5):
 			self.checkedStreams.Check(stream, check=streams[stream])
@@ -828,9 +894,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		# Translators: A checkbox to let metadata streaming status
 		# be applied to the currently active broadcast profile.
 		applyLabel = _("&Apply streaming changes to the selected profile")
-		self.applyCheckbox = metadataSizerHelper.addItem(
-			wx.CheckBox(self, label=applyLabel)
-		)
+		self.applyCheckbox = metadataSizerHelper.addItem(wx.CheckBox(self, label=applyLabel))
 		self.applyCheckbox.SetValue(True)
 		# 22.03 (security): no, apply to config checkbox should be disabled in secure mode.
 		# Although metadata streaming settings may appear to be saved, it is ultimately discarded in the end.
@@ -852,6 +916,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		# #76 (18.09-LTS): traverse check list box and build boolean list accordingly.
 		metadataEnabled = [self.checkedStreams.IsChecked(url) for url in range(5)]
 		from . import splmisc
+
 		splmisc.metadataConnector(servers=metadataEnabled)
 		# 6.1: Store just toggled settings to profile if told to do so.
 		if self.applyCheckbox.Value:
@@ -881,7 +946,7 @@ class MetadataStreamingPanel(gui.settingsDialogs.SettingsPanel):
 			# Translators: One of the metadata notification settings.
 			("startup", _("When Studio starts")),
 			# Translators: One of the metadata notification settings.
-			("instant", _("When instant switch profile is active"))
+			("instant", _("When instant switch profile is active")),
 		]
 		# Translators: the label for a setting in SPL add-on settings
 		# to be notified that metadata streaming is enabled.
@@ -912,15 +977,16 @@ class MetadataStreamingPanel(gui.settingsDialogs.SettingsPanel):
 		self.checkedStreams.SetSelection(0)
 
 	def onSave(self):
-		splconfig.SPLConfig["General"]["MetadataReminder"] = (
-			self.metadataValues[self.metadataList.GetSelection()][0]
-		)
+		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[
+			self.metadataList.GetSelection()
+		][0]
 		# #76 (18.09-LTS): traverse check list box and build boolean list accordingly.
 		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = [
 			self.checkedStreams.IsChecked(url) for url in range(5)
 		]
 		# Try connecting to metadata streaming servers if any.
 		from . import splmisc
+
 		splmisc.metadata_actionProfileSwitched(configDialogActive=True)
 
 
@@ -929,7 +995,6 @@ class MetadataStreamingPanel(gui.settingsDialogs.SettingsPanel):
 # 18.08: also serves as a base dialog for Playlist Transcripts/column selector setting.
 # #97 (19.04): converted into a base panel (to be flagged as "abstract" later).
 class ColumnAnnouncementsBasePanel(gui.settingsDialogs.SettingsPanel):
-
 	def _onMakeSettingsBase(self, sHelper, includedColumnsLabel):
 		# Provides common user interface elements for column inclusion/order controls across settings panels
 		# (leave it as a private method).
@@ -940,9 +1005,21 @@ class ColumnAnnouncementsBasePanel(gui.settingsDialogs.SettingsPanel):
 		# 17.04: Gather items into a single list instead of three.
 		# #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
 		checkableColumns = (
-			"Duration", "Intro", "Category", "Filename", "Outro",
-			"Year", "Album", "Genre", "Mood", "Energy",
-			"Tempo", "BPM", "Gender", "Rating", "Time Scheduled"
+			"Duration",
+			"Intro",
+			"Category",
+			"Filename",
+			"Outro",
+			"Year",
+			"Album",
+			"Genre",
+			"Mood",
+			"Energy",
+			"Tempo",
+			"BPM",
+			"Gender",
+			"Rating",
+			"Time Scheduled",
 		)
 		self.checkedColumns = sHelper.addLabeledControl(
 			includedColumnsLabel, CustomCheckListBox, choices=checkableColumns
@@ -1021,9 +1098,10 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		# Without manual conversion below, it produces a rare bug
 		# where clicking cancel after changing column inclusion causes new set to be retained.
 		# Of course take away artist and title.
-		self.includedColumns = (
-			set(splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]) - {"Artist", "Title"}
-		)
+		self.includedColumns = set(splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]) - {
+			"Artist",
+			"Title",
+		}
 		self.columnOrder = splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
 
 		labelText = _(
@@ -1043,17 +1121,16 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 
 		labelText = _(
 			# Translators: Help text to select columns to be announced.
-			"&Select columns to be announced\n"
-			"(artist and title are announced by default):"
+			"&Select columns to be announced\n" "(artist and title are announced by default):"
 		)
 		# 20.09: column inclusion/order are processed via a private method.
 		self._onMakeSettingsBase(colAnnouncementsHelper, labelText)
 
 	def onSave(self):
 		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
-		splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"] = (
-			set(self.checkedColumns.GetCheckedStrings()) | {"Artist", "Title"}
-		)
+		splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"] = set(
+			self.checkedColumns.GetCheckedStrings()
+		) | {"Artist", "Title"}
 		splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"] = self.trackColumns.GetItems()
 
 
@@ -1065,9 +1142,10 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 		playlistTranscriptsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
 		# Again manually create a new set minus artist and title.
-		self.includedColumns = (
-			set(splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"]) - {"Artist", "Title"}
-		)
+		self.includedColumns = set(splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"]) - {
+			"Artist",
+			"Title",
+		}
 		self.columnOrder = splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"]
 
 		labelText = _(
@@ -1080,9 +1158,9 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 		self._onMakeSettingsBase(playlistTranscriptsHelper, labelText)
 
 	def onSave(self):
-		splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"] = (
-			set(self.checkedColumns.GetCheckedStrings()) | {"Artist", "Title"}
-		)
+		splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"] = set(
+			self.checkedColumns.GetCheckedStrings()
+		) | {"Artist", "Title"}
 		splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"] = self.trackColumns.GetItems()
 
 
@@ -1140,7 +1218,6 @@ class ColumnsExplorerPanel(gui.settingsDialogs.SettingsPanel):
 
 
 class ColumnsExplorerDialog(wx.Dialog):
-
 	def __init__(self, parent, level=0):
 		self.level = level
 		if level == 0:
@@ -1152,18 +1229,53 @@ class ColumnsExplorerDialog(wx.Dialog):
 			# Translators: The title of Columns Explorer configuration dialog.
 			actualTitle = _("Columns Explorer for Track Tool")
 			cols = (
-				"Artist", "Title", "Duration", "Cue", "Overlap",
-				"Intro", "Segue", "Filename", "Album", "CD Code",
-				"Outro", "Year", "URL 1", "URL 2", "Genre"
+				"Artist",
+				"Title",
+				"Duration",
+				"Cue",
+				"Overlap",
+				"Intro",
+				"Segue",
+				"Filename",
+				"Album",
+				"CD Code",
+				"Outro",
+				"Year",
+				"URL 1",
+				"URL 2",
+				"Genre",
 			)
 			slots = parent.exploreColumnsTT
 		elif level == 2:
 			# Translators: The title of Columns Explorer configuration dialog.
 			actualTitle = _("Columns Explorer for SPL Creator")
 			cols = (
-				"Artist", "Title", "Position", "Cue", "Intro", "Outro", "Segue", "Duration", "Last Scheduled",
-				"7 Days", "Date Restriction", "Year", "Album", "Genre", "Mood", "Energy", "Tempo", "BPM",
-				"Gender", "Rating", "File Created", "Filename", "Client", "Other", "Intro Link", "Outro Link"
+				"Artist",
+				"Title",
+				"Position",
+				"Cue",
+				"Intro",
+				"Outro",
+				"Segue",
+				"Duration",
+				"Last Scheduled",
+				"7 Days",
+				"Date Restriction",
+				"Year",
+				"Album",
+				"Genre",
+				"Mood",
+				"Energy",
+				"Tempo",
+				"BPM",
+				"Gender",
+				"Rating",
+				"File Created",
+				"Filename",
+				"Client",
+				"Other",
+				"Intro Link",
+				"Outro Link",
 			)
 			slots = parent.exploreColumnsCreator
 		# Gather column slots.
@@ -1178,7 +1290,9 @@ class ColumnsExplorerDialog(wx.Dialog):
 		for slot in range(5):
 			# Translators: The label for a setting in SPL add-on settings
 			# to select column for this column slot.
-			columns = sizer.addLabeledControl(_("Slot {position}").format(position=slot + 1), wx.Choice, choices=cols)
+			columns = sizer.addLabeledControl(
+				_("Slot {position}").format(position=slot + 1), wx.Choice, choices=cols
+			)
 			try:
 				columns.SetSelection(cols.index(slots[slot]))
 			except Exception:
@@ -1188,7 +1302,9 @@ class ColumnsExplorerDialog(wx.Dialog):
 
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		for slot in range(5, 10):
-			columns = sizer.addLabeledControl(_("Slot {position}").format(position=slot + 1), wx.Choice, choices=cols)
+			columns = sizer.addLabeledControl(
+				_("Slot {position}").format(position=slot + 1), wx.Choice, choices=cols
+			)
 			try:
 				columns.SetSelection(cols.index(slots[slot]))
 			except Exception:
@@ -1255,7 +1371,9 @@ class SayStatusPanel(gui.settingsDialogs.SettingsPanel):
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to announce player position for the current and next tracks.
-		playerPositionLabel = _("Include track player &position when announcing current and next track information")
+		playerPositionLabel = _(
+			"Include track player &position when announcing current and next track information"
+		)
 		self.playerPositionCheckbox = sayStatusHelper.addItem(wx.CheckBox(self, label=playerPositionLabel))
 		self.playerPositionCheckbox.SetValue(splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"])
 
@@ -1278,13 +1396,12 @@ class AdvancedOptionsPanel(gui.settingsDialogs.SettingsPanel):
 		# Translators: The label for a checkbox in SPL add-on settings
 		# to toggle if SPL Controller command can be used to invoke Assistant layer.
 		splConPassthroughLabel = _("Allow SPL C&ontroller command to invoke SPL Assistant layer")
-		self.splConPassthroughCheckbox = advOptionsHelper.addItem(wx.CheckBox(self, label=splConPassthroughLabel))
+		self.splConPassthroughCheckbox = advOptionsHelper.addItem(
+			wx.CheckBox(self, label=splConPassthroughLabel)
+		)
 		self.splConPassthroughCheckbox.SetValue(splconfig.SPLConfig["Advanced"]["SPLConPassthrough"])
 
-		self.compatibilityLayouts = [
-			("off", "NVDA"),
-			("jfw", "JAWS for Windows")
-		]
+		self.compatibilityLayouts = [("off", "NVDA"), ("jfw", "JAWS for Windows")]
 		# Translators: The label for a setting in SPL add-on settings
 		# to set keyboard layout for SPL Assistant.
 		compatibilityListLabel = _("SPL Assistant command &layout:")
@@ -1292,19 +1409,20 @@ class AdvancedOptionsPanel(gui.settingsDialogs.SettingsPanel):
 			compatibilityListLabel, wx.Choice, choices=[x[1] for x in self.compatibilityLayouts]
 		)
 		compatibilityCurValue = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
-		selection = next((x for x, y in enumerate(self.compatibilityLayouts) if y[0] == compatibilityCurValue))
+		selection = next(
+			(x for x, y in enumerate(self.compatibilityLayouts) if y[0] == compatibilityCurValue)
+		)
 		self.compatibilityList.SetSelection(selection)
 
 	def onSave(self):
 		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthroughCheckbox.Value
-		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = (
-			self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
-		)
+		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compatibilityLayouts[
+			self.compatibilityList.GetSelection()
+		][0]
 
 
 # A dialog to reset add-on config including encoder settings and others.
 class ResetDialog(wx.Dialog):
-
 	def __init__(self, parent):
 		# Translators: Title of the dialog to reset various add-on settings.
 		super(ResetDialog, self).__init__(parent, title=_("Reset settings"))
@@ -1342,12 +1460,17 @@ class ResetDialog(wx.Dialog):
 
 	def onOk(self, evt):
 		parent = self.Parent
-		if gui.messageBox(
-			# Translators: A message to warn about resetting SPL config settings to factory defaults.
-			_("Are you sure you wish to reset SPL add-on settings to defaults?"),
-			# Translators: The title of the warning dialog.
-			_("Warning"), wx.YES_NO | wx.NO_DEFAULT | wx.ICON_WARNING, self
-		) != wx.YES:
+		if (
+			gui.messageBox(
+				# Translators: A message to warn about resetting SPL config settings to factory defaults.
+				_("Are you sure you wish to reset SPL add-on settings to defaults?"),
+				# Translators: The title of the warning dialog.
+				_("Warning"),
+				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_WARNING,
+				self,
+			)
+			!= wx.YES
+		):
 			parent.Enable()
 			self.Destroy()
 			return
@@ -1370,13 +1493,16 @@ class ResetDialog(wx.Dialog):
 			if self.resetEncodersCheckbox.Value:
 				if "appModules.splengine.encoders" in sys.modules:
 					import appModules.splengine.encoders
+
 					appModules.splengine.encoders.resetEncoderConfig(factoryDefaults=True)
 			_configDialogOpened = False
 			wx.CallAfter(
 				# Translators: A dialog message shown when settings were reset to defaults.
-				gui.messageBox, _("Successfully applied default add-on settings."),
+				gui.messageBox,
+				_("Successfully applied default add-on settings."),
 				# Translators: Title of the reset config dialog.
-				_("Reset configuration"), wx.OK | wx.ICON_INFORMATION
+				_("Reset configuration"),
+				wx.OK | wx.ICON_INFORMATION,
 			)
 		self.Destroy()
 		# #6: because the parent isn't add-on settings but the categories/panel sizer, fetch its ancestor.
@@ -1461,6 +1587,7 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		# Call cancel function when the app terminates so the dialog can be closed.
 		self.onCancel(None)
 
+
 # Open various add-on settings dialogs.
 
 
@@ -1469,7 +1596,8 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 def _configDialogOpenError() -> None:
 	gui.messageBox(
 		translate("An NVDA settings dialog is already open. Please close it first."),
-		translate("Error"), style=wx.OK | wx.ICON_ERROR
+		translate("Error"),
+		style=wx.OK | wx.ICON_ERROR,
 	)
 
 
@@ -1499,8 +1627,10 @@ def onBroadcastProfilesDialog(evt):
 	if splconfig.SPLConfig.configInMemory or splconfig.SPLConfig.normalProfileOnly:
 		wx.CallAfter(
 			# Translators: presented when only normal profile is in use.
-			gui.messageBox, _("Normal profile is in use, cannot open broadcast profiles dialog."),
-			_("SPL Broadcast Profiles"), wx.OK | wx.ICON_ERROR
+			gui.messageBox,
+			_("Normal profile is in use, cannot open broadcast profiles dialog."),
+			_("SPL Broadcast Profiles"),
+			wx.OK | wx.ICON_ERROR,
 		)
 		return
 	gui.mainFrame.prePopup()

@@ -14,6 +14,7 @@ import pickle
 from collections import ChainMap
 import weakref
 from configobj import ConfigObj, get_extra_values, ConfigObjError
+
 # ConfigObj 5.1.0 and later integrates validate module.
 from configobj.validate import Validator
 import config
@@ -26,6 +27,7 @@ from . import splactions
 from .splconfspec import confspec
 import addonHandler
 from ..skipTranslation import translate
+
 addonHandler.initTranslation()
 
 # Configuration management
@@ -48,7 +50,7 @@ _configErrors = {
 	"partialReset": "Some settings reset to defaults",
 	"columnOrderReset": "Column announcement order reset to defaults",
 	"partialAndColumnOrderReset": "Some settings, including column announcement order reset to defaults",
-	"noInstantProfile": "Cannot find instant profile"
+	"noInstantProfile": "Cannot find instant profile",
 }
 
 # Record config error status for profiles if any.
@@ -82,7 +84,9 @@ class ConfigHub(ChainMap):
 		if splComponent is None:
 			splComponent = "splstudio"
 		if splComponent not in _SPLComponents_:
-			raise RuntimeError("Not a StationPlaylist component, cannot create SPL add-on Config Hub database")
+			raise RuntimeError(
+				"Not a StationPlaylist component, cannot create SPL add-on Config Hub database"
+			)
 		# Create a "fake" map entry, to be replaced by the normal profile later.
 		# Super method is called to acknowledge the fact that this is powered by ChainMap.
 		super(ConfigHub, self).__init__()
@@ -103,7 +107,9 @@ class ConfigHub(ChainMap):
 		# 17.10: if config will be stored on RAM, this step is skipped, resulting in faster startup.
 		# But data conversion must take place.
 		if not self.configInMemory:
-			self.maps[0] = self._unlockConfig(SPLIni, profileName=defaultProfileName, prefill=True, validateNow=True)
+			self.maps[0] = self._unlockConfig(
+				SPLIni, profileName=defaultProfileName, prefill=True, validateNow=True
+			)
 		else:
 			# 20.09: get the dictionary version of default settings map.
 			self.maps[0] = ConfigObj(_SPLDefaults.dict(), configspec=confspec, encoding="UTF-8")
@@ -181,8 +187,12 @@ class ConfigHub(ChainMap):
 	# 7.0: Allow new profile settings to be overridden by a parent profile.
 	# 8.0: Don't validate profiles other than normal profile in the beginning.
 	def _unlockConfig(
-			self, path: str, profileName: str = "", prefill: bool = False,
-			parent: Optional[dict[Any, Any]] = None, validateNow: bool = False
+		self,
+		path: str,
+		profileName: str = "",
+		prefill: bool = False,
+		parent: Optional[dict[Any, Any]] = None,
+		validateNow: bool = False,
 	) -> ConfigObj:
 		# 21.03/20.09.6-LTS: profile name should be defined to help config status dictionary.
 		# Resort to path's basename (without extension) if no profile name is specified.
@@ -233,7 +243,7 @@ class ConfigHub(ChainMap):
 	# Config validation.
 	# Separated from unlock routine in 8.0.
 	def _validateConfig(
-			self, SPLConfigCheckpoint: ConfigObj, profileName: str = "", prefill: bool = False
+		self, SPLConfigCheckpoint: ConfigObj, profileName: str = "", prefill: bool = False
 	) -> None:
 		global _configLoadStatus
 		configTest = SPLConfigCheckpoint.validate(_val, copy=prefill, preserve_errors=True)
@@ -246,7 +256,9 @@ class ConfigHub(ChainMap):
 			# 20.09: reset all settings from default settings map directly.
 			defaultConfig = _SPLDefaults.dict()
 			if SPLConfigCheckpoint.filename != SPLIni:
-				defaultConfig = {sect: key for sect, key in defaultConfig.items() if sect in _mutatableSettings}
+				defaultConfig = {
+					sect: key for sect, key in defaultConfig.items() if sect in _mutatableSettings
+				}
 			SPLConfigCheckpoint.update(defaultConfig)
 			_configLoadStatus[profileName] = "completeReset"
 		elif isinstance(configTest, dict):
@@ -361,11 +373,15 @@ class ConfigHub(ChainMap):
 
 	def __delitem__(self, key):
 		# Consult profile-specific key first before deleting anything.
-		pos = 0 if key in _mutatableSettings else [profile.name for profile in self.maps].index(defaultProfileName)
+		pos = (
+			0
+			if key in _mutatableSettings
+			else [profile.name for profile in self.maps].index(defaultProfileName)
+		)
 		try:
 			del self.maps[pos][key]
 		except KeyError:
-			raise KeyError(f'Key not found: {key!r}')
+			raise KeyError(f"Key not found: {key!r}")
 
 	# Perform some extra work before writing the config file.
 	def _preSave(self, profile: ConfigObj) -> None:
@@ -409,7 +425,9 @@ class ConfigHub(ChainMap):
 			# Without keeping a copy of config dictionary (and restoring from it later),
 			# settings will be lost when presave check runs.
 			profileSettings = profile.dict()
-			profile["ColumnAnnouncement"]["IncludedColumns"] = list(profile["ColumnAnnouncement"]["IncludedColumns"])
+			profile["ColumnAnnouncement"]["IncludedColumns"] = list(
+				profile["ColumnAnnouncement"]["IncludedColumns"]
+			)
 			if profile.name == defaultProfileName:
 				# 18.08: also convert included columns in playlist transcripts.
 				profile["PlaylistTranscripts"]["IncludedColumns"] = list(
@@ -425,8 +443,10 @@ class ConfigHub(ChainMap):
 	# Sometimes confirmation message will be shown, especially if instant switch profile is active.
 	# Config dialog flag is a special flag reserved for use by add-on settings dialog.
 	def reset(
-			self, factoryDefaults: bool = False,
-			askForConfirmation: bool = False, resetViaConfigDialog: bool = False
+		self,
+		factoryDefaults: bool = False,
+		askForConfirmation: bool = False,
+		resetViaConfigDialog: bool = False,
 	) -> None:
 		if resetViaConfigDialog:
 			askForConfirmation = bool(factoryDefaults and self._switchProfileFlags)
@@ -434,26 +454,31 @@ class ConfigHub(ChainMap):
 			# present a confirmation message from the main thread.
 			# #96 (19.02/18.09.7-LTS): this is more so if a switch profile is active.
 			# If this is done from add-on settings/reset panel, communicate 'no' with an exception.
-			if gui.messageBox(
-				_(
-					# Translators: Message displayed when attempting to reset Studio add-on settings
-					# while an instant switch profile is active.
-					"An instant switch profile is active. "
-					"Resetting Studio add-on settings means normal profile will become active "
-					"and switch profile settings will be left in unpredictable state. "
-					"Are you sure you wish to reset Studio add-on settings to factory defaults?"
-				),
-				# Translators: The title of the confirmation dialog for Studio add-on settings reset.
-				_("SPL Studio add-on reset"),
-				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_WARNING
-			) == wx.NO:
+			if (
+				gui.messageBox(
+					_(
+						# Translators: Message displayed when attempting to reset Studio add-on settings
+						# while an instant switch profile is active.
+						"An instant switch profile is active. "
+						"Resetting Studio add-on settings means normal profile will become active "
+						"and switch profile settings will be left in unpredictable state. "
+						"Are you sure you wish to reset Studio add-on settings to factory defaults?"
+					),
+					# Translators: The title of the confirmation dialog for Studio add-on settings reset.
+					_("SPL Studio add-on reset"),
+					wx.YES_NO | wx.NO_DEFAULT | wx.ICON_WARNING,
+				)
+				== wx.NO
+			):
 				if not resetViaConfigDialog:
 					return
 				else:
 					raise RuntimeError("Instant switch profile must remain active, reset cannot proceed")
 		# 20.09: keep complete and profile-specific defaults handy.
 		defaultConfig = _SPLDefaults.dict()
-		defaultProfileConfig = {sect: key for sect, key in defaultConfig.items() if sect in _mutatableSettings}
+		defaultProfileConfig = {
+			sect: key for sect, key in defaultConfig.items() if sect in _mutatableSettings
+		}
 		for profile in self.profiles:
 			# Retrieve the profile path, as ConfigObj.reset nullifies it.
 			# ConfigObj.reload cannot be used as it leaves config in invalidated state.
@@ -464,16 +489,23 @@ class ConfigHub(ChainMap):
 				sourceProfile = defaultProfileConfig if profilePath != SPLIni else defaultConfig
 			else:
 				sourceProfile = self._unlockConfig(
-					profile.filename, profileName=profile.name, prefill=profile.filename == SPLIni, validateNow=True
+					profile.filename,
+					profileName=profile.name,
+					prefill=profile.filename == SPLIni,
+					validateNow=True,
 				).dict()
 			# 20.09: just like complete reset when loading profiles, update settings from defaults.
 			profile.update(sourceProfile)
 			# Convert certain settings to a different format.
-			profile["ColumnAnnouncement"]["IncludedColumns"] = set(profile["ColumnAnnouncement"]["IncludedColumns"])
+			profile["ColumnAnnouncement"]["IncludedColumns"] = set(
+				profile["ColumnAnnouncement"]["IncludedColumns"]
+			)
 			# 18.08: if this is normal profile, don't forget
 			# to change type for Playlist Transcripts/included columns set.
 			if profile.filename == SPLIni:
-				profile["PlaylistTranscripts"]["IncludedColumns"] = set(profile["PlaylistTranscripts"]["IncludedColumns"])
+				profile["PlaylistTranscripts"]["IncludedColumns"] = set(
+					profile["PlaylistTranscripts"]["IncludedColumns"]
+				)
 		# If this is a reset, switch back to normal profile via a custom variant of swap routine,
 		# along with nullifying profile switches.
 		if factoryDefaults:
@@ -494,8 +526,9 @@ class ConfigHub(ChainMap):
 		# For this reason, reset method should not be called from threads other than main thread
 		# unless confirmation is not needed.
 		wx.CallAfter(
-			self.reset, factoryDefaults=factoryDefaults,
-			askForConfirmation=factoryDefaults and self._switchProfileFlags
+			self.reset,
+			factoryDefaults=factoryDefaults,
+			askForConfirmation=factoryDefaults and self._switchProfileFlags,
 		)
 
 	def profileIndexByName(self, name: str) -> int:
@@ -517,7 +550,7 @@ class ConfigHub(ChainMap):
 	# Optional keyword arguments are to be added when called from dialogs such as add-on settings.
 	# A crucial kwarg is contained, and if so, profile flags set will be returned.
 	def getProfileFlags(
-			self, name: str, active: Optional[str] = None, instant: Optional[str] = None, contained: bool = False
+		self, name: str, active: Optional[str] = None, instant: Optional[str] = None, contained: bool = False
 	) -> Union[str, set[str]]:
 		flags = set()
 		if active is None:
@@ -579,8 +612,9 @@ class ConfigHub(ChainMap):
 			f"type = {switchType}, previous profile is {prevProfile}, new profile is {newProfile}"
 		)
 		self.switchProfile(
-			prevProfile, newProfile,
-			switchFlags=self._switchProfileFlags ^ self._profileSwitchFlags[switchType]
+			prevProfile,
+			newProfile,
+			switchFlags=self._switchProfileFlags ^ self._profileSwitchFlags[switchType],
 		)
 
 	def switchProfileEnd(self, prevProfile: Optional[str], newProfile: str, switchType: str) -> None:
@@ -593,8 +627,9 @@ class ConfigHub(ChainMap):
 			f"type = {switchType}, previous profile is {prevProfile}, new profile is {newProfile}"
 		)
 		self.switchProfile(
-			prevProfile, newProfile,
-			switchFlags=self._switchProfileFlags ^ self._profileSwitchFlags[switchType]
+			prevProfile,
+			newProfile,
+			switchFlags=self._switchProfileFlags ^ self._profileSwitchFlags[switchType],
 		)
 
 	# Used from config dialog and other places.
@@ -661,12 +696,16 @@ def initialize() -> None:
 			messages.append("One or more broadcast profiles had issues:\n\n")
 			for profile in _configLoadStatus:
 				error = _configErrors[_configLoadStatus[profile]]
-				messages.append("{profileName}: {errorMessage}".format(profileName=profile, errorMessage=error))
+				messages.append(
+					"{profileName}: {errorMessage}".format(profileName=profile, errorMessage=error)
+				)
 		_configLoadStatus.clear()
 		wx.CallAfter(
-			gui.messageBox, "\n".join(messages),
+			gui.messageBox,
+			"\n".join(messages),
 			# Translators: Standard error title for configuration error.
-			_("Studio add-on Configuration error"), wx.OK | wx.ICON_ERROR
+			_("Studio add-on Configuration error"),
+			wx.OK | wx.ICON_ERROR,
 		)
 
 
@@ -676,6 +715,7 @@ def closeConfig(splComponent: str) -> None:
 	# #99 (19.06/18.09.9-LTS): if more than one instance of a given SPL component executable is running,
 	# do not remove the component from the components registry.
 	import appModuleHandler
+
 	# The below loop will be run from the component app module's terminate method, but before that,
 	# the app module associated with the component would have been deleted from the running table.
 	# This is subject to change based on NVDA Core changes.
@@ -745,6 +785,7 @@ def instantProfileSwitch() -> None:
 		else:
 			SPLConfig.switchProfileEnd(None, SPLConfig.prevProfile, "instant")
 
+
 # Additional configuration and miscellaneous dialogs
 # See splconfui module for basic configuration dialogs.
 
@@ -753,7 +794,6 @@ def instantProfileSwitch() -> None:
 
 # Welcome dialog (emulating NVDA Core)
 class WelcomeDialog(wx.Dialog):
-
 	# Translators: A message giving basic information about the add-on.
 	welcomeMessage = _("""Welcome to StationPlaylist add-on for NVDA,
 your companion to broadcasting with SPL Studio using NVDA screen reader.
@@ -801,7 +841,9 @@ Thank you.""")
 		mainSizer.Add(label, border=20, flag=wx.LEFT | wx.RIGHT | wx.TOP)
 
 		# Translators: A checkbox to show welcome dialog.
-		self.showWelcomeDialog = wx.CheckBox(self, wx.ID_ANY, label=_("Show welcome dialog when I start Studio"))
+		self.showWelcomeDialog = wx.CheckBox(
+			self, wx.ID_ANY, label=_("Show welcome dialog when I start Studio")
+		)
 		self.showWelcomeDialog.SetValue(SPLConfig["Startup"]["WelcomeDialog"])
 		mainSizer.Add(self.showWelcomeDialog, border=10, flag=wx.TOP)
 
@@ -850,33 +892,48 @@ messagePool: dict[str, Any] = {
 	"BrailleTimer": {
 		"off": (
 			# Translators: A setting in braille timer options.
-			_("Braille timer off"), translate("Off")),
+			_("Braille timer off"),
+			translate("Off"),
+		),
 		"outro": (
 			# Translators: A setting in braille timer options.
 			_("Braille track endings"),
 			# Translators: A setting in braille timer options.
-			_("Outro")),
+			_("Outro"),
+		),
 		"intro": (
 			# Translators: A setting in braille timer options.
 			_("Braille intro endings"),
 			# Translators: A setting in braille timer options.
-			_("Intro")),
+			_("Intro"),
+		),
 		"both": (
 			# Translators: A setting in braille timer options.
 			_("Braille intro and track endings"),
 			# Translators: A setting in braille timer options.
-			_("Both"))},
+			_("Both"),
+		),
+	},
 	"LibraryScanAnnounce": {
 		"off": (
 			# Translators: A setting in library scan announcement options.
-			_("Do not announce library scans"), translate("Off")),
+			_("Do not announce library scans"),
+			translate("Off"),
+		),
 		"ending": (
 			# Translators: A setting in library scan announcement options.
-			_("Announce start and end of a library scan"), _("Start and end only")),
+			_("Announce start and end of a library scan"),
+			_("Start and end only"),
+		),
 		"progress": (
 			# Translators: A setting in library scan announcement options.
-			_("Announce the progress of a library scan"), _("Scan progress")),
+			_("Announce the progress of a library scan"),
+			_("Scan progress"),
+		),
 		"numbers": (
 			# Translators: A setting in library scan announcement options.
-			_("Announce progress and item count of a library scan"), _("Scan count"))}
+			_("Announce progress and item count of a library scan"),
+			_("Scan count"),
+		),
+	},
 }

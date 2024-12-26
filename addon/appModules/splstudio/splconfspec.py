@@ -9,7 +9,8 @@ from io import StringIO
 from configobj import ConfigObj
 
 # StationPlaylist add-on settings spec.
-confspec = ConfigObj(StringIO("""
+confspec = ConfigObj(
+	StringIO("""
 [General]
 BeepAnnounce = boolean(default=false)
 MessageVerbosity = option("beginner", "advanced", default="beginner")
@@ -63,5 +64,8 @@ SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", default="off")
 [Startup]
 WelcomeDialog = boolean(default=true)
-"""), encoding="UTF-8", list_values=False)
+"""),
+	encoding="UTF-8",
+	list_values=False,
+)
 confspec.newlines = "\r\n"
