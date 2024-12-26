@@ -15,7 +15,7 @@ addonHandler.initTranslation()
 
 def onInstall():
 	currentWinVer = winVersion.getWinVer()
-	# StationPlaylist add-on requires Windows 10 22H2 or later.
+	# StationPlaylist add-on requires 64-bit Windows 10 22H2 or later.
 	minimumWinVer = winVersion.WIN10_22H2
 	if currentWinVer < minimumWinVer:
 		gui.messageBox(
