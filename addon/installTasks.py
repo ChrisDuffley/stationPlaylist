@@ -38,7 +38,6 @@ def onInstall():
 				supportedBuild=minimumWinVer.build,
 			),
 			unsupportedWindowsReleaseTitle,
-			wx.OK | wx.ICON_ERROR,
 		)
 		raise RuntimeError("Attempting to install StationPlaylist add-on on Windows releases earlier than 10")
 	profiles = os.path.join(os.path.dirname(__file__), "..", "stationPlaylist", "profiles")
