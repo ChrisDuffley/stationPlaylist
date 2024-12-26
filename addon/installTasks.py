@@ -25,22 +25,21 @@ def onInstall():
 	unsupportedWindowsReleaseTitle = _("Unsupported Windows release")
 	minimumWinVer = winVersion.WIN10_22H2
 	if currentWinVer < minimumWinVer:
-		if not globalVars.appArgs.minimal:
-			gui.messageBox(
-				_(
-					# Translators: Dialog text shown when trying to install the add-on on
-					# releases earlier than minimum supported release.
-					"You are using {releaseName} ({build}), a Windows release not supported by this add-on.\n"
-					"This add-on requires {supportedReleaseName} ({supportedBuild}) or later."
-				).format(
-					releaseName=currentWinVer.releaseName,
-					build=currentWinVer.build,
-					supportedReleaseName=minimumWinVer.releaseName,
-					supportedBuild=minimumWinVer.build,
-				),
-				unsupportedWindowsReleaseTitle,
-				wx.OK | wx.ICON_ERROR,
-			)
+		gui.messageBox(
+			_(
+				# Translators: Dialog text shown when trying to install the add-on on
+				# releases earlier than minimum supported release.
+				"You are using {releaseName} ({build}), a Windows release not supported by this add-on.\n"
+				"This add-on requires {supportedReleaseName} ({supportedBuild}) or later."
+			).format(
+				releaseName=currentWinVer.releaseName,
+				build=currentWinVer.build,
+				supportedReleaseName=minimumWinVer.releaseName,
+				supportedBuild=minimumWinVer.build,
+			),
+			unsupportedWindowsReleaseTitle,
+			wx.OK | wx.ICON_ERROR,
+		)
 		raise RuntimeError("Attempting to install StationPlaylist add-on on Windows releases earlier than 10")
 	profiles = os.path.join(os.path.dirname(__file__), "..", "stationPlaylist", "profiles")
 	# Import old profiles.
