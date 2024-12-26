@@ -24,6 +24,7 @@ from winUser import user32
 from . import splbase
 from . import splactions
 from ..skipTranslation import translate
+
 addonHandler.initTranslation()
 
 
@@ -44,18 +45,19 @@ def _finderError() -> None:
 		gui.messageBox(
 			# Translators: Text of the dialog when another find dialog is open.
 			_("Another find dialog is open."),
-			translate("Error"), style=wx.OK | wx.ICON_ERROR
+			translate("Error"),
+			style=wx.OK | wx.ICON_ERROR,
 		)
 	else:
 		gui.messageBox(
 			# Translators: Text of the dialog when a generic error has occured.
 			_("An unexpected error has occured when trying to open find dialog."),
-			translate("Error"), style=wx.OK | wx.ICON_ERROR
+			translate("Error"),
+			style=wx.OK | wx.ICON_ERROR,
 		)
 
 
 class SPLFindDialog(wx.Dialog):
-
 	@classmethod
 	def _instance(cls):
 		return None
@@ -94,15 +96,19 @@ class SPLFindDialog(wx.Dialog):
 		if isinstance(wx.ComboBox, wx.Choice):
 			self.findEntry = findSizerHelper.addLabeledControl(findPrompt, wx.ComboBox, choices=findHistory)
 		else:
-			self.findEntry = findSizerHelper.addLabeledControl(findPrompt, CustomComboBox, choices=findHistory)
+			self.findEntry = findSizerHelper.addLabeledControl(
+				findPrompt, CustomComboBox, choices=findHistory
+			)
 		self.findEntry.Value = text
 
 		if columnSearch:
 			from . import splconfig
+
 			self.columnHeaders = findSizerHelper.addLabeledControl(
 				# Translators: The label in track finder to search columns.
-				_("C&olumn to search:"), wx.Choice,
-				choices=splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+				_("C&olumn to search:"),
+				wx.Choice,
+				choices=splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"],
 			)
 			self.columnHeaders.SetSelection(0)
 
@@ -125,9 +131,8 @@ class SPLFindDialog(wx.Dialog):
 			# 21.03/20.09.6-LTS: search columns should not be None - list of integers expected.
 			column = [self.columnHeaders.Selection + 1] if self.columnSearch else []
 			startObj = self.obj
-			if (
-				appMod.findText is None
-				or (len(appMod.findText) and (text == appMod.findText[0] or text in appMod.findText))
+			if appMod.findText is None or (
+				len(appMod.findText) and (text == appMod.findText[0] or text in appMod.findText)
 			):
 				startObj = startObj.next
 				if appMod.findText is None:
@@ -135,7 +140,10 @@ class SPLFindDialog(wx.Dialog):
 				# #27: Move the new text to the top of the search history.
 				if text in appMod.findText and text != appMod.findText[0]:
 					oldTextIndex = appMod.findText.index(text)
-					appMod.findText[0], appMod.findText[oldTextIndex] = appMod.findText[oldTextIndex], appMod.findText[0]
+					appMod.findText[0], appMod.findText[oldTextIndex] = (
+						appMod.findText[oldTextIndex],
+						appMod.findText[0],
+					)
 			# If this is called right away, we land on an invisible window.
 			wx.CallLater(100, appMod.trackFinder, text, obj=startObj, column=column)
 		self.Destroy()
@@ -154,7 +162,6 @@ class SPLFindDialog(wx.Dialog):
 # Time range finder: a variation on track finder.
 # Similar to track finder, locate tracks with duration that falls between min and max.
 class SPLTimeRangeDialog(wx.Dialog):
-
 	@classmethod
 	def _instance(cls):
 		return None
@@ -184,32 +191,38 @@ class SPLTimeRangeDialog(wx.Dialog):
 
 		minRangeGroup = gui.guiHelper.BoxSizerHelper(
 			# Translators: the label for a group to specify minimum track duration in time range finder dialog.
-			self, sizer=wx.StaticBoxSizer(wx.StaticBox(self, label=_("Minimum duration")), wx.HORIZONTAL)
+			self,
+			sizer=wx.StaticBoxSizer(wx.StaticBox(self, label=_("Minimum duration")), wx.HORIZONTAL),
 		)
 		timeRangeHelper.addItem(minRangeGroup)
 		self.minMinEntry = minRangeGroup.addLabeledControl(
 			# Translators: the minute label in time range finder dialog.
-			_("Minute"), gui.nvdaControls.SelectOnFocusSpinCtrl,
-			min=0, max=59, initial=3
+			_("Minute"),
+			gui.nvdaControls.SelectOnFocusSpinCtrl,
+			min=0,
+			max=59,
+			initial=3,
 		)
 		self.minSecEntry = minRangeGroup.addLabeledControl(
 			# Translators: the second label in time range finder dialog.
-			_("Second"), gui.nvdaControls.SelectOnFocusSpinCtrl,
-			min=0, max=59, initial=0
+			_("Second"),
+			gui.nvdaControls.SelectOnFocusSpinCtrl,
+			min=0,
+			max=59,
+			initial=0,
 		)
 
 		maxRangeGroup = gui.guiHelper.BoxSizerHelper(
 			# Translators: the label for a group to specify maximum track duration in time range finder dialog.
-			self, sizer=wx.StaticBoxSizer(wx.StaticBox(self, label=_("Maximum duration")), wx.HORIZONTAL)
+			self,
+			sizer=wx.StaticBoxSizer(wx.StaticBox(self, label=_("Maximum duration")), wx.HORIZONTAL),
 		)
 		timeRangeHelper.addItem(maxRangeGroup)
 		self.maxMinEntry = maxRangeGroup.addLabeledControl(
-			_("Minute"), gui.nvdaControls.SelectOnFocusSpinCtrl,
-			min=0, max=59, initial=5
+			_("Minute"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=59, initial=5
 		)
 		self.maxSecEntry = maxRangeGroup.addLabeledControl(
-			_("Second"), gui.nvdaControls.SelectOnFocusSpinCtrl,
-			min=0, max=59, initial=0
+			_("Second"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=59, initial=0
 		)
 
 		# #68: wx.BoxSizer.AddSizer no longer exists in wxPython 4.
@@ -230,7 +243,9 @@ class SPLTimeRangeDialog(wx.Dialog):
 			gui.messageBox(
 				# Translators: Message to report wrong value for duration fields.
 				_("Minimum duration is greater than the maximum duration."),
-				translate("Error"), wx.OK | wx.ICON_ERROR, self
+				translate("Error"),
+				wx.OK | wx.ICON_ERROR,
+				self,
 			)
 			self.minMinEntry.SetFocus()
 			return
@@ -254,9 +269,11 @@ class SPLTimeRangeDialog(wx.Dialog):
 				wx.CallAfter(
 					# Translators: Presented when a track with a duration
 					# between minimum and maximum duration is not found.
-					gui.messageBox, _("No track with duration between minimum and maximum duration."),
+					gui.messageBox,
+					_("No track with duration between minimum and maximum duration."),
 					# Translators: Standard error title for find error (copy this from main nvda.po).
-					_("Time range find error"), wx.OK | wx.ICON_ERROR
+					_("Time range find error"),
+					wx.OK | wx.ICON_ERROR,
 				)
 		_findDialogOpened = False
 
@@ -275,15 +292,40 @@ class SPLTimeRangeDialog(wx.Dialog):
 # Manual definitions of cart keys.
 cartKeys = (
 	# Function key carts (Studio all editions)
-	"f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12",
+	"f1",
+	"f2",
+	"f3",
+	"f4",
+	"f5",
+	"f6",
+	"f7",
+	"f8",
+	"f9",
+	"f10",
+	"f11",
+	"f12",
 	# Number row (all editions except Standard)
-	"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="
+	"1",
+	"2",
+	"3",
+	"4",
+	"5",
+	"6",
+	"7",
+	"8",
+	"9",
+	"0",
+	"-",
+	"=",
 )
 
 
 def _populateCarts(
-		carts: dict[str, Any], cartlst: list[str],
-		modifier: str, standardEdition: bool = False, refresh: bool = False
+	carts: dict[str, Any],
+	cartlst: list[str],
+	modifier: str,
+	standardEdition: bool = False,
+	refresh: bool = False,
 ) -> None:
 	# The real cart string parser, a helper for cart explorer for building cart entries.
 	# 5.2: Discard number row if SPL Standard is in use.
@@ -322,8 +364,10 @@ _cartEditTimestamps: list[float] = []
 # if told to refresh, timestamps will be checked and updated banks will be reassigned.
 # Carts dictionary is used if and only if refresh is on, as it'll modify live carts.
 def cartExplorerInit(
-		StudioTitle: str, cartFiles: Optional[list[str]] = None,
-		refresh: bool = False, carts: Optional[dict[str, Any]] = None
+	StudioTitle: str,
+	cartFiles: Optional[list[str]] = None,
+	refresh: bool = False,
+	carts: Optional[dict[str, Any]] = None,
 ) -> dict[str, Any]:
 	global _cartEditTimestamps
 	log.debug("SPL: refreshing Cart Explorer" if refresh else "preparing cart Explorer")
@@ -343,7 +387,7 @@ def cartExplorerInit(
 		# (be careful when these cart file names change between SPL releases).
 		cartFiles = ["main carts.cart", "shift carts.cart", "ctrl carts.cart", "alt carts.cart"]
 		if userNameIndex >= 0:
-			cartFiles = [StudioTitle[userNameIndex + 2:] + " " + cartFile for cartFile in cartFiles]
+			cartFiles = [StudioTitle[userNameIndex + 2 :] + " " + cartFile for cartFile in cartFiles]
 	faultyCarts = False
 	if not refresh:
 		_cartEditTimestamps = []
@@ -376,8 +420,11 @@ def cartExplorerInit(
 		# The below method will just check for string length, which is faster than looking for specific substring.
 		# See the comment for _populate carts method for details.
 		_populateCarts(
-			carts, cl[1], mod if mod != "main" else "",
-			standardEdition=carts["standardLicense"], refresh=refresh
+			carts,
+			cl[1],
+			mod if mod != "main" else "",
+			standardEdition=carts["standardLicense"],
+			refresh=refresh,
 		)
 		if not refresh:
 			log.debug(f"SPL: carts processed so far: {(len(carts)-1)}")
@@ -414,9 +461,10 @@ def metadataList() -> list[Optional[int]]:
 def metadataConnector(servers: Optional[list[bool]] = None) -> None:
 	if servers is None:
 		from . import splconfig
+
 		servers = splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"]
 	for url in range(5):
-		dataLo = 0x00010000 if servers[url] else 0xffff0000
+		dataLo = 0x00010000 if servers[url] else 0xFFFF0000
 		splbase.studioAPI(dataLo | url, 36)
 
 
@@ -503,6 +551,7 @@ _delayMetadataAction = False
 # when settings are reloaded from disk or reset to defaults.
 def metadata_actionProfileSwitched(configDialogActive: bool = False, settingsReset: bool = False) -> None:
 	from . import splconfig
+
 	# Only connect if add-on settings is active in order to avoid wasting thread running time.
 	if configDialogActive:
 		metadataConnector(servers=splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"])
@@ -549,9 +598,13 @@ SPLPlaylistTranscriptFormats = []
 # it can also be useful for column announcement inclusion and order.
 def columnPresentationOrder() -> list[str]:
 	from . import splconfig
+
 	return [
-		column for column in splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"]
-		if column in splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"]]
+		column
+		for column in splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"]
+		if column in splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"]
+	]
+
 
 # Various post-transcript actions.
 # For each converter, after transcribing the playlist, additional actions will be performed.
@@ -569,13 +622,14 @@ def copyPlaylistTranscriptsToClipboard(playlistTranscripts: list[str]) -> None:
 		return
 	# Only text style transcript such as pure text and Markdown supports copying contents to clipboard.
 	import api
+
 	api.copyToClip("\r\n".join(playlistTranscripts))
 	# Translators: presented when playlist transcript data was copied to the clipboard.
 	ui.message(_("Playlist data copied to clipboard"))
 
 
 def savePlaylistTranscriptsToFile(
-		playlistTranscripts: list[str], extension: str, location: Optional[str] = None
+	playlistTranscripts: list[str], extension: str, location: Optional[str] = None
 ) -> None:
 	# 22.03 (security): do not save transcripts to files in secure mode.
 	if globalVars.appArgs.secure:
@@ -583,14 +637,22 @@ def savePlaylistTranscriptsToFile(
 	# By default playlist transcripts will be saved to a subfolder in user's Documents folder
 	# named "nvdasplPlaylistTranscripts".
 	# Each transcript file will be named yyyymmdd-hhmmss-splPlaylistTranscript.ext.
-	transcriptFileLocation = os.path.join(os.environ["userprofile"], "Documents", "nvdasplPlaylistTranscripts")
+	transcriptFileLocation = os.path.join(
+		os.environ["userprofile"], "Documents", "nvdasplPlaylistTranscripts"
+	)
 	if not os.path.exists(transcriptFileLocation):
 		os.mkdir(transcriptFileLocation)
 	import datetime
+
 	transcriptTimestamp = datetime.datetime.now()
 	transcriptFilename = "{0}{1:02d}{2:02d}-{3:02d}{4:02d}{5:02d}-splPlaylistTranscript.{6}".format(
-		transcriptTimestamp.year, transcriptTimestamp.month, transcriptTimestamp.day,
-		transcriptTimestamp.hour, transcriptTimestamp.minute, transcriptTimestamp.second, extension
+		transcriptTimestamp.year,
+		transcriptTimestamp.month,
+		transcriptTimestamp.day,
+		transcriptTimestamp.hour,
+		transcriptTimestamp.minute,
+		transcriptTimestamp.second,
+		extension,
 	)
 	transcriptPath = os.path.join(transcriptFileLocation, transcriptFilename)
 	with open(transcriptPath, "w") as transcript:
@@ -603,7 +665,7 @@ def savePlaylistTranscriptsToFile(
 # Header will not be included if additional decorations will be done (mostly for HTML and others).
 # Prefix and suffix denote text to be added around entries (useful for various additional decoration rules).
 def playlist2msaa(
-		start: Any, end: Any, additionalDecorations: bool = False, prefix: str = "", suffix: str = ""
+	start: Any, end: Any, additionalDecorations: bool = False, prefix: str = "", suffix: str = ""
 ) -> list[str]:
 	playlistTranscripts = []
 	# Just pure text, ready for the clipboard or writing to a txt file.
@@ -651,15 +713,15 @@ def playlist2htmlTable(start: Any, end: Any, transcriptAction: int) -> None:
 	playlistTranscripts.append("<p>")
 	columnHeaders = columnPresentationOrder()
 	playlistTranscripts.append(
-		"<table><tr><th>{trackHeaders}</tr>".format(
-			trackHeaders="<th>".join(columnHeaders)
-		)
+		"<table><tr><th>{trackHeaders}</tr>".format(trackHeaders="<th>".join(columnHeaders))
 	)
 	obj = start
 	columnPos = [obj.indexOf(column) for column in columnHeaders]
 	while obj not in (None, end):
 		columnContents = obj._getColumnContents(columns=columnPos, readable=True)
-		playlistTranscripts.append("<tr><td>{trackContents}</tr>".format(trackContents="<td>".join(columnContents)))
+		playlistTranscripts.append(
+			"<tr><td>{trackContents}</tr>".format(trackContents="<td>".join(columnContents))
+		)
 		obj = obj.next
 	playlistTranscripts.append("</table>")
 	if transcriptAction == 0:
@@ -716,12 +778,12 @@ SPLPlaylistTranscriptFormats.append(("mdtable", playlist2mdTable, "Table in Mark
 def playlist2csv(start: Any, end: Any, transcriptAction: int) -> None:
 	playlistTranscripts = []
 	columnHeaders = columnPresentationOrder()
-	playlistTranscripts.append("\"{0}\"\n".format("\",\"".join([col for col in columnHeaders])))
+	playlistTranscripts.append('"{0}"\n'.format('","'.join([col for col in columnHeaders])))
 	obj = start
 	columnPos = [obj.indexOf(column) for column in columnHeaders]
 	while obj not in (None, end):
 		columnContents = obj._getColumnContents(columns=columnPos, readable=True)
-		playlistTranscripts.append("\"{0}\"\n".format("\",\"".join([content for content in columnContents])))
+		playlistTranscripts.append('"{0}"\n'.format('","'.join([content for content in columnContents])))
 		obj = obj.next
 	if transcriptAction == 0:
 		displayPlaylistTranscripts(playlistTranscripts)
@@ -740,12 +802,13 @@ _plTranscriptsDialogOpened = False
 def plTranscriptsDialogError() -> None:
 	gui.messageBox(
 		# Translators: Text of the dialog when another playlist transcripts dialog is open.
-		_("Another playlist transcripts dialog is open."), translate("Error"), style=wx.OK | wx.ICON_ERROR
+		_("Another playlist transcripts dialog is open."),
+		translate("Error"),
+		style=wx.OK | wx.ICON_ERROR,
 	)
 
 
 class SPLPlaylistTranscriptsDialog(wx.Dialog):
-
 	@classmethod
 	def _instance(cls):
 		return None
@@ -865,8 +928,11 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 					"Hour Marker", obj=self.obj.next, columns=[self.obj.indexOf("Category")]
 				)
 		wx.CallLater(
-			200, SPLPlaylistTranscriptFormats[self.transcriptFormat.Selection][1],
-			start, end, self.transcriptAction.Selection
+			200,
+			SPLPlaylistTranscriptFormats[self.transcriptFormat.Selection][1],
+			start,
+			end,
+			self.transcriptAction.Selection,
 		)
 		self.Destroy()
 		_plTranscriptsDialogOpened = False

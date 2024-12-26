@@ -48,12 +48,14 @@ from . import splmisc
 from . import splactions
 import addonHandler
 from ..skipTranslation import translate
+
 addonHandler.initTranslation()
 
 
 # The finally function for status announcement scripts in this module (source: Tyler Spivey's code).
 def finally_(func, final):
 	"""Calls final after func, even if it fails."""
+
 	def wrap(f):
 		@wraps(f)
 		def new(*args, **kwargs):
@@ -61,7 +63,9 @@ def finally_(func, final):
 				func(*args, **kwargs)
 			finally:
 				final()
+
 		return new
+
 	return wrap(final)
 
 
@@ -160,7 +164,7 @@ class SPLTrackItem(sysListView32.ListItem):
 		# 19.02: script decorator can take in a list of gestures, thus take advantage of it.
 		gestures=[f"kb:control+nvda+{i}" for i in range(10)],
 		category=_("StationPlaylist"),
-		**speakOnDemand
+		**speakOnDemand,
 	)
 	def script_columnExplorer(self, gesture):
 		# Due to the below formula, columns explorer will be restricted to number commands.
@@ -200,7 +204,7 @@ class SPLTrackItem(sysListView32.ListItem):
 					# Translators: Spoken when column content is blank.
 					_("{header}: blank").format(header=header),
 					# Translators: Brailled to indicate empty column content.
-					brailleText=_("{header}: ()").format(header=header)
+					brailleText=_("{header}: ()").format(header=header),
 				)
 		else:
 			if not columnContent:
@@ -209,12 +213,14 @@ class SPLTrackItem(sysListView32.ListItem):
 			ui.browseableMessage(
 				"{0}: {1}".format(header, columnContent),
 				# Translators: Title of the column data window.
-				title=_("Track data"))
+				title=_("Track data"),
+			)
 
 	@scriptHandler.script(
 		# Translators: input help mode message for columns viewer command.
 		description=_("Presents data for all columns in the currently selected track"),
-		gesture="kb:control+NVDA+-")
+		gesture="kb:control+NVDA+-",
+	)
 	def script_trackColumnsViewer(self, gesture):
 		# #61 (18.06): a direct copy of column data gatherer from playlist transcripts.
 		# 18.07: just call the gatherer function with "blank" as the readable string
@@ -234,6 +240,7 @@ class SPLTrackItem(sysListView32.ListItem):
 
 class SPLStudioTrackItem(SPLTrackItem):
 	"""A representative class of Studio track items outside of Playlist Viewer."""
+
 	pass
 
 
@@ -250,11 +257,9 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 		# 19.06: have the column inclusion and order keys handy in order to avoid attribute lookup.
 		columnsToInclude = splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]
 		columnOrder = splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
-		if (
-			not splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] and (
-				columnOrder != splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
-				or len(columnsToInclude) != 17
-			)
+		if not splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] and (
+			columnOrder != splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+			or len(columnsToInclude) != 17
 		):
 			trackNamePieces = []
 			# NVDA 2022.4 changes table header values from a boolean to an integer
@@ -270,7 +275,9 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 						continue
 					content = self._getColumnContentRaw(index)
 					if content:
-						trackNamePieces.append("{}: {}".format(header, content) if includeColumnHeaders else content)
+						trackNamePieces.append(
+							"{}: {}".format(header, content) if includeColumnHeaders else content
+						)
 			trackName = "; ".join(trackNamePieces)
 		else:
 			trackName = super(StudioPlaylistViewerItem, self).name
@@ -313,7 +320,9 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 			# Don't forget that column position starts at 1, not 0 (therefore subtract 1).
 			colNumber = self._savedColumnNumber - 1
 			verticalColumnAnnounce = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
-			if verticalColumnAnnounce == "Status" or (verticalColumnAnnounce is None and self._savedColumnNumber == 1):
+			if verticalColumnAnnounce == "Status" or (
+				verticalColumnAnnounce is None and self._savedColumnNumber == 1
+			):
 				colNumber = 0
 			elif verticalColumnAnnounce is None:
 				colNumber = self._savedColumnNumber - 1
@@ -346,7 +355,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	# Readable flag will transform None into an empty string, suitable for output.
 	# #61 (18.07): readable flag will become a string parameter to be used in columns viewer.
 	def _getColumnContents(
-			self, columns: Optional[list[int]] = None, readable: bool = False
+		self, columns: Optional[list[int]] = None, readable: bool = False
 	) -> list[Optional[str]]:
 		if columns is None:
 			columns = list(range(18))
@@ -403,7 +412,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	@scriptHandler.script(
 		# Translators: Input help message for screen column order toggle command in SPL Studio.
 		description=_("Toggles track column announcement order between screen layout and custom order"),
-		gesture="kb:NVDA+V"
+		gesture="kb:NVDA+V",
 	)
 	def script_toggleScreenColumnOrder(self, gesture):
 		if not splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"]:
@@ -454,9 +463,12 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	# A proxy function to call the track comments entry dialog.
 	def _trackCommentsEntry(self, filename: str, comment: str) -> None:
 		dlg = wx.TextEntryDialog(
-			gui.mainFrame, _("Track comment"),
+			gui.mainFrame,
+			_("Track comment"),
 			# Translators: The title of the track comments dialog.
-			_("Track comment"), value=comment)
+			_("Track comment"),
+			value=comment,
+		)
 
 		def callback(result):
 			if result == wx.ID_OK:
@@ -477,6 +489,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 						pass
 				else:
 					splconfig.trackComments[filename] = dlg.GetValue()
+
 		gui.runScriptModalDialog(dlg, callback)
 
 	@scriptHandler.script(
@@ -487,7 +500,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 		),
 		gesture="kb:Alt+NVDA+C",
 		category=_("StationPlaylist"),
-		**speakOnDemand
+		**speakOnDemand,
 	)
 	def script_announceTrackComment(self, gesture):
 		scriptRepeatCount = scriptHandler.getLastScriptRepeatCount()
@@ -561,7 +574,8 @@ F8: Take playlist snapshots such as track count, longest track and so on.
 Shift+F8: Obtain playlist transcripts in a variety of formats.
 F9: Mark current track as start of track time analysis.
 F10: Perform track time analysis.
-F12: Switch to an instant switch profile.""")}
+F12: Switch to an instant switch profile."""),
+}
 
 
 # Provide a way to fetch dialog description in reverse order.
@@ -594,9 +608,15 @@ class ReversedDialog(Dialog):
 				continue
 			# For particular objects, we want to descend in to them and get their children's message text
 			if childRole in (
-				controlTypes.Role.PROPERTYPAGE, controlTypes.Role.PANE, controlTypes.Role.PANEL,
-				controlTypes.Role.WINDOW, controlTypes.Role.GROUPING, controlTypes.Role.PARAGRAPH,
-				controlTypes.Role.SECTION, controlTypes.Role.TEXTFRAME, controlTypes.Role.UNKNOWN
+				controlTypes.Role.PROPERTYPAGE,
+				controlTypes.Role.PANE,
+				controlTypes.Role.PANEL,
+				controlTypes.Role.WINDOW,
+				controlTypes.Role.GROUPING,
+				controlTypes.Role.PARAGRAPH,
+				controlTypes.Role.SECTION,
+				controlTypes.Role.TEXTFRAME,
+				controlTypes.Role.UNKNOWN,
 			):
 				# Grab text from descendants, but not for a child which inherits from Dialog and has focusable descendants
 				# Stops double reporting when focus is in a property page in a dialog
@@ -634,17 +654,24 @@ class ReversedDialog(Dialog):
 				continue
 			childName = child.name
 			if (
-				childName and index < (childCount - 1)
-				and children[index + 1].role not in (
-					controlTypes.Role.GRAPHIC, controlTypes.Role.STATICTEXT, controlTypes.Role.SEPARATOR,
-					controlTypes.Role.WINDOW, controlTypes.Role.PANE, controlTypes.Role.BUTTON
+				childName
+				and index < (childCount - 1)
+				and children[index + 1].role
+				not in (
+					controlTypes.Role.GRAPHIC,
+					controlTypes.Role.STATICTEXT,
+					controlTypes.Role.SEPARATOR,
+					controlTypes.Role.WINDOW,
+					controlTypes.Role.PANE,
+					controlTypes.Role.BUTTON,
 				)
 				and children[index + 1].name == childName
 			):
 				# This is almost certainly the label for the next object, so skip it.
 				continue
 			isNameIncluded = child.TextInfo is NVDAObjectTextInfo or childRole in (
-				controlTypes.Role.LABEL, controlTypes.Role.STATICTEXT
+				controlTypes.Role.LABEL,
+				controlTypes.Role.STATICTEXT,
 			)
 			childText = child.makeTextInfo(textInfos.POSITION_ALL).text
 			if not childText or childText.isspace() and child.TextInfo is not NVDAObjectTextInfo:
@@ -662,7 +689,6 @@ class ReversedDialog(Dialog):
 # Temporary Cue time pickers does not expose the correct tree.
 # Thankfully, when up or down arrows are pressed, display text changes.
 class SPLTimePicker(IAccessible):
-
 	@scriptHandler.script(gestures=["kb:upArrow", "kb:downArrow"])
 	def script_changeTimePickerValue(self, gesture):
 		# 20.11: slightly modified "read current line" script without complexities of tree interceptor and caret.
@@ -673,7 +699,6 @@ class SPLTimePicker(IAccessible):
 
 
 class AppModule(appModuleHandler.AppModule):
-
 	# Translators: Script category for StationPlaylist add-on commands in input gestures dialog.
 	scriptCategory = _("StationPlaylist")
 	_focusedTrack: Optional[Any] = None
@@ -719,8 +744,13 @@ class AppModule(appModuleHandler.AppModule):
 		splconfig.initialize()
 		# Announce status changes while using other programs.
 		import eventHandler
-		eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStatusBar")
-		eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStaticText")
+
+		eventHandler.requestEvents(
+			eventName="nameChange", processId=self.processID, windowClassName="TStatusBar"
+		)
+		eventHandler.requestEvents(
+			eventName="nameChange", processId=self.processID, windowClassName="TStaticText"
+		)
 		# Also for requests window.
 		eventHandler.requestEvents(eventName="show", processId=self.processID, windowClassName="TRequests")
 		log.debug("SPL: preparing GUI subsystem")
@@ -732,7 +762,7 @@ class AppModule(appModuleHandler.AppModule):
 				# to open SPL Studio add-on settings.
 				_("SPL Studio Settings..."),
 				# Translators: tooltip for SPL Studio settings dialog.
-				_("SPL settings")
+				_("SPL settings"),
 			)
 			gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfui.onConfigDialog, self.SPLSettings)
 		except AttributeError:
@@ -835,7 +865,8 @@ class AppModule(appModuleHandler.AppModule):
 		# #145 (20.09: playlist analysis marker value must be below track count.
 		# #155 (21.03): and track count must be an integer.
 		if (
-			self._analysisMarker is not None and trackCount is not None
+			self._analysisMarker is not None
+			and trackCount is not None
 			and not 0 <= self._analysisMarker < trackCount
 		):
 			self._analysisMarker = None
@@ -868,6 +899,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Thus use review position text.
 		elif obj.windowClassName in ("TEdit", "TComboBox") and not obj.name:
 			import review
+
 			fieldName, fieldObj = review.getScreenPosition(obj)
 			fieldName.expand(textInfos.UNIT_LINE)
 			if obj.windowClassName == "TComboBox":
@@ -957,8 +989,8 @@ class AppModule(appModuleHandler.AppModule):
 						self.scanCount += 1
 						if self.scanCount % 100 == 0:
 							self._libraryScanAnnouncer(
-								obj.name[1:obj.name.find("]")],
-								splconfig.SPLConfig["General"]["LibraryScanAnnounce"]
+								obj.name[1 : obj.name.find("]")],
+								splconfig.SPLConfig["General"]["LibraryScanAnnounce"],
 							)
 					if not self.libraryScanning:
 						if self.productVersion not in noLibScanMonitor:
@@ -972,12 +1004,19 @@ class AppModule(appModuleHandler.AppModule):
 						self.matchedResultsCache = obj.name
 						ui.message(" ".join(obj.name.split()[:2]))
 					else:
-						if splconfig.SPLConfig["General"]["LibraryScanAnnounce"] != "off" and self.libraryScanning:
+						if (
+							splconfig.SPLConfig["General"]["LibraryScanAnnounce"] != "off"
+							and self.libraryScanning
+						):
 							if splconfig.SPLConfig["General"]["BeepAnnounce"]:
 								tones.beep(370, 100)
 							else:
 								# Translators: Presented when library scan is complete.
-								ui.message(_("Scan complete with {scanCount} items").format(scanCount=obj.name.split()[3]))
+								ui.message(
+									_("Scan complete with {scanCount} items").format(
+										scanCount=obj.name.split()[3]
+									)
+								)
 						if self.libraryScanning:
 							self.libraryScanning = False
 						self.scanCount = 0
@@ -994,13 +1033,9 @@ class AppModule(appModuleHandler.AppModule):
 		# Note that Studio 5.x and 6 uses different layouts.
 		elif obj.windowClassName == "TStaticText":
 			if obj.simplePrevious is not None:
-				studio6layout = (
-					self.productVersion >= "6.0"
-					and obj.simplePrevious.name == "Track Starts"
-				)
-				if (
-					(self.productVersion < "6.0" and obj.simplePrevious.name == "Remaining Time")
-					or (studio6layout and obj.parent.parent.firstChild.name == "Remaining")
+				studio6layout = self.productVersion >= "6.0" and obj.simplePrevious.name == "Track Starts"
+				if (self.productVersion < "6.0" and obj.simplePrevious.name == "Remaining Time") or (
+					studio6layout and obj.parent.parent.firstChild.name == "Remaining"
 				):
 					# End of track text.
 					if (
@@ -1009,13 +1044,13 @@ class AppModule(appModuleHandler.AppModule):
 					):
 						braille.handler.message(obj.name)
 					if (
-						obj.name == "00:{0:02d}".format(splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"])
+						obj.name
+						== "00:{0:02d}".format(splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"])
 						and splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"]
 					):
 						self.alarmAnnounce(obj.name, 440, 200)
-				elif (
-					(self.productVersion < "6.0" and obj.simplePrevious.name == "Remaining Song Ramp")
-					or (studio6layout and obj.parent.parent.firstChild.name == "Song Ramp")
+				elif (self.productVersion < "6.0" and obj.simplePrevious.name == "Remaining Song Ramp") or (
+					studio6layout and obj.parent.parent.firstChild.name == "Song Ramp"
 				):
 					# Song intro content.
 					if (
@@ -1024,7 +1059,8 @@ class AppModule(appModuleHandler.AppModule):
 					):
 						braille.handler.message(obj.name)
 					if (
-						obj.name == "00:{0:02d}".format(splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"])
+						obj.name
+						== "00:{0:02d}".format(splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"])
 						and splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"]
 					):
 						self.alarmAnnounce(obj.name, 512, 400, intro=True)
@@ -1135,7 +1171,9 @@ class AppModule(appModuleHandler.AppModule):
 			if intro:
 				# Translators: Presented when end of introduction is approaching
 				# (example output: 5 sec left in track introduction).
-				ui.message(_("Warning: {seconds} sec left in track introduction").format(seconds=str(alarmTime)))
+				ui.message(
+					_("Warning: {seconds} sec left in track introduction").format(seconds=str(alarmTime))
+				)
 			else:
 				# Translators: Presented when end of track is approaching.
 				ui.message(_("Warning: {seconds} sec remaining").format(seconds=str(alarmTime)))
@@ -1240,7 +1278,11 @@ class AppModule(appModuleHandler.AppModule):
 	# 16.12: Include hours by default unless told not to do so.
 	# #155 (21.03): time can be None, in which case it will do nothing.
 	def announceTime(
-			self, t: Optional[int], offset: Optional[int] = None, ms: bool = True, includeHours: Optional[bool] = None
+		self,
+		t: Optional[int],
+		offset: Optional[int] = None,
+		ms: bool = True,
+		includeHours: Optional[bool] = None,
 	) -> None:
 		if t is None:
 			return
@@ -1253,7 +1295,7 @@ class AppModule(appModuleHandler.AppModule):
 	# 7.0: There will be times when one will deal with time in seconds.
 	# 16.12: For some cases, do not include hour slot when trying to conform to what Studio displays.)
 	def _ms2time(
-			self, t: int, offset: Optional[int] = None, ms: bool = True, includeHours: Optional[bool] = None
+		self, t: int, offset: Optional[int] = None, ms: bool = True, includeHours: Optional[bool] = None
 	) -> str:
 		if t <= 0:
 			return "00:00"
@@ -1262,12 +1304,8 @@ class AppModule(appModuleHandler.AppModule):
 				# 19.11.1/18.09.13-LTS: be sure to convert time into integer indirectly via floor division.
 				t = (t // 1000) if not offset else (t // 1000) + offset
 			mm, ss = divmod(t, 60)
-			if (
-				mm > 59 and (
-					includeHours or (
-						includeHours is None and splconfig.SPLConfig["General"]["TimeHourAnnounce"]
-					)
-				)
+			if mm > 59 and (
+				includeHours or (includeHours is None and splconfig.SPLConfig["General"]["TimeHourAnnounce"])
 			):
 				hh, mm = divmod(mm, 60)
 				# Hour value is also filled with leading zero's.
@@ -1283,7 +1321,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Message comes from Foobar 2000 app module, part of NVDA Core.
 		description=translate("Reports the remaining time of the currently playing track, if any"),
 		gestures=["kb:control+alt+t", "ts(SPL):2finger_flickDown"],
-		**speakOnDemand
+		**speakOnDemand,
 	)
 	def script_sayRemainingTime(self, gesture):
 		if splbase.studioIsRunning():
@@ -1293,7 +1331,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Message comes from Foobar 2000 app module, part of NVDA Core.
 		description=translate("Reports the elapsed time of the currently playing track, if any"),
 		gesture="kb:alt+shift+t",
-		**speakOnDemand
+		**speakOnDemand,
 	)
 	def script_sayElapsedTime(self, gesture):
 		if splbase.studioIsRunning():
@@ -1306,7 +1344,7 @@ class AppModule(appModuleHandler.AppModule):
 			"If pressed twice, reports minutes and seconds left to top of the hour."
 		),
 		gestures=["kb:shift+nvda+f12", "ts(SPL):2finger_flickUp"],
-		**speakOnDemand
+		**speakOnDemand,
 	)
 	def script_sayBroadcasterTime(self, gesture):
 		if not splbase.studioIsRunning():
@@ -1341,12 +1379,13 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Announces time including seconds."),
-		**speakOnDemand
+		**speakOnDemand,
 	)
 	def script_sayCompleteTime(self, gesture):
 		if not splbase.studioIsRunning():
 			return
 		import winKernel
+
 		# Says complete time in hours, minutes and seconds via kernel32's routines.
 		ui.message(winKernel.GetTimeFormatEx(winKernel.LOCALE_NAME_USER_DEFAULT, 0, None, None))
 
@@ -1355,7 +1394,8 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Opens SPL Studio alarms settings."),
-		gestures=["kb:alt+nvda+1", "ts(SPL):2finger_flickRight"])
+		gestures=["kb:alt+nvda+1", "ts(SPL):2finger_flickRight"],
+	)
 	def script_openAlarmsSettings(self, gesture):
 		wx.CallAfter(splconfui.openAddonSettingsPanel, splconfui.AlarmsPanel)
 
@@ -1364,7 +1404,8 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Opens SPL Studio add-on configuration dialog."),
-		gesture="kb:alt+NVDA+0")
+		gesture="kb:alt+NVDA+0",
+	)
 	def script_openConfigDialog(self, gesture):
 		# 20.05: rather than calling the config dialog open event,
 		# call the open dialog function directly to avoid indirection.
@@ -1373,14 +1414,16 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Opens SPL add-on broadcast profiles dialog."),
-		gesture="kb:alt+NVDA+p")
+		gesture="kb:alt+NVDA+p",
+	)
 	def script_openBroadcastProfilesDialog(self, gesture):
 		wx.CallAfter(splconfui.onBroadcastProfilesDialog, None)
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Opens SPL Studio add-on welcome dialog."),
-		gesture="kb:alt+NVDA+f1")
+		gesture="kb:alt+NVDA+f1",
+	)
 	def script_openWelcomeDialog(self, gesture):
 		gui.mainFrame.prePopup()
 		d = splconfig.WelcomeDialog(gui.mainFrame)
@@ -1396,7 +1439,8 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Toggles between various braille timer settings."),
-		gesture="kb:control+shift+x")
+		gesture="kb:control+shift+x",
+	)
 	def script_setBrailleTimer(self, gesture):
 		brailleTimer = splconfig.SPLConfig["General"]["BrailleTimer"]
 		if brailleTimer == "off":
@@ -1419,9 +1463,7 @@ class AppModule(appModuleHandler.AppModule):
 	# 21.03: accept both None and str because it will be filtered to remove None anyway.
 	findText: Optional[list[str]] = None
 
-	def trackFinder(
-			self, text: str, obj: Any, directionForward: bool = True, column: list[int] = []
-	) -> None:
+	def trackFinder(self, text: str, obj: Any, directionForward: bool = True, column: list[int] = []) -> None:
 		speech.cancelSpeech()
 		# #32 (17.06/15.8 LTS): Update search text even if the track with the search term in columns does not exist.
 		# #27 (17.08): especially if the search history is empty.
@@ -1447,14 +1489,19 @@ class AppModule(appModuleHandler.AppModule):
 		else:
 			# Translators: Standard dialog message when an item one wishes to search is not found
 			# (copy this from main nvda.po).
-			wx.CallAfter(gui.messageBox, _("Search string not found."), translate("Find Error"), wx.OK | wx.ICON_ERROR)
+			wx.CallAfter(
+				gui.messageBox, _("Search string not found."), translate("Find Error"), wx.OK | wx.ICON_ERROR
+			)
 
 	# Split from track finder in 2015.
 	# Return a track with the given search criteria.
 	# Column is a list of columns to be searched.
 	def _trackLocator(
-			self, text: str, obj: Any = api.getFocusObject(),
-			directionForward: bool = True, columns: list[int] = []
+		self,
+		text: str,
+		obj: Any = api.getFocusObject(),
+		directionForward: bool = True,
+		columns: list[int] = [],
 	) -> Any:
 		# 21.03/20.09.6-LTS: it doesn't make sense to search for tracks if text and/or columns are not specified.
 		# It is also an optimization because the below loop will not be run if any of the following are true.
@@ -1509,12 +1556,17 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Title for column search dialog.
 				title = _("Column search")
 			startObj = api.getFocusObject()
-			if api.getForegroundObject().windowClassName == "TStudioForm" and startObj.role == controlTypes.Role.LIST:
+			if (
+				api.getForegroundObject().windowClassName == "TStudioForm"
+				and startObj.role == controlTypes.Role.LIST
+			):
 				startObj = startObj.firstChild
 			d = splmisc.SPLFindDialog(
-				gui.mainFrame, startObj,
+				gui.mainFrame,
+				startObj,
 				self.findText[0] if self.findText and len(self.findText) else "",
-				title, columnSearch=columnSearch
+				title,
+				columnSearch=columnSearch,
 			)
 			gui.mainFrame.prePopup()
 			d.Raise()
@@ -1527,7 +1579,8 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Finds a track in the track list."),
-		gesture="kb:control+nvda+f")
+		gesture="kb:control+nvda+f",
+	)
 	def script_findTrack(self, gesture):
 		if self._trackFinderCheck(0):
 			if self.findText is not None:
@@ -1542,7 +1595,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
-		description=_("Finds text in columns."))
+		description=_("Finds text in columns.")
+	)
 	def script_columnSearch(self, gesture):
 		if self._trackFinderCheck(1):
 			if self.findText is not None:
@@ -1556,7 +1610,8 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Finds the next occurrence of the track with the name in the track list."),
-		gesture="kb:nvda+f3")
+		gesture="kb:nvda+f3",
+	)
 	def script_findTrackNext(self, gesture):
 		if self._trackFinderCheck(0):
 			# Although counterintuitive, filtering must take place here as well to avoid finding nothing or everything.
@@ -1569,14 +1624,18 @@ class AppModule(appModuleHandler.AppModule):
 				self.trackFinderGUI()
 			else:
 				startObj = api.getFocusObject()
-				if api.getForegroundObject().windowClassName == "TStudioForm" and startObj.role == controlTypes.Role.LIST:
+				if (
+					api.getForegroundObject().windowClassName == "TStudioForm"
+					and startObj.role == controlTypes.Role.LIST
+				):
 					startObj = startObj.firstChild
 				self.trackFinder(self.findText[0], obj=startObj.next)
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Finds previous occurrence of the track with the name in the track list."),
-		gesture="kb:shift+nvda+f3")
+		gesture="kb:shift+nvda+f3",
+	)
 	def script_findTrackPrevious(self, gesture):
 		if self._trackFinderCheck(0):
 			# Same as find next: filter find text list here, too.
@@ -1588,7 +1647,10 @@ class AppModule(appModuleHandler.AppModule):
 				self.trackFinderGUI()
 			else:
 				startObj = api.getFocusObject()
-				if api.getForegroundObject().windowClassName == "TStudioForm" and startObj.role == controlTypes.Role.LIST:
+				if (
+					api.getForegroundObject().windowClassName == "TStudioForm"
+					and startObj.role == controlTypes.Role.LIST
+				):
 					startObj = startObj.lastChild
 				self.trackFinder(self.findText[0], obj=startObj.previous, directionForward=False)
 
@@ -1597,7 +1659,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
-		description=_("Locates track with duration within a time range"))
+		description=_("Locates track with duration within a time range")
+	)
 	def script_timeRangeFinder(self, gesture):
 		if self._trackFinderCheck(2):
 			try:
@@ -1633,7 +1696,8 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Toggles cart explorer to learn cart assignments."),
-		gesture="kb:alt+nvda+3")
+		gesture="kb:alt+nvda+3",
+	)
 	def script_toggleCartExplorer(self, gesture):
 		if not splbase.studioIsRunning():
 			return
@@ -1676,7 +1740,9 @@ class AppModule(appModuleHandler.AppModule):
 		else:
 			if gesture.displayName in self.carts:
 				ui.message(self.carts[gesture.displayName])
-			elif self.carts["standardLicense"] and (len(gesture.displayName) == 1 or gesture.displayName[-2] == "+"):
+			elif self.carts["standardLicense"] and (
+				len(gesture.displayName) == 1 or gesture.displayName[-2] == "+"
+			):
 				# Translators: Presented when cart command is unavailable.
 				ui.message(_("Cart command unavailable"))
 			else:
@@ -1691,7 +1757,8 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Toggles library scan progress settings."),
-		gesture="kb:alt+nvda+r")
+		gesture="kb:alt+nvda+r",
+	)
 	def script_setLibraryScanProgress(self, gesture):
 		libraryScanAnnounce = splconfig.SPLConfig["General"]["LibraryScanAnnounce"]
 		if libraryScanAnnounce == "off":
@@ -1711,14 +1778,20 @@ class AppModule(appModuleHandler.AppModule):
 		fg = api.getForegroundObject()
 		if fg.windowClassName == "TTrackInsertForm":
 			# Translators: Presented when library scan has started.
-			ui.message(_("Scan start")) if not splconfig.SPLConfig["General"]["BeepAnnounce"] else tones.beep(740, 100)
+			ui.message(_("Scan start")) if not splconfig.SPLConfig["General"]["BeepAnnounce"] else tones.beep(
+				740, 100
+			)
 			if self.productVersion not in noLibScanMonitor:
 				self.libraryScanning = True
 
 	# Report library scan (number of items scanned) in the background.
 	def monitorLibraryScan(self) -> None:
 		global libScanT
-		if libScanT and libScanT.is_alive() and api.getForegroundObject().windowClassName == "TTrackInsertForm":
+		if (
+			libScanT
+			and libScanT.is_alive()
+			and api.getForegroundObject().windowClassName == "TTrackInsertForm"
+		):
 			return
 		# #155 (21.03): ideally library scan count would be an integer.
 		libScanCount: Optional[int] = splbase.studioAPI(1, 32)
@@ -1728,12 +1801,9 @@ class AppModule(appModuleHandler.AppModule):
 		time.sleep(0.1)
 		# Is library scan count still an integer?
 		libScanCount = splbase.studioAPI(1, 32)
-		if (
-			libScanCount is None
-			or (
-				api.getForegroundObject().windowClassName == "TTrackInsertForm"
-				and self.productVersion in noLibScanMonitor
-			)
+		if libScanCount is None or (
+			api.getForegroundObject().windowClassName == "TTrackInsertForm"
+			and self.productVersion in noLibScanMonitor
 		):
 			self.libraryScanning = False
 			return
@@ -1770,9 +1840,16 @@ class AppModule(appModuleHandler.AppModule):
 			if scanCount < 0:
 				break
 			scanIter += 1
-			if scanIter % 5 == 0 and splconfig.SPLConfig["General"]["LibraryScanAnnounce"] not in ("off", "ending"):
+			if scanIter % 5 == 0 and splconfig.SPLConfig["General"]["LibraryScanAnnounce"] not in (
+				"off",
+				"ending",
+			):
 				# 21.01/20.09.5-LTS: queue the announcement to main thread because of braille handler thread.
-				wx.CallAfter(self._libraryScanAnnouncer, scanCount, splconfig.SPLConfig["General"]["LibraryScanAnnounce"])
+				wx.CallAfter(
+					self._libraryScanAnnouncer,
+					scanCount,
+					splconfig.SPLConfig["General"]["LibraryScanAnnounce"],
+				)
 		self.libraryScanning = False
 		# 18.04: what if config database died?
 		if splconfig.SPLConfig and splconfig.SPLConfig["General"]["LibraryScanAnnounce"] != "off":
@@ -1780,13 +1857,17 @@ class AppModule(appModuleHandler.AppModule):
 				tones.beep(370, 100)
 			else:
 				# Translators: Presented after library scan is done.
-				ui.message(_("Scan complete with {itemCount} items").format(itemCount=splbase.studioAPI(0, 32)))
+				ui.message(
+					_("Scan complete with {itemCount} items").format(itemCount=splbase.studioAPI(0, 32))
+				)
 
 	# Take care of library scanning announcement.
 	def _libraryScanAnnouncer(self, count: int, announcementType: str) -> None:
 		if announcementType == "progress":
 			# Translators: Presented when library scan is in progress.
-			tones.beep(550, 100) if splconfig.SPLConfig["General"]["BeepAnnounce"] else ui.message(_("Scanning"))
+			tones.beep(550, 100) if splconfig.SPLConfig["General"]["BeepAnnounce"] else ui.message(
+				_("Scanning")
+			)
 		elif announcementType == "numbers":
 			if splconfig.SPLConfig["General"]["BeepAnnounce"]:
 				tones.beep(550, 100)
@@ -1827,7 +1908,8 @@ class AppModule(appModuleHandler.AppModule):
 	# The script version to open the manage metadata URL's dialog.
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
-		description=_("Opens a dialog to quickly enable or disable metadata streaming."))
+		description=_("Opens a dialog to quickly enable or disable metadata streaming.")
+	)
 	def script_manageMetadataStreams(self, gesture):
 		# Do not even think about opening this dialog if handle to Studio isn't found.
 		if splbase._SPLWin is None:
@@ -1865,10 +1947,7 @@ class AppModule(appModuleHandler.AppModule):
 	SPLPlaylistLastFocusUnknown = 3
 
 	def canPerformPlaylistCommands(
-			self,
-			playlistViewerRequired: bool = True,
-			mustSelectTrack: bool = False,
-			announceErrors: bool = True
+		self, playlistViewerRequired: bool = True, mustSelectTrack: bool = False, announceErrors: bool = True
 	) -> int:
 		# #81: most commands do require that playlist viewer must be
 		# the foreground window (focused), hence the keyword argument.
@@ -1908,7 +1987,9 @@ class AppModule(appModuleHandler.AppModule):
 		if not splbase.studioIsRunning():
 			return False
 		# #81 (18.12): just return result of consulting playlist dispatch along with error messages if any.
-		playlistErrors = self.canPerformPlaylistCommands(mustSelectTrack=mustSelectTrack, announceErrors=False)
+		playlistErrors = self.canPerformPlaylistCommands(
+			mustSelectTrack=mustSelectTrack, announceErrors=False
+		)
 		if playlistErrors == self.SPLPlaylistNotFocused:
 			# Translators: Presented when playlist analyzer cannot be performed
 			# because user is not focused on playlist viewer.
@@ -1951,7 +2032,9 @@ class AppModule(appModuleHandler.AppModule):
 	# Data to be gathered comes from a set of flags.
 	# By default, playlist duration (including shortest and average),
 	# category summary and other statistics will be gathered.
-	def playlistSnapshots(self, obj: Any, end: Any, snapshotFlags: Optional[list[str]] = None) -> dict[str, Any]:
+	def playlistSnapshots(
+		self, obj: Any, end: Any, snapshotFlags: Optional[list[str]] = None
+	) -> dict[str, Any]:
 		# #55 (18.05): is this a complete snapshot?
 		completePlaylistSnapshot = obj.IAccessibleChildID == 1 and end is None
 		# Track count and total duration are always included.
@@ -1959,7 +2042,8 @@ class AppModule(appModuleHandler.AppModule):
 		snapshot: dict[str, Any] = {}
 		if snapshotFlags is None:
 			snapshotFlags = [
-				flag for flag in splconfig.SPLConfig["PlaylistSnapshots"]
+				flag
+				for flag in splconfig.SPLConfig["PlaylistSnapshots"]
 				if splconfig.SPLConfig["PlaylistSnapshots"][flag]
 			]
 		duration = obj.indexOf("Duration")
@@ -2026,8 +2110,13 @@ class AppModule(appModuleHandler.AppModule):
 				)
 			except ZeroDivisionError:
 				snapshot["PlaylistDurationAverage"] = "00:00"
-		if "CategoryCount" in snapshotFlags or "ArtistCount" in snapshotFlags or "GenreCount" in snapshotFlags:
+		if (
+			"CategoryCount" in snapshotFlags
+			or "ArtistCount" in snapshotFlags
+			or "GenreCount" in snapshotFlags
+		):
 			import collections
+
 			if "CategoryCount" in snapshotFlags:
 				snapshot["PlaylistCategoryCount"] = collections.Counter(categories)
 			if "ArtistCount" in snapshotFlags:
@@ -2053,18 +2142,24 @@ class AppModule(appModuleHandler.AppModule):
 		statusInfo.append(
 			# Translators: one of the results for playlist snapshots feature
 			# for announcing total duration of a playlist.
-			_("Duration: {playlistTotalDuration}").format(playlistTotalDuration=snapshot["PlaylistDurationTotal"])
+			_("Duration: {playlistTotalDuration}").format(
+				playlistTotalDuration=snapshot["PlaylistDurationTotal"]
+			)
 		)
 		if "PlaylistDurationMin" in snapshot:
 			statusInfo.append(
 				# Translators: one of the results for playlist snapshots feature
 				# for announcing shortest track name and duration of a playlist.
-				_("Shortest: {playlistShortestTrack}").format(playlistShortestTrack=snapshot["PlaylistDurationMin"])
+				_("Shortest: {playlistShortestTrack}").format(
+					playlistShortestTrack=snapshot["PlaylistDurationMin"]
+				)
 			)
 			statusInfo.append(
 				# Translators: one of the results for playlist snapshots feature
 				# for announcing longest track name and duration of a playlist.
-				_("Longest: {playlistLongestTrack}").format(playlistLongestTrack=snapshot["PlaylistDurationMax"])
+				_("Longest: {playlistLongestTrack}").format(
+					playlistLongestTrack=snapshot["PlaylistDurationMax"]
+				)
 			)
 		if "PlaylistDurationAverage" in snapshot:
 			statusInfo.append(
@@ -2113,12 +2208,16 @@ class AppModule(appModuleHandler.AppModule):
 						else:
 							# Translators: one of the results for playlist snapshots feature
 							# for artist count information.
-							info = _("{artistName} ({artistCount})").format(artistName=artist, artistCount=count)
+							info = _("{artistName} ({artistCount})").format(
+								artistName=artist, artistCount=count
+							)
 						artistList.append("<li>{}</li>".format(info))
 					statusInfo.append("".join([header, "<ol>", "\n".join(artistList), "</ol>"]))
 		if "PlaylistCategoryCount" in snapshot:
 			categoryCount = splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"]
-			categories = snapshot["PlaylistCategoryCount"].most_common(None if not categoryCount else categoryCount)
+			categories = snapshot["PlaylistCategoryCount"].most_common(
+				None if not categoryCount else categoryCount
+			)
 			if scriptCount == 0:
 				statusInfo.append(
 					# Translators: one of the results for playlist snapshots feature
@@ -2136,7 +2235,9 @@ class AppModule(appModuleHandler.AppModule):
 					category = category.replace(">", "")
 					# Translators: one of the results for playlist snapshots feature
 					# for category count information.
-					info = _("{categoryName} ({categoryCount})").format(categoryName=category, categoryCount=count)
+					info = _("{categoryName} ({categoryCount})").format(
+						categoryName=category, categoryCount=count
+					)
 					categoryList.append("<li>{}</li>".format(info))
 				statusInfo.append("".join([header, "<ol>", "\n".join(categoryList), "</ol>"]))
 		if "PlaylistGenreCount" in snapshot:
@@ -2238,7 +2339,8 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Input help mode message for a layer command in StationPlaylist add-on.
 			"The SPL Assistant layer command. "
 			"See the add-on guide for more information on available commands.",
-		), **speakOnDemand
+		),
+		**speakOnDemand,
 	)
 	def script_SPLAssistantToggle(self, gesture):
 		# Enter the layer command if an only if we're in the track list to allow easier gesture assignment.
@@ -2306,7 +2408,7 @@ class AppModule(appModuleHandler.AppModule):
 			SPLCurrentTrackTitle: [-1, 1, 9],  # Name of the currently playing track.
 			SPLCurrentPlayer: [-1, 1, 9, 0],  # Name of the currently playing track.
 			SPLTemperature: [-1, 7, 0],  # Temperature for the current city.
-		}
+		},
 	}
 
 	_cachedStatusObjs: dict[int, Any] = {}
@@ -2412,7 +2514,7 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Announces title of the next track if any"),
-		**speakOnDemand
+		**speakOnDemand,
 	)
 	def script_sayNextTrackTitle(self, gesture):
 		if not splbase.studioIsRunning():
@@ -2442,7 +2544,7 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Announces title of the currently playing track"),
-		**speakOnDemand
+		**speakOnDemand,
 	)
 	def script_sayCurrentTrackTitle(self, gesture):
 		if not splbase.studioIsRunning():
@@ -2460,7 +2562,9 @@ class AppModule(appModuleHandler.AppModule):
 					currentTrack = obj.displayText.partition(obj.firstChild.name)[-1]
 				else:
 					# Translators: Presented when there is no information for the current track.
-					currentTrack = _("Cannot locate current track information") if obj.name is None else obj.name
+					currentTrack = (
+						_("Cannot locate current track information") if obj.name is None else obj.name
+					)
 			# #34 (17.08): see the note on next track script above.
 			if splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"]:
 				player = self.status(self.SPLCurrentPlayer).name
@@ -2476,7 +2580,7 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Announces temperature and weather information"),
-		**speakOnDemand
+		**speakOnDemand,
 	)
 	def script_sayTemperature(self, gesture):
 		if not splbase.studioIsRunning():
@@ -2553,7 +2657,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
-		description=_("Marks focused track as start marker for various playlist analysis commands"))
+		description=_("Marks focused track as start marker for various playlist analysis commands")
+	)
 	def script_markTrackForAnalysis(self, gesture):
 		self.script_finish()
 		if self._trackAnalysisAllowed():
@@ -2570,7 +2675,7 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Announces total length of tracks between analysis start marker and the current track"),
-		**speakOnDemand
+		**speakOnDemand,
 	)
 	def script_trackTimeAnalysis(self, gesture):
 		self.script_finish()
@@ -2606,7 +2711,7 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Presents playlist snapshot information such as number of tracks and top artists"),
-		**speakOnDemand
+		**speakOnDemand,
 	)
 	def script_takePlaylistSnapshots(self, gesture):
 		if not splbase.studioIsRunning():

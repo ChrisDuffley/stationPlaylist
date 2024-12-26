@@ -9,6 +9,7 @@ import ui
 from winUser import sendMessage, user32
 from logHandler import log
 import addonHandler
+
 addonHandler.initTranslation()
 
 # Cache the handle to main Studio window.
@@ -21,9 +22,8 @@ _SPLWin: Optional[int] = None
 # 19.02: some checks will need to omit message output.
 def studioIsRunning(justChecking: bool = False) -> bool:
 	# Keep the boolean flag handy because of message output.
-	isStudioAlive = (
-		(_SPLWin is not None and _SPLWin == user32.FindWindowW("SPLStudio", None))
-		or (_SPLWin is None and user32.FindWindowW("SPLStudio", None) != 0)
+	isStudioAlive = (_SPLWin is not None and _SPLWin == user32.FindWindowW("SPLStudio", None)) or (
+		_SPLWin is None and user32.FindWindowW("SPLStudio", None) != 0
 	)
 	if not isStudioAlive:
 		log.debug("SPL: Studio is not alive")
