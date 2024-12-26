@@ -518,6 +518,7 @@ SPLAssistantHelp = {
 A: Automation.
 C: Announce name of the currently playing track.
 D: Remaining time for the playlist.
+Control+D: Control keys toggle (Studio 6.10 and later).
 E: Overall metadata streaming status.
 Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder and four additional URL's.
 H: Duration of trakcs in this hour slot.
@@ -548,6 +549,7 @@ F12: Switch to an instant switch profile."""),
 A: Automation.
 C: Toggle cart explorer.
 Shift+C: Announce name of the currently playing track.
+Control+D: Control keys toggle (Studio 6.10 and later).
 E: Overall metadata streaming status.
 Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder and four additional URL's.
 Shift+E: Record to file.
@@ -2494,6 +2496,15 @@ class AppModule(appModuleHandler.AppModule):
 		else:
 			ui.message("Cart Edit Off")
 
+	def script_sayControlKeysStatus(self, gesture):
+		# 25.01: properly shown in Studio 6.10 and later.
+		if self.productVersion < "6.10":
+			# Translators: message shown when an SPL Assistant layer command cannot be performed.
+			ui.message(_("Control keys status announcement requires Studio 6.10 or later"))
+			return
+		obj = self.status(self.SPLPlayStatus).lastChild
+		ui.message(obj.name)
+
 	def script_sayHourTrackDuration(self, gesture):
 		self.announceTime(splbase.studioAPI(0, 27))
 
@@ -2862,6 +2873,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:l": "sayLineInStatus",
 		"kb:r": "sayRecToFileStatus",
 		"kb:t": "sayCartEditStatus",
+		"kb:control+d": "sayControlKeysStatus",
 		"kb:h": "sayHourTrackDuration",
 		"kb:shift+h": "sayHourRemaining",
 		"kb:d": "sayPlaylistRemainingDuration",
@@ -2894,6 +2906,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+l": "sayLineInStatus",
 		"kb:shift+e": "sayRecToFileStatus",
 		"kb:t": "sayCartEditStatus",
+		"kb:control+d": "sayControlKeysStatus",
 		"kb:h": "sayHourTrackDuration",
 		"kb:shift+h": "sayHourRemaining",
 		"kb:r": "sayPlaylistRemainingDuration",
