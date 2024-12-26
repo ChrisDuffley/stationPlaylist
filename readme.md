@@ -97,6 +97,7 @@ The available commands are (most commands support speak on demand):
 * C (Shift+C  in JAWS layout): Title for the currently playing track.
 * C (JAWS layout): Toggle cart explorer (playlist viewer only, does not support speak on demand).
 * D (R in JAWS layout): Remaining duration for the playlist (if an error message is given, move to playlist viewer and then issue this command).
+* Control+D (Studio 6.10 and later): Control keys enabled/disabled.
 * E: Metadata streaming status.
 * Shift+1 through Shift+4, Shift+0: Status for individual metadata streaming URL's (0 is for DSP encoder).
 * F: Find track (playlist viewer only, does not support speak on demand).
@@ -207,6 +208,7 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 * Download links for add-on releases are no longer included in add-on documentation. You can download the add-on from NV Access add-on store.
 * Switched linting tool from Flake8 to Ruff and reformatted add-on modules to better align with NVDA coding standards.
 * Removed support for automatic add-on updates feature from Add-on Updater add-on.
+* In Studio 6.10 and later, added a new command in SPL Assistant to announce control keys enabled/disabled status (Control+D).
 
 ## Version 24.03
 
