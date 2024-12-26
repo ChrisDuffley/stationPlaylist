@@ -15,6 +15,7 @@ import ui
 import api
 from NVDAObjects.IAccessible import sysListView32
 from .splstudio import splconfig, SPLTrackItem, speakOnDemand
+
 addonHandler.initTranslation()
 
 
@@ -24,21 +25,68 @@ def indexOf(creatorVersion: str) -> tuple[str, ...]:
 	# Nine columns per line for each tuple.
 	if creatorVersion < "6.0":
 		return (
-			"Artist", "Title", "Position", "Cue", "Intro", "Outro", "Segue", "Duration", "Last Scheduled",
-			"7 Days", "Date Restriction", "Year", "Album", "Genre", "Mood", "Energy", "Tempo", "BPM",
-			"Gender", "Rating", "File Created", "Filename", "Client", "Other", "Intro Link", "Outro Link", "Language"
+			"Artist",
+			"Title",
+			"Position",
+			"Cue",
+			"Intro",
+			"Outro",
+			"Segue",
+			"Duration",
+			"Last Scheduled",
+			"7 Days",
+			"Date Restriction",
+			"Year",
+			"Album",
+			"Genre",
+			"Mood",
+			"Energy",
+			"Tempo",
+			"BPM",
+			"Gender",
+			"Rating",
+			"File Created",
+			"Filename",
+			"Client",
+			"Other",
+			"Intro Link",
+			"Outro Link",
+			"Language",
 		)
 	else:
 		return (
-			"Artist", "Title", "Position", "Cue", "Intro", "Outro", "Segue", "Duration", "Last Scheduled",
-			"7 Days", "Restrictions", "Year", "Album", "Genre", "Mood", "Energy", "Tempo", "BPM",
-			"Gender", "Rating", "File Created", "Filename", "Client", "Other", "Intro Link", "Outro Link", "Language"
+			"Artist",
+			"Title",
+			"Position",
+			"Cue",
+			"Intro",
+			"Outro",
+			"Segue",
+			"Duration",
+			"Last Scheduled",
+			"7 Days",
+			"Restrictions",
+			"Year",
+			"Album",
+			"Genre",
+			"Mood",
+			"Energy",
+			"Tempo",
+			"BPM",
+			"Gender",
+			"Rating",
+			"File Created",
+			"Filename",
+			"Client",
+			"Other",
+			"Intro Link",
+			"Outro Link",
+			"Language",
 		)
 
 
 class SPLCreatorItem(SPLTrackItem):
-	"""An entry in SPL Creator (mostly tracks).
-	"""
+	"""An entry in SPL Creator (mostly tracks)."""
 
 	def indexOf(self, header: str) -> Optional[int]:
 		# 22.03: Creator 6 renamed Date Restriction column to Restrictions.
@@ -55,13 +103,12 @@ class SPLCreatorItem(SPLTrackItem):
 
 
 class SPLPlaylistEditorItem(SPLTrackItem):
-	"""An entry in SPL Creator's Playlist Editor.
-	"""
+	"""An entry in SPL Creator's Playlist Editor."""
+
 	pass
 
 
 class AppModule(appModuleHandler.AppModule):
-
 	def __init__(self, *args, **kwargs):
 		super(AppModule, self).__init__(*args, **kwargs)
 		# Announce Creator version at startup unless minimal flag is set.
@@ -83,6 +130,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		import controlTypes
+
 		# 20.02: tracks list uses a different window class name other than "TListView".
 		# Resort to window style and other tricks if other lists with the class name below is found
 		# yet are not tracks list.
@@ -93,6 +141,7 @@ class AppModule(appModuleHandler.AppModule):
 				clsList.insert(0, sysListView32.List)
 		elif obj.windowClassName in ("TDemoRegForm", "TAboutForm"):
 			from NVDAObjects.behaviors import Dialog
+
 			clsList.insert(0, Dialog)
 
 	# The following scripts are designed to work while using Playlist Editor.
@@ -112,10 +161,7 @@ class AppModule(appModuleHandler.AppModule):
 	SPLEditorStatusBar = 2
 	_playlistEditorStatusCache: dict[int, Any] = {}
 
-	@scriptHandler.script(
-		gesture="kb:alt+NVDA+1",
-		**speakOnDemand
-	)
+	@scriptHandler.script(gesture="kb:alt+NVDA+1", **speakOnDemand)
 	def script_playlistDateTime(self, gesture):
 		if self.isPlaylistEditor():
 			try:
@@ -128,10 +174,7 @@ class AppModule(appModuleHandler.AppModule):
 				self._playlistEditorStatusCache[self.SPLEditorDateTime] = [playlistHour, playlistDay]
 			ui.message(" ".join([playlistDay.value, playlistHour.value]))
 
-	@scriptHandler.script(
-		gesture="kb:alt+NVDA+2",
-		**speakOnDemand
-	)
+	@scriptHandler.script(gesture="kb:alt+NVDA+2", **speakOnDemand)
 	def script_playlistDuration(self, gesture):
 		if self.isPlaylistEditor():
 			try:
@@ -141,10 +184,7 @@ class AppModule(appModuleHandler.AppModule):
 				self._playlistEditorStatusCache[self.SPLEditorDuration] = playlistDuration
 			ui.message(playlistDuration.name)
 
-	@scriptHandler.script(
-		gesture="kb:alt+NVDA+3",
-		**speakOnDemand
-	)
+	@scriptHandler.script(gesture="kb:alt+NVDA+3", **speakOnDemand)
 	def script_playlistScheduled(self, gesture):
 		if self.isPlaylistEditor():
 			try:
@@ -154,10 +194,7 @@ class AppModule(appModuleHandler.AppModule):
 				self._playlistEditorStatusCache[self.SPLEditorStatusBar] = statusBar
 			ui.message(statusBar.getChild(2).name)
 
-	@scriptHandler.script(
-		gesture="kb:alt+NVDA+4",
-		**speakOnDemand
-	)
+	@scriptHandler.script(gesture="kb:alt+NVDA+4", **speakOnDemand)
 	def script_playlistRotation(self, gesture):
 		if self.isPlaylistEditor():
 			try:

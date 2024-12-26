@@ -11,7 +11,6 @@ from logHandler import log
 
 
 class AppModule(appModuleHandler.AppModule):
-
 	def __init__(self, *args, **kwargs):
 		super(AppModule, self).__init__(*args, **kwargs)
 		if user32.FindWindowW("SPLStudio", None):
@@ -33,8 +32,12 @@ class AppModule(appModuleHandler.AppModule):
 			log.debug("SPL: VT Recorder is offline, enabling background event tracking for Studio")
 			for pid, appMod in appModuleHandler.runningTable.items():
 				if appMod.appName == "splstudio":
-					eventHandler.requestEvents(eventName="nameChange", processId=pid, windowClassName="TStatusBar")
-					eventHandler.requestEvents(eventName="nameChange", processId=pid, windowClassName="TStaticText")
+					eventHandler.requestEvents(
+						eventName="nameChange", processId=pid, windowClassName="TStatusBar"
+					)
+					eventHandler.requestEvents(
+						eventName="nameChange", processId=pid, windowClassName="TStaticText"
+					)
 					eventHandler.requestEvents(eventName="show", processId=pid, windowClassName="TRequests")
 					break
 		else:

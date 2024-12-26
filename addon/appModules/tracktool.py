@@ -15,6 +15,7 @@ import addonHandler
 import tones
 from NVDAObjects.IAccessible import sysListView32
 from .splstudio import splconfig, SPLTrackItem
+
 addonHandler.initTranslation()
 
 
@@ -24,30 +25,115 @@ def indexOf(ttVersion: str) -> tuple[str, ...]:
 	# Nine columns per line for each tuple.
 	if ttVersion < "6.0":
 		return (
-			"Artist", "Title", "Duration", "Cue", "Overlap", "Intro", "Outro", "Segue", "Hook Start",
-			"Hook Len", "Year", "Album", "CD Code", "URL 1", "URL 2", "Genre", "Mood", "Energy",
-			"Tempo", "BPM", "Gender", "Rating", "Filename", "Client", "Other", "Intro Link", "Outro Link",
-			"ReplayGain", "Record Label", "ISRC", "Language"
+			"Artist",
+			"Title",
+			"Duration",
+			"Cue",
+			"Overlap",
+			"Intro",
+			"Outro",
+			"Segue",
+			"Hook Start",
+			"Hook Len",
+			"Year",
+			"Album",
+			"CD Code",
+			"URL 1",
+			"URL 2",
+			"Genre",
+			"Mood",
+			"Energy",
+			"Tempo",
+			"BPM",
+			"Gender",
+			"Rating",
+			"Filename",
+			"Client",
+			"Other",
+			"Intro Link",
+			"Outro Link",
+			"ReplayGain",
+			"Record Label",
+			"ISRC",
+			"Language",
 		)
 	elif ttVersion.startswith("6.0"):
 		return (
-			"Artist", "Title", "Duration", "Cue", "Overlap", "Intro", "Outro", "Segue", "Hook Start",
-			"Hook Len", "Year", "Album", "CD Code", "URL 1", "URL 2", "Genre", "Mood", "Energy",
-			"Tempo", "BPM", "Gender", "Rating", "Filename", "Client", "Other", "Intro Link", "Outro Link",
-			"ReplayGain", "Record Label", "ISRC", "Language", "Restrictions", "Exclude from Requests"
+			"Artist",
+			"Title",
+			"Duration",
+			"Cue",
+			"Overlap",
+			"Intro",
+			"Outro",
+			"Segue",
+			"Hook Start",
+			"Hook Len",
+			"Year",
+			"Album",
+			"CD Code",
+			"URL 1",
+			"URL 2",
+			"Genre",
+			"Mood",
+			"Energy",
+			"Tempo",
+			"BPM",
+			"Gender",
+			"Rating",
+			"Filename",
+			"Client",
+			"Other",
+			"Intro Link",
+			"Outro Link",
+			"ReplayGain",
+			"Record Label",
+			"ISRC",
+			"Language",
+			"Restrictions",
+			"Exclude from Requests",
 		)
 	else:
 		return (
-			"Artist", "Title", "Duration", "Cue", "Overlap", "Intro", "Outro", "Segue", "Hook Start",
-			"Hook Len", "Year", "Album", "CD Code", "URL 1", "URL 2", "Genre", "Mood", "Energy",
-			"Tempo", "BPM", "Gender", "Rating", "Filename", "Client", "Other", "Track Date", "Intro Link",
-			"Outro Link", "ReplayGain", "Record Label", "ISRC", "Language", "Restrictions", "Exclude from Requests"
+			"Artist",
+			"Title",
+			"Duration",
+			"Cue",
+			"Overlap",
+			"Intro",
+			"Outro",
+			"Segue",
+			"Hook Start",
+			"Hook Len",
+			"Year",
+			"Album",
+			"CD Code",
+			"URL 1",
+			"URL 2",
+			"Genre",
+			"Mood",
+			"Energy",
+			"Tempo",
+			"BPM",
+			"Gender",
+			"Rating",
+			"Filename",
+			"Client",
+			"Other",
+			"Track Date",
+			"Intro Link",
+			"Outro Link",
+			"ReplayGain",
+			"Record Label",
+			"ISRC",
+			"Language",
+			"Restrictions",
+			"Exclude from Requests",
 		)
 
 
 class TrackToolItem(SPLTrackItem):
-	"""An entry in Track Tool, used to implement some exciting features.
-	"""
+	"""An entry in Track Tool, used to implement some exciting features."""
 
 	def reportFocus(self):
 		# Play a beep when intro exists.
@@ -67,7 +153,6 @@ class TrackToolItem(SPLTrackItem):
 
 
 class AppModule(appModuleHandler.AppModule):
-
 	def __init__(self, *args, **kwargs):
 		super(AppModule, self).__init__(*args, **kwargs)
 		# #64 (18.07): load config database if not done already.
@@ -79,6 +164,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		import controlTypes
+
 		if obj.windowClassName == "TTntListView.UnicodeClass":
 			if obj.role == controlTypes.Role.LISTITEM:
 				clsList.insert(0, TrackToolItem)
