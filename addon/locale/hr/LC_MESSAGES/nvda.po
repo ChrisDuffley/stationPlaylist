@@ -15,15 +15,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: Poedit 3.0\n"
-
-#. StationPlaylist add-on requires Windows 10 21H2 or later.
-#. Translators: title of the error dialog shown when trying to install the add-on in unsupported systems.
-#. Unsupported systems include Windows versions earlier than 10 and unsupported feature updates.
-msgid "Unsupported Windows release"
-msgstr "Nepodržano Windows izdanje"
 
 #. Translators: Dialog text shown when trying to install the add-on on
 #. releases earlier than minimum supported release.
@@ -37,6 +31,10 @@ msgstr ""
 "ne podržava.\n"
 "Ovaj dodatak zahtijeva {supportedReleaseName} ({supportedBuild}) ili noviju "
 "verziju."
+
+#. Translators: dialog title shown when trying to install the add-on in unsupported systems.
+msgid "Unsupported Windows release"
+msgstr "Nepodržano Windows izdanje"
 
 #. Translators: announced in SPL Creator and Remote VT
 #. when trying to perform playlist status commands while outside of playlist editor.
@@ -148,11 +146,13 @@ msgstr ""
 "za dodavanje, mijenjanje ili uklanjanje komentara"
 
 #. Translators: The text of the help command in SPL Assistant layer.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
 "C: Announce name of the currently playing track.\n"
 "D: Remaining time for the playlist.\n"
+"Control+D: Control keys toggle (Studio 6.10 and later).\n"
 "E: Overall metadata streaming status.\n"
 "Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder "
 "and four additional URL's.\n"
@@ -213,11 +213,13 @@ msgstr ""
 "F12: Prebaci na trenutnu promjenu profila."
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
 "C: Toggle cart explorer.\n"
 "Shift+C: Announce name of the currently playing track.\n"
+"Control+D: Control keys toggle (Studio 6.10 and later).\n"
 "E: Overall metadata streaming status.\n"
 "Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder "
 "and four additional URL's.\n"
@@ -290,7 +292,6 @@ msgstr "Postavke za SPL Studio …"
 msgid "SPL settings"
 msgstr "Postavke za SPL"
 
-#. Translators: Presented when library scan is complete.
 #, python-brace-format
 msgid "Scan complete with {scanCount} items"
 msgstr "Skeniranje je završeno sa {scanCount} stavki"
@@ -303,8 +304,6 @@ msgstr "Istraživač džinglova je aktivan"
 msgid "Warning: Microphone active"
 msgstr "Upozorenje: Mikrofon je aktivan"
 
-#. Translators: Presented when end of introduction is approaching
-#. (example output: 5 sec left in track introduction).
 #, python-brace-format
 msgid "Warning: {seconds} sec left in track introduction"
 msgstr "Upozorenje: preostaje još {seconds} sekundi u uvodnom dijelu snimke"
@@ -352,8 +351,6 @@ msgstr "Otvara dijaloški okvir dobrodošlice dodataka u programu SPL Studio."
 msgid "Toggles between various braille timer settings."
 msgstr "Prebacuje se između različitih postavki brajeve štoperice."
 
-#. Translators: Standard dialog message when an item one wishes to search is not found
-#. (copy this from main nvda.po).
 msgid "Search string not found."
 msgstr "Znakovni niz pretrage nije pronađen."
 
@@ -448,12 +445,10 @@ msgstr "Početak skeniranja"
 msgid "{itemCount} items in the library"
 msgstr "Broj stavki u biblioteci: {itemCount}"
 
-#. Translators: Presented after library scan is done.
 #, python-brace-format
 msgid "Scan complete with {itemCount} items"
 msgstr "Skeniranje je završeno s {itemCount} stavki"
 
-#. Translators: Presented when library scan is in progress.
 msgid "Scanning"
 msgstr "Skeniranje"
 
@@ -636,6 +631,10 @@ msgstr ""
 "Neuspjelo pronalaženje glavnog prostora programa Studio, nije moguće ući u "
 "SPL Assistant"
 
+#. Translators: message shown when an SPL Assistant layer command cannot be performed.
+msgid "Control keys status announcement requires Studio 6.10 or later"
+msgstr ""
+
 #. Translators: presented when playlist modification message isn't shown.
 msgid "Playlist modification not available"
 msgstr "Promjena u popisu snimaka nije dostupna"
@@ -656,7 +655,6 @@ msgstr "Nije moguće pronaći informacije o sljedećoj snimci"
 msgid "Announces title of the currently playing track"
 msgstr "Najavljuje naslov trenutačne snimke, ako postoji"
 
-#. Translators: Presented when there is no information for the current track.
 msgid "Cannot locate current track information"
 msgstr "Nije moguće pronaći informacije o trenutačnoj snimci"
 
@@ -812,7 +810,6 @@ msgid "active"
 msgstr "aktivni"
 
 #. Translators: A flag indicating the broadcast profile is an instant switch profile.
-#. Instant switch flag is set on another profile, so remove the flag first.
 msgid "instant switch"
 msgstr "trenutno mijenjanje"
 
@@ -896,7 +893,6 @@ msgstr ""
 msgid "Welcome to StationPlaylist add-on"
 msgstr "Dobro došli u StationPlaylist dodatak"
 
-#. Translators: A checkbox to show welcome dialog.
 msgid "Show welcome dialog when I start Studio"
 msgstr ""
 "Prikaži dijaloški okvir dobrodošlice tijekom pokretanja programa Studio"
@@ -988,8 +984,6 @@ msgstr ""
 msgid "Profile delete error"
 msgstr "Greška u brisanju profila"
 
-#. Translators: The confirmation prompt displayed
-#. when the user requests to delete the active broadcast profile.
 msgid ""
 "You are about to delete the currently active profile. Select yes if you wish "
 "to proceed."
@@ -1204,8 +1198,6 @@ msgstr "Broj žanrova"
 msgid "Top genre count (0 displays all genres)"
 msgstr "Top žanrovi (0 prikazuje sve žanrove)"
 
-#. Translators: the label for a setting in SPL add-on settings
-#. to show playlist snapshots window when the snapshots command is pressed once.
 msgid "&Show results window when playlist snapshots command is performed once"
 msgstr ""
 "&Prikaži prozor s rezultatima kad se naredba za statistiku popisa snimaka "
@@ -1340,8 +1332,6 @@ msgstr "Istraživač stupaca za Track Tool"
 msgid "Columns Explorer for SPL Creator"
 msgstr "Istraživač stupaca za SPL Creator"
 
-#. Translators: The label for a setting in SPL add-on settings
-#. to select column for this column slot.
 #, python-brace-format
 msgid "Slot {position}"
 msgstr "Slot {position}"
@@ -1365,8 +1355,6 @@ msgstr "Najavi broj &slušatelja"
 msgid "&Announce name of the currently playing cart"
 msgstr "Najavi ime &džingla koji trenutačno svira"
 
-#. Translators: the label for a setting in SPL add-on settings
-#. to announce player position for the current and next tracks.
 msgid ""
 "Include track player &position when announcing current and next track "
 "information"
@@ -1412,7 +1400,6 @@ msgstr "Zaista želiš vratiti postavke SPL dodatka na standardne vrijednosti?"
 msgid "Warning"
 msgstr "Upozorenje"
 
-#. Translators: A dialog message shown when settings were reset to defaults.
 msgid "Successfully applied default add-on settings."
 msgstr "Uspješno su primijenjene standardne postavke dodatka."
 
@@ -1436,7 +1423,6 @@ msgstr "Resetiraj postavke …"
 msgid "StationPlaylist Add-on Settings"
 msgstr "Postavke StationPlaylist dodatka"
 
-#. Translators: presented when only normal profile is in use.
 msgid "Normal profile is in use, cannot open broadcast profiles dialog."
 msgstr ""
 "Koristi se normalni profil, nije moguće otvoriti dijaloški okvir za profile "
@@ -1468,7 +1454,6 @@ msgstr "&Stupac za pretragu:"
 msgid "Time range finder"
 msgstr "Pretraživanje vremenskog raspona"
 
-#. Translators: the label for a group to specify minimum track duration in time range finder dialog.
 msgid "Minimum duration"
 msgstr "Minimalno trajanje"
 
@@ -1480,7 +1465,6 @@ msgstr "Minuta"
 msgid "Second"
 msgstr "Sekunda"
 
-#. Translators: the label for a group to specify maximum track duration in time range finder dialog.
 msgid "Maximum duration"
 msgstr "Maksimalno trajanje"
 
@@ -1488,8 +1472,6 @@ msgstr "Maksimalno trajanje"
 msgid "Minimum duration is greater than the maximum duration."
 msgstr "Minimalno trajanje je veće od maksimalnog trajanja."
 
-#. Translators: Presented when a track with a duration
-#. between minimum and maximum duration is not found.
 msgid "No track with duration between minimum and maximum duration."
 msgstr "Nema snimke s trajanjem između minimalnog i maksimalnog trajanja."
 
@@ -1586,7 +1568,6 @@ msgstr "spremi u datoteku"
 msgid "Transcript action:"
 msgstr "Radnja za prijepis:"
 
-#. Translators: Message displayed if errors were found in encoder configuration file.
 msgid "Your encoder settings had errors and were reset to defaults."
 msgstr ""
 "Postavke kodera su sadržavale greške i vraćene su na standardne vrijednosti."
@@ -1670,7 +1651,6 @@ msgstr "Prebaci se na Studio nakon povezivanja"
 msgid "Do not switch to Studio after connecting"
 msgstr "Nemoj se prebaciti na Studio nakon povezivanja"
 
-#. Translators: Input help mode message for an encoder settings command.
 msgid ""
 "Toggles whether Studio will play the first song when connected to a "
 "streaming server."
@@ -1709,7 +1689,6 @@ msgstr "Koder {encoderNumber} se neće pratiti"
 msgid "Encoder monitoring canceled"
 msgstr "Prekinuto praćenje kodera"
 
-#. Translators: Input help mode message for an encoder settings command.
 msgid ""
 "Opens a dialog to erase encoder labels and settings from an encoder that was "
 "deleted."
@@ -1724,7 +1703,6 @@ msgstr "Upiši poziciju kodera kojeg želiš izbrisati ili kojeg ćeš izbrisati
 msgid "Encoder label and settings eraser"
 msgstr "Brisač kodera oznaka i postavki"
 
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
 "Shows encoder settings dialog to configure various encoder settings such as "
 "encoder label."
@@ -1732,7 +1710,6 @@ msgstr ""
 "Prikazuje dijaloški okvir postavki kodera za konfiguriranje različitih "
 "postavki kodera, kao što je oznaka kodera."
 
-#. Translators: Text of the dialog when another encoder settings dialog is open.
 msgid "Another encoder settings dialog is open."
 msgstr "Otvoren je jedan drugi dijaloški okvir s postavkama kodera."
 
@@ -1831,7 +1808,6 @@ msgid "SPl Controller layer command. See add-on guide for available commands."
 msgstr ""
 "Naredba sloja SPL Kontrolera. Dostupne naredbe potraži u priručniku dodatka."
 
-#. Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
 msgid ""
 "You are already in SPL Studio window. For status commands, use SPL Assistant "
 "commands."

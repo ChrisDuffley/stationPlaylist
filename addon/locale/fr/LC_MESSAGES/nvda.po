@@ -19,12 +19,6 @@ msgstr ""
 "X-Generator: Poedit 1.8.8\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#. StationPlaylist add-on requires Windows 10 21H2 or later.
-#. Translators: title of the error dialog shown when trying to install the add-on in unsupported systems.
-#. Unsupported systems include Windows versions earlier than 10 and unsupported feature updates.
-msgid "Unsupported Windows release"
-msgstr "Version de Windows non pris en charge"
-
 #. Translators: Dialog text shown when trying to install the add-on on
 #. releases earlier than minimum supported release.
 #, python-brace-format
@@ -37,6 +31,10 @@ msgstr ""
 "charge par cette extension.\n"
 "Cette extension nécessite {supportedReleaseName} ({supportedBuild}) ou "
 "ultérieure."
+
+#. Translators: dialog title shown when trying to install the add-on in unsupported systems.
+msgid "Unsupported Windows release"
+msgstr "Version de Windows non pris en charge"
 
 #. Translators: announced in SPL Creator and Remote VT
 #. when trying to perform playlist status commands while outside of playlist editor.
@@ -148,11 +146,13 @@ msgstr ""
 "le dialogue pour ajouter, modifier ou supprimer les commentaires de piste"
 
 #. Translators: The text of the help command in SPL Assistant layer.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
 "C: Announce name of the currently playing track.\n"
 "D: Remaining time for the playlist.\n"
+"Control+D: Control keys toggle (Studio 6.10 and later).\n"
 "E: Overall metadata streaming status.\n"
 "Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder "
 "and four additional URL's.\n"
@@ -214,11 +214,13 @@ msgstr ""
 "F12 : Basculer vers un changement de profil immédiat."
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
 "C: Toggle cart explorer.\n"
 "Shift+C: Announce name of the currently playing track.\n"
+"Control+D: Control keys toggle (Studio 6.10 and later).\n"
 "E: Overall metadata streaming status.\n"
 "Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder "
 "and four additional URL's.\n"
@@ -292,7 +294,6 @@ msgstr "Paramètres SPL Studio..."
 msgid "SPL settings"
 msgstr "Paramètres SPL"
 
-#. Translators: Presented when library scan is complete.
 #, python-brace-format
 msgid "Scan complete with {scanCount} items"
 msgstr "Balayage complet avec {scanCount} éléments"
@@ -305,8 +306,6 @@ msgstr "L'explorateur de panier est actif"
 msgid "Warning: Microphone active"
 msgstr "Attention : Microphone actif"
 
-#. Translators: Presented when end of introduction is approaching
-#. (example output: 5 sec left in track introduction).
 #, python-brace-format
 msgid "Warning: {seconds} sec left in track introduction"
 msgstr "Attention : {seconds} sec restant dans l'introduction de piste"
@@ -353,8 +352,6 @@ msgstr "Ouvre le dialogue de bienvenue de l'extension Studio SPL."
 msgid "Toggles between various braille timer settings."
 msgstr "Bascule entre les différents paramètres du minuteur braille."
 
-#. Translators: Standard dialog message when an item one wishes to search is not found
-#. (copy this from main nvda.po).
 msgid "Search string not found."
 msgstr "Chaîne recherchée introuvable"
 
@@ -459,12 +456,10 @@ msgstr "Début du balayage"
 msgid "{itemCount} items in the library"
 msgstr "{itemCount} éléments dans la bibliothèque"
 
-#. Translators: Presented after library scan is done.
 #, python-brace-format
 msgid "Scan complete with {itemCount} items"
 msgstr "balayage complet avec {itemCount} éléments"
 
-#. Translators: Presented when library scan is in progress.
 msgid "Scanning"
 msgstr "Balayage en cours"
 
@@ -655,6 +650,10 @@ msgstr ""
 "Impossible de localiser la fenêtre principale de Studio, impossible d'entrer "
 "dans L'Assistant SPL"
 
+#. Translators: message shown when an SPL Assistant layer command cannot be performed.
+msgid "Control keys status announcement requires Studio 6.10 or later"
+msgstr ""
+
 #. Translators: presented when playlist modification message isn't shown.
 msgid "Playlist modification not available"
 msgstr "Modification playlist non disponible"
@@ -675,7 +674,6 @@ msgstr "Impossible de trouver les informations de la piste suivante"
 msgid "Announces title of the currently playing track"
 msgstr "Annonce le titre de la piste en cours de lecture"
 
-#. Translators: Presented when there is no information for the current track.
 msgid "Cannot locate current track information"
 msgstr "Impossible de localiser les informations de la piste actuelle"
 
@@ -832,7 +830,6 @@ msgid "active"
 msgstr "active"
 
 #. Translators: A flag indicating the broadcast profile is an instant switch profile.
-#. Instant switch flag is set on another profile, so remove the flag first.
 msgid "instant switch"
 msgstr "changement immédiat"
 
@@ -916,7 +913,6 @@ msgstr ""
 msgid "Welcome to StationPlaylist add-on"
 msgstr "Bienvenue dans l'extension StationPlaylist"
 
-#. Translators: A checkbox to show welcome dialog.
 msgid "Show welcome dialog when I start Studio"
 msgstr "Afficher  le  dialogue bienvenue lorsque je démarre Studio"
 
@@ -1009,8 +1005,6 @@ msgstr ""
 msgid "Profile delete error"
 msgstr "Échec lors de la suppression de profil"
 
-#. Translators: The confirmation prompt displayed
-#. when the user requests to delete the active broadcast profile.
 msgid ""
 "You are about to delete the currently active profile. Select yes if you wish "
 "to proceed."
@@ -1230,8 +1224,6 @@ msgstr "Nombre de genre"
 msgid "Top genre count (0 displays all genres)"
 msgstr "Le meilleur nombre de genre (0 affiche tous les genres)"
 
-#. Translators: the label for a setting in SPL add-on settings
-#. to show playlist snapshots window when the snapshots command is pressed once.
 msgid "&Show results window when playlist snapshots command is performed once"
 msgstr ""
 "&Afficher la fenêtre des résultats lorsque la commande des instantanés de "
@@ -1363,8 +1355,6 @@ msgstr "Explorateur de Colonnes pour l'Outil de piste"
 msgid "Columns Explorer for SPL Creator"
 msgstr "Explorateur de Colonnes pour SPL Creator"
 
-#. Translators: The label for a setting in SPL add-on settings
-#. to select column for this column slot.
 #, python-brace-format
 msgid "Slot {position}"
 msgstr "Tranche {position}"
@@ -1388,8 +1378,6 @@ msgstr "Annoncer le &nombre d'auditeurs"
 msgid "&Announce name of the currently playing cart"
 msgstr "&Annonce du nom du panier en cours de lecture"
 
-#. Translators: the label for a setting in SPL add-on settings
-#. to announce player position for the current and next tracks.
 msgid ""
 "Include track player &position when announcing current and next track "
 "information"
@@ -1437,7 +1425,6 @@ msgstr ""
 msgid "Warning"
 msgstr "Attention"
 
-#. Translators: A dialog message shown when settings were reset to defaults.
 msgid "Successfully applied default add-on settings."
 msgstr "Paramètres par défaut de l'extension appliqués avec succès."
 
@@ -1462,7 +1449,6 @@ msgstr "Réinitialiser les paramètres..."
 msgid "StationPlaylist Add-on Settings"
 msgstr "Paramètres de l'extension StationPlaylist"
 
-#. Translators: presented when only normal profile is in use.
 msgid "Normal profile is in use, cannot open broadcast profiles dialog."
 msgstr ""
 "Le profil normal est en cours d'utilisation, impossible d'ouvrir le dialogue "
@@ -1496,7 +1482,6 @@ msgstr "C&olonne à Rechercher :"
 msgid "Time range finder"
 msgstr "Recherche de l'intervalle de temps"
 
-#. Translators: the label for a group to specify minimum track duration in time range finder dialog.
 msgid "Minimum duration"
 msgstr "Durée minimale"
 
@@ -1508,7 +1493,6 @@ msgstr "Minute"
 msgid "Second"
 msgstr "Seconde"
 
-#. Translators: the label for a group to specify maximum track duration in time range finder dialog.
 msgid "Maximum duration"
 msgstr "Durée maximale"
 
@@ -1516,8 +1500,6 @@ msgstr "Durée maximale"
 msgid "Minimum duration is greater than the maximum duration."
 msgstr "La durée minimale est supérieure à la durée maximale."
 
-#. Translators: Presented when a track with a duration
-#. between minimum and maximum duration is not found.
 msgid "No track with duration between minimum and maximum duration."
 msgstr "Aucune piste avec la durée entre minimale et maximale."
 
@@ -1611,7 +1593,6 @@ msgstr "enregistrer dans le fichier"
 msgid "Transcript action:"
 msgstr "Action de transcription :"
 
-#. Translators: Message displayed if errors were found in encoder configuration file.
 msgid "Your encoder settings had errors and were reset to defaults."
 msgstr ""
 "Les paramètres de votre encodeur contenaient des erreurs et ont été "
@@ -1696,7 +1677,6 @@ msgstr "Basculer vers Studio après la connexion"
 msgid "Do not switch to Studio after connecting"
 msgstr "Ne pas basculer vers Studio après la connexion"
 
-#. Translators: Input help mode message for an encoder settings command.
 msgid ""
 "Toggles whether Studio will play the first song when connected to a "
 "streaming server."
@@ -1735,7 +1715,6 @@ msgstr "Encodeur {encoderNumber} ne sera pas contrôlé"
 msgid "Encoder monitoring canceled"
 msgstr "Contrôle d'Encodeur annulé"
 
-#. Translators: Input help mode message for an encoder settings command.
 msgid ""
 "Opens a dialog to erase encoder labels and settings from an encoder that was "
 "deleted."
@@ -1753,7 +1732,6 @@ msgstr ""
 msgid "Encoder label and settings eraser"
 msgstr "Effaceur d'étiquette de l'encodeur et de paramètres"
 
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
 "Shows encoder settings dialog to configure various encoder settings such as "
 "encoder label."
@@ -1761,7 +1739,6 @@ msgstr ""
 "Affiche le dialogue de configuration de l'encodeur pour configurer "
 "différents paramètres de l’encodeur comme l'étiquette de l'encodeur."
 
-#. Translators: Text of the dialog when another encoder settings dialog is open.
 msgid "Another encoder settings dialog is open."
 msgstr "Un autre dialogue de paramètres de l'encodeur est ouvert."
 
@@ -1862,7 +1839,6 @@ msgstr ""
 "Commande couche Contrôleur SPl. Consultez la documentation de l'extension "
 "pour les commandes disponibles."
 
-#. Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
 msgid ""
 "You are already in SPL Studio window. For status commands, use SPL Assistant "
 "commands."
