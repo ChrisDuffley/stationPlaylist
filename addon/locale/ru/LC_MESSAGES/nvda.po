@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 24.03\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2024-07-31 18:07+0300\n"
-"PO-Revision-Date: 2024-09-26 23:50+0300\n"
+"PO-Revision-Date: 2024-12-27 23:11+0300\n"
 "Last-Translator: Ruslan Kolodyazhni <rupelodn@gmail.com>\n"
 "Language-Team: Translators <nvda-translations@groups.io>\n"
 "Language: ru_RU\n"
@@ -147,7 +147,6 @@ msgstr ""
 "изменения или удаления комментариев дорожки"
 
 #. Translators: The text of the help command in SPL Assistant layer.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -185,6 +184,7 @@ msgstr ""
 "A: Автоматизация.\n"
 "C: Объявить название воспроизводимой в данный момент дорожки.\n"
 "D: Оставшееся время списка воспроизведения.\n"
+"Control+d: Переключение клавиш управления (Studio 6.10 и позднее).\n"
 "E: Общее состояние потоковой передачи метаданных.\n"
 "От Shift+1 до shift+4, shift+0: Состояние потоковой передачи метаданных для "
 "кодировщика DSP и четырех дополнительных URL.\n"
@@ -215,7 +215,6 @@ msgstr ""
 "F12: Переключиться на профиль мгновенного переключения."
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -255,6 +254,7 @@ msgstr ""
 "A: Автоматизация.\n"
 "C: Переключить обозреватель корзин.\n"
 "Shift+C: Объявить название воспроизводимой в данный момент дорожки.\n"
+"Control+d: Переключение клавиш управления (Studio 6.10 и позднее).\n"
 "E: Общее состояние потоковой передачи метаданных.\n"
 "От Shift+1 до shift+4, shift+0: Состояние потоковой передачи метаданных для "
 "кодировщика DSP и четырех дополнительных URL.\n"
@@ -644,6 +644,7 @@ msgstr "Не удалось найти главное окно Studio, не уд
 #. Translators: message shown when an SPL Assistant layer command cannot be performed.
 msgid "Control keys status announcement requires Studio 6.10 or later"
 msgstr ""
+"Для объявления состояния клавиш управления требуется Studio 6.10 или позднее"
 
 #. Translators: presented when playlist modification message isn't shown.
 msgid "Playlist modification not available"

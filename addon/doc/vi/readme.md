@@ -3,8 +3,6 @@
 * Authors: Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee
   <joseph.lee22590@gmail.com>, originally by Geoff Shang and other
   contributors)
-* Tải về [phiên bản chính thức][1]
-* NVDA compatibility: 2023.3.3 and later
 
 Gói add-on này cung cấp sự cải thiện cho việc sử dụng StationPlaylist Studio
 và các ứng dụng StationPlaylist khác, cũng như cung cấp các tiện ích để điều
@@ -171,6 +169,7 @@ The available commands are (most commands support speak on demand):
 * D (R trong kiểu phím lệnh của JAWS): thời lượng còn lại của danh sách phát
   (nếu có thông báo lỗi, di chuyển đến trình xem danh sách phát và thực hiện
   lệnh này).
+* Control+D (Studio 6.10 and later): Control keys enabled/disabled.
 * E: trạng thái truyền siêu dữ liệu.
 * Shift+1 đến Shift+4, Shift+0: trạng thái của URL truyền siêu dữ liệu cụ
   thể (0 cho DSP encoder).
@@ -330,6 +329,18 @@ If you are using Studio on a touchscreen computer with NVDA installed, you
 can perform some Studio commands from the touchscreen. First use three
 finger tap to switch to SPL mode, then use the touch commands listed above
 to perform commands.
+
+## Version 25.01
+
+* 64-bit Windows 10 21H2 (build 19044) or later is required.
+* Download links for add-on releases are no longer included in add-on
+  documentation. You can download the add-on from NV Access add-on store.
+* Switched linting tool from Flake8 to Ruff and reformatted add-on modules
+  to better align with NVDA coding standards.
+* Removed support for automatic add-on updates feature from Add-on Updater
+  add-on.
+* In Studio 6.10 and later, added a new command in SPL Assistant to announce
+  control keys enabled/disabled status (Control+D).
 
 ## Version 24.03
 

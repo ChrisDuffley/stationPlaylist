@@ -5,230 +5,413 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: stationPlaylist 3.0\n"
-"Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
-"POT-Creation-Date: 2014-09-26 19:00+1000\n"
-"PO-Revision-Date: 2015-02-21 11:44+0200\n"
-"Last-Translator: Çağrı Doğan <cagrid@hotmail.com>\n"
-"Language-Team: TR <cagrid@hotmail.com>\n"
-"Language: tr\n"
+"Project-Id-Version: stationPlaylist\n"
+"Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2024-12-29 01:41+0300\n"
+"Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
+"Language-Team: Umut KORKMAZ <umutkork@gmail.com>\n"
+"Language: tr_TR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.4\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.5\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#. Translators: Standard dialog message when Studio configuration has problems.
+#. Translators: Dialog text shown when trying to install the add-on on
+#. releases earlier than minimum supported release.
+#, python-brace-format
 msgid ""
-"Your Studio add-on configuration has errors and was reset to factory "
-"defaults."
+"You are using {releaseName} ({build}), a Windows release not supported by "
+"this add-on.\n"
+"This add-on requires {supportedReleaseName} ({supportedBuild}) or later."
 msgstr ""
-"Studio eklentinizde yapılandırma hataları vardı ve fabrika ayarlarına "
-"sıfırlandı."
+"Bu eklenti tarafından desteklenmeyen bir Windows sürümü olan {releaseName} "
+"({build}) kullanıyorsunuz.\n"
+"Bu eklenti, {supportedReleaseName} ({supportedBuild}) veya sonraki bir "
+"sürümünü gerektirir."
 
-#. Translators: Standard error title for configuration error.
-msgid "Studio add-on Configuration error"
-msgstr "Stüdyo eklentisi Yapılandırma hatası"
+#. Translators: dialog title shown when trying to install the add-on in unsupported systems.
+msgid "Unsupported Windows release"
+msgstr "Desteklenmeyen Windows sürümü"
 
-#. Translators: Script category for Station Playlist commands in input gestures dialog.
+#. Translators: announced in SPL Creator and Remote VT
+#. when trying to perform playlist status commands while outside of playlist editor.
+msgid "You are not in playlist editor"
+msgstr "Çalma listesi düzenleyicisinde değilsiniz"
+
+#. Translators: Presented when microphone has been active for a while.
+msgid "Microphone active"
+msgstr "Mikrofon etkin"
+
+#. Translators: input help mode message for column explorer commands.
+msgid ""
+"Pressing once announces data for a track column, pressing twice will present "
+"column data in a browse mode window"
+msgstr ""
+"Bir kez basıldığında parça sütununun verileri duyurulur, iki kez "
+"basıldığında sütun verileri göz atma modu penceresinde görüntülenir"
+
+#. Translators: Script category for StationPlaylist add-on commands in input gestures dialog.
+#. Translators: Script category for StationPlaylist commands in input gestures dialog.
 #. Add-on summary, usually the user visible name of the addon.
-#. Translators: Summary for this add-on to be shown on installation and add-on information.
-msgid "Station Playlist Studio"
-msgstr "Station Playlist Studio"
+#. Translators: Summary for this add-on
+#. to be shown on installation and add-on information found in Add-ons Manager.
+msgid "StationPlaylist"
+msgstr "Station Playlist"
 
-#. Translators: Presented when cart edit mode is toggled on while cart explorer is on.
+#. Translators: Presented when column is out of range.
+#, python-brace-format
+msgid "Column {columnPosition} not found"
+msgstr "{columnPosition} sütunu bulunamadı"
+
+#. Translators: Presented when a specific column header is not found.
+#, python-brace-format
+msgid "{headerText} not found"
+msgstr "{headerText} bulunamadı"
+
+#. Translators: Standard message for announcing column content.
+#, python-brace-format
+msgid "{header}: {content}"
+msgstr "{header}: {content}"
+
+#. Translators: Spoken when column content is blank.
+#, python-brace-format
+msgid "{header}: blank"
+msgstr "{header}: boş"
+
+#. Translators: Brailled to indicate empty column content.
+#, python-brace-format
+msgid "{header}: ()"
+msgstr "{header}: ()"
+
+#. Translators: presented when column information for a track is empty.
+msgid "blank"
+msgstr "boş"
+
+#. Translators: Title of the column data window.
+msgid "Track data"
+msgstr "Parça verisi"
+
+#. Translators: input help mode message for columns viewer command.
+msgid "Presents data for all columns in the currently selected track"
+msgstr "Seçili olan parçadaki tüm sütunlar için veri sunar"
+
+#. Translators: location text for a playlist item (example: item 1 of 10).
+#, python-brace-format
+msgid "Item {current} of {total}"
+msgstr "{total} öğesinden {current} öğesi"
+
+#. Translators: Input help message for screen column order toggle command in SPL Studio.
+msgid ""
+"Toggles track column announcement order between screen layout and custom "
+"order"
+msgstr ""
+"Ekran düzeni ile özel düzen arasında parça sütunu duyuru sırasını değiştirir"
+
+#. Translators: presented when NVDA will present track columns in screen order.
+msgid "Use screen order when announcing track columns"
+msgstr "Parça sütunlarını duyururken ekran sırasını kullan"
+
+#. Translators: presented when NVDA will present track columns in custom order set by a user.
+msgid "Use custom order when announcing track columns"
+msgstr "Parça sütunlarını duyururken özel sırayı kullan"
+
+#. Translators: Presented when track comment has been copied to clipboard.
+msgid "Track comment copied to clipboard"
+msgstr "Parça yorumu panoya kopyalandı"
+
+#. Translators: Presented when there is no track comment for the focused track.
+msgid "No comment"
+msgstr "Yorum yok"
+
+#. Translators: Presented when focused on a track other than an actual track (such as hour marker).
+msgid "Comments cannot be added to this kind of track"
+msgstr "Bu tür parçaya yorum eklenemez"
+
+#. Translators: The title of the track comments dialog.
+msgid "Track comment"
+msgstr "Parça yorumu"
+
+#. Translators: Input help message for track comment announcemnet command in SPL Studio.
+msgid ""
+"Announces track comment if any. Press twice to copy this information to the "
+"clipboard, and press three times to open a dialog to add, change or remove "
+"track comments"
+msgstr ""
+"Varsa parça yorumunu duyurur. Bu bilgiyi panoya kopyalamak için iki kez "
+"basın. Parça yorumlarını eklemek, değiştirmek veya kaldırmak üzere bir "
+"iletişim kutusu açmak için üç kez basın"
+
+#. Translators: The text of the help command in SPL Assistant layer.
+msgid ""
+"After entering SPL Assistant, press:\n"
+"A: Automation.\n"
+"C: Announce name of the currently playing track.\n"
+"D: Remaining time for the playlist.\n"
+"Control+D: Control keys toggle (Studio 6.10 and later).\n"
+"E: Overall metadata streaming status.\n"
+"Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder "
+"and four additional URL's.\n"
+"H: Duration of trakcs in this hour slot.\n"
+"Shift+H: Duration of remaining trakcs in this hour slot.\n"
+"I: Listener count.\n"
+"K: Move to place marker track.\n"
+"Control+K: Set place marker track.\n"
+"L: Line-in status.\n"
+"M: Microphone status.\n"
+"N: Next track.\n"
+"P: Playback status.\n"
+"Shift+P: Pitch for the current track.\n"
+"R: Record to file.\n"
+"Shift+R: Monitor library scan.\n"
+"S: Scheduled time for the track.\n"
+"Shift+S: Time until the selected track will play.\n"
+"T: Cart edit/insert mode.\n"
+"U: Studio up time.\n"
+"W: Weather and temperature.\n"
+"Y: Playlist modification.\n"
+"F8: Take playlist snapshots such as track count, longest track and so on.\n"
+"Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
+"F9: Mark current track as start of track time analysis.\n"
+"F10: Perform track time analysis.\n"
+"F12: Switch to an instant switch profile."
+msgstr ""
+"SPL Yardımcısı'na girdikten sonra aşağıdakilere basın:\n"
+"A: Otomasyon.\n"
+"C: Şu anda çalmakta olan parçanın adını duyurur.\n"
+"D: Oynatma listesi için kalan süre.\n"
+"E: Genel metaveri akış durumu.\n"
+"Shift+1'den shift+4'e, shift+0: DSP kodlayıcı ve dört ek URL için meta veri "
+"akış durumu.\n"
+"H: Bu saat dilimindeki trafiklerin süresi.\n"
+"Shift+H: Bu saat aralığında kalan trafiklerin süresi.\n"
+"I: Dinleyici sayısı\n"
+"K: Parçadaki Yerimine taşı.\n"
+"Control+K: Parça yerimini ayarla.\n"
+"L: Giriş durumu.\n"
+"M: Microfon durumu.\n"
+"N: Sonraki Parça.\n"
+"P: Oynatma durumu.\n"
+"Shift+P: Geçerli parça için perde.\n"
+"R: Dosyaya kaydet.\n"
+"Shift+R: Kitaplık taramasını izle.\n"
+"S: Parça için planlanan zaman.\n"
+"Shift+S: Seçilen parça oynatılana kadar geçecek süre.\n"
+"T: Sepet düzenleme/ekleme modu.\n"
+"U: Stüdyo çalışma zamanı.\n"
+"W: Hava ve sıcaklık.\n"
+"Y: Oynatma listesi değişikliği.\n"
+"F8: Parça sayısı, en uzun parça ve benzeri gibi çalma listesi anlık "
+"görüntülerini alır.\n"
+"Shift+F8: Çeşitli formatlarda çalma listesi transkriptleri edinin.\n"
+"F9: Geçerli parçayı izleme süresi analizinin başlangıcı olarak işaretler.\n"
+"F10: Parça süresi analizi gerçekleştirir.\n"
+"F12: Anında geçiş profiline geçer."
+
+#. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
+msgid ""
+"After entering SPL Assistant, press:\n"
+"A: Automation.\n"
+"C: Toggle cart explorer.\n"
+"Shift+C: Announce name of the currently playing track.\n"
+"Control+D: Control keys toggle (Studio 6.10 and later).\n"
+"E: Overall metadata streaming status.\n"
+"Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder "
+"and four additional URL's.\n"
+"Shift+E: Record to file.\n"
+"F: Track finder.\n"
+"H: Duration of trakcs in this hour slot.\n"
+"Shift+H: Duration of remaining trakcs in this hour slot.\n"
+"K: Move to place marker track.\n"
+"Control+K: Set place marker track.\n"
+"L: Listener count.\n"
+"Shift+L: Line-in status.\n"
+"M: Microphone status.\n"
+"N: Next track.\n"
+"P: Playback status.\n"
+"Shift+P: Pitch for the current track.\n"
+"R: Remaining time for the playlist.\n"
+"Shift+R: Monitor library scan.\n"
+"S: Scheduled time for the track.\n"
+"Shift+S: Time until the selected track will play.\n"
+"T: Cart edit/insert mode.\n"
+"U: Studio up time.\n"
+"W: Weather and temperature.\n"
+"Y: Playlist modification.\n"
+"F8: Take playlist snapshots such as track count, longest track and so on.\n"
+"Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
+"F9: Mark current track as start of track time analysis.\n"
+"F10: Perform track time analysis.\n"
+"F12: Switch to an instant switch profile."
+msgstr ""
+"SPL Yardımcısı'na girdikten sonra aşağıdakilere basın:\n"
+"A: Otomasyon.\n"
+"C: Şu anda çalmakta olan parçanın adını duyurur.\n"
+"D: Oynatma listesi için kalan süre.\n"
+"E: Genel metaveri akış durumu.\n"
+"Shift+1'den shift+4'e, shift+0: DSP kodlayıcı ve dört ek URL için meta veri "
+"akış durumu.\n"
+"H: Bu saat dilimindeki trafiklerin süresi.\n"
+"Shift+H: Bu saat aralığında kalan trafiklerin süresi.\n"
+"I: Dinleyici sayısı\n"
+"K: Parçadaki Yerimine taşı.\n"
+"Control+K: Parça yerimini ayarla.\n"
+"L: Giriş durumu.\n"
+"M: Microfon durumu.\n"
+"N: Sonraki Parça.\n"
+"P: Oynatma durumu.\n"
+"Shift+P: Geçerli parça için perde.\n"
+"R: Dosyaya kaydet.\n"
+"Shift+R: Kitaplık taramasını izle.\n"
+"S: Parça için planlanan zaman.\n"
+"Shift+S: Seçilen parça oynatılana kadar geçecek süre.\n"
+"T: Sepet düzenleme/ekleme modu.\n"
+"U: Stüdyo çalışma zamanı.\n"
+"W: Hava ve sıcaklık.\n"
+"Y: Oynatma listesi değişikliği.\n"
+"F8: Parça sayısı, en uzun parça ve benzeri gibi çalma listesi anlık "
+"görüntülerini alır.\n"
+"Shift+F8: Çeşitli formatlarda çalma listesi transkriptleri edinin.\n"
+"F9: Geçerli parçayı izleme süresi analizinin başlangıcı olarak işaretler.\n"
+"F10: Parça süresi analizi gerçekleştirir.\n"
+"F12: Anında geçiş profiline geçer."
+
+#. Translators: the label for a menu item in NVDA Preferences menu
+#. to open SPL Studio add-on settings.
+msgid "SPL Studio Settings..."
+msgstr "SPL Stüdyo Ayarları..."
+
+#. Translators: tooltip for SPL Studio settings dialog.
+msgid "SPL settings"
+msgstr "SPL ayarları"
+
+#, python-brace-format
+msgid "Scan complete with {scanCount} items"
+msgstr "{scanCount} öğeyle tarama tamamlandı"
+
+#. Translators: Presented when cart modes are toggled while cart explorer is on.
 msgid "Cart explorer is active"
 msgstr "Sepet gezgini etkin"
 
-#. Translators: Presented when cart edit mode is toggled off while cart explorer is on.
-msgid "Please reenter cart explorer to view updated cart assignments"
-msgstr ""
-"Güncellenmiş sepet atamalarını görmek için sepet kaşifini yeniden açın."
-
-#. Translators: Presented in braille when microphone was on for more than a specified time in microphone alarm dialog.
+#. Translators: Presented when microphone was on for more than a specified time in microphone alarm dialog.
 msgid "Warning: Microphone active"
 msgstr "Uyarı: Mikrofon etkin"
 
-#. Translators: Presented when remaining time is unavailable.
-msgid "Remaining time not available"
-msgstr "Kalan süre bilgisi yok"
+#, python-brace-format
+msgid "Warning: {seconds} sec left in track introduction"
+msgstr "Uyarı: Parça tanıtımında {seconds} saniye kaldı"
 
-#. Translators: Presented when elapsed time is unavailable.
-msgid "Elapsed time not available"
-msgstr "geçen süre bilgisi yok"
+#. Translators: Presented when end of track is approaching.
+#, python-brace-format
+msgid "Warning: {seconds} sec remaining"
+msgstr "Uyarı: {seconds} saniye kaldı"
 
-#. Translators: Presented when broadcaster time is unavailable.
-msgid "Broadcaster time not available"
-msgstr "Yayıncı süre bilgisi yok"
+#. Add the human-readable representation also.
+#. Translators: the label for a dedicated touch mode for SPL Studio.
+msgid "SPL mode"
+msgstr "SPL modu"
 
-#. Translators: Presented when time information is unavailable.
-msgid "Cannot obtain time in hours, minutes and seconds"
-msgstr "Zaman bilgisi saat, dakika ve saniye olarak alınamıyor"
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid ""
+"Announces broadcaster time. If pressed twice, reports minutes and seconds "
+"left to top of the hour."
+msgstr ""
+"Yayıncı saatini duyurur. İki kez basıldığında saatin başına kalan dakika ve "
+"saniyeleri bildirir."
 
-#. Translators: Presented when trying to use an add-on command in an unsupported version of StationPlaylist Studio.
-msgid "This version of Studio is no longer supported"
-msgstr "Studio'nun bu sürümü artık desteklenmiyor"
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Announces the remaining track time."
-msgstr "Parça kalan süresini söyler."
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Announces the elapsed time for the currently playing track."
-msgstr "Parça geçen süresini söyler."
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Announces broadcaster time."
-msgstr "Yayıncı süre bilgisini söyler."
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces time including seconds."
-msgstr "süreyi saniyeyle birlikte söyler."
+msgstr "Süreyi saniyeyle birlikte duyurur."
 
-#. Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
-#, python-brace-format
-msgid "Enter end of track alarm time in seconds (currently {curAlarmSec})"
-msgstr ""
-"Parça sonu alarm zamanını saniye cinsinden girin. (Şu anda {curAlarmSec})"
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid "Opens SPL Studio alarms settings."
+msgstr "SPL Studio alarm ayarlarını açar."
 
-#. Translators: The title of end of track alarm dialog.
-msgid "End of track alarm"
-msgstr "Parça sonu alarmı"
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid "Opens SPL Studio add-on configuration dialog."
+msgstr "SPL Studio eklenti yapılandırma iletişim kutusunu açar."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "sets end of track alarm (default is 5 seconds)."
-msgstr "Parça sonu alarmını varsayılan olarak 5 saniye olarak ayarlar."
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid "Opens SPL add-on broadcast profiles dialog."
+msgstr "SPL eklenti yayın profilleri iletişim kutusunu açar."
 
-#. Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
-#, python-brace-format
-msgid "Enter song intro alarm time in seconds (currently {curRampSec})"
-msgstr ""
-"Parça introsu alarm zamanını saniye cinsinden girin. (Şu anda {curRampSec})"
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid "Opens SPL Studio add-on welcome dialog."
+msgstr "SPL Studio eklentisine hoş geldiniz iletişim kutusunu açar."
 
-#. Translators: The title of song intro alarm dialog.
-msgid "Song intro alarm"
-msgstr "Şarkı intro alarmı"
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "sets song intro alarm (default is 5 seconds)."
-msgstr "Parça introsu alarmını ayarlar, varsayılan olarak 5 saniyedir."
-
-#. Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
-#, python-brace-format
-msgid ""
-"Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables "
-"the alarm)"
-msgstr ""
-"mikrofon alarm saatini saniye cinsinden girin (Şu anda {curAlarmSec}, 0 "
-"alarmı kapatır)"
-
-#. Translators: A dialog message when microphone alarm is disabled (set to 0).
-msgid ""
-"Enter microphone alarm time in seconds (currently disabled, 0 disables the "
-"alarm)"
-msgstr ""
-"mikrofon alarmını saniye cinsinden girin (şu anda kapalı, 0 alarmı kapatır)"
-
-#. Translators: The title of mic alarm dialog.
-msgid "Microphone alarm"
-msgstr "Mikrofon alarmı"
-
-#. Translators: The error message presented when incorrect alarm time value has been entered.
-msgid "Incorrect value entered."
-msgstr "Yanlış değer girildi."
-
-#. Translators: Standard title for error dialog (copy this from main nvda.po file).
-msgid "Error"
-msgstr "Hata"
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Sets microphone alarm (default is 5 seconds)."
-msgstr "mikrofon alarmını ayarlar (varsayılan 5 saniyedir)."
-
-#. Translators: Reported when toggle announcement is set to beeps in SPL Studio.
-msgid "Toggle announcement beeps"
-msgstr "Duyuru tipi bipler"
-
-#. Translators: Reported when toggle announcement is set to words in SPL Studio.
-msgid "Toggle announcement words"
-msgstr "Duyuru tipi sözcükler"
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Toggles option change announcements between words and beeps."
-msgstr "Duyuru tipini sözcükler ve bipler arasında değiştirir"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille timer off"
-msgstr "Braille zamanlayıcı kapalı"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille track endings"
-msgstr "Braille parça sonları"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille intro endings"
-msgstr "Braille intro sonları"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille intro and track endings"
-msgstr "Braille intro ve parça sonları"
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Toggles between various braille timer settings."
 msgstr "Çeşitli Braille zamanlayıcı ayarları arasında geçiş yapar."
 
-#. Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
 msgid "Search string not found."
 msgstr "Aranan ifade bulunamadı."
-
-#. Translators: Standard error title for find error (copy this from main nvda.po).
-msgid "Find error"
-msgstr "Arama hatası"
 
 #. Translators: Presented when a user attempts to find tracks but is not at the track list.
 msgid "Track finder is available only in track list."
 msgstr "Parça bulucu yalnızca parça listesinde geçerlidir."
 
+#. Translators: Presented when a user attempts to find tracks but is not at the track list.
+msgid "Column search is available only in track list."
+msgstr "Sütun araması yalnızca parça listesinde kullanılabilir."
+
+#. Translators: Presented when a user attempts to find tracks but is not at the track list.
+msgid "Time range finder is available only in track list."
+msgstr "Zaman aralığı bulucu yalnızca parça listesinde mevcuttur."
+
 #. Translators: Presented when a user wishes to find a track but didn't add any tracks.
 msgid "You need to add at least one track to find tracks."
 msgstr "Parça bulmak için en az bir parça eklemiş olmalısınız."
 
-#. Translators: The text of the dialog for finding tracks.
-msgid "Enter the name of the track you wish to search."
-msgstr "Aramak istediğiniz parçanın adını girin."
-
-#. Translators: The title of the find tracks dialog.
+#. Translators: Title for track finder dialog.
 msgid "Find track"
 msgstr "Parça bul"
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Title for column search dialog.
+msgid "Column search"
+msgstr "Sütun ara"
+
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Finds a track in the track list."
 msgstr "Parça listesinde bir parça arar."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid "Finds text in columns."
+msgstr "Sütunlardaki metni bulur."
+
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Finds the next occurrence of the track with the name in the track list."
 msgstr "Parça listesindeki adı ile parçanın bir sonraki geçtiği yeri bulur."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Finds previous occurrence of the track with the name in the track list."
 msgstr "Parça listesindeki adı ile parçanın bir önceki geçtiği yeri bulur."
 
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid "Locates track with duration within a time range"
+msgstr "Belirli zaman aralığında süresi olan parçayı bulur"
+
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid "Toggles cart explorer to learn cart assignments."
+msgstr "Sepet atamalarını öğrenmek için sepet gezginini kapatıp açar."
+
+#. Translators: Presented when cart explorer cannot be entered.
+msgid "You are not in playlist viewer, cannot enter cart explorer"
+msgstr ""
+"Çalma listesi görüntüleyicisinde değilsiniz, sepet kaşifine girilemiyor"
+
 #. Translators: presented when cart explorer could not be switched on.
 msgid "Some or all carts could not be assigned, cannot enter cart explorer"
-msgstr "Bazı ya da tüm sepetler atanamadı, sepet kaşifine girilemiyor."
+msgstr "Sepetlerin bazıları veya tümü atanamadı, sepet gezginine girilemiyor"
 
 #. Translators: Presented when cart explorer is on.
 msgid "Entering cart explorer"
-msgstr "Sepet kaşifi açılıyor"
+msgstr "Sepet gezgini açılıyor"
 
 #. Translators: Presented when cart explorer is off.
 msgid "Exiting cart explorer"
-msgstr "Sepet kaşifi kapanıyor"
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Toggles cart explorer to learn cart assignments."
-msgstr "Sepet atamalarını öğrenmek için sepet kaşifini kapatıp açar."
+msgstr "Sepet gezgini kapanıyor"
 
 #. Translators: Presented when cart command is unavailable.
 msgid "Cart command unavailable"
@@ -238,23 +421,7 @@ msgstr "Sepet komutu mevcut değil"
 msgid "Cart unassigned"
 msgstr "Sepet atanmamış"
 
-#. Translators: A setting in library scan announcement options.
-msgid "Do not announce library scans"
-msgstr "Kütüphane taramaları duyurulmaz"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Announce start and end of a library scan"
-msgstr "kütüphane tarama başlangıç ve bitişi duyurulur"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Announce the progress of a library scan"
-msgstr "kütüphane tarama ilerlemesi duyurulur"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Announce progress and item count of a library scan"
-msgstr "kütüphane tarama ilerleme ve madde sayısı duyurulur"
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Toggles library scan progress settings."
 msgstr "Kütüphane tarama ilerleme ayarlarını değiştirir."
 
@@ -267,21 +434,183 @@ msgstr "Tarama başladı"
 msgid "{itemCount} items in the library"
 msgstr "{itemCount} kütüphanedeki ögeler"
 
-#. Translators: Presented when library scan is in progress.
-msgid "Scanning"
-msgstr "Taranıyor"
-
-#. Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
-#, python-brace-format
-msgid "{itemCount} items scanned"
-msgstr "{itemCount} taranan öge"
-
-#. Translators: Presented after library scan is done.
 #, python-brace-format
 msgid "Scan complete with {itemCount} items"
 msgstr "Tarama tamamlandı {itemCount} ögeyle"
 
-#. Translators: Input help mode message for a layer command in Station Playlist Studio.
+msgid "Scanning"
+msgstr "Taranıyor"
+
+#. Translators: Presented when library scan is in progress.
+#, python-brace-format
+msgid "{itemCount} items scanned"
+msgstr "{itemCount} taranan öge"
+
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid "Opens a dialog to quickly enable or disable metadata streaming."
+msgstr ""
+"Meta veri akışını hızla etkinleştirmek veya devre dışı bırakmak için bir "
+"iletişim kutusu açar."
+
+#. Translators: Presented when streaming dialog cannot be shown.
+msgid "Cannot open metadata streaming dialog"
+msgstr "Meta veri akışı iletişim kutusu açılamıyor"
+
+#. Translators: an error message presented when performing some playlist commands
+#. while focused on places other than Playlist Viewer.
+msgid "Please return to playlist viewer before invoking this command."
+msgstr "Bu komutu çağırmadan önce lütfen çalma listesi görüntüleyiciye dönün."
+
+#. Translators: an error message presented when performing some playlist commands
+#. while no playlist has been loaded.
+msgid "No playlist has been loaded."
+msgstr "Hiçbir çalma listesi yüklenmedi."
+
+#. Translators: an error message presented when performing some playlist commands
+#. while no tracks are selected/focused.
+msgid ""
+"Please select a track from playlist viewer before invoking this command."
+msgstr ""
+"Lütfen bu komutu çalıştırmadan önce çalma listesi görüntüleyicisinden bir "
+"parça seçin."
+
+#. Translators: Presented when playlist analyzer cannot be performed
+#. because user is not focused on playlist viewer.
+msgid "Not in playlist viewer, cannot perform playlist analysis."
+msgstr ""
+"Çalma listesi görüntüleyicide değil, çalma listesi analizi "
+"gerçekleştirilemiyor."
+
+#. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
+msgid "No playlist to analyze."
+msgstr "Analiz edilecek çalma listesi yok."
+
+#. Translators: Presented when playlist analysis cannot be activated.
+msgid "No tracks are selected, cannot perform playlist analysis."
+msgstr "Hiçbir parça seçili değil, çalma listesi analizi gerçekleştirilemiyor."
+
+#. Translators: one of the results for playlist snapshots feature
+#. for announcing total number of items in a playlist.
+#, python-brace-format
+msgid "Items: {playlistItemCount}"
+msgstr "Öğeler: {playlistItemCount}"
+
+#. Translators: one of the results for playlist snapshots feature
+#. for announcing total number of tracks in a playlist.
+#, python-brace-format
+msgid "Tracks: {playlistTrackCount}"
+msgstr "Parçalar: {playlistTrackCount}"
+
+#. Translators: one of the results for playlist snapshots feature
+#. for announcing total duration of a playlist.
+#, python-brace-format
+msgid "Duration: {playlistTotalDuration}"
+msgstr "Süre: {playlistTotalDuration}"
+
+#. Translators: one of the results for playlist snapshots feature
+#. for announcing shortest track name and duration of a playlist.
+#, python-brace-format
+msgid "Shortest: {playlistShortestTrack}"
+msgstr "En kısa: {playlistShortestTrack}"
+
+#. Translators: one of the results for playlist snapshots feature
+#. for announcing longest track name and duration of a playlist.
+#, python-brace-format
+msgid "Longest: {playlistLongestTrack}"
+msgstr "En uzun: {playlistLongestTrack}"
+
+#. Translators: one of the results for playlist snapshots feature
+#. for announcing average duration for tracks in a playlist.
+#, python-brace-format
+msgid "Average: {playlistAverageDuration}"
+msgstr "Ortalama: {playlistAverageDuration}"
+
+#. Translators: one of the results for playlist snapshots feature
+#. for announcing top artist in a playlist.
+msgid "Top artist: {} ({})"
+msgstr "En iyi sanatçı: {} ({})"
+
+#. Translators: one of the results for playlist snapshots feature
+#. when there is no top artist.
+msgid "Top artist: none"
+msgstr "En iyi sanatçı: yok"
+
+#. Translators: one of the results for playlist snapshots feature
+#. when there is no top artist (formatted for browse mode).
+msgid "Top artists: none"
+msgstr "En iyi sanatçılar: yok"
+
+#. Translators: one of the results for playlist snapshots feature,
+#. a heading for a group of items.
+msgid "Top artists:"
+msgstr "En iyi sanatçılar:"
+
+#. Translators: one of the results for playlist snapshots feature
+#. when there is no artist information.
+#, python-brace-format
+msgid "No artist information ({artistCount})"
+msgstr "Sanatçı bilgisi yok ({artistCount})"
+
+#. Translators: one of the results for playlist snapshots feature
+#. for artist count information.
+#, python-brace-format
+msgid "{artistName} ({artistCount})"
+msgstr "{artistName} ({artistCount})"
+
+#. Translators: one of the results for playlist snapshots feature
+#. for announcing top track category in a playlist.
+msgid "Top category: {} ({})"
+msgstr "Üst kategori: {} ({})"
+
+#. Translators: one of the results for playlist snapshots feature,
+#. a heading for a group of items.
+msgid "Categories:"
+msgstr "Kategoriler:"
+
+#. Translators: one of the results for playlist snapshots feature
+#. for category count information.
+#, python-brace-format
+msgid "{categoryName} ({categoryCount})"
+msgstr "{categoryName} ({categoryCount})"
+
+#. Translators: one of the results for playlist snapshots feature
+#. for announcing top genre in a playlist.
+msgid "Top genre: {} ({})"
+msgstr "En popüler tür: {} ({})"
+
+#. Translators: one of the results for playlist snapshots feature
+#. when there is no top genre.
+msgid "Top genre: none"
+msgstr "En popüler tür: yok"
+
+#. Translators: one of the results for playlist snapshots feature
+#. when there is no top genre (formatted for browse mode).
+msgid "Top genres: none"
+msgstr "En popüler türler: yok"
+
+#. Translators: one of the results for playlist snapshots feature,
+#. a heading for a group of items.
+msgid "Top genres:"
+msgstr "En iyi türler:"
+
+#. Translators: one of the results for playlist snapshots feature
+#. when there is no genre information for an item.
+#, python-brace-format
+msgid "No genre information ({genreCount})"
+msgstr "Tür bilgisi yok ({genreCount})"
+
+#. Translators: one of the results for playlist snapshots feature
+#. for genre count information.
+#, python-brace-format
+msgid "{genreName} ({genreCount})"
+msgstr "{genreName} ({genreCount})"
+
+#. Translators: The title of a window for displaying playlist snapshots information.
+#. Translators: title of a panel to configure playlist snapshot information.
+msgid "Playlist snapshots"
+msgstr "Çalma listesi anlık görüntüleri"
+
+#. Translators: Input help mode message for a layer command in StationPlaylist add-on.
 msgid ""
 "The SPL Assistant layer command. See the add-on guide for more information "
 "on available commands."
@@ -289,25 +618,56 @@ msgstr ""
 "SPL Yardımcısı katmanlı komutları. Kullanılabilecek komutlar hakkında daha "
 "fazla bilgi için eklenti kılavuzuna bakın."
 
-#. Translators: Presented when playlist modification is unavailable (for Studio 4.33 and earlier)
+#. Translators: Presented when SPL Assistant cannot be invoked.
+msgid "Failed to locate Studio main window, cannot enter SPL Assistant"
+msgstr "Studio ana penceresi bulunamadı, SPL yardımcısına girilemiyor"
+
+#. Translators: message shown when an SPL Assistant layer command cannot be performed.
+msgid "Control keys status announcement requires Studio 6.10 or later"
+msgstr "Kontrol tuşları durum duyurusu Studio 6.10 veya üzerini gerektirir"
+
+#. Translators: presented when playlist modification message isn't shown.
 msgid "Playlist modification not available"
-msgstr "Playlist değişiklik mevcut değil"
+msgstr "Çalma listesi değişiklik mevcut değil"
+
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid "Announces title of the next track if any"
+msgstr "Varsa bir sonraki parçanın adını duyurur"
 
 #. Translators: Presented when there is no information for the next track.
-msgid "No next track scheduled or no track is playing"
-msgstr "Sonraki parça pbelirlenmemiş ya da çalan parça yok"
+msgid "No next track scheduled"
+msgstr "Sonraki parça planlanmadı"
 
-#. Translators: Presented when there is nn weather or temperature information.
+#. Translators: Presented when next track information is unavailable.
+msgid "Cannot find next track information"
+msgstr "Sonraki parça bilgisi bulunmuyor"
+
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid "Announces title of the currently playing track"
+msgstr "O anda çalınan parçanın başlığını duyurur"
+
+msgid "Cannot locate current track information"
+msgstr "Mevcut parça bilgisi bulunamıyor"
+
+#. Translators: Presented when current track information is unavailable.
+msgid "Cannot find current track information"
+msgstr "Mevcut parça bilgisi bulunmuyor"
+
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid "Announces temperature and weather information"
+msgstr "Sıcaklık ve hava durumu bilgilerini duyurur"
+
+#. Translators: Presented when there is no weather or temperature information.
 msgid "Weather and temperature not configured"
 msgstr "Hava ve sıcaklık yapılandırılmamış"
+
+#. Translators: Presented when temperature information cannot be found.
+msgid "Weather information not found"
+msgstr "Hava durumu bilgisi bulunamadı"
 
 #. Translators: Presented when there is no listener count information.
 msgid "Listener count not found"
 msgstr "Dinleme sayısı bulunamadı"
-
-#. Translators: Presented when there is no information on song pitch (for Studio 4.33 and earlier).
-msgid "Song pitch not available"
-msgstr "Parça tonu mevcut değil"
 
 #. Translators: Presented when attempting to start library scan.
 msgid "Monitoring library scan"
@@ -317,36 +677,1064 @@ msgstr "Kütüphane tarama İzleme"
 msgid "Scanning is in progress"
 msgstr "Tarama devam ediyor"
 
-#. Translators: Presented when trying to perform Track Tool commands when not focused in the track list.
-msgid "Not in tracks list"
-msgstr "Parça listesinde yok"
-
-#. Translators: Presented when no tracks are added to Track Tool.
-msgid "No tracks added"
-msgstr "Hiçbir parça eklenmedi"
-
-#. Translators: Presented when intro is not defined for a track in Track Tool.
-msgid "Introduction not set"
-msgstr "Giriş ayarlanmadı"
-
-#. Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
-#, python-brace-format
-msgid "{columnInfo} not found"
-msgstr "{columnInfo} bulunamadı"
-
-#. Translators: Presented when artist information is not found for a track in Track Tool.
-msgid "No artist"
-msgstr "Sanatçı yok"
-
-#. Translators: Presents artist information for a track in Track Tool.
-#, python-brace-format
-msgid "Artist: {artistName}"
-msgstr "Sanatçı: {artistName}"
-
-#. Help message for SPL Controller
-#. Translators: the dialog text for SPL Controller help.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
+"Marks focused track as start marker for various playlist analysis commands"
+msgstr ""
+"Çeşitli çalma listesi analiz komutları için odaklanılan parçayı başlangıç ​​"
+"işaretçisi olarak işaretler"
+
+#. Translators: Presented when track time analysis is turned on.
+msgid "Playlist analysis activated"
+msgstr "Çalma listesi analizi etkinleştirildi"
+
+#. Translators: Presented when track time analysis is turned off.
+msgid "Playlist analysis deactivated"
+msgstr "Çalma listesi analizi devre dışı bırakıldı"
+
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid ""
+"Announces total length of tracks between analysis start marker and the "
+"current track"
+msgstr ""
+"Analiz başlangıç işaretçisi ile mevcut parça arasındaki toplam parça "
+"uzunluğunu duyurur"
+
+#. Translators: Presented when track time analysis cannot be used because start marker is not set.
+msgid ""
+"No track selected as start of analysis marker, cannot perform time analysis"
+msgstr ""
+"Analiz başlangıcı işaretçisi olarak hiçbir parça seçilmedi, zaman analizi "
+"gerçekleştirilemiyor"
+
+#. Translators: Presented when time analysis is done for a number of tracks
+#. (example output: Tracks: 3, totaling 5:00).
+#, python-brace-format
+msgid "Tracks: {numberOfSelectedTracks}, totaling {totalTime}"
+msgstr "Parçalar: {numberOfSelectedTracks}, toplam süre {totalTime}"
+
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid ""
+"Presents playlist snapshot information such as number of tracks and top "
+"artists"
+msgstr ""
+"Parça sayısı ve en iyi sanatçılar gibi çalma listesi anlık görüntü "
+"bilgilerini sunar"
+
+#. Translators: Presented when trying to switch to an instant switch profile
+#. when add-on settings dialog is active.
+msgid "Add-on settings dialog is open, cannot switch profiles"
+msgstr "Eklenti ayarları iletişim kutusu açık, profiller değiştirilemiyor"
+
+#. Translators: Presented when place marker cannot be set.
+msgid "No tracks found, cannot set place marker"
+msgstr "Parça bulunamadı, yer işaretçisi ayarlanamıyor"
+
+#. Translators: Presented when place marker track is set.
+msgid "place marker set"
+msgstr "yer işaretleyici seti"
+
+#. Translators: Presented when attempting to place a place marker on an unsupported track.
+msgid "This track cannot be used as a place marker track"
+msgstr "Bu parça yer işaretleyici parça olarak kullanılamaz"
+
+#. Translators: Presented when no place marker is found.
+msgid "No place marker found"
+msgstr "Yer işaretçisi bulunamadı"
+
+#. Translators: Status message for metadata streaming.
+#, python-brace-format
+msgid "Metadata streaming on URL {URLPosition} enabled"
+msgstr "{URLPosition} URL'sinde meta veri akışı etkinleştirildi"
+
+#. Translators: Status message for metadata streaming.
+msgid "Metadata streaming on DSP encoder enabled"
+msgstr "DSP kodlayıcıda meta veri akışı etkinleştirildi"
+
+#. Translators: Status message for metadata streaming.
+#, python-brace-format
+msgid "Metadata streaming on URL {URLPosition} disabled"
+msgstr "{URLPosition} URL'sinde meta veri akışı devre dışı bırakıldı"
+
+#. Translators: Status message for metadata streaming.
+msgid "Metadata streaming on DSP encoder disabled"
+msgstr "DSP kodlayıcıda meta veri akışı devre dışı bırakıldı"
+
+#. Translators: The title for SPL Assistant help screen.
+msgid "SPL Assistant help"
+msgstr "SPL Yardımcısı yardımı"
+
+#. Translators: The title for SPL Assistant help screen.
+msgid "SPL Assistant help for JAWS layout"
+msgstr "JAWS düzeni için SPL Yardımcısı yardımı"
+
+#. Translators: A message informing users that Studio is not running so certain commands will not work.
+msgid "Studio main window not found"
+msgstr "Stüdyo ana penceresi bulunamadı"
+
+#. Translators: The name of the default (normal) profile.
+msgid "Normal profile"
+msgstr "Normal profil"
+
+#. Translators: Message displayed when attempting to reset Studio add-on settings
+#. while an instant switch profile is active.
+msgid ""
+"An instant switch profile is active. Resetting Studio add-on settings means "
+"normal profile will become active and switch profile settings will be left "
+"in unpredictable state. Are you sure you wish to reset Studio add-on "
+"settings to factory defaults?"
+msgstr ""
+"Anında geçiş profili etkin. Studio eklenti ayarlarının sıfırlanması, normal "
+"profilin etkinleşeceği ve geçiş profili ayarlarının öngörülemez durumda "
+"kalacağı anlamına gelir. Studio eklenti ayarlarını fabrika varsayılanlarına "
+"sıfırlamak istediğinizden emin misiniz?"
+
+#. Translators: The title of the confirmation dialog for Studio add-on settings reset.
+msgid "SPL Studio add-on reset"
+msgstr "SPL Studio eklentisi sıfırlandı"
+
+#. Translators: A flag indicating the currently active broadcast profile.
+msgid "active"
+msgstr "etkin"
+
+#. Translators: A flag indicating the broadcast profile is an instant switch profile.
+msgid "instant switch"
+msgstr "anında geçiş"
+
+#. Translators: Presented when switch to instant switch profile was successful.
+#, python-brace-format
+msgid "Switching to {newProfileName}"
+msgstr "{newProfileName} profiline geçiliyor"
+
+#. Translators: Presented when switching from instant switch profile to a previous profile.
+#, python-brace-format
+msgid "Returning to {previousProfile}"
+msgstr "{previousProfile} profiline geri dönülüyor"
+
+#. Translators: Standard error title for configuration error.
+msgid "Studio add-on Configuration error"
+msgstr "Stüdyo eklentisi Yapılandırma hatası"
+
+#. Translators: announced when only normal profile is in use.
+msgid "Only normal profile is in use"
+msgstr "Yalnızca normal profil kullanılıyor"
+
+#. Translators: Presented when trying to switch to an instant switch profile
+#. when the instant switch profile is not defined.
+msgid "No instant switch profile is defined"
+msgstr "Anında geçiş profili tanımlanmadı"
+
+#. Translators: Presented when trying to switch to an instant switch profile
+#. when one is already using the instant switch profile.
+msgid "You are already in the instant switch profile"
+msgstr "Zaten anlık geçiş profilindesiniz"
+
+#. Translators: A message giving basic information about the add-on.
+msgid ""
+"Welcome to StationPlaylist add-on for NVDA,\n"
+"your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
 "\n"
+"Highlights of StationPlaylist add-on include:\n"
+"* Layer commands for obtaining status information.\n"
+"* Various ways to examine track columns.\n"
+"* Various ways to find tracks.\n"
+"* Cart Explorer to learn cart assignments.\n"
+"* Comprehensive settings and documentation.\n"
+"* Completely free, open-source and community-driven.\n"
+"* And much more.\n"
+"\n"
+"Visit www.stationplaylist.com for details on StationPlaylist suite of "
+"applications.\n"
+"Visit StationPlaylist entry on NVDA Community Add-ons page (addons.nvda-"
+"project.org)\n"
+"for add-on details and to read the documentation.\n"
+"Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to "
+"return to this dialog.\n"
+"\n"
+"Thank you."
+msgstr ""
+"NVDA için StationPlaylist eklentisine hoş geldiniz.\n"
+"NVDA ekran okuyucu kullanarak SPL Studio ile yayın yapmak için yol "
+"arkadaşınız.\n"
+"\n"
+"StationPlaylist eklentisinin öne çıkan özellikleri şunlardır:\n"
+"* Durum bilgisini elde etmek için katman komutları.\n"
+"* Parça sütunlarını incelemenin çeşitli yolları.\n"
+"* Parçaları bulmanın çeşitli yolları.\n"
+"* Sepet atamalarını öğrenmek için Sepet Gezgini.\n"
+"* Kapsamlı ayarlar ve belgeler.\n"
+"* Tamamen ücretsiz, açık kaynaklı, topluluk odaklı\n"
+"* Ve çok daha fazlası.\n"
+"\n"
+"Visit www.stationplaylist.com for details on StationPlaylist suite of "
+"applications.\n"
+"NVDA Topluluk Eklentileri sayfasındaki StationPlaylist girişini ziyaret edin "
+"(addons.nvda-project.org)\n"
+"Eklenti ayrıntıları için ve belgeleri okumak için.\n"
+"Bu diyaloğu tekrar görmek ister misiniz? Bu iletişim kutusuna dönmek için "
+"Studio'yu kullanırken Alt+NVDA+F1 tuşlarına basmanız yeterlidir.\n"
+"\n"
+"Teşekkür ederim."
+
+#. Translators: Title of a dialog displayed when the add-on starts presenting basic information,
+#. similar to NVDA's own welcome dialog.
+msgid "Welcome to StationPlaylist add-on"
+msgstr "StationPlaylist eklentisine hoş geldiniz"
+
+msgid "Show welcome dialog when I start Studio"
+msgstr "Studio'yu başlattığımda hoş geldiniz iletişim kutusunu göster"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille timer off"
+msgstr "Braille zamanlayıcı kapalı"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille track endings"
+msgstr "Braille parça sonları"
+
+#. Translators: A setting in braille timer options.
+msgid "Outro"
+msgstr "Diğer"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille intro endings"
+msgstr "Braille intro sonları"
+
+#. Translators: A setting in braille timer options.
+msgid "Intro"
+msgstr "İntro"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille intro and track endings"
+msgstr "Braille intro ve parça sonları"
+
+#. Translators: A setting in braille timer options.
+#. Translators: One of the track comment notification settings.
+msgid "Both"
+msgstr "İkisi"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Do not announce library scans"
+msgstr "Kütüphane taramaları duyurulmaz"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce start and end of a library scan"
+msgstr "Kütüphane taramasının başlangıcını ve sonunu duyurur"
+
+#. Translators: One of the library scan announcement settings.
+msgid "Start and end only"
+msgstr "Yalnızca başlangıç ​​ve bitiş"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce the progress of a library scan"
+msgstr "Kütüphane tarama ilerlemesi duyurulur"
+
+#. Translators: One of the library scan announcement settings.
+msgid "Scan progress"
+msgstr "Tarama ilerlemesi"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce progress and item count of a library scan"
+msgstr "Bir kitaplık taramasının ilerlemesini ve öğe sayısını duyurur"
+
+#. Translators: One of the library scan announcement settings.
+msgid "Scan count"
+msgstr "Tarama sayısı"
+
+#. Translators: title of a dialog to configure broadcast profiles.
+msgid "SPL Broadcast Profiles"
+msgstr "SPL Yayın Profilleri"
+
+#. Borrowed directly from NVDA Core (credit: NV Access)
+#. This allows Enter key to be pressed to activate the selected profile.
+#. Translators: label for a button to activate the selected broadcast profile.
+msgid "Activate"
+msgstr "Etkinleştir"
+
+#. Translators: The label of a button to copy a broadcast profile.
+msgid "Cop&y"
+msgstr "Kop&yala"
+
+#. Translators: Message reported when attempting to delete a profile in the midst of a broadcast.
+msgid ""
+"An instant switch profile might be active or you are in the midst of a "
+"broadcast. If so, please press SPL Assistant, F12 to switch back to a "
+"previously active profile before opening broadcast profiles dialog to delete "
+"a profile."
+msgstr ""
+"Bir anlık geçiş profili etkin olabilir veya bir yayının ortasındasınızdır. "
+"Eğer öyleyse, bir profili silmek üzere yayın profilleri iletişim kutusunu "
+"açmadan önce daha önce etkin olan bir profile geri dönmek için lütfen SPL "
+"yardımcısı, F12 tuşuna basın."
+
+#. Translators: Title of a dialog shown when profile cannot be deleted.
+msgid "Profile delete error"
+msgstr "Profil silme hatası"
+
+msgid ""
+"You are about to delete the currently active profile. Select yes if you wish "
+"to proceed."
+msgstr ""
+"Şu anda etkin olan profili silmek üzeresiniz. Devam etmek istiyorsanız "
+"evet'i seçin."
+
+#. Translators: The title of the confirmation dialog for deletion of a profile.
+msgid "Delete active profile"
+msgstr "Etkin profili sil"
+
+#. Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
+msgid "Are you sure you want to delete this profile? This cannot be undone."
+msgstr "Bu profili silmek istediğinizden emin misiniz? Bu işlem geri alınamaz."
+
+#. Translators: The title of the dialog to copy a broadcast profile.
+msgid "Copy Profile"
+msgstr "Profili Kopyala"
+
+#. Translators: The label for a setting in SPL add-on dialog
+#. to select a base  profile for copying.
+msgid "&Base profile:"
+msgstr "&Temel profil:"
+
+#. Translators: The title of the broadcast profile triggers dialog.
+#, python-brace-format
+msgid "Profile triggers for {profileName}"
+msgstr "{profileName} için profil tetikleyicileri"
+
+#. Translators: The label of a checkbox in SPL profile triggers dialog
+#. to toggle if selected profile is an instant switch profile.
+msgid "This is an &instant switch profile"
+msgstr "Bu b&ir anında geçiş profilidir"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to set status announcement between words and beeps.
+msgid "&Beep for status announcements"
+msgstr "Durum duyuruları için &bip sesi"
+
+#. Translators: One of the message verbosity levels.
+msgid "beginner"
+msgstr "yeni başlayan"
+
+#. Translators: One of the message verbosity levels.
+msgid "advanced"
+msgstr "gelişmiş"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to set message verbosity.
+msgid "Message &verbosity:"
+msgstr "&Mesaj ayrıntısı:"
+
+#. Translators: One of the braille timer settings.
+msgid "Track ending"
+msgstr "Parça bitişi"
+
+#. Translators: One of the braille timer settings.
+msgid "Track intro"
+msgstr "Parça girişi"
+
+#. Translators: One of the braille timer settings.
+msgid "Track intro and ending"
+msgstr "Parça giriş ve bitişi"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to configure braille timer.
+msgid "&Braille timer:"
+msgstr "&Braille zamanlayıcı:"
+
+#. Translators: The label for a setting in SPL add-on settings
+#. to control library scan announcement.
+msgid "&Library scan announcement:"
+msgstr "&Kütüphane tarama duyurusu:"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to announce time including hours.
+msgid "Include &hours when announcing track or playlist duration"
+msgstr "Parça veya çalma listesi süresini duyururken saatleri da&hil et"
+
+#. Translators: The label for a setting in SPL add-on dialog to set vertical column.
+msgid "&Vertical column navigation announcement:"
+msgstr "&Dikey sütun dolaşım duyurusu:"
+
+#. Translators: One of the options for vertical column navigation
+#. denoting NVDA will announce current column position (e.g. second column position from the left).
+msgid "whichever column I am reviewing"
+msgstr "hangi sütunu inceliyorsam"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to toggle category sound announcement.
+msgid "&Beep for different track categories"
+msgstr "Farklı parça kategorileri için &bip sesi"
+
+#. Translators: One of the track comment notification settings.
+msgid "Message"
+msgstr "Mesaj"
+
+#. Translators: One of the track comment notification settings.
+msgid "Beep"
+msgstr "Bip"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to set how track comments are announced.
+msgid "&Track comment announcement:"
+msgstr "&Parça yorum anonsu:"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to toggle top and bottom notification.
+msgid "Notify when located at &top or bottom of playlist viewer"
+msgstr ""
+"Çalma listesi görüntüleyicinin üs&tünde veya altında bulunduğunda bildirim "
+"gönder"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to enable requests alert.
+msgid "Play a sound when listener &requests arrive"
+msgstr "Dinleyici istekle&ri geldiğinde ses çal"
+
+#. Translators: title of a panel to configure various alarms and related settings.
+msgid "Alarms"
+msgstr "Alarmlar"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. To set end of track alarm in seconds.
+msgid "&End of track alarm in seconds"
+msgstr "&Saniyeler içinde parça sonu alarmı"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to enable end of track alarm.
+msgid "&Notify when end of track is approaching"
+msgstr "&Parçanın sonuna yaklaşıldığında bildirim göster"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. To set trakc intro alarm in seconds.
+msgid "&Track intro alarm in seconds"
+msgstr "&Giriş alarmını saniyeler içinde takip edin"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to enable track intro alarm.
+msgid "&Notify when end of introduction is approaching"
+msgstr "Tanıtım so&nu yaklaştığında bildirim göster"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to set microphone active alarm in seconds.
+msgid "&Microphone alarm in seconds (0 disables the alarm)"
+msgstr "Saniyeler içinde &mikrofon alarmı (0 alarmı devre dışı bırakır)"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to set microphone active alarm interval in seconds.
+msgid "Microphone alarm &interval in seconds"
+msgstr "San&iye cinsinden mikrofon alarm aralığı"
+
+#. Translators: One of the alarm notification options.
+msgid "beep"
+msgstr "bip"
+
+#. Translators: One of the alarm notification options.
+msgid "message"
+msgstr "mesaj"
+
+#. Translators: One of the alarm notification options.
+msgid "both beep and message"
+msgstr "hem bip hem mesaj"
+
+#. Translators: The label for a setting in SPL add-on settings
+#. to configure alarm announcement type.
+msgid "&Alarm notification:"
+msgstr "&Alarm bildirimi:"
+
+#. Translators: Help text for playlist snapshots panel.
+msgid ""
+"Select information to be included when obtaining playlist snapshots.\n"
+"\t\tTrack count and total duration are always included."
+msgstr ""
+"Çalma listesi anlık görüntüleri alınırken dahil edilecek bilgileri seçin.\n"
+"\t\tParça sayısı ve toplam süre her zaman dahil edilir."
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to include shortest and longest track duration in playlist snapshots window.
+msgid "Shortest and longest tracks"
+msgstr "En kısa ve en uzun parçalar"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to include average track duration in playlist snapshots window.
+msgid "Average track duration"
+msgstr "Ortalama parça süresi"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to include track artist count in playlist snapshots window.
+msgid "Artist count"
+msgstr "Sanatçı sayısı"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to set top artist count limit in playlist snapshots window.
+msgid "Top artist count (0 displays all artists)"
+msgstr "En iyi sanatçı sayısı (0, tüm sanatçıları görüntüler)"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to include track category count in playlist snapshots window.
+msgid "Category count"
+msgstr "Kategori sayısı"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to set top track category count limit in playlist snapshots window.
+msgid "Top category count (0 displays all categories)"
+msgstr "En üst kategori sayısı (0, tüm kategorileri görüntüler)"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to include track genre count in playlist snapshots window.
+msgid "Genre count"
+msgstr "Tür sayısı"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to set top track genre count limit in playlist snapshots window.
+msgid "Top genre count (0 displays all genres)"
+msgstr "En iyi tür sayısı (0, tüm türleri görüntüler)"
+
+msgid "&Show results window when playlist snapshots command is performed once"
+msgstr ""
+"&Çalma listesi anlık görüntüleri komutu bir kez gerçekleştirildiğinde sonuç "
+"penceresini göster"
+
+#. Translators: Title of a dialog to configure metadata streaming status
+#. for DSP encoder and four additional URL's.
+msgid "Metadata streaming options"
+msgstr "Meta veri akışı seçenekleri"
+
+#. Translators: dialog description for metadata streaming options dialog.
+msgid "Check to enable metadata streaming, uncheck to disable."
+msgstr ""
+"Meta veri akışını etkinleştirmek için işaretleyin, devre dışı bırakmak için "
+"işareti kaldırın."
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to configure streaming status for metadata streams.
+msgid "&Stream:"
+msgstr "&Akış:"
+
+#. Translators: A checkbox to let metadata streaming status
+#. be applied to the currently active broadcast profile.
+msgid "&Apply streaming changes to the selected profile"
+msgstr "&Akış değişikliklerini seçilen profile uygula"
+
+#. Translators: title of a panel to configure metadata streaming status
+#. for DSP encoder and four additional URL's.
+msgid "Metadata streaming"
+msgstr "Meta veri akışı"
+
+#. Translators: One of the metadata notification settings.
+msgid "When Studio starts"
+msgstr "Stüdyo başladığında"
+
+#. Translators: One of the metadata notification settings.
+msgid "When instant switch profile is active"
+msgstr "Anında geçiş profili etkin olduğunda"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to be notified that metadata streaming is enabled.
+msgid "&Metadata streaming notification and connection"
+msgstr "&Meta veri akışı bildirimi ve bağlantısı"
+
+#. WX's native CheckListBox isn't user friendly.
+#. Therefore use checkboxes laid out across the top.
+#. 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
+#. Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
+#. Add checkboxes for each stream, beginning with the DSP encoder.
+#. #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
+#. # Translators: the label for a setting in SPL add-on settings
+#. to configure streaming status for metadata streams.
+msgid "&Select the URL for metadata streaming upon request:"
+msgstr "İ&stek üzerine meta veri akışı için URL'yi seçin:"
+
+#. Translators: The label for a group in SPL add-on settings
+#. to select column announcement order.
+msgid "Column order"
+msgstr "Sütun sırala"
+
+#. Translators: title of a panel to configure column announcements
+#. (order and what columns should be announced).
+msgid "Column announcements"
+msgstr "Sütun duyuruları"
+
+#. Translators: Help text explaining custom column order and inclusion controls.
+msgid ""
+"To apply custom column order and inclusion when announcing track columns in "
+"Studio's playlist viewer, uncheck 'Announce columns in the order shown on "
+"screen' and configure column inclusion and order."
+msgstr ""
+"Studio'nun çalma listesi görüntüleyicisinde parça sütunlarını duyururken "
+"özel sütun sırası ve ekleme uygulamak için 'Sütunları ekranda gösterilen "
+"sırayla duyur' seçeneğinin işaretini kaldırın ve sütun ekleme ve sırasını "
+"yapılandırın."
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to toggle custom column announcement.
+msgid "Announce columns in the &order shown on screen"
+msgstr "S&ütunları ekranda gösterilen sıraya göre duyur"
+
+#. Translators: Help text to select columns to be announced.
+msgid ""
+"&Select columns to be announced\n"
+"(artist and title are announced by default):"
+msgstr ""
+"Duyurulacak &Sütunları seçin\n"
+"(sanatçı ve başlık varsayılan olarak duyurulur):"
+
+#. Translators: Title of a panel to configure playlist transcripts options.
+msgid "Playlist transcripts"
+msgstr "Çalma listesi transkriptleri"
+
+#. Translators: Help text to select columns to be announced.
+msgid ""
+"&Select columns to be included in playlist transcripts\n"
+"(artist and title are always included):"
+msgstr ""
+"&Çalma listesi transkriptlerine dahil edilecek sütunları seçin\n"
+"(sanatçı ve başlık her zaman dahildir):"
+
+#. Translators: title of a panel to configure columns explorer settings.
+msgid "Columns explorer"
+msgstr "Sütun gezgini"
+
+#. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
+#. for StationPlaylist Studio.
+msgid "Columns E&xplorer..."
+msgstr "Sütun Ge&zgini..."
+
+#. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
+#. for Track Tool.
+msgid "Columns Explorer for &Track Tool..."
+msgstr "&Parça Aracı için Sütun Gezgini..."
+
+#. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
+#. for StationPlaylist Creator.
+msgid "Columns Explorer for &SPL Creator..."
+msgstr "&SPL Oluşturucu için Sütun Gezgini..."
+
+#. Translators: The title of Columns Explorer configuration dialog.
+msgid "Columns Explorer"
+msgstr "Sütun gezgini"
+
+#. Translators: The title of Columns Explorer configuration dialog.
+msgid "Columns Explorer for Track Tool"
+msgstr "Parça Aracı için Sütun Gezgini"
+
+#. Translators: The title of Columns Explorer configuration dialog.
+msgid "Columns Explorer for SPL Creator"
+msgstr "SPL Oluşturucu için Sütun Gezgini"
+
+#, python-brace-format
+msgid "Slot {position}"
+msgstr "Yuva {position}"
+
+#. Translators: title of a panel to configure various status announcements such as announcing listener count.
+msgid "Status announcements"
+msgstr "Durum duyuruları"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to announce scheduled time.
+msgid "Announce &scheduled time for the selected track"
+msgstr "&Seçilen parça için planlanan zamanı duyurur"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to announce listener count.
+msgid "Announce &listener count"
+msgstr "Din&leyici sayısını duyur"
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to announce currently playing cart.
+msgid "&Announce name of the currently playing cart"
+msgstr "&Şu anda çalınan sepetin adını duyurur"
+
+msgid ""
+"Include track player &position when announcing current and next track "
+"information"
+msgstr ""
+"Geçerli ve sonraki parça bilgilerini duyururken &parça çalar konumunu dahil "
+"et"
+
+#. Translators: The label for a checkbox in SPL add-on settings
+#. to toggle if SPL Controller command can be used to invoke Assistant layer.
+msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
+msgstr "SPL Denetleyici k&omutunun SPL yardımcı katmanını çağırmasına izin ver"
+
+#. Translators: The label for a setting in SPL add-on settings
+#. to set keyboard layout for SPL Assistant.
+msgid "SPL Assistant command &layout:"
+msgstr "SP&L Yardımcısı komut düzeni:"
+
+#. Translators: Title of the dialog to reset various add-on settings.
+#. Translators: title of a panel to reset add-on settings.
+msgid "Reset settings"
+msgstr "Ayarları sıfırla"
+
+#. Translators: the label for a checkbox in SPL add-on settings
+#. to reset instant switch profile.
+msgid "Reset instant switch profile"
+msgstr "Anında geçiş profilini sıfırla"
+
+#. Translators: the label for a checkbox in SPL add-on settings
+#. to reset encoder settings.
+msgid "Remove encoder settings"
+msgstr "Kodlayıcı ayarlarını kaldır"
+
+#. Translators: the label for a checkbox in SPL add-on settings
+#. to reset track comments.
+msgid "Erase track comments"
+msgstr "Parça yorumlarını sil"
+
+#. Translators: A message to warn about resetting SPL config settings to factory defaults.
+msgid "Are you sure you wish to reset SPL add-on settings to defaults?"
+msgstr ""
+"SPL eklenti ayarlarını varsayılanlara sıfırlamak istediğinizden emin misiniz?"
+
+#. Translators: The title of the warning dialog.
+msgid "Warning"
+msgstr "Uyarı"
+
+msgid "Successfully applied default add-on settings."
+msgstr "Varsayılan eklenti ayarları başarıyla uygulandı."
+
+#. Translators: Title of the reset config dialog.
+msgid "Reset configuration"
+msgstr "Yapılandırmayı sıfırla"
+
+#. Translators: Help text explaining what will happen when settings are reset.
+msgid ""
+"Warning! Selecting Reset button and choosing various reset options will "
+"reset add-on settings to defaults."
+msgstr ""
+"Uyarı! Sıfırla düğmesinin seçilmesi ve çeşitli sıfırlama seçeneklerinin "
+"seçilmesi eklenti ayarlarını varsayılanlara sıfırlayacaktır."
+
+#. Translators: The label of a button to open reset dialog.
+msgid "Reset settings..."
+msgstr "Ayarları Sıfırla..."
+
+#. Translators: This is the label for the StationPlaylist add-on configuration dialog.
+msgid "StationPlaylist Add-on Settings"
+msgstr "StationPlaylist Eklenti Ayarları"
+
+msgid "Normal profile is in use, cannot open broadcast profiles dialog."
+msgstr "Normal profil kullanımda, yayın profilleri iletişim kutusu açılamıyor."
+
+#. Translators: Text of the dialog when another find dialog is open.
+msgid "Another find dialog is open."
+msgstr "Başka bir bul iletişim kutusu açık."
+
+#. Translators: Text of the dialog when a generic error has occured.
+msgid "An unexpected error has occured when trying to open find dialog."
+msgstr "Bul iletişim kutusunu açmaya çalışırken beklenmeyen bir hata oluştu."
+
+#. Translators: the label for find prompt in track finder dialog.
+msgid "Enter or select the name or the artist of the track you wish to &search"
+msgstr "&Aramak istediğiniz parçanın adını veya sanatçısını girin veya seçin"
+
+#. Translators: the label for find prompt in column search dialog.
+msgid "Enter or select text to be &searched in a column"
+msgstr "Bir sütunda aranacak metni girin veya &seçin"
+
+#. Translators: The label in track finder to search columns.
+msgid "C&olumn to search:"
+msgstr "Aranacak &sütun:"
+
+#. Translators: The title of a dialog to find tracks with duration within a specified range.
+msgid "Time range finder"
+msgstr "Zaman aralığı bulucu"
+
+msgid "Minimum duration"
+msgstr "Minimum süre"
+
+#. Translators: the minute label in time range finder dialog.
+msgid "Minute"
+msgstr "Dakika"
+
+#. Translators: the second label in time range finder dialog.
+msgid "Second"
+msgstr "Saniye"
+
+msgid "Maximum duration"
+msgstr "Maksimum süre"
+
+#. Translators: Message to report wrong value for duration fields.
+msgid "Minimum duration is greater than the maximum duration."
+msgstr "Minimum süre maksimum süreden daha uzun."
+
+msgid "No track with duration between minimum and maximum duration."
+msgstr "Minimum ve maksimum süre arasında süreye sahip parça yok."
+
+#. Translators: Standard error title for find error (copy this from main nvda.po).
+msgid "Time range find error"
+msgstr "Zaman aralığı bulma hatası"
+
+#. Translators: presented when metadata streaming status cannot be obtained.
+msgid "Cannot obtain metadata streaming status information"
+msgstr "Meta veri akış durumu bilgileri alınamıyor"
+
+#. Translators: Status message for metadata streaming.
+msgid "No metadata streaming URL's defined"
+msgstr "Hiçbir meta veri akışı URL'si tanımlanmadı"
+
+#. Translators: Status message for metadata streaming.
+msgid "Metadata streaming configured for DSP encoder"
+msgstr "DSP kodlayıcı için yapılandırılmış meta veri akışı"
+
+#. Translators: Status message for metadata streaming.
+#, python-brace-format
+msgid "Metadata streaming configured for DSP encoder and URL {URL}"
+msgstr "DSP kodlayıcı ve URL {URL} için yapılandırılmış meta veri akışı"
+
+#. Translators: Status message for metadata streaming.
+#, python-brace-format
+msgid "Metadata streaming configured for URL {URL}"
+msgstr "{URL} URL'si için yapılandırılmış meta veri akışı"
+
+#. Translators: Status message for metadata streaming.
+#, python-brace-format
+msgid "Metadata streaming configured for DSP encoder and URL's {URL}"
+msgstr "DSP kodlayıcı ve URL'nin {URL}'si için yapılandırılmış meta veri akışı"
+
+#. Translators: Status message for metadata streaming.
+#, python-brace-format
+msgid "Metadata streaming configured for URL's {URL}"
+msgstr "URL'nin {URL} adresi için yapılandırılmış meta veri akışı"
+
+#. Translators: the Playlist transcripts dialog title.
+msgid "Playlist Transcripts"
+msgstr "Çalma Listesi Transkriptleri"
+
+#. Translators: presented when playlist transcript data was copied to the clipboard.
+msgid "Playlist data copied to clipboard"
+msgstr "Çalma listesi verileri panoya kopyalandı"
+
+#. Translators: Text of the dialog when another playlist transcripts dialog is open.
+msgid "Another playlist transcripts dialog is open."
+msgstr "Başka bir çalma listesi transkriptleri iletişim kutusu açık."
+
+#. Translators: one of the playlist transcripts range options.
+msgid "entire playlist"
+msgstr "tüm çalma listesi"
+
+#. Translators: one of the playlist transcripts range options.
+msgid "start to current item"
+msgstr "geçerli öğeye başla"
+
+#. Translators: one of the playlist transcripts range options.
+msgid "current item to the end"
+msgstr "geçerli öğeyi sonuna kadar"
+
+#. Translators: one of the playlist transcripts range options.
+msgid "current hour"
+msgstr "şu anki saat"
+
+#. Translators: The label in playlist transcripts dialog to select playlist transcript range.
+msgid "Transcript range:"
+msgstr "Transkript aralığı:"
+
+#. Translators: The label in playlist transcripts dialog to select transcript output format.
+msgid "Transcript format:"
+msgstr "Transkript biçimi:"
+
+#. Translators: one of the playlist transcript actions.
+msgid "view transcript"
+msgstr "transkripti görüntüle"
+
+#. Translators: one of the playlist transcript actions.
+msgid "copy to clipboard"
+msgstr "panoya kopyala"
+
+#. Translators: one of the playlist transcript actions.
+msgid "save to file"
+msgstr "dosyaya kaydet"
+
+#. Translators: The label in playlist transcripts dialog to select transcript action.
+msgid "Transcript action:"
+msgstr "Transkript eylemi:"
+
+msgid "Your encoder settings had errors and were reset to defaults."
+msgstr ""
+"Kodlayıcı ayarlarınızda hatalar vardı ve varsayılan ayarlara sıfırlandı."
+
+#. Translators: Title of the encoder settings error dialog.
+msgid "SPL add-on Encoder settings error"
+msgstr "SPL eklenti Kodlayıcı ayarları hatası"
+
+#. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
+#, python-brace-format
+msgid "Encoder settings for {name}"
+msgstr "{name} için kodlayıcı ayarları"
+
+#. Translators: An edit field in encoder settings
+#. to set a label for this encoder.
+msgid "Encoder &label"
+msgstr "Kod&layıcı etiketi"
+
+#. Translators: A checkbox in encoder settings
+#. to set if NVDA should move focus to Studio window when connected.
+msgid "&Focus to Studio when connected"
+msgstr "&Bağlandığında Studio'ya odaklan"
+
+#. Translators: A checkbox in encoder settings
+#. to set if NVDA should play the next track when connected.
+msgid "&Play first track when connected"
+msgstr "Bağlanıldığında ilk &parçayı çal"
+
+#. Translators: A checkbox in encoder settings
+#. to set if NVDA should monitor the status of this encoder in the background.
+msgid "Enable background connection &monitoring"
+msgstr "Arka planda bağlantı izle&meyi etkinleştir"
+
+#. Translators: A checkbox in encoder settings
+#. to set if NVDA should play connection progress tone.
+msgid "Play connection status &beep while connecting"
+msgstr "Bağlanırken bağlantı durumu &bip sesi çal"
+
+#. Translators: A checkbox in encoder settings
+#. to set if NVDA should announce connection progress until an encoder connects.
+msgid "Announce connection &status until encoder connects"
+msgstr "&Kodlayıcı bağlanana kadar bağlantı durumunu duyur"
+
+#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
+msgid "No encoders found"
+msgstr "Kodlayıcı bulunamadı"
+
+#. Translators: presented when more than one encoder type is active
+#. when trying to obtain encoder connection status.
+msgid "Only one encoder type can be active at once"
+msgstr "Aynı anda yalnızca bir kodlayıcı türü etkin olabilir"
+
+#. Translators: presented when at least one encoder is connected.
+#, python-brace-format
+msgid "Connected encoders: {encodersConnected}"
+msgstr "Bağlı kodlayıcılar: {encodersConnected}"
+
+#. Translators: presented when no encoders are connected.
+msgid "No encoders connected"
+msgstr "Bağlı kodlayıcı yok"
+
+#. Translators: presented when SPL Studio window is minimized.
+msgid "SPL Studio is minimized to system tray."
+msgstr "SPL Studio sistem tepsisine küçültülmüş."
+
+#. Translators: Input help mode message for an encoder settings command.
+msgid ""
+"Toggles whether NVDA will switch to Studio when connected to a streaming "
+"server."
+msgstr ""
+"Bir akış sunucusuna bağlanıldıktan sonra, NVDA'nın stüdyoya geçip "
+"geçmeyeceği ile ilgili ayarı değiştirir."
+
+#. Translators: Presented when toggling the setting
+#. to switch to Studio when connected to a streaming server.
+msgid "Switch to Studio after connecting"
+msgstr "Bağladıktan sonra Studioya geç"
+
+#. Translators: Presented when toggling the setting
+#. to switch to Studio when connected to a streaming server.
+msgid "Do not switch to Studio after connecting"
+msgstr "Bağladıktan sonra Studioya geçme"
+
+msgid ""
+"Toggles whether Studio will play the first song when connected to a "
+"streaming server."
+msgstr ""
+"Bir akış sunucusuna bağlanıldıktan sonra, NVDA'nın ilk parçayı çalıp "
+"çalmaması ile ilgili ayarı değiştirir."
+
+#. Translators: Presented when toggling the setting
+#. to play the selected track in Studio when connected to a streaming server.
+msgid "Play first track after connecting"
+msgstr "Bağlandıktan sonra ilk parçayı çal"
+
+#. Translators: Presented when toggling the setting
+#. to play the selected track in Studio when connected to a streaming server.
+msgid "Do not play first track after connecting"
+msgstr "Bağlandıktan sonra ilk parçayı çalma"
+
+#. Translators: Input help mode message for an encoder settings command.
+msgid ""
+"Toggles whether NVDA will monitor the selected encoder in the background."
+msgstr ""
+"NVDA'nın seçilen kodlayıcıyı arka planda izleyip izlemeyeceğini değiştirir."
+
+#. Translators: Presented when toggling the setting
+#. to monitor the selected encoder in the background.
+#, python-brace-format
+msgid "Monitoring encoder {encoderNumber}"
+msgstr "{encoderNumber} kodlayıcıyı izleme"
+
+#. Translators: Presented when toggling the setting
+#. to monitor the selected encoder in the background.
+#, python-brace-format
+msgid "Encoder {encoderNumber} will not be monitored"
+msgstr "{encoderNumber} kodlayıcı izlenmeyecek"
+
+#. Translators: Announced when background encoder monitoring is canceled.
+msgid "Encoder monitoring canceled"
+msgstr "Kodlayıcı izleme iptal edildi"
+
+msgid ""
+"Opens a dialog to erase encoder labels and settings from an encoder that was "
+"deleted."
+msgstr ""
+"Silinen bir kodlayıcıdan kodlayıcı etiketlerini ve ayarlarını silmek için "
+"bir iletişim kutusu açar."
+
+#. Translators: The text of the stream configuration eraser dialog.
+msgid "Enter the position of the encoder you wish to delete or will delete"
+msgstr "Silmek istediğiniz veya sileceğiniz kodlayıcının konumunu girin"
+
+#. Translators: The title of the encoder settings eraser dialog.
+msgid "Encoder label and settings eraser"
+msgstr "Kodlayıcı etiketi ve ayar silgisi"
+
+msgid ""
+"Shows encoder settings dialog to configure various encoder settings such as "
+"encoder label."
+msgstr ""
+"Kodlayıcı etiketi gibi çeşitli kodlayıcı ayarlarını yapılandırmak için "
+"kodlayıcı ayarları iletişim kutusunu gösterir."
+
+msgid "Another encoder settings dialog is open."
+msgstr "Başka bir kodlayıcı ayarları iletişim kutusu açık."
+
+#. Translators: Input help mode message for report date and time command.
+msgid ""
+"If pressed once, reports the current time including seconds. If pressed "
+"twice, reports the current date"
+msgstr ""
+"Bir kez basıldığında saniyeler dahil geçerli saati duyurur. İki kez "
+"basıldığında geçerli tarihi duyurur"
+
+#. Translators: describes the current encoder position.
+#, python-brace-format
+msgid "Position: {pos}"
+msgstr "Konum: {pos}"
+
+#. Translators: describes the current encoder label if any.
+#, python-brace-format
+msgid "Label: {label}"
+msgstr "Etiket {label}"
+
+#. Translators: describes the current encoder label if any.
+msgid "No encoder label"
+msgstr "Kodlayıcı etiketi yok"
+
+#. Translators: Presented when an Encoder is trying to connect to a streaming server.
+msgid "Connecting..."
+msgstr "Bağlanıyor..."
+
+#. Translators: Presented when an Encoder is disconnecting from a streaming server.
+msgid "Disconnecting..."
+msgstr "Bağlantı kesiliyor..."
+
+#. Translators: input hep command for an encoder connection command.
+msgid "Connects the selected encoder."
+msgstr "Seçilen kodlayıcıyı bağlar."
+
+#. Translators: input hep command for an encoder connection command.
+msgid "Connects all encoders."
+msgstr "Tüm kodlayıcıları bağlar."
+
+#. Translators: the text for SPL Controller help.
+msgid ""
 "After entering SPL Controller, press:\n"
 "A: Turn automation on.\n"
 "Shift+A: Turn automation off.\n"
@@ -359,118 +1747,117 @@ msgid ""
 "U: Pause.\n"
 "S: Stop with fade.\n"
 "T: Instant stop.\n"
-"R: Remainig time for the playing track.\n"
-"Shift+R: Library scan progress."
+"C: Announce name and duration of the currently playing track.\n"
+"E: Announce connected encoders if any.\n"
+"I: Announce listener count.\n"
+"Q: Announce Studio status information.\n"
+"R: Remaining time for the playing track.\n"
+"Shift+R: Library scan progress.\n"
+"Function keys and number row keys with or without Shift, Alt, and Control "
+"keys: Play carts."
 msgstr ""
+"SPL Denetleyicisine girdikten sonra şu tuşları kullanabilirsiniz:\n"
+"A: Otomasyonu açar.\n"
+"Shift+A: Otomasyonu kapatır.\n"
+"M: Turn mikrofonu açar.\n"
+"Shift+M: Mikrofonu kapatır\n"
+"N: Mikrofonun sesi kısık olmadan açılır.\n"
+"L: Line in girişini açar.\n"
+"Shift+L: Line in girişini kapatır.\n"
+"P: Çal.\n"
+"U: Duraklat.\n"
+"S: Kısarak durdur\n"
+"T: Anında Durdur\n"
+"C: O anda çalınan parçanın adını ve süresini duyurur.\n"
+"E: Varsa bağlı kodlayıcıları duyurur.\n"
+"I: Dinleyici sayısını duyurur.\n"
+"Q: Studio durum bilgilerini duyurur.\n"
+"R: Çalınan parça için kalan süre.\n"
+"Shift+R: Kitaplık tarama ilerlemesi.\n"
+"Shift, Alt ve Control tuşları olan veya olmayan fonksiyon tuşları ve sayı "
+"satırı tuşları: Çalma sepeti."
 
-#. Used ANSI version, as Wide char version always returns 0.
-#. Translators: Presented when Station Playlist Studio is not running.
-msgid "SPL Studio is not running."
-msgstr "SPL Studio açık değil."
-
-#. Translators: Presented when Studio is minimized to system tray (notification area).
-msgid "SPL minimized to system tray."
-msgstr "SPL sistem tepsisine küçültülmüş."
-
-#. Translators: Input help mode message for a command to switch to Station Playlist Studio from any program.
+#. Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
 msgid "Moves to SPL Studio window from other programs."
 msgstr "Diğer programlardan SPL Studio penceresine gider."
 
-#. Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
-msgid ""
-"You are already in SPL Studio window. For status commands, use SPL Assistant "
-"commands."
-msgstr ""
-"zaten SPL Studio penceresindesiniz. Durum komutları için, SPL Yardımcısı "
-"komutlarını kullanın."
+#. Translators: Presented when StationPlaylist Studio is not running.
+msgid "SPL Studio is not running."
+msgstr "SPL Studio açık değil."
 
-#. Translators: The name of a layer command set for Station Playlist Studio.
-#. Hint: it is better to translate it as "SPL Control Panel."
-msgid "SPL Controller"
-msgstr "SPL Kontrolör"
-
-#. Translators: Input help mode message for a layer command in Station Playlist Studio.
+#. Translators: Input help mode message for a layer command in StationPlaylist add-on.
 msgid "SPl Controller layer command. See add-on guide for available commands."
 msgstr ""
 "SPL Kontrolör katmanlı komutları. Mevcut komutlar için eklenti kılavuzuna "
 "bakın."
 
-#. Translators: Presented when no track is playing in Station Playlist Studio.
+msgid ""
+"You are already in SPL Studio window. For status commands, use SPL Assistant "
+"commands."
+msgstr ""
+"Zaten SPL Studio penceresindesiniz. Durum komutları için SPL Yardımcısı "
+"komutlarını kullanın."
+
+#. Translators: The name of a layer command set for StationPlaylist add-on.
+#. Hint: it is better to translate it as "SPL Control Panel."
+msgid "SPL Controller"
+msgstr "SPL Kontrolör"
+
+#. Translators: Presented when no track is playing in StationPlaylist Studio.
 msgid "There is no track playing. Try pausing while a track is playing."
 msgstr "Çalan parça yok. Bir parça çalarken duraklatmayı deneyin."
 
-#. Translators: Presented when no track is playing in Station Playlist Studio.
-msgid "There is no track playing."
-msgstr "Çalan parça yok"
+#. Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
+#, python-brace-format
+msgid "Scan in progress with {itemCount} items scanned"
+msgstr "Taranan {itemCount} öğeleriyle tarama devam ediyor"
 
-#. Translators: The title for SPL Controller help dialog.
+#. Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
+#, python-brace-format
+msgid "Scan complete with {itemCount} items scanned"
+msgstr "Taranan {itemCount} öğeleriyle tarama tamamlandı"
+
+#. Translators: Announces number of stream listeners.
+#, python-brace-format
+msgid "Listener count: {listenerCount}"
+msgstr "Dinleyici sayısı: {listenerCount}"
+
+#. Translators: Presented when no track is playing in StationPlaylist Studio.
+msgid "There is no track playing."
+msgstr "Çalan parça yok."
+
+#. Translators: Input help message for a SPL Controller command.
+msgid "Announces stream encoder status from other programs"
+msgstr "Diğer programlardan akış kodlayıcı durumunu duyurur"
+
+#. Translators: presented if encoder connection status cannot be obtained.
+msgid "Cannot obtain encoder connection status"
+msgstr "Kodlayıcı bağlantı durumu alınamıyor"
+
+#. Translators: Input help message for a SPL Controller command.
+msgid ""
+"Announces Studio status such as track playback status from other programs"
+msgstr "Diğer programlardan parça çalma durumu gibi Studio durumunu duyurur"
+
+#. Translators: The title for SPL Controller help screen.
 msgid "SPL Controller help"
 msgstr "SPL Kontrolör yardımı"
-
-#. Translators: Presented when SAM Encoder is trying to connect to a streaming server.
-msgid "Connecting..."
-msgstr "Bağlanıyor"
-
-#. Translators: Presented when SAM Encoder is disconnecting from a streaming server.
-msgid "Disconnecting..."
-msgstr "Bağlantı kesiliyor"
-
-#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
-msgid "Switch to Studio after connecting"
-msgstr "Bağladıktan sonra Studioya geç"
-
-#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
-msgid "Do not switch to Studio after connecting"
-msgstr "Bağladıktan sonra Studioya geçme"
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid ""
-"Toggles whether NVDA will switch to Studio when connected to a streaming "
-"server."
-msgstr ""
-"Bir akış sunucusuna bağlanıldıktan sonra, NVDA'nın stüdyoya geçip "
-"geçmeyeceği ile ilgili ayarı değiştirir."
-
-#. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
-msgid "Play first track after connecting"
-msgstr "Bağlandıktan sonra ilk parçayı çal"
-
-#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
-msgid "Do not play first track after connecting"
-msgstr "Bağlandıktan sonra ilk parçayı çalma"
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid ""
-"Toggles whether Studio will play the first song when connected to a "
-"streaming server."
-msgstr ""
-"Bir akış sunucusuna bağlanıldıktan sonra, NVDA'nın ilk parçayı çalıp "
-"çalmaması ile ilgili ayarı değiştirir."
-
-#. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
-#, python-brace-format
-msgid "Stream labeler for {streamEntry}"
-msgstr "{streamEntry} için Akış etiketleyici"
-
-#. Translators: The text of the stream labeler dialog.
-msgid "Enter the label for this stream"
-msgstr "Bu akış için etiket girin"
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid "Opens a dialog to label the selected encoder."
-msgstr "Seçilen kodlayıcıyı etiketlemek için bir iletişim kutusu açar."
-
-msgid "Connects to a streaming server."
-msgstr "Bir akış sunucusuna bağlanır."
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 msgid ""
-"Enhances support for Station Playlist Studio.\n"
-"In addition, adds global commands for the studio from everywhere."
+"Enhances support for StationPlaylist apps. In addition, adds global commands "
+"for the Studio application from everywhere."
 msgstr ""
-"Station Playlist Studio desteğini geliştirir.\n"
-"Ek olarak, studio için her yerden kullanılabilen global komutlar ekler."
+"StationPlaylist uygulamalarına yönelik desteği geliştirir. Ayrıca Studio "
+"uygulamasına her yerden global komutlar ekler."
 
-#~ msgid "Disconnects from a streaming server."
-#~ msgstr "Bir akış sunucusundan bağlantıyı keser."
+#~ msgid ""
+#~ "You are using an older version of Windows. This add-on requires Windows "
+#~ "10 or later."
+#~ msgstr ""
+#~ "Windows'un eski bir sürümünü kullanıyorsunuz. Bu eklenti, Windows 10 veya "
+#~ "daha yeni sürümünü gerektirir."
+
+#~ msgid "Old Windows version"
+#~ msgstr "Eski Windows sürümü"

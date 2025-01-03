@@ -3,8 +3,6 @@
 * Authors: Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee
   <joseph.lee22590@gmail.com>, originally by Geoff Shang and other
   contributors)
-* Preuzmi [stabilnu verziju][1]
-* NVDA kompatibilnost: 2023.3.3 i novije verzije
 
 Ovaj paket dodataka omogućava bolje korištenje programa StationPlaylist
 Studio i drugih StationPlaylist programa te pruža alate za kontrolu programa
@@ -175,6 +173,7 @@ The available commands are (most commands support speak on demand):
   support speak on demand).
 * D (R u JAWS rasporedu): Preostalo vrijeme popisa snimaka (ako se pojavi
   greška, premjesti se na prikaz popisa snimaka te zadaj ovu naredbu).
+* Control+D (Studio 6.10 and later): Control keys enabled/disabled.
 * E: Stanje internetskog prijenosa metapodataka.
 * Šift+1 do Šift+4, Šift+0: Stanje URL adresa pojedinih internetskih
   prijenosa metapodataka (0 je za DSP koder).
@@ -342,6 +341,18 @@ Ako koristiš Studio na računalu s ekranom osjetljivim na dodir i
 instaliranim NVDA čitačem, neke Studio naredbe možeš izvršiti na ekranu
 osjetljivim na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri
 prsta. Zatim koristi gore navedene dodirne naredbe za njihovo izvršavanje.
+
+## Version 25.01
+
+* 64-bit Windows 10 21H2 (build 19044) or later is required.
+* Download links for add-on releases are no longer included in add-on
+  documentation. You can download the add-on from NV Access add-on store.
+* Switched linting tool from Flake8 to Ruff and reformatted add-on modules
+  to better align with NVDA coding standards.
+* Removed support for automatic add-on updates feature from Add-on Updater
+  add-on.
+* In Studio 6.10 and later, added a new command in SPL Assistant to announce
+  control keys enabled/disabled status (Control+D).
 
 ## Verzija 24.03
 

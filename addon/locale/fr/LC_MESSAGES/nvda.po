@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 19.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-05-07 12:31+0200\n"
+"PO-Revision-Date: 2024-12-28 13:08+0100\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: Rémy Ruiz <remyruiz@gmail.com> ; Michel Such <michel."
 "such@free.fr>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 3.5\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Dialog text shown when trying to install the add-on on
@@ -51,7 +51,7 @@ msgid ""
 "column data in a browse mode window"
 msgstr ""
 "Un appui  annonce les données d'une colonne de piste, deux appuis affiche "
-"les données de colonne dans une fenêtre en mode navigation."
+"les données de colonne dans une fenêtre en mode navigation"
 
 #. Translators: Script category for StationPlaylist add-on commands in input gestures dialog.
 #. Translators: Script category for StationPlaylist commands in input gestures dialog.
@@ -146,7 +146,6 @@ msgstr ""
 "le dialogue pour ajouter, modifier ou supprimer les commentaires de piste"
 
 #. Translators: The text of the help command in SPL Assistant layer.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -184,6 +183,8 @@ msgstr ""
 "A : Automatisation.\n"
 "C : Annoncer le nom de la piste en cours de lecture.\n"
 "D : Durée restante pour la playlist.\n"
+"Contrôle+D : Basculement des touches de contrôle (Studio 6.10 et versions "
+"ultérieures).\n"
 "E : Statut général de flux de métadonnées.\n"
 "Maj+1 jusqu'à maj+4, maj+0 : Statut de flux de Métadonnées pour l'encodeur "
 "DSP et les quatre autres URLs.\n"
@@ -214,7 +215,6 @@ msgstr ""
 "F12 : Basculer vers un changement de profil immédiat."
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -254,6 +254,8 @@ msgstr ""
 "A : Automatisation.\n"
 "C : Basculer l'explorateur de panier.\n"
 "Maj+C : Annoncer le nom de la piste en cours de lecture.\n"
+"Contrôle+D : Basculement des touches de contrôle (Studio 6.10 et versions "
+"ultérieures).\n"
 "E : Statut général du flux de métadonnées.\n"
 "Maj+1 jusqu'à maj+4, maj+0 : Statut du flux de Métadonnées pour l'encodeur "
 "DSP et les quatre autres URLs.\n"
@@ -353,7 +355,7 @@ msgid "Toggles between various braille timer settings."
 msgstr "Bascule entre les différents paramètres du minuteur braille."
 
 msgid "Search string not found."
-msgstr "Chaîne recherchée introuvable"
+msgstr "Chaîne recherchée introuvable."
 
 #. Translators: Presented when a user attempts to find tracks but is not at the track list.
 msgid "Track finder is available only in track list."
@@ -458,7 +460,7 @@ msgstr "{itemCount} éléments dans la bibliothèque"
 
 #, python-brace-format
 msgid "Scan complete with {itemCount} items"
-msgstr "balayage complet avec {itemCount} éléments"
+msgstr "Balayage complet avec {itemCount} éléments"
 
 msgid "Scanning"
 msgstr "Balayage en cours"
@@ -653,6 +655,8 @@ msgstr ""
 #. Translators: message shown when an SPL Assistant layer command cannot be performed.
 msgid "Control keys status announcement requires Studio 6.10 or later"
 msgstr ""
+"L'annonce de l'état des touches de contrôle nécessite Studio 6.10 ou version "
+"ultérieure"
 
 #. Translators: presented when playlist modification message isn't shown.
 msgid "Playlist modification not available"
@@ -987,7 +991,7 @@ msgstr "Activer"
 
 #. Translators: The label of a button to copy a broadcast profile.
 msgid "Cop&y"
-msgstr "cop&ie"
+msgstr "Cop&ie"
 
 #. Translators: Message reported when attempting to delete a profile in the midst of a broadcast.
 msgid ""
@@ -1093,7 +1097,7 @@ msgstr "&Annonce de navigation en colonne verticale :"
 #. Translators: One of the options for vertical column navigation
 #. denoting NVDA will announce current column position (e.g. second column position from the left).
 msgid "whichever column I am reviewing"
-msgstr "Quelle que soit la colonne que je visualise"
+msgstr "quelle que soit la colonne que je visualise"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to toggle category sound announcement.
@@ -1322,7 +1326,7 @@ msgid ""
 "(artist and title are always included):"
 msgstr ""
 "&Sélectionnez les colonnes à inclure dans les transcriptions de playlist\n"
-"(l'artiste et le titre sont toujours inclus"
+"(l'artiste et le titre sont toujours inclus):"
 
 #. Translators: title of a panel to configure columns explorer settings.
 msgid "Columns explorer"
@@ -1452,7 +1456,7 @@ msgstr "Paramètres de l'extension StationPlaylist"
 msgid "Normal profile is in use, cannot open broadcast profiles dialog."
 msgstr ""
 "Le profil normal est en cours d'utilisation, impossible d'ouvrir le dialogue "
-"des profils de diffusion"
+"des profils de diffusion."
 
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."

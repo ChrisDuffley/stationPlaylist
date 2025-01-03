@@ -3,8 +3,6 @@
 * Authors: Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee
   <joseph.lee22590@gmail.com>, originally by Geoff Shang and other
   contributors)
-* Stiahnuť [stabilnú verziu][1]
-* NVDA compatibility: 2023.3.3 and later
 
 Doplnok zlepšuje prístupnosť Station Playlist Studio a ďalších pridružených
 aplikácií a tiež umožňuje ovládať Station Playlist mimo hlavného okna
@@ -171,6 +169,7 @@ The available commands are (most commands support speak on demand):
   support speak on demand).
 * D (R v rozložení pre JAWS): Oznámi ostávajúci čas do konca skladby. (Ak
   nefunguje, zopakujte skratku zo zobrazenia playlistu).
+* Control+D (Studio 6.10 and later): Control keys enabled/disabled.
 * E: Oznámi Stav streamovania metadát.
 * Shift+1 až Shift+4: Stav jednotlivých pripojení. Shift+0: Stav pre DSP
   enkodér.
@@ -322,6 +321,18 @@ If you are using Studio on a touchscreen computer with NVDA installed, you
 can perform some Studio commands from the touchscreen. First use three
 finger tap to switch to SPL mode, then use the touch commands listed above
 to perform commands.
+
+## Version 25.01
+
+* 64-bit Windows 10 21H2 (build 19044) or later is required.
+* Download links for add-on releases are no longer included in add-on
+  documentation. You can download the add-on from NV Access add-on store.
+* Switched linting tool from Flake8 to Ruff and reformatted add-on modules
+  to better align with NVDA coding standards.
+* Removed support for automatic add-on updates feature from Add-on Updater
+  add-on.
+* In Studio 6.10 and later, added a new command in SPL Assistant to announce
+  control keys enabled/disabled status (Control+D).
 
 ## Version 24.03
 

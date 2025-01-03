@@ -3,8 +3,6 @@
 * Authors: Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee
   <joseph.lee22590@gmail.com>, originally by Geoff Shang and other
   contributors)
-* Descargar [versión estable][1]
-* NVDA compatibility: 2023.3.3 and later
 
 Este paquete de complementos proporciona unhha utilización mellorada do
 Station Playlist Studio e outras apps de Station Playlist, así como
@@ -185,6 +183,7 @@ The available commands are (most commands support speak on demand):
 * D (R na distribución JAWS): duración restante para a lista de reprodución
   (se se da unha mensaxe de erro, move ao visualizador de lista de
   reproducción e logo aílla esta orden).
+* Control+D (Studio 6.10 and later): Control keys enabled/disabled.
 * E: Estado dos metadatos do streaming.
 * Shift+1 ata Shift+4, Shift+0: estado para as URLs dos metadatos
   individuais do streaming (0 é para o codificador DSP).
@@ -358,6 +357,18 @@ Se estás a usar o Studio nunha computadora con pantalla tactil con NVDA
 instalado, podes realizar algunhas ordes do Studio dende a pantalla
 tactil. Primeiro usa un toque con tres dedos para cambiar a modo SPL, logo
 usa as ordes tactiles listadas arriba para realizar ordes.
+
+## Version 25.01
+
+* 64-bit Windows 10 21H2 (build 19044) or later is required.
+* Download links for add-on releases are no longer included in add-on
+  documentation. You can download the add-on from NV Access add-on store.
+* Switched linting tool from Flake8 to Ruff and reformatted add-on modules
+  to better align with NVDA coding standards.
+* Removed support for automatic add-on updates feature from Add-on Updater
+  add-on.
+* In Studio 6.10 and later, added a new command in SPL Assistant to announce
+  control keys enabled/disabled status (Control+D).
 
 ## Version 24.03
 
