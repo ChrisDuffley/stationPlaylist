@@ -197,7 +197,8 @@ petición):
 * D (R en distribución JAWS): duración restante para la lista de
   reproducción (si se da un mensaje de error, se mueve al visualizador de
   lista de reproducción y entonces emite esta orden).
-* Control+D (Studio 6.10 and later): Control keys enabled/disabled.
+* Control+d (Studio 6.10 o posterior): teclas de control activadas o
+  desactivadas.
 * E: estado de metadatos del streaming.
 * Shift+1 hasta Shift+4, Shift+0: estado para los metadatos individuales de
   la URL del streaming (0 es para el codificador DSP).
@@ -377,17 +378,20 @@ táctil. Primero utiliza un toque con tres dedos para cambiar a modo SPL,
 entonces utiliza las órdenes táctiles listadas arriba para llevar a cabo
 tareas.
 
-## Version 25.01
+## Versión 25.01
 
-* 64-bit Windows 10 21H2 (build 19044) or later is required.
-* Download links for add-on releases are no longer included in add-on
-  documentation. You can download the add-on from NV Access add-on store.
-* Switched linting tool from Flake8 to Ruff and reformatted add-on modules
-  to better align with NVDA coding standards.
-* Removed support for automatic add-on updates feature from Add-on Updater
-  add-on.
-* In Studio 6.10 and later, added a new command in SPL Assistant to announce
-  control keys enabled/disabled status (Control+D).
+* Se requiere Windows 10 21H2 (compilación 19044) o posterior de 64 bits.
+* Ya no se incluyen enlaces de descarga de versiones del complemento en su
+  documentación. Puedes descargar el complemento desde la tienda de
+  complementos de NVDA.
+* Se cambia la herramienta de calidad del código de Flake8 a Ruff y se
+  reformatean los módulos del complemento para alinearse mejor con los
+  estándares de codificación de NVDA.
+* Se elimina el soporte de actualizaciones automáticas del complemento
+  Add-on Updater.
+* En Studio 6.10 o posterior, se ha añadido una nueva orden al asistente de
+  SPL para anunciar el estado activado o desactivado de las teclas de
+  control (control+d).
 
 ## Versión 24.03
 

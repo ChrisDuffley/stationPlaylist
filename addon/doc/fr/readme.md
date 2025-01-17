@@ -205,7 +205,8 @@ la parole à la demande) :
 * D (R dans la disposition de JAWS) : Durée restante pour la playlist (si un
   message d’erreur est donné, se déplacer vers la visionneuse de playlist et
   puis tapez cette commande).
-* Control+D (Studio 6.10 and later): Control keys enabled/disabled.
+* Contrôle+D (Studio 6.10 et versions ultérieures) : touches de contrôle
+  activées/désactivées.
 * E : Statut de métadonnées en streaming.
 * Maj+1 jusqu'à maj+4, maj+0 : Statut de Métadonnées individuelles en
   streaming URLs (0 est pour l'encodeur DSP).
@@ -388,15 +389,18 @@ exécuter des commandes.
 
 ## Version 25.01
 
-* 64-bit Windows 10 21H2 (build 19044) or later is required.
-* Download links for add-on releases are no longer included in add-on
-  documentation. You can download the add-on from NV Access add-on store.
-* Switched linting tool from Flake8 to Ruff and reformatted add-on modules
-  to better align with NVDA coding standards.
-* Removed support for automatic add-on updates feature from Add-on Updater
-  add-on.
-* In Studio 6.10 and later, added a new command in SPL Assistant to announce
-  control keys enabled/disabled status (Control+D).
+* Windows 10 21H2 64 bits (build 19044) ou ultérieure est requise.
+* Les liens de téléchargement des versions de l'extension ne sont plus
+  inclus dans la documentation de l'extension. Vous pouvez télécharger
+  l'extension à partir de l'add-on store de NV Access.
+* Changement de l'outil linting qui fait de l'analyse statique de Flake8
+  vers Ruff et le reformatage des modules de l'extension pour mieux
+  s'aligner sur les normes de codage de NVDA.
+* Suppression de la prise en charge de la fonctionnalité de mise à jour
+  automatique à partir de l'extension Add-on Updater.
+* Dans Studio 6.10 et versions ultérieures, ajout d'une nouvelle commande
+  dans Assistant SPL pour annoncer le statut activé/désactivé des touches de
+  contrôle (Contrôle+D).
 
 ## Version 24.03
 
