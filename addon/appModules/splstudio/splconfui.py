@@ -1220,64 +1220,65 @@ class ColumnsExplorerPanel(gui.settingsDialogs.SettingsPanel):
 class ColumnsExplorerDialog(wx.Dialog):
 	def __init__(self, parent, level=0):
 		self.level = level
-		if level == 0:
-			# Translators: The title of Columns Explorer configuration dialog.
-			actualTitle = _("Columns Explorer")
-			cols = splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
-			slots = parent.exploreColumns
-		elif level == 1:
-			# Translators: The title of Columns Explorer configuration dialog.
-			actualTitle = _("Columns Explorer for Track Tool")
-			cols = (
-				"Artist",
-				"Title",
-				"Duration",
-				"Cue",
-				"Overlap",
-				"Intro",
-				"Segue",
-				"Filename",
-				"Album",
-				"CD Code",
-				"Outro",
-				"Year",
-				"URL 1",
-				"URL 2",
-				"Genre",
-			)
-			slots = parent.exploreColumnsTT
-		elif level == 2:
-			# Translators: The title of Columns Explorer configuration dialog.
-			actualTitle = _("Columns Explorer for SPL Creator")
-			cols = (
-				"Artist",
-				"Title",
-				"Position",
-				"Cue",
-				"Intro",
-				"Outro",
-				"Segue",
-				"Duration",
-				"Last Scheduled",
-				"7 Days",
-				"Date Restriction",
-				"Year",
-				"Album",
-				"Genre",
-				"Mood",
-				"Energy",
-				"Tempo",
-				"BPM",
-				"Gender",
-				"Rating",
-				"File Created",
-				"Filename",
-				"Client",
-				"Other",
-				"Intro Link",
-				"Outro Link",
-			)
-			slots = parent.exploreColumnsCreator
+		match level:
+			case 0:
+				# Translators: The title of Columns Explorer configuration dialog.
+				actualTitle = _("Columns Explorer")
+				cols = splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+				slots = parent.exploreColumns
+			case 1:
+				# Translators: The title of Columns Explorer configuration dialog.
+				actualTitle = _("Columns Explorer for Track Tool")
+				cols = (
+					"Artist",
+					"Title",
+					"Duration",
+					"Cue",
+					"Overlap",
+					"Intro",
+					"Segue",
+					"Filename",
+					"Album",
+					"CD Code",
+					"Outro",
+					"Year",
+					"URL 1",
+					"URL 2",
+					"Genre",
+				)
+				slots = parent.exploreColumnsTT
+			case 2:
+				# Translators: The title of Columns Explorer configuration dialog.
+				actualTitle = _("Columns Explorer for SPL Creator")
+				cols = (
+					"Artist",
+					"Title",
+					"Position",
+					"Cue",
+					"Intro",
+					"Outro",
+					"Segue",
+					"Duration",
+					"Last Scheduled",
+					"7 Days",
+					"Date Restriction",
+					"Year",
+					"Album",
+					"Genre",
+					"Mood",
+					"Energy",
+					"Tempo",
+					"BPM",
+					"Gender",
+					"Rating",
+					"File Created",
+					"Filename",
+					"Client",
+					"Other",
+					"Intro Link",
+					"Outro Link",
+				)
+				slots = parent.exploreColumnsCreator
 		# Gather column slots.
 		self.columnSlots = []
 
@@ -1328,12 +1329,13 @@ class ColumnsExplorerDialog(wx.Dialog):
 		# Note that item count is based on how many column combo boxes are present in this dialog.
 		# #63 (18.06): use levels instead due to introduction of Columns Explorer for SPL Creator.
 		slots = [self.columnSlots[slot].GetStringSelection() for slot in range(10)]
-		if self.level == 0:
-			parent.exploreColumns = slots
-		elif self.level == 1:
-			parent.exploreColumnsTT = slots
-		elif self.level == 2:
-			parent.exploreColumnsCreator = slots
+		match self.level:
+			case 0:
+				parent.exploreColumns = slots
+			case 1:
+				parent.exploreColumnsTT = slots
+			case 2:
+				parent.exploreColumnsCreator = slots
 		parent.Enable()
 		self.Destroy()
 
