@@ -19,11 +19,19 @@ import ui
 from logHandler import log
 import addonHandler
 from winUser import user32
+import versionInfo
 from . import splbase
 from . import splactions
 from ..skipTranslation import translate
 
 addonHandler.initTranslation()
+
+
+# Show additional controls in browseable message window.
+browseableMessageButtons = {
+	"closeButton": True,
+	"copyButton": True,
+} if versionInfo.version_year >= 2025 else {}
 
 
 # A custom combo box for cases where combo boxes are not choice controls.
@@ -611,7 +619,12 @@ def columnPresentationOrder() -> list[str]:
 
 
 def displayPlaylistTranscripts(transcript: list[str], HTMLDecoration: bool = False) -> None:
-	ui.browseableMessage("\n".join(transcript), title=_("Playlist Transcripts"), isHtml=HTMLDecoration)
+	ui.browseableMessage(
+		"\n".join(transcript),
+		title=_("Playlist Transcripts"),
+		isHtml=HTMLDecoration,
+		**browseableMessageButtons,
+	)
 
 
 def copyPlaylistTranscriptsToClipboard(playlistTranscripts: list[str]) -> None:
