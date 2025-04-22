@@ -4,8 +4,6 @@
 # Miscellaneous functions and user interfaces
 # Split from config module in 2015.
 
-# #155 (21.03): remove __future__ import when NVDA runs under Python 3.10.
-from __future__ import annotations
 from typing import Any, Optional
 import weakref
 import os
