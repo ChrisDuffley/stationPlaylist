@@ -118,6 +118,13 @@ _SPLCategoryTones = {
 speakOnDemand = {"speakOnDemand": True} if versionInfo.version_year >= 2024 else {}
 
 
+# Show additional controls in browseable message window.
+browseableMessageButtons = {
+	"closeButton": True,
+	"copyButton": True,
+} if versionInfo.version_year >= 2025 else {}
+
+
 # Routines for track items themselves (prepare for future work).
 # #65 (18.07): this base class represents trakc items
 # across StationPlaylist suites such as Studio, Creator and Track Tool.
@@ -212,6 +219,7 @@ class SPLTrackItem(sysListView32.ListItem):
 				"{0}: {1}".format(header, columnContent),
 				# Translators: Title of the column data window.
 				title=_("Track data"),
+				**browseableMessageButtons,
 			)
 
 	@scriptHandler.script(
@@ -233,7 +241,7 @@ class SPLTrackItem(sysListView32.ListItem):
 				)
 			)
 		# Translators: Title of the column data window.
-		ui.browseableMessage("\n".join(columnContents), title=_("Track data"))
+		ui.browseableMessage("\n".join(columnContents), title=_("Track data"), **browseableMessageButtons)
 
 
 class SPLStudioTrackItem(SPLTrackItem):
