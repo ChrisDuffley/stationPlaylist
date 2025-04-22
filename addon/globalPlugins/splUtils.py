@@ -97,10 +97,6 @@ def disableInSecureMode(cls):
 	return globalPluginHandler.GlobalPlugin if globalVars.appArgs.secure else cls
 
 
-# Enable speak on demand mode for several global plugin commands.
-speakOnDemand = {"speakOnDemand": True} if versionInfo.version_year >= 2024 else {}
-
-
 # Show additional controls in browseable message window.
 browseableMessageButtons = {
 	"closeButton": True,
@@ -164,7 +160,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			script = self.script_error
 		return finally_(script, self.script_finish)
 
-	@scriptHandler.script(**speakOnDemand)
+	@scriptHandler.script(speakOnDemand=True)
 	def script_finish(self):
 		# 21.03/20.09.6-LTS: clear SPL window handle.
 		global SPLWin
@@ -209,7 +205,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a layer command in StationPlaylist add-on.
 		description=_("SPl Controller layer command. See add-on guide for available commands."),
-		**speakOnDemand,
+		speakOnDemand=True,
 	)
 	def script_SPLControllerPrefix(self, gesture):
 		global SPLWin
@@ -365,7 +361,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@scriptHandler.script(
 		# Translators: Input help message for a SPL Controller command.
 		description=_("Announces stream encoder status from other programs"),
-		**speakOnDemand,
+		speakOnDemand=True,
 	)
 	def script_encoderStatus(self, gesture):
 		# Go through below procedure, as custom commands can be assigned for this script.
@@ -389,7 +385,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@scriptHandler.script(
 		# Translators: Input help message for a SPL Controller command.
 		description=_("Announces Studio status such as track playback status from other programs"),
-		**speakOnDemand,
+		speakOnDemand=True,
 	)
 	def script_statusInfo(self, gesture):
 		# Go through below procedure, as custom commands can be assigned for this script.
