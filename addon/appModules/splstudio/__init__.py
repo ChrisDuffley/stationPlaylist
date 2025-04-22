@@ -2411,7 +2411,7 @@ class AppModule(appModuleHandler.AppModule):
 			SPLNextPlayer: [-1, 1, 2, 1],  # Name and duration of the next track if any.
 			SPLCurrentTrackTitle: [-1, 1, 9],  # Name of the currently playing track.
 			SPLCurrentPlayer: [-1, 1, 9, 0],  # Name of the currently playing track.
-			SPLTemperature: [-1, 7, 0],  # Temperature for the current city.
+			SPLTemperature: [-1, 1, 3, 1],  # Temperature for the current city.
 		},
 	}
 
