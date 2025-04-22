@@ -7,7 +7,6 @@
 # Each track is a list item with descriptions such as title, file name, intro time and so forth.
 # One can press TAB to move along the controls for Track Tool.
 
-from typing import Optional
 import appModuleHandler
 import addonHandler
 import tones
@@ -139,7 +138,7 @@ class TrackToolItem(SPLTrackItem):
 			tones.beep(550, 100)
 		super(TrackToolItem, self).reportFocus()
 
-	def indexOf(self, header: str) -> Optional[int]:
+	def indexOf(self, header: str) -> int | None:
 		try:
 			return indexOf(self.appModule.productVersion).index(header)
 		except ValueError:
