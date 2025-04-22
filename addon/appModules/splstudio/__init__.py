@@ -114,10 +114,6 @@ _SPLCategoryTones = {
 }
 
 
-# Enable speak on demand mode for several app module commands.
-speakOnDemand = {"speakOnDemand": True} if versionInfo.version_year >= 2024 else {}
-
-
 # Show additional controls in browseable message window.
 browseableMessageButtons = {
 	"closeButton": True,
@@ -169,7 +165,7 @@ class SPLTrackItem(sysListView32.ListItem):
 		# 19.02: script decorator can take in a list of gestures, thus take advantage of it.
 		gestures=[f"kb:control+nvda+{i}" for i in range(10)],
 		category=_("StationPlaylist"),
-		**speakOnDemand,
+		speakOnDemand=True,
 	)
 	def script_columnExplorer(self, gesture):
 		# Due to the below formula, columns explorer will be restricted to number commands.
@@ -506,7 +502,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 		),
 		gesture="kb:Alt+NVDA+C",
 		category=_("StationPlaylist"),
-		**speakOnDemand,
+		speakOnDemand=True,
 	)
 	def script_announceTrackComment(self, gesture):
 		scriptRepeatCount = scriptHandler.getLastScriptRepeatCount()
@@ -1331,7 +1327,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Message comes from Foobar 2000 app module, part of NVDA Core.
 		description=translate("Reports the remaining time of the currently playing track, if any"),
 		gestures=["kb:control+alt+t", "ts(SPL):2finger_flickDown"],
-		**speakOnDemand,
+		speakOnDemand=True,
 	)
 	def script_sayRemainingTime(self, gesture):
 		if splbase.studioIsRunning():
@@ -1341,7 +1337,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Message comes from Foobar 2000 app module, part of NVDA Core.
 		description=translate("Reports the elapsed time of the currently playing track, if any"),
 		gesture="kb:alt+shift+t",
-		**speakOnDemand,
+		speakOnDemand=True,
 	)
 	def script_sayElapsedTime(self, gesture):
 		if splbase.studioIsRunning():
@@ -1354,7 +1350,7 @@ class AppModule(appModuleHandler.AppModule):
 			"If pressed twice, reports minutes and seconds left to top of the hour."
 		),
 		gestures=["kb:shift+nvda+f12", "ts(SPL):2finger_flickUp"],
-		**speakOnDemand,
+		speakOnDemand=True,
 	)
 	def script_sayBroadcasterTime(self, gesture):
 		if not splbase.studioIsRunning():
@@ -1389,7 +1385,7 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Announces time including seconds."),
-		**speakOnDemand,
+		speakOnDemand=True,
 	)
 	def script_sayCompleteTime(self, gesture):
 		if not splbase.studioIsRunning():
@@ -2330,7 +2326,7 @@ class AppModule(appModuleHandler.AppModule):
 			script = self.script_error
 		return finally_(script, self.script_finish)
 
-	@scriptHandler.script(**speakOnDemand)
+	@scriptHandler.script(speakOnDemand=True)
 	def script_finish(self):
 		self.SPLAssistant = False
 		self.clearGestureBindings()
@@ -2353,7 +2349,7 @@ class AppModule(appModuleHandler.AppModule):
 			"The SPL Assistant layer command. "
 			"See the add-on guide for more information on available commands.",
 		),
-		**speakOnDemand,
+		speakOnDemand=True,
 	)
 	def script_SPLAssistantToggle(self, gesture):
 		# Enter the layer command if an only if we're in the track list to allow easier gesture assignment.
@@ -2538,7 +2534,7 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Announces title of the next track if any"),
-		**speakOnDemand,
+		speakOnDemand=True,
 	)
 	def script_sayNextTrackTitle(self, gesture):
 		if not splbase.studioIsRunning():
@@ -2568,7 +2564,7 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Announces title of the currently playing track"),
-		**speakOnDemand,
+		speakOnDemand=True,
 	)
 	def script_sayCurrentTrackTitle(self, gesture):
 		if not splbase.studioIsRunning():
@@ -2604,7 +2600,7 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Announces temperature and weather information"),
-		**speakOnDemand,
+		speakOnDemand=True,
 	)
 	def script_sayTemperature(self, gesture):
 		if not splbase.studioIsRunning():
@@ -2699,7 +2695,7 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Announces total length of tracks between analysis start marker and the current track"),
-		**speakOnDemand,
+		speakOnDemand=True,
 	)
 	def script_trackTimeAnalysis(self, gesture):
 		self.script_finish()
@@ -2735,7 +2731,7 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Presents playlist snapshot information such as number of tracks and top artists"),
-		**speakOnDemand,
+		speakOnDemand=True,
 	)
 	def script_takePlaylistSnapshots(self, gesture):
 		if not splbase.studioIsRunning():
