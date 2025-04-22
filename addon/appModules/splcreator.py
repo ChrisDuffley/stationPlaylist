@@ -12,7 +12,7 @@ import globalVars
 import ui
 import api
 from NVDAObjects.IAccessible import sysListView32
-from .splstudio import splconfig, SPLTrackItem, speakOnDemand
+from .splstudio import splconfig, SPLTrackItem
 
 addonHandler.initTranslation()
 
@@ -159,7 +159,7 @@ class AppModule(appModuleHandler.AppModule):
 	SPLEditorStatusBar = 2
 	_playlistEditorStatusCache: dict[int, Any] = {}
 
-	@scriptHandler.script(gesture="kb:alt+NVDA+1", **speakOnDemand)
+	@scriptHandler.script(gesture="kb:alt+NVDA+1", speakOnDemand=True)
 	def script_playlistDateTime(self, gesture):
 		if self.isPlaylistEditor():
 			try:
@@ -172,7 +172,7 @@ class AppModule(appModuleHandler.AppModule):
 				self._playlistEditorStatusCache[self.SPLEditorDateTime] = [playlistHour, playlistDay]
 			ui.message(" ".join([playlistDay.value, playlistHour.value]))
 
-	@scriptHandler.script(gesture="kb:alt+NVDA+2", **speakOnDemand)
+	@scriptHandler.script(gesture="kb:alt+NVDA+2", speakOnDemand=True)
 	def script_playlistDuration(self, gesture):
 		if self.isPlaylistEditor():
 			try:
@@ -182,7 +182,7 @@ class AppModule(appModuleHandler.AppModule):
 				self._playlistEditorStatusCache[self.SPLEditorDuration] = playlistDuration
 			ui.message(playlistDuration.name)
 
-	@scriptHandler.script(gesture="kb:alt+NVDA+3", **speakOnDemand)
+	@scriptHandler.script(gesture="kb:alt+NVDA+3", speakOnDemand=True)
 	def script_playlistScheduled(self, gesture):
 		if self.isPlaylistEditor():
 			try:
@@ -192,7 +192,7 @@ class AppModule(appModuleHandler.AppModule):
 				self._playlistEditorStatusCache[self.SPLEditorStatusBar] = statusBar
 			ui.message(statusBar.getChild(2).name)
 
-	@scriptHandler.script(gesture="kb:alt+NVDA+4", **speakOnDemand)
+	@scriptHandler.script(gesture="kb:alt+NVDA+4", speakOnDemand=True)
 	def script_playlistRotation(self, gesture):
 		if self.isPlaylistEditor():
 			try:
