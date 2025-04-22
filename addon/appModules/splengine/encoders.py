@@ -19,7 +19,6 @@ from winUser import user32, sendMessage, OBJID_CLIENT
 import tones
 import gui
 import wx
-import versionInfo
 import addonHandler
 
 addonHandler.initTranslation()
@@ -362,10 +361,6 @@ def announceEncoderConnectionStatus() -> None:
 		ui.message(encodersConnectedMessage)
 
 
-# Enable speak on demand mode for several app module commands.
-speakOnDemand = {"speakOnDemand": True} if versionInfo.version_year >= 2024 else {}
-
-
 class Encoder(IAccessible):
 	"""Represents an encoder from within StationPlaylist Studio or Streamer.
 	This abstract base encoder provides scripts for all encoders such as encoder settings dialog
@@ -675,7 +670,7 @@ class Encoder(IAccessible):
 		),
 		gesture="kb:NVDA+F12",
 		category=_("StationPlaylist"),
-		**speakOnDemand,
+		speakOnDemand=True,
 	)
 	def script_encoderDateTime(self, gesture):
 		import winKernel
@@ -690,12 +685,12 @@ class Encoder(IAccessible):
 
 	# Various column announcement scripts.
 	# This base class implements encoder position and labels.
-	@scriptHandler.script(gesture="kb:control+NVDA+1", **speakOnDemand)
+	@scriptHandler.script(gesture="kb:control+NVDA+1", speakOnDemand=True)
 	def script_announceEncoderPosition(self, gesture):
 		# Translators: describes the current encoder position.
 		ui.message(_("Position: {pos}").format(pos=self.IAccessibleChildID))
 
-	@scriptHandler.script(gesture="kb:control+NVDA+2", **speakOnDemand)
+	@scriptHandler.script(gesture="kb:control+NVDA+2", speakOnDemand=True)
 	def script_announceEncoderLabel(self, gesture):
 		try:
 			encoderLabel = self.encoderLabel
@@ -855,15 +850,15 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		self._samContextMenu(7)
 
 	# Announce SAM columns: encoder name/type, status and description.
-	@scriptHandler.script(gesture="kb:control+NVDA+3", **speakOnDemand)
+	@scriptHandler.script(gesture="kb:control+NVDA+3", speakOnDemand=True)
 	def script_announceEncoderFormat(self, gesture):
 		ui.message("{0}: {1}".format(self.getChild(1).columnHeaderText, self.encoderFormat))
 
-	@scriptHandler.script(gesture="kb:control+NVDA+4", **speakOnDemand)
+	@scriptHandler.script(gesture="kb:control+NVDA+4", speakOnDemand=True)
 	def script_announceEncoderStatus(self, gesture):
 		ui.message("{0}: {1}".format(self.getChild(2).columnHeaderText, self.getChild(2).name))
 
-	@scriptHandler.script(gesture="kb:control+NVDA+5", **speakOnDemand)
+	@scriptHandler.script(gesture="kb:control+NVDA+5", speakOnDemand=True)
 	def script_announceEncoderStatusDesc(self, gesture):
 		ui.message("{0}: {1}".format(self.getChild(3).columnHeaderText, self.getChild(3).name))
 
@@ -977,11 +972,11 @@ class SPLEncoder(Encoder):
 			self.connectStart(manualConnect=True)
 
 	# Announce SPL Encoder columns: encoder settings and transfer rate.
-	@scriptHandler.script(gesture="kb:control+NVDA+3", **speakOnDemand)
+	@scriptHandler.script(gesture="kb:control+NVDA+3", speakOnDemand=True)
 	def script_announceEncoderSettings(self, gesture):
 		ui.message("{0}: {1}".format(self.firstChild.columnHeaderText, self.encoderFormat))
 
-	@scriptHandler.script(gesture="kb:control+NVDA+4", **speakOnDemand)
+	@scriptHandler.script(gesture="kb:control+NVDA+4", speakOnDemand=True)
 	def script_announceEncoderTransfer(self, gesture):
 		ui.message("{0}: {1}".format(self.getChild(1).columnHeaderText, self.getChild(1).name))
 
