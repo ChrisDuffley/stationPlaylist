@@ -2875,7 +2875,7 @@ class AppModule(appModuleHandler.AppModule):
 		elif compatibility == "jfw":
 			# Translators: The title for SPL Assistant help screen.
 			title = _("SPL Assistant help for JAWS layout")
-		ui.browseableMessage(SPLAssistantHelp[compatibility], title=title)
+		ui.browseableMessage(SPLAssistantHelp[compatibility], title=title, **browseableMessageButtons)
 
 	__SPLAssistantGestures = {
 		"kb:p": "sayPlayStatus",
