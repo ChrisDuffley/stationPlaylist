@@ -2292,7 +2292,12 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message(", ".join(statusInfo))
 		else:
 			# Translators: The title of a window for displaying playlist snapshots information.
-			ui.browseableMessage("<p>".join(statusInfo), title=_("Playlist snapshots"), isHtml=True)
+			ui.browseableMessage(
+				"<p>".join(statusInfo),
+				title=_("Playlist snapshots"),
+				isHtml=True,
+				**browseableMessageButtons,
+			)
 
 	# Some handlers for native commands.
 
