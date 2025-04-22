@@ -101,6 +101,13 @@ def disableInSecureMode(cls):
 speakOnDemand = {"speakOnDemand": True} if versionInfo.version_year >= 2024 else {}
 
 
+# Show additional controls in browseable message window.
+browseableMessageButtons = {
+	"closeButton": True,
+	"copyButton": True,
+} if versionInfo.version_year >= 2025 else {}
+
+
 @disableInSecureMode
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Translators: Script category for StationPlaylist commands in input gestures dialog.
@@ -449,7 +456,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_conHelp(self, gesture):
 		# Translators: The title for SPL Controller help screen.
-		ui.browseableMessage(SPLConHelp, title=_("SPL Controller help"))
+		ui.browseableMessage(SPLConHelp, title=_("SPL Controller help"), **browseableMessageButtons)
 		self.script_finish()
 
 	__SPLControllerGestures = {
