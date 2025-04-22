@@ -202,6 +202,10 @@ You can save settings for specific shows into broadcast profiles. These profiles
 
 If you are using Studio on a touchscreen computer with NVDA installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 25.05
+
+* NVDA 2024.1 or later is required due to Python 3.11 upgrade.
+
 ## Version 25.01
 
 * 64-bit Windows 10 21H2 (build 19044) or later is required.
