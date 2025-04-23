@@ -1493,10 +1493,13 @@ class AppModule(appModuleHandler.AppModule):
 			# 20.09: doAction method will do this instead.
 			track.doAction()
 		else:
-			# Translators: Standard dialog message when an item one wishes to search is not found
-			# (copy this from main nvda.po).
 			wx.CallAfter(
-				gui.messageBox, _("Search string not found."), translate("Find Error"), wx.OK | wx.ICON_ERROR
+				gui.messageBox,
+				# Translators: Standard dialog message when an item one wishes to search is not found
+				# (copy this from main nvda.po).
+				_('text "%s" not found') % text,
+				translate("0 matches"),
+				wx.OK | wx.ICON_INFORMATION,
 			)
 
 	# Split from track finder in 2015.
