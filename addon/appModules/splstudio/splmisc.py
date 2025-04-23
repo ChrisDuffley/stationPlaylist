@@ -98,13 +98,10 @@ class SPLFindDialog(wx.Dialog):
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
 		findHistory = obj.appModule.findText if obj.appModule.findText is not None else []
-		# #68: use a custom combo box if this is wxPython 4.
-		if isinstance(wx.ComboBox, wx.Choice):
-			self.findEntry = findSizerHelper.addLabeledControl(findPrompt, wx.ComboBox, choices=findHistory)
-		else:
-			self.findEntry = findSizerHelper.addLabeledControl(
-				findPrompt, CustomComboBox, choices=findHistory
-			)
+		# #68: use a custom combo box as it does not derive from wx.Choice in wxPython 4.
+		self.findEntry = findSizerHelper.addLabeledControl(
+			findPrompt, CustomComboBox, choices=findHistory
+		)
 		self.findEntry.Value = text
 
 		if columnSearch:
