@@ -205,7 +205,8 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 ## Version 25.05
 
 * NVDA 2024.1 or later is required due to Python 3.11 upgrade.
-* Added copy and close buttons to playlist snapshots, playlist transcripts, and SPL Assistant and Controller layer help screens (NVDA 2025.1 and later).
+* Added close button to playlist snapshots, playlist transcripts, and SPL Assistant and Controller layer help screens (NVDA 2025.1 and later).
+* NVDA will no longer do nothing or play error tones when announcing weather and temperature information in Studio 6.x (SPL Assistant, W).
 
 ## Version 25.01
 
