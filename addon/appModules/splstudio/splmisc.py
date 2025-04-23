@@ -28,10 +28,7 @@ addonHandler.initTranslation()
 
 
 # Show additional controls in browseable message window.
-browseableMessageButtons = {
-	"closeButton": True,
-	"copyButton": True,
-} if versionInfo.version_year >= 2025 else {}
+browseableMessageButtons = {"closeButton": True} if versionInfo.version_year >= 2025 else {}
 
 
 # A custom combo box for cases where combo boxes are not choice controls.
