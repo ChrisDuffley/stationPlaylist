@@ -63,11 +63,9 @@ mode parole à la demande.
   piste sélectionnée est programmée.
 * Alt+NVDA+4 de Creator's Playlist Editor et Remote VT playlist editor :
   annonce la rotation et la catégorie associées à la playlist chargée.
-* Contrôle+NVDA+f depuis la fenêtre de Studio : Ouvre un dialogue pour
-  chercher une piste en se basant sur l'artiste ou le nom de la
-  chanson. Appuyez  sur NVDA+F3 pour chercher vers l'avant ou appuyez sur
-  NVDA+Maj+F3 pour rechercher vers l'arrière (ne prend pas en charge la
-  parole à la demande).
+* Control+NVDA+F from Studio window: Opens a dialog to find a track based on
+  artist or song name. Press NVDA+F3 to find forward or NVDA+Shift+F3 to
+  find backward (does not support speak on demand).
 * Alt+NVDA+R depuis la fenêtre de Studio : parcourt les paramètres d'annonce
   du balayage dans la bibliothèque (ne prend pas en charge la parole à la
   demande).
@@ -386,6 +384,15 @@ NVDA installé, vous pouvez exécuter certaines commandes Studio depuis un
 écran tactile. Tout d'abord utiliser une tape à trois doigts pour basculer
 en mode SPL, puis utilisez les commandes tactile énumérées ci-dessus pour
 exécuter des commandes.
+
+## Version 25.05
+
+* NVDA 2024.1 or later is required due to Python 3.11 upgrade.
+* Restored limited support for Windows 8.1.
+* Added close button to playlist snapshots, playlist transcripts, and SPL
+  Assistant and Controller layer help screens (NVDA 2025.1 and later).
+* NVDA will no longer do nothing or play error tones when announcing weather
+  and temperature information in Studio 6.x (SPL Assistant, W).
 
 ## Version 25.01
 

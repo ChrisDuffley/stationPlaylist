@@ -19,23 +19,6 @@ msgstr ""
 "X-Generator: Poedit 3.5\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#. Translators: Dialog text shown when trying to install the add-on on
-#. releases earlier than minimum supported release.
-#, python-brace-format
-msgid ""
-"You are using {releaseName} ({build}), a Windows release not supported by "
-"this add-on.\n"
-"This add-on requires {supportedReleaseName} ({supportedBuild}) or later."
-msgstr ""
-"Estás usando {releaseName} ({build}), una versión de Windows no soportada "
-"por este complemento.\n"
-"Este complemento requiere {supportedReleaseName} ({supportedBuild}) o "
-"posterior."
-
-#. Translators: dialog title shown when trying to install the add-on in unsupported systems.
-msgid "Unsupported Windows release"
-msgstr "Versión de Windows no soportada"
-
 #. Translators: announced in SPL Creator and Remote VT
 #. when trying to perform playlist status commands while outside of playlist editor.
 msgid "You are not in playlist editor"
@@ -55,9 +38,9 @@ msgstr ""
 
 #. Translators: Script category for StationPlaylist add-on commands in input gestures dialog.
 #. Translators: Script category for StationPlaylist commands in input gestures dialog.
-#. Add-on summary, usually the user visible name of the addon.
-#. Translators: Summary for this add-on
-#. to be shown on installation and add-on information found in Add-ons Manager.
+#. Add-on summary/title, usually the user visible name of the add-on
+#. Translators: Summary/title for this add-on
+#. to be shown on installation and add-on information found in add-on store
 msgid "StationPlaylist"
 msgstr "StationPlaylist"
 
@@ -353,8 +336,11 @@ msgstr "Abre el diálogo de bienvenida del complemento SPL Studio."
 msgid "Toggles between various braille timer settings."
 msgstr "Conmuta entre varias opciones de temporizadores braille."
 
-msgid "Search string not found."
-msgstr "No se encontró la cadena de búsqueda."
+#. Translators: Standard dialog message when an item one wishes to search is not found
+#. (copy this from main nvda.po).
+#, fuzzy, python-format
+msgid "text \"%s\" not found"
+msgstr "{headerText} no encontrado"
 
 #. Translators: Presented when a user attempts to find tracks but is not at the track list.
 msgid "Track finder is available only in track list."
@@ -623,7 +609,6 @@ msgstr "No hay información del género ({genreCount})"
 msgid "{genreName} ({genreCount})"
 msgstr "{genreName} ({genreCount})"
 
-#. Translators: The title of a window for displaying playlist snapshots information.
 #. Translators: title of a panel to configure playlist snapshot information.
 msgid "Playlist snapshots"
 msgstr "Instantáneas de lista de reproducción"
@@ -1890,10 +1875,27 @@ msgid "SPL Controller help"
 msgstr "Ayuda del SPL Controller"
 
 #. Add-on description
-#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#. Translators: Long description to be shown for this add-on on add-on information from add-on store
 msgid ""
 "Enhances support for StationPlaylist apps. In addition, adds global commands "
 "for the Studio application from everywhere."
 msgstr ""
 "Mejora el soporte para las aplicaciones de StationPlaylist. Además, agrega "
 "órdenes globales para la aplicación de Studio desde cualquier parte."
+
+#, python-brace-format
+#~ msgid ""
+#~ "You are using {releaseName} ({build}), a Windows release not supported by "
+#~ "this add-on.\n"
+#~ "This add-on requires {supportedReleaseName} ({supportedBuild}) or later."
+#~ msgstr ""
+#~ "Estás usando {releaseName} ({build}), una versión de Windows no soportada "
+#~ "por este complemento.\n"
+#~ "Este complemento requiere {supportedReleaseName} ({supportedBuild}) o "
+#~ "posterior."
+
+#~ msgid "Unsupported Windows release"
+#~ msgstr "Versión de Windows no soportada"
+
+#~ msgid "Search string not found."
+#~ msgstr "No se encontró la cadena de búsqueda."

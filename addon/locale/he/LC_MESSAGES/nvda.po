@@ -18,19 +18,6 @@ msgstr ""
 "X-Generator: Poedit 1.8.9\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. Translators: Dialog text shown when trying to install the add-on on
-#. releases earlier than minimum supported release.
-#, python-brace-format
-msgid ""
-"You are using {releaseName} ({build}), a Windows release not supported by "
-"this add-on.\n"
-"This add-on requires {supportedReleaseName} ({supportedBuild}) or later."
-msgstr ""
-
-#. Translators: dialog title shown when trying to install the add-on in unsupported systems.
-msgid "Unsupported Windows release"
-msgstr ""
-
 #. Translators: announced in SPL Creator and Remote VT
 #. when trying to perform playlist status commands while outside of playlist editor.
 #, fuzzy
@@ -51,9 +38,9 @@ msgstr ""
 
 #. Translators: Script category for StationPlaylist add-on commands in input gestures dialog.
 #. Translators: Script category for StationPlaylist commands in input gestures dialog.
-#. Add-on summary, usually the user visible name of the addon.
-#. Translators: Summary for this add-on
-#. to be shown on installation and add-on information found in Add-ons Manager.
+#. Add-on summary/title, usually the user visible name of the add-on
+#. Translators: Summary/title for this add-on
+#. to be shown on installation and add-on information found in add-on store
 #, fuzzy
 msgid "StationPlaylist"
 msgstr "StationPlaylist Studio"
@@ -350,8 +337,11 @@ msgstr "פתיחת תיבת דו-שיח ההגדרות של  Studio SPL."
 msgid "Toggles between various braille timer settings."
 msgstr "מיתוג בין הגדרות טיימר שונות עבור הברייל."
 
-msgid "Search string not found."
-msgstr "המחרוזת לא נמצאה."
+#. Translators: Standard dialog message when an item one wishes to search is not found
+#. (copy this from main nvda.po).
+#, fuzzy, python-format
+msgid "text \"%s\" not found"
+msgstr "{headerText}  לא נמצא"
 
 #. Translators: Presented when a user attempts to find tracks but is not at the track list.
 msgid "Track finder is available only in track list."
@@ -608,7 +598,6 @@ msgstr "אין מידע על הסגנון ({genreCount})"
 msgid "{genreName} ({genreCount})"
 msgstr "{genreName} ({genreCount})"
 
-#. Translators: The title of a window for displaying playlist snapshots information.
 #. Translators: title of a panel to configure playlist snapshot information.
 msgid "Playlist snapshots"
 msgstr "תמונות של רשימת השמעה"
@@ -1783,7 +1772,7 @@ msgid "SPL Controller help"
 msgstr "עזרה על תוכנת SPL"
 
 #. Add-on description
-#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#. Translators: Long description to be shown for this add-on on add-on information from add-on store
 #, fuzzy
 msgid ""
 "Enhances support for StationPlaylist apps. In addition, adds global commands "
@@ -1791,3 +1780,6 @@ msgid ""
 msgstr ""
 "מנגיש את תוכנת StationPlaylist.\n"
 "בנוסף, מאפשר ביצוע פקודות מכל מקום אחר במחשב."
+
+#~ msgid "Search string not found."
+#~ msgstr "המחרוזת לא נמצאה."

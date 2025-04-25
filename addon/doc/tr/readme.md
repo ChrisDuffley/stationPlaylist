@@ -357,6 +357,16 @@ bazı Studio komutlarını dokunmatik ekrandan gerçekleştirebilirsiniz. Önce
 SPL moduna geçmek için üç parmakla dokunmayı kullanın, ardından komutları
 gerçekleştirmek için yukarıda listelenen dokunma komutlarını kullanın.
 
+## Sürüm 25.05
+
+* Python 3.11 yükseltmesi nedeniyle NVDA 2024.1 veya sonrası gereklidir.
+* Windows 8.1 için sınırlı destek geri yüklendi.
+* Oynatma listesi anlık görüntülerine, çalma listesi transkriptlerine ve SPL
+  Asistanı ve Denetleyici katmanı yardım ekranlarına (NVDA 2025.1 ve üstü)
+  kapat düğmesi eklendi.
+* NVDA, Studio 6.x'te (SPL Assistant, W) hava durumu ve sıcaklık bilgilerini
+  duyururken artık hiçbir şey yapmayacak veya hata tonları çalmayacak.
+
 ## Sürüm 25.01
 
 * 64 bit Windows 10 21H2 (derleme 19044) veya sonrası gereklidir.
