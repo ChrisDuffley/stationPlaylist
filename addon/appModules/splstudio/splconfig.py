@@ -86,7 +86,7 @@ class ConfigHub(ChainMap):
 			)
 		# Create a "fake" map entry, to be replaced by the normal profile later.
 		# Super method is called to acknowledge the fact that this is powered by ChainMap.
-		super(ConfigHub, self).__init__()
+		super().__init__()
 		# #155 (21.03): re-initialize maps to be a list of config objects to satisfy Mypy and friends.
 		self.maps: list[ConfigObj] = [{}]
 		# #64 (18.07): keep an eye on which SPL component opened this map.

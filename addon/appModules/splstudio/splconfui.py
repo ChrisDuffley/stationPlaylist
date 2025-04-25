@@ -35,7 +35,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 
 	def __init__(self, parent):
 		# Translators: title of a dialog to configure broadcast profiles.
-		super(BroadcastProfilesDialog, self).__init__(parent, title=_("SPL Broadcast Profiles"))
+		super().__init__(parent, title=_("SPL Broadcast Profiles"))
 		global _configDialogOpened
 		_configDialogOpened = True
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
@@ -329,7 +329,7 @@ class NewProfileDialog(wx.Dialog):
 		else:
 			# Translators: The title of the dialog to copy a broadcast profile.
 			dialogTitle = _("Copy Profile")
-		super(NewProfileDialog, self).__init__(parent, title=dialogTitle)
+		super().__init__(parent, title=dialogTitle)
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		newProfileSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
@@ -406,7 +406,7 @@ class TriggersDialog(wx.Dialog):
 	def __init__(self, parent, profile):
 		# Translators: The title of the broadcast profile triggers dialog.
 		title = _("Profile triggers for {profileName}").format(profileName=profile)
-		super(TriggersDialog, self).__init__(parent, title=title)
+		super().__init__(parent, title=title)
 		self.profile = profile
 		self.selection = parent.profiles.GetSelection()
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
@@ -1282,7 +1282,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		# Gather column slots.
 		self.columnSlots = []
 
-		super(ColumnsExplorerDialog, self).__init__(parent, title=actualTitle)
+		super().__init__(parent, title=actualTitle)
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		colExplorerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
@@ -1427,7 +1427,7 @@ class AdvancedOptionsPanel(gui.settingsDialogs.SettingsPanel):
 class ResetDialog(wx.Dialog):
 	def __init__(self, parent):
 		# Translators: Title of the dialog to reset various add-on settings.
-		super(ResetDialog, self).__init__(parent, title=_("Reset settings"))
+		super().__init__(parent, title=_("Reset settings"))
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		resetHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
