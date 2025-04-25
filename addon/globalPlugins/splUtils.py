@@ -107,7 +107,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	scriptCategory = _("StationPlaylist")
 
 	def __init__(self):
-		super(GlobalPlugin, self).__init__()
+		super().__init__()
 		# Tell NVDA that the add-on accepts additional command-line switches.
 		addonHandler.isCLIParamKnown.register(processArgs)
 		# SPL Streamer provides a streaming UI on top of SPL Engine components, thus treat it as an alias.
