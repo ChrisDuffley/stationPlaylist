@@ -108,7 +108,7 @@ class SPLPlaylistEditorItem(SPLTrackItem):
 
 class AppModule(appModuleHandler.AppModule):
 	def __init__(self, *args, **kwargs):
-		super(AppModule, self).__init__(*args, **kwargs)
+		super().__init__(*args, **kwargs)
 		# Announce Creator version at startup unless minimal flag is set.
 		try:
 			if not globalVars.appArgs.minimal:
@@ -120,7 +120,7 @@ class AppModule(appModuleHandler.AppModule):
 		splconfig.openConfig("splcreator")
 
 	def terminate(self):
-		super(AppModule, self).terminate()
+		super().terminate()
 		splconfig.closeConfig("splcreator")
 		# Clear Playlist Editor status cache,
 		# otherwise it will generate errors when Creator restarts without restarting NVDA.

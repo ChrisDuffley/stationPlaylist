@@ -12,7 +12,7 @@ from logHandler import log
 
 class AppModule(appModuleHandler.AppModule):
 	def __init__(self, *args, **kwargs):
-		super(AppModule, self).__init__(*args, **kwargs)
+		super().__init__(*args, **kwargs)
 		if user32.FindWindowW("SPLStudio", None):
 			log.debug("SPL: VT Recorder is online, disabling background event tracking for Studio")
 			# Python 3: using dict.items directly for maximum Python compatibility.
@@ -27,7 +27,7 @@ class AppModule(appModuleHandler.AppModule):
 			log.debug("SPL: Studio is not running")
 
 	def terminate(self):
-		super(AppModule, self).terminate()
+		super().terminate()
 		if user32.FindWindowW("SPLStudio", None):
 			log.debug("SPL: VT Recorder is offline, enabling background event tracking for Studio")
 			for pid, appMod in appModuleHandler.runningTable.items():

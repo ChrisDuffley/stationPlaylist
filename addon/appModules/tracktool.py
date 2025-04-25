@@ -151,12 +151,12 @@ class TrackToolItem(SPLTrackItem):
 
 class AppModule(appModuleHandler.AppModule):
 	def __init__(self, *args, **kwargs):
-		super(AppModule, self).__init__(*args, **kwargs)
+		super().__init__(*args, **kwargs)
 		# #64 (18.07): load config database if not done already.
 		splconfig.openConfig("tracktool")
 
 	def terminate(self):
-		super(AppModule, self).terminate()
+		super().terminate()
 		splconfig.closeConfig("tracktool")
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):

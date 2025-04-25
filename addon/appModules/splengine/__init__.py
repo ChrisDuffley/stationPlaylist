@@ -40,7 +40,7 @@ def announceEncoderConnectionStatus() -> None:
 
 class AppModule(appModuleHandler.AppModule):
 	def terminate(self):
-		super(AppModule, self).terminate()
+		super().terminate()
 		# 6.3: Memory leak results if encoder flag sets and other encoder support maps aren't cleaned up.
 		# This also could have allowed a hacker to modify the flags set (highly unlikely)
 		# so NVDA could get confused next time Studio loads.
