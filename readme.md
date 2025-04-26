@@ -206,6 +206,7 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 
 * NVDA 2024.1 or later is required due to Python 3.11 upgrade.
 * Restored limited support for Windows 8.1.
+* Moved ad-on wiki documents such as add-on changelog to the main code repository.
 * Added close button to playlist snapshots, playlist transcripts, and SPL Assistant and Controller layer help screens (NVDA 2025.1 and later).
 * NVDA will no longer do nothing or play error tones when announcing weather and temperature information in Studio 6.x (SPL Assistant, W).
 
