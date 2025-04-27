@@ -74,11 +74,16 @@ Highlights of past major releases and subsequent maintenance releases include:
 * 20.09: fourth LTS release, pilot features removed, connecting to individual encoders in SPL encoders, background encoder monitor registry.
 * 21.01: track property announcement changes, more lint fixes.
 * 21.06: compatibility with newer NVDA releases, type annotations and more robust source code. This is the last version with planned new features and bug fixes from me.
-* 22.01: control types refactor, internal refinements to configuration management, remove profile caching mechanism as SSD technology has matured. This is the last release from me.
+* 22.01: control types refactor, internal refinements to configuration management, remove profile caching mechanism as SSD technology has matured. This was the last planned release from me for some time.
+* 22.03: feature changes and removals to improve add-on security.
+* 23.02: dropped support for Windows 7, 8, 8.1, and unsupported Windows 10 releases. This was the last version actively developed by me (Joseph Lee).
+* 23.05: new maintainer (Chris Duffley).
+* 24.03: initial support for speech on demand mode, encoder support enhancements.
+* 25.01: dropped 32-bit Windows releases support, linter updates, Add-on Updater support removed with the introduction of NV Access add-on store.
 
 Throughout this article, you'll get a chance to see how the add-on works, design philosophy and how the add-on is being developed, with glimpses into the past and future. My hope is that this add-on internals article would be a valuable reference for users and developers - for users to see the inner workings of this add-on, and for developers to use this add-on as an example of how an add-on is planned, implemented, tested, released and maintained.
 
-To download the add-on, go to https://addons.nvda-project.org/addons/StationPlaylist.en.html.
+To download the add-on, visit NV Access add-on store.
 
 ## Design, code layout, layer sets and importance of Studio API and Studio window handle
 
@@ -94,7 +99,7 @@ In short, all components of StationPlaylist add-on emphasize studio app module -
 
 The source code consists of:
 
-* appModules: This folder contains the main splstudio (app module) package and the app modules for Track Tool, Creator, VT Recorder, Remote VT client, SPL DSP Engine (package), and Streamer.
+* appModules: This folder contains the main splstudio (app module) package and the app modules for Track Tool, Creator, VT Recorder, Remote VT client, and SPL DSP Engine app module package to support SPL Engine, Streamer, and encoders.
 * The SPL Studio package consists of various modules, which include __init__ (main app module and track item classes), configuration manager and user interfaces (splconfig and splconfui) and miscellaneous services (splmisc) as well as support modules and various wave files used by the add-on.
 * The SPL Engine package consists of main Engine module and encoder support module.
 * The main app module file is divided into sections. First, the overlay classes for track items are defined, then comes the app module, further divided into four sections: fundamental methods (constructor, events and others), time commands (end of track, broadcaster time, etc.), other commands (track Finder, cart explorer and others) and SPL Assistant layer. This allows me to identify where a bug is coming from and to add features in appropriate sections.
