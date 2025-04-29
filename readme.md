@@ -8,7 +8,7 @@ For more information about the add-on, read the [add-on guide][2].
 
 IMPORTANT NOTES:
 
-* This add-on requires StationPlaylist suite 5.40 or later.
+* This add-on requires StationPlaylist suite 5.50 or later.
 * Some add-on features will be disabled or limited if NVDA is running in secure mode such as in logon screen.
 * For best experience, disable audio ducking mode.
 * Starting from 2018, [changelogs for old add-on releases][3] will be found on GitHub. This add-on readme will list changes from version 23.02 (2023) onwards.
