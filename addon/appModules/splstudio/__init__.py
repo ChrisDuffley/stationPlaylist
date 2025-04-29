@@ -10,7 +10,7 @@
 # For SPL Studio Controller, focus movement and other utilities,
 # see the global plugin version of this app module.
 
-# Minimum version: SPL 5.40, NVDA 2021.3.
+# Minimum version: SPL 5.40, NVDA 2024.1.
 
 from typing import Any
 from functools import wraps
