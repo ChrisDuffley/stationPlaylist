@@ -10,7 +10,7 @@
 # For SPL Studio Controller, focus movement and other utilities,
 # see the global plugin version of this app module.
 
-# Minimum version: SPL 5.40, NVDA 2024.1.
+# Minimum version: SPL 5.50, NVDA 2024.1.
 
 from typing import Any
 from functools import wraps
@@ -68,7 +68,7 @@ def finally_(func, final):
 
 
 # Make sure the broadcaster is running a compatible version.
-SPLMinVersion = "5.40"
+SPLMinVersion = "5.50"
 
 # Threads pool.
 micAlarmT: threading.Timer | None = None
