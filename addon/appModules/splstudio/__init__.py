@@ -713,7 +713,7 @@ class AppModule(appModuleHandler.AppModule):
 		# This is seen when restarting NVDA while studio add-on settings screen was active.
 		if wx.GetApp() is None:
 			return
-		super(AppModule, self).__init__(*args, **kwargs)
+		super().__init__(*args, **kwargs)
 		if self.productVersion < SPLMinVersion:
 			raise RuntimeError("Unsupported version of Studio is running, exiting app module")
 		log.debug(f"SPL: using SPL Studio version {self.productVersion}")
@@ -1227,7 +1227,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Save configuration and perform other tasks when terminating.
 	def terminate(self):
-		super(AppModule, self).terminate()
+		super().terminate()
 		log.debug("SPL: terminating app module")
 		# #39 (17.11/15.10-lts): terminate microphone alarm/interval threads, otherwise errors are seen.
 		# #40 (17.12): replace this with a handler that responds to app module exit signal.
