@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 24.03\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2024-07-31 18:07+0300\n"
-"PO-Revision-Date: 2024-12-27 23:11+0300\n"
+"PO-Revision-Date: 2025-04-26 00:48+0300\n"
 "Last-Translator: Ruslan Kolodyazhni <rupelodn@gmail.com>\n"
 "Language-Team: Translators <nvda-translations@groups.io>\n"
 "Language: ru_RU\n"
@@ -338,9 +338,9 @@ msgstr "Переключает между различными настройк�
 
 #. Translators: Standard dialog message when an item one wishes to search is not found
 #. (copy this from main nvda.po).
-#, fuzzy, python-format
+#, python-format
 msgid "text \"%s\" not found"
-msgstr "{headerText} не найдено"
+msgstr "text \"%s\" не найдено"
 
 #. Translators: Presented when a user attempts to find tracks but is not at the track list.
 msgid "Track finder is available only in track list."
@@ -1874,20 +1874,3 @@ msgid ""
 msgstr ""
 "Улучшает поддержку приложений StationPlaylist. Кроме того, добавлены "
 "глобальные команды для приложения Studio."
-
-#, python-brace-format
-#~ msgid ""
-#~ "You are using {releaseName} ({build}), a Windows release not supported by "
-#~ "this add-on.\n"
-#~ "This add-on requires {supportedReleaseName} ({supportedBuild}) or later."
-#~ msgstr ""
-#~ "Вы используете {releaseName} ({build}), версия Windows, не поддерживаемая "
-#~ "этим дополнением.\n"
-#~ "Для этого дополнения требуется {supportedReleaseName} ({supportedBuild}) "
-#~ "или более поздняя версия."
-
-#~ msgid "Unsupported Windows release"
-#~ msgstr "Неподдерживаемый выпуск Windows"
-
-#~ msgid "Search string not found."
-#~ msgstr "Искомая строка не найдена."

@@ -1,24 +1,24 @@
 # Brazilian Portuguese translation of StationPlaylist add-on.
-# Copyright (C) 2021 NVDA Contributors.
+# Copyright (C) 2021-2025 NVDA Contributors.
 # This file is distributed under the same license as the NVDA package.
 # Ângelo Abrantes <ampa4374@gmail.com>, 2017-2018, 2020.
 # Tiago Melo Casal <tcasal@intervox.nce.ufrj.br>, 2021.
-# Josevan Barbosa Fernandes <josevanfernandes@yahoo.com.br>, 2024.
+# Josevan Barbosa Fernandes <josevanfernandes@yahoo.com.br>, 2024-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: StationPlaylist add-on\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2020-04-10 19:10+1000\n"
-"PO-Revision-Date: 2024-12-27 19:12-0300\n"
-"Last-Translator: Josevan Fernandes <josevanfernandes@yahoo.com.br>\n"
+"PO-Revision-Date: 2025-04-25 16:48-0300\n"
+"Last-Translator: Josevan Barbosa Fernandes <josevanfernandes@yahoo.com.br>\n"
 "Language-Team: NVDA Brazilian Portuguese translation team (Equipe de "
 "tradução do NVDA para Português Brasileiro) <clever97@gmail.com>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #. Translators: announced in SPL Creator and Remote VT
 #. when trying to perform playlist status commands while outside of playlist editor.
@@ -338,9 +338,9 @@ msgstr "Alterna entre várias configurações do temporizador braille."
 
 #. Translators: Standard dialog message when an item one wishes to search is not found
 #. (copy this from main nvda.po).
-#, fuzzy, python-format
+#, python-format
 msgid "text \"%s\" not found"
-msgstr "{headerText} não encontrado"
+msgstr "text \"%s\" not found"
 
 #. Translators: Presented when a user attempts to find tracks but is not at the track list.
 msgid "Track finder is available only in track list."
