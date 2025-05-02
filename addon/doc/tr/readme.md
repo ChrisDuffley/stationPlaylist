@@ -361,6 +361,8 @@ gerçekleştirmek için yukarıda listelenen dokunma komutlarını kullanın.
 
 * Python 3.11 yükseltmesi nedeniyle NVDA 2024.1 veya sonrası gereklidir.
 * Windows 8.1 için sınırlı destek geri yüklendi.
+* Eklenti değişiklik günlüğü gibi eklenti viki belgeleri ana kod deposuna
+  taşındı.
 * Oynatma listesi anlık görüntülerine, çalma listesi transkriptlerine ve SPL
   Asistanı ve Denetleyici katmanı yardım ekranlarına (NVDA 2025.1 ve üstü)
   kapat düğmesi eklendi.
@@ -423,8 +425,6 @@ Eski eklenti sürümlerine ilişkin sürüm notları için lütfen [değişiklik
 günlüğü][3'ne] bakın.
 
 [[!tag dev stable]]
-
-[1]: https://www.nvaccess.org/addonStore/legacy?file=stationPlaylist
 
 [2]: https://github.com/chrisDuffley/stationplaylist/wiki/SPLAddonGuide
 

@@ -346,6 +346,8 @@ prsta. Zatim koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
 * NVDA 2024.1 or later is required due to Python 3.11 upgrade.
 * Restored limited support for Windows 8.1.
+* Moved ad-on wiki documents such as add-on changelog to the main code
+  repository.
 * Added close button to playlist snapshots, playlist transcripts, and SPL
   Assistant and Controller layer help screens (NVDA 2025.1 and later).
 * NVDA will no longer do nothing or play error tones when announcing weather
@@ -404,8 +406,6 @@ Pogledaj poveznicu [zapisnika promjena][3] za bilješke o starim izdanjima
 dodatka.
 
 [[!tag dev stable]]
-
-[1]: https://www.nvaccess.org/addonStore/legacy?file=stationPlaylist
 
 [2]: https://github.com/chrisDuffley/stationplaylist/wiki/SPLAddonGuide
 
