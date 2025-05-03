@@ -528,6 +528,7 @@ Control+K: Set place marker track.
 L: Line-in status.
 M: Microphone status.
 N: Next track.
+O: Playlist hour over/under by.
 P: Playback status.
 Shift+P: Pitch for the current track.
 R: Record to file.
@@ -561,6 +562,7 @@ L: Listener count.
 Shift+L: Line-in status.
 M: Microphone status.
 N: Next track.
+O: Playlist hour over/under by.
 P: Playback status.
 Shift+P: Pitch for the current track.
 R: Remaining time for the playlist.

@@ -109,6 +109,7 @@ The available commands are (most commands support speak on demand):
 * L (Shift+L in JAWS layout): Line in.
 * M: Microphone.
 * N: Title for the next scheduled track.
+* O: Playlist hour over/under by.
 * P: Playback status (playing or stopped).
 * Shift+P: Pitch of the current track.
 * R (Shift+E in JAWS layout): Record to file enabled/disabled.
