@@ -203,7 +203,9 @@ You can save settings for specific shows into broadcast profiles. These profiles
 
 If you are using Studio on a touchscreen computer with NVDA installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
-## Version 25.06
+## Version 25.06-LTS
+
+Version 25.06.x is the last release series to support Studio 5.x with future releases requiring Studio 6.x. Some new features will be backported to 25.06.x if needed.
 
 * Added a new command in SPL Assistant to announce playlist hour over/under by in minutes and seconds (O).
 
