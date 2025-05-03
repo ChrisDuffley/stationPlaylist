@@ -2510,8 +2510,7 @@ class AppModule(appModuleHandler.AppModule):
 	def script_sayControlKeysStatus(self, gesture):
 		# 25.01: properly shown in Studio 6.10 and later.
 		if self.productVersion < "6.10":
-			# Translators: message shown when an SPL Assistant layer command cannot be performed.
-			ui.message(_("Control keys status announcement requires Studio 6.10 or later"))
+			self.script_error(None)
 			return
 		obj = self.status(self.SPLPlayStatus).lastChild
 		ui.message(obj.name)
