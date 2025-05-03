@@ -2526,6 +2526,13 @@ class AppModule(appModuleHandler.AppModule):
 				obj = obj.firstChild
 			self.announceTime(self.playlistDuration(start=obj), ms=False)
 
+	def script_sayHourOvertime(self, gesture):
+		playlistOvertime = splbase.studioAPI(2, 27)
+		overtimePrefix = "+" if playlistOvertime >= 0 else "-"
+		ui.message("{}{}".format(
+			overtimePrefix, self._ms2time(abs(playlistOvertime), includeHours=False)
+		))
+
 	def script_sayPlaylistModified(self, gesture):
 		obj = self.status(self.SPLSystemStatus).getChild(5)
 		# Translators: presented when playlist modification message isn't shown.
@@ -2884,6 +2891,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:h": "sayHourTrackDuration",
 		"kb:shift+h": "sayHourRemaining",
 		"kb:d": "sayPlaylistRemainingDuration",
+		"kb:o": "sayHourOvertime",
 		"kb:y": "sayPlaylistModified",
 		"kb:u": "sayUpTime",
 		"kb:n": "sayNextTrackTitle",
@@ -2917,6 +2925,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:h": "sayHourTrackDuration",
 		"kb:shift+h": "sayHourRemaining",
 		"kb:r": "sayPlaylistRemainingDuration",
+		"kb:o": "sayHourOvertime",
 		"kb:y": "sayPlaylistModified",
 		"kb:u": "sayUpTime",
 		"kb:n": "sayNextTrackTitle",
