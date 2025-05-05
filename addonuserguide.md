@@ -1,6 +1,6 @@
 # StationPlaylist Add-on User Guide
 
-Revision: May 2025 for StationPlaylist add-on 25.05
+Revision: May 2025 for StationPlaylist add-on 25.06
 
 Author: Christopher Duffley (formerly Joseph Lee)
 
@@ -63,8 +63,8 @@ Certain commands will work across Studio and apps listed above, while others are
 
 StationPlaylist add-on requires the following:
 
-* An evaluation or a registered copy of StationPlaylist Studio 5.40 or later installed on a computer running Windows 10 or later.
-* Optional: an evaluation or registered copy of StationPlaylist Creator and/or StationPlaylist Streamer, version 5.40 or later.
+* An evaluation or a registered copy of StationPlaylist Studio 5.50 or later installed on a computer running Windows 10 or later.
+* Optional: an evaluation or registered copy of StationPlaylist Creator and/or StationPlaylist Streamer, version 5.50 or later.
 * Optional: Remote VT client
 * Optional: an evaluation or registered copy of SAM Encoders.
 * Optional: AltaCast Winamp plugin (one must copy AltaCast Winamp plugin DLL to Studio's plugins folder for Studio to recognize AltaCast).
@@ -196,6 +196,7 @@ As you work with SPL Studio, the following commands are available to obtain vari
 * NVDA+Shift+F12: Announces broadcaster time (time as reported by Studio such as 5 minutes to 2). Pressing this command twice will announce minutes and secondsl eft until top of the next hour.
 * SPL Assistant, H: Announces the duration of the playlist for the hour slot.
 * SPL Assistant, Shift+H: Announces remaining track duration for the current hour slot.
+* SPL Assistant, O: Announces playlist hour over/under by (example: +02:00).
 * SPL Assistant, P: Announces whether a track is playing.
 * SPL Assistant, C: Announces the title of the currently playing track and playback player, if any.
 * SPL Assistant, N: Announces name and duration of the next track if selected, as well as the player that will be used to play the track.
@@ -511,7 +512,7 @@ Following are the information you can query regarding a track in SPL Creator's P
 * Control+NVDA+5: Length of the outro.
 * Control+NVDA+6: Segue.
 * Control+NVDA+7: Category.
-* Control+NVDA+8: Filename (unavailable in Creator 5.31 and earlier).
+* Control+NVDA+8: Filename.
 * Control+NVDA+9 and Control+NVDA+0: unavailable.
 
 In addition, Playlist Editor in creator and Remote VT client includes the following commands:
@@ -943,7 +944,7 @@ LTS stands for long-term support. This is a special version of a software that w
 
 Usually a version of the StationPlaylist add-on for NVDA receives support until the next version is released (typically several weeks to months). However, because there are broadcasters who would like to use a stable version of the add-on for a long time (either because they have to or they cannot upgrade to the latest version of Studio), a long-term support version of the add-on is released every few years to give people time to upgrade to a future stable version of Studio. In addition to longer support period (at least a year), a LTS version of the add-on is the last version to support the oldest stable Studio version, or in some cases, provides compatibility with old NVDA and/or Windows releases.
 
-As of 2025, add-on versions 3.x (September 2014-June 2015), 7.x/15.x (April 2016-April 2018; 15.x since October 2016), and 18.09.x (September 2018-December 2019) were designated as LTS releases, supporting Studio 4.33, 5.01, and 5.1x, respectively. Version 20.09.x (September 2020-April 2021), the most recent LTS release, supports Studio 5.20 and NVDA 2019.3 and later.
+As of 2025, add-on versions 3.x (September 2014-June 2015), 7.x/15.x (April 2016-April 2018; 15.x since October 2016), and 18.09.x (September 2018-December 2019) were designated as LTS releases, supporting Studio 4.33, 5.01, and 5.1x, respectively. Version 20.09.x (September 2020-April 2021), the most recent LTS release, supports Studio 5.20 and NVDA 2019.3 and later, with upcoming 25.06.x designated as last LTS releases to support Studio 5.x.
 
 Q. Which versions of Studio are supported by which add-on releases?
 
@@ -953,9 +954,9 @@ Q. Which versions of Studio are supported by which add-on releases?
 * Studio 5.20: Add-on 16.11 to 20.09.7 (November 2016-April 2021).
 * Studio 5.3x: Add-on 17.11 to 22.12 (November 2017-December 2022).
 * Studio 5.40: Add-on 19.11 to 25.05 (November 2019-May 2025).
-* Studio 5.50: Add-on 20.11 to 25.05 (November 2020-May 2025).
-* Studio 6.0x: Add-on 21.11 to 25.05 (November 2021-May 2025).
-* Studio 6.1x: Add-on 24.03 to 25.05 (April 2024-May 2025).
+* Studio 5.50: Add-on 20.11 to 25.06 (November 2020-May 2025).
+* Studio 6.0x: Add-on 21.11 to 25.06 (November 2021-May 2025).
+* Studio 6.1x: Add-on 24.03 to 25.06 (April 2024-May 2025).
 
 Note: the schedule above is subject to change.
 
