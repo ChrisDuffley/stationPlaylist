@@ -749,7 +749,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		encoding = False
 		# #141 (20.07): prevent multiple connection follow-up actions while background monitoring is on.
 		connectedBefore = False
-		while True:
+		while manualConnect or self.backgroundMonitor:
 			time.sleep(0.001)
 			try:
 				status = self.getChild(2).name
@@ -803,8 +803,6 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				if currentTime - attemptTime >= 0.5 and self.connectionTone:
 					tones.beep(500, 50)
 					attemptTime = currentTime
-			if not manualConnect and not self.backgroundMonitor:
-				return
 
 	@scriptHandler.script(gesture="kb:f9")
 	def script_connect(self, gesture):
@@ -885,7 +883,7 @@ class SPLEncoder(Encoder):
 		connecting = False
 		connected = False
 		connectedBefore = False
-		while True:
+		while manualConnect or self.backgroundMonitor:
 			time.sleep(0.001)
 			try:
 				status = self.getChild(1).name
@@ -934,8 +932,6 @@ class SPLEncoder(Encoder):
 					if currentTime - attemptTime >= 0.5 and self.connectionTone:
 						tones.beep(500, 50)
 						attemptTime = currentTime
-			if not manualConnect and not self.backgroundMonitor:
-				return
 
 	# Connect selected encoders.
 	# #143 (20.09): just like SAM encoder's connect/disconnect all routines, use key press emulation.
