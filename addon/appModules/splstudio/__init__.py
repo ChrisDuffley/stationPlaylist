@@ -2437,7 +2437,7 @@ class AppModule(appModuleHandler.AppModule):
 				# 17.08: several SPL Controller commands will use this route.
 				fg = getNVDAObjectFromEvent(user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0)
 			# Support 5.x and 6.x screen layouts.
-			studioVersion = "6" if self.productVersion.startswith("6") else "5"
+			studioVersion = self.productVersion.split(".")[0]
 			statusIndex = self.statusObjs[studioVersion][infoIndex]
 			# 7.0: sometimes (especially when first loaded), OBJID_CLIENT fails,
 			# so resort to retrieving focused object instead.
