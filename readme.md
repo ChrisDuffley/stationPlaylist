@@ -4,14 +4,14 @@
 
 This add-on package provides improved usage of StationPlaylist Studio and other StationPlaylist apps, as well as providing utilities to control Studio from anywhere. Supported apps include Studio, Creator, Track Tool, VT Recorder, and Streamer, as well as SAM, SPL, and AltaCast encoders.
 
-For more information about the add-on, read the [add-on guide][2].
+For more information about the add-on, read the [add-on guide][1].
 
 IMPORTANT NOTES:
 
 * This add-on requires StationPlaylist suite 5.50 or later.
 * Some add-on features will be disabled or limited if NVDA is running in secure mode such as in logon screen.
 * For best experience, disable audio ducking mode.
-* Starting from 2018, [changelogs for old add-on releases][3] will be found on GitHub. This add-on readme will list changes from version 23.02 (2023) onwards.
+* Starting from 2018, [changelogs for old add-on releases][2] will be found on GitHub. This add-on readme will list changes from version 23.02 (2023) onwards.
 * While Studio is running, you can save, reload saved settings, or reset add-on settings to defaults by pressing Control+NVDA+C, Control+NVDA+R once, or Control+NVDA+R three times, respectively. This is also applicable to encoder settings - you can save and reset (not reload) encoder settings if using encoders.
 * Many commands will provide speech output while NVDA is in speak on demand mode (NVDA 2024.1 and later).
 
@@ -248,8 +248,8 @@ Version 25.06.x is the last release series to support Studio 5.x with future rel
 
 ## Older releases
 
-Please see the [changelog][3] for release notes for old add-on releases.
+Please see the [changelog][2] for release notes for old add-on releases.
 
-[2]: https://github.com/chrisDuffley/stationplaylist/wiki/SPLAddonGuide
+[1]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/addonuserguide.md
 
-[3]: https://github.com/ChrisDuffley/stationplaylist/wiki/splchangelog
+[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/changes.md
