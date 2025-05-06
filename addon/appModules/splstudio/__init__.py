@@ -792,15 +792,13 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Locate the handle for main window for caching purposes.
 	def _locateSPLHwnd(self) -> None:
-		hwnd = user32.FindWindowW("SPLStudio", None)
-		while not hwnd:
+		while not (hwnd := user32.FindWindowW("SPLStudio", None)):
 			time.sleep(1)
 			# If the demo copy expires and the app module begins, this loop will spin forever.
 			# Make sure this loop catches this case.
 			if self.noMoreHandle.is_set():
 				self.noMoreHandle.clear()
 				return
-			hwnd = user32.FindWindowW("SPLStudio", None)
 		# Only this thread will have privilege of notifying handle's existence.
 		with threading.Lock():
 			splbase._SPLWin = hwnd
