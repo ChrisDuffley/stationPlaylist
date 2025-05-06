@@ -2867,8 +2867,7 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(status)
 
 	def script_layerHelp(self, gesture):
-		compatibility = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
-		if compatibility == "off":
+		if (compatibility := splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]) == "off":
 			# Translators: The title for SPL Assistant help screen.
 			title = _("SPL Assistant help")
 		elif compatibility == "jfw":
