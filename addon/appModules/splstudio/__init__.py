@@ -2373,15 +2373,13 @@ class AppModule(appModuleHandler.AppModule):
 			# To prevent entering wrong gesture while the layer is active.
 			self.clearGestureBindings()
 			# 7.0: choose the required compatibility layer.
-			if splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "off":
-				self.bindGestures(self.__SPLAssistantGestures)
-			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "jfw":
-				self.bindGestures(self.__SPLAssistantJFWGestures)
+			CompatibilityLayer = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
+			self.bindGestures(self.__SPLAssistantGestures[CompatibilityLayer])
 			for i in range(5):
 				self.bindGesture(f"kb:shift+{i}", "metadataEnabled")
 			self.SPLAssistant = True
 			tones.beep(512, 50)
-			if splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "jfw":
+			if CompatibilityLayer == "jfw":
 				ui.message("JAWS")
 		except WindowsError:
 			return
