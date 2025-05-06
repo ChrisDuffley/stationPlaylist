@@ -75,10 +75,6 @@ micAlarmT: threading.Timer | None = None
 micAlarmT2 = None
 libScanT: threading.Thread | None = None
 
-# Versions of Studio where library scanning functionality is broken.
-noLibScanMonitor: list[str] = []
-
-
 # Braille and play a sound in response to an alarm or an event.
 def messageSound(wavFile: str, message: str) -> None:
 	nvwave.playWaveFile(wavFile)
@@ -1000,8 +996,7 @@ class AppModule(appModuleHandler.AppModule):
 								splconfig.SPLConfig["General"]["LibraryScanAnnounce"],
 							)
 					if not self.libraryScanning:
-						if self.productVersion not in noLibScanMonitor:
-							self.libraryScanning = True
+						self.libraryScanning = True
 				elif "match" in obj.name:
 					# 20.07: announce search/match results from insert tracks dialog
 					# while there is no library rescan in progress.
@@ -1789,8 +1784,7 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message(_("Scan start")) if not splconfig.SPLConfig["General"]["BeepAnnounce"] else tones.beep(
 				740, 100
 			)
-			if self.productVersion not in noLibScanMonitor:
-				self.libraryScanning = True
+			self.libraryScanning = True
 
 	# Report library scan (number of items scanned) in the background.
 	def monitorLibraryScan(self) -> None:
@@ -1809,10 +1803,7 @@ class AppModule(appModuleHandler.AppModule):
 		time.sleep(0.1)
 		# Is library scan count still an integer?
 		libScanCount = splbase.studioAPI(1, 32)
-		if libScanCount is None or (
-			api.getForegroundObject().windowClassName == "TTrackInsertForm"
-			and self.productVersion in noLibScanMonitor
-		):
+		if libScanCount is None:
 			self.libraryScanning = False
 			return
 		# 17.04: Library scan may have finished while this thread was sleeping.
