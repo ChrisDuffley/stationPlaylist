@@ -440,10 +440,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			modifier, cart = None, gesture.displayName
 		# Pull in modifier values from the following list.
 		# 20.09: add 1 to modifier value to avoid doing this later and to comply with Studio API.
-		modifier = (None, "shift", "ctrl", "alt").index(modifier) + 1
+		# 25.06: actually, multiply modifiers by 24 (1 (None), 25 (Shift), 49 (Control), 73 (Alt)).
+		modifier = (None, "shift", "ctrl", "alt").index(modifier) * 24
 		# Add 1 to cart index to comply with Studio API.
 		cart = self.cartKeys.index(cart) + 1
-		cart *= modifier
+		cart += modifier
 		sendMessage(SPLWin, 1024, cart, SPLCartPlayer)
 		self.script_finish()
 
