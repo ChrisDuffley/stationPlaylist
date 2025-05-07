@@ -444,8 +444,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		modifier = (None, "shift", "ctrl", "alt").index(modifier) * 24
 		# Add 1 to cart index to comply with Studio API.
 		cart = self.cartKeys.index(cart) + 1
-		cart += modifier
-		sendMessage(SPLWin, 1024, cart, SPLCartPlayer)
+		sendMessage(SPLWin, 1024, cart + modifier, SPLCartPlayer)
 		self.script_finish()
 
 	def script_conHelp(self, gesture):
