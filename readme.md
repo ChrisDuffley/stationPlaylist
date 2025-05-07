@@ -208,6 +208,7 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 Version 25.06.x is the last release series to support Studio 5.x with future releases requiring Studio 6.x. Some new features will be backported to 25.06.x if needed.
 
 * Added a new command in SPL Assistant to announce playlist hour over/under by in minutes and seconds (O).
+* NVDA will no longer play wrong carts when playing them via SPL Controller layer.
 
 ## Version 25.05
 
