@@ -798,16 +798,17 @@ class WelcomeDialog(wx.Dialog):
 your companion to broadcasting with SPL Studio using NVDA screen reader.
 
 Highlights of StationPlaylist add-on include:
-* Layer commands for obtaining status information.
-* Various ways to examine track columns.
-* Various ways to find tracks.
-* Cart Explorer to learn cart assignments.
-* Comprehensive settings and documentation.
-* Completely free, open-source and community-driven.
-* And much more.
+* Layer commands for obtaining status information
+* Various ways to examine track columns
+* Various ways to find tracks
+* Tools to analyze the loaded playlist
+* Cart Explorer to learn cart assignments
+* Comprehensive settings and documentation
+* Completely free, open-source and community-driven
+* And much more
 
 Visit www.stationplaylist.com for details on StationPlaylist suite of applications.
-Visit StationPlaylist entry on NVDA Community Add-ons page (addons.nvda-project.org)
+Visit StationPlaylist add-on GitHub page (https://github.com/ChrisDuffley/stationPlaylist)
 for add-on details and to read the documentation.
 Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to return to this dialog.
 
