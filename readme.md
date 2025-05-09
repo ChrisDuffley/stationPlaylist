@@ -29,7 +29,7 @@ Most of these will work in Studio only unless otherwise specified. Unless noted 
 * Alt+NVDA+3 from Creator's Playlist Editor and Remote VT playlist editor: Announces when the selected track is scheduled to play.
 * Alt+NVDA+4 from Creator's Playlist Editor and Remote VT playlist editor: Announces rotation and category associated with the loaded playlist.
 * Control+NVDA+F from Studio window: Opens a dialog to find a track based on artist or song name. Press NVDA+F3 to find forward or NVDA+Shift+F3 to find backward (does not support speak on demand).
-* Alt+NVDA+R from Studio window: Steps through library scan announcement settings (does not support speak on demand).
+* Shift+NVDA+R from Studio window: Steps through library scan announcement settings (does not support speak on demand).
 * Control+Shift+X from Studio window: Steps through braille timer settings (does not support speak on demand).
 * Control+Alt+left/right arrow (while focused on a track in Studio, Creator, Remote VT, and Track Tool): Move to previous/next track column (does not support speak on demand).
 * Control+Alt+up/down arrow (while focused on a track in Studio, Creator, Remote VT, and Track Tool): Move to previous/next track and announce specific columns (does not support speak on demand).
@@ -208,6 +208,7 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 Version 25.06.x is the last release series to support Studio 5.x with future releases requiring Studio 6.x. Some new features will be backported to 25.06.x if needed.
 
 * Added a new command in SPL Assistant to announce playlist hour over/under by in minutes and seconds (O).
+* In Studio, the command to step through library scan announcement settings has changed from Alt+NVDA+R to Shift+NVDA+R as the former command toggles remote access feature in NVDA 2025.1.
 * NVDA will no longer play wrong carts when playing them via SPL Controller layer.
 
 ## Version 25.05
