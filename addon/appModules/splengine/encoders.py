@@ -71,24 +71,18 @@ def loadEncoderConfig() -> None:
 		)
 		return
 	# Read encoder labels.
+	# 25.06: and other settings via dict.get method.
 	global SPLEncoderLabels
-	try:
-		SPLEncoderLabels = dict(encoderConfig["EncoderLabels"])
-	except KeyError:
-		SPLEncoderLabels = {}
+	SPLEncoderLabels = dict(encoderConfig.get("EncoderLabels", {}))
 	# Read other settings.
+	# 25.06: assume a list by default which will become sets.
 	global SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor
-	if "FocusToStudio" in encoderConfig:
-		SPLFocusToStudio = set(encoderConfig["FocusToStudio"])
-	if "PlayAfterConnecting" in encoderConfig:
-		SPLPlayAfterConnecting = set(encoderConfig["PlayAfterConnecting"])
-	if "BackgroundMonitor" in encoderConfig:
-		SPLBackgroundMonitor = set(encoderConfig["BackgroundMonitor"])
+	SPLFocusToStudio = set(encoderConfig.get("FocusToStudio", []))
+	SPLPlayAfterConnecting = set(encoderConfig.get("PlayAfterConnecting", []))
+	SPLBackgroundMonitor = set(encoderConfig.get("BackgroundMonitor", []))
 	global SPLNoConnectionTone, SPLConnectionStopOnError
-	if "NoConnectionTone" in encoderConfig:
-		SPLNoConnectionTone = set(encoderConfig["NoConnectionTone"])
-	if "ConnectionStopOnError" in encoderConfig:
-		SPLConnectionStopOnError = set(encoderConfig["ConnectionStopOnError"])
+	SPLNoConnectionTone = set(encoderConfig.get("NoConnectionTone", []))
+	SPLConnectionStopOnError = set(encoderConfig.get("ConnectionStopOnError", []))
 	# 20.04: register config save and reset handlers.
 	config.post_configSave.register(saveEncoderConfig)
 	config.post_configReset.register(resetEncoderConfig)
