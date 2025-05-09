@@ -1765,7 +1765,7 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Toggles library scan progress settings."),
-		gesture="kb:alt+nvda+r",
+		gesture="kb:shift+nvda+r",
 	)
 	def script_setLibraryScanProgress(self, gesture):
 		libraryScanAnnounce = splconfig.SPLConfig["General"]["LibraryScanAnnounce"]
