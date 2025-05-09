@@ -143,6 +143,7 @@ msgid ""
 "L: Line-in status.\n"
 "M: Microphone status.\n"
 "N: Next track.\n"
+"O: Playlist hour over/under by.\n"
 "P: Playback status.\n"
 "Shift+P: Pitch for the current track.\n"
 "R: Record to file.\n"
@@ -213,6 +214,7 @@ msgid ""
 "Shift+L: Line-in status.\n"
 "M: Microphone status.\n"
 "N: Next track.\n"
+"O: Playlist hour over/under by.\n"
 "P: Playback status.\n"
 "Shift+P: Pitch for the current track.\n"
 "R: Remaining time for the playlist.\n"
@@ -610,10 +612,6 @@ msgstr ""
 msgid "Failed to locate Studio main window, cannot enter SPL Assistant"
 msgstr "Xác định cửa sổ chính của Studio thất bại. Không thể vào SPL Assistant"
 
-#. Translators: message shown when an SPL Assistant layer command cannot be performed.
-msgid "Control keys status announcement requires Studio 6.10 or later"
-msgstr ""
-
 #. Translators: presented when playlist modification message isn't shown.
 msgid "Playlist modification not available"
 msgstr "Sửa đổi danh sách phát không sẵn sàng"
@@ -731,22 +729,14 @@ msgid "No place marker found"
 msgstr "Không tìm thấy điểm đánh dấu nào"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
-msgid "Metadata streaming on URL {URLPosition} enabled"
+#, fuzzy, python-brace-format
+msgid "Metadata streaming on {URLPosition} enabled"
 msgstr "Truyền siêu dữ liệu trên URL {URLPosition} đã bật"
 
 #. Translators: Status message for metadata streaming.
-msgid "Metadata streaming on DSP encoder enabled"
-msgstr "Truyền siêu dữ liệu trên DSP encoder đã bật"
-
-#. Translators: Status message for metadata streaming.
-#, python-brace-format
-msgid "Metadata streaming on URL {URLPosition} disabled"
+#, fuzzy, python-brace-format
+msgid "Metadata streaming on {URLPosition} disabled"
 msgstr "Truyền siêu dữ liệu trên URL {URLPosition} đã tắt"
-
-#. Translators: Status message for metadata streaming.
-msgid "Metadata streaming on DSP encoder disabled"
-msgstr "Truyền siêu dữ liệu trên DSP encoder đã tắt"
 
 #. Translators: The title for SPL Assistant help screen.
 msgid "SPL Assistant help"
@@ -824,18 +814,19 @@ msgid ""
 "your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
 "\n"
 "Highlights of StationPlaylist add-on include:\n"
-"* Layer commands for obtaining status information.\n"
-"* Various ways to examine track columns.\n"
-"* Various ways to find tracks.\n"
-"* Cart Explorer to learn cart assignments.\n"
-"* Comprehensive settings and documentation.\n"
-"* Completely free, open-source and community-driven.\n"
-"* And much more.\n"
+"* Layer commands for obtaining status information\n"
+"* Various ways to examine track columns\n"
+"* Various ways to find tracks\n"
+"* Tools to analyze the loaded playlist\n"
+"* Cart Explorer to learn cart assignments\n"
+"* Comprehensive settings and documentation\n"
+"* Completely free, open-source and community-driven\n"
+"* And much more\n"
 "\n"
 "Visit www.stationplaylist.com for details on StationPlaylist suite of "
 "applications.\n"
-"Visit StationPlaylist entry on NVDA Community Add-ons page (addons.nvda-"
-"project.org)\n"
+"Visit StationPlaylist add-on GitHub page (https://github.com/ChrisDuffley/"
+"stationPlaylist)\n"
 "for add-on details and to read the documentation.\n"
 "Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to "
 "return to this dialog.\n"
@@ -1838,6 +1829,12 @@ msgid ""
 msgstr ""
 "Cải thiện hỗ trợ cho StationPlaylist.\n"
 "Ngoài ra là thêm các lệnh toàn cục cho studio từ bất cứ đâu."
+
+#~ msgid "Metadata streaming on DSP encoder enabled"
+#~ msgstr "Truyền siêu dữ liệu trên DSP encoder đã bật"
+
+#~ msgid "Metadata streaming on DSP encoder disabled"
+#~ msgstr "Truyền siêu dữ liệu trên DSP encoder đã tắt"
 
 #~ msgid "Search string not found."
 #~ msgstr "Không tìm thấy chuỗi tìm kiếm."

@@ -151,6 +151,7 @@ msgid ""
 "L: Line-in status.\n"
 "M: Microphone status.\n"
 "N: Next track.\n"
+"O: Playlist hour over/under by.\n"
 "P: Playback status.\n"
 "Shift+P: Pitch for the current track.\n"
 "R: Record to file.\n"
@@ -221,6 +222,7 @@ msgid ""
 "Shift+L: Line-in status.\n"
 "M: Microphone status.\n"
 "N: Next track.\n"
+"O: Playlist hour over/under by.\n"
 "P: Playback status.\n"
 "Shift+P: Pitch for the current track.\n"
 "R: Remaining time for the playlist.\n"
@@ -633,10 +635,6 @@ msgstr ""
 "Das Hauptfenster des Studios konnte nicht gefunden werden. Der SPL-Assistent "
 "konnte nicht aufgerufen werden"
 
-#. Translators: message shown when an SPL Assistant layer command cannot be performed.
-msgid "Control keys status announcement requires Studio 6.10 or later"
-msgstr ""
-
 #. Translators: presented when playlist modification message isn't shown.
 msgid "Playlist modification not available"
 msgstr "Änderung der Playlist nicht verfügbar"
@@ -756,22 +754,14 @@ msgid "No place marker found"
 msgstr "Keine Markierung gefunden"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
-msgid "Metadata streaming on URL {URLPosition} enabled"
+#, fuzzy, python-brace-format
+msgid "Metadata streaming on {URLPosition} enabled"
 msgstr "Metadaten-Streaming auf URL {URLPosition} aktiviert"
 
 #. Translators: Status message for metadata streaming.
-msgid "Metadata streaming on DSP encoder enabled"
-msgstr "Metadaten-Streaming auf DSP-Encoder aktiviert"
-
-#. Translators: Status message for metadata streaming.
-#, python-brace-format
-msgid "Metadata streaming on URL {URLPosition} disabled"
+#, fuzzy, python-brace-format
+msgid "Metadata streaming on {URLPosition} disabled"
 msgstr "Metadaten-Streaming auf URL {URLPosition} deaktiviert"
-
-#. Translators: Status message for metadata streaming.
-msgid "Metadata streaming on DSP encoder disabled"
-msgstr "Metadaten-Streaming auf DSP-Encoder deaktiviert"
 
 #. Translators: The title for SPL Assistant help screen.
 msgid "SPL Assistant help"
@@ -844,23 +834,25 @@ msgid "You are already in the instant switch profile"
 msgstr "Sie befinden sich bereits im Profil für den Sofortwechsel"
 
 #. Translators: A message giving basic information about the add-on.
+#, fuzzy
 msgid ""
 "Welcome to StationPlaylist add-on for NVDA,\n"
 "your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
 "\n"
 "Highlights of StationPlaylist add-on include:\n"
-"* Layer commands for obtaining status information.\n"
-"* Various ways to examine track columns.\n"
-"* Various ways to find tracks.\n"
-"* Cart Explorer to learn cart assignments.\n"
-"* Comprehensive settings and documentation.\n"
-"* Completely free, open-source and community-driven.\n"
-"* And much more.\n"
+"* Layer commands for obtaining status information\n"
+"* Various ways to examine track columns\n"
+"* Various ways to find tracks\n"
+"* Tools to analyze the loaded playlist\n"
+"* Cart Explorer to learn cart assignments\n"
+"* Comprehensive settings and documentation\n"
+"* Completely free, open-source and community-driven\n"
+"* And much more\n"
 "\n"
 "Visit www.stationplaylist.com for details on StationPlaylist suite of "
 "applications.\n"
-"Visit StationPlaylist entry on NVDA Community Add-ons page (addons.nvda-"
-"project.org)\n"
+"Visit StationPlaylist add-on GitHub page (https://github.com/ChrisDuffley/"
+"stationPlaylist)\n"
 "for add-on details and to read the documentation.\n"
 "Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to "
 "return to this dialog.\n"
@@ -1896,6 +1888,12 @@ msgid ""
 msgstr ""
 "Verbessert die Unterstützung für StationPlaylist-Anwendungen. Darüber hinaus "
 "werden globale Befehle für die Studio-Anwendung von überall aus hinzugefügt."
+
+#~ msgid "Metadata streaming on DSP encoder enabled"
+#~ msgstr "Metadaten-Streaming auf DSP-Encoder aktiviert"
+
+#~ msgid "Metadata streaming on DSP encoder disabled"
+#~ msgstr "Metadaten-Streaming auf DSP-Encoder deaktiviert"
 
 #, python-brace-format
 #~ msgid ""
