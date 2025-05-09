@@ -90,7 +90,7 @@ def indexOf(ttVersion: str) -> tuple[str, ...]:
 			"Restrictions",
 			"Exclude from Requests",
 		)
-	else:
+	elif ttVersion == "6.10":
 		return (
 			"Artist",
 			"Title",
@@ -124,6 +124,43 @@ def indexOf(ttVersion: str) -> tuple[str, ...]:
 			"Record Label",
 			"ISRC",
 			"Language",
+			"Restrictions",
+			"Exclude from Requests",
+		)
+	else:
+		return (
+			"Artist",
+			"Title",
+			"Duration",
+			"Cue",
+			"Overlap",
+			"Intro",
+			"Outro",
+			"Segue",
+			"Hook Start",
+			"Hook Len",
+			"Year",
+			"Album",
+			"CD Code",
+			"URL 1",
+			"URL 2",
+			"Genre",
+			"Mood",
+			"Energy",
+			"Tempo",
+			"BPM",
+			"Gender",
+			"Rating",
+			"Filename",
+			"Client",
+			"Other",
+			"Track Date",
+			"Intro Link",
+			"Outro Link",
+			"Gain",
+			"Record Label",
+			"ISRC",
+			"Region",
 			"Restrictions",
 			"Exclude from Requests",
 		)
