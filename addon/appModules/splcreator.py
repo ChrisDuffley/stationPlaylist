@@ -51,7 +51,7 @@ def indexOf(creatorVersion: str) -> tuple[str, ...]:
 			"Outro Link",
 			"Language",
 		)
-	else:
+	elif creatorVersion.startswith("6.0"):
 		return (
 			"Artist",
 			"Title",
@@ -80,6 +80,36 @@ def indexOf(creatorVersion: str) -> tuple[str, ...]:
 			"Intro Link",
 			"Outro Link",
 			"Language",
+		)
+	else:
+		return (
+			"Artist",
+			"Title",
+			"Position",
+			"Cue",
+			"Intro",
+			"Outro",
+			"Segue",
+			"Duration",
+			"Last Scheduled",
+			"7 Days",
+			"Restrictions",
+			"Year",
+			"Album",
+			"Genre",
+			"Mood",
+			"Energy",
+			"Tempo",
+			"BPM",
+			"Gender",
+			"Rating",
+			"File Created",
+			"Filename",
+			"Client",
+			"Other",
+			"Intro Link",
+			"Outro Link",
+			"Region",
 		)
 
 
