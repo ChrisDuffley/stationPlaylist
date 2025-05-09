@@ -416,7 +416,7 @@ As your music collection grows, you might wish to teach Studio where it can find
 
 If using Options dialog method, once you've selected your music directory, Studio will scan the folder location for available tracks once you close the Options dialog. If using Insert Tracks dialog (Control+I) method, once the dialog opens, press Control+Shift+R to start a fresh library scan. You can then close insert tracks dialog so Studio can scan the library in the background. In either case, depending on library scan announcement setting (see below), NVDA will be silent while Studio is scanning the library, or NVDA may announce scan progress periodically.
 
-To toggle library scan announcement options while scanning the library from inser tracks window or in the background, press Alt+NVDA+R (R for rescan) from Studio window. This command will cycle through the options listed below. Alternatively, from the add-on configuration dialog, open general add-on settings, then select an option from the library scan announcement combo box.
+To toggle library scan announcement options while scanning the library from inser tracks window or in the background, press Shift+NVDA+R (R for rescan) from Studio window. This command will cycle through the options listed below. Alternatively, from the add-on configuration dialog, open general add-on settings, then select an option from the library scan announcement combo box.
 
 The available options are:
 
