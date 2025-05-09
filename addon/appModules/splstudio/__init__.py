@@ -2827,22 +2827,15 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Gesture(s) for the following script cannot be changed by users.
 	def script_metadataEnabled(self, gesture):
+		# 0 is DSP encoder status, others are servers.
+		metadataStreams = ("DSP encoder", "URL 1", "URL 2", "URL 3", "URL 4")
 		url = int(gesture.displayName[-1])
 		if splbase.studioAPI(url, 36):
-			# 0 is DSP encoder status, others are servers.
-			if url:
-				# Translators: Status message for metadata streaming.
-				status = _("Metadata streaming on URL {URLPosition} enabled").format(URLPosition=url)
-			else:
-				# Translators: Status message for metadata streaming.
-				status = _("Metadata streaming on DSP encoder enabled")
+			# Translators: Status message for metadata streaming.
+			status = _("Metadata streaming on {URLPosition} enabled").format(URLPosition=metadataStreams[url])
 		else:
-			if url:
-				# Translators: Status message for metadata streaming.
-				status = _("Metadata streaming on URL {URLPosition} disabled").format(URLPosition=url)
-			else:
-				# Translators: Status message for metadata streaming.
-				status = _("Metadata streaming on DSP encoder disabled")
+			# Translators: Status message for metadata streaming.
+			status = _("Metadata streaming on {URLPosition} disabled").format(URLPosition=metadataStreams[url])
 		ui.message(status)
 
 	def script_layerHelp(self, gesture):
