@@ -29,7 +29,7 @@ Most of these will work in Studio only unless otherwise specified. Unless noted 
 * Alt+NVDA+3 from Creator's Playlist Editor and Remote VT playlist editor: Announces when the selected track is scheduled to play.
 * Alt+NVDA+4 from Creator's Playlist Editor and Remote VT playlist editor: Announces rotation and category associated with the loaded playlist.
 * Control+NVDA+F from Studio window: Opens a dialog to find a track based on artist or song name. Press NVDA+F3 to find forward or NVDA+Shift+F3 to find backward (does not support speak on demand).
-* Alt+NVDA+R from Studio window: Steps through library scan announcement settings (does not support speak on demand).
+* Shift+NVDA+R from Studio window: Steps through library scan announcement settings (does not support speak on demand).
 * Control+Shift+X from Studio window: Steps through braille timer settings (does not support speak on demand).
 * Control+Alt+left/right arrow (while focused on a track in Studio, Creator, Remote VT, and Track Tool): Move to previous/next track column (does not support speak on demand).
 * Control+Alt+up/down arrow (while focused on a track in Studio, Creator, Remote VT, and Track Tool): Move to previous/next track and announce specific columns (does not support speak on demand).
