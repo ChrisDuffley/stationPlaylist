@@ -11,7 +11,9 @@ import scriptHandler
 import globalVars
 import ui
 import api
+import controlTypes
 from NVDAObjects.IAccessible import sysListView32
+from NVDAObjects.behaviors import Dialog
 from .splstudio import splconfig, SPLTrackItem
 
 addonHandler.initTranslation()
@@ -157,8 +159,6 @@ class AppModule(appModuleHandler.AppModule):
 		self._playlistEditorStatusCache.clear()
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
-		import controlTypes
-
 		# 20.02: tracks list uses a different window class name other than "TListView".
 		# Resort to window style and other tricks if other lists with the class name below is found
 		# yet are not tracks list.
@@ -168,8 +168,6 @@ class AppModule(appModuleHandler.AppModule):
 			elif obj.role == controlTypes.Role.LIST:
 				clsList.insert(0, sysListView32.List)
 		elif obj.windowClassName in ("TDemoRegForm", "TAboutForm"):
-			from NVDAObjects.behaviors import Dialog
-
 			clsList.insert(0, Dialog)
 
 	# The following scripts are designed to work while using Playlist Editor.

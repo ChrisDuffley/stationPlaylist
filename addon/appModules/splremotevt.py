@@ -9,6 +9,9 @@ from typing import Any
 import addonHandler
 import globalVars
 import ui
+import controlTypes
+from NVDAObjects.IAccessible import sysListView32
+from NVDAObjects.behaviors import Dialog
 from . import splcreator
 from .splstudio import SPLTrackItem
 
@@ -39,9 +42,6 @@ class AppModule(splcreator.AppModule):
 		self._playlistEditorStatusCache.clear()
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
-		import controlTypes
-		from NVDAObjects.IAccessible import sysListView32
-
 		# 20.02: tracks list uses a different window class name other than "TListView".
 		# Resort to window style and other tricks if other lists with the class name below is found
 		# yet are not tracks list.
@@ -52,8 +52,6 @@ class AppModule(splcreator.AppModule):
 				clsList.insert(0, sysListView32.List)
 		# Unlike creator, there is no demo intro dialog in Remote VT.
 		elif obj.windowClassName == "TAboutForm":
-			from NVDAObjects.behaviors import Dialog
-
 			clsList.insert(0, Dialog)
 
 	# Playlist editor is same as Creator except it responds a bit faster.
