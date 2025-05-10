@@ -502,7 +502,9 @@ Following are the information you can query regarding a track in SPL Creator:
 
 Both Creator's playlist editor and Remote VT client lets you manage playlists for a station. The differences are where the station is hosted (local for Creator, remote for VT client), along with ability to record voice tracks for a remote playlist in Remote VT client which affects the length of a playlist.
 
-Following are the information you can query regarding a track in SPL Creator's Playlist Editor and Remote VT client once a remote playlist is loaded:
+Track information shown differs across SPL Creator's Playlist Editor and Remote VT client versions. Following are track information shown in Creator's Playlist Editor and Remote VT client once a remote playlist is loaded:
+
+Version 5.x prior to 5.50:
 
 * Control+NVDA+1: Artist.
 * Control+NVDA+2: Track title.
@@ -513,6 +515,32 @@ Following are the information you can query regarding a track in SPL Creator's P
 * Control+NVDA+7: Category.
 * Control+NVDA+8: Filename (unavailable in Creator 5.31 and earlier).
 * Control+NVDA+9 and Control+NVDA+0: unavailable.
+
+Versions 5.50 and 6.0x:
+
+* Control+NVDA+1: Artist.
+* Control+NVDA+2: Track title.
+* Control+NVDA+3: Duration of the selected track.
+* Control+NVDA+4: Length of the intro.
+* Control+NVDA+5: Length of the outro.
+* Control+NVDA+6: Category.
+* Control+NVDA+7: Year.
+* Control+NVDA+8: Album.
+* Control+NVDA+9: Genre.
+* Control+NVDA+0: Mood.
+
+Version 6.1x:
+
+* Control+NVDA+1: Scheduled time.
+* Control+NVDA+2: Artist.
+* Control+NVDA+3: Track title.
+* Control+NVDA+4: Duration of the selected track.
+* Control+NVDA+5: Length of the intro.
+* Control+NVDA+6: Length of the outro.
+* Control+NVDA+7: Category.
+* Control+NVDA+8: Year.
+* Control+NVDA+9: Album.
+* Control+NVDA+0: Genre.
 
 In addition, Playlist Editor in creator and Remote VT client includes the following commands:
 
