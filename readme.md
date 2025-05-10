@@ -209,6 +209,8 @@ Version 25.06.x is the last release series to support Studio 5.x with future rel
 
 * Added a new command in SPL Assistant to announce playlist hour over/under by in minutes and seconds (O).
 * In Studio, the command to step through library scan announcement settings has changed from Alt+NVDA+R to Shift+NVDA+R as the former command toggles remote access feature in NVDA 2025.1.
+* NVDA will no longer play error tones or appear to do nothing when performing some SPL Assistant commands after resizing Studio window.
+* NVDA will recognize track column changes introduced in Creator and Track Tool 6.11.
 * NVDA will no longer play wrong carts when playing them via SPL Controller layer.
 
 ## Version 25.05
