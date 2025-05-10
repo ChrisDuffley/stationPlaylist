@@ -2404,7 +2404,11 @@ class AppModule(appModuleHandler.AppModule):
 	# 16.11: in Studio 5.20, it is possible to obtain some of these via the API, hence the API method is used.
 	def status(self, infoIndex: int) -> Any:
 		# Look up the cached objects first for faster response.
-		if infoIndex not in self._cachedStatusObjs:
+		if (
+			infoIndex not in self._cachedStatusObjs
+			# 25.06: when Studio window size changes, location of some elements becomes undefined.
+			or not any(self._cachedStatusObjs[infoIndex].location)
+		):
 			fg = api.getForegroundObject()
 			if fg is not None and fg.windowClassName != "TStudioForm":
 				# 6.1: Allow gesture-based functions to look up status information even if Studio window isn't focused.
