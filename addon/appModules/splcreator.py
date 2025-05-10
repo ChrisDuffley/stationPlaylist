@@ -220,7 +220,7 @@ class AppModule(appModuleHandler.AppModule):
 			except KeyError:
 				statusBar = api.getForegroundObject().firstChild.firstChild
 				self._playlistEditorStatusCache[self.SPLEditorStatusBar] = statusBar
-			ui.message(statusBar.getChild(2).name)
+			ui.message(statusBar.getChild(2).displayText)
 
 	@scriptHandler.script(gesture="kb:alt+NVDA+4", speakOnDemand=True)
 	def script_playlistRotation(self, gesture):
@@ -230,4 +230,4 @@ class AppModule(appModuleHandler.AppModule):
 			except KeyError:
 				statusBar = api.getForegroundObject().firstChild.firstChild
 				self._playlistEditorStatusCache[self.SPLEditorStatusBar] = statusBar
-			ui.message(statusBar.getChild(3).name)
+			ui.message(statusBar.getChild(3).displayText)
