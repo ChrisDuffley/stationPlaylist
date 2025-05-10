@@ -7,6 +7,7 @@
 import appModuleHandler
 import controlTypes
 from NVDAObjects.IAccessible import sysListView32
+from . import encoders
 
 # For SPL encoder config screen at least, control iD's are different,
 # which allows labels to be generated easily.
@@ -33,8 +34,6 @@ encoderSettingsLabels = {
 # #98: call the one from encoders module directly.
 # This is an indirect jump due to SPL Controller's encoder connection status  command.
 def announceEncoderConnectionStatus() -> None:
-	from . import encoders
-
 	encoders.announceEncoderConnectionStatus()
 
 
@@ -51,8 +50,6 @@ class AppModule(appModuleHandler.AppModule):
 		# This introduces a side effect where encoders database might be reopened
 		# if both SPL Engine and Streamer are active and one of them dies.
 		# For now, ignore this condition.
-		from . import encoders
-
 		encoders.cleanup(appTerminating=True)
 
 	def event_NVDAObject_init(self, obj):
@@ -85,8 +82,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		# Detect encoders.
-		from . import encoders
-
 		if obj.windowClassName == "TListView":
 			# #87: add support for table navigation commands
 			# by coercing encoder list and entries into SysListView32 family.

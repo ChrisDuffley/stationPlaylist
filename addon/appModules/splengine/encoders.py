@@ -6,6 +6,7 @@ import threading
 import time
 import os
 import weakref
+import itertools
 from abc import abstractmethod
 import api
 import config
@@ -14,11 +15,15 @@ import globalVars
 import ui
 import keyboardHandler
 import scriptHandler
+import windowUtils
+import winKernel
 from NVDAObjects.IAccessible import IAccessible, sysListView32, getNVDAObjectFromEvent
 from winUser import user32, sendMessage, OBJID_CLIENT
 import tones
 import gui
 import wx
+from appModules.splstudio import splactions
+from ..skipTranslation import translate
 import addonHandler
 
 addonHandler.initTranslation()
@@ -231,8 +236,6 @@ class EncoderConfigDialog(wx.Dialog):
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		encoderConfigHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 		# And to close this automatically when Studio dies.
-		from appModules.splstudio import splactions
-
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 		global _configDialogOpened
 		_configDialogOpened = True
@@ -310,8 +313,6 @@ class EncoderConfigDialog(wx.Dialog):
 
 # Announce connected encoders if any.
 def announceEncoderConnectionStatus() -> None:
-	import windowUtils
-
 	# For SAM encoders, descend into encoder window after locating the foreground window.
 	# For others, look for a specific SysListView32 control.
 	desktopHwnd = api.getDesktopObject().windowHandle
@@ -514,8 +515,6 @@ class Encoder(IAccessible):
 			return
 		# #150 (20.10/20.09.2-LTS): announce a message if Studio window is minimized.
 		if self.focusToStudio:
-			import windowUtils
-
 			try:
 				studioWindow = windowUtils.findDescendantWindow(
 					api.getDesktopObject().windowHandle, visible=True, className="TStudioForm"
@@ -645,8 +644,6 @@ class Encoder(IAccessible):
 			d.Show()
 			gui.mainFrame.postPopup()
 		except RuntimeError:
-			from ..skipTranslation import translate
-
 			wx.CallAfter(
 				# Translators: Text of the dialog when another encoder settings dialog is open.
 				gui.messageBox,
@@ -667,8 +664,6 @@ class Encoder(IAccessible):
 		speakOnDemand=True,
 	)
 	def script_encoderDateTime(self, gesture):
-		import winKernel
-
 		if scriptHandler.getLastScriptRepeatCount() == 0:
 			text = winKernel.GetTimeFormatEx(winKernel.LOCALE_NAME_USER_DEFAULT, 0, None, None)
 		else:
@@ -821,8 +816,6 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 	# Presses refer to how many times down arrow must be 'pressed' once context menu opens.
 
 	def _samContextMenu(self, presses: int) -> None:
-		import itertools
-
 		keyboardHandler.KeyboardInputGesture.fromName("applications").send()
 		for key in itertools.repeat("downArrow", presses):
 			keyboardHandler.KeyboardInputGesture.fromName(key).send()
