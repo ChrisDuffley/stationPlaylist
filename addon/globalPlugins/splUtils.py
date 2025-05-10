@@ -9,6 +9,10 @@ import api
 import ui
 import scriptHandler
 import globalVars
+import appModuleHandler
+from appModules.splengine import announceEncoderConnectionStatus
+import tones
+import windowUtils
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 from winUser import user32, sendMessage, OBJID_CLIENT, getWindowText
 import versionInfo
@@ -111,8 +115,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Tell NVDA that the add-on accepts additional command-line switches.
 		addonHandler.isCLIParamKnown.register(processArgs)
 		# SPL Streamer provides a streaming UI on top of SPL Engine components, thus treat it as an alias.
-		import appModuleHandler
-
 		appModuleHandler.registerExecutableWithAppModule("splstreamer", "splengine")
 
 	# Global layer environment (see Studio app module for more information).
@@ -166,8 +168,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.clearGestureBindings()
 
 	def script_error(self, gesture):
-		import tones
-
 		tones.beep(120, 100)
 
 	# Switch focus to SPL Studio window from anywhere.
@@ -186,8 +186,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# and allows users to "switch" to SPL window if the window is minimized.
 		# #150 (20.10/20.09.2-LTS): even then, make sure Studio window is visible.
 		else:
-			import windowUtils
-
 			try:
 				studioWindow = windowUtils.findDescendantWindow(
 					api.getDesktopObject().windowHandle, visible=True, className="TStudioForm"
@@ -371,9 +369,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# which in turn will call the one found in encoders support module.
 		# Do nothing if SPL Engine app module isn't present or any kind of error occurs.
 		try:
-			import appModules.splengine
-
-			appModules.splengine.announceEncoderConnectionStatus()
+			announceEncoderConnectionStatus()
 		except Exception:
 			# Translators: presented if encoder connection status cannot be obtained.
 			ui.message(_("Cannot obtain encoder connection status"))
