@@ -2090,17 +2090,12 @@ class AppModule(appModuleHandler.AppModule):
 				)
 			except ZeroDivisionError:
 				snapshot["PlaylistDurationAverage"] = "00:00"
-		if (
-			"CategoryCount" in snapshotFlags
-			or "ArtistCount" in snapshotFlags
-			or "GenreCount" in snapshotFlags
-		):
-			if "CategoryCount" in snapshotFlags:
-				snapshot["PlaylistCategoryCount"] = collections.Counter(categories)
-			if "ArtistCount" in snapshotFlags:
-				snapshot["PlaylistArtistCount"] = collections.Counter(artists)
-			if "GenreCount" in snapshotFlags:
-				snapshot["PlaylistGenreCount"] = collections.Counter(genres)
+		if "CategoryCount" in snapshotFlags:
+			snapshot["PlaylistCategoryCount"] = collections.Counter(categories)
+		if "ArtistCount" in snapshotFlags:
+			snapshot["PlaylistArtistCount"] = collections.Counter(artists)
+		if "GenreCount" in snapshotFlags:
+			snapshot["PlaylistGenreCount"] = collections.Counter(genres)
 		return snapshot
 
 	# Output formatter for playlist snapshots.
