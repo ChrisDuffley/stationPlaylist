@@ -11,6 +11,7 @@ import os
 import pickle
 from collections import ChainMap
 import weakref
+import appModuleHandler
 from configobj import ConfigObj, get_extra_values, ConfigObjError
 
 # ConfigObj 5.1.0 and later integrates validate module.
@@ -713,8 +714,6 @@ def closeConfig(splComponent: str) -> None:
 	global SPLConfig
 	# #99 (19.06/18.09.9-LTS): if more than one instance of a given SPL component executable is running,
 	# do not remove the component from the components registry.
-	import appModuleHandler
-
 	# The below loop will be run from the component app module's terminate method, but before that,
 	# the app module associated with the component would have been deleted from the running table.
 	# This is subject to change based on NVDA Core changes.

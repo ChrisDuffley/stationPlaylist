@@ -14,11 +14,14 @@ import weakref
 import api
 import wx
 import globalVars
-from winUser import user32
+from appModules.splengine import encoders
+from NVDAObjects.IAccessible import getNVDAObjectFromEvent
+from winUser import user32, OBJID_CLIENT
 import tones
 import addonHandler
 from . import splconfig
 from . import splactions
+from . import splmisc
 from ..skipTranslation import translate
 
 addonHandler.initTranslation()
@@ -702,9 +705,6 @@ class AlarmsPanel(gui.settingsDialogs.SettingsPanel):
 		# #42 (18.01/15.12-LTS): don't forget to restart microphone alarm timer.
 		# 18.02: do it here at once.
 		# At least try notifying the app module that microphone alarm settings have changed.
-		from winUser import OBJID_CLIENT
-		from NVDAObjects.IAccessible import getNVDAObjectFromEvent
-
 		studioWindow = getNVDAObjectFromEvent(user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0)
 		if studioWindow is not None:
 			studioWindow.appModule.actionProfileSwitched()
@@ -877,8 +877,6 @@ class MetadataStreamingDialog(wx.Dialog):
 		# Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
 		# Add checkboxes for each stream, beginning with the DSP encoder.
 		# #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
-		from . import splmisc
-
 		streams = splmisc.metadataList()
 		self.checkedStreams = metadataSizerHelper.addLabeledControl(
 			# Translators: the label for a setting in SPL add-on settings
@@ -915,8 +913,6 @@ class MetadataStreamingDialog(wx.Dialog):
 		# Prepare checkbox values first for various reasons.
 		# #76 (18.09-LTS): traverse check list box and build boolean list accordingly.
 		metadataEnabled = [self.checkedStreams.IsChecked(url) for url in range(5)]
-		from . import splmisc
-
 		splmisc.metadataConnector(servers=metadataEnabled)
 		# 6.1: Store just toggled settings to profile if told to do so.
 		if self.applyCheckbox.Value:
@@ -985,8 +981,6 @@ class MetadataStreamingPanel(gui.settingsDialogs.SettingsPanel):
 			self.checkedStreams.IsChecked(url) for url in range(5)
 		]
 		# Try connecting to metadata streaming servers if any.
-		from . import splmisc
-
 		splmisc.metadata_actionProfileSwitched(configDialogActive=True)
 
 
@@ -1494,9 +1488,7 @@ class ResetDialog(wx.Dialog):
 				splconfig.trackComments.clear()
 			if self.resetEncodersCheckbox.Value:
 				if "appModules.splengine.encoders" in sys.modules:
-					import appModules.splengine.encoders
-
-					appModules.splengine.encoders.resetEncoderConfig(factoryDefaults=True)
+					encoders.resetEncoderConfig(factoryDefaults=True)
 			_configDialogOpened = False
 			wx.CallAfter(
 				# Translators: A dialog message shown when settings were reset to defaults.

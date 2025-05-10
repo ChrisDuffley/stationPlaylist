@@ -9,6 +9,8 @@ import weakref
 import os
 import threading
 from _csv import reader  # For cart explorer.
+import datetime
+import api
 import gui
 import wx
 import globalVars
@@ -22,6 +24,7 @@ from winUser import user32
 import versionInfo
 from . import splbase
 from . import splactions
+from . import splconfig
 from ..skipTranslation import translate
 
 addonHandler.initTranslation()
@@ -102,8 +105,6 @@ class SPLFindDialog(wx.Dialog):
 		self.findEntry.Value = text
 
 		if columnSearch:
-			from . import splconfig
-
 			self.columnHeaders = findSizerHelper.addLabeledControl(
 				# Translators: The label in track finder to search columns.
 				_("C&olumn to search:"),
@@ -460,8 +461,6 @@ def metadataList() -> list[int | None]:
 # and if not present, will be pulled from add-on settings.
 def metadataConnector(servers: list[bool] | None = None) -> None:
 	if servers is None:
-		from . import splconfig
-
 		servers = splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"]
 	for url in range(5):
 		dataLo = 0x00010000 if servers[url] else 0xFFFF0000
@@ -550,8 +549,6 @@ _delayMetadataAction = False
 # Settings reset flag is used to prevent metadata server connection
 # when settings are reloaded from disk or reset to defaults.
 def metadata_actionProfileSwitched(configDialogActive: bool = False, settingsReset: bool = False) -> None:
-	from . import splconfig
-
 	# Only connect if add-on settings is active in order to avoid wasting thread running time.
 	if configDialogActive:
 		metadataConnector(servers=splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"])
@@ -597,8 +594,6 @@ SPLPlaylistTranscriptFormats = []
 # Although this is useful in playlist transcripts,
 # it can also be useful for column announcement inclusion and order.
 def columnPresentationOrder() -> list[str]:
-	from . import splconfig
-
 	return [
 		column
 		for column in splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"]
@@ -626,8 +621,6 @@ def copyPlaylistTranscriptsToClipboard(playlistTranscripts: list[str]) -> None:
 	if globalVars.appArgs.secure:
 		return
 	# Only text style transcript such as pure text and Markdown supports copying contents to clipboard.
-	import api
-
 	api.copyToClip("\r\n".join(playlistTranscripts))
 	# Translators: presented when playlist transcript data was copied to the clipboard.
 	ui.message(_("Playlist data copied to clipboard"))
@@ -647,8 +640,6 @@ def savePlaylistTranscriptsToFile(
 	)
 	if not os.path.exists(transcriptFileLocation):
 		os.mkdir(transcriptFileLocation)
-	import datetime
-
 	transcriptTimestamp = datetime.datetime.now()
 	transcriptFilename = "{0}{1:02d}{2:02d}-{3:02d}{4:02d}{5:02d}-splPlaylistTranscript.{6}".format(
 		transcriptTimestamp.year,

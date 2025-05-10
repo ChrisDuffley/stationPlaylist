@@ -17,6 +17,7 @@ from functools import wraps
 import os
 import time
 import threading
+import collections
 from abc import abstractmethod
 import controlTypes
 import appModuleHandler
@@ -24,6 +25,8 @@ import api
 import config
 import globalVars
 import scriptHandler
+import eventHandler
+import review
 import ui
 import nvwave
 import speech
@@ -31,6 +34,7 @@ import braille
 import touchHandler
 import gui
 import wx
+import winKernel
 from winUser import user32, OBJID_CLIENT
 from logHandler import log
 from NVDAObjects import NVDAObjectTextInfo
@@ -729,8 +733,6 @@ class AppModule(appModuleHandler.AppModule):
 		log.debug("SPL: loading add-on settings")
 		splconfig.initialize()
 		# Announce status changes while using other programs.
-		import eventHandler
-
 		eventHandler.requestEvents(
 			eventName="nameChange", processId=self.processID, windowClassName="TStatusBar"
 		)
@@ -885,8 +887,6 @@ class AppModule(appModuleHandler.AppModule):
 				# and there's no way to fetch the object for this text.
 				# Thus use review position text.
 				if not obj.name:
-					import review
-
 					fieldName, fieldObj = review.getScreenPosition(obj)
 					fieldName.expand(textInfos.UNIT_LINE)
 					if obj.windowClassName == "TComboBox":
@@ -1369,8 +1369,6 @@ class AppModule(appModuleHandler.AppModule):
 	def script_sayCompleteTime(self, gesture):
 		if not splbase.studioIsRunning():
 			return
-		import winKernel
-
 		# Says complete time in hours, minutes and seconds via kernel32's routines.
 		ui.message(winKernel.GetTimeFormatEx(winKernel.LOCALE_NAME_USER_DEFAULT, 0, None, None))
 
@@ -2097,8 +2095,6 @@ class AppModule(appModuleHandler.AppModule):
 			or "ArtistCount" in snapshotFlags
 			or "GenreCount" in snapshotFlags
 		):
-			import collections
-
 			if "CategoryCount" in snapshotFlags:
 				snapshot["PlaylistCategoryCount"] = collections.Counter(categories)
 			if "ArtistCount" in snapshotFlags:
