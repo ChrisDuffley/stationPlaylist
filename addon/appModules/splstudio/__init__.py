@@ -1992,7 +1992,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Return total duration of a range of tracks.
 	# This is used in track time analysis when multiple tracks are selected.
 	# This is also called from playlist duration scripts.
-	def playlistDuration(self, start: Any = None, end: Any = None) -> int:
+	def playlistDuration(self, start: NVDAObject | None = None, end: NVDAObject | None = None) -> int:
 		if start is None:
 			start = api.getFocusObject()
 		duration = start.indexOf("Duration")
@@ -2016,7 +2016,9 @@ class AppModule(appModuleHandler.AppModule):
 	# Data to be gathered comes from a set of flags.
 	# By default, playlist duration (including shortest and average),
 	# category summary and other statistics will be gathered.
-	def playlistSnapshots(self, obj: Any, end: Any, snapshotFlags: list[str] | None = None) -> dict[str, Any]:
+	def playlistSnapshots(
+		self, obj: NVDAObject, end: NVDAObject | None, snapshotFlags: list[str] | None = None
+	) -> dict[str, Any]:
 		# #55 (18.05): is this a complete snapshot?
 		completePlaylistSnapshot = obj.IAccessibleChildID == 1 and end is None
 		# Track count and total duration are always included.
