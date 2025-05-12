@@ -6,6 +6,7 @@
 
 import appModuleHandler
 import controlTypes
+from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32
 
 # For SPL encoder config screen at least, control iD's are different,
@@ -55,7 +56,7 @@ class AppModule(appModuleHandler.AppModule):
 
 		encoders.cleanup(appTerminating=True)
 
-	def event_NVDAObject_init(self, obj):
+	def event_NVDAObject_init(self, obj: NVDAObject):
 		# ICQ field is incorrectly labeled as IRC.
 		# After labeling it, return early so others can be labeled correctly.
 		if obj.windowControlID == 1023:
