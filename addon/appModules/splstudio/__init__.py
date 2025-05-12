@@ -12,7 +12,7 @@
 
 # Minimum version: SPL 5.40, NVDA 2024.1.
 
-from typing import Any
+from typing import Any, Callable
 from functools import wraps
 import os
 import time
@@ -877,7 +877,7 @@ class AppModule(appModuleHandler.AppModule):
 	# The only job of the below event is to notify others that Studio window has appeared for the first time.
 	# This is used to coordinate various status announcements.
 
-	def event_foreground(self, obj, nextHandler):
+	def event_foreground(self, obj: NVDAObject, nextHandler: Callable[[], None]):
 		if not self._initStudioWindowFocused.is_set() and obj.windowClassName == "TStudioForm":
 			self._initStudioWindowFocused.set()
 		nextHandler()
@@ -977,7 +977,7 @@ class AppModule(appModuleHandler.AppModule):
 		return True
 
 	# Now the actual event.
-	def event_nameChange(self, obj, nextHandler):
+	def event_nameChange(self, obj: NVDAObject, nextHandler: Callable[[], None]):
 		# Do not let NVDA get name for None object when SPL window is maximized.
 		if not obj.name:
 			return
@@ -1184,7 +1184,7 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message(_("Warning: {seconds} sec remaining").format(seconds=str(alarmTime)))
 
 	# Hacks for gain focus events.
-	def event_gainFocus(self, obj, nextHandler):
+	def event_gainFocus(self, obj: NVDAObject, nextHandler: Callable[[], None]):
 		if self.deletedFocusObj or (obj.windowClassName == "TListView" and obj.role == 0):
 			self.deletedFocusObj = False
 			return
@@ -1218,7 +1218,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# React to show events from certain windows.
 
-	def event_show(self, obj, nextHandler):
+	def event_show(self, obj: NVDAObject, nextHandler: Callable[[], None]):
 		if obj.windowClassName == "TRequests" and splconfig.SPLConfig["General"]["RequestsAlert"]:
 			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Requests.wav"))
 		nextHandler()
