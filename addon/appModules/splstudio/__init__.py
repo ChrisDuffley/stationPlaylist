@@ -2426,7 +2426,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Called in the layer commands themselves.
 	# 16.11: in Studio 5.20, it is possible to obtain some of these via the API, hence the API method is used.
-	def status(self, infoIndex: int) -> Any:
+	def status(self, infoIndex: int) -> NVDAObject:
 		# Look up the cached objects first for faster response.
 		if (
 			infoIndex not in self._cachedStatusObjs
