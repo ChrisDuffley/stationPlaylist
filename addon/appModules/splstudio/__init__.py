@@ -1464,7 +1464,9 @@ class AppModule(appModuleHandler.AppModule):
 	# 21.03: accept both None and str because it will be filtered to remove None anyway.
 	findText: list[str] | None = None
 
-	def trackFinder(self, text: str, obj: Any, directionForward: bool = True, column: list[int] = []) -> None:
+	def trackFinder(
+		self, text: str, obj: NVDAObject, directionForward: bool = True, column: list[int] = []
+	) -> None:
 		speech.cancelSpeech()
 		# #32 (17.06/15.8 LTS): Update search text even if the track with the search term in columns does not exist.
 		# #27 (17.08): especially if the search history is empty.
@@ -1503,10 +1505,10 @@ class AppModule(appModuleHandler.AppModule):
 	def _trackLocator(
 		self,
 		text: str,
-		obj: Any = api.getFocusObject(),
+		obj: NVDAObject = api.getFocusObject(),
 		directionForward: bool = True,
 		columns: list[int] = [],
-	) -> Any:
+	) -> NVDAObject | None:
 		# 21.03/20.09.6-LTS: it doesn't make sense to search for tracks if text and/or columns are not specified.
 		# It is also an optimization because the below loop will not be run if any of the following are true.
 		if not text or not columns:
@@ -1888,7 +1890,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Is the place marker set on this track?
 	# Track argument is None (only useful for debugging purposes).
-	def isPlaceMarkerTrack(self, track: Any = None) -> bool:
+	def isPlaceMarkerTrack(self, track: NVDAObject | None = None) -> bool:
 		if track is None:
 			track = api.getFocusObject()
 		# 20.07: no, only list items can become place marker tracks.
