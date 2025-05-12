@@ -37,7 +37,7 @@ import wx
 import winKernel
 from winUser import user32, OBJID_CLIENT
 from logHandler import log
-from NVDAObjects import NVDAObjectTextInfo
+from NVDAObjects import NVDAObject, NVDAObjectTextInfo
 from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent, sysListView32
 from NVDAObjects.behaviors import Dialog
 import textInfos
@@ -869,7 +869,7 @@ class AppModule(appModuleHandler.AppModule):
 			self._initStudioWindowFocused.set()
 		nextHandler()
 
-	def event_NVDAObject_init(self, obj):
+	def event_NVDAObject_init(self, obj: NVDAObject):
 		# Employ structural pattern matching to handle different window class names.
 		match obj.windowClassName:
 			case "TListView":
