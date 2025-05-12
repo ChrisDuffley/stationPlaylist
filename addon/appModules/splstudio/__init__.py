@@ -942,7 +942,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Note: There are two status bars, hence the need to exclude Up time so it doesn't announce every minute.
 	# Unfortunately, Window handles and WindowControlIDs seem to change, so can't be used.
 	# Only announce changes if told to do so via the following function.
-	def _TStatusBarChanged(self, obj: Any) -> bool:
+	def _TStatusBarChanged(self, obj: NVDAObject) -> bool:
 		name = obj.name
 		if name.startswith("  Up time:"):
 			return False
