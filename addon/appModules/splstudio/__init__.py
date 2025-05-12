@@ -702,7 +702,7 @@ class SPLTimePicker(IAccessible):
 class AppModule(appModuleHandler.AppModule):
 	# Translators: Script category for StationPlaylist add-on commands in input gestures dialog.
 	scriptCategory = _("StationPlaylist")
-	_focusedTrack: Any | None = None
+	_focusedTrack = None
 	# Monitor Studio API routines.
 	_SPLStudioMonitor = None
 
@@ -2631,7 +2631,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Sometimes, hour markers return seconds.999 due to rounding error, hence this must be taken care of here.
 		# #155 (21.03): Studio API can return None if Studio dies.
 		# Also, because this will become an integer tuple below, use Any type flag to tell Mypy to skip this line.
-		trackStarts: Any | None = splbase.studioAPI(3, 27)
+		trackStarts = splbase.studioAPI(3, 27)
 		if trackStarts is None:
 			return
 		trackStarts = divmod(trackStarts, 1000)
