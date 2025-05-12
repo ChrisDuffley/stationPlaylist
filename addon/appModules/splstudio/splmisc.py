@@ -22,6 +22,7 @@ from logHandler import log
 import addonHandler
 from winUser import user32
 import versionInfo
+from NVDAObjects import NVDAObject
 from . import splbase
 from . import splactions
 from . import splconfig
@@ -661,7 +662,11 @@ def savePlaylistTranscriptsToFile(
 # Header will not be included if additional decorations will be done (mostly for HTML and others).
 # Prefix and suffix denote text to be added around entries (useful for various additional decoration rules).
 def playlist2msaa(
-	start: Any, end: Any, additionalDecorations: bool = False, prefix: str = "", suffix: str = ""
+	start: NVDAObject,
+	end: NVDAObject | None,
+	additionalDecorations: bool = False,
+	prefix: str = "",
+	suffix: str = ""
 ) -> list[str]:
 	playlistTranscripts = []
 	# Just pure text, ready for the clipboard or writing to a txt file.
@@ -686,7 +691,7 @@ def playlist2msaa(
 	return playlistTranscripts
 
 
-def playlist2txt(start: Any, end: Any, transcriptAction: int) -> None:
+def playlist2txt(start: NVDAObject, end: NVDAObject | None, transcriptAction: int) -> None:
 	playlistTranscripts = playlist2msaa(start, end)
 	if transcriptAction == 0:
 		displayPlaylistTranscripts(playlistTranscripts)
@@ -699,7 +704,7 @@ def playlist2txt(start: Any, end: Any, transcriptAction: int) -> None:
 SPLPlaylistTranscriptFormats.append(("txt", playlist2txt, "plain text with one line per entry"))
 
 
-def playlist2htmlTable(start: Any, end: Any, transcriptAction: int) -> None:
+def playlist2htmlTable(start: NVDAObject, end: NVDAObject | None, transcriptAction: int) -> None:
 	if transcriptAction == 1:
 		playlistTranscripts = ["<html><head><title>Playlist Transcripts</title></head>"]
 		playlistTranscripts.append("<body>")
@@ -730,7 +735,7 @@ def playlist2htmlTable(start: Any, end: Any, transcriptAction: int) -> None:
 SPLPlaylistTranscriptFormats.append(("htmltable", playlist2htmlTable, "Table in HTML format"))
 
 
-def playlist2htmlList(start: Any, end: Any, transcriptAction: int) -> None:
+def playlist2htmlList(start: NVDAObject, end: NVDAObject | None, transcriptAction: int) -> None:
 	if transcriptAction == 1:
 		playlistTranscripts = ["<html><head><title>Playlist Transcripts</title></head>"]
 		playlistTranscripts.append("<body>")
@@ -750,7 +755,7 @@ def playlist2htmlList(start: Any, end: Any, transcriptAction: int) -> None:
 SPLPlaylistTranscriptFormats.append(("htmllist", playlist2htmlList, "Data list in HTML format"))
 
 
-def playlist2mdTable(start: Any, end: Any, transcriptAction: int) -> None:
+def playlist2mdTable(start: NVDAObject, end: NVDAObject | None, transcriptAction: int) -> None:
 	playlistTranscripts = []
 	columnHeaders = columnPresentationOrder()
 	playlistTranscripts.append("| {headers} |\n".format(headers=" | ".join(columnHeaders)))
@@ -771,7 +776,7 @@ def playlist2mdTable(start: Any, end: Any, transcriptAction: int) -> None:
 SPLPlaylistTranscriptFormats.append(("mdtable", playlist2mdTable, "Table in Markdown format"))
 
 
-def playlist2csv(start: Any, end: Any, transcriptAction: int) -> None:
+def playlist2csv(start: NVDAObject, end: NVDAObject | None, transcriptAction: int) -> None:
 	playlistTranscripts = []
 	columnHeaders = columnPresentationOrder()
 	playlistTranscripts.append('"{0}"\n'.format('","'.join([col for col in columnHeaders])))
