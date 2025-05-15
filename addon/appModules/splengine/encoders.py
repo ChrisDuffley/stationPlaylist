@@ -341,19 +341,18 @@ def announceEncoderConnectionStatus() -> None:
 	else:
 		encoderWindow = max(samEncoderWindow, sysListView32EncoderWindow)
 		encoderList = getNVDAObjectFromEvent(encoderWindow, OBJID_CLIENT, 0)
-		connectedEncoders = []
-		for encoder in encoderList.children:
-			if isinstance(encoder, Encoder) and encoder.connected:
-				connectedEncoders.append(encoder.encoderId)
+		connectedEncoders = [
+			encoder.encoderId for encoder in encoderList.children
+			if isinstance(encoder, Encoder) and encoder.connected
+		]
 		if len(connectedEncoders) > 0:
 			# Translators: presented when at least one encoder is connected.
-			encodersConnectedMessage = _("Connected encoders: {encodersConnected}").format(
+			ui.message(_("Connected encoders: {encodersConnected}").format(
 				encodersConnected=", ".join(connectedEncoders)
-			)
+			))
 		else:
 			# Translators: presented when no encoders are connected.
-			encodersConnectedMessage = _("No encoders connected")
-		ui.message(encodersConnectedMessage)
+			ui.message(_("No encoders connected"))
 
 
 class Encoder(IAccessible):
