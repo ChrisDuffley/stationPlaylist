@@ -213,7 +213,7 @@ Version 25.06.x is the last release series to support Studio 5.x with future rel
 * NVDA will no longer play error tones or appear to do nothing when performing some SPL Assistant commands after resizing Studio window.
 * The user interface for confirmation dialog shown when deleting broadcast profiles now resembles NVDA's configuration profile deletion interface.
 * NVDA will recognize track column changes introduced in Creator and Track Tool 6.11.
-* In columns explorer for Creator, "Date Restriction" column was renamed to "Restrictions".
+* In columns explorer for Creator, "Date Restriction" column is now "Restrictions".
 * NVDA will no longer play wrong carts when playing them via SPL Controller layer.
 
 ## Version 25.05
