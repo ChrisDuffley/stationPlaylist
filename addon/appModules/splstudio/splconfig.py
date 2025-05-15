@@ -291,6 +291,8 @@ class ConfigHub(ChainMap):
 		# Artist and Title must be present at all times (quite redundant, but just in case).
 		conf["ColumnAnnouncement"]["IncludedColumns"].add("Artist")
 		conf["ColumnAnnouncement"]["IncludedColumns"].add("Title")
+		# 18.08: same thing for included columns in Playlist Transcripts.
+		conf["PlaylistTranscripts"]["IncludedColumns"] = set(conf["PlaylistTranscripts"]["IncludedColumns"])
 		# Perform a similar check for metadata streaming.
 		if len(conf["MetadataStreaming"]["MetadataEnabled"]) != 5:
 			if profileName in _configLoadStatus and _configLoadStatus[profileName] == "partialReset":
@@ -301,8 +303,6 @@ class ConfigHub(ChainMap):
 		# 17.04: If vertical column announcement value is "None", transform this to NULL.
 		if conf["General"]["VerticalColumnAnnounce"] == "None":
 			conf["General"]["VerticalColumnAnnounce"] = None
-		# 18.08: same thing for included columns in Playlist Transcripts.
-		conf["PlaylistTranscripts"]["IncludedColumns"] = set(conf["PlaylistTranscripts"]["IncludedColumns"])
 
 	# Remove deprecated sections/keys.
 	def _removeDeprecatedSettings(self, profile: ConfigObj) -> None:
