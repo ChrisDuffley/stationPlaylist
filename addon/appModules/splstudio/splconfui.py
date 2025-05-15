@@ -1261,7 +1261,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 					"Duration",
 					"Last Scheduled",
 					"7 Days",
-					"Date Restriction",
+					"Restrictions",
 					"Year",
 					"Album",
 					"Genre",
