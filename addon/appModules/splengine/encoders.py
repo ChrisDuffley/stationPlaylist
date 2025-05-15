@@ -577,16 +577,15 @@ class Encoder(IAccessible):
 			if not self.backgroundMonitor:
 				# Translators: Presented when toggling the setting
 				# to monitor the selected encoder in the background.
-				monitorMessage = _("Monitoring encoder {encoderNumber}").format(
+				ui.message(_("Monitoring encoder {encoderNumber}").format(
 					encoderNumber=self.IAccessibleChildID
-				)
+				))
 			else:
 				# Translators: Presented when toggling the setting
 				# to monitor the selected encoder in the background.
-				monitorMessage = _("Encoder {encoderNumber} will not be monitored").format(
+				ui.message(_("Encoder {encoderNumber} will not be monitored").format(
 					encoderNumber=self.IAccessibleChildID
-				)
-			ui.message(monitorMessage)
+				))
 			self.backgroundMonitor = not self.backgroundMonitor
 			if self.backgroundMonitor:
 				try:
