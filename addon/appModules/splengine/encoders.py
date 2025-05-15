@@ -371,7 +371,7 @@ class Encoder(IAccessible):
 		# Announce encoder label if it exists.
 		if encoderLabel is not None:
 			try:
-				name = "(" + encoderLabel + ") " + name
+				name = f"({encoderLabel}) {name}"
 			except TypeError:
 				pass
 		return name
