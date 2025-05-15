@@ -73,6 +73,7 @@ U: Pause.
 S: Stop with fade.
 T: Instant stop.
 C: Announce name and duration of the currently playing track.
+Shift+C: Announce name and duration of the upcoming track.
 E: Announce connected encoders if any.
 I: Announce listener count.
 Q: Announce Studio status information.
