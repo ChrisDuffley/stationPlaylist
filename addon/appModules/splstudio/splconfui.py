@@ -241,13 +241,14 @@ class BroadcastProfilesDialog(wx.Dialog):
 		if (
 			gui.messageBox(
 				# Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
-				_("Are you sure you want to delete this profile? This cannot be undone."),
+				# The placeholder {} is replaced with the name of the broadcast profile that will be deleted.
+				_("The profile {} will be permanently deleted. This action cannot be undone.").format(name),
 				# Message comes from NVDA Core.
 				translate("Confirm Deletion"),
-				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION,
+				wx.OK | wx.CANCEL | wx.CANCEL_DEFAULT | wx.ICON_QUESTION,
 				self,
 			)
-			== wx.NO
+			!= wx.OK
 		):
 			return
 		splconfig.SPLConfig.deleteProfile(name)
