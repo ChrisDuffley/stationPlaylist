@@ -1313,9 +1313,9 @@ class AppModule(appModuleHandler.AppModule):
 				# 6.1: Optimize the string builder so it can return just one string.
 				# 17.08: Return the generated string directly.
 				# 17.09: use modulo formatter to reduce instruction count.
-				return "{hh:02d}:{mm:02d}:{ss:02d}".format(hh=hh, mm=mm, ss=ss)
+				return f"{hh:02d}:{mm:02d}:{ss:02d}"
 			else:
-				return "{mm:02d}:{ss:02d}".format(mm=mm, ss=ss)
+				return f"{mm:02d}:{ss:02d}"
 
 	# Scripts which rely on API.
 	@scriptHandler.script(
