@@ -61,10 +61,13 @@ SPLCurTrackPlaybackTime = 105
 
 # Translators: the text for SPL Controller help.
 SPLConHelp = _("""After entering SPL Controller, press:
-A: Toggle automation.
-M: Toggle microphone.
+A: Turn automation on.
+Shift+A: Turn automation off.
+M: Turn microphone on.
+Shift+M: Turn microphone off.
 N: Turn microphone on without fade.
-L: Toggle line in.
+L: Turn line in on.
+Shift+L: Turn line in off.
 P: Play.
 U: Pause.
 S: Stop with fade.
@@ -252,22 +255,33 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.script_finish()
 
 	# The layer commands themselves. Calls user32.SendMessage method for each script.
-	# 25.06: commands such as automation on/off are now true toggle instead of separate commands.
 
-	def script_automateToggle(self, gesture):
-		sendMessage(SPLWin, 1024, 2, SPLAutomate)
+	def script_automateOn(self, gesture):
+		sendMessage(SPLWin, 1024, 1, SPLAutomate)
 		self.script_finish()
 
-	def script_micToggle(self, gesture):
-		sendMessage(SPLWin, 1024, 3, SPLMic)
+	def script_automateOff(self, gesture):
+		sendMessage(SPLWin, 1024, 0, SPLAutomate)
+		self.script_finish()
+
+	def script_micOn(self, gesture):
+		sendMessage(SPLWin, 1024, 1, SPLMic)
+		self.script_finish()
+
+	def script_micOff(self, gesture):
+		sendMessage(SPLWin, 1024, 0, SPLMic)
 		self.script_finish()
 
 	def script_micNoFade(self, gesture):
 		sendMessage(SPLWin, 1024, 2, SPLMic)
 		self.script_finish()
 
-	def script_lineInToggle(self, gesture):
-		sendMessage(SPLWin, 1024, 2, SPLLineIn)
+	def script_lineInOn(self, gesture):
+		sendMessage(SPLWin, 1024, 1, SPLLineIn)
+		self.script_finish()
+
+	def script_lineInOff(self, gesture):
+		sendMessage(SPLWin, 1024, 0, SPLLineIn)
 		self.script_finish()
 
 	def script_stopFade(self, gesture):
@@ -437,10 +451,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	__SPLControllerGestures = {
 		"kb:p": "play",
-		"kb:a": "automateToggle",
-		"kb:m": "micToggle",
+		"kb:a": "automateOn",
+		"kb:shift+a": "automateOff",
+		"kb:m": "micOn",
+		"kb:shift+m": "micOff",
 		"kb:n": "micNoFade",
-		"kb:l": "lineInToggle",
+		"kb:l": "lineInOn",
+		"kb:shift+l": "lineInOff",
 		"kb:shift+r": "libraryScanProgress",
 		"kb:s": "stopFade",
 		"kb:t": "stopInstant",
