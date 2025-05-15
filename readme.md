@@ -139,10 +139,13 @@ The available SPL Controller commands are (some commands support speak on demand
 * U: Pause or unpause playback.
 * S: Stop the track with fade out.
 * T: Instant stop.
-* M: Toggle microphone.
+* M: Turn on microphone.
+* Shift+M: Turn off microphone.
 * N: Turn microphone on without fade.
-* A: Toggle automation.
-* L: Toggle on line-in input.
+* A: Turn on automation.
+* Shift+A: Turn off automation.
+* L: Turn on line-in input.
+* Shift+L: Turn off line-in input.
 * R: Remaining time for the currently playing track.
 * Shift+R: Library scan progress.
 * C: Title and duration of the currently playing track (supports speak on demand).
@@ -211,7 +214,6 @@ Version 25.06.x is the last release series to support Studio 5.x with future rel
 * The user interface for confirmation dialog shown when deleting broadcast profiles now resembles NVDA's configuration profile deletion interface.
 * NVDA will recognize track column changes introduced in Creator and Track Tool 6.11.
 * In columns explorer for Creator, "Date Restriction" column was renamed to "Restrictions".
-* Changes to SPL Controller layer command behavior, including automation (A), microphone (M), and line-in (L). These commands have become toggles, and Shift+A/L/M are removed.
 * NVDA will no longer play wrong carts when playing them via SPL Controller layer.
 
 ## Version 25.05
