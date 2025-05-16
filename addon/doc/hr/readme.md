@@ -9,17 +9,17 @@ Studio i drugih StationPlaylist programa te pruža alate za kontrolu programa
 Studio s bilo kojeg mjesta. Podržava sljedeće programe: Studio, Creator,
 Track Tool, VT Recorder i Streamer, kao i SAM, SPL i AltaCast kodere.
 
-Za daljnje informacije o dodatku pročitaj [priručnik za dodatke][2].
+For more information about the add-on, read the [add-on guide][1].
 
 VAŽNE NAPOMENE:
 
-* Ovaj dodatak zahtijeva StationPlaylist izdanje 5.40 ili noviju verziju.
+* This add-on requires StationPlaylist suite 5.50 or later.
 * Neke funkcije dodatka bit će deaktivirane ili ograničeno raditi, ako NVDA
   radi u sigurnom modusu kao što je prozor prijave.
 * Za najbolje iskustvo, deaktiviraj modus stišavanja zvuka.
-* Od 2018. godine pa nadalje, [zapisi o promjenama za stara izdanja
-  dodatka][3] se nalaze na GitHubu. Readme datoteka dodatka sadrži popis
-  promjena od verzije 23.02 (2023.) i nadalje.
+* Starting from 2018, [changelogs for old add-on releases][2] will be found
+  on GitHub. This add-on readme will list changes from version 23.02 (2023)
+  onwards.
 * Dok je Studio pokrenut, moguće je spremiti postavke, ponovo učitati
   spremljene postavke ili resetirati postavke dodatka na standardne
   vrijednosti pritiskom tipki kontrol+NVDA+C, pritiskom tipki kontrol+NVDA+R
@@ -59,7 +59,7 @@ noted otherwise, these commands support speak on demand mode.
 * Control+NVDA+F from Studio window: Opens a dialog to find a track based on
   artist or song name. Press NVDA+F3 to find forward or NVDA+Shift+F3 to
   find backward (does not support speak on demand).
-* Alt+NVDA+R from Studio window: Steps through library scan announcement
+* Shift+NVDA+R from Studio window: Steps through library scan announcement
   settings (does not support speak on demand).
 * Control+Shift+X from Studio window: Steps through braille timer settings
   (does not support speak on demand).
@@ -187,6 +187,7 @@ The available commands are (most commands support speak on demand):
 * L (Šift+L u JAWS rasporedu): Line in.
 * M: Mikrofon.
 * N: Naslov sljedeće planirane snimke.
+* O: Playlist hour over/under by.
 * P: Stanje sviranja (svira ili je zaustavljeno).
 * Šift+P: Glasnoća trenutačne snimke.
 * R (Šift+E u JAWS rasporedu): Snimanje u datoteku uključeno ili isključeno.
@@ -227,6 +228,7 @@ demand):
 * T: Trenutan prekid.
 * M: Uključi mikrofon.
 * Shift+M: Isključi mikrofon.
+* N: Turn microphone on without fade.
 * A: Uključi automatizaciju.
 * Shift+A: Isključi automatizaciju.
 * L: Uključi line-in unos.
@@ -342,6 +344,30 @@ instaliranim NVDA čitačem, neke Studio naredbe možeš izvršiti na ekranu
 osjetljivim na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri
 prsta. Zatim koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
+## Version 25.06-LTS
+
+Version 25.06.x is the last release series to support Studio 5.x with future
+releases requiring Studio 6.x. Some new features will be backported to
+25.06.x if needed.
+
+* NVDA will no longer forget to transfer broadcast profiles while updating
+  the add-on (fixing a regression introduced in 25.05).
+* Added a new command in SPL Assistant to announce playlist hour over/under
+  by in minutes and seconds (O).
+* In Studio, the command to step through library scan announcement settings
+  has changed from Alt+NVDA+R to Shift+NVDA+R as the former command toggles
+  remote access feature in NVDA 2025.1.
+* NVDA will no longer play error tones or appear to do nothing when
+  performing some SPL Assistant commands after resizing Studio window.
+* The user interface for confirmation dialog shown when deleting broadcast
+  profiles now resembles NVDA's configuration profile deletion interface.
+* NVDA will recognize track column changes introduced in Creator and Track
+  Tool 6.11.
+* In columns explorer for Creator, "Date Restriction" column is now
+  "Restrictions".
+* NVDA will no longer play wrong carts when playing them via SPL Controller
+  layer.
+
 ## Version 25.05
 
 * NVDA 2024.1 or later is required due to Python 3.11 upgrade.
@@ -402,11 +428,9 @@ prsta. Zatim koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
 ## Starija izdanja
 
-Pogledaj poveznicu [zapisnika promjena][3] za bilješke o starim izdanjima
-dodatka.
+Please see the [changelog][2] for release notes for old add-on releases.
 
-[[!tag dev stable]]
+[1]:
+https://github.com/ChrisDuffley/stationPlaylist/blob/main/addonuserguide.md
 
-[2]: https://github.com/chrisDuffley/stationplaylist/wiki/SPLAddonGuide
-
-[3]: https://github.com/ChrisDuffley/stationplaylist/wiki/splchangelog
+[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/changes.md

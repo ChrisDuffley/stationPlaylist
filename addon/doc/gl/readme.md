@@ -10,18 +10,18 @@ utilidades para controlar o Studio dende calquera lugar. As apps soportadas
 inclúen Studio, Creator, Track Tool, VT Recorder, e Streamer, así como os
 codificadores SAM, SPLe AltaCast.
 
-Para máis información sobre o complemento, le a [guía do complemento][2].
+For more information about the add-on, read the [add-on guide][1].
 
 NOTAS IMPORTANTES:
 
-* Este complemento require o paquete StationPlaylist 5.40 ou posterior.
+* This add-on requires StationPlaylist suite 5.50 or later.
 * Algunhas características do complemento desactivaranse ou limitaranse se
   NVDA se está executando en modo seguro, como por exemplo na pantalla de
   inicio de sesión.
 * Para unha mellor experiencia, deshabilita o modo atenuación de audio.
-* A partir de 2018, os [rexistros de cambios para versións vellas][3]
-  atoparanse en GitHub. Este léeme (readme) do complemento listará cambios
-  dende a versión 23.02 (2023) en diante.
+* Starting from 2018, [changelogs for old add-on releases][2] will be found
+  on GitHub. This add-on readme will list changes from version 23.02 (2023)
+  onwards.
 * Cando Studio está en execución, podes gardar, recargar as opcións
   gardadas, ou restablecer as opcións do complemento ás de fábrica premendo
   Control+NVDA+C, Control+NVDA+R unha vez, ou Control+NVDA+R tres veces,
@@ -64,7 +64,7 @@ noted otherwise, these commands support speak on demand mode.
 * Control+NVDA+F from Studio window: Opens a dialog to find a track based on
   artist or song name. Press NVDA+F3 to find forward or NVDA+Shift+F3 to
   find backward (does not support speak on demand).
-* Alt+NVDA+R from Studio window: Steps through library scan announcement
+* Shift+NVDA+R from Studio window: Steps through library scan announcement
   settings (does not support speak on demand).
 * Control+Shift+X from Studio window: Steps through braille timer settings
   (does not support speak on demand).
@@ -197,6 +197,7 @@ The available commands are (most commands support speak on demand):
 * L (Shift+L na distribución JAWS): Liña auxiliar.
 * M: Micrófono.
 * N: Título para a seguinte pista programada.
+* O: Playlist hour over/under by.
 * P: Estado da reproducción (reproducindo ou detido).
 * Shift+P: Ton da pista actual.
 * R (Shift+E na distribución JAWS): Grabar en ficheiro activado /
@@ -240,6 +241,7 @@ demand):
 * T: Detención instantánea.
 * M: Activar micrófono.
 * Shift+M: Apagar micrófono.
+* N: Turn microphone on without fade.
 * A. Activar automatización.
 * Shift+A: Desactivar automatización.
 * L: Activar entrada de liña.
@@ -358,6 +360,30 @@ instalado, podes realizar algunhas ordes do Studio dende a pantalla
 tactil. Primeiro usa un toque con tres dedos para cambiar a modo SPL, logo
 usa as ordes tactiles listadas arriba para realizar ordes.
 
+## Version 25.06-LTS
+
+Version 25.06.x is the last release series to support Studio 5.x with future
+releases requiring Studio 6.x. Some new features will be backported to
+25.06.x if needed.
+
+* NVDA will no longer forget to transfer broadcast profiles while updating
+  the add-on (fixing a regression introduced in 25.05).
+* Added a new command in SPL Assistant to announce playlist hour over/under
+  by in minutes and seconds (O).
+* In Studio, the command to step through library scan announcement settings
+  has changed from Alt+NVDA+R to Shift+NVDA+R as the former command toggles
+  remote access feature in NVDA 2025.1.
+* NVDA will no longer play error tones or appear to do nothing when
+  performing some SPL Assistant commands after resizing Studio window.
+* The user interface for confirmation dialog shown when deleting broadcast
+  profiles now resembles NVDA's configuration profile deletion interface.
+* NVDA will recognize track column changes introduced in Creator and Track
+  Tool 6.11.
+* In columns explorer for Creator, "Date Restriction" column is now
+  "Restrictions".
+* NVDA will no longer play wrong carts when playing them via SPL Controller
+  layer.
+
 ## Version 25.05
 
 * NVDA 2024.1 or later is required due to Python 3.11 upgrade.
@@ -418,10 +444,9 @@ usa as ordes tactiles listadas arriba para realizar ordes.
 
 ## Versións vellas
 
-Please see the [changelog][3] for release notes for old add-on releases.
+Please see the [changelog][2] for release notes for old add-on releases.
 
-[[!tag dev stable]]
+[1]:
+https://github.com/ChrisDuffley/stationPlaylist/blob/main/addonuserguide.md
 
-[2]: https://github.com/chrisDuffley/stationplaylist/wiki/SPLAddonGuide
-
-[3]: https://github.com/ChrisDuffley/stationplaylist/wiki/splchangelog
+[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/changes.md

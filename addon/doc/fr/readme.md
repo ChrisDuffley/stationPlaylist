@@ -8,17 +8,17 @@ Cette extension améliore l'utilisation de Station Playlist Studio, mais elle
 fournit aussi des utilitaires pour contrôler le Studio où que vous soyez.
 
 Pour plus d'informations sur l'extension, veuillez lire le [guide de
-l'extension][2].
+l'extension][1].
 
 NOTES IMPORTANTES :
 
-* Cette extension nécessite StationPlaylist suite 5.40 ou version
+* Cette extension nécessite StationPlaylist suite 5.50 ou version
   ultérieure.
 * Certaines fonctionnalités de l'extension seront désactivées ou limitées si
   NVDA s'exécute en mode sécurisé, comme dans l'écran de connexion.
 * Pour une meilleure expérience, désactiver le Mode d'atténuation audio.
 * À partir de 2018, les [changelogs des anciennes versions de
-  l'extension][3] seront disponibles sur GitHub. Ce fichier readme de
+  l'extension][2] seront disponibles sur GitHub. Ce fichier readme de
   l'extension listera les modifications apportées à partir de la version
   23.02 (2023).
 * Pendant que Studio est en cours d'exécution, vous pouvez sauvegarder,
@@ -63,10 +63,12 @@ mode parole à la demande.
   piste sélectionnée est programmée.
 * Alt+NVDA+4 de Creator's Playlist Editor et Remote VT playlist editor :
   annonce la rotation et la catégorie associées à la playlist chargée.
-* Control+NVDA+F from Studio window: Opens a dialog to find a track based on
-  artist or song name. Press NVDA+F3 to find forward or NVDA+Shift+F3 to
-  find backward (does not support speak on demand).
-* Alt+NVDA+R depuis la fenêtre de Studio : parcourt les paramètres d'annonce
+* Contrôle+NVDA+F depuis la fenêtre de Studio : Ouvre un dialogue pour
+  chercher une piste en se basant sur l'artiste ou le nom de la
+  chanson. Appuyez  sur NVDA+F3 pour chercher vers l'avant ou appuyez sur
+  NVDA+Maj+F3 pour rechercher vers l'arrière (ne prend pas en charge la
+  parole à la demande).
+* Maj+NVDA+R depuis la fenêtre de Studio : parcourt les paramètres d'annonce
   du balayage dans la bibliothèque (ne prend pas en charge la parole à la
   demande).
 * Contrôle+Maj+X depuis la fenêtre de Studio : Parcourt les paramètres du
@@ -219,6 +221,7 @@ la parole à la demande) :
 * L (Maj+L dans la  disposition de JAWS) : Entrée ligne.
 * M : Microphone.
 * N : Titre pour la piste suivante planifié.
+* O : Playlist en heure / heure passée.
 * P : Statut (en cours de lecture ou arrêté).
 * Maj+P : Hauteur de la piste actuelle.
 * R (Maj+E dans la disposition  de JAWS) : Enregistrer dans un fichier
@@ -261,6 +264,7 @@ prennent en charge la parole à la demande) :
 * T : Arrêt immédiat.
 * M : Activer le microphone.
 * Maj+M : Désactiver le microphone.
+* N: Turn microphone on without fade.
 * A : Activer l'automatisation.
 * Maj+A : Désactiver l'automatisation.
 * L : Active l'entrée ligne.
@@ -385,16 +389,44 @@ NVDA installé, vous pouvez exécuter certaines commandes Studio depuis un
 en mode SPL, puis utilisez les commandes tactile énumérées ci-dessus pour
 exécuter des commandes.
 
+## Version 25.06-LTS
+
+Version 25.06.x est la dernière version des séries à prendre en charge
+Studio 5.x avec les versions futures nécessitant Studio 6.x. Certaines
+nouvelles fonctionnalités seront recouvertes à la 25.06.x si nécessaire.
+
+* NVDA will no longer forget to transfer broadcast profiles while updating
+  the add-on (fixing a regression introduced in 25.05).
+* Ajout d'une nouvelle commande dans l'Assistant SPL pour annoncer la
+  playlist en heure / heure passée en minutes et secondes (O).
+* Dans Studio, la commande de parcourt des paramètres d'annonce du balayage
+  dans la bibliothèque est passé d'Alt+NVDA+R à Maj+NVDA+R car l'ancienne
+  commande bascule la fonction d'accès à distance dans NVDA 2025.1.
+* NVDA ne jouera plus de tonalités d'erreur ou n'apparaîtra pour ne rien
+  faire lors de l'exécution des commandes de l'Assistant SPL après le
+  redimensionnement de la fenêtre de Studio.
+* The user interface for confirmation dialog shown when deleting broadcast
+  profiles now resembles NVDA's configuration profile deletion interface.
+* NVDA reconnaîtra les changements de colonne de piste introduits dans
+  Creator et l'Outil de piste 6.11.
+* In columns explorer for Creator, "Date Restriction" column is now
+  "Restrictions".
+* NVDA ne jouera plus de paniers erronés lorsque vous les jouez via la
+  Couche du Contrôleur SPL.
+
 ## Version 25.05
 
-* NVDA 2024.1 or later is required due to Python 3.11 upgrade.
-* Restored limited support for Windows 8.1.
-* Moved ad-on wiki documents such as add-on changelog to the main code
-  repository.
-* Added close button to playlist snapshots, playlist transcripts, and SPL
-  Assistant and Controller layer help screens (NVDA 2025.1 and later).
-* NVDA will no longer do nothing or play error tones when announcing weather
-  and temperature information in Studio 6.x (SPL Assistant, W).
+* NVDA 2024.1 ou ultérieur est requis en raison de la mise à niveau de
+  Python 3.11.
+* Restauré la prise en charge limitée pour Windows 8.1.
+* Déplacé les documents du wiki de l'extension tels que le changelog de
+  l'extension vers le dépôt de code principal.
+* Ajout du bouton Fermer aux Instantanés de playlist, Transcriptions de
+  Playlist et Assistant SPL et écrans d'Aide du Contrôleur  en Couche (NVDA
+  2025.1 et ultérieur).
+* NVDA ne fera plus rien ni ne jouera des tonalités d'erreur lors de
+  l'annonce des informations Météo et température dans Studio 6.x (Assistant
+  SPL, W).
 
 ## Version 25.01
 
@@ -451,11 +483,10 @@ exécuter des commandes.
 
 ## Anciennes versions
 
-S'il vous plaît voir le [changelog][3] pour les notes de version  pour les
+S'il vous plaît voir le [changelog][2] pour les notes de version  pour les
 anciennes versions de l'extension.
 
-[[!tag dev stable]]
+[1]:
+https://github.com/ChrisDuffley/stationPlaylist/blob/main/addonuserguide.md
 
-[2]: https://github.com/chrisDuffley/stationplaylist/wiki/SPLAddonGuide
-
-[3]: https://github.com/ChrisDuffley/stationplaylist/wiki/splchangelog
+[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/changes.md

@@ -10,21 +10,19 @@ Steuerung von Studio von überall. Zu den unterstützten Anwendungen gehören
 Studio, Creator, Track Tool, VT Recorder und Streamer sowie SAM, SPL und
 AltaCast Encoder.
 
-Weitere Informationen zur Erweiterung finden Sie in der
-[Add-On-Anleitung][2].
+For more information about the add-on, read the [add-on guide][1].
 
 WICHTIGE HINWEISE:
 
-* Diese NVDA-Erweiterung erfordert StationPlaylist Suite 5.40 oder neuer.
+* This add-on requires StationPlaylist suite 5.50 or later.
 * Einige Funktionen der Erweiterung werden deaktiviert oder eingeschränkt,
   sobald NVDA im Abgesicherten Modus ausgeführt wird, z. B. während der
   Windows-Anmeldung.
 * Für ein optimales Sound-Erlebnis sollten Sie den Modus für die
   Verringerung der Audio-Quellen deaktivieren.
-* Bereits seit 2018 sind [Versionsänderungen für alte Versionen dieser
-  NVDA-Erweiterung][3] auf GitHub zu finden. Diese Readme der
-  NVDA-Erweiterung enthält nur noch Änderungen, die ab Version 23.02 (2023)
-  gemacht worden sind.
+* Starting from 2018, [changelogs for old add-on releases][2] will be found
+  on GitHub. This add-on readme will list changes from version 23.02 (2023)
+  onwards.
 * Während die Studio-Software läuft, können Sie gespeicherte Einstellungen
   speichern, wieder laden oder Zusatzeinstellungen auf die Standardwerte
   zurücksetzen, indem Sie Strg+NVDA+C, Strg+NVDA+R einmal bzw. Strg+NVDA+R
@@ -66,7 +64,7 @@ noted otherwise, these commands support speak on demand mode.
 * Control+NVDA+F from Studio window: Opens a dialog to find a track based on
   artist or song name. Press NVDA+F3 to find forward or NVDA+Shift+F3 to
   find backward (does not support speak on demand).
-* Alt+NVDA+R from Studio window: Steps through library scan announcement
+* Shift+NVDA+R from Studio window: Steps through library scan announcement
   settings (does not support speak on demand).
 * Control+Shift+X from Studio window: Steps through braille timer settings
   (does not support speak on demand).
@@ -200,6 +198,7 @@ The available commands are (most commands support speak on demand):
 * L (Umschalt+L im JAWS-Layout): Line-In.
 * M: Mikrofon.
 * N: Titel der nächst geplante Datei.
+* O: Playlist hour over/under by.
 * P: Wiedergabestatus (Wiedergabe oder angehalten).
 * Umschalt+P: Pitch des aktuellen Titels.
 * R (Umschalt+E im JAWS-Layout): Datensatz in Datei aktiviert/deaktiviert.
@@ -240,6 +239,7 @@ demand):
 * T: Sofort anhalten.
 * M: Mikrofon einschalten.
 * Umschalt+M: Mikrofon ausschalten.
+* N: Turn microphone on without fade.
 * A: Automatisierung einschalten.
 * Umschalt+A: Automatisierung ausschalten.
 * L: Line-In-Eingang einschalten.
@@ -364,6 +364,30 @@ ausführen. Wechseln Sie zunächst mit drei Fingern in den SPL-Modus und
 verwenden Sie dann die oben aufgeführten Touch-Befehle, um Befehle
 auszuführen.
 
+## Version 25.06-LTS
+
+Version 25.06.x is the last release series to support Studio 5.x with future
+releases requiring Studio 6.x. Some new features will be backported to
+25.06.x if needed.
+
+* NVDA will no longer forget to transfer broadcast profiles while updating
+  the add-on (fixing a regression introduced in 25.05).
+* Added a new command in SPL Assistant to announce playlist hour over/under
+  by in minutes and seconds (O).
+* In Studio, the command to step through library scan announcement settings
+  has changed from Alt+NVDA+R to Shift+NVDA+R as the former command toggles
+  remote access feature in NVDA 2025.1.
+* NVDA will no longer play error tones or appear to do nothing when
+  performing some SPL Assistant commands after resizing Studio window.
+* The user interface for confirmation dialog shown when deleting broadcast
+  profiles now resembles NVDA's configuration profile deletion interface.
+* NVDA will recognize track column changes introduced in Creator and Track
+  Tool 6.11.
+* In columns explorer for Creator, "Date Restriction" column is now
+  "Restrictions".
+* NVDA will no longer play wrong carts when playing them via SPL Controller
+  layer.
+
 ## Version 25.05
 
 * NVDA 2024.1 or later is required due to Python 3.11 upgrade.
@@ -424,10 +448,9 @@ auszuführen.
 
 ## Ältere Versionen
 
-Please see the [changelog][3] for release notes for old add-on releases.
+Please see the [changelog][2] for release notes for old add-on releases.
 
-[[!tag dev stable]]
+[1]:
+https://github.com/ChrisDuffley/stationPlaylist/blob/main/addonuserguide.md
 
-[2]: https://github.com/chrisDuffley/stationplaylist/wiki/SPLAddonGuide
-
-[3]: https://github.com/ChrisDuffley/stationplaylist/wiki/splchangelog
+[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/changes.md

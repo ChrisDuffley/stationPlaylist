@@ -10,18 +10,18 @@ para controlar Studio desde cualquier lugar. Entre las aplicaciones
 soportadas se encuentran Studio, Creator, la herramienta de pista, VT
 Recorder y Streamer, así como los codificadores SAM, SPL y AltaCast.
 
-Para más información sobre este complemento, lee su [guía][2].
+For more information about the add-on, read the [add-on guide][1].
 
 NOTAS IMPORTANTES:
 
-* Este complemento requiere StationPlaylist Suite 5.40 o posterior.
+* This add-on requires StationPlaylist suite 5.50 or later.
 * Algunas funciones del complemento quedan deshabilitadas o muy limitadas si
   NVDA se ejecuta en modo seguro, como por ejemplo en la pantalla de inicio
   de sesión.
 * Para una mejor experiencia, deshabilita el modo atenuación de audio.
-* A partir de 2018, los [registros de cambios para versiones antiguas][3] se
-  encontrarán en GitHub. Este léeme del complemento listará cambios desde la
-  versión 23.02 (2023) en adelante.
+* Starting from 2018, [changelogs for old add-on releases][2] will be found
+  on GitHub. This add-on readme will list changes from version 23.02 (2023)
+  onwards.
 * Cuando Studio está en ejecución, se pueden guardar, restablecer o poner
   los valores de fábrica del complemento pulsando control+NVDA+c,
   control+NVDA+r una vez o control+NVDA+r tres veces, respectivamente. Esto
@@ -65,11 +65,12 @@ de voz a petición.
 * Alt+NVDA+4 desde la ventana del editor de listas de reproducción de
   Creator y de Remote VT: anuncia la rotación y categoría asociadas con la
   lista de reproducción cargada.
-* Control+NVDA+F from Studio window: Opens a dialog to find a track based on
-  artist or song name. Press NVDA+F3 to find forward or NVDA+Shift+F3 to
-  find backward (does not support speak on demand).
-* Alt+NVDA+R desde la ventana de Studio: Pasos de las opciones de anunciado
-  del escaneado de biblioteca (no soporta el modo de voz a petición).
+* Control+NVDA+f desde la ventana de Studio: Abre un diálogo para encontrar
+  una pista sobre la base del artista o del nombre de la canción. Pulsa
+  NVDA+F3 para buscar hacia adelante o NVDA+Shift+F3 para buscar hacia atrás
+  (no soporta el modo de voz a petición).
+* Shift+NVDA+R from Studio window: Steps through library scan announcement
+  settings (does not support speak on demand).
 * Control+Shift+X desde la ventana de Studio: Pasos de las opciones del
   temporizador braille (no soporta el modo de voz a petición).
 * Control+Alt+flecha derecha o izquierda (mientras se enfoca una pista en
@@ -213,6 +214,7 @@ petición):
 * L (Shift+L en la distribución de JAWS): línea auxiliar.
 * M: Micrófono.
 * N: Título para la siguiente pista programada.
+* O: Playlist hour over/under by.
 * P: Estado de reproducción (reproduciendo o detenido).
 * Shift+P: Tono de la pista actual.
 * R (Shift+E en la disbribución de JAWS): Grabar en archivo
@@ -256,6 +258,7 @@ de voz a petición):
 * T: parada instantánea.
 * M: Activar micrófono.
 * Shift+M: Desactivar micrófono.
+* N: Turn microphone on without fade.
 * A: Activar automatización.
 * Shift+A: Desactivar automatización.
 * L: activar entrada de línea.
@@ -377,16 +380,43 @@ táctil. Primero utiliza un toque con tres dedos para cambiar a modo SPL,
 entonces utiliza las órdenes táctiles listadas arriba para llevar a cabo
 tareas.
 
-## Version 25.05
+## Version 25.06-LTS
 
-* NVDA 2024.1 or later is required due to Python 3.11 upgrade.
-* Restored limited support for Windows 8.1.
-* Moved ad-on wiki documents such as add-on changelog to the main code
-  repository.
-* Added close button to playlist snapshots, playlist transcripts, and SPL
-  Assistant and Controller layer help screens (NVDA 2025.1 and later).
-* NVDA will no longer do nothing or play error tones when announcing weather
-  and temperature information in Studio 6.x (SPL Assistant, W).
+Version 25.06.x is the last release series to support Studio 5.x with future
+releases requiring Studio 6.x. Some new features will be backported to
+25.06.x if needed.
+
+* NVDA will no longer forget to transfer broadcast profiles while updating
+  the add-on (fixing a regression introduced in 25.05).
+* Added a new command in SPL Assistant to announce playlist hour over/under
+  by in minutes and seconds (O).
+* In Studio, the command to step through library scan announcement settings
+  has changed from Alt+NVDA+R to Shift+NVDA+R as the former command toggles
+  remote access feature in NVDA 2025.1.
+* NVDA will no longer play error tones or appear to do nothing when
+  performing some SPL Assistant commands after resizing Studio window.
+* The user interface for confirmation dialog shown when deleting broadcast
+  profiles now resembles NVDA's configuration profile deletion interface.
+* NVDA will recognize track column changes introduced in Creator and Track
+  Tool 6.11.
+* In columns explorer for Creator, "Date Restriction" column is now
+  "Restrictions".
+* NVDA will no longer play wrong carts when playing them via SPL Controller
+  layer.
+
+## Versión 25.05
+
+* Se requiere NVDA 2024.1 o posterior a causa de la actualización a Python
+  3.11.
+* Se restaura un soporte limitado para Windows 8.1.
+* Se han movido los documentos de la wiki del complemento y el registro de
+  cambios al repositorio principal del código.
+* Se añade un botón de cierre a las instantáneas de lista de reproducción,
+  transcripciones de lista de reproducción, y las pantallas de ayuda del
+  asistente y el controlador de SPL (NVDA 2025.1 y posterior).
+* NVDA ya no hará nada o reproducirá tonos de error al anunciar la
+  información meteorológica y de temperatura en Studio 6.x (asistente de
+  SPL, w).
 
 ## Versión 25.01
 
@@ -441,11 +471,9 @@ tareas.
 
 ## Versiones antiguas
 
-Por favor consulta el [registro de cambios][3] para notas de la versión para
-versiones antiguas del complemento.
+Please see the [changelog][2] for release notes for old add-on releases.
 
-[[!tag dev stable]]
+[1]:
+https://github.com/ChrisDuffley/stationPlaylist/blob/main/addonuserguide.md
 
-[2]: https://github.com/chrisDuffley/stationplaylist/wiki/SPLAddonGuide
-
-[3]: https://github.com/ChrisDuffley/stationplaylist/wiki/splchangelog
+[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/changes.md

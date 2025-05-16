@@ -993,10 +993,10 @@ msgid "Delete active profile"
 msgstr "Aktives Profil löschen"
 
 #. Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
-msgid "Are you sure you want to delete this profile? This cannot be undone."
+#. The placeholder {} is replaced with the name of the broadcast profile that will be deleted.
+msgid ""
+"The profile {} will be permanently deleted. This action cannot be undone."
 msgstr ""
-"Möchten Sie wirklich dieses Profil löschen? Dieser Vorgang kann nicht wieder "
-"rückgängig gemacht werden."
 
 #. Translators: The title of the dialog to copy a broadcast profile.
 msgid "Copy Profile"
@@ -1767,6 +1767,7 @@ msgid "Connects all encoders."
 msgstr "Verbindet alle Encoder."
 
 #. Translators: the text for SPL Controller help.
+#, fuzzy
 msgid ""
 "After entering SPL Controller, press:\n"
 "A: Turn automation on.\n"
@@ -1781,6 +1782,7 @@ msgid ""
 "S: Stop with fade.\n"
 "T: Instant stop.\n"
 "C: Announce name and duration of the currently playing track.\n"
+"Shift+C: Announce name and duration of the upcoming track.\n"
 "E: Announce connected encoders if any.\n"
 "I: Announce listener count.\n"
 "Q: Announce Studio status information.\n"
@@ -1888,6 +1890,11 @@ msgid ""
 msgstr ""
 "Verbessert die Unterstützung für StationPlaylist-Anwendungen. Darüber hinaus "
 "werden globale Befehle für die Studio-Anwendung von überall aus hinzugefügt."
+
+#~ msgid "Are you sure you want to delete this profile? This cannot be undone."
+#~ msgstr ""
+#~ "Möchten Sie wirklich dieses Profil löschen? Dieser Vorgang kann nicht "
+#~ "wieder rückgängig gemacht werden."
 
 #~ msgid "Metadata streaming on DSP encoder enabled"
 #~ msgstr "Metadaten-Streaming auf DSP-Encoder aktiviert"

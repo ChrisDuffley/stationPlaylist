@@ -981,10 +981,10 @@ msgid "Delete active profile"
 msgstr "Obriši aktivan profil"
 
 #. Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
-msgid "Are you sure you want to delete this profile? This cannot be undone."
+#. The placeholder {} is replaced with the name of the broadcast profile that will be deleted.
+msgid ""
+"The profile {} will be permanently deleted. This action cannot be undone."
 msgstr ""
-"Da li ste sigurni da želite da obrišete ovaj profil? Ovo ne može biti "
-"poništeno"
 
 #. Translators: The title of the dialog to copy a broadcast profile.
 msgid "Copy Profile"
@@ -1767,6 +1767,7 @@ msgid ""
 "S: Stop with fade.\n"
 "T: Instant stop.\n"
 "C: Announce name and duration of the currently playing track.\n"
+"Shift+C: Announce name and duration of the upcoming track.\n"
 "E: Announce connected encoders if any.\n"
 "I: Announce listener count.\n"
 "Q: Announce Studio status information.\n"
@@ -1877,6 +1878,11 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist.\n"
 "Takođe, dodaje globalne komande za studio bilo gde."
+
+#~ msgid "Are you sure you want to delete this profile? This cannot be undone."
+#~ msgstr ""
+#~ "Da li ste sigurni da želite da obrišete ovaj profil? Ovo ne može biti "
+#~ "poništeno"
 
 #~ msgid "Metadata streaming on DSP encoder enabled"
 #~ msgstr "Metadata strimovanje na DSP enkoderu omogućeno"

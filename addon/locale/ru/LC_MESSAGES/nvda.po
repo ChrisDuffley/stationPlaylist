@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 24.03\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2024-07-31 18:07+0300\n"
-"PO-Revision-Date: 2025-04-26 00:48+0300\n"
+"PO-Revision-Date: 2025-05-11 11:29+0300\n"
 "Last-Translator: Ruslan Kolodyazhni <rupelodn@gmail.com>\n"
 "Language-Team: Translators <nvda-translations@groups.io>\n"
 "Language: ru_RU\n"
@@ -130,7 +130,6 @@ msgstr ""
 "изменения или удаления комментариев дорожки"
 
 #. Translators: The text of the help command in SPL Assistant layer.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -181,6 +180,7 @@ msgstr ""
 "L: Состояние линейного входа.\n"
 "M: Состояние микрофона.\n"
 "N: Следующая дорожка.\n"
+"O: час списка воспроизведения более/под.\n"
 "P: Состояние воспроизведения.\n"
 "Shift+P: Высота текущей дорожки.\n"
 "R: Записать в файл.\n"
@@ -200,7 +200,6 @@ msgstr ""
 "F12: Переключиться на профиль мгновенного переключения."
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -255,6 +254,7 @@ msgstr ""
 "Shift+L: Состояние линейного входа.\n"
 "M: Состояние микрофона.\n"
 "N: Следующая дорожка.\n"
+"O: час списка воспроизведения более/под.\n"
 "P: Состояние воспроизведения.\n"
 "Shift+P: Высота текущей дорожки.\n"
 "R: Оставшееся время списка воспроизведения.\n"
@@ -747,12 +747,12 @@ msgid "No place marker found"
 msgstr "Метка места не найдена"
 
 #. Translators: Status message for metadata streaming.
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Metadata streaming on {URLPosition} enabled"
 msgstr "Потоковая передача метаданных по URL {URLPosition} включена"
 
 #. Translators: Status message for metadata streaming.
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Metadata streaming on {URLPosition} disabled"
 msgstr "Потоковая передача метаданных по URL {URLPosition} отключена"
 
@@ -826,7 +826,6 @@ msgid "You are already in the instant switch profile"
 msgstr "Вы уже зарегистрированы в профиле мгновенного переключения"
 
 #. Translators: A message giving basic information about the add-on.
-#, fuzzy
 msgid ""
 "Welcome to StationPlaylist add-on for NVDA,\n"
 "your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
@@ -856,22 +855,24 @@ msgstr ""
 "программы чтения с экрана NVDA.\n"
 "\n"
 "Основные возможности дополнения StationPlaylist включают в себя:\n"
-"* Уровневые команды для получения информации о состоянии.\n"
-"* Различные способы просмотра столбцов дорожек.\n"
-"* Различные способы поиска дорожек.\n"
-"* Обозреватель корзин для изучения назначений в корзинах.\n"
-"* Подробные настройки и документация.\n"
+"* Уровневые команды для получения информации о состоянии\n"
+"* Различные способы просмотра столбцов дорожек\n"
+"* Различные способы поиска дорожек\n"
+"* Инструменты для анализа загруженного списка воспроизведения\n"
+"* Обозреватель корзин для изучения назначений в корзинах\n"
+"* Подробные настройки и документация\n"
 "* Полностью бесплатное, с открытым исходным кодом и поддерживаемое "
-"сообществом.\n"
-"* И многое другое.\n"
+"сообществом\n"
+"* И многое другое\n"
 "\n"
 "Посетите www.stationplaylist.com для получения подробной информации о пакете "
 "приложений StationPlaylist.\n"
-"Посетите запись StationPlaylist на странице дополнений сообщества NVDA "
-"(addons.nvda-project.org)\n"
-"для более подробной информации о дополнении и ознакомиться с документацией.\n"
+"Посетите запись StationPlaylist на странице дополнения в github(https://"
+"github.com/ChrisDuffley/stationPlaylist)\n"
+"для более подробной информации о дополнении и ознакомления с документацией.\n"
 "Хотите ещё раз увидеть это диалог? Просто нажмите Alt+NVDA+F1 во время "
 "использования Studio, чтобы вернуться к нему.\n"
+"\n"
 "Спасибо."
 
 #. Translators: Title of a dialog displayed when the add-on starts presenting basic information,
@@ -980,8 +981,10 @@ msgid "Delete active profile"
 msgstr "Удалить активный профиль"
 
 #. Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
-msgid "Are you sure you want to delete this profile? This cannot be undone."
-msgstr "Вы действительно хотите удалить этот профиль? Это невозможно отменить."
+#. The placeholder {} is replaced with the name of the broadcast profile that will be deleted.
+msgid ""
+"The profile {} will be permanently deleted. This action cannot be undone."
+msgstr ""
 
 #. Translators: The title of the dialog to copy a broadcast profile.
 msgid "Copy Profile"
@@ -1746,6 +1749,7 @@ msgid "Connects all encoders."
 msgstr "Подключает все кодировщики."
 
 #. Translators: the text for SPL Controller help.
+#, fuzzy
 msgid ""
 "After entering SPL Controller, press:\n"
 "A: Turn automation on.\n"
@@ -1760,6 +1764,7 @@ msgid ""
 "S: Stop with fade.\n"
 "T: Instant stop.\n"
 "C: Announce name and duration of the currently playing track.\n"
+"Shift+C: Announce name and duration of the upcoming track.\n"
 "E: Announce connected encoders if any.\n"
 "I: Announce listener count.\n"
 "Q: Announce Studio status information.\n"
@@ -1868,13 +1873,6 @@ msgstr ""
 "Улучшает поддержку приложений StationPlaylist. Кроме того, добавлены "
 "глобальные команды для приложения Studio."
 
-#~ msgid "Control keys status announcement requires Studio 6.10 or later"
+#~ msgid "Are you sure you want to delete this profile? This cannot be undone."
 #~ msgstr ""
-#~ "Для объявления состояния клавиш управления требуется Studio 6.10 или "
-#~ "позднее"
-
-#~ msgid "Metadata streaming on DSP encoder enabled"
-#~ msgstr "Потоковая передача метаданных на кодировщике DSP включена"
-
-#~ msgid "Metadata streaming on DSP encoder disabled"
-#~ msgstr "Потоковая передача метаданных на кодировщике DSP отключена"
+#~ "Вы действительно хотите удалить этот профиль? Это невозможно отменить."

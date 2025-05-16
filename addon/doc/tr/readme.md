@@ -10,15 +10,15 @@ yerden kontrol etmek için yardımcı programlar sağlar. Desteklenen
 uygulamalar arasında Studio, Creator, Track Tool, VT Recorder ve Streamer'ın
 yanı sıra SAM, SPL ve AltaCast kodlayıcılar bulunur.
 
-Eklenti hakkında daha fazla bilgi için [eklenti kılavuzunu][2] okuyun.
+Eklenti hakkında daha fazla bilgi için [eklenti kılavuzunu][1] okuyun.
 
 ÖNEMLİ NOTLAR:
 
-* Bu eklenti, StationPlaylist Suite 5.40 veya sonraki sürümünü gerektirir.
+* Bu eklenti, StationPlaylist Suite 5.50 veya sonraki sürümünü gerektirir.
 * NVDA oturum açma ekranı gibi güvenli modda çalışıyorsa bazı eklenti
   özellikleri devre dışı bırakılır veya sınırlandırılır.
 * En iyi deneyim için ses zayıflaması modunu devre dışı bırakın.
-* 2018'den itibaren [eski eklenti sürümleri için değişiklik günlükleri][3]
+* 2018'den itibaren [eski eklenti sürümleri için değişiklik günlükleri][2]
   GitHub'da bulunacaktır. Bu eklenti benioku, 23.02 (2023) sürümünden
   sonraki değişiklikleri listeleyecektir.
 * Studio çalışırken, sırasıyla Control+NVDA+C, Control+NVDA+R'ye bir kez
@@ -46,7 +46,7 @@ belirtilmedikçe, bu komutlar isteğe bağlı konuşma modunu destekler.
 * Stüdyo penceresinde Alt+NVDA+1 (SPL modunda iki parmakla sağa kaydırma):
   Studio eklenti yapılandırma iletişim kutusunda alarmlar kategorisini açar
   (talep üzerine konuşmayı desteklemez).
-* Oluşturucu Çalma Listesi Düzenleyicisinde ve Remote VT çalma listesi
+* Oluşturucu Çalma Listesi Düzenleyicisinde ve Uzaktan VT çalma listesi
   düzenleyicisinde Alt+NVDA+1: Yüklenen çalma listesi için planlanan zamanı
   duyurur.
 * Oluşturucunun Çalma Listesi Düzenleyicisinde ve Remote VT çalma listesi
@@ -63,7 +63,7 @@ belirtilmedikçe, bu komutlar isteğe bağlı konuşma modunu destekler.
   bulmak için bir iletişim kutusu açar. Sonrakini bulmak için NVDA+F3
   tuşlarına veya Öncekini bulmak için NVDA+Shift+F3 tuşlarına basın (talep
   üzerine konuşmayı desteklemez).
-* Studio penceresinde Alt+NVDA+R: Kitaplık taraması duyuru ayarlarında
+* Studio penceresinde Shift+NVDA+R: Kitaplık taraması duyuru ayarlarında
   adımlar (talep üzerine konuşmayı desteklemez).
 * Studio penceresinde Kontrol+Shift+X: Braille zamanlayıcı ayarlarında adım
   adım ilerler (talep üzerine konuşmayı desteklemez).
@@ -199,6 +199,7 @@ destekler):
 * L (JAWS düzeninde Shift+L): Line in.
 * M: Mikrofon.
 * N: Bir sonraki programlanmış parçanın adı.
+* O: Oynatma listesi Zaman Kalan/geçen süre.
 * P: Çalma durumu (Çalınıyor veya durduruldu).
 * Shift+P: Geçerli parçanın perdesi.
 * R (JAWS düzeninde Shift+E): Dosyaya kaydetme etkin/devre dışı.
@@ -239,6 +240,7 @@ konuşmayı destekler):
 * T: Anında Durdur.
 * M: Mikrofonu açar.
 * Shift+M: Mikrofonu kapatır.
+* N: Mikrofonu açıp kapatır.
 * A: Otomasyonu açar.
 * Shift+A: Otomasyonu kapatır.
 * L: Line in girişini açar.
@@ -357,6 +359,31 @@ bazı Studio komutlarını dokunmatik ekrandan gerçekleştirebilirsiniz. Önce
 SPL moduna geçmek için üç parmakla dokunmayı kullanın, ardından komutları
 gerçekleştirmek için yukarıda listelenen dokunma komutlarını kullanın.
 
+## Sürüm 25.06-lts
+
+Sürüm 25.06.x, Studio 6.x gerektiren gelecekteki sürümlerle Studio 5.x'i
+destekleyen son sürüm serisidir. Bazı yeni özellikler gerekirse 25.06.x'e
+geri dönecektir.
+
+* NVDA artık eklentiyi güncellerken yayın profillerini aktarmayı unutmayacak
+  (25.05'te tanıtılan bir gerileme düzeltildi).
+* SPL Assistant'a oynatma listesi zamanı Kalan/geçen dakika ve saniye
+  cinsinden (O) bildirmek için yeni bir komut eklendi.
+* Studio'da, kütüphane tarama duyurusu ayarlarında adım atma komutu
+  Alt+NVDA+R'den Shift+NVDA+R'ye değiştirildi, çünkü eski komut NVDA
+  2025.1'deki uzaktan erişim özelliğini değiştiriyor.
+* NVDA artık Studio penceresini yeniden boyutlandırdıktan sonra bazı SPL
+  Assistant komutlarını gerçekleştirirken hata tonları çalmayacak veya
+  hiçbir şey yapmıyor gibi görünmeyecek.
+* Yayın profillerini silerken gösterilen onay iletişim kutusu için kullanıcı
+  arayüzü artık NVDA'nın yapılandırma profili silme arabirimine benziyor.
+* NVDA, Yaratıcı ve Track Aracı 6.11'de tanıtılan parça sütun
+  değişikliklerini tanıyacaktır.
+* Oluşturucu için sütun gezgininde “Tarih Kısıtlaması” sütunu artık
+  “Kısıtlamalar” oldu.
+* NVDA, SPL Denetleyici katmanı aracılığıyla oynatırken artık yanlış
+  kartları oynatmayacak.
+
 ## Sürüm 25.05
 
 * Python 3.11 yükseltmesi nedeniyle NVDA 2024.1 veya sonrası gereklidir.
@@ -422,10 +449,9 @@ gerçekleştirmek için yukarıda listelenen dokunma komutlarını kullanın.
 ## Eski sürümler
 
 Eski eklenti sürümlerine ilişkin sürüm notları için lütfen [değişiklik
-günlüğü][3'ne] bakın.
+günlüğüne][2] bakın.
 
-[[!tag dev stable]]
+[1]:
+https://github.com/ChrisDuffley/stationPlaylist/blob/main/addonuserguide.md
 
-[2]: https://github.com/chrisDuffley/stationplaylist/wiki/SPLAddonGuide
-
-[3]: https://github.com/ChrisDuffley/stationplaylist/wiki/splchangelog
+[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/changes.md

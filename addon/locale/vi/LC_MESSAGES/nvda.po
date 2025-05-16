@@ -962,8 +962,10 @@ msgid "Delete active profile"
 msgstr "Xóa hồ sơ hiện hành"
 
 #. Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
-msgid "Are you sure you want to delete this profile? This cannot be undone."
-msgstr "Bạn có chắc muốn xóa hồ sơ này không? Thao tác này không thể phục hồi."
+#. The placeholder {} is replaced with the name of the broadcast profile that will be deleted.
+msgid ""
+"The profile {} will be permanently deleted. This action cannot be undone."
+msgstr ""
 
 #. Translators: The title of the dialog to copy a broadcast profile.
 msgid "Copy Profile"
@@ -1721,6 +1723,7 @@ msgid ""
 "S: Stop with fade.\n"
 "T: Instant stop.\n"
 "C: Announce name and duration of the currently playing track.\n"
+"Shift+C: Announce name and duration of the upcoming track.\n"
 "E: Announce connected encoders if any.\n"
 "I: Announce listener count.\n"
 "Q: Announce Studio status information.\n"
@@ -1829,6 +1832,10 @@ msgid ""
 msgstr ""
 "Cải thiện hỗ trợ cho StationPlaylist.\n"
 "Ngoài ra là thêm các lệnh toàn cục cho studio từ bất cứ đâu."
+
+#~ msgid "Are you sure you want to delete this profile? This cannot be undone."
+#~ msgstr ""
+#~ "Bạn có chắc muốn xóa hồ sơ này không? Thao tác này không thể phục hồi."
 
 #~ msgid "Metadata streaming on DSP encoder enabled"
 #~ msgstr "Truyền siêu dữ liệu trên DSP encoder đã bật"
