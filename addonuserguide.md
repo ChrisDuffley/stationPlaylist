@@ -37,6 +37,7 @@ StationPlaylist add-on for NVDA contains following features to support Studio an
 * Announcement of when the end of track and song intros are approaching.
 * A dedicated mode to learn cart machine assignments and play carts from anywhere.
 * A handy alarm to let you know your microphone has been turned on for a while.
+* Playlist summarization and analysis features including viewing statistics about a loaded playlist and saving a transcript of the playlist in a variety of formats.
 * A central configuration dialog to configure various add-on settings.
 * Customize NVDA's behavior on a per show basis via broadcast profiles.
 * Switch between broadcast profiles instantly.
@@ -84,7 +85,7 @@ Notes:
 
 ### Welcome dialog
 
-When you start Studio after installing the add-on, a welcome dialog will be presented, giving you essential information about the add-on and basic concepts. After dismissing this dialog, from Studio window, press Alt+NVDA+F1 to reopen this dialog.
+When you start Studio after installing the add-on for the first time, a welcome dialog will be presented, giving you essential information about the add-on and basic concepts. After dismissing this dialog, from Studio window, press Alt+NVDA+F1 to reopen this dialog.
 
 ## Using SPl suite with NVDA
 
@@ -113,7 +114,7 @@ When you start or switch to SPL Studio, you'll be placed in Playlist Viewer. Thi
 
 For each trakc in the playlist, a check mark is available to select tracks for playback. As you select tracks in the playlist, Studio will show the total length of the playlist, useful if you wish to know if the selected track fills the current hour slot.
 
-If you press NVDA+Up Arrow (not the numpad up arrow) or NVDA+Tab, NVDA will tell you the track information such as duration, artist, whether the track is selected for playback and so on. You can also let NVDA play a beep to indicate the track category, and when you reach top or bottom of the playlist, NVDA will play a beep to let you know of this fact. You can configure these behaviors from add-on settings.
+If you press NVDA+Up Arrow (not the numpad up arrow in desktop layout; NVDA+L in laptop layout) or NVDA+Tab, NVDA will tell you the track information such as duration, artist, whether the track is selected for playback and so on. You can also let NVDA play a beep to indicate the track category, and when you reach top or bottom of the playlist, NVDA will play a beep to let you know of this fact. You can configure these behaviors from add-on settings.
 
 Note: for best experience, tell Studio to use accessibility mode from options dialog.
 
@@ -175,7 +176,7 @@ Notes:
 
 #### Track comments
 
-In case you receive a request from someone and need to write it down, you can use track comments feature to add, change, review or remove comments (notes) for tracks. As you move through tracks, you may hear NVDA say, "has comment" or play a beep to indicate existence of a track comment for the selected track. Press Alt+NVDA+C to let NVDA announce track comments if any, or press it twice to copy track comment to clipboard so you can review it from somewhere.
+In case you receive a request from someone and need to write it down, you can use track comments feature to add, change, review or remove comments (notes) for tracks. As you move through tracks, you may hear NVDA say, "has comment" or play a beep to indicate existence of a track comment for the selected track. Press Alt+NVDA+C to let NVDA announce track comments if any, or press it twice to copy track comment to the clipboard so you can review it from somewhere.
 
 To add a track comment, press Alt+NVDA+C three times. Type your comment and press ENTER. Leaving the track comment empty will remove track comments.
 
@@ -290,7 +291,7 @@ By default, the following playlist information will be shown:
 * Top artists by track count.
 * Music genres represented.)
 
-You can configure snapshot information from add-on settings via playlist snapshots dialog. This dialog houses checkboxes and several number edit fields to specify what information will be gathered when taking a playlist snapshot.
+You can configure snapshot information from add-on settings via playlist snapshots category. This screen houses checkboxes and several number edit fields to specify what information will be gathered when taking a playlist snapshot.
 
 Note: For category, artist, genre and album count, you can ask NVDA to show you up to top ten results, or show all results by setting show count setting to zero (0). After reviewing snapshot information, press escape to close the snapshots window.
 
@@ -493,11 +494,11 @@ Following are the information you can query regarding a track in SPL Creator:
 * Control+NVDA+3: Track position.
 * Control+NVDA+4: Cue time.
 * Control+NVDA+5: Length of the intro.
-* Control+NVDA+6: Segue.
-* Control+NVDA+7: Duration of the selected track.
-* Control+NVDA+8: Last scheduled date and time.
-* Control+NVDA+9: How many times the track was played in the last 7 days.
-* Control+NVDA+0: Date restriction.
+* Control+NVDA+6: Length of the outro.
+* Control+NVDA+7: Segue.
+* Control+NVDA+8: Duration of the selected track.
+* Control+NVDA+9: Last scheduled date and time.
+* Control+NVDA+0: How many times the track was played in the last 7 days.
 
 #### Creator Playlist Editor and Remote VT client
 
@@ -552,7 +553,7 @@ In addition, Playlist Editor in creator and Remote VT client includes the follow
 
 ## Studio add-on preferences
 
-One of the strengths of NVDA is that it contains gateways for configuring various settings, such as voice, browse mode and so on, all housed in preferences menu, or in NVDA 2018.2 and later, the multi-page Settings screen. Just like any other settings, SPL add-on comes with its own settings dialog. As long as you are running Studio, you can open this dialog by going to NVDA's preferences menu and selecting "SPL add-on settings" item or pressing Alt+NVDA+0 (zero) from Studio window.
+One of the strengths of NVDA is that it contains gateways for configuring various settings, such as voice, browse mode and so on, all housed in the multi-page Settings screen located in preferences menu. Just like any other settings, SPL add-on comes with its own settings dialog. As long as you are running Studio, you can open this dialog by going to NVDA's preferences menu and selecting "SPL add-on settings" item or pressing Alt+NVDA+0 (zero) from Studio window.
 
 When add-on settings opens, a list of settings categories will be shown on the left, with settings for the selected category on the right. Select a category from list of categories, or to move between categories, press Control+Tab or Control+Shift+Tab. After configuring settings, select OK to save settings and close the dialog, or select Apply button to save settings and keep the dialog open. To discard changes, select Cancel.
 
@@ -622,7 +623,7 @@ Broadcast profiles are managed from SPL broadcast profiles dialog, accessed by p
 * New (disabled in secure mode): Allows you to create a brand new broadcast profile with default profile-specific settings applied. Profiles are saved into a folder in the add-on folder.
 * Copy (disabled in secure mode): Allows you to create a new profile using settings from an existing profile.
 * Rename (disabled in secure mode): Lets you rename a profile (not available for normal profile).
-* Delete (disabled in secure mode): Deletes a profile (say "yes" when prompted; you cannot delete the normal profile).
+* Delete (disabled in secure mode): Deletes a profile (say "OK" when prompted; you cannot delete the normal profile).
 * Triggers (disabled in secure mode): Configure profile activation and other settings. See the triggers dialog section for details.
 
 The possible profile flags are:
@@ -647,7 +648,7 @@ Note: you cannot rename or delete profiles in secure mode.
 
 To rename a profile, select "rename" button, then enter the new name for the profile. Just like new profiles, you cannot enter a name that is already used.
 
-To delete a profile, select "delete" button, then say "yes" when prompted. You'll be returned to add-on settings with the normal profile activated.
+To delete a profile, select "delete" button, then say "OK" when prompted. You'll be returned to add-on settings with the normal profile activated.
 
 Note: You cannot rename or delete the normal profile.
 
@@ -684,7 +685,7 @@ after entering SPL Controller, press one of the following commands:
 * U: Pause or continue playing.
 * S: Stop with fade out.
 * T: Instant stop.
-* Function keys and number row keys (with or without modifiers): play assigned carts.
+* Function keys and number row keys (with or without modifiers): play assigned carts (carts without borders).
 
 Notice that the commands are same as SPL control commands available while SPL Studio is used. Also, the toggle commands by themselves enables a particular option, while pressing shift with the toggle key disables it (except when playing carts via SPL Controller).
 
@@ -697,7 +698,6 @@ Additional SPL Controller commands include:
 * Q: Announce various Studio status info. These include track playback status, automation, microphone, line-in, record to file, and cart edit/insert mode toggle.
 * C: Name and duration of the currently playing track (if any).
 * Shift+C: Name and duration of the upcoming track (if any).
-* Cart keys (function keys and number row keys with or without modifiers): carts without borders.
 * H: Shows a dialog listing available Controller commands.
 
 Note: SPL Controller, E and Q can be assigned to a different command from Input Gestures dialog.
@@ -724,7 +724,7 @@ When you use stream encoders with NVDA, the following commands can be used from 
 * F10 (SAM encoder only): Disconnect from a streaming server (NVDA will announce, "disconnecting"). If you are using SPL or AltaCast encoders, from the encoders list, press Shift+TAB until you reach "disconnect" button and press ENTER.
 * Control+F9: Connect all encoders at once.
 * Control+F10 (SAM encoder only): Disconnect all encoders.
-* F11: Sets whether NVDA will switch to Studio window when the selected encoder is connected.
+* Control+Shift+F11: Sets whether NVDA will switch to Studio window when the selected encoder is connected.
 * Shift+F11: Sets whether Studio will play the first selected track when the selected encoder is connected.
 * Control+F11: allows you to monitor the selected encoder in the background for connection changes. To disable background monitoring of all encoders (of any type), press Control+F11 twice quickly.
 * Control+F12: Select the encoder position you have deleted and let NVDA realign stream labels and encoder settings.
@@ -733,8 +733,7 @@ When you use stream encoders with NVDA, the following commands can be used from 
 Notes:
 
 * There might be a delay when a connection is established; during this time, NVDA may appear to freeze (but it isn't; NVDA is keeping an eye on status changes).
-* You can still perform NVDA commands such as announcing current time while encoders are trying to connect to an encoding server.
-* If you are using add-on version prior to 3.3, do not move away from the encoder window until connection is established.
+* You can still perform NVDA commands such as announcing current time while encoders are trying to connect to an encoding server. You can also switch to Studio window and perform add-on commands.
 * Settings such as focusing to Studio is saved across sessions.
 * In addition to status column commands listed below, you can use table navigation commands (Control+Alt+arrow keys) to review column information.
 
@@ -964,13 +963,13 @@ There is a dedicated mailing list for users of NVDA and SPL, which can be found 
 
 Q. Can I test the absolute latest version of the add-on for testing purposes?
 
-Yes (called Studio Add-on Test Drive program). Anyone can test latest version for free. First, subscribe to NVDA SPL list, then look for messages regarding Test Drive builds (sometimes called development snapshots). Some snapshot builds are bleeding-edge code and are unstable at times, so don't use these builds in a production environment.
+Yes (called Studio Add-on Test Drive program). Anyone can test latest version for free. First, subscribe to NVDA SPL list, then look for messages regarding Test Drive builds (sometimes called development snapshots). These development snapshots can be obtained from NV Access add-on store if StationPlaylist add-on update channel (from add-on context menu) is set to "dev" or "any". Some snapshot builds are bleeding-edge code and are unstable at times, so don't use these builds in a production environment.
 
 Q. I keep hearing about LTS releases. What are they?
 
 LTS stands for long-term support. This is a special version of a software that will be supported for a very long time for stability reasons.
 
-Usually a version of the StationPlaylist add-on for NVDA receives support until the next version is released (typically several weeks to months). However, because there are broadcasters who would like to use a stable version of the add-on for a long time (either because they have to or they cannot upgrade to the latest version of Studio), a long-term support version of the add-on is released every few years to give people time to upgrade to a future stable version of Studio. In addition to longer support period (at least a year), a LTS version of the add-on is the last version to support the oldest stable Studio version, or in some cases, provides compatibility with old NVDA and/or Windows releases.
+Usually a version of the StationPlaylist add-on for NVDA receives support until the next version is released (typically several weeks to months). However, because there are broadcasters who would like to use a stable version of the add-on for a long time (either because they have to or they cannot upgrade to the latest version of Studio), a long-term support version of the add-on is released every few years to give people time to upgrade to a future stable version of Studio. In addition to longer support period (up to a year or more), a LTS version of the add-on is the last version to support the oldest stable Studio version, or in some cases, provides compatibility with old NVDA and/or Windows releases. Due to special nature of LTS releases, releases in a LTS series must be instaled manually i.e. they will not be made available on the add-on store.
 
 As of 2025, add-on versions 3.x (September 2014-June 2015), 7.x/15.x (April 2016-April 2018; 15.x since October 2016), and 18.09.x (September 2018-December 2019) were designated as LTS releases, supporting Studio 4.33, 5.01, and 5.1x, respectively. Version 20.09.x (September 2020-April 2021), the most recent LTS release, supports Studio 5.20 and NVDA 2019.3 and later, with upcoming 25.06.x designated as last LTS releases to support Studio 5.x.
 
@@ -1002,10 +1001,10 @@ With the introduction of Test Drive Program (see above), it became possible for 
 
 * Canary (or source code level; regular channel): This includes development branches other than the ones below and is meant for add-on developers (currently two).
 * Try builds (limited distribution): sometimes called "offline try builds", meant to troubleshoot issues with one or more broadcasters.
-* Development (formerly Test Drive Slow; regular channel): This designates "main" branch in the source code repository and is used to showcase changes under development, including bleeding-edge changes.
-* Stable (regular channel): Designates stable releases ("stable" branch in the source code repository).
+* Development (formerly Test Drive Slow; regular channel): This designates "main" branch in the source code repository and is used to showcase changes under development, including bleeding-edge changes. Releases from this channel are made available on the NV Access add-on store.
+* Stable (regular channel): Designates stable releases ("stable" branch in the source code repository). This is the default release available on the add-on store.
 
-In addition, during LTS maintenance, "Longterm" channel becomes active. This is a separate release that receives updates from a separate branch.
+In addition, during LTS maintenance, "Longterm" channel becomes active. This is a separate release that receives updates from a separate branch and is unavailable in the add-on store.
 
 Q. Can I switch between all available update channels?
 
@@ -1063,6 +1062,7 @@ Credits: I (Joseph) would like to thank the following people for giving me and o
 * Shaun Oliver: For continued suggestions on encoder support.
 * Jerry Mader: For useful suggestions and feature testing.
 * Jerry Jicha: For useful feedback and feature testing.
+* Christopher Duffley: for maintaining and championing the add-on since 2023.
 * And many other supporters and testers.
 
 End of StationPlaylist Add-on Guide
