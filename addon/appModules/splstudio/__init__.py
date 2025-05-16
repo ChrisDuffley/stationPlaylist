@@ -2644,8 +2644,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_sayScheduledToPlay(self, gesture):
 		# 7.0: This script announces length of time remaining until the selected track will play.
-		# This is the only time hour announcement should not be used
-		# in order to conform to what's displayed on screen.
+		# Hour announcement should not be used to match what's displayed on screen.
 		self.announceTime(splbase.studioAPI(4, 27), includeHours=False)
 
 	def script_sayListenerCount(self, gesture):
