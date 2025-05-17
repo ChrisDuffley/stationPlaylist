@@ -184,7 +184,7 @@ class TrackToolItem(SPLTrackItem):
 
 	@property
 	def exploreColumns(self) -> list[str]:
-		return splconfig.SPLConfig["General"]["ExploreColumnsTT"]
+		return splconfig.SPLConfig["ExploreColumns"]["TrackTool"]
 
 
 class AppModule(appModuleHandler.AppModule):

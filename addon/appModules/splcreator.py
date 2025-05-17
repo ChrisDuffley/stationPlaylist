@@ -130,7 +130,7 @@ class SPLCreatorItem(SPLTrackItem):
 
 	@property
 	def exploreColumns(self) -> list[str]:
-		return splconfig.SPLConfig["General"]["ExploreColumnsCreator"]
+		return splconfig.SPLConfig["ExploreColumns"]["Creator"]
 
 
 class SPLPlaylistEditorItem(SPLTrackItem):

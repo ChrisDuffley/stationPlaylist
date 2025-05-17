@@ -390,7 +390,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 
 	@property
 	def exploreColumns(self) -> list[str]:
-		return splconfig.SPLConfig["General"]["ExploreColumns"]
+		return splconfig.SPLConfig["ExploreColumns"]["Studio"]
 
 	# Toggle screen column order.
 	# Limited to playlist viewer as this is where the toggle should be performed.
