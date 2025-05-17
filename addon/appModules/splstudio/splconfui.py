@@ -1174,27 +1174,27 @@ class ColumnsExplorerPanel(gui.settingsDialogs.SettingsPanel):
 		# for StationPlaylist Studio.
 		columnsExplorerButton = wx.Button(self, label=_("Columns E&xplorer..."))
 		columnsExplorerButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorer)
-		self.exploreColumns = splconfig.SPLConfig["General"]["ExploreColumns"]
+		self.exploreColumns = splconfig.SPLConfig["ExploreColumns"]["Studio"]
 
 		# Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 		# for Track Tool.
 		columnsExplorerTTButton = wx.Button(self, label=_("Columns Explorer for &Track Tool..."))
 		columnsExplorerTTButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorerTT)
-		self.exploreColumnsTT = splconfig.SPLConfig["General"]["ExploreColumnsTT"]
+		self.exploreColumnsTT = splconfig.SPLConfig["ExploreColumns"]["TrackTool"]
 
 		# Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 		# for StationPlaylist Creator.
 		columnsExplorerCreatorButton = wx.Button(self, label=_("Columns Explorer for &SPL Creator..."))
 		columnsExplorerCreatorButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorerCreator)
-		self.exploreColumnsCreator = splconfig.SPLConfig["General"]["ExploreColumnsCreator"]
+		self.exploreColumnsCreator = splconfig.SPLConfig["ExploreColumns"]["Creator"]
 		colExplorerHelper.sizer.AddMany(
 			(columnsExplorerButton, columnsExplorerTTButton, columnsExplorerCreatorButton)
 		)
 
 	def onSave(self):
-		splconfig.SPLConfig["General"]["ExploreColumns"] = self.exploreColumns
-		splconfig.SPLConfig["General"]["ExploreColumnsTT"] = self.exploreColumnsTT
-		splconfig.SPLConfig["General"]["ExploreColumnsCreator"] = self.exploreColumnsCreator
+		splconfig.SPLConfig["ExploreColumns"]["Studio"] = self.exploreColumns
+		splconfig.SPLConfig["ExploreColumns"]["TrackTool"] = self.exploreColumnsTT
+		splconfig.SPLConfig["ExploreColumns"]["Creator"] = self.exploreColumnsCreator
 
 	# Columns Explorer configuration.
 	def onColumnsExplorer(self, evt):
