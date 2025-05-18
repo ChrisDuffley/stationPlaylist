@@ -42,9 +42,6 @@ def finally_(func, final):
 # SPL Studio uses WM messages to send and receive data, similar to Winamp.
 # See NVDA source/appModules/winamp.py for more information.
 
-# A handle to studio window.
-SPLWin = 0
-
 # Various SPL IPC tags.
 SPLVersion = 2
 SPLPlay = 12
@@ -164,8 +161,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@scriptHandler.script(speakOnDemand=True)
 	def script_finish(self):
 		# 21.03/20.09.6-LTS: clear SPL window handle.
-		global SPLWin
-		SPLWin = 0
 		self.SPLController = False
 		self.clearGestureBindings()
 
@@ -204,7 +199,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		speakOnDemand=True,
 	)
 	def script_SPLControllerPrefix(self, gesture):
-		global SPLWin
 		# Error checks:
 		# 1. If SPL Studio is not running, print an error message.
 		# 2. If we're already  in Studio, ask Studio app module if SPL Assistant can be invoked with this command.
