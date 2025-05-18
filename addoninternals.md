@@ -2,7 +2,7 @@
 
 Author: Joseph Lee
 
-Based on StationPlaylist Add-on for NVDA 22.01
+Based on StationPlaylist Add-on for NVDA 25.06
 
 ## 2021 Preface and notes
 
@@ -20,11 +20,17 @@ Another big change in 2020 was removing unnecessary and problematic features. Fo
 
 2021 may turn out to be a turning point for the add-on. I (Joseph Lee) will be stepping down from maintaining this add-on, effective January 1, 2022. My hope is that new maintainers (whoever might be) will step up and improve this add-on greatly.
 
+## 2025 preface and notes
+
+It's been four years since last editing this document. There is now a new maintainer (Chris Duffley), some life changes, and the ad-on source code was edited to take advantage of more recent NVDA features. In particular, since 2025, the add-on internals document is now part of the main Studio add-on repository instead of being a wiki document.
+
+While the add-on source code has gone through major changes and refactoring including adopting Python 3.11 syntax, the overall add-on design remains: one global plugin, multiple app modules, with Studio app module at the center. In earlier add-on releases, this design was not enforced often, but with 25.06, the global plugin (finally) imports parts of the Studio app module to perform some of its tasks. This and other refactoring work throughout 2025 gave me an opportunity to revise parts of this document to reflect what is happening in 2025, notably no more add-on update feature from this add-on (now done via add-on store).
+
 ## Introduction
 
 If you are a radio broadcaster, you might be accustomed to activities involved when producing a show. This may include playlist selection, scheduling break notes, responding to requests, monitoring listener count and encoding status and so on. To assist a broadcaster, a broadcast automation program is used, and one of the popular apps is called StationPlaylist Studio.
 
-In NVDA Add-on Internals: StationPlaylist, we'll learn about what StationPlaylist Studio (and other StationPlaylist (SPL) suite of apps) is and how the NVDA add-on works. You don't have to install or use the NVDA add-on to understand the ins and outs of this powerful add-on (using the add-on might help you better appreciate the defth of this material; for fuller experience, it is handy to have the add-on source code in front of you as you navigate this article). So let's get started by learning more about SPL suite of applications.
+In NVDA Add-on Internals: StationPlaylist, we'll learn about what StationPlaylist Studio (and other StationPlaylist (SPL) suite of apps) is and how the NVDA add-on works. You don't have to install or use the NVDA add-on to understand the ins and outs of this powerful add-on (using the add-on might help you better appreciate the defth of this material; for fuller experience, it is handy to have the add-on source code in front of you as you read this document). So let's get started by learning more about SPL suite of applications.
 
 Note: throughout this guide, unless specified otherwise, the terms "StationPlaylist", "SPL", and "Studio" refer to the same thing.
 
@@ -50,7 +56,13 @@ In 2011, Geoff Shang, a seasoned blind broadcaster, started working on SPL Studi
 
 In 2013, I (Joseph Lee) received several emails regarding NVDA's support for SPL Studio with a request for someone to write an add-on for it. As I was still new to add-on development then (this was after I developed Control Usage Assistant and GoldWave), I decided to take on this challenge in order to learn more Python and to practice what I learned in computer science labs at UC Riverside. I first downloaded the existing add-on (0.01) and installed Studio 5.01 on my computer to learn more about this program and to gather suggestions from SPL users. After little over a month of development and preview releases, I released Studio add-on 1.0 in January 2014.
 
-Most of the early versions (1.x, 2.x, 3.x, released throughout 2014) were mostly quick projects that bridged the gap between NVDA and other screen readers (Brian Hartgen's JAWS scripts were my inspiration and have studied documentation for Jeff Bishop's Window-Eyes scripts). These early versions, supporting Studio 4.33 and later, were also used to fix bugs encountered by Studio users - for instance, a broadcaster posted  a YouTube video explaining how NVDA was not reading edit fields, which was fixed early on. Later releases (4.x, 5.x, 6.x, released throughout 2015), further bridged the gap with other screen readers and introduced unique features (for instance, add-on 5.0 introduced a configuration dialog, and 6.0 introduced concept of a broadcast profile). In late 2016, seeing that some of my add-ons were using year.month scheme for versioning, I decided to switch SPL to follow this model after receiving comments from the NVDA community. As of time of writing, another significant shift took place in 20.x and 21.x releases.
+Most of the early versions (1.x, 2.x, 3.x, released throughout 2014) were mostly quick projects that bridged the gap between NVDA and other screen readers (Brian Hartgen's JAWS scripts were my inspiration and have studied documentation for Jeff Bishop's Window-Eyes scripts). These early versions, supporting Studio 4.33 and later, were also used to fix bugs encountered by Studio users - for instance, a broadcaster posted  a YouTube video explaining how NVDA was not reading edit fields, which was fixed early on. Later releases (4.x, 5.x, 6.x, released throughout 2015), further bridged the gap with other screen readers and introduced unique features (for instance, add-on 5.0 introduced a configuration dialog, and 6.0 introduced concept of a broadcast profile). In late 2016, seeing that some of my add-ons were using year.month scheme for versioning, I decided to switch SPL to follow this model after receiving comments from the NVDA community.
+
+2018 is a memorable year in the ad-on history. Notably, a preliminary add-on update feature became its own add-on, aptly called Add-on Updater. While the add-on update feature was part of another add-on called Windows App Essentials, its potential was realized with StationPlaylist add-on such as choosing different update channels and testing preview features. Besides this change, the add-on went through a major refactor to expand columns explorer (described below) to places other than Studio, and this, together with other code changes, became part of the next LTS release (18.09.x).
+
+But the most significant change happened a year later. Throughout 2019, NV Access and other NVDA contributors (including I) embarked on Python 2 to 3 transition, resulting in NVDA 2019.3 in early 2020. The Python 2 to 3 transition affected this add-on as well, with changes made to features such as metadata streaming, add-on settings, to name a few. Building on top of Python 3 work, 2020 and 2021 saw the implementation of code linting while navigating the worst phases of the COVID-19 pandemic. All this work was also backported to the fourth LTS releases (20.09.x).
+
+Just like 2019, 2023 was another significant year. As I entered a doctoral program, it became clear that I will not be able to maintain the add-on, thus I asked the NVDA add-ons community to maintain this add-on. Thankfully, Chris Duffley, a broadcaster and user of the add-on, agreed to maintain the add-on since March 2023. Chris and I continue to discuss the add-on maintenance, with both of us agreeing to review Python 3.7 to 3.11 transition work in 2024 and working on major refactoring work in 2025. All of these changes will be packaged into the next LTS release (25.06.x), ending more than a decade's long journey on supporting Studio 5.x.
 
 Highlights of past major releases and subsequent maintenance releases include:
 
@@ -80,8 +92,9 @@ Highlights of past major releases and subsequent maintenance releases include:
 * 23.05: new maintainer (Chris Duffley).
 * 24.03: initial support for speech on demand mode, encoder support enhancements.
 * 25.01: dropped 32-bit Windows releases support, linter updates, Add-on Updater support removed with the introduction of NV Access add-on store.
+* 25.06: fifth LTS release, restored partial support for Windows 8.1 and older Windows 10 releases, code refactoring including Python 3.11 syntax.
 
-Throughout this article, you'll get a chance to see how the add-on works, design philosophy and how the add-on is being developed, with glimpses into the past and future. My hope is that this add-on internals article would be a valuable reference for users and developers - for users to see the inner workings of this add-on, and for developers to use this add-on as an example of how an add-on is planned, implemented, tested, released and maintained.
+Throughout this document, you'll get a chance to see how the add-on works, design philosophy and how the add-on is being developed, with glimpses into the past and future. My hope is that this add-on internals document would be a valuable reference for users and developers - for users to see the inner workings of this add-on, and for developers to use this add-on as an example of how an add-on is planned, implemented, tested, released and maintained.
 
 To download the add-on, visit NV Access add-on store.
 
@@ -89,11 +102,11 @@ To download the add-on, visit NV Access add-on store.
 
 ### Overall design and source code layout
 
-StationPlaylist add-on for NVDA consists of seven app modules (including two app module packages) and a global plugin. Because Studio and Creator come with Track Tool for managing tracks, the add-on includes an app module for Track Tool in addition to the main app module package for Studio, as well as an app module for StationPlaylist Creator. A fourth app module for Voice Track Recorder is present which is used for event tracking purposes. Remote VT client is the fifth app module and is mainly used to support remote playlist editor. The other two app modules deal with Streamer and SPL DSP Engine, with SPL Engine being an app module package due to inclusion of encoders support module which is also used by Streamer.
+StationPlaylist add-on for NVDA consists of seven app modules (including two app module packages) and a global plugin. Because Studio and Creator come with Track Tool for managing tracks, the add-on includes an app module for Track Tool in addition to the main app module package for Studio, as well as an app module for StationPlaylist Creator. A fourth app module for Voice Track Recorder is present which is used for event tracking purposes. Remote VT client is the fifth app module and is mainly used to support remote playlist editor. The other two app modules deal with Streamer and SPL DSP Engine, with SPL Engine being an app module package due to inclusion of encoders support module which is also used by Streamer. The seventh module, Streamer, does not exist - it is an alias of SPL Engine app module.
 
 The overall design is that of a partnership between the main Studio app module and the Studio Utilities (SPLUtils) global plugin. Studio app module performs things expected from scripts such as responding to key presses, announcing status information, configuration management and so forth, while the global plugin is responsible for running Studio commands from anywhere, and in older add-on releases, for encoder support (the add-on supports SAM, SPL, and AltaCast encoders). In reality, the global plugin is subordinate to the app module, as the app module controls overall functionality of the add-on and because the global plugin requires Studio to be running to unlock some features (here, unlock means using layer commands and parts of encoder support).
 
-When it comes to hierarchy of app modules, Studio app module package is ranked highest. This is because Studio app module is the oldest part of the add-on, and it provides base services and blueprints for other app modules. For instance, Creator and Track Tool rely on configuration facility provided by Studio app module package for Columns Explorer (explained later), and Voice Track (VT) Recorder app module cannot function properly without Studio app module running. Even though SPL Engine and Streamer are independent of Studio app module, they still require Studio app module to function (this is especially the case with SPL Engine, as Studio loads splengine.exe, the DSP Engine executable).
+When it comes to hierarchy of app modules, Studio app module package is ranked first. This is because Studio app module is the oldest part of the add-on, and it provides base services and blueprints for other app modules. For instance, Creator and Track Tool rely on configuration facility provided by Studio app module package for Columns Explorer (explained later), and Voice Track (VT) Recorder app module cannot function properly without Studio app module running. Even though SPL Engine and Streamer are independent of Studio app module, they still require Studio app module to function (this is especially the case with SPL Engine, as Studio loads splengine.exe, the DSP Engine executable).
 
 In short, all components of StationPlaylist add-on emphasize studio app module - although many components are independent of Studio, they still reference it for various reasons. Thus, Studio serves as the bridge that connects various add-on features together.
 
