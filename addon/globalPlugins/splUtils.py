@@ -10,6 +10,7 @@ import ui
 import scriptHandler
 import globalVars
 import appModuleHandler
+from appModules.splstudio import splbase
 from appModules.splengine import announceEncoderConnectionStatus
 import tones
 import windowUtils
@@ -180,8 +181,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Don't do anything if we're already focus on SPL Studio.
 		if "splstudio" in api.getForegroundObject().appModule.appName:
 			return
-		SPLHwnd = user32.FindWindowW("SPLStudio", None)
-		if not SPLHwnd:
+		if not splbase.studioIsRunning(justChecking=True):
 			ui.message(_("SPL Studio is not running."))
 		# 17.01: SetForegroundWindow function is better, as there's no need to traverse top-level windows
 		# and allows users to "switch" to SPL window if the window is minimized.
@@ -222,8 +222,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			else:
 				foregroundAppMod.script_SPLAssistantToggle(gesture)
 				return
-		SPLWin = user32.FindWindowW("SPLStudio", None)
-		if SPLWin == 0:
+		# Ask splbase module if Studio is active.
+		if not splbase.studioIsRunning(justChecking=True):
 			# Translators: Presented when StationPlaylist Studio is not running.
 			ui.message(_("SPL Studio is not running."))
 			self.script_finish()
