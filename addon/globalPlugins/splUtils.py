@@ -15,7 +15,7 @@ from appModules.splengine import announceEncoderConnectionStatus
 import tones
 import windowUtils
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent
-from winUser import user32, sendMessage, OBJID_CLIENT, getWindowText
+from winUser import user32, OBJID_CLIENT, getWindowText
 import versionInfo
 import addonHandler
 
