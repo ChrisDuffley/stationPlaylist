@@ -254,68 +254,68 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.script_error(gesture)
 			self.script_finish()
 
-	# The layer commands themselves. Calls user32.SendMessage method for each script.
+	# The layer commands themselves. Calls user32.SendMessage method (via splbase.studioAPI) for each script.
 
 	def script_automateOn(self, gesture):
-		sendMessage(SPLWin, 1024, 1, SPLAutomate)
+		splbase.studioAPI(1, SPLAutomate)
 		self.script_finish()
 
 	def script_automateOff(self, gesture):
-		sendMessage(SPLWin, 1024, 0, SPLAutomate)
+		splbase.studioAPI(0, SPLAutomate)
 		self.script_finish()
 
 	def script_micOn(self, gesture):
-		sendMessage(SPLWin, 1024, 1, SPLMic)
+		splbase.studioAPI(1, SPLMic)
 		self.script_finish()
 
 	def script_micOff(self, gesture):
-		sendMessage(SPLWin, 1024, 0, SPLMic)
+		splbase.studioAPI(0, SPLMic)
 		self.script_finish()
 
 	def script_micNoFade(self, gesture):
-		sendMessage(SPLWin, 1024, 2, SPLMic)
+		splbase.studioAPI(2, SPLMic)
 		self.script_finish()
 
 	def script_lineInOn(self, gesture):
-		sendMessage(SPLWin, 1024, 1, SPLLineIn)
+		splbase.studioAPI(1, SPLLineIn)
 		self.script_finish()
 
 	def script_lineInOff(self, gesture):
-		sendMessage(SPLWin, 1024, 0, SPLLineIn)
+		splbase.studioAPI(0, SPLLineIn)
 		self.script_finish()
 
 	def script_stopFade(self, gesture):
-		sendMessage(SPLWin, 1024, 0, SPLStop)
+		splbase.studioAPI(0, SPLStop)
 		self.script_finish()
 
 	def script_stopInstant(self, gesture):
-		sendMessage(SPLWin, 1024, 1, SPLStop)
+		splbase.studioAPI(1, SPLStop)
 		self.script_finish()
 
 	def script_play(self, gesture):
-		sendMessage(SPLWin, 1024, 0, SPLPlay)
+		splbase.studioAPI(0, SPLPlay)
 		self.script_finish()
 
 	def script_pause(self, gesture):
-		playingNow = sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus)
+		playingNow = splbase.studioAPI(0, SPL_TrackPlaybackStatus)
 		if not playingNow:
 			# Translators: Presented when no track is playing in StationPlaylist Studio.
 			ui.message(_("There is no track playing. Try pausing while a track is playing."))
 		elif playingNow == 3:
-			sendMessage(SPLWin, 1024, 0, SPLPause)
+			splbase.studioAPI(0, SPLPause)
 		else:
-			sendMessage(SPLWin, 1024, 1, SPLPause)
+			splbase.studioAPI(1, SPLPause)
 		self.script_finish()
 
 	def script_libraryScanProgress(self, gesture):
-		scanned = sendMessage(SPLWin, 1024, 1, SPLLibraryScanCount)
+		scanned = splbase.studioAPI(1, SPLLibraryScanCount)
 		if scanned >= 0:
 			# Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
 			ui.message(_("Scan in progress with {itemCount} items scanned").format(itemCount=scanned))
 		else:
 			# Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
 			ui.message(_("Scan complete with {itemCount} items scanned").format(
-				itemCount=sendMessage(SPLWin, 1024, 0, SPLLibraryScanCount)
+				itemCount=splbase.studioAPI(0, SPLLibraryScanCount)
 			))
 		self.script_finish()
 
@@ -323,13 +323,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		ui.message(
 			# Translators: Announces number of stream listeners.
 			_("Listener count: {listenerCount}").format(
-				listenerCount=sendMessage(SPLWin, 1024, 0, SPLListenerCount)
+				listenerCount=splbase.studioAPI(0, SPLListenerCount)
 			)
 		)
 		self.script_finish()
 
 	def script_remainingTime(self, gesture):
-		remainingTime = sendMessage(SPLWin, 1024, 3, SPLCurTrackPlaybackTime)
+		remainingTime = splbase.studioAPI(3, SPLCurTrackPlaybackTime)
 		if remainingTime < 0:
 			# Translators: Presented when no track is playing in StationPlaylist Studio.
 			ui.message(_("There is no track playing."))
@@ -390,20 +390,20 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# For consistency reasons (because of the Studio status bar),
 		# messages in this method will remain in English.
 		statusInfo = []
-		playingNow = sendMessage(SPLHwnd, 1024, 0, SPL_TrackPlaybackStatus)
+		playingNow = splbase.studioAPI(0, SPL_TrackPlaybackStatus)
 		statusInfo.append("Play status: playing" if playingNow else "Play status: stopped")
 		statusInfo.append(
-			"Automation On" if sendMessage(SPLHwnd, 1024, 1, SPLStatusInfo) else "Automation Off"
+			"Automation On" if splbase.studioAPI(1, SPLStatusInfo) else "Automation Off"
 		)
 		statusInfo.append(
-			"Microphone On" if sendMessage(SPLHwnd, 1024, 2, SPLStatusInfo) else "Microphone Off"
+			"Microphone On" if splbase.studioAPI(2, SPLStatusInfo) else "Microphone Off"
 		)
-		statusInfo.append("Line-In On" if sendMessage(SPLHwnd, 1024, 3, SPLStatusInfo) else "Line-In Off")
+		statusInfo.append("Line-In On" if splbase.studioAPI(3, SPLStatusInfo) else "Line-In Off")
 		statusInfo.append(
-			"Record to file On" if sendMessage(SPLHwnd, 1024, 4, SPLStatusInfo) else "Record to file Off"
+			"Record to file On" if splbase.studioAPI(4, SPLStatusInfo) else "Record to file Off"
 		)
-		cartEdit = sendMessage(SPLHwnd, 1024, 5, SPLStatusInfo)
-		cartInsert = sendMessage(SPLHwnd, 1024, 6, SPLStatusInfo)
+		cartEdit = splbase.studioAPI(5, SPLStatusInfo)
+		cartInsert = splbase.studioAPI(6, SPLStatusInfo)
 		if cartEdit:
 			statusInfo.append("Cart Edit On")
 		elif not cartEdit and cartInsert:
@@ -438,7 +438,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		modifier = (None, "shift", "ctrl", "alt").index(modifier) * 24
 		# Add 1 to cart index to comply with Studio API.
 		cart = self.cartKeys.index(cart) + 1
-		sendMessage(SPLWin, 1024, cart + modifier, SPLCartPlayer)
+		splbase.studioAPI(cart + modifier, SPLCartPlayer)
 		self.script_finish()
 
 	def script_conHelp(self, gesture):
