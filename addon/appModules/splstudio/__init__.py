@@ -2829,12 +2829,15 @@ class AppModule(appModuleHandler.AppModule):
 		metadataStreams = ("DSP encoder", "URL 1", "URL 2", "URL 3", "URL 4")
 		url = int(gesture.displayName[-1])
 		if splbase.studioAPI(url, 36):
-			# Translators: Status message for metadata streaming.
-			status = _("Metadata streaming on {URLPosition} enabled").format(URLPosition=metadataStreams[url])
+			ui.message(
+				# Translators: Status message for metadata streaming.
+				_("Metadata streaming on {URLPosition} enabled").format(URLPosition=metadataStreams[url])
+			)
 		else:
-			# Translators: Status message for metadata streaming.
-			status = _("Metadata streaming on {URLPosition} disabled").format(URLPosition=metadataStreams[url])
-		ui.message(status)
+			ui.message(
+				# Translators: Status message for metadata streaming.
+				_("Metadata streaming on {URLPosition} disabled").format(URLPosition=metadataStreams[url])
+			)
 
 	def script_layerHelp(self, gesture):
 		if (compatibility := splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]) == "off":
