@@ -42,6 +42,10 @@ def studioIsRunning(justChecking: bool = False) -> bool:
 def studioAPI(arg: int, command: int) -> int | None:
 	if not studioIsRunning(justChecking=True):
 		return None
+	# 25.06: global plugin can also clal this function with no Studio window handle value defined.
+	global _SPLWin
+	if _SPLWin is None:
+		_SPLWin = user32.FindWindowW("SPLStudio", None)
 	log.debug(f"SPL: Studio API wParem is {arg}, lParem is {command}")
 	val = sendMessage(_SPLWin, 1024, arg, command)
 	log.debug(f"SPL: Studio API result is {val}")
