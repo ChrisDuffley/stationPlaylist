@@ -10,18 +10,18 @@ para controlar Studio desde cualquier lugar. Entre las aplicaciones
 soportadas se encuentran Studio, Creator, la herramienta de pista, VT
 Recorder y Streamer, así como los codificadores SAM, SPL y AltaCast.
 
-For more information about the add-on, read the [add-on guide][1].
+Para más información sobre este complemento, lee su [guía][1].
 
 NOTAS IMPORTANTES:
 
-* This add-on requires StationPlaylist suite 5.50 or later.
+* Este complemento requiere StationPlaylist Suite 5.50 o posterior.
 * Algunas funciones del complemento quedan deshabilitadas o muy limitadas si
   NVDA se ejecuta en modo seguro, como por ejemplo en la pantalla de inicio
   de sesión.
 * Para una mejor experiencia, deshabilita el modo atenuación de audio.
-* Starting from 2018, [changelogs for old add-on releases][2] will be found
-  on GitHub. This add-on readme will list changes from version 23.02 (2023)
-  onwards.
+* A partir de 2018, los [registros de cambios para versiones antiguas][2] se
+  encontrarán en GitHub. Este léeme del complemento listará cambios desde la
+  versión 23.02 (2023) en adelante.
 * Cuando Studio está en ejecución, se pueden guardar, restablecer o poner
   los valores de fábrica del complemento pulsando control+NVDA+c,
   control+NVDA+r una vez o control+NVDA+r tres veces, respectivamente. Esto
@@ -69,8 +69,9 @@ de voz a petición.
   una pista sobre la base del artista o del nombre de la canción. Pulsa
   NVDA+F3 para buscar hacia adelante o NVDA+Shift+F3 para buscar hacia atrás
   (no soporta el modo de voz a petición).
-* Shift+NVDA+R from Studio window: Steps through library scan announcement
-  settings (does not support speak on demand).
+* Shift+NVDA+R desde la ventana de Studio: Pasos de las opciones de
+  anunciado del escaneado de biblioteca (no soporta el modo de voz a
+  petición).
 * Control+Shift+X desde la ventana de Studio: Pasos de las opciones del
   temporizador braille (no soporta el modo de voz a petición).
 * Control+Alt+flecha derecha o izquierda (mientras se enfoca una pista en
@@ -214,7 +215,7 @@ petición):
 * L (Shift+L en la distribución de JAWS): línea auxiliar.
 * M: Micrófono.
 * N: Título para la siguiente pista programada.
-* O: Playlist hour over/under by.
+* O: lista de reproducción por debajo o por encima de hora.
 * P: Estado de reproducción (reproduciendo o detenido).
 * Shift+P: Tono de la pista actual.
 * R (Shift+E en la disbribución de JAWS): Grabar en archivo
@@ -258,7 +259,7 @@ de voz a petición):
 * T: parada instantánea.
 * M: Activar micrófono.
 * Shift+M: Desactivar micrófono.
-* N: Turn microphone on without fade.
+* N: Activar micrófono sin desvanecimiento.
 * A: Activar automatización.
 * Shift+A: Desactivar automatización.
 * L: activar entrada de línea.
@@ -380,29 +381,32 @@ táctil. Primero utiliza un toque con tres dedos para cambiar a modo SPL,
 entonces utiliza las órdenes táctiles listadas arriba para llevar a cabo
 tareas.
 
-## Version 25.06-LTS
+## Versión 25.06-LTS
 
-Version 25.06.x is the last release series to support Studio 5.x with future
-releases requiring Studio 6.x. Some new features will be backported to
-25.06.x if needed.
+La versión 25.06.x es la última que soportará Studio 5.x. Las siguientes
+versiones necesitarán Studio 6.x. Algunas características nuevas se llevarán
+a 25.06.x si es necesario.
 
-* NVDA will no longer forget to transfer broadcast profiles while updating
-  the add-on (fixing a regression introduced in 25.05).
-* Added a new command in SPL Assistant to announce playlist hour over/under
-  by in minutes and seconds (O).
-* In Studio, the command to step through library scan announcement settings
-  has changed from Alt+NVDA+R to Shift+NVDA+R as the former command toggles
-  remote access feature in NVDA 2025.1.
-* NVDA will no longer play error tones or appear to do nothing when
-  performing some SPL Assistant commands after resizing Studio window.
-* The user interface for confirmation dialog shown when deleting broadcast
-  profiles now resembles NVDA's configuration profile deletion interface.
-* NVDA will recognize track column changes introduced in Creator and Track
-  Tool 6.11.
-* In columns explorer for Creator, "Date Restriction" column is now
-  "Restrictions".
-* NVDA will no longer play wrong carts when playing them via SPL Controller
-  layer.
+* NVDA ya no olvidará transmitir perfiles de emisión al actualizar el
+  complemento (corrigiendo una regresión introducida en 25.05).
+* Se ha añadido una nueva orden en el asistente de SPL para anunciar si la
+  lista de reproducción se pasa de hora o se queda corta en minutos y
+  segundos (O).
+* En Studio, la orden para dar pasos por las opciones de anuncio de escaneo
+  de la biblioteca ha cambiado de alt+NVDA+r a shift+NVDA+r, ya que la
+  primera orden conmuta la característica de acceso remoto en NVDA 2025.1.
+* NVDA ya no reproducirá tonos de error ni parecerá hacer nada al realizar
+  algunas órdenes del asistente de SPL tras redimensionar la ventana de
+  Studio.
+* La interfaz de usuario del diálogo de confirmación mostrada al eliminar
+  perfiles de emisión ahora recuerda a la interfaz de eliminación de
+  perfiles de NVDA.
+* NVDA reconocerá los cambios de columna de pista introducidos en Creator y
+  la herramienta de pista 6.11.
+* En el explorador de columnas de Creator, la columna "Restricción por
+  fecha" es ahora "Restricciones".
+* NVDA ya no reproducirá carts incorrectos al reproducirlos mediante la capa
+  del controlador de SPL.
 
 ## Versión 25.05
 
@@ -471,7 +475,8 @@ releases requiring Studio 6.x. Some new features will be backported to
 
 ## Versiones antiguas
 
-Please see the [changelog][2] for release notes for old add-on releases.
+Por favor consulta el [registro de cambios][2] para notas de la versión para
+versiones antiguas del complemento.
 
 [1]:
 https://github.com/ChrisDuffley/stationPlaylist/blob/main/addonuserguide.md

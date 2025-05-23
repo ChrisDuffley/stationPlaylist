@@ -240,7 +240,7 @@ konuşmayı destekler):
 * T: Anında Durdur.
 * M: Mikrofonu açar.
 * Shift+M: Mikrofonu kapatır.
-* N: Mikrofonu açıp kapatır.
+* N: Mikrofonu sesi kısık olmadan açar.
 * A: Otomasyonu açar.
 * Shift+A: Otomasyonu kapatır.
 * L: Line in girişini açar.

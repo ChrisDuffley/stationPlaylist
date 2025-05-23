@@ -264,7 +264,7 @@ prennent en charge la parole à la demande) :
 * T : Arrêt immédiat.
 * M : Activer le microphone.
 * Maj+M : Désactiver le microphone.
-* N: Turn microphone on without fade.
+* N : Activer le microphone sans fondu.
 * A : Activer l'automatisation.
 * Maj+A : Désactiver l'automatisation.
 * L : Active l'entrée ligne.
@@ -395,8 +395,9 @@ Version 25.06.x est la dernière version des séries à prendre en charge
 Studio 5.x avec les versions futures nécessitant Studio 6.x. Certaines
 nouvelles fonctionnalités seront recouvertes à la 25.06.x si nécessaire.
 
-* NVDA will no longer forget to transfer broadcast profiles while updating
-  the add-on (fixing a regression introduced in 25.05).
+* NVDA n'oubliera plus de transférer des profils de diffusion lors de la
+  mise à jour de l'extension (fixant une régression introduite dans la
+  25.05).
 * Ajout d'une nouvelle commande dans l'Assistant SPL pour annoncer la
   playlist en heure / heure passée en minutes et secondes (O).
 * Dans Studio, la commande de parcourt des paramètres d'annonce du balayage
@@ -405,12 +406,13 @@ nouvelles fonctionnalités seront recouvertes à la 25.06.x si nécessaire.
 * NVDA ne jouera plus de tonalités d'erreur ou n'apparaîtra pour ne rien
   faire lors de l'exécution des commandes de l'Assistant SPL après le
   redimensionnement de la fenêtre de Studio.
-* The user interface for confirmation dialog shown when deleting broadcast
-  profiles now resembles NVDA's configuration profile deletion interface.
+* La boîte de  dialogue de l'interface utilisateur pour la confirmation
+  affichée lors de la suppression des profils de diffusion ressemble
+  désormais à l'interface de suppression du profil de configuration de NVDA.
 * NVDA reconnaîtra les changements de colonne de piste introduits dans
   Creator et l'Outil de piste 6.11.
-* In columns explorer for Creator, "Date Restriction" column is now
-  "Restrictions".
+* Dans l'Explorateur de Colonnes pour Creator, la colonne "Date Restriction"
+  est désormais "Restrictions".
 * NVDA ne jouera plus de paniers erronés lorsque vous les jouez via la
   Couche du Contrôleur SPL.
 
