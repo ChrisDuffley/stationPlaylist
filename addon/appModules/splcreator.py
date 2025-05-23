@@ -88,10 +88,6 @@ class SPLCreatorItem(SPLTrackItem):
 	"""An entry in SPL Creator (mostly tracks)."""
 
 	def indexOf(self, header: str) -> int | None:
-		# 22.03: Creator 6 renamed Date Restriction column to Restrictions.
-		# 25.06: use Creator 6 column header by default.
-		if self.appModule.productVersion < "6.0" and header == "Restrictions":
-			header = "Date Restriction"
 		try:
 			return indexOf(self.appModule.productVersion).index(header)
 		except ValueError:
