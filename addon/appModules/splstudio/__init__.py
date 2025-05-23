@@ -2545,13 +2545,7 @@ class AppModule(appModuleHandler.AppModule):
 				obj = self.status(self.SPLCurrentTrackTitle)
 				currentTrack = obj.name
 				# Studio 6 does not define accessibility label for this item, so display text must be used.
-				if self.productVersion >= "6.0":
-					currentTrack = obj.displayText.partition(obj.firstChild.name)[-1]
-				else:
-					# Translators: Presented when there is no information for the current track.
-					currentTrack = (
-						_("Cannot locate current track information") if obj.name is None else obj.name
-					)
+				currentTrack = obj.displayText.partition(obj.firstChild.name)[-1]
 			# #34 (17.08): see the note on next track script above.
 			if splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"]:
 				player = self.status(self.SPLCurrentPlayer).name
