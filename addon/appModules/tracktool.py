@@ -20,41 +20,7 @@ addonHandler.initTranslation()
 # Return a tuple of column headers.
 # This is just a thinly disguised indexOf function from Studio's track item class.
 def indexOf(ttVersion: str) -> tuple[str, ...]:
-	if ttVersion < "6.0":
-		return (
-			"Artist",
-			"Title",
-			"Duration",
-			"Cue",
-			"Overlap",
-			"Intro",
-			"Outro",
-			"Segue",
-			"Hook Start",
-			"Hook Len",
-			"Year",
-			"Album",
-			"CD Code",
-			"URL 1",
-			"URL 2",
-			"Genre",
-			"Mood",
-			"Energy",
-			"Tempo",
-			"BPM",
-			"Gender",
-			"Rating",
-			"Filename",
-			"Client",
-			"Other",
-			"Intro Link",
-			"Outro Link",
-			"ReplayGain",
-			"Record Label",
-			"ISRC",
-			"Language",
-		)
-	elif ttVersion.startswith("6.0"):
+	if ttVersion < "6.10":
 		return (
 			"Artist",
 			"Title",
