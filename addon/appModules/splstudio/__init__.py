@@ -1022,10 +1022,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Note that Studio 5.x and 6 uses different layouts.
 		elif obj.windowClassName == "TStaticText":
 			if obj.simplePrevious is not None:
-				studio6layout = self.productVersion >= "6.0" and obj.simplePrevious.name == "Track Starts"
-				if (self.productVersion < "6.0" and obj.simplePrevious.name == "Remaining Time") or (
-					studio6layout and obj.parent.parent.firstChild.name == "Remaining"
-				):
+				if obj.simplePrevious.name == "Track Starts" and obj.parent.parent.firstChild.name == "Remaining":
 					# End of track text.
 					if (
 						splconfig.SPLConfig["General"]["BrailleTimer"] in ("outro", "both")
@@ -1038,9 +1035,7 @@ class AppModule(appModuleHandler.AppModule):
 						and splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"]
 					):
 						self.alarmAnnounce(obj.name, 440, 200)
-				elif (self.productVersion < "6.0" and obj.simplePrevious.name == "Remaining Song Ramp") or (
-					studio6layout and obj.parent.parent.firstChild.name == "Song Ramp"
-				):
+				elif obj.simplePrevious.name == "Track Starts" and obj.parent.parent.firstChild.name == "Song Ramp":
 					# Song intro content.
 					if (
 						splconfig.SPLConfig["General"]["BrailleTimer"] in ("intro", "both")
