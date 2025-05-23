@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-04-29 14:45+0200\n"
+"PO-Revision-Date: 2025-05-22 22:25-0600\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: \n"
 "Language: hr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.6\n"
 
 #. Translators: announced in SPL Creator and Remote VT
 #. when trying to perform playlist status commands while outside of playlist editor.
@@ -1851,29 +1851,3 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist programe. Dodatno tome, dodaje "
 "globalne naredbe za program Studio s bilo kojeg mjesta."
-
-#~ msgid "Are you sure you want to delete this profile? This cannot be undone."
-#~ msgstr "Zaista želiš izbrisati ovaj profil? Radnja je nepovratna."
-
-#~ msgid "Metadata streaming on DSP encoder enabled"
-#~ msgstr "Internetski prijenos metapodataka na DSP koderu aktiviran"
-
-#~ msgid "Metadata streaming on DSP encoder disabled"
-#~ msgstr "Internetski prijenos metapodataka na DSP koderu deaktiviran"
-
-#, python-brace-format
-#~ msgid ""
-#~ "You are using {releaseName} ({build}), a Windows release not supported by "
-#~ "this add-on.\n"
-#~ "This add-on requires {supportedReleaseName} ({supportedBuild}) or later."
-#~ msgstr ""
-#~ "Koristiš {releaseName} ({build}), izdanje sustava Windows koje ovaj "
-#~ "dodatak ne podržava.\n"
-#~ "Ovaj dodatak zahtijeva {supportedReleaseName} ({supportedBuild}) ili "
-#~ "noviju verziju."
-
-#~ msgid "Unsupported Windows release"
-#~ msgstr "Nepodržano Windows izdanje"
-
-#~ msgid "Search string not found."
-#~ msgstr "Znakovni niz pretrage nije pronađen."

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-06-09 11:31+0200\n"
+"PO-Revision-Date: 2025-05-22 22:24-0600\n"
 "Last-Translator: Juan C. Buño <oprisniki@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.6\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: announced in SPL Creator and Remote VT
@@ -1863,30 +1863,3 @@ msgid ""
 msgstr ""
 "Mellora o soporte para as aplicacións de StationPlaylist. Ademáis, engade "
 "ordes globais para o estudio dende calquera parte."
-
-#~ msgid "Are you sure you want to delete this profile? This cannot be undone."
-#~ msgstr ""
-#~ "¿Estás seguro de querer eliminar este perfil? Esto non se pode desfacer."
-
-#~ msgid "Metadata streaming on DSP encoder enabled"
-#~ msgstr "Metadatos de streaming en codificador DPS habilitado"
-
-#~ msgid "Metadata streaming on DSP encoder disabled"
-#~ msgstr "Metadatos de streaming en codificador DSP deshabilitado"
-
-#, python-brace-format
-#~ msgid ""
-#~ "You are using {releaseName} ({build}), a Windows release not supported by "
-#~ "this add-on.\n"
-#~ "This add-on requires {supportedReleaseName} ({supportedBuild}) or later."
-#~ msgstr ""
-#~ "Estás utilizando {releaseName} ({build}), unha versión de Windows non "
-#~ "soportada por este complemento.\n"
-#~ "Este complemento require {supportedReleaseName} ({supportedBuild}) ou "
-#~ "posterior."
-
-#~ msgid "Unsupported Windows release"
-#~ msgstr "Versión de Windows non soportada"
-
-#~ msgid "Search string not found."
-#~ msgstr "Non se atopou a cadea de procura."
