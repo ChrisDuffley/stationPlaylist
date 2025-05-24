@@ -1,6 +1,6 @@
 # StationPlaylist Add-on User Guide
 
-Revision: May 2025 for StationPlaylist add-on 25.06
+Revision: June 2025 for StationPlaylist add-on 25.06
 
 Author: Christopher Duffley (formerly Joseph Lee)
 
@@ -506,18 +506,6 @@ Both Creator's playlist editor and Remote VT client lets you manage playlists fo
 
 Track information shown differs across SPL Creator's Playlist Editor and Remote VT client versions. Following are track information shown in Creator's Playlist Editor and Remote VT client once a remote playlist is loaded:
 
-Version 5.x prior to 5.50:
-
-* Control+NVDA+1: Artist.
-* Control+NVDA+2: Track title.
-* Control+NVDA+3: Duration of the selected track.
-* Control+NVDA+4: Length of the intro.
-* Control+NVDA+5: Length of the outro.
-* Control+NVDA+6: Segue.
-* Control+NVDA+7: Category.
-* Control+NVDA+8: Filename.
-* Control+NVDA+9 and Control+NVDA+0: unavailable.
-
 Versions 5.50 and 6.0x:
 
 * Control+NVDA+1: Artist.
@@ -980,10 +968,10 @@ Q. Which versions of Studio are supported by which add-on releases?
 * Studio 5.1x: Add-on 3.2 to 18.09.13 (November 2014-December 2019).
 * Studio 5.20: Add-on 16.11 to 20.09.7 (November 2016-April 2021).
 * Studio 5.3x: Add-on 17.11 to 22.12 (November 2017-December 2022).
-* Studio 5.40: Add-on 19.11 to 25.05 (November 2019-May 2025).
-* Studio 5.50: Add-on 20.11 to 25.06 (November 2020-May 2025).
-* Studio 6.0x: Add-on 21.11 to 25.06 (November 2021-May 2025).
-* Studio 6.1x: Add-on 24.03 to 25.06 (April 2024-May 2025).
+* Studio 5.40: Add-on 19.11 to 25.05.4 (November 2019-May 2025).
+* Studio 5.50: Add-on 20.11 to 25.06 (November 2020-June 2025).
+* Studio 6.0x: Add-on 21.11 to 25.06 (November 2021-June 2025).
+* Studio 6.1x: Add-on 24.03 to 25.06 (April 2024-June 2025).
 
 Note: the schedule above is subject to change.
 

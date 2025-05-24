@@ -25,7 +25,7 @@ addon_info = {
 	# Translators: Long description to be shown for this add-on on add-on information from add-on store
 	"addon_description": _("Enhances support for StationPlaylist apps. In addition, adds global commands for the Studio application from everywhere."),
 	# version
-	"addon_version": "25.05",
+	"addon_version": "25.06",
 	# Author(s)
 	"addon_author": "Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)",
 	# URL for the add-on documentation support
