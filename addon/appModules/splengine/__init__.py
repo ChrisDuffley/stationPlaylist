@@ -72,7 +72,7 @@ def announceEncoderConnectionStatus() -> None:
 		encoderList = getNVDAObjectFromEvent(encoderWindow, OBJID_CLIENT, 0)
 		connectedEncoders = [
 			encoder.encoderId for encoder in encoderList.children
-			if isinstance(encoder, encoders.Encoder) and encoder.connected
+			if hasattr(encoder, "encoderId") and encoder.connected
 		]
 		if len(connectedEncoders) > 0:
 			# Translators: presented when at least one encoder is connected.
