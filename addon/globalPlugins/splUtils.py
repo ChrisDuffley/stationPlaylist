@@ -11,7 +11,6 @@ import scriptHandler
 import globalVars
 import appModuleHandler
 from appModules.splstudio import splbase
-from appModules.splengine import announceEncoderConnectionStatus
 import tones
 import windowUtils
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent
@@ -79,6 +78,50 @@ R: Remaining time for the playing track.
 Shift+R: Library scan progress.
 Function keys and number row keys with or without Shift, Alt, and Control keys: Play carts.""")
 
+
+# Announce connected encoders if any.
+# Originally part of the global plugin, moved to SPl Engine app module, then returned to the global plugin.
+def announceEncoderConnectionStatus() -> None:
+	# For SAM encoders, descend into encoder window after locating the foreground window.
+	# For others, look for a specific SysListView32 control.
+	desktopHwnd = api.getDesktopObject().windowHandle
+	try:
+		samEncoderWindow = windowUtils.findDescendantWindow(desktopHwnd, className="TfoSCEncoders")
+	except LookupError:
+		samEncoderWindow = 0
+	if samEncoderWindow:
+		try:
+			samEncoderWindow = windowUtils.findDescendantWindow(samEncoderWindow, className="TListView")
+		except LookupError:
+			samEncoderWindow = 0
+	try:
+		sysListView32EncoderWindow = windowUtils.findDescendantWindow(
+			desktopHwnd, className="SysListView32", controlID=1004
+		)
+	except LookupError:
+		sysListView32EncoderWindow = 0
+	if not samEncoderWindow and not sysListView32EncoderWindow:
+		# Translators: presented when no streaming encoders were found when trying to obtain connection status.
+		ui.message(_("No encoders found"))
+	elif samEncoderWindow and sysListView32EncoderWindow:
+		# Translators: presented when more than one encoder type is active
+		# when trying to obtain encoder connection status.
+		ui.message(_("Only one encoder type can be active at once"))
+	else:
+		encoderWindow = max(samEncoderWindow, sysListView32EncoderWindow)
+		encoderList = getNVDAObjectFromEvent(encoderWindow, OBJID_CLIENT, 0)
+		connectedEncoders = [
+			encoder.encoderId for encoder in encoderList.children
+			if hasattr(encoder, "encoderId") and encoder.connected
+		]
+		if len(connectedEncoders) > 0:
+			# Translators: presented when at least one encoder is connected.
+			ui.message(_("Connected encoders: {encodersConnected}").format(
+				encodersConnected=", ".join(connectedEncoders)
+			))
+		else:
+			# Translators: presented when no encoders are connected.
+			ui.message(_("No encoders connected"))
 
 # Process add-on specific command-line switches.
 # --spl-configinmemory: load add-on settings from memory as if the add-on is run for the first time.
