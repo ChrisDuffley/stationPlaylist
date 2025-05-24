@@ -467,14 +467,7 @@ class Encoder(IAccessible):
 			return
 		# #150: announce a message if Studio window is minimized.
 		if self.focusToStudio:
-			try:
-				studioWindow = windowUtils.findDescendantWindow(
-					api.getDesktopObject().windowHandle, visible=True, className="TStudioForm"
-				)
-				user32.SetForegroundWindow(studioWindow)
-			except LookupError:
-				# Translators: presented when SPL Studio window is minimized.
-				ui.message(_("SPL Studio is minimized to system tray."))
+			splbase.focusToSPLWindow()
 		if self.playAfterConnecting:
 			# Do not interupt the currently playing track.
 			if splbase.studioAPI(0, SPL_TrackPlaybackStatus) == 0:
