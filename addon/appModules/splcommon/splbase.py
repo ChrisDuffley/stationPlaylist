@@ -5,6 +5,8 @@
 # Base services for Studio app module and support modules
 
 import ui
+import api
+import windowUtils
 from winUser import sendMessage, user32
 from logHandler import log
 import addonHandler
@@ -61,3 +63,21 @@ def selectTrack(trackIndex: int) -> None:
 	studioAPI(-1, 121)
 	log.debug(f"SPL: selecting track index {trackIndex}")
 	studioAPI(trackIndex, 121)
+
+
+# Switch focus to SPL Studio window from anywhere.
+def focusToSPLWindow() -> None:
+	# Don't do anything if we're already focus on SPL Studio.
+	if "splstudio" in api.getForegroundObject().appModule.appName:
+		return
+	# 17.01: SetForegroundWindow function is better, as there's no need to traverse top-level windows
+	# and allows users to "switch" to SPL window if the window is minimized.
+	# #150 (20.10/20.09.2-LTS): even then, make sure Studio window is visible.
+	try:
+		studioWindow = windowUtils.findDescendantWindow(
+			api.getDesktopObject().windowHandle, visible=True, className="TStudioForm"
+		)
+		user32.SetForegroundWindow(studioWindow)
+	except LookupError:
+		# Translators: presented when SPL Studio window is minimized.
+		ui.message(_("SPL Studio is minimized to system tray."))
