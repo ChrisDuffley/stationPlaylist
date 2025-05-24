@@ -5,10 +5,17 @@
 # Home to various DSP DLL's including encoders.
 
 import appModuleHandler
+import api
+import ui
+import windowUtils
 import controlTypes
+import addonHandler
 from NVDAObjects import NVDAObject
-from NVDAObjects.IAccessible import sysListView32
+from NVDAObjects.IAccessible import sysListView32, getNVDAObjectFromEvent
+from winUser import OBJID_CLIENT
 from . import encoders
+
+addonHandler.initTranslation()
 
 # For SPL encoder config screen at least, control iD's are different,
 # which allows labels to be generated easily.
@@ -32,10 +39,49 @@ encoderSettingsLabels = {
 }
 
 
-# #98: call the one from encoders module directly.
-# This is an indirect jump due to SPL Controller's encoder connection status  command.
+# Announce connected encoders if any.
+# Primarily called from SPL Controller (global plugin).
 def announceEncoderConnectionStatus() -> None:
-	encoders.announceEncoderConnectionStatus()
+	# For SAM encoders, descend into encoder window after locating the foreground window.
+	# For others, look for a specific SysListView32 control.
+	desktopHwnd = api.getDesktopObject().windowHandle
+	try:
+		samEncoderWindow = windowUtils.findDescendantWindow(desktopHwnd, className="TfoSCEncoders")
+	except LookupError:
+		samEncoderWindow = 0
+	if samEncoderWindow:
+		try:
+			samEncoderWindow = windowUtils.findDescendantWindow(samEncoderWindow, className="TListView")
+		except LookupError:
+			samEncoderWindow = 0
+	try:
+		sysListView32EncoderWindow = windowUtils.findDescendantWindow(
+			desktopHwnd, className="SysListView32", controlID=1004
+		)
+	except LookupError:
+		sysListView32EncoderWindow = 0
+	if not samEncoderWindow and not sysListView32EncoderWindow:
+		# Translators: presented when no streaming encoders were found when trying to obtain connection status.
+		ui.message(_("No encoders found"))
+	elif samEncoderWindow and sysListView32EncoderWindow:
+		# Translators: presented when more than one encoder type is active
+		# when trying to obtain encoder connection status.
+		ui.message(_("Only one encoder type can be active at once"))
+	else:
+		encoderWindow = max(samEncoderWindow, sysListView32EncoderWindow)
+		encoderList = getNVDAObjectFromEvent(encoderWindow, OBJID_CLIENT, 0)
+		connectedEncoders = [
+			encoder.encoderId for encoder in encoderList.children
+			if isinstance(encoder, encoders.Encoder) and encoder.connected
+		]
+		if len(connectedEncoders) > 0:
+			# Translators: presented when at least one encoder is connected.
+			ui.message(_("Connected encoders: {encodersConnected}").format(
+				encodersConnected=", ".join(connectedEncoders)
+			))
+		else:
+			# Translators: presented when no encoders are connected.
+			ui.message(_("No encoders connected"))
 
 
 class AppModule(appModuleHandler.AppModule):
