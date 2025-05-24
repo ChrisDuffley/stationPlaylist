@@ -14,7 +14,6 @@ import weakref
 import api
 import wx
 import globalVars
-from appModules.splengine import encoders
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 from winUser import user32, OBJID_CLIENT
 import tones
@@ -1489,6 +1488,7 @@ class ResetDialog(wx.Dialog):
 				splconfig.trackComments.clear()
 			if self.resetEncodersCheckbox.Value:
 				if "appModules.splengine.encoders" in sys.modules:
+					from appModules.splengine import encoders
 					encoders.resetEncoderConfig(factoryDefaults=True)
 			_configDialogOpened = False
 			wx.CallAfter(
