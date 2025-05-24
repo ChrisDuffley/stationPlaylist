@@ -10,7 +10,7 @@ import ui
 import scriptHandler
 import globalVars
 import appModuleHandler
-from appModules.splstudio import splbase
+from appModules.splcommon import splbase
 import tones
 import windowUtils
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent
