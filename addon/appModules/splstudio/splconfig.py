@@ -304,10 +304,6 @@ class ConfigHub(ChainMap):
 		# 17.04: If vertical column announcement value is "None", transform this to NULL.
 		if conf["General"]["VerticalColumnAnnounce"] == "None":
 			conf["General"]["VerticalColumnAnnounce"] = None
-		# 25.06: change explore columns/Creator "Date Restriction" column to "Restrictions".
-		for index in range(len(conf["General"]["ExploreColumnsCreator"])):
-			if conf["General"]["ExploreColumnsCreator"][index] == "Date Restriction":
-				conf["General"]["ExploreColumnsCreator"][index] = "Restrictions"
 		# 25.06: transfer columns explorer settings from general section to explore columns section.
 		conf["ExploreColumns"]["Studio"] = list(conf["General"]["ExploreColumns"])
 		conf["ExploreColumns"]["TrackTool"] = list(conf["General"]["ExploreColumnsTT"])
