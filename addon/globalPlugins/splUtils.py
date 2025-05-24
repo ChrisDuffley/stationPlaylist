@@ -225,14 +225,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# and allows users to "switch" to SPL window if the window is minimized.
 		# #150 (20.10/20.09.2-LTS): even then, make sure Studio window is visible.
 		else:
-			try:
-				studioWindow = windowUtils.findDescendantWindow(
-					api.getDesktopObject().windowHandle, visible=True, className="TStudioForm"
-				)
-				user32.SetForegroundWindow(studioWindow)
-			except LookupError:
-				# Translators: presented when SPL Studio window is minimized.
-				ui.message(_("SPL Studio is minimized to system tray."))
+			splbase.focusToSPLWindow()
 
 	# The SPL Controller:
 	# This layer set allows the user to control various aspects of SPL Studio from anywhere.
