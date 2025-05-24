@@ -304,10 +304,6 @@ class ConfigHub(ChainMap):
 		# 17.04: If vertical column announcement value is "None", transform this to NULL.
 		if conf["General"]["VerticalColumnAnnounce"] == "None":
 			conf["General"]["VerticalColumnAnnounce"] = None
-		# 25.06: transfer columns explorer settings from general section to explore columns section.
-		conf["ExploreColumns"]["Studio"] = list(conf["General"]["ExploreColumns"])
-		conf["ExploreColumns"]["TrackTool"] = list(conf["General"]["ExploreColumnsTT"])
-		conf["ExploreColumns"]["Creator"] = list(conf["General"]["ExploreColumnsCreator"])
 
 	# Remove deprecated sections/keys.
 	def _removeDeprecatedSettings(self, profile: ConfigObj) -> None:
@@ -435,10 +431,6 @@ class ConfigHub(ChainMap):
 				profile["PlaylistTranscripts"]["IncludedColumns"] = list(
 					profile["PlaylistTranscripts"]["IncludedColumns"]
 				)
-				# 25.06: transfer columns explorer settings from explore columns section to general section.
-				profile["General"]["ExploreColumns"] = list(profile["ExploreColumns"]["Studio"])
-				profile["General"]["ExploreColumnsTT"] = list(profile["ExploreColumns"]["TrackTool"])
-				profile["General"]["ExploreColumnsCreator"] = list(profile["ExploreColumns"]["Creator"])
 			self._preSave(profile)
 			profile.write()
 			profile.update(profileSettings)
