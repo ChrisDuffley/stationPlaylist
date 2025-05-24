@@ -241,14 +241,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if not splbase.studioIsRunning(justChecking=True):
 			ui.message(_("SPL Studio is not running."))
 		else:
-			try:
-				studioWindow = windowUtils.findDescendantWindow(
-					api.getDesktopObject().windowHandle, visible=True, className="TStudioForm"
-				)
-				user32.SetForegroundWindow(studioWindow)
-			except LookupError:
-				# Translators: presented when SPL Studio window is minimized.
-				ui.message(_("SPL Studio is minimized to system tray."))
+			splbase.focusToSPLWindow()
 
 	# The SPL Controller:
 	# This layer set allows the user to control various aspects of SPL Studio from anywhere.
