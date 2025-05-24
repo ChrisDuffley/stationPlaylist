@@ -17,8 +17,8 @@ import keyboardHandler
 import scriptHandler
 import windowUtils
 import winKernel
-from NVDAObjects.IAccessible import IAccessible, sysListView32, getNVDAObjectFromEvent
-from winUser import user32, sendMessage, OBJID_CLIENT
+from NVDAObjects.IAccessible import IAccessible, sysListView32
+from winUser import user32, sendMessage
 import tones
 import gui
 import wx
