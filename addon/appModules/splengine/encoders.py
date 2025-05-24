@@ -15,10 +15,8 @@ import globalVars
 import ui
 import keyboardHandler
 import scriptHandler
-import windowUtils
 import winKernel
 from NVDAObjects.IAccessible import IAccessible, sysListView32
-from winUser import user32
 import tones
 import gui
 import wx
