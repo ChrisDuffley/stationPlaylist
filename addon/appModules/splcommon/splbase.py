@@ -66,9 +66,10 @@ def selectTrack(trackIndex: int) -> None:
 
 
 # Switch focus to SPL Studio window from anywhere.
-def focusToSPLWindow() -> None:
+def focusToSPLWindow(studioWindowChecked: bool = False) -> None:
 	# Don't do anything if we're already focus on SPL Studio.
-	if "splstudio" in api.getForegroundObject().appModule.appName:
+	# Only check if the caller did not check focused object first.
+	if not studioWindowChecked and "splstudio" in api.getForegroundObject().appModule.appName:
 		return
 	# 17.01: SetForegroundWindow function is better, as there's no need to traverse top-level windows
 	# and allows users to "switch" to SPL window if the window is minimized.
