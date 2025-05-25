@@ -42,7 +42,6 @@ def finally_(func, final):
 # See NVDA source/appModules/winamp.py for more information.
 
 # Various SPL IPC tags.
-SPLVersion = 2
 SPLPlay = 12
 SPLStop = 13
 SPLPause = 15
