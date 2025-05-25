@@ -2440,7 +2440,7 @@ class AppModule(appModuleHandler.AppModule):
 	# (API is for Studio 5.20 and later).
 	def sayStatus(self, index: int) -> None:
 		# 21.03/20.09.6-LTS: no, status index must be an integer.
-		studioStatus = splbase.studioAPI(index, 39)
+		studioStatus = splbase.studioAPI(index, SPLStatusInfo)
 		if studioStatus is None:
 			return
 		status = self._statusBarMessages[index][studioStatus]
@@ -2467,8 +2467,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_sayCartEditStatus(self, gesture):
 		# 16.12: Because cart edit status also shows cart insert status, verbosity control will not apply.
-		cartEdit = splbase.studioAPI(5, 39)
-		cartInsert = splbase.studioAPI(6, 39)
+		cartEdit = splbase.studioAPI(5, SPLStatusInfo)
+		cartInsert = splbase.studioAPI(6, SPLStatusInfo)
 		if cartEdit:
 			ui.message("Cart Edit On")
 		elif not cartEdit and cartInsert:
