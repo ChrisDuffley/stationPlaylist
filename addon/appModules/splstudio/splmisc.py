@@ -261,8 +261,8 @@ class SPLTimeRangeDialog(wx.Dialog):
 			obj = self.obj.next
 			# Manually locate tracks here.
 			while obj is not None:
-				filename = splbase.studioAPI(obj.IAccessibleChildID - 1, 211)
-				if minDuration <= splbase.studioAPI(filename, 30) <= maxDuration:
+				filename = splbase.studioAPI(obj.IAccessibleChildID - 1, SPLTrackFilename)
+				if minDuration <= splbase.studioAPI(filename, SPLFileDuration) <= maxDuration:
 					break
 				obj = obj.next
 			if obj is not None:
