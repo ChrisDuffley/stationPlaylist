@@ -434,24 +434,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			ui.message(_("SPL Studio is not running."))
 			self.script_finish()
 			return
-		# Studio 5.20 and later allows fetching status bar info from anywhere via Studio API,
-		# including playback and automation status.
-		# For consistency reasons (because of the Studio status bar),
-		# messages in this method will remain in English.
-		statusInfo = []
-		statusInfo.append(
-			"Play status: playing" if splbase.studioAPI(0, SPLStatusInfo) else "Play status: stopped"
-		)
-		statusInfo.append(
-			"Automation On" if splbase.studioAPI(1, SPLStatusInfo) else "Automation Off"
-		)
-		statusInfo.append(
-			"Microphone On" if splbase.studioAPI(2, SPLStatusInfo) else "Microphone Off"
-		)
-		statusInfo.append("Line-In On" if splbase.studioAPI(3, SPLStatusInfo) else "Line-In Off")
-		statusInfo.append(
-			"Record to file On" if splbase.studioAPI(4, SPLStatusInfo) else "Record to file Off"
-		)
+		statusInfo = [
+			self._statusBarMessages[status][splbase.studioAPI(status, SPLStatusInfo)]
+			for status in range(5)  # Playback/automation/mic/line-in/record to file
+		]
+		# Special handling for cart edit/insert.
 		cartEdit = splbase.studioAPI(5, SPLStatusInfo)
 		cartInsert = splbase.studioAPI(6, SPLStatusInfo)
 		if cartEdit:
