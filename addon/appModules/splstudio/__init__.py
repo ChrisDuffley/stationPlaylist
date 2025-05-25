@@ -336,7 +336,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	def _get_locationText(self):
 		# Translators: location text for a playlist item (example: item 1 of 10).
 		return _("Item {current} of {total}").format(
-			current=self.IAccessibleChildID, total=splbase.studioAPI(0, 124)
+			current=self.IAccessibleChildID, total=splbase.studioAPI(0, SPLTrackCount)
 		)
 
 	# #12 (18.04): select and set focus to this track.
@@ -850,7 +850,7 @@ class AppModule(appModuleHandler.AppModule):
 				self.script_libraryScanMonitor(None)
 		# #86 (18.12/18.09.6-LTS): certain internal markers require presence of a playlist,
 		# otherwise unexpected things may happen.
-		trackCount = splbase.studioAPI(0, 124)
+		trackCount = splbase.studioAPI(0, SPLTrackCount)
 		if not trackCount:
 			if self._focusedTrack is not None:
 				self._focusedTrack = None
@@ -1949,7 +1949,7 @@ class AppModule(appModuleHandler.AppModule):
 				# while focused on places other than Playlist Viewer.
 				ui.message(_("Please return to playlist viewer before invoking this command."))
 			return self.SPLPlaylistNotFocused
-		if not splbase.studioAPI(0, 124):
+		if not splbase.studioAPI(0, SPLTrackCount):
 			if announceErrors:
 				# Translators: an error message presented when performing some playlist commands
 				# while no playlist has been loaded.
@@ -2068,7 +2068,7 @@ class AppModule(appModuleHandler.AppModule):
 			obj = obj.next
 		# #55 (18.05): use total track count if it is an entire playlist, if not, resort to categories count.
 		if completePlaylistSnapshot:
-			snapshot["PlaylistItemCount"] = splbase.studioAPI(0, 124)
+			snapshot["PlaylistItemCount"] = splbase.studioAPI(0, SPLTrackCount)
 		else:
 			snapshot["PlaylistItemCount"] = len(categories)
 		snapshot["PlaylistTrackCount"] = len(artists)
