@@ -30,6 +30,10 @@ from ..skipTranslation import translate
 
 addonHandler.initTranslation()
 
+# Various SPL IPC tags.
+SPLFileDuration = 30
+SPLMetadataStreaming = 36
+SPLTrackFilename = 211
 
 # Show additional controls in browseable message window.
 browseableMessageButtons = {"closeButton": True} if versionInfo.version_year >= 2025 else {}
