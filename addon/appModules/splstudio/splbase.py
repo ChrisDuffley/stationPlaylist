@@ -14,6 +14,8 @@ addonHandler.initTranslation()
 # Cache the handle to main Studio window.
 _SPLWin: int | None = None
 
+# Various SPL IPC tags.
+SPLSelectTrack = 121
 
 # Check if Studio itself is running.
 # This is to make sure custom commands for SPL Assistant commands
