@@ -1137,7 +1137,7 @@ class AppModule(appModuleHandler.AppModule):
 	def actionProfileSwitched(self) -> None:
 		# #38 (17.11/15.10-LTS): obtain microphone alarm status.
 		# 21.03/20.09.6-LTS: only if Studio is still alive and Studio API says something.
-		status = splbase.studioAPI(2, 39)
+		status = splbase.studioAPI(2, SPLStatusInfo)
 		if splbase.studioIsRunning(justChecking=True) and status is not None:
 			self.doExtraAction(self._statusBarMessages[2][status])
 
@@ -1150,7 +1150,7 @@ class AppModule(appModuleHandler.AppModule):
 		if micAlarmT2 is not None:
 			micAlarmT2.Stop()
 		micAlarmT2 = None
-		status = splbase.studioAPI(2, 39)
+		status = splbase.studioAPI(2, SPLStatusInfo)
 		if splbase.studioIsRunning(justChecking=True) and status is not None:
 			self.doExtraAction(self._statusBarMessages[2][status])
 
