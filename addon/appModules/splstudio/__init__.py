@@ -79,6 +79,14 @@ micAlarmT: threading.Timer | None = None
 micAlarmT2 = None
 libScanT: threading.Thread | None = None
 
+# Various SPL IPC tags.
+SPLPlaylistHourDuration = 27
+SPLLibraryScanCount = 32
+SPLMetadataStreaming = 36
+SPLStatusInfo = 39
+SPLCurTrackPlaybackTime = 105
+SPLTrackCount = 124
+
 # Braille and play a sound in response to an alarm or an event.
 def messageSound(wavFile: str, message: str) -> None:
 	nvwave.playWaveFile(wavFile)
