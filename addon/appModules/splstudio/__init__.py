@@ -2485,11 +2485,11 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(obj.name)
 
 	def script_sayHourTrackDuration(self, gesture):
-		self.announceTime(splbase.studioAPI(0, 27))
+		self.announceTime(splbase.studioAPI(0, SPLPlaylistHourDuration))
 
 	def script_sayHourRemaining(self, gesture):
 		# 7.0: Split from playlist remaining script (formerly the playlist remainder command).
-		self.announceTime(splbase.studioAPI(1, 27))
+		self.announceTime(splbase.studioAPI(1, SPLPlaylistHourDuration))
 
 	def script_sayPlaylistRemainingDuration(self, gesture):
 		if self.canPerformPlaylistCommands() == self.SPLPlaylistNoErrors:
@@ -2499,7 +2499,7 @@ class AppModule(appModuleHandler.AppModule):
 			self.announceTime(self.playlistDuration(start=obj), ms=False)
 
 	def script_sayHourOvertime(self, gesture):
-		playlistOvertime = splbase.studioAPI(2, 27)
+		playlistOvertime = splbase.studioAPI(2, SPLPlaylistHourDuration)
 		overtimePrefix = "+" if playlistOvertime >= 0 else "-"
 		ui.message("{}{}".format(
 			overtimePrefix, self._ms2time(abs(playlistOvertime), includeHours=False)
@@ -2599,7 +2599,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Sometimes, hour markers return seconds.999 due to rounding error, hence this must be taken care of here.
 		# #155 (21.03): Studio API can return None if Studio dies.
 		# Also, because this will become an integer tuple below, use Any type flag to tell Mypy to skip this line.
-		trackStarts = splbase.studioAPI(3, 27)
+		trackStarts = splbase.studioAPI(3, SPLPlaylistHourDuration)
 		if trackStarts is None:
 			return
 		trackStarts = divmod(trackStarts, 1000)
@@ -2613,7 +2613,7 @@ class AppModule(appModuleHandler.AppModule):
 	def script_sayScheduledToPlay(self, gesture):
 		# 7.0: This script announces length of time remaining until the selected track will play.
 		# Hour announcement should not be used to match what's displayed on screen.
-		self.announceTime(splbase.studioAPI(4, 27), includeHours=False)
+		self.announceTime(splbase.studioAPI(4, SPLPlaylistHourDuration), includeHours=False)
 
 	def script_sayListenerCount(self, gesture):
 		obj = self.status(self.SPLSystemStatus).getChild(3)
