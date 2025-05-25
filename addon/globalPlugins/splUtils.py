@@ -53,7 +53,7 @@ SPLCartPlayer = 19
 SPLLibraryScanCount = 32
 SPLListenerCount = 35
 SPLStatusInfo = 39
-SPL_TrackPlaybackStatus = 104
+SPLTrackPlaybackStatus = 104
 SPLCurTrackPlaybackTime = 105
 
 # Translators: the text for SPL Controller help.
@@ -346,7 +346,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.script_finish()
 
 	def script_pause(self, gesture):
-		playingNow = splbase.studioAPI(0, SPL_TrackPlaybackStatus)
+		playingNow = splbase.studioAPI(0, SPLTrackPlaybackStatus)
 		if not playingNow:
 			# Translators: Presented when no track is playing in StationPlaylist Studio.
 			ui.message(_("There is no track playing. Try pausing while a track is playing."))
