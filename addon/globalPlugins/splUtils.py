@@ -427,8 +427,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# For consistency reasons (because of the Studio status bar),
 		# messages in this method will remain in English.
 		statusInfo = []
-		playingNow = splbase.studioAPI(0, SPL_TrackPlaybackStatus)
-		statusInfo.append("Play status: playing" if playingNow else "Play status: stopped")
+		statusInfo.append(
+			"Play status: playing" if splbase.studioAPI(0, SPLStatusInfo) else "Play status: stopped"
+		)
 		statusInfo.append(
 			"Automation On" if splbase.studioAPI(1, SPLStatusInfo) else "Automation Off"
 		)
