@@ -192,6 +192,18 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"-",
 		"=",
 	)
+	# Status flags for Studio 5.20 API.
+	# Studio 5.20 and later allows fetching status bar info from anywhere via Studio API,
+	# including playback and automation status.
+	# For consistency reasons (because of the Studio status bar),
+	# messages in this collection will remain in English.
+	_statusBarMessages = (
+		["Play status: Stopped", "Play status: Playing"],
+		["Automation Off", "Automation On"],
+		["Microphone Off", "Microphone On"],
+		["Line-In Off", "Line-In On"],
+		["Record to file Off", "Record to file On"],
+	)
 
 	def getScript(self, gesture):
 		if not self.SPLController:
