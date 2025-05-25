@@ -18,7 +18,7 @@ import scriptHandler
 import windowUtils
 import winKernel
 from NVDAObjects.IAccessible import IAccessible, sysListView32
-from winUser import user32, sendMessage
+from winUser import user32
 import tones
 import gui
 import wx
@@ -479,10 +479,10 @@ class Encoder(IAccessible):
 				# Translators: presented when SPL Studio window is minimized.
 				ui.message(_("SPL Studio is minimized to system tray."))
 		if self.playAfterConnecting:
+			from appModules.splstudio import splbase
 			# Do not interupt the currently playing track.
-			SPLWin = user32.FindWindowW("SPLStudio", None)
-			if sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
-				sendMessage(SPLWin, 1024, 0, SPLPlay)
+			if splbase.studioAPI(0, SPL_TrackPlaybackStatus) == 0:
+				splbase.studioAPI(0, SPLPlay)
 
 	# Now the flag configuration scripts.
 
