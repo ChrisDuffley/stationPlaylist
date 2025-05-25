@@ -60,6 +60,6 @@ def studioAPI(arg: int, command: int) -> int | None:
 
 # Select a track upon request.
 def selectTrack(trackIndex: int) -> None:
-	studioAPI(-1, 121)
+	studioAPI(-1, SPLSelectTrack)
 	log.debug(f"SPL: selecting track index {trackIndex}")
-	studioAPI(trackIndex, 121)
+	studioAPI(trackIndex, SPLSelectTrack)
