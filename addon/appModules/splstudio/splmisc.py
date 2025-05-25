@@ -452,7 +452,7 @@ def cartExplorerRefresh(studioTitle: str, currentCarts: dict[str, Any]) -> dict[
 # 18.04: raise runtime error if list is nothing
 # (thankfully the splbase's StudioAPI will return None if Studio handle is not found).
 def metadataList() -> list[int | None]:
-	metadata = [splbase.studioAPI(pos, 36) for pos in range(5)]
+	metadata = [splbase.studioAPI(pos, SPLMetadataStreaming) for pos in range(5)]
 	# 21.03/20.09.6-LTS: make sure None is not included in metadata list,
 	# otherwise it results in no metadata data for streams.
 	# This could happen if Studio dies while retrieving metadata list with some items returning None.
@@ -469,7 +469,7 @@ def metadataConnector(servers: list[bool] | None = None) -> None:
 		servers = splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"]
 	for url in range(5):
 		dataLo = 0x00010000 if servers[url] else 0xFFFF0000
-		splbase.studioAPI(dataLo | url, 36)
+		splbase.studioAPI(dataLo | url, SPLMetadataStreaming)
 
 
 # Metadata status formatter.

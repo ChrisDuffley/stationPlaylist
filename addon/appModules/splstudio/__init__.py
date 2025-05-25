@@ -2816,7 +2816,7 @@ class AppModule(appModuleHandler.AppModule):
 		# 0 is DSP encoder status, others are servers.
 		metadataStreams = ("DSP encoder", "URL 1", "URL 2", "URL 3", "URL 4")
 		url = int(gesture.displayName[-1])
-		if splbase.studioAPI(url, 36):
+		if splbase.studioAPI(url, SPLMetadataStreaming):
 			ui.message(
 				# Translators: Status message for metadata streaming.
 				_("Metadata streaming on {URLPosition} enabled").format(URLPosition=metadataStreams[url])
