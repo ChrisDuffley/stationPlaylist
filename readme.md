@@ -11,7 +11,7 @@ IMPORTANT NOTES:
 * This add-on requires StationPlaylist suite 6.0 or later.
 * Some add-on features will be disabled or limited if NVDA is running in secure mode such as in logon screen.
 * For best experience, disable audio ducking mode.
-* Starting from 2018, [changelogs for old add-on releases][2] will be found on GitHub. This add-on readme will list changes from version 23.02 (2023) onwards.
+* Starting from 2018, [changelogs for old add-on releases][2] will be found on GitHub. This add-on readme will list changes from version 25.01 (2025) onwards.
 * While Studio is running, you can save, reload saved settings, or reset add-on settings to defaults by pressing Control+NVDA+C, Control+NVDA+R once, or Control+NVDA+R three times, respectively. This is also applicable to encoder settings - you can save and reset (not reload) encoder settings if using encoders.
 * Many commands will provide speech output while NVDA is in speak on demand mode (NVDA 2024.1 and later).
 
@@ -236,27 +236,6 @@ Version 25.06.x is the last release series to support Studio 5.x with future rel
 * Switched linting tool from Flake8 to Ruff and reformatted add-on modules to better align with NVDA coding standards.
 * Removed support for automatic add-on updates feature from Add-on Updater add-on.
 * In Studio 6.10 and later, added a new command in SPL Assistant to announce control keys enabled/disabled status (Control+D).
-
-## Version 24.03
-
-* Compatible with NVDA 2024.1.
-* NVDA 2023.3.3 or later is required.
-* Support for StationPlaylist suite 6.10.
-* Most commands support speak on demand (NVDA 2024.1) so announcements can be spoken in this mode.
-
-## Version 24.01
-
-* The commands for the Encoder Settings dialog for use with the SPL and SAM Encoders are now assignable, meaning that you can change them from their defaults under the StationPlaylist category in NVDA Menu > Preferences > Input Gestures. The ones that are not assignable are the connect and disconnect commands. Also, to prevent command conflicts and make much easier use of this command on remote servers, the default gesture for switching to Studio after connecting is now Control+Shift+F11 (previously just F11). All of these can of course still be toggled from the Encoder Settings dialog (NVDA+Alt+0 or F12).
-
-## Version 23.05
-
-* To reflect the maintainer change, the manifest has been updated to indicate as such.
-
-## Version 23.02
-
-* NVDA 2022.4 or later is required.
-* Windows 10 21H2 (November 2021 Update/build 19044) or later is required.
-* In Studio's playlist viewer, NVDA will not announce column headers such as artist and title if table headers setting is set to either "rows and columns" or "columns" in NVDA's document formatting settings panel.
 
 ## Older releases
 
