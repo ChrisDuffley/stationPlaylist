@@ -2389,7 +2389,7 @@ class AppModule(appModuleHandler.AppModule):
 			SPLNextPlayer: [-1, 1, 2, 1],  # Name and duration of the next track if any.
 			SPLCurrentTrackTitle: [-1, 1, 9],  # Name of the currently playing track.
 			SPLCurrentPlayer: [-1, 1, 9, 0],  # Name of the currently playing track.
-			SPLTemperature: [-1, 1, 3, 1],  # Temperature for the current city.
+			SPLTemperature: [-1, 1, 3, 0],  # Temperature for the current city.
 		},
 	}
 
@@ -2587,6 +2587,10 @@ class AppModule(appModuleHandler.AppModule):
 		if not splbase.studioIsRunning():
 			self.script_finish()
 			return
+		# 25.06: temperature object position is different between Studio 6.0x and 6.1x.
+		# Therefore, manually change index traversal route whenever this script is run.
+		if self.productVersion.startswith("6.1"):
+			self.statusObjs["6"][self.SPLTemperature] = [-1, 1, 3, 1]
 		try:
 			obj = self.status(self.SPLTemperature)
 			# Translators: Presented when there is no weather or temperature information.
