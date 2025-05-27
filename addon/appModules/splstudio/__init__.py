@@ -1027,7 +1027,6 @@ class AppModule(appModuleHandler.AppModule):
 					# Activate mic alarm or announce when cart explorer is active.
 					self.doExtraAction(obj.name)
 		# Monitor the end of track and song intro time and announce it.
-		# Note that Studio 5.x and 6 uses different layouts.
 		elif obj.windowClassName == "TStaticText":
 			if obj.simplePrevious is not None:
 				if obj.simplePrevious.name == "Track Starts" and obj.parent.parent.firstChild.name == "Remaining":
@@ -2374,7 +2373,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Table of child constants based on versions
 	# These are scattered throughout the screen, so one can use foreground.getChild(index) to fetch them
 	# (getChild tip from Jamie Teh (NV Access/Mozilla)).
-	# Because 5.x, 6.x, an possible future releases may use different screen layouts,
+	# Because 6.x an possible future releases may use different screen layouts,
 	# look up the needed constant from the table below
 	# (row = info needed, column = version).
 	# As of 25.07, the below table is based on Studio 6.0.
@@ -2407,7 +2406,6 @@ class AppModule(appModuleHandler.AppModule):
 				# 6.1: Allow gesture-based functions to look up status information even if Studio window isn't focused.
 				# 17.08: several SPL Controller commands will use this route.
 				fg = getNVDAObjectFromEvent(user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0)
-			# Support 5.x and 6.x screen layouts.
 			studioVersion = self.productVersion.split(".")[0]
 			statusIndex = self.statusObjs[studioVersion][infoIndex]
 			# 7.0: sometimes (especially when first loaded), OBJID_CLIENT fails,
