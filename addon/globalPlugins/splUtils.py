@@ -387,18 +387,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# using objects and building a list, results in fewer bytecode instructions.
 			# The string formatter will zero-fill minutes and seconds if less than 10.
 			# 19.11.1/18.09.13-LTS: use floor division due to division differences between Python 2 and 3.
-			remainingTime = (remainingTime // 1000) + 1
-			if remainingTime == 0:
-				ui.message("00:00")
-			elif 1 <= remainingTime <= 59:
-				ui.message("00:{ss:02d}".format(ss=remainingTime))
-			else:
-				mm, ss = divmod(remainingTime, 60)
-				if mm > 59:
-					hh, mm = divmod(mm, 60)
-					ui.message("{hh:02d}:{mm:02d}:{ss:02d}".format(hh=hh, mm=mm, ss=ss))
-				else:
-					ui.message("{mm:02d}:{ss:02d}".format(mm=mm, ss=ss))
+			# 25.07: just call the Studio app module's time announcer method.
+			studioAppMod = getNVDAObjectFromEvent(
+				user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0
+			).appModule
+			studioAppMod.announceTime(remainingTime, offset=1, includeHours=True)
 		self.script_finish()
 
 	@scriptHandler.script(
