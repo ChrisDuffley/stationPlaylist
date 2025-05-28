@@ -396,10 +396,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# The string formatter will zero-fill minutes and seconds if less than 10.
 			# 19.11.1/18.09.13-LTS: use floor division due to division differences between Python 2 and 3.
 			# 25.07: just call the Studio app module's time announcer method.
-			studioAppMod = getNVDAObjectFromEvent(
-				user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0
-			).appModule
-			studioAppMod.announceTime(remainingTime, offset=1, includeHours=True)
+			studioAppModuleCommand("announceTime", remainingTime, offset=1, includeHours=True)
 		self.script_finish()
 
 	@scriptHandler.script(
@@ -451,17 +448,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.script_finish()
 
 	def script_currentTrackTitle(self, gesture):
-		studioAppMod = getNVDAObjectFromEvent(
-			user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0
-		).appModule
-		studioAppMod.script_sayCurrentTrackTitle(None)
+		studioAppModuleCommand("script_sayCurrentTrackTitle", None)
 		self.script_finish()
 
 	def script_nextTrackTitle(self, gesture):
-		studioAppMod = getNVDAObjectFromEvent(
-			user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0
-		).appModule
-		studioAppMod.script_sayNextTrackTitle(None)
+		studioAppModuleCommand("script_sayNextTrackTitle", None)
 		self.script_finish()
 
 	def script_cartsWithoutBorders(self, gesture):
