@@ -111,6 +111,7 @@ def announceEncoderConnectionStatus() -> None:
 		encoderList = getNVDAObjectFromEvent(encoderWindow, OBJID_CLIENT, 0)
 		connectedEncoders = [
 			encoder.encoderId for encoder in encoderList.children
+			# encoderId is an attribute defined in encoder class (see appModules.splengine.encoders.Encoder).
 			if hasattr(encoder, "encoderId") and encoder.connected
 		]
 		if len(connectedEncoders) > 0:
