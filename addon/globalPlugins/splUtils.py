@@ -122,6 +122,14 @@ def announceEncoderConnectionStatus() -> None:
 			# Translators: presented when no encoders are connected.
 			ui.message(_("No encoders connected"))
 
+# 25.07: call Studio app module methods upon request (a higher order function).
+# Func must be a string to allow getattr to work and return nothing.
+def studioAppModuleCommand(func: str, *args, **kwargs) -> None:
+	studioAppMod = getNVDAObjectFromEvent(
+		user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0
+	).appModule
+	getattr(studioAppMod, func)(*args, **kwargs)
+
 # Process add-on specific command-line switches.
 # --spl-configinmemory: load add-on settings from memory as if the add-on is run for the first time.
 # --spl-normalprofileonly: load only the default broadcast profile.
