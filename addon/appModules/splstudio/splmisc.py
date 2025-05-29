@@ -366,12 +366,10 @@ _cartEditTimestamps: list[float] = []
 
 
 # Initialize Cart Explorer i.e. fetch carts.
-# Cart files list is for future use when custom cart names are used.
 # if told to refresh, timestamps will be checked and updated banks will be reassigned.
 # Carts dictionary is used if and only if refresh is on, as it'll modify live carts.
 def cartExplorerInit(
 	StudioTitle: str,
-	cartFiles: list[str] | None = None,
 	refresh: bool = False,
 	carts: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
@@ -386,14 +384,13 @@ def cartExplorerInit(
 	# Obtain the "real" path for SPL via environment variables and open the cart data folder.
 	# Provided that Studio was installed using default path.
 	cartsDataPath = os.path.join(os.environ["PROGRAMFILES"], "StationPlaylist", "Data")
-	if cartFiles is None:
-		# See if multiple users are using SPl Studio.
-		userNameIndex = StudioTitle.find("-")
-		# Read *.cart files and process the cart entries within
-		# (be careful when these cart file names change between SPL releases).
-		cartFiles = ["main carts.cart", "shift carts.cart", "ctrl carts.cart", "alt carts.cart"]
-		if userNameIndex >= 0:
-			cartFiles = [StudioTitle[userNameIndex + 2 :] + " " + cartFile for cartFile in cartFiles]
+	# See if multiple users are using SPl Studio.
+	userNameIndex = StudioTitle.find("-")
+	# Read *.cart files and process the cart entries within
+	# (be careful when these cart file names change between SPL releases).
+	cartFiles = ["main carts.cart", "shift carts.cart", "ctrl carts.cart", "alt carts.cart"]
+	if userNameIndex >= 0:
+		cartFiles = [StudioTitle[userNameIndex + 2 :] + " " + cartFile for cartFile in cartFiles]
 	faultyCarts = False
 	if not refresh:
 		_cartEditTimestamps = []
