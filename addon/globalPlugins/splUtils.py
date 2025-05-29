@@ -391,12 +391,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# Translators: Presented when no track is playing in StationPlaylist Studio.
 			ui.message(_("There is no track playing."))
 		else:
-			# 7.0: Present remaining time in hh:mm:ss format for enhanced experience (borrowed from Studio app module).
-			# 17.09 optimization: perform in-place string construction instead of
-			# using objects and building a list, results in fewer bytecode instructions.
-			# The string formatter will zero-fill minutes and seconds if less than 10.
-			# 19.11.1/18.09.13-LTS: use floor division due to division differences between Python 2 and 3.
-			# 25.07: just call the Studio app module's time announcer method.
 			studioAppModuleCommand("announceTime", remainingTime, offset=1, includeHours=True)
 		self.script_finish()
 
