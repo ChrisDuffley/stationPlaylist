@@ -779,7 +779,7 @@ class AppModule(appModuleHandler.AppModule):
 		# 17.10: not when minimal startup flag is set.
 		# 18.08.1: sometimes, wxPython 4 says wx.App isn't ready.
 		try:
-			wx.CallAfter(splconfig.showStartupDialogs, oldVer=self.productVersion == SPLMinVersion)
+			wx.CallAfter(splconfig.showStartupDialogs)
 		except Exception:
 			pass
 
