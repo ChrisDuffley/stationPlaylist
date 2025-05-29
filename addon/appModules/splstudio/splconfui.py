@@ -1494,8 +1494,7 @@ class ResetSettingsPanel(gui.settingsDialogs.SettingsPanel):
 		pass
 
 	def onResetConfig(self, evt):
-		self.Disable()
-		ResetDialog(self).Show()
+		ResetDialog(self).ShowModal()
 
 
 # Configuration dialog.
