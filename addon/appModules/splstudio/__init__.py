@@ -126,13 +126,13 @@ _SPLCategoryTones = {
 browseableMessageButtons = {"closeButton": True} if versionInfo.version_year >= 2025 else {}
 
 
-# Routines for track items themselves (prepare for future work).
-# #65 (18.07): this base class represents trakc items
+# SPL Playlist item (SPL add-on base object)
+# #65: this base class represents trakc items
 # across StationPlaylist suites such as Studio, Creator and Track Tool.
 class SPLTrackItem(sysListView32.ListItem):
 	"""An abstract class representing track items across SPL suite of applications
-	such as Studio, Creator, and Track Tool.
-	This class provides basic properties, scripts and methods such as Columns Explorer and others.
+	including Studio, Creator, Track Tool, and Remote VT.
+	This class provides basic properties, scripts, and methods such as Columns Explorer and others.
 	Subclasses should provide custom routines for various attributes, including global ones to suit their needs.
 
 	Each subclass is named after the app module name where tracks are encountered,
@@ -253,7 +253,8 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 			trackNamePieces = []
 			# Table column header report options (1 = report rows and columns, 3 = report columns).
 			includeColumnHeaders = config.conf["documentFormatting"]["reportTableHeaders"] in (1, 3)
-			# Include status (actual item name as reported by MSAA) if present.
+			# Include status (actual item name as reported by MSAA) if present
+			# (accessibility mode is enabled in Studio options).
 			if self.firstChild.name:
 				trackNamePieces.append(self.firstChild.name)
 			for header in columnOrder:
@@ -353,8 +354,6 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 				if content is None:
 					columnContents[pos] = ""
 		return columnContents
-
-	# Now the scripts.
 
 	# Track movement scripts.
 	# Detects top/bottom of a playlist if told to do so.
