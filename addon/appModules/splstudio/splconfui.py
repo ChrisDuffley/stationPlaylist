@@ -1162,18 +1162,15 @@ class ColumnsExplorerPanel(gui.settingsDialogs.SettingsPanel):
 
 	# Columns Explorer configuration.
 	def onColumnsExplorer(self, evt):
-		self.Disable()
-		ColumnsExplorerDialog(self).Show()
+		ColumnsExplorerDialog(self).ShowModal()
 
 	# Track Tool Columns Explorer configuration.
 	def onColumnsExplorerTT(self, evt):
-		self.Disable()
-		ColumnsExplorerDialog(self, level=1).Show()
+		ColumnsExplorerDialog(self, level=1).ShowModal()
 
-	# SPL CreatorColumns Explorer configuration.
+	# SPL Creator Columns Explorer configuration.
 	def onColumnsExplorerCreator(self, evt):
-		self.Disable()
-		ColumnsExplorerDialog(self, level=2).Show()
+		ColumnsExplorerDialog(self, level=2).ShowModal()
 
 
 class ColumnsExplorerDialog(wx.Dialog):
