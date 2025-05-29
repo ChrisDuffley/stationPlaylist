@@ -213,6 +213,7 @@ Version 25.06.x is the last release series to support Studio 5.x with future rel
 * In Studio, the command to step through library scan announcement settings has changed from Alt+NVDA+R to Shift+NVDA+R as the former command toggles remote access feature in NVDA 2025.1.
 * NVDA will no longer play error tones or appear to do nothing when performing some SPL Assistant commands after resizing Studio window.
 * The user interface for confirmation dialog shown when deleting broadcast profiles now resembles NVDA's configuration profile deletion interface.
+* In add-on settings, NVDA will no longer move keyboard focus to OK button after closing columns explorer and reset dialogs.
 * NVDA will recognize track column changes introduced in Creator and Track Tool 6.11.
 * In columns explorer for Creator, "Date Restriction" column is now "Restrictions".
 * NVDA will no longer play wrong carts when playing them via SPL Controller layer.
