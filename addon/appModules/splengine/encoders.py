@@ -74,12 +74,11 @@ def loadEncoderConfig() -> None:
 			wx.OK | wx.ICON_ERROR,
 		)
 		return
-	# Read encoder labels.
-	# 25.06: and other settings via dict.get method.
+	# Read encoder labels and other settings via dict.get method.
 	global SPLEncoderLabels
 	SPLEncoderLabels = dict(encoderConfig.get("EncoderLabels", {}))
 	# Read other settings.
-	# 25.06: assume a list by default which will become sets.
+	# Assume a list by default which will become sets.
 	global SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor
 	SPLFocusToStudio = set(encoderConfig.get("FocusToStudio", []))
 	SPLPlayAfterConnecting = set(encoderConfig.get("PlayAfterConnecting", []))
@@ -87,7 +86,7 @@ def loadEncoderConfig() -> None:
 	global SPLNoConnectionTone, SPLConnectionStopOnError
 	SPLNoConnectionTone = set(encoderConfig.get("NoConnectionTone", []))
 	SPLConnectionStopOnError = set(encoderConfig.get("ConnectionStopOnError", []))
-	# 20.04: register config save and reset handlers.
+	# Register config save and reset handlers.
 	config.post_configSave.register(saveEncoderConfig)
 	config.post_configReset.register(resetEncoderConfig)
 
@@ -105,7 +104,7 @@ def _removeEncoderID(encoderType: str, pos: str) -> None:
 		SPLNoConnectionTone,
 		SPLConnectionStopOnError,
 	):
-		# 21.03/20.09.6-LTS: encoder settings must be either a set or a dictionary unless changed in the future.
+		# Encoder settings must be either a set or a dictionary unless changed in the future.
 		if not isinstance(encoderSettings, (set, dict)):
 			continue
 		if encoderID in encoderSettings:
@@ -138,14 +137,13 @@ def _removeEncoderID(encoderType: str, pos: str) -> None:
 
 # Save encoder labels and flags, called when closing app modules and/or config save command is pressed.
 def saveEncoderConfig() -> None:
-	# 21.03/20.09.6-LTS: is encoder config even alive?
+	# Is encoder config even alive?
 	if encoderConfig is None:
 		raise RuntimeError("Encoder config is not defined, cannot save encoder settings")
-	# 22.03 (security): ignore all this if in secure mode.
+	# Security: ignore all this if in secure mode.
 	if globalVars.appArgs.secure:
 		return
-	# Gather stream labels and flags.
-	# 20.11: dictionaries and sets are global items.
+	# Gather stream labels and flags (dictionaries and sets are global items).
 	encoderConfig["EncoderLabels"] = dict(SPLEncoderLabels)
 	# For flags, convert flag sets into lists.
 	encoderConfig["FocusToStudio"] = list(SPLFocusToStudio)
@@ -161,12 +159,12 @@ def saveEncoderConfig() -> None:
 
 
 # Nullify various flag sets, otherwise memory leak occurs.
-# 20.04: if told to do so, save encoder settings and unregister config save handler.
+# If told to do so, save encoder settings and unregister config save handler.
 # In case this is called as part of a reset, unregister config save handler unconditionally.
 def cleanup(appTerminating: bool = False, reset: bool = False) -> None:
-	# 20.11 (Flake8 E501): apart from encoder config, other flag containers are global variables.
+	# Apart from encoder config, other flag containers are global variables.
 	global encoderConfig
-	# #132 (20.05): do not proceed if encoder settings database is None (no encoders were initialized).
+	# #132: do not proceed if encoder settings database is None (no encoders were initialized).
 	if encoderConfig is None:
 		return
 	if appTerminating:
@@ -186,7 +184,7 @@ def cleanup(appTerminating: bool = False, reset: bool = False) -> None:
 	]:
 		if flag is not None:
 			flag.clear()
-	# 20.04: save a "clean" copy after resetting encoder settings.
+	# Save a "clean" copy after resetting encoder settings.
 	if reset:
 		encoderConfig.write()
 	# Nullify encoder settings.
@@ -331,7 +329,6 @@ class Encoder(IAccessible):
 		return name
 
 	# Some helper functions
-	# 17.08: most are properties.
 
 	# Get the encoder identifier.
 	# This consists of two or three letter abbreviations for the encoder and the child ID.
@@ -426,12 +423,12 @@ class Encoder(IAccessible):
 
 	# Format the status message to prepare for monitoring multiple encoders.
 	def encoderStatusMessage(self, message: str) -> None:
-		# #79 (18.10.1/18.09.3-lts): wxPython 4 is more strict about where timers can be invoked from.
+		# #79: wxPython 4 is more strict about where timers can be invoked from.
 		# An exception will be logged if called from a thread other than the main one.
 		# This is especially the case with some speech synthesizers and/or braille displays.
 		try:
-			# #135 (20.06): find out how many background monitor threads for this encoder type are still active.
-			# #136 (20.07): encoder monitoring can cross encoder type boundaries
+			# #135: find out how many background monitor threads for this encoder type are still active.
+			# #136: encoder monitoring can cross encoder type boundaries
 			# (multiple encoder types can be monitored at once).
 			# Include encoder ID if multiple encoders have one encoder entry being monitored.
 			if len([thread for thread in SPLBackgroundMonitorThreads.values() if thread.is_alive()]) > 1:
@@ -444,7 +441,7 @@ class Encoder(IAccessible):
 	# Encoder connection reporter thread.
 	# By default background encoding (no manual connect) is assumed.
 	def connectStart(self, manualConnect: bool = False) -> None:
-		# 20.09: don't bother if another thread is monitoring this encoder.
+		# Don't bother if another thread is monitoring this encoder.
 		if (
 			self.encoderId in SPLBackgroundMonitorThreads
 			and SPLBackgroundMonitorThreads[self.encoderId].is_alive()
@@ -467,7 +464,7 @@ class Encoder(IAccessible):
 		# Do not proceed if already focused on Studio window.
 		if api.getFocusObject().appModule.appName == "splstudio":
 			return
-		# #150 (20.10/20.09.2-LTS): announce a message if Studio window is minimized.
+		# #150: announce a message if Studio window is minimized.
 		if self.focusToStudio:
 			try:
 				studioWindow = windowUtils.findDescendantWindow(
@@ -648,7 +645,7 @@ class Encoder(IAccessible):
 		# Load encoder settings upon request.
 		if encoderConfig is None:
 			loadEncoderConfig()
-		# 6.2: Make sure background monitor threads are started if the flag is set.
+		# Make sure background monitor threads are started if the flag is set.
 		if self.backgroundMonitor:
 			if self.encoderId in SPLBackgroundMonitorThreads:
 				if not SPLBackgroundMonitorThreads[self.encoderId].is_alive():
@@ -688,7 +685,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		error = False
 		connecting = False
 		encoding = False
-		# #141 (20.07): prevent multiple connection follow-up actions while background monitoring is on.
+		# #141: prevent multiple connection follow-up actions while background monitoring is on.
 		connectedBefore = False
 		while manualConnect or self.backgroundMonitor:
 			time.sleep(0.001)
@@ -726,12 +723,12 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				if not encoding:
 					tones.beep(1000, 150)
 					self.encoderStatusMessage(messageCache)
-					# #141 (20.07): do not focus to Studio or play first selected track
+					# #141: do not focus to Studio or play first selected track
 					# if background monitoring is on and this encoder was connected before.
 					# Don't forget that follow-up actions should be performed
 					# if this is a manual connect (no background monitoring).
 					if not self.backgroundMonitor or (self.backgroundMonitor and not connectedBefore):
-						# 20.09: queue actions such as focus to Studio and playing the selected track.
+						# Queue actions such as focus to Studio and playing the selected track.
 						wx.CallAfter(self._onConnect)
 						connectedBefore = True
 					encoding = True
@@ -762,7 +759,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 
 	# Connecting/disconnecting all encoders at once.
 	# Control+F9/Control+F10 hotkeys are broken. Thankfully, context menu retains these commands.
-	# #143 (20.09): manually open context menu and activate the correct item
+	# #143: manually open context menu and activate the correct item
 	# through keyboard key press emulation (keyboard gesture send loop).
 	# Presses refer to how many times down arrow must be 'pressed' once context menu opens.
 
@@ -834,7 +831,7 @@ class SPLEncoder(Encoder):
 					return
 				if "Kbps" not in messageCache:
 					self.encoderStatusMessage(messageCache)
-			# 20.09: If all encoders are told to connect but then auto-connect stops for the selected encoder,
+			# If all encoders are told to connect but then auto-connect stops for the selected encoder,
 			# a manually started thread (invoked by a user command) will continue to run.
 			# Therefore forcefully stop this thread if the latter message appears.
 			if messageCache in ("Disconnected", "AutoConnect stopped."):
@@ -858,7 +855,7 @@ class SPLEncoder(Encoder):
 					# Same as SAM encoder: do not do this while background monitoring is on
 					# and this encoder was once connected before unless this is a manual connect.
 					if not self.backgroundMonitor or (self.backgroundMonitor and not connectedBefore):
-						# 20.09: queue actions such as focus to Studio and playing the selected track.
+						# Queue actions such as focus to Studio and playing the selected track.
 						wx.CallAfter(self._onConnect)
 						connectedBefore = True
 					connected = True
@@ -872,7 +869,7 @@ class SPLEncoder(Encoder):
 						attemptTime = currentTime
 
 	# Connect selected encoders.
-	# #143 (20.09): just like SAM encoder's connect/disconnect all routines, use key press emulation.
+	# #143: just like SAM encoder's connect/disconnect all routines, use key press emulation.
 
 	@scriptHandler.script(
 		# Translators: input hep command for an encoder connection command.

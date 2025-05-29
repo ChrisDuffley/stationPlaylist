@@ -123,7 +123,7 @@ def announceEncoderConnectionStatus() -> None:
 			# Translators: presented when no encoders are connected.
 			ui.message(_("No encoders connected"))
 
-# 25.07: call Studio app module methods upon request (a higher order function).
+# Call Studio app module methods upon request.
 # Func must be a string to allow getattr to work and return nothing.
 def studioAppModuleCommand(func: str, *args, **kwargs) -> None:
 	studioAppMod = getNVDAObjectFromEvent(
@@ -146,7 +146,7 @@ def processArgs(cliArgument: str) -> bool:
 	return False
 
 
-# 22.03 (security): disable the global plugin altogether in secure mode.
+# Security: disable the global plugin altogether in secure mode.
 def disableInSecureMode(cls):
 	return globalPluginHandler.GlobalPlugin if globalVars.appArgs.secure else cls
 
@@ -284,9 +284,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# No errors, so continue.
 		if not self.SPLController:
 			self.bindGestures(self.__SPLControllerGestures)
-			# 17.12: also bind cart keys.
+			# Also bind cart keys.
 			# Exclude number row if Studio Standard is running.
-			# #147 (20.10): truncate to function key carts if Studio Standard is in use
+			# #147: truncate to function key carts if Studio Standard is in use
 			# as cart keys are now a single list.
 			if not getWindowText(user32.FindWindowW("TStudioForm", None)).startswith(
 				"StationPlaylist Studio Standard"

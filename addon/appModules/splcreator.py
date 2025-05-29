@@ -114,7 +114,7 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message("SPL Creator {SPLVersion}".format(SPLVersion=self.productVersion))
 		except Exception:
 			pass
-		# #64 (18.07): load config database if not done already.
+		# #64: load config database if not done already.
 		splconfig.openConfig("splcreator")
 
 	def terminate(self):
@@ -125,7 +125,7 @@ class AppModule(appModuleHandler.AppModule):
 		self._playlistEditorStatusCache.clear()
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
-		# 20.02: tracks list uses a different window class name other than "TListView".
+		# Tracks list uses a different window class name other than "TListView".
 		# Resort to window style and other tricks if other lists with the class name below is found
 		# yet are not tracks list.
 		if obj.windowClassName == "TTntListView.UnicodeClass":

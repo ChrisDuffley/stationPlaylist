@@ -51,7 +51,7 @@ _configErrors = {
 _configLoadStatus: dict[str, str] = {}  # Key = filename, value is pass or no pass.
 
 
-# 8.0: Run-time config storage and management will use ConfigHub data structure, a subclass of chain map.
+# Run-time config storage and management will use ConfigHub data structure, a subclass of chain map.
 # A chain map allows a dictionary to look up predefined mappings to locate a key.
 # When mutating a value, chain map defaults to using the topmost (zeroth) map,
 # which isn't desirable if one wishes to use a specific map.
@@ -84,13 +84,13 @@ class ConfigHub(ChainMap):
 		# Create a "fake" map entry, to be replaced by the normal profile later.
 		# Super method is called to acknowledge the fact that this is powered by ChainMap.
 		super().__init__()
-		# #155 (21.03): re-initialize maps to be a list of config objects to satisfy Mypy and friends.
+		# #155: re-initialize maps to be a list of config objects to satisfy Mypy and friends.
 		self.maps: list[ConfigObj] = [{}]
-		# #64 (18.07): keep an eye on which SPL component opened this map.
+		# #64: keep an eye on which SPL component opened this map.
 		self.splComponents: set[str] = set()
 		self.splComponents.add(splComponent)
-		# 17.10: config restrictions such as in-memory config come from command line.
-		# 22.01: although SPL Utilities global plugin can inform NVDA about the below command-line switches,
+		# Config restrictions such as in-memory config come from command line.
+		# Although SPL Utilities global plugin can inform NVDA about the below command-line switches,
 		# handle them here also in case NVDA starts while focused on Studio window.
 		self._configInMemory: bool = "--spl-configinmemory" in globalVars.unknownAppArgs
 		self._normalProfileOnly: bool = "--spl-normalprofileonly" in globalVars.unknownAppArgs
@@ -98,14 +98,14 @@ class ConfigHub(ChainMap):
 			self._normalProfileOnly = True
 		# For presentational purposes.
 		self.profileNames: list[str | None] = []
-		# 17.10: if config will be stored on RAM, this step is skipped, resulting in faster startup.
+		# If config will be stored on RAM, this step is skipped, resulting in faster startup.
 		# But data conversion must take place.
 		if not self.configInMemory:
 			self.maps[0] = self._unlockConfig(
 				SPLIni, profileName=defaultProfileName, prefill=True, validateNow=True
 			)
 		else:
-			# 20.09: get the dictionary version of default settings map.
+			# Get the dictionary version of default settings map.
 			self.maps[0] = ConfigObj(_SPLDefaults.dict(), configspec=confspec, encoding="UTF-8")
 			self.maps[0].name = defaultProfileName
 			# Convert the following to runtime data structures.
@@ -117,8 +117,7 @@ class ConfigHub(ChainMap):
 			)
 			self.maps[0]["General"]["VerticalColumnAnnounce"] = None
 		self.profileNames.append(None)  # Signifying normal profile.
-		# Moving onto broadcast profiles if any.
-		# 17.10: but not when only normal profile should be used.
+		# Moving onto broadcast profiles if any (but not when only normal profile should be used).
 		if not self.normalProfileOnly:
 			try:
 				for profile in os.listdir(SPLProfiles):
@@ -186,11 +185,11 @@ class ConfigHub(ChainMap):
 		parent: dict[Any, Any] | None = None,
 		validateNow: bool = False,
 	) -> ConfigObj:
-		# 21.03/20.09.6-LTS: profile name should be defined to help config status dictionary.
+		# Profile name should be defined to help config status dictionary.
 		# Resort to path's basename (without extension) if no profile name is specified.
 		if not profileName:
 			profileName = os.path.splitext(os.path.basename(path))[0]
-		# 7.0: Suppose this is one of the steps taken when copying settings when instantiating a new profile.
+		# Suppose this is one of the steps taken when copying settings when instantiating a new profile.
 		# If so, go through same procedure as though config passes validation tests,
 		# as all values from parent are in the right format.
 		if parent is not None:
@@ -201,10 +200,10 @@ class ConfigHub(ChainMap):
 		# For the rest.
 		# To be mutated only during unlock routine.
 		global _configLoadStatus
-		# Optimization: Profiles other than normal profile contains profile-specific sections only.
+		# Profiles other than normal profile contains profile-specific sections only.
 		# This speeds up profile loading routine significantly
 		# as there is no need to call a function to strip global settings.
-		# 7.0: What if profiles have parsing errors?
+		# What if profiles have parsing errors?
 		# If so, reset everything back to factory defaults.
 		try:
 			SPLConfigCheckpoint = ConfigObj(
@@ -273,7 +272,7 @@ class ConfigHub(ChainMap):
 		# Artist and Title must be present at all times (quite redundant, but just in case).
 		conf["ColumnAnnouncement"]["IncludedColumns"].add("Artist")
 		conf["ColumnAnnouncement"]["IncludedColumns"].add("Title")
-		# 18.08: same thing for included columns in Playlist Transcripts.
+		# Same thing for included columns in Playlist Transcripts.
 		conf["PlaylistTranscripts"]["IncludedColumns"] = set(conf["PlaylistTranscripts"]["IncludedColumns"])
 		# Perform a similar check for metadata streaming.
 		if len(conf["MetadataStreaming"]["MetadataEnabled"]) != 5:
@@ -369,7 +368,7 @@ class ConfigHub(ChainMap):
 					pass
 		# For other profiles, remove global settings before writing to disk.
 		else:
-			# 6.1: Make sure column inclusion aren't same as default values.
+			# Make sure column inclusion aren't same as default values.
 			if len(profile["ColumnAnnouncement"]["IncludedColumns"]) == 17:
 				del profile["ColumnAnnouncement"]["IncludedColumns"]
 			for setting in list(profile.keys()):
@@ -387,7 +386,7 @@ class ConfigHub(ChainMap):
 		# #73: also responds to config save notification.
 		# In case this is called when NVDA or last SPL component exits, just follow through,
 		# as profile history and new profiles list would be cleared as part of general process cleanup.
-		# 22.03 (security): also do not write config in secure mode.
+		# Also, do not write config in secure mode.
 		if self.configInMemory or globalVars.appArgs.secure:
 			return
 		for profile in self.profiles:
@@ -398,7 +397,7 @@ class ConfigHub(ChainMap):
 				profile["ColumnAnnouncement"]["IncludedColumns"]
 			)
 			if profile.name == defaultProfileName:
-				# 18.08: also convert included columns in playlist transcripts.
+				# Also convert included columns in playlist transcripts.
 				profile["PlaylistTranscripts"]["IncludedColumns"] = list(
 					profile["PlaylistTranscripts"]["IncludedColumns"]
 				)
@@ -421,7 +420,7 @@ class ConfigHub(ChainMap):
 			askForConfirmation = bool(factoryDefaults and self._switchProfileFlags)
 		if askForConfirmation:
 			# present a confirmation message from the main thread.
-			# #96 (19.02/18.09.7-LTS): this is more so if a switch profile is active.
+			# #96: this is more so if a switch profile is active.
 			# If this is done from add-on settings/reset panel, communicate 'no' with an exception.
 			if (
 				gui.messageBox(
@@ -443,7 +442,7 @@ class ConfigHub(ChainMap):
 					return
 				else:
 					raise RuntimeError("Instant switch profile must remain active, reset cannot proceed")
-		# 20.09: keep complete and profile-specific defaults handy.
+		# Keep complete and profile-specific defaults handy.
 		defaultConfig = _SPLDefaults.dict()
 		defaultProfileConfig = {
 			sect: key for sect, key in defaultConfig.items() if sect in _mutatableSettings
@@ -463,13 +462,13 @@ class ConfigHub(ChainMap):
 					prefill=profile.filename == SPLIni,
 					validateNow=True,
 				).dict()
-			# 20.09: just like complete reset when loading profiles, update settings from defaults.
+			# Just like complete reset when loading profiles, update settings from defaults.
 			profile.update(sourceProfile)
 			# Convert certain settings to a different format.
 			profile["ColumnAnnouncement"]["IncludedColumns"] = set(
 				profile["ColumnAnnouncement"]["IncludedColumns"]
 			)
-			# 18.08: if this is normal profile, don't forget
+			# If this is normal profile, don't forget
 			# to change type for Playlist Transcripts/included columns set.
 			if profile.filename == SPLIni:
 				profile["PlaylistTranscripts"]["IncludedColumns"] = set(
@@ -484,7 +483,7 @@ class ConfigHub(ChainMap):
 			if self.activeProfile != defaultProfileName:
 				npIndex = self.profileIndexByName(defaultProfileName)
 				self.profiles[0], self.profiles[npIndex] = self.profiles[npIndex], self.profiles[0]
-		# #94 (19.02/18.09.7-LTS): notify other subsystems to use default or reloaded settings,
+		# #94: notify other subsystems to use default or reloaded settings,
 		# as timers and other routines might not see default settings.
 		# The below action will ultimately call profile switch handler
 		# so subsystems can take appropriate action.
@@ -537,7 +536,7 @@ class ConfigHub(ChainMap):
 
 	# Switch between profiles.
 	# This involves promoting and demoting normal profile.
-	# 17.10: this will never be invoked if only normal profile is in use
+	# This will never be invoked if only normal profile is in use
 	# or if config was loaded from memory alone.
 	def switchProfile(self, prevProfile: str | None, newProfile: str, switchFlags: int) -> None:
 		if self.normalProfileOnly or self.configInMemory:
@@ -617,7 +616,7 @@ trackComments = {}
 # Open config database, used mostly from modules other than Studio.
 def openConfig(splComponent: str) -> None:
 	global SPLConfig
-	# #64 (18.07): skip this step if another SPL component (such as Creator) opened this.
+	# #64: skip this step if another SPL component (such as Creator) opened this.
 	if SPLConfig is None:
 		SPLConfig = ConfigHub(splComponent=splComponent)
 	else:
@@ -647,7 +646,7 @@ def initialize() -> None:
 		pass
 	if len(_configLoadStatus):
 		messages = []
-		# 6.1: Display just the error message if the only corrupt profile is the normal profile.
+		# Display just the error message if the only corrupt profile is the normal profile.
 		if len(_configLoadStatus) == 1 and SPLConfig.activeProfile in _configLoadStatus:
 			# Translators: Error message shown when add-on configuration had issues.
 			messages.append("Your add-on configuration had following issues:\n\n")
@@ -673,7 +672,7 @@ def initialize() -> None:
 # Close config database if needed.
 def closeConfig(splComponent: str) -> None:
 	global SPLConfig
-	# #99 (19.06/18.09.9-LTS): if more than one instance of a given SPL component executable is running,
+	# #99: if more than one instance of a given SPL component executable is running,
 	# do not remove the component from the components registry.
 	# The below loop will be run from the component app module's terminate method, but before that,
 	# the app module associated with the component would have been deleted from the running table.
@@ -681,7 +680,7 @@ def closeConfig(splComponent: str) -> None:
 	for app in appModuleHandler.runningTable.values():
 		if app.appName == splComponent:
 			return
-	# 21.03/20.09.6-LTS: there's no way this function will work without SPLConfig being alive.
+	# There's no way this function will work without SPLConfig being alive.
 	if SPLConfig is None:
 		raise RuntimeError("Attempting to close SPL config which no longer exists")
 	SPLConfig.splComponents.discard(splComponent)
@@ -696,8 +695,7 @@ def closeConfig(splComponent: str) -> None:
 # Terminate the config and related subsystems.
 def terminate() -> None:
 	global trackComments
-	# Dump and clear track comments.
-	# 22.03 (security): but not in secure mode.
+	# Dump and clear track comments (but not in secure mode).
 	if not globalVars.appArgs.secure:
 		with open(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "wb") as f:
 			pickle.dump(trackComments, f, protocol=4)
@@ -709,10 +707,10 @@ def terminate() -> None:
 
 # Called from within the app module.
 def instantProfileSwitch() -> None:
-	# 21.03/20.09.6-LTS: SPLConfig, are you alive?
+	# SPLConfig, are you alive?
 	if SPLConfig is None:
 		raise RuntimeError("SPL config is gone, cannot switch profiles")
-	# 17.10: What if only normal profile is in use?
+	# What if only normal profile is in use?
 	if SPLConfig.normalProfileOnly:
 		# Translators: announced when only normal profile is in use.
 		ui.message(_("Only normal profile is in use"))

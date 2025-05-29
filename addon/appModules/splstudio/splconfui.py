@@ -192,7 +192,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 	def onDelete(self, evt):
 		# Prevent profile deletion while in the midst of a broadcast i.e. instant switch profile is active,
 		# otherwise flags such as instant switch profile become inconsistent.
-		# 6.4: This was seen after deleting a profile one position before the previously active profile.
+		# This was seen after deleting a profile one position before the previously active profile.
 		if splconfig.SPLConfig.prevProfile is not None:
 			gui.messageBox(
 				_(
@@ -208,7 +208,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 			)
 			return
 		name = self.profiles.GetStringSelection().split(" <")[0]
-		# 17.11/15.10-lts: ask once more if deleting an active profile.
+		# Ask once more if deleting an active profile.
 		if name == self.activeProfile:
 			if (
 				gui.messageBox(
@@ -241,11 +241,11 @@ class BroadcastProfilesDialog(wx.Dialog):
 		):
 			return
 		splconfig.SPLConfig.deleteProfile(name)
-		# 17.11: make sure to connect to the right set of metadata servers
+		# Make sure to connect to the right set of metadata servers
 		# and enable/disable microphone alarm if appropriate.
 		splactions.SPLActionProfileSwitched.notify(configDialogActive=True)
 		if name == self.switchProfile or name == self.activeProfile:
-			# 17.11/15.10-LTS: go through the below path if and only if instant switch profile is gone.
+			# Go through the below path if and only if instant switch profile is gone.
 			if name == self.switchProfile:
 				self.switchProfile = None
 				splconfig.SPLConfig.prevProfile = None
@@ -336,7 +336,7 @@ class NewProfileDialog(wx.Dialog):
 			)
 			self.baseProfiles.SetSelection(parent.profiles.GetSelection())
 
-		# #152 (21.01): do not add a separator if base profile list is not shown.
+		# #152: do not add a separator if base profile list is not shown.
 		newProfileSizerHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=self.copy)
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
@@ -364,12 +364,12 @@ class NewProfileDialog(wx.Dialog):
 		if not os.path.exists(splconfig.SPLProfiles):
 			os.mkdir(splconfig.SPLProfiles)
 		newProfilePath = os.path.join(splconfig.SPLProfiles, namePath)
-		# LTS optimization: just build base profile dictionary here if copying a profile.
+		# Just build base profile dictionary here if copying a profile.
 		if not self.copy:
 			baseProfile = None
 		else:
 			baseConfig = splconfig.SPLConfig.profileByName(self.baseProfiles.GetStringSelection())
-			# #140 (20.07): it isn't enough to copy dictionaries.
+			# #140: it isn't enough to copy dictionaries.
 			# Deep copy (config.dict()) must be performed to avoid accidental reference manipulation.
 			baseProfile = {
 				sect: key for sect, key in baseConfig.dict().items() if sect in splconfig._mutatableSettings
@@ -391,7 +391,7 @@ class NewProfileDialog(wx.Dialog):
 # Broadcast profile triggers dialog.
 # This dialog is similar to NVDA Core's profile triggers dialog
 # and allows one to configure when to trigger this profile.
-# As of 20.07, the only trigger flag is instant switch profile.
+# As of 2020, the only trigger flag is instant switch profile.
 class TriggersDialog(wx.Dialog):
 	def __init__(self, parent, profile):
 		# Translators: The title of the broadcast profile triggers dialog.
@@ -408,7 +408,7 @@ class TriggersDialog(wx.Dialog):
 		self.instantSwitchCheckbox = triggersHelper.addItem(wx.CheckBox(self, label=instantSwitchLabel))
 		self.instantSwitchCheckbox.SetValue(parent.switchProfile == profile)
 
-		# #152 (21.01): unlike other dialogs, the only change is button bits
+		# #152: unlike other dialogs, the only change is button bits
 		# as the only prompt is instant switch checkbox.
 		triggersHelper.addDialogDismissButtons(wx.OK | wx.CANCEL)
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
@@ -874,7 +874,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		applyLabel = _("&Apply streaming changes to the selected profile")
 		self.applyCheckbox = metadataSizerHelper.addItem(wx.CheckBox(self, label=applyLabel))
 		self.applyCheckbox.SetValue(True)
-		# 22.03 (security): no, apply to config checkbox should be disabled in secure mode.
+		# Security: no, apply to config checkbox should be disabled in secure mode.
 		# Although metadata streaming settings may appear to be saved, it is ultimately discarded in the end.
 		if globalVars.appArgs.secure:
 			self.applyCheckbox.Disable()
@@ -891,10 +891,10 @@ class MetadataStreamingDialog(wx.Dialog):
 	def onOk(self, evt):
 		global _configDialogOpened
 		# Prepare checkbox values first for various reasons.
-		# #76 (18.09-LTS): traverse check list box and build boolean list accordingly.
+		# #76: traverse check list box and build boolean list accordingly.
 		metadataEnabled = [self.checkedStreams.IsChecked(url) for url in range(5)]
 		splmisc.metadataConnector(servers=metadataEnabled)
-		# 6.1: Store just toggled settings to profile if told to do so.
+		# Store just toggled settings to profile if told to do so.
 		if self.applyCheckbox.Value:
 			splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = metadataEnabled
 		self.Destroy()
@@ -950,7 +950,7 @@ class MetadataStreamingPanel(gui.settingsDialogs.SettingsPanel):
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[
 			self.metadataList.GetSelection()
 		][0]
-		# #76 (18.09-LTS): traverse check list box and build boolean list accordingly.
+		# #76: traverse check list box and build boolean list accordingly.
 		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = [
 			self.checkedStreams.IsChecked(url) for url in range(5)
 		]
@@ -1084,7 +1084,7 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 			# Translators: Help text to select columns to be announced.
 			"&Select columns to be announced\n" "(artist and title are announced by default):"
 		)
-		# 20.09: column inclusion/order are processed via a private method.
+		# Column inclusion/order are processed via a private method.
 		self._onMakeSettingsBase(colAnnouncementsHelper, labelText)
 
 	def onSave(self):
@@ -1114,7 +1114,7 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 			"&Select columns to be included in playlist transcripts\n"
 			"(artist and title are always included):"
 		)
-		# 20.09: just like column announcements panel,
+		# Just like column announcements panel,
 		# column inclusion and order controls are generated by the base class.
 		self._onMakeSettingsBase(playlistTranscriptsHelper, labelText)
 
@@ -1245,7 +1245,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		colExplorerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
-		# 17.04: Display column combo boxes in a five by two grid.
+		# Display column combo boxes in a five by two grid.
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		for slot in range(5):
 			# Translators: The label for a setting in SPL add-on settings
@@ -1435,7 +1435,7 @@ class ResetDialog(wx.Dialog):
 			self.Destroy()
 			return
 		# Reset all profiles.
-		# 7.0: Only a priveleged thread should do this, otherwise unexpected things may happen.
+		# Only a priveleged thread should do this, otherwise unexpected things may happen.
 		with threading.Lock():
 			global _configDialogOpened
 			# Call config reset method.
@@ -1518,7 +1518,7 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		PlaylistTranscriptsPanel,
 		SayStatusPanel,
 	]
-	# 22.03 (security): only add the following panels if not in secure mode.
+	# Security: only add the following panels if not in secure mode.
 	if not globalVars.appArgs.secure:
 		categoryClasses.append(AdvancedOptionsPanel)
 		categoryClasses.append(ResetSettingsPanel)
@@ -1526,10 +1526,10 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 	def makeSettings(self, settingsSizer):
 		super(SPLConfigDialog, self).makeSettings(settingsSizer)
 		global _configDialogOpened
-		# #40 (17.12): respond to app terminate notification by closing this dialog.
+		# #40: respond to app terminate notification by closing this dialog.
 		# All top-level dialogs will be affected by this, and apart from this one, others will check for flags also.
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
-		# 20.02: let everyone know add-on settings is opened.
+		# Let everyone know add-on settings is opened.
 		_configDialogOpened = True
 
 	def onOk(self, evt):

@@ -117,7 +117,7 @@ class SPLFindDialog(wx.Dialog):
 			)
 			self.columnHeaders.SetSelection(0)
 
-		# #152 (21.01): add a separator if column search is active, otherwise only find prompt is displayed.
+		# #152: add a separator if column search is active, otherwise only find prompt is displayed.
 		findSizerHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=columnSearch)
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
@@ -133,7 +133,7 @@ class SPLFindDialog(wx.Dialog):
 		# Studio, are you alive?
 		if user32.FindWindowW("SPLStudio", None) and text:
 			appMod = self.obj.appModule
-			# 21.03/20.09.6-LTS: search columns should not be None - list of integers expected.
+			# Search columns should not be None - list of integers expected.
 			column = [self.columnHeaders.Selection + 1] if self.columnSearch else []
 			startObj = self.obj
 			if appMod.findText is None or (
@@ -332,15 +332,15 @@ def _populateCarts(
 	refresh: bool = False,
 ) -> None:
 	# The real cart string parser, a helper for cart explorer for building cart entries.
-	# 5.2: Discard number row if SPL Standard is in use.
+	# Discard number row if SPL Standard is in use.
 	if standardEdition:
 		cartlst = cartlst[:12]
-	# #148 (20.10): obtain cart entry position through enumerate function.
+	# #148: obtain cart entry position through enumerate function.
 	# Pos 1 through 12 = function carts, 13 through 24 = number row carts.
-	# #147 (20.10): note that 1 is subtracted from cart position as a tuple will be used to lookup cart keys.
+	# #147: note that 1 is subtracted from cart position as a tuple will be used to lookup cart keys.
 	for pos, entry in enumerate(cartlst):
 		# An unassigned cart is stored with three consecutive commas, so skip it.
-		# 17.04: If refresh is on, the cart we're dealing with
+		# If refresh is on, the cart we're dealing with
 		# is the actual carts dictionary that was built previously.
 		noEntry = ",,," in entry
 		if noEntry and not refresh:
@@ -416,8 +416,7 @@ def cartExplorerInit(
 		_cartEditTimestamps.append(cartTimestamp)
 		with open(cartFile) as cartInfo:
 			cl = [row for row in reader(cartInfo)]
-		# 17.04 (optimization): let empty string represent main cart bank to
-		# avoid this being partially consulted up to 24 times.
+		# Let empty string represent main cart bank to avoid this being partially consulted up to 24 times.
 		# The below method will just check for string length, which is faster than looking for specific substring.
 		# See the comment for _populate carts method for details.
 		_populateCarts(
@@ -444,12 +443,11 @@ def cartExplorerRefresh(studioTitle: str, currentCarts: dict[str, Any]) -> dict[
 
 
 # Gather streaming flags into a list.
-# 18.04: raise runtime error if list is nothing
+# Raise runtime error if list is nothing
 # (thankfully the splbase's StudioAPI will return None if Studio handle is not found).
 def metadataList() -> list[int | None]:
 	metadata = [splbase.studioAPI(pos, SPLMetadataStreaming) for pos in range(5)]
-	# 21.03/20.09.6-LTS: make sure None is not included in metadata list,
-	# otherwise it results in no metadata data for streams.
+	# Make sure None is not included in metadata list, otherwise it results in no metadata data for streams.
 	# This could happen if Studio dies while retrieving metadata list with some items returning None.
 	if None in metadata:
 		raise RuntimeError("Studio handle not found, no metadata list to return")
@@ -467,8 +465,7 @@ def metadataConnector(servers: list[bool] | None = None) -> None:
 		splbase.studioAPI(dataLo | url, SPLMetadataStreaming)
 
 
-# Metadata status formatter.
-# 18.04: say something if Studio handle is not found.
+# Metadata status formatter (say something if Studio handle is not found).
 def metadataStatus() -> str:
 	try:
 		streams = metadataList()
@@ -476,7 +473,7 @@ def metadataStatus() -> str:
 		# Translators: presented when metadata streaming status cannot be obtained.
 		return _("Cannot obtain metadata streaming status information")
 	# DSP is treated specially.
-	# 20.11: remove it from the streams list early so only URL's can be checked later.
+	# Remove it from the streams list early so only URL's can be checked later.
 	dsp = streams.pop(0)
 	# Unless all URL's are streaming, use of any function is faster as it returns True
 	# whenever anything inside streams list is set to 1.
@@ -507,7 +504,7 @@ def metadataStatus() -> str:
 			return _("Metadata streaming configured for URL's {URL}").format(URL=urls)
 
 
-# Handle a case where instant profile ssitch occurs twice within the switch time-out.
+# Handle a case where instant profile switch occurs twice within the switch time-out.
 _earlyMetadataAnnouncer: threading.Timer | None = None
 
 
@@ -521,7 +518,7 @@ def _metadataAnnouncerInternal(status: str, startup: bool = False) -> None:
 		speech.cancelSpeech()
 	queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
 	nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Metadata.wav"))
-	# #51 (18.03/15.14-LTS): close link to metadata announcer thread when finished.
+	# #51: close link to metadata announcer thread when finished.
 	global _earlyMetadataAnnouncer
 	_earlyMetadataAnnouncer = None
 
@@ -566,9 +563,9 @@ def metadata_actionProfileSwitched(configDialogActive: bool = False, settingsRes
 			return
 		if not settingsReset:
 			metadataConnector()
-		# #47 (18.02/15.13-LTS): call the internal announcer via wx.CallLater
+		# #47: call the internal announcer via wx.CallLater
 		# in order to not hold up action handler queue.
-		# #51 (18.03/15.14-LTS): wx.CallLater isn't enough - there must be ability to cancel it.
+		# #51: wx.CallLater isn't enough - there must be ability to cancel it.
 		_earlyMetadataAnnouncerInternal(metadataStatus())
 
 
@@ -610,7 +607,7 @@ def displayPlaylistTranscripts(transcript: list[str], HTMLDecoration: bool = Fal
 
 
 def copyPlaylistTranscriptsToClipboard(playlistTranscripts: list[str]) -> None:
-	# 22.03 (security): do not copy transcripts to clipboard in secure mode.
+	# Security: do not copy transcripts to clipboard in secure mode.
 	if globalVars.appArgs.secure:
 		return
 	# Only text style transcript such as pure text and Markdown supports copying contents to clipboard.
@@ -622,7 +619,7 @@ def copyPlaylistTranscriptsToClipboard(playlistTranscripts: list[str]) -> None:
 def savePlaylistTranscriptsToFile(
 	playlistTranscripts: list[str], extension: str, location: str | None = None
 ) -> None:
-	# 22.03 (security): do not save transcripts to files in secure mode.
+	# Security: do not save transcripts to files in secure mode.
 	if globalVars.appArgs.secure:
 		return
 	# By default playlist transcripts will be saved to a subfolder in user's Documents folder
@@ -674,7 +671,7 @@ def playlist2msaa(
 		columnContents = obj._getColumnContents(columns=columnPos)
 		# Filter empty columns.
 		filteredContent = []
-		# #148 (20.10): work directly with column content and position rather than going through column pos index.
+		# #148: work directly with column content and position rather than going through column pos index.
 		for column, content in enumerate(columnContents):
 			if content is not None:
 				filteredContent.append("{}: {}".format(columnHeaders[column], content))
@@ -857,7 +854,7 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 
 		# Translators: one of the playlist transcript actions.
 		self.transcriptActions = [_("view transcript")]
-		# 22.03 (security): disable clipboard copying or file saving functions in secure mode.
+		# Security: disable clipboard copying or file saving functions in secure mode.
 		if not globalVars.appArgs.secure:
 			# Translators: one of the playlist transcript actions.
 			self.transcriptActions.append(_("copy to clipboard"))
@@ -883,7 +880,7 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 		self.transcriptRange.SetFocus()
 
 	def onTranscriptFormatSelection(self, evt):
-		# 22.03 (security): disable options other than viewing the transcript in secure mode.
+		# Security: disable options other than viewing the transcript in secure mode.
 		if globalVars.appArgs.secure:
 			return
 		# Not all formats support all actions

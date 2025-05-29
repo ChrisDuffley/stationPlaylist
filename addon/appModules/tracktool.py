@@ -155,7 +155,7 @@ class TrackToolItem(SPLTrackItem):
 class AppModule(appModuleHandler.AppModule):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
-		# #64 (18.07): load config database if not done already.
+		# #64: load config database if not done already.
 		splconfig.openConfig("tracktool")
 
 	def terminate(self):
