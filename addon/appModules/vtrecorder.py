@@ -15,8 +15,6 @@ class AppModule(appModuleHandler.AppModule):
 		super().__init__(*args, **kwargs)
 		if user32.FindWindowW("SPLStudio", None):
 			log.debug("SPL: VT Recorder is online, disabling background event tracking for Studio")
-			# Python 3: using dict.items directly for maximum Python compatibility.
-			# #90 (19.01/18.09.6-LTS): use Six renames if needed.
 			for pid, appMod in appModuleHandler.runningTable.items():
 				if appMod.appName == "splstudio":
 					# The below function removes background event tracker for apps through accept events set manipulation.

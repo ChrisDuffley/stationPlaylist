@@ -13,8 +13,6 @@ from collections import ChainMap
 import weakref
 import appModuleHandler
 from configobj import ConfigObj, get_extra_values, ConfigObjError
-
-# ConfigObj 5.1.0 and later integrates validate module.
 from configobj.validate import Validator
 import config
 import globalVars
@@ -34,8 +32,6 @@ SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 SPLProfiles = os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "profiles")
 # The following settings can be changed in profiles:
 _mutatableSettings = ("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
-# 7.0: Profile-specific confspec (might be removed once a more optimal way to validate sections is found).
-# Dictionary comprehension is better here.
 confspecprofiles = {sect: key for sect, key in confspec.items() if sect in _mutatableSettings}
 # Translators: The name of the default (normal) profile.
 defaultProfileName = _("Normal profile")
@@ -182,8 +178,6 @@ class ConfigHub(ChainMap):
 		return bool(self._switchProfileFlags & self._profileSwitchFlags["instant"])
 
 	# Unlock (load) profiles from files.
-	# 7.0: Allow new profile settings to be overridden by a parent profile.
-	# 8.0: Don't validate profiles other than normal profile in the beginning.
 	def _unlockConfig(
 		self,
 		path: str,
@@ -222,24 +216,18 @@ class ConfigHub(ChainMap):
 				path, configspec=confspec if prefill else confspecprofiles, encoding="UTF-8"
 			)
 			_configLoadStatus[profileName] = "fileReset"
-		# 5.2 and later: check to make sure all values are correct.
-		# 7.0: Make sure errors are displayed as config keys are now sections and may need to go through subkeys.
-		# 8.0: Don't validate unless told to do so.
 		if validateNow:
 			self._validateConfig(SPLConfigCheckpoint, profileName=profileName, prefill=prefill)
-		# Until it is brought in here...
 		try:
 			self._extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
 		except KeyError:
 			pass
 		SPLConfigCheckpoint.name = profileName
 		# Remove deprecated settings.
-		# 21.10: formerly part of the constructor, transferred to a dedicated method.
 		self._removeDeprecatedSettings(SPLConfigCheckpoint)
 		return SPLConfigCheckpoint
 
 	# Config validation.
-	# Separated from unlock routine in 8.0.
 	def _validateConfig(
 		self, SPLConfigCheckpoint: ConfigObj, profileName: str = "", prefill: bool = False
 	) -> None:
@@ -248,10 +236,7 @@ class ConfigHub(ChainMap):
 		# Validator may return "True" if everything is okay,
 		# "False" for unrecoverable error, or a dictionary of failed keys.
 		if isinstance(configTest, bool) and not configTest:
-			# Case 1: restore settings to defaults when 5.x config validation has failed on all values.
-			# 6.0: In case this is a user profile, apply base configuration.
-			# 8.0: Call copy profile function directly to reduce overhead.
-			# 20.09: reset all settings from default settings map directly.
+			# Case 1: restore settings to defaults when config validation has failed on all values.
 			defaultConfig = _SPLDefaults.dict()
 			if SPLConfigCheckpoint.filename != SPLIni:
 				defaultConfig = {
@@ -260,14 +245,10 @@ class ConfigHub(ChainMap):
 			SPLConfigCheckpoint.update(defaultConfig)
 			_configLoadStatus[profileName] = "completeReset"
 		elif isinstance(configTest, dict):
-			# Case 2: For 5.x and later, attempt to reconstruct the failed values.
-			# 6.0: Cherry-pick global settings only.
-			# 7.0: Go through failed sections.
+			# Case 2: for partial validation errors, attempt to reconstruct the failed values.
 			for setting in list(configTest.keys()):
 				if isinstance(configTest[setting], dict):
 					for failedKey in list(configTest[setting].keys()):
-						# 7.0 optimization: just reload from defaults dictionary,
-						# as broadcast profiles contain profile-specific settings only.
 						SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults[setting][failedKey]
 			SPLConfigCheckpoint.write()
 			_configLoadStatus[profileName] = "partialReset"
@@ -301,15 +282,13 @@ class ConfigHub(ChainMap):
 			else:
 				_configLoadStatus[profileName] = "metadataReset"
 			conf["MetadataStreaming"]["MetadataEnabled"] = [False, False, False, False, False]
-		# 17.04: If vertical column announcement value is "None", transform this to NULL.
+		# If vertical column announcement value is "None", transform this to NULL.
 		if conf["General"]["VerticalColumnAnnounce"] == "None":
 			conf["General"]["VerticalColumnAnnounce"] = None
 
 	# Remove deprecated sections/keys.
 	def _removeDeprecatedSettings(self, profile: ConfigObj) -> None:
 		# For each deprecated/removed setting, parse section/subsection.
-		# #95 (19.02/18.09.7-LTS): Configobj 4.7.0 ships with a more elegant way to obtain
-		# all extra values in one go, making deprecated setting definition unnecessary.
 		# A list of 2-tuples will be returned, with each entry recording
 		# the section name path tuple (requires parsing) and key, respectively.
 		# However, there are certain flags that must be kept across sessions or must be handled separately.
@@ -323,8 +302,6 @@ class ConfigHub(ChainMap):
 	# Create profile: public function to access the two private ones above (used when creating a new profile).
 	# Mechanics borrowed from NVDA Core's config.conf with modifications for this add-on.
 	def createProfile(self, path: str, name: str, parent: dict[Any, Any] | None = None) -> None:
-		# 17.10: No, not when restrictions are applied.
-		# 22.03 (security): also covers secure mode.
 		if self.configRestricted:
 			raise RuntimeError("Config restricted: normal profile only, config in memory, or secure mode")
 		self.maps.append(self._unlockConfig(path, profileName=name, parent=parent, validateNow=True))
@@ -333,8 +310,6 @@ class ConfigHub(ChainMap):
 	# Rename and delete profiles.
 	# Mechanics powered by similar routines in NVDA Core's config.conf.
 	def renameProfile(self, oldName: str, newName: str) -> None:
-		# 17.10: No, not when restrictions are applied.
-		# 22.03 (security): also covers secure mode.
 		if self.configRestricted:
 			raise RuntimeError("Config restricted: normal profile only, config in memory, or secure mode")
 		newNamePath = newName + ".ini"
@@ -353,8 +328,6 @@ class ConfigHub(ChainMap):
 		self.profiles[configPos].filename = newProfile
 
 	def deleteProfile(self, name: str) -> None:
-		# 17.10: No, not when restrictions are applied.
-		# 22.03 (security): also covers secure mode.
 		if self.configRestricted:
 			raise RuntimeError("Config restricted: normal profile only, config in memory, or secure mode")
 		# Bring normal profile to the front if deleting the active profile.
@@ -384,8 +357,6 @@ class ConfigHub(ChainMap):
 	# Perform some extra work before writing the config file.
 	def _preSave(self, profile: ConfigObj) -> None:
 		# Perform global setting processing only for the normal profile.
-		# 7.0: if this is a second pass, index 0 may not be normal profile at all.
-		# Use profile path instead.
 		if profile.filename == SPLIni:
 			SPLSwitchProfile = self.instantSwitch
 			# Cache instant profile for later use.
@@ -530,8 +501,6 @@ class ConfigHub(ChainMap):
 		)
 
 	def profileIndexByName(self, name: str) -> int:
-		# 8.0 optimization: Only traverse the profiles list
-		# if head (active profile) or tail does not yield profile name in question.
 		if name == self.activeProfile:
 			return 0
 		elif name == self.profiles[-1].name:
@@ -591,15 +560,12 @@ class ConfigHub(ChainMap):
 			self.switchHistory.pop()
 			# Translators: Presented when switching from instant switch profile to a previous profile.
 			ui.message(_("Returning to {previousProfile}").format(previousProfile=self.activeProfile))
-		# #38 (17.11/15.10-LTS): can't wait two seconds for microphone alarm to stop.
-		# #40 (17.12): all taken care of by profile switched notification.
 		splactions.SPLActionProfileSwitched.notify()
 
 	# Switch start/end functions.
 	# To be called from the module when starting or ending a profile switch.
 	# The only difference is the switch type, which will then set appropriate flag
 	# to be passed to switchProfile method above, with xor used to set the flags.
-	# 20.06: time-based profile flag is gone (only instant switch flag remains).
 	def switchProfileStart(self, prevProfile: str | None, newProfile: str, switchType: str) -> None:
 		if switchType != "instant":
 			raise RuntimeError("Incorrect profile switch type specified")
@@ -641,7 +607,6 @@ class ConfigHub(ChainMap):
 SPLConfig: ConfigHub | None = None
 
 # Default config spec container.
-# To be moved to a different place in 8.0.
 _SPLDefaults = ConfigObj(None, configspec=confspec, encoding="UTF-8")
 _val = Validator()
 _SPLDefaults.validate(_val, copy=True)
@@ -662,10 +627,8 @@ def openConfig(splComponent: str) -> None:
 def initialize() -> None:
 	global SPLConfig, _configLoadStatus, trackComments
 	# Load the default config from a list of profiles.
-	# 8.0: All this work will be performed when ConfigHub loads.
-	# #64 (18.07): performed by openConfig function.
 	openConfig("splstudio")
-	# #155 (21.03): Mypy will say that SPLConfig is None when in fact it is ready
+	# #155: Mypy will say that SPLConfig is None when in fact it is ready
 	# simply because openConfig function does not return SPLConfig.
 	# Therefore do a None guard check just to tell Mypy it is safe to proceed.
 	if SPLConfig is None:
@@ -675,10 +638,8 @@ def initialize() -> None:
 		log.debug("SPL: failed to locate instant switch profile")
 		_configLoadStatus[SPLConfig.activeProfile] = "noInstantProfile"
 		SPLConfig.instantSwitch = None
-	# 7.0: Load track comments if they exist.
+	# Load track comments if they exist.
 	# This must be a separate file (another pickle file).
-	# 8.0: Do this much later when a track is first focused.
-	# For forward compatibility, work with pickle protocol 4 (Python 3.4 and later).
 	try:
 		with open(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "rb") as f:
 			trackComments = pickle.load(f)
@@ -743,8 +704,6 @@ def terminate() -> None:
 	trackComments.clear()
 	trackComments = {}
 	# Now save profiles.
-	# 8.0: Call the save method.
-	# #64 (18.07): separated into its own function in 2018.
 	closeConfig("splstudio")
 
 
@@ -771,14 +730,6 @@ def instantProfileSwitch() -> None:
 				ui.message(_("You are already in the instant switch profile"))
 				return
 			# Switch to the given profile.
-			# 6.1: Do to referencing nature of Python, use the profile index function
-			# to locate the index for the soon to be deactivated profile.
-			# 7.0: Store the profile name instead in order to prevent profile index mangling if profiles are deleted.
-			# Pass in the prev profile, which will be None for instant profile switch.
-			# 7.0: Now activate "activeProfile" argument which controls the behavior of the function below.
-			# 8.0: Work directly with profile names.
-			# 18.03: call switch profile start method directly.
-			# To the outside, a profile switch took place.
 			SPLConfig.switchProfileStart(SPLConfig.activeProfile, SPLSwitchProfile, "instant")
 		else:
 			SPLConfig.switchProfileEnd(None, SPLConfig.prevProfile, "instant")
@@ -873,7 +824,6 @@ def showStartupDialogs() -> None:
 
 
 # Message verbosity pool.
-# To be moved to its own module in add-on 7.0.
 # This is a multimap, consisting of category, value and message.
 # Most of the categories are same as confspec keys,
 # hence the below message function is invoked when settings are changed.

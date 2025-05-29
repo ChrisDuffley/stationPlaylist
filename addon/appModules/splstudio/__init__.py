@@ -177,7 +177,6 @@ class SPLTrackItem(sysListView32.ListItem):
 		if hasattr(self, "exploreColumns"):
 			columnHeaders = [child.columnHeaderText for child in self.children]
 			header = self.exploreColumns[columnPos]
-			# Only possible if explore columns list is defined and running an older version of SPL suite.
 			if header not in columnHeaders:
 				# Translators: Presented when a specific column header is not found.
 				ui.message(_("{headerText} not found").format(headerText=header))
@@ -216,10 +215,7 @@ class SPLTrackItem(sysListView32.ListItem):
 		gesture="kb:control+NVDA+-",
 	)
 	def script_trackColumnsViewer(self, gesture):
-		# #61 (18.06): a direct copy of column data gatherer from playlist transcripts.
-		# 18.07: just call the gatherer function with "blank" as the readable string
-		# and add column header afterwards.
-		# 20.09: fetch column headers and texts from child columns,
+		# Fetch column headers and texts from child columns,
 		# meaning columns viewer will reflect visual display order.
 		columnContents = []
 		for column in self.children:
@@ -244,20 +240,18 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	such as location text and enhanced column navigation."""
 
 	def _get_name(self):
-		# 6.3: Catch an unusual case where screen order is off yet column order is same as screen order
-		# and NVDA is told to announce all columns.
-		# 17.04: Even if vertical column commands are performed, build description pieces for consistency.
-		# 20.11: build name pieces, as SysListView32.ListItem class nullifies description.
+		# Build name pieces, as SysListView32.ListItem class nullifies description.
 		# 19.06: have the column inclusion and order keys handy in order to avoid attribute lookup.
 		columnsToInclude = splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]
 		columnOrder = splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
+		# Catch an unusual case where screen order is off yet column order is same as screen order
+		# and NVDA is told to announce all columns.
 		if not splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] and (
 			columnOrder != splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 			or len(columnsToInclude) != 17
 		):
 			trackNamePieces = []
-			# NVDA 2022.4 changes table header values from a boolean to an integer
-			# (1 = report rows and columns, 3 = report columns).
+			# Table column header report options (1 = report rows and columns, 3 = report columns).
 			includeColumnHeaders = config.conf["documentFormatting"]["reportTableHeaders"] in (1, 3)
 			# Include status (actual item name as reported by MSAA) if present.
 			if self.firstChild.name:
@@ -290,9 +284,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 
 	# Read selected columns.
 	# But first, find where the requested column lives.
-	# 8.0: Make this a public function.
-	# #109 (19.08): now standardized around this function.
-	# #142 (20.09): do not ignore Status column (0) just because it is the name of the track as reported by MSAA.
+	# #142: do not ignore Status column (0) just because it is the name of the track as reported by MSAA.
 	def indexOf(self, columnHeader: str) -> int | None:
 		try:
 			columnHeaders = ["Status"] + splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
@@ -808,17 +800,11 @@ class AppModule(appModuleHandler.AppModule):
 		# because metadata action handler couldn't locate Studio handle itself.
 		if splconfig.SPLConfig["General"]["MetadataReminder"] == "startup" or splmisc._delayMetadataAction:
 			splmisc._delayMetadataAction = False
-			# If told to remind and connect, metadata streaming will be enabled at this time.
-			# 6.0: Call Studio API twice - once to set, once more to obtain the needed information.
-			# 6.2/7.0: When Studio API is called, add the value into the stream count list also.
-			# 17.11: call the connector.
+			# If told to remind and connect, metadata streaming will be enabled at this time
+			# (call the metadata connector).
 			splmisc.metadataConnector()
-			# #40 (18.02): call the internal announcer in order to not hold up action handler queue.
-			# #51 (18.03/15.14-LTS): if this is called within two seconds (status time-out),
-			# status will be announced multiple times.
-			# 18.04: hopefully the error message won't be shown as this is
-			# supposed to run right after locating Studio handle.
-			# #82 (18.11/18.09.5-lts): wait until Studio window shows up (foreground or background) for the first time.
+			# #40: call the internal metadata announcer in order to not hold up action handler queue.
+			# #82: wait until Studio window shows up (foreground or background) for the first time.
 			# #83: if NVDA restarts while Studio is running and foreground window is
 			# something other than playlist viewer, the below method won't work at all.
 			# Thankfully, NVDA's notion of foreground window depends on a global variable,
@@ -917,7 +903,6 @@ class AppModule(appModuleHandler.AppModule):
 		match obj.windowClassName:
 			case "TTntListView.UnicodeClass":
 				if role == controlTypes.Role.LISTITEM:
-					# Track item window style has changed in Studio 5.31.
 					trackItemWindowStyle = 1443991617
 					if abs(windowStyle - trackItemWindowStyle) % 0x100000 == 0:
 						clsList.insert(0, StudioPlaylistViewerItem)
@@ -1056,8 +1041,6 @@ class AppModule(appModuleHandler.AppModule):
 					):
 						self.alarmAnnounce(obj.name, 512, 400, intro=True)
 		nextHandler()
-
-	# JL's additions
 
 	# Handle toggle messages.
 	def _toggleMessage(self, msg: str) -> None:
@@ -1213,17 +1196,17 @@ class AppModule(appModuleHandler.AppModule):
 	def terminate(self):
 		super().terminate()
 		log.debug("SPL: terminating app module")
-		# #39 (17.11/15.10-lts): terminate microphone alarm/interval threads, otherwise errors are seen.
-		# #40 (17.12): replace this with a handler that responds to app module exit signal.
-		# Also allows profile switch handler to unregister itself as well.
-		# At the same time, close any opened SPL add-on dialogs.
+		# Unregister profile switch and reset handlers.
 		splactions.SPLActionProfileSwitched.unregister(self.actionProfileSwitched)
 		splactions.SPLActionSettingsReset.unregister(self.actionSettingsReset)
-		# 20.09: don't forget about metadata connection announcement handlers.
+		# Don't forget about metadata connection announcement handlers.
 		splactions.SPLActionProfileSwitched.unregister(splmisc.metadata_actionProfileSwitched)
 		splactions.SPLActionSettingsReset.unregister(splmisc.metadata_actionSettingsReset)
+		# Perform app module termination work via action handlers.
+		# Among other tasks, close any opened SPL add-on dialogs.
 		splactions.SPLActionAppTerminating.notify()
 		log.debug("SPL: closing microphone alarm/interval thread")
+		# #39: terminate microphone alarm/interval threads, otherwise errors are seen.
 		global micAlarmT, micAlarmT2
 		if micAlarmT is not None:
 			micAlarmT.cancel()
@@ -1256,18 +1239,13 @@ class AppModule(appModuleHandler.AppModule):
 		if splbase._SPLWin:
 			splbase._SPLWin = None
 
-	# Script sections (for ease of maintenance):
-	# Time-related: elapsed time, end of track alarm, etc.
-	# Misc scripts: track finder and others.
-	# SPL Assistant layer: status commands.
-
 	# A few time related scripts (elapsed time, remaining time, etc.).
 
 	# Specific to time scripts using Studio API.
-	# 6.0: Split this into two functions: the announcer (below) and formatter.
-	# 7.0: The ms (millisecond) argument will be used when announcing playlist remainder.
-	# 16.12: Include hours by default unless told not to do so.
-	# #155 (21.03): time can be None, in which case it will do nothing.
+	# Split this into two functions: the announcer (below) and formatter.
+	# The ms (millisecond) argument will be used when announcing playlist remainder.
+	# Include hours by default unless told not to do so.
+	# #155: time can be None, in which case it will do nothing.
 	def announceTime(
 		self, t: int | None, offset: int | None = None, ms: bool = True, includeHours: bool | None = None
 	) -> None:
@@ -1295,15 +1273,10 @@ class AppModule(appModuleHandler.AppModule):
 				includeHours or (includeHours is None and splconfig.SPLConfig["General"]["TimeHourAnnounce"])
 			):
 				hh, mm = divmod(mm, 60)
-				# Hour value is also filled with leading zero's.
-				# 6.1: Optimize the string builder so it can return just one string.
-				# 17.08: Return the generated string directly.
-				# 17.09: use modulo formatter to reduce instruction count.
 				return f"{hh:02d}:{mm:02d}:{ss:02d}"
 			else:
 				return f"{mm:02d}:{ss:02d}"
 
-	# Scripts which rely on API.
 	@scriptHandler.script(
 		# Message comes from Foobar 2000 app module, part of NVDA Core.
 		description=translate("Reports the remaining time of the currently playing track, if any"),
@@ -1442,10 +1415,10 @@ class AppModule(appModuleHandler.AppModule):
 	# The track finder utility for find track script and other functions
 	# Perform a linear search to locate the track name and/or description which matches the entered value.
 	# Also, find column content for a specific column if requested.
-	# 6.0: Split this routine into two functions, with the while loop moving to a function of its own.
-	# This new function will be used by track finder and place marker locator.
-	# 17.08: now it is a list that records search history.
-	# 21.03: accept both None and str because it will be filtered to remove None anyway.
+	# The below routines are also used in place marker track locator.
+
+	# Search history
+	# Accept both None and str because it will be filtered to remove None anyway.
 	findText: list[str] | None = None
 
 	def trackFinder(
@@ -1460,18 +1433,12 @@ class AppModule(appModuleHandler.AppModule):
 			self.findText = []
 		if text not in self.findText:
 			self.findText.insert(0, text)
-		# #33 (17.06/15.8-LTS): In case the track is NULL
-		# (seen when attempting to perform forward search from the last track and what not),
-		# this function should fail instead of raising attribute error.
 		if obj is not None and not column:
 			column = [obj.indexOf("Artist"), obj.indexOf("Title")]
 		track = self._trackLocator(text, obj=obj, directionForward=directionForward, columns=column)
 		if track:
 			# We need to fire set focus event twice and exit this routine.
-			# 16.10.1/15.2 LTS: Just select this track in order to
-			# prevent a dispute between NVDA and SPL in regards to focused track.
-			# 16.11: Call setFocus as SPL API can be used to select the desired track.
-			# 20.09: doAction method will do this instead.
+			# (done via doAction method).
 			track.doAction()
 		else:
 			wx.CallAfter(
@@ -1493,16 +1460,12 @@ class AppModule(appModuleHandler.AppModule):
 		directionForward: bool = True,
 		columns: list[int] = [],
 	) -> NVDAObject | None:
-		# 21.03/20.09.6-LTS: it doesn't make sense to search for tracks if text and/or columns are not specified.
+		# It doesn't make sense to search for tracks if text and/or columns are not specified.
 		# It is also an optimization because the below loop will not be run if any of the following are true.
 		if not text or not columns:
 			return None
 		nextTrack = "next" if directionForward else "previous"
 		while obj is not None:
-			# Do not use column content attribute, because sometimes NVDA will say
-			# it isn't a track item when in fact it is.
-			# If this happens, use the module level version of column content getter.
-			# Optimization: search column texts.
 			for column in columns:
 				columnText = obj._getColumnContentRaw(column)
 				if columnText and text in columnText:
@@ -1530,9 +1493,7 @@ class AppModule(appModuleHandler.AppModule):
 					# Translators: Presented when a user attempts to find tracks but is not at the track list.
 					ui.message(_("Time range finder is available only in track list."))
 			return False
-		# 17.06/15.8-LTS: use Studio API to find out if a playlist is even loaded,
-		# otherwise Track Finder will fail to notice a playlist.
-		# #81 (18.12): all taken care of by playlist checker method.
+		# Make sure a playlist is loaded.
 		elif playlistErrors == self.SPLPlaylistNotLoaded:
 			# Translators: Presented when a user wishes to find a track but didn't add any tracks.
 			ui.message(_("You need to add at least one track to find tracks."))
@@ -1596,8 +1557,6 @@ class AppModule(appModuleHandler.AppModule):
 				if not len(self.findText):
 					self.findText = None
 			self.trackFinderGUI(columnSearch=True)
-
-	# Find next and previous scripts.
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
@@ -1674,7 +1633,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	def cartsBuilder(self, build: bool = True) -> None:
 		# A function to build and return cart commands.
-		# #147 (20.10): fetch cart keys from a dedicated tuple found in splmisc module.
 		if build:
 			for cart in splmisc.cartKeys:
 				self.bindGesture(f"kb:{cart}", "cartExplorer")
@@ -1695,13 +1653,12 @@ class AppModule(appModuleHandler.AppModule):
 			return
 		if not self.cartExplorer:
 			# Prevent cart explorer from being engaged outside of playlist viewer.
-			# Todo for 6.0: Let users set cart banks.
 			fg = api.getForegroundObject()
 			if fg.windowClassName != "TStudioForm":
 				# Translators: Presented when cart explorer cannot be entered.
 				ui.message(_("You are not in playlist viewer, cannot enter cart explorer"))
 				return
-			# 21.11: Studio 6 demo uses "Demo" as default user name, therefore remove user name.
+			# Studio 6 demo uses "Demo" as default user name, therefore remove user name.
 			studioTitle = fg.name
 			if "Demo - Demo" in studioTitle:
 				studioTitle = "StationPlaylist Studio Demo"
@@ -1809,9 +1766,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	def libraryScanReporter(self) -> None:
 		scanIter = 0
-		# 17.04: Use the constant directly
-		# as Studio provides a convenient method to detect completion of library scans.
-		# #155 (21.03): And make sure it is an integer, too.
 		scanCount: int | None = splbase.studioAPI(1, SPLLibraryScanCount)
 		while scanCount is not None and scanCount >= 0:
 			if not self.libraryScanning or not user32.FindWindowW("SPLStudio", None):
@@ -2331,15 +2285,12 @@ class AppModule(appModuleHandler.AppModule):
 		speakOnDemand=True,
 	)
 	def script_SPLAssistantToggle(self, gesture):
-		# Enter the layer command if an only if we're in the track list to allow easier gesture assignment.
-		# 7.0: This requirement has been relaxed (commands themselves will check for specific conditions).
-		# Also, do not bother if the app module is not running.
 		if scriptHandler.getLastScriptRepeatCount() > 0:
 			gesture.send()
 			self.script_finish()
 			return
 		try:
-			# 7.0: Don't bother if handle to Studio isn't found.
+			# Don't bother if handle to Studio isn't found.
 			if splbase._SPLWin is None:
 				# Translators: Presented when SPL Assistant cannot be invoked.
 				ui.message(_("Failed to locate Studio main window, cannot enter SPL Assistant"))
@@ -2392,8 +2343,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	_cachedStatusObjs: dict[int, Any] = {}
 
-	# Called in the layer commands themselves.
-	# 16.11: in Studio 5.20, it is possible to obtain some of these via the API, hence the API method is used.
+	# Called in the layer commands requiring screen traversal.
 	def status(self, infoIndex: int) -> NVDAObject:
 		# Look up the cached objects first for faster response.
 		if (
@@ -2434,10 +2384,9 @@ class AppModule(appModuleHandler.AppModule):
 		["Record to file Off", "Record to file On"],
 	)
 
-	# In the layer commands below, sayStatus function is used if screen objects or API must be used
-	# (API is for Studio 5.20 and later).
+	# Fetch status bar texts via Studio API.
 	def sayStatus(self, index: int) -> None:
-		# 21.03/20.09.6-LTS: no, status index must be an integer.
+		# No, status index must be an integer.
 		studioStatus = splbase.studioAPI(index, SPLStatusInfo)
 		if studioStatus is None:
 			return
@@ -2486,7 +2435,6 @@ class AppModule(appModuleHandler.AppModule):
 		self.announceTime(splbase.studioAPI(0, SPLPlaylistHourDuration))
 
 	def script_sayHourRemaining(self, gesture):
-		# 7.0: Split from playlist remaining script (formerly the playlist remainder command).
 		self.announceTime(splbase.studioAPI(1, SPLPlaylistHourDuration))
 
 	def script_sayPlaylistRemainingDuration(self, gesture):
@@ -2596,11 +2544,10 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(obj.name)
 
 	def script_sayScheduledTime(self, gesture):
-		# 7.0: Scheduled is the time originally specified in Studio,
+		# Scheduled is the time originally specified in Studio,
 		# scheduled to play is broadcast time based on current time.
 		# Sometimes, hour markers return seconds.999 due to rounding error, hence this must be taken care of here.
-		# #155 (21.03): Studio API can return None if Studio dies.
-		# Also, because this will become an integer tuple below, use Any type flag to tell Mypy to skip this line.
+		# #155: Studio API can return None if Studio dies.
 		trackStarts = splbase.studioAPI(3, SPLPlaylistHourDuration)
 		if trackStarts is None:
 			return
@@ -2685,9 +2632,6 @@ class AppModule(appModuleHandler.AppModule):
 			analysisBegin = min(self._analysisMarker, trackPos)
 			analysisEnd = max(self._analysisMarker, trackPos)
 			analysisRange = analysisEnd - analysisBegin + 1
-			# #75 (18.08): use segue instead as it gives more accurate information as to the actual total duration.
-			# Add a 1 because track position subtracts it for comparison purposes.
-			# 18.10: rework this so this feature can work on track objects directly.
 			totalLength = self.playlistDuration(
 				start=focus.parent.getChild(analysisBegin), end=focus.parent.getChild(analysisEnd + 1)
 			)
@@ -2790,8 +2734,7 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message(_("This track cannot be used as a place marker track"))
 
 	def script_findPlaceMarker(self, gesture):
-		# 7.0: Place marker command will still be restricted to playlist viewer in order to prevent focus bouncing.
-		# #81: no more custom message for place marker track, as the generic one will be enough for now.
+		# Place marker command will be restricted to playlist viewer in order to prevent focus bouncing.
 		if self.canPerformPlaylistCommands() == self.SPLPlaylistNoErrors:
 			# 21.03/20.09.6-LTS: guard against place marker filename becoming nothing.
 			# #155 (21.03): an extra check to make sure it is indeed a string.
@@ -2800,8 +2743,6 @@ class AppModule(appModuleHandler.AppModule):
 				track = self._trackLocator(self.placeMarker, obj=obj, columns=[obj.indexOf("Filename")])
 				# 21.03/20.09.6-LTS: only do the following if a track is found.
 				if track:
-					# 16.11: Just like Track Finder, use select track function to select the place marker track.
-					# 20.09: perform doAction instead.
 					track.doAction()
 				else:
 					# 21.03/20.09.6-LTS: bogus place marker, so nullify it.
@@ -2814,9 +2755,6 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message(_("No place marker found"))
 
 	def script_metadataStreamingAnnouncer(self, gesture):
-		# 8.0: Call the module-level function directly.
-		# 18.04: obtain results via the misc module.
-		# 18.08.1: metadata status function takes no arguments.
 		ui.message(splmisc.metadataStatus())
 
 	# Gesture(s) for the following script cannot be changed by users.

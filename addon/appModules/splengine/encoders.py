@@ -55,11 +55,10 @@ encoderConfig = None
 
 # Load encoder config (including labels and other goodies) from a file-based database.
 def loadEncoderConfig() -> None:
-	# 20.11 (Flake8 E501): define global variables when first used, not here due to line length.
+	# Define global variables when first used, not here due to line length.
 	global encoderConfig
 	encoderConfigPath = os.path.join(globalVars.appArgs.configPath, "splencoders.ini")
-	# 7.1: Make sure encoder settings map isn't corrupted.
-	# #131 (20.06): encoder focus error message routine was transplanted from Studio app module.
+	# Make sure encoder settings map isn't corrupted.
 	try:
 		encoderConfig = configobj.ConfigObj(encoderConfigPath)
 	except configobj.ConfigObjError:
@@ -564,7 +563,6 @@ class Encoder(IAccessible):
 		gesture="kb:control+f12",
 	)
 	def script_encoderLabelsSettingsEraser(self, gesture):
-		# 17.12: early versions of wxPython 4 does not have number entry dialog, so replace it with a combo box.
 		dlg = wx.SingleChoiceDialog(
 			gui.mainFrame,
 			# Translators: The text of the stream configuration eraser dialog.
@@ -753,7 +751,6 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		# Translators: Presented when an Encoder is trying to connect to a streaming server.
 		ui.message(_("Connecting..."))
 		# Oi, status thread, can you keep an eye on the connection status for me?
-		# To be packaged into a new function in 7.0.
 		if not self.backgroundMonitor:
 			self.connectStart(manualConnect=True)
 

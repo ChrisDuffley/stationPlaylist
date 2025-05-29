@@ -223,7 +223,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	@scriptHandler.script(speakOnDemand=True)
 	def script_finish(self):
-		# 21.03/20.09.6-LTS: clear SPL window handle.
 		self.SPLController = False
 		self.clearGestureBindings()
 
@@ -241,9 +240,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			return
 		if not splbase.studioIsRunning(justChecking=True):
 			ui.message(_("SPL Studio is not running."))
-		# 17.01: SetForegroundWindow function is better, as there's no need to traverse top-level windows
-		# and allows users to "switch" to SPL window if the window is minimized.
-		# #150 (20.10/20.09.2-LTS): even then, make sure Studio window is visible.
 		else:
 			try:
 				studioWindow = windowUtils.findDescendantWindow(
@@ -405,9 +401,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			ui.message(_("SPL Studio is not running."))
 			self.script_finish()
 			return
-		# #98: ask SPL Engine app module for encoder connection status,
-		# which in turn will call the one found in encoders support module.
-		# Do nothing if SPL Engine app module isn't present or any kind of error occurs.
 		try:
 			announceEncoderConnectionStatus()
 		except Exception:
@@ -456,8 +449,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		except ValueError:
 			modifier, cart = None, gesture.displayName
 		# Pull in modifier values from the following list.
-		# 20.09: add 1 to modifier value to avoid doing this later and to comply with Studio API.
-		# 25.06: actually, multiply modifiers by 24 (1 (None), 25 (Shift), 49 (Control), 73 (Alt)).
+		# Multiply modifiers by 24 (1 (None), 25 (Shift), 49 (Control), 73 (Alt)).
 		modifier = (None, "shift", "ctrl", "alt").index(modifier) * 24
 		# Add 1 to cart index to comply with Studio API.
 		cart = self.cartKeys.index(cart) + 1

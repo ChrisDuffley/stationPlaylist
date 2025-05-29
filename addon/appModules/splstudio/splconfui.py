@@ -31,7 +31,6 @@ addonHandler.initTranslation()
 
 
 # Broadcast profiles
-# #129 (20.04): formerly a settings panel, now a dedicated settings dialog.
 class BroadcastProfilesDialog(wx.Dialog):
 	shouldSuspendConfigProfileTriggers = True
 
@@ -48,11 +47,6 @@ class BroadcastProfilesDialog(wx.Dialog):
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
 		# Broadcast profile controls were inspired by Config Profiles dialog in NVDA Core.
-		# 7.0: Have a copy of the sorted profiles so the actual combo box items can show profile flags.
-		# 8.0: No need to sort as profile names from ConfigHub knows what to do.
-		# 17.10: skip this if only normal profile is in use.
-		# #6: display a read-only explanatory text.
-		# #129 (20.04): explanatory text will be provided when attempting to open this dialog, not here.
 		self.profileNames = list(splconfig.SPLConfig.profileNames)
 		self.profileNames[0] = splconfig.defaultProfileName
 		self.activeProfile = splconfig.SPLConfig.activeProfile
@@ -82,9 +76,6 @@ class BroadcastProfilesDialog(wx.Dialog):
 
 		# Profile controls code credit: NV Access (except copy button).
 		# Most control labels come from NVDA Core.
-		# 17.10: if restrictions such as volatile config are applied, disable this area entirely.
-		# 22.03 (security): restrictions also include NVDA in secure mode.
-		# #129 (20.04): no need for this check in standalone dialog.
 		buttonHelper = gui.guiHelper.ButtonHelper(wx.VERTICAL)
 		newButton = buttonHelper.addButton(self, label=translate("&New"))
 		newButton.Bind(wx.EVT_BUTTON, self.onNew)
@@ -127,7 +118,6 @@ class BroadcastProfilesDialog(wx.Dialog):
 		self.CentreOnScreen()
 
 	# Load settings from profiles.
-	# #6: set selected profile flag so other panels can pull in appropriate settings.
 	def onProfileSelection(self, evt):
 		# Don't rely on SPLConfig here, as we don't want to interupt the show.
 		selection = self.profiles.GetSelection()
@@ -262,8 +252,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 			self.switchProfileDeleted = True
 		self.profiles.Delete(index)
 		del self.profileNames[profilePos]
-		# 6.3: Select normal profile if the active profile is gone.
-		# 7.0: Consult profile names instead.
+		# Select normal profile if the active profile is gone.
 		try:
 			self.profiles.Selection = self.profileNames.index(self.activeProfile)
 		except ValueError:
@@ -304,8 +293,6 @@ class BroadcastProfilesDialog(wx.Dialog):
 			splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
 		splconfig.SPLConfig.instantSwitch = self.switchProfile
 		# Make sure to nullify prev profile if instant switch profile is gone.
-		# 7.0: Don't do the following in the midst of a broadcast.
-		# 20.07: find a way to work around this as time-based profiles feature is gone.
 		if self.switchProfile is None:
 			splconfig.SPLConfig.prevProfile = None
 		splactions.SPLActionProfileSwitched.notify(configDialogActive=True)
@@ -702,8 +689,7 @@ class AlarmsPanel(gui.settingsDialogs.SettingsPanel):
 		splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.introToggleCheckBox.GetValue()
 		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
 		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
-		# #42 (18.01/15.12-LTS): don't forget to restart microphone alarm timer.
-		# 18.02: do it here at once.
+		# #42: don't forget to restart microphone alarm timer.
 		# At least try notifying the app module that microphone alarm settings have changed.
 		studioWindow = getNVDAObjectFromEvent(user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0)
 		if studioWindow is not None:
@@ -871,12 +857,6 @@ class MetadataStreamingDialog(wx.Dialog):
 		labelText = _("Check to enable metadata streaming, uncheck to disable.")
 		metadataSizerHelper.addItem(wx.StaticText(self, label=labelText))
 
-		# WX's native CheckListBox isn't user friendly.
-		# Therefore use checkboxes laid out across the top.
-		# 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
-		# Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
-		# Add checkboxes for each stream, beginning with the DSP encoder.
-		# #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
 		streams = splmisc.metadataList()
 		self.checkedStreams = metadataSizerHelper.addLabeledControl(
 			# Translators: the label for a setting in SPL add-on settings
@@ -954,12 +934,6 @@ class MetadataStreamingPanel(gui.settingsDialogs.SettingsPanel):
 		selection = next((x for x, y in enumerate(self.metadataValues) if y[0] == metadataCurValue))
 		self.metadataList.SetSelection(selection)
 
-		# WX's native CheckListBox isn't user friendly.
-		# Therefore use checkboxes laid out across the top.
-		# 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
-		# Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
-		# Add checkboxes for each stream, beginning with the DSP encoder.
-		# #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
 		# # Translators: the label for a setting in SPL add-on settings
 		# to configure streaming status for metadata streams.
 		checkedStreamsLabel = _("&Select the URL for metadata streaming upon request:")
@@ -986,18 +960,12 @@ class MetadataStreamingPanel(gui.settingsDialogs.SettingsPanel):
 
 # Column announcement manager.
 # Select which track columns should be announced and in which order.
-# 18.08: also serves as a base dialog for Playlist Transcripts/column selector setting.
-# #97 (19.04): converted into a base panel (to be flagged as "abstract" later).
+# Also serves as a base panel for Playlist Transcripts/column selector setting.
 class ColumnAnnouncementsBasePanel(gui.settingsDialogs.SettingsPanel):
 	def _onMakeSettingsBase(self, sHelper, includedColumnsLabel):
 		# Provides common user interface elements for column inclusion/order controls across settings panels
 		# (leave it as a private method).
 
-		# Same as metadata dialog (wx.CheckListBox isn't user friendly).
-		# Gather values for checkboxes except artist and title.
-		# 6.1: Split these columns into rows.
-		# 17.04: Gather items into a single list instead of three.
-		# #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
 		checkableColumns = (
 			"Duration",
 			"Intro",
@@ -1029,12 +997,11 @@ class ColumnAnnouncementsBasePanel(gui.settingsDialogs.SettingsPanel):
 		)
 		sHelper.addItem(columnOrderGroup)
 
-		# wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
+		# wxPython contains RearrangeList to allow item orders to be changed automatically.
 		# Due to usability quirks (focus bouncing and what not), work around by
 		# using a variant of list box and move up/down buttons.
-		# 17.04: The label for the list below is above the list,
+		# The label for the list below is above the list,
 		# so move move up/down buttons to the right of the list box.
-		# 20.09: the list and move up/down buttons are now part of a grouping.
 		self.trackColumns = columnOrderGroup.addItem(wx.ListBox(self, choices=self.columnOrder))
 		self.trackColumns.Bind(wx.EVT_LISTBOX, self.onColumnSelection)
 		self.trackColumns.SetSelection(0)
@@ -1160,8 +1127,6 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 
 # Columns Explorer for Studio, Track Tool and Creator
 # Configure which column will be announced when Control+NVDA+number row keys are pressed.
-# In 2018, the panel will house Columns Explorer buttons, but eventually
-# columns combo boxes should be part of main settings interface.
 class ColumnsExplorerPanel(gui.settingsDialogs.SettingsPanel):
 	# Translators: title of a panel to configure columns explorer settings.
 	title = _("Columns explorer")
@@ -1318,10 +1283,9 @@ class ColumnsExplorerDialog(wx.Dialog):
 
 	def onOk(self, evt):
 		parent = self.Parent
-		# #62 (18.06): manually build a list so changes won't be retained
+		# #62: manually build a list so changes won't be retained
 		# when Cancel button is clicked from main settings, caused by reference problem.
 		# Note that item count is based on how many column combo boxes are present in this dialog.
-		# #63 (18.06): use levels instead due to introduction of Columns Explorer for SPL Creator.
 		slots = [self.columnSlots[slot].GetStringSelection() for slot in range(10)]
 		match self.level:
 			case 0:
@@ -1596,12 +1560,8 @@ def _configDialogOpenError() -> None:
 	)
 
 
-# #125 (20.05): open any settings panel from main add-on settings, also checking if other dialogs are open.
+# #125: open any settings panel from main add-on settings, also checking if other dialogs are open.
 def openAddonSettingsPanel(panel):
-	# 5.2: Guard against alarm dialogs.
-	# #129 (20.04): also check for broadcast profiles dialog.
-	# #125 (20.05): checking for instance of base settings dialog class isn't enough.
-	# Python will look at actual class being instantiated, so keep the global flag.
 	if _configDialogOpened:
 		wx.CallAfter(_configDialogOpenError)
 	else:

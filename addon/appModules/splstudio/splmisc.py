@@ -49,7 +49,6 @@ _findDialogOpened = False
 
 
 # Track Finder error dialog.
-# This will be refactored into something else.
 def _finderError() -> None:
 	global _findDialogOpened
 	if _findDialogOpened:
@@ -268,8 +267,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 			if obj is not None:
 				# Set focus only once, as do action method on tracks will set focus twice.
 				obj.setFocus()
-				# 16.11: Select the desired track manually.
-				# #45 (18.02): call select track function in splbase module.
+				# Select the desired track manually.
 				splbase.selectTrack(obj.IAccessibleChildID - 1)
 			else:
 				wx.CallAfter(
@@ -489,10 +487,7 @@ def metadataStatus() -> str:
 		else:
 			# Translators: Status message for metadata streaming.
 			return _("Metadata streaming configured for DSP encoder")
-	# For others, a simple list.append will do.
-	# 17.04: Use a conditional list comprehension.
-	# 18.02: comprehend based on streams list from above.
-	# 20.11: add positions based on enumerate function call.
+	# For others, a simple enumeration will do.
 	streamCount = [str(pos) for pos, stream in enumerate(streams, start=1) if stream]
 	if len(streamCount) == 1:
 		if dsp:
@@ -557,16 +552,12 @@ def metadata_actionProfileSwitched(configDialogActive: bool = False, settingsRes
 		return
 	global _delayMetadataAction
 	# Ordinarily, errors would have been dealt with, but Action.notify will catch errors and log messages.
-	# #40 (18.02): the only possible error is if Studio handle is invalid, which won't be the case,
+	# #40: the only possible error is if Studio handle is invalid, which won't be the case,
 	# otherwise no point handling this action.
-	# #49 (18.03): no, don't announce this if the app module is told to announce metadata status at startup only.
+	# #49: no, don't announce this if the app module is told to announce metadata status at startup only.
 	if splconfig.SPLConfig["General"]["MetadataReminder"] == "instant":
 		# If told to remind and connect, metadata streaming will be enabled at this time.
-		# 6.0: Call Studio API twice - once to set, once more to obtain the needed information.
-		# 6.2/7.0: When Studio API is called, add the value into the stream count list also.
-		# 17.11: call the connector.
-		# 18.02: transfered to the action handler and greatly simplified.
-		# 18.04: ask the handle finder to return to this place if Studio handle isn't ready.
+		# Ask the handle finder to return to this place if Studio handle isn't ready.
 		# This is typically the case when launching Studio
 		# and profile switch occurs while demo registration screen is up.
 		handle = user32.FindWindowW("SPLStudio", None)
