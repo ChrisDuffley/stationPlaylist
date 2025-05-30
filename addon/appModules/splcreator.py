@@ -113,6 +113,66 @@ def indexOf(creatorVersion: str) -> tuple[str, ...]:
 			"Region",
 		)
 
+# Playlist editor version.
+def indexOfPlaylistEditor(editorVersion: str) -> tuple[str, ...]:
+	if editorVersion < "6.0":
+		return (
+			"Artist",
+			"Title",
+			"Duration",
+			"Intro",
+			"Outro",
+			"Category",
+			"Year",
+			"Album",
+			"Genre",
+			"Mood",
+			"Energy",
+			"Tempo",
+			"Gender",
+			"Rating",
+			"Filename",
+		)
+	elif editorVersion.startswith("6.0"):
+		return (
+			"Artist",
+			"Title",
+			"Duration",
+			"Intro",
+			"Outro",
+			"Category",
+			"Year",
+			"Album",
+			"Genre",
+			"Mood",
+			"Energy",
+			"Tempo",
+			"Gender",
+			"Rating",
+			"Filename",
+			"Other",
+		)
+	else:
+		return (
+			"    Time",
+			"Artist",
+			"Title",
+			"Duration",
+			"Intro",
+			"Outro",
+			"Category",
+			"Year",
+			"Album",
+			"Genre",
+			"Mood",
+			"Energy",
+			"Tempo",
+			"Gender",
+			"Rating",
+			"Filename",
+			"Other",
+		)
+
 
 class SPLCreatorItem(SPLTrackItem):
 	"""An entry in SPL Creator (mostly tracks)."""
