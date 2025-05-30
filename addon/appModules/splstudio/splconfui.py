@@ -1171,7 +1171,7 @@ class ColumnsExplorerPanel(gui.settingsDialogs.SettingsPanel):
 
 		# Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 		# for StationPlaylist Studio.
-		columnsExplorerButton = wx.Button(self, label=_("Columns E&xplorer..."))
+		columnsExplorerButton = wx.Button(self, label=_("Columns E&xplorer for SPL Studio..."))
 		columnsExplorerButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorer)
 		self.exploreColumns = splconfig.SPLConfig["ExploreColumns"]["Studio"]
 
