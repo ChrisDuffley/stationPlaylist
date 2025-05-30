@@ -195,7 +195,15 @@ class SPLCreatorItem(SPLTrackItem):
 class SPLPlaylistEditorItem(SPLTrackItem):
 	"""An entry in SPL Creator's Playlist Editor."""
 
-	pass
+	def indexOf(self, header: str) -> int | None:
+		try:
+			return indexOfPlaylistEditor(self.appModule.productVersion).index(header)
+		except ValueError:
+			return None
+
+	@property
+	def exploreColumns(self) -> list[str]:
+		return splconfig.SPLConfig["ExploreColumns"]["PlaylistEditor"]
 
 
 class AppModule(appModuleHandler.AppModule):
