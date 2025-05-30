@@ -13,12 +13,12 @@ import controlTypes
 from NVDAObjects.IAccessible import sysListView32
 from NVDAObjects.behaviors import Dialog
 from . import splcreator
-from .splstudio import SPLTrackItem, splconfig
+from .splstudio import splconfig
 
 addonHandler.initTranslation()
 
 
-class SPLRemotePlaylistEditorItem(SPLTrackItem):
+class SPLRemotePlaylistEditorItem(splcreator.SPLPlaylistEditorItem):
 	"""An entry in SPL VT Remote Playlist Editor."""
 
 	pass
