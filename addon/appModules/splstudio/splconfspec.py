@@ -28,6 +28,7 @@ VerticalColumnAnnounce = option(None,"Status","Artist","Title","Duration","Intro
 Studio = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood"))
 TrackTool = string_list(default=list("Artist","Title","Duration","Cue","Overlap","Intro","Segue","Filename","Album","CD Code"))
 Creator = string_list(default=list("Artist","Title","Position","Cue","Intro","Outro","Segue","Duration","Last Scheduled","7 Days"))
+PlaylistEditor = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood"))
 [PlaylistSnapshots]
 DurationMinMax = boolean(default=true)
 DurationAverage = boolean(default=true)
