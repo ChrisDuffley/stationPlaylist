@@ -1158,7 +1158,7 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 		splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"] = self.trackColumns.GetItems()
 
 
-# Columns Explorer for Studio, Track Tool and Creator
+# Columns Explorer for Studio, Track Tool, Creator, and playlist editor (Creator and Remote VT)
 # Configure which column will be announced when Control+NVDA+number row keys are pressed.
 # In 2018, the panel will house Columns Explorer buttons, but eventually
 # columns combo boxes should be part of main settings interface.
@@ -1186,14 +1186,26 @@ class ColumnsExplorerPanel(gui.settingsDialogs.SettingsPanel):
 		columnsExplorerCreatorButton = wx.Button(self, label=_("Columns Explorer for &SPL Creator..."))
 		columnsExplorerCreatorButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorerCreator)
 		self.exploreColumnsCreator = splconfig.SPLConfig["ExploreColumns"]["Creator"]
+
+		# Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
+		# for Creator and Remote VT playlist editor.
+		columnsExplorerPlsEditorButton = wx.Button(self, label=_("Columns Explorer for &playlist editor..."))
+		columnsExplorerPlsEditorButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorerPlsEditor)
+		self.exploreColumnsPlsEditor = splconfig.SPLConfig["ExploreColumns"]["PlaylistEditor"]
 		colExplorerHelper.sizer.AddMany(
-			(columnsExplorerButton, columnsExplorerTTButton, columnsExplorerCreatorButton)
+			(
+				columnsExplorerButton,
+				columnsExplorerTTButton,
+				columnsExplorerCreatorButton,
+				columnsExplorerPlsEditorButton
+			)
 		)
 
 	def onSave(self):
 		splconfig.SPLConfig["ExploreColumns"]["Studio"] = self.exploreColumns
 		splconfig.SPLConfig["ExploreColumns"]["TrackTool"] = self.exploreColumnsTT
 		splconfig.SPLConfig["ExploreColumns"]["Creator"] = self.exploreColumnsCreator
+		splconfig.SPLConfig["ExploreColumns"]["PlaylistEditor"] = self.exploreColumnsPlsEditor
 
 	# Columns Explorer configuration.
 	def onColumnsExplorer(self, evt):
@@ -1206,6 +1218,10 @@ class ColumnsExplorerPanel(gui.settingsDialogs.SettingsPanel):
 	# SPL Creator Columns Explorer configuration.
 	def onColumnsExplorerCreator(self, evt):
 		ColumnsExplorerDialog(self, level=2).ShowModal()
+
+	# Playlist editor Columns Explorer configuration.
+	def onColumnsExplorerPlsEditor(self, evt):
+		ColumnsExplorerDialog(self, level=3).ShowModal()
 
 
 class ColumnsExplorerDialog(wx.Dialog):
@@ -1270,6 +1286,27 @@ class ColumnsExplorerDialog(wx.Dialog):
 					"Outro Link",
 				)
 				slots = parent.exploreColumnsCreator
+			case 3:
+				# Translators: The title of Columns Explorer configuration dialog.
+				actualTitle = _("Columns Explorer for playlist editor (Creator and Remote VT)")
+				cols = (
+					"Artist",
+					"Title",
+					"Duration",
+					"Intro",
+					"Outro",
+					"Category",
+					"Year",
+					"Album",
+					"Genre",
+					"Mood",
+					"Energy",
+					"Tempo",
+					"Gender",
+					"Rating",
+					"Filename",
+				)
+				slots = parent.exploreColumnsPlsEditor
 		# Gather column slots.
 		self.columnSlots = []
 
@@ -1327,6 +1364,8 @@ class ColumnsExplorerDialog(wx.Dialog):
 				parent.exploreColumnsTT = slots
 			case 2:
 				parent.exploreColumnsCreator = slots
+			case 3:
+				parent.exploreColumnsPlsEditor = slots
 		parent.Enable()
 		self.Destroy()
 
