@@ -40,7 +40,7 @@ confspecprofiles = {sect: key for sect, key in confspec.items() if sect in _muta
 # Translators: The name of the default (normal) profile.
 defaultProfileName = _("Normal profile")
 # StationPlaylist components.
-_SPLComponents_ = ("splstudio", "splcreator", "tracktool")
+_SPLComponents_ = ("splstudio", "splcreator", "tracktool", "splremotevt")
 # In case one or more profiles had config issues, look up the error message from the following map.
 _configErrors = {
 	"fileReset": "Settings reset to defaults due to configuration file coruption",

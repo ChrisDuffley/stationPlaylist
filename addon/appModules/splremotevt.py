@@ -13,7 +13,7 @@ import controlTypes
 from NVDAObjects.IAccessible import sysListView32
 from NVDAObjects.behaviors import Dialog
 from . import splcreator
-from .splstudio import SPLTrackItem
+from .splstudio import SPLTrackItem, splconfig
 
 addonHandler.initTranslation()
 
@@ -34,9 +34,12 @@ class AppModule(splcreator.AppModule):
 				ui.message("SPL VT Client {SPLVersion}".format(SPLVersion=self.productVersion))
 		except Exception:
 			pass
+		# #64: load config database if not done already.
+		splconfig.openConfig("splremotevt")
 
 	def terminate(self):
 		super(splcreator.AppModule, self).terminate()
+		splconfig.closeConfig("splremotevt")
 		# Just like Creator, clear Playlist Editor status cache,
 		# otherwise it will generate errors when Remote VT restarts without restarting NVDA.
 		self._playlistEditorStatusCache.clear()
