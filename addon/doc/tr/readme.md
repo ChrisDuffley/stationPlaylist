@@ -19,7 +19,7 @@ Eklenti hakkında daha fazla bilgi için [eklenti kılavuzunu][1] okuyun.
   özellikleri devre dışı bırakılır veya sınırlandırılır.
 * En iyi deneyim için ses zayıflaması modunu devre dışı bırakın.
 * 2018'den itibaren [eski eklenti sürümleri için değişiklik günlükleri][2]
-  GitHub'da bulunacaktır. Bu eklenti benioku, 23.02 (2023) sürümünden
+  GitHub'da bulunacaktır. Bu eklenti benioku, 25.01 (2025) sürümünden
   sonraki değişiklikleri listeleyecektir.
 * Studio çalışırken, sırasıyla Control+NVDA+C, Control+NVDA+R'ye bir kez
   veya Control+NVDA+R'ye üç kez basarak kaydedebilir, kaydedilen ayarları
@@ -377,6 +377,8 @@ geri dönecektir.
   hiçbir şey yapmıyor gibi görünmeyecek.
 * Yayın profillerini silerken gösterilen onay iletişim kutusu için kullanıcı
   arayüzü artık NVDA'nın yapılandırma profili silme arabirimine benziyor.
+* In add-on settings, NVDA will no longer move keyboard focus to OK button
+  after closing columns explorer and reset dialogs.
 * NVDA, Yaratıcı ve Track Aracı 6.11'de tanıtılan parça sütun
   değişikliklerini tanıyacaktır.
 * Oluşturucu için sütun gezgininde “Tarih Kısıtlaması” sütunu artık
@@ -409,42 +411,6 @@ geri dönecektir.
 * Studio 6.10 ve sonraki sürümlerde, kontrol tuşlarının etkin/devre dışı
   durumunu (Kontrol+D) duyurmak için SPL Yardımcısı'na yeni bir komut
   eklendi.
-
-## Sürüm 24.03
-
-* NVDA 2024.1 ile uyumludur.
-* NVDA 2023.3.3 veya sonrası gereklidir.
-* StationPlaylist suite 6.10 desteği.
-* Çoğu komut, talep üzerine konuşmayı (NVDA 2024.1) destekler, bu nedenle
-  duyurular bu modda seslendirilebilir.
-
-## Sürüm 24.01
-
-* SPL ve SAM Kodlayıcılarla kullanılacak Kodlayıcı Ayarları iletişim
-  kutusundaki komutlar artık atanabilir; bu, NVDA Menüsü > Tercihler > Girdi
-  Hareketleri iletişim kutusunda StationPlaylist kategorisi altında bunları
-  varsayılan değerlerinden değiştirebileceğiniz anlamına
-  gelir. Atanamayanlar bağlanma ve bağlantıyı kesme komutlarıdır. Ayrıca,
-  komut çakışmalarını önlemek ve uzak sunucularda bu komutun kullanımını çok
-  daha kolay hale getirmek için, bağlandıktan sonra Studio'ya geçiş için
-  varsayılan hareket artık Control+Shift+F11 (daha önce yalnızca F11)
-  şeklindedir. Bunların tümü elbette Kodlayıcı Ayarları iletişim kutusundan
-  (NVDA+Alt+0 veya F12) değiştirilebilir.
-
-## Sürüm 23.05
-
-* Bakımcı değişikliğini yansıtmak için Manifest.ini bu şekilde belirtilecek
-  şekilde güncellenmiştir.
-
-## Sürüm 23.02
-
-* NVDA 2022.4 veya üstü gereklidir.
-* Windows 10 21H2 (Kasım 2021 Güncellemesi/derlemesi 19044) veya üstü
-  gereklidir.
-* Studio'nun çalma listesi görüntüleyicisinde, NVDA'nın belge biçimlendirme
-  ayarları panelinde tablo başlıkları ayarı "satırlar ve sütunlar" veya
-  "sütunlar" olarak ayarlanmışsa, NVDA sanatçı ve başlık gibi sütun
-  başlıklarını duyurmaz.
 
 ## Eski sürümler
 

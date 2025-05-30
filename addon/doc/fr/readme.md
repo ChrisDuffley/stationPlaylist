@@ -17,10 +17,9 @@ NOTES IMPORTANTES :
 * Certaines fonctionnalités de l'extension seront désactivées ou limitées si
   NVDA s'exécute en mode sécurisé, comme dans l'écran de connexion.
 * Pour une meilleure expérience, désactiver le Mode d'atténuation audio.
-* À partir de 2018, les [changelogs des anciennes versions de
-  l'extension][2] seront disponibles sur GitHub. Ce fichier readme de
-  l'extension listera les modifications apportées à partir de la version
-  23.02 (2023).
+* Starting from 2018, [changelogs for old add-on releases][2] will be found
+  on GitHub. This add-on readme will list changes from version 25.01 (2025)
+  onwards.
 * Pendant que Studio est en cours d'exécution, vous pouvez sauvegarder,
   recharger les paramètres sauvegardés, ou rétablir les paramètres par
   défaut de l'extension en pressant Contrôle+NVDA+C, Contrôle+NVDA+R une
@@ -409,6 +408,8 @@ nouvelles fonctionnalités seront recouvertes à la 25.06.x si nécessaire.
 * La boîte de  dialogue de l'interface utilisateur pour la confirmation
   affichée lors de la suppression des profils de diffusion ressemble
   désormais à l'interface de suppression du profil de configuration de NVDA.
+* In add-on settings, NVDA will no longer move keyboard focus to OK button
+  after closing columns explorer and reset dialogs.
 * NVDA reconnaîtra les changements de colonne de piste introduits dans
   Creator et l'Outil de piste 6.11.
 * Dans l'Explorateur de Colonnes pour Creator, la colonne "Date Restriction"
@@ -426,9 +427,8 @@ nouvelles fonctionnalités seront recouvertes à la 25.06.x si nécessaire.
 * Ajout du bouton Fermer aux Instantanés de playlist, Transcriptions de
   Playlist et Assistant SPL et écrans d'Aide du Contrôleur  en Couche (NVDA
   2025.1 et ultérieur).
-* NVDA ne fera plus rien ni ne jouera des tonalités d'erreur lors de
-  l'annonce des informations Météo et température dans Studio 6.x (Assistant
-  SPL, W).
+* NVDA will no longer do nothing or play error tones when announcing weather
+  and temperature information in Studio 6.1x (SPL Assistant, W).
 
 ## Version 25.01
 
@@ -444,44 +444,6 @@ nouvelles fonctionnalités seront recouvertes à la 25.06.x si nécessaire.
 * Dans Studio 6.10 et versions ultérieures, ajout d'une nouvelle commande
   dans Assistant SPL pour annoncer le statut activé/désactivé des touches de
   contrôle (Contrôle+D).
-
-## Version 24.03
-
-* Compatible avec NVDA 2024.1.
-* NVDA 2023.3 ou ultérieur est requis.
-* Prise en charge de StationPlaylist suite 6.10.
-* La plupart des commandes prennent en charge la parole à la demande (NVDA
-  2024.1), les annonces peuvent donc être verbalisées dans ce mode.
-
-## Version 24.01
-
-* Les commandes du dialogue Paramètres de l'encodeur à utiliser avec les
-  encodeurs SPL et SAM sont désormais assignables, ce qui signifie que vous
-  pouvez les modifier par rapport à leurs valeurs par défaut dans la
-  catégorie StationPlaylist dans Menu NVDA > Préférences > Gestes de
-  commandes. Celles qui ne sont pas attribuables sont les commandes de
-  connexion et de déconnexion. De plus, pour éviter les conflits de
-  commandes et faciliter l'utilisation de cette commande sur les serveurs
-  distants, le geste par défaut pour passer à Studio après la connexion est
-  désormais Ctrl+Maj+F11 (auparavant uniquement F11). Tous ces éléments
-  peuvent bien sûr toujours être activés à partir du dialogue Paramètres de
-  l'encodeur (NVDA+Alt+0 ou F12).
-
-## Version 23.05
-
-* Pour refléter le changement du mainteneur, le manifeste a été mis à jour
-  pour indiquer en tant que tel.
-
-## Version 23.02
-
-* NVDA 2022.4 ou ultérieur est requis.
-* Windows 10 21H2 (Mise à jour Novembre 2021 / build 19044) ou ultérieure
-  est requise.
-* Dans la visionneuse de playlist de Studio, NVDA n'annoncera pas les
-  en-têtes de colonne tels que l'artiste et le titre si le paramètre
-  d'en-têtes des tableaux est défini sur En-têtes "Lignes et colonnes" ou
-  "Colonnes" dans le panneau Mise en Forme des Documents dans les Paramètres
-  de NVDA.
 
 ## Anciennes versions
 

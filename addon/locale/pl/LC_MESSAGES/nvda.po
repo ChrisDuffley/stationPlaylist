@@ -641,10 +641,6 @@ msgstr "Informacja o następnym utworze niedostępna."
 msgid "Announces title of the currently playing track"
 msgstr "Oznajmia tytuł obecnie granego utworu"
 
-#, fuzzy
-msgid "Cannot locate current track information"
-msgstr "Informacja o obecnym utworze niedostępna."
-
 #. Translators: Presented when current track information is unavailable.
 msgid "Cannot find current track information"
 msgstr "Informacja o obecnym utworze niedostępna."
@@ -1188,12 +1184,6 @@ msgstr "Gdy szybki profil jest aktywny"
 msgid "&Metadata streaming notification and connection"
 msgstr "Powiadamianie o metadanych i strumieniowaniu"
 
-#. WX's native CheckListBox isn't user friendly.
-#. Therefore use checkboxes laid out across the top.
-#. 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
-#. Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
-#. Add checkboxes for each stream, beginning with the DSP encoder.
-#. #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
 #. # Translators: the label for a setting in SPL add-on settings
 #. to configure streaming status for metadata streams.
 msgid "&Select the URL for metadata streaming upon request:"
@@ -1545,24 +1535,6 @@ msgstr "Dźwięk podczas połączenia"
 msgid "Announce connection &status until encoder connects"
 msgstr ""
 
-#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-msgid "No encoders found"
-msgstr "Nie znaleziono enkoderów"
-
-#. Translators: presented when more than one encoder type is active
-#. when trying to obtain encoder connection status.
-msgid "Only one encoder type can be active at once"
-msgstr ""
-
-#. Translators: presented when at least one encoder is connected.
-#, python-brace-format
-msgid "Connected encoders: {encodersConnected}"
-msgstr "Połączonych enkoderów: {encodersConnected}"
-
-#. Translators: presented when no encoders are connected.
-msgid "No encoders connected"
-msgstr "Nie ma podłączonych enkoderów"
-
 #. Translators: presented when SPL Studio window is minimized.
 #, fuzzy
 msgid "SPL Studio is minimized to system tray."
@@ -1718,6 +1690,24 @@ msgid ""
 "keys: Play carts."
 msgstr ""
 
+#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
+msgid "No encoders found"
+msgstr "Nie znaleziono enkoderów"
+
+#. Translators: presented when more than one encoder type is active
+#. when trying to obtain encoder connection status.
+msgid "Only one encoder type can be active at once"
+msgstr ""
+
+#. Translators: presented when at least one encoder is connected.
+#, python-brace-format
+msgid "Connected encoders: {encodersConnected}"
+msgstr "Połączonych enkoderów: {encodersConnected}"
+
+#. Translators: presented when no encoders are connected.
+msgid "No encoders connected"
+msgstr "Nie ma podłączonych enkoderów"
+
 #. Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
 msgid "Moves to SPL Studio window from other programs."
 msgstr "Przenosi do okna SPL Studio z innych programów."
@@ -1795,3 +1785,7 @@ msgid ""
 msgstr ""
 "Poprawia dostępność StationPlaylist.\n"
 "Ponadto, dodaje globalne komendy dla studia, dostępne z każdego miejsca."
+
+#, fuzzy
+#~ msgid "Cannot locate current track information"
+#~ msgstr "Informacja o obecnym utworze niedostępna."

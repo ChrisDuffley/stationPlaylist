@@ -646,10 +646,6 @@ msgstr "Nemoguće pronaći informacije o sledećem zapisu"
 msgid "Announces title of the currently playing track"
 msgstr "Izgovara naslov zapisa koji se trenutno reprodukuje"
 
-#, fuzzy
-msgid "Cannot locate current track information"
-msgstr "Nemoguće pronaći informacije trenutnog zapisa"
-
 #. Translators: Presented when current track information is unavailable.
 msgid "Cannot find current track information"
 msgstr "Nemoguće pronaći informacije trenutnog zapisa"
@@ -860,9 +856,9 @@ msgstr ""
 "\n"
 "Posetite www.stationplaylist.com za detalje o programu Station Playlist "
 "Studio.\n"
-"Posetite stranicu za Station playlist na NVDA stranici sa "
-"dodacima(addons.nvda-project.org) za više informacija o dodatku i da "
-"pročitate dokumentaciju dodatka.\n"
+"Posetite stranicu za Station playlist na NVDA stranici sa dodacima(addons."
+"nvda-project.org) za više informacija o dodatku i da pročitate dokumentaciju "
+"dodatka.\n"
 "Želite da vidite ovaj dijalog ponovo? Samo pritisnite Alt+NVDA+F1 dok "
 "koristite Studio da se vratite na ovaj dijalog.\n"
 "Imate nešto da kažete o dodatku? Pritisnite Kontrol+NVDA+crtica(-) da "
@@ -1234,12 +1230,6 @@ msgstr "Kada je profil za trenutnu promenu aktivan"
 msgid "&Metadata streaming notification and connection"
 msgstr "&Obaveštenja za metadata strimove i povezivanja"
 
-#. WX's native CheckListBox isn't user friendly.
-#. Therefore use checkboxes laid out across the top.
-#. 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
-#. Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
-#. Add checkboxes for each stream, beginning with the DSP encoder.
-#. #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
 #. # Translators: the label for a setting in SPL add-on settings
 #. to configure streaming status for metadata streams.
 #, fuzzy
@@ -1606,25 +1596,6 @@ msgstr "&Reprodukuj pištanja statusa povezivanja u toku povezivanja"
 msgid "Announce connection &status until encoder connects"
 msgstr ""
 
-#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-#, fuzzy
-msgid "No encoders found"
-msgstr "Marker nije pronađen"
-
-#. Translators: presented when more than one encoder type is active
-#. when trying to obtain encoder connection status.
-msgid "Only one encoder type can be active at once"
-msgstr ""
-
-#. Translators: presented when at least one encoder is connected.
-#, python-brace-format
-msgid "Connected encoders: {encodersConnected}"
-msgstr ""
-
-#. Translators: presented when no encoders are connected.
-msgid "No encoders connected"
-msgstr ""
-
 #. Translators: presented when SPL Studio window is minimized.
 #, fuzzy
 msgid "SPL Studio is minimized to system tray."
@@ -1796,6 +1767,25 @@ msgstr ""
 "R: Preostalo vreme za zapis koji se reprodukuje.\n"
 "Šift+R: Napredak skeniranja biblioteke."
 
+#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
+#, fuzzy
+msgid "No encoders found"
+msgstr "Marker nije pronađen"
+
+#. Translators: presented when more than one encoder type is active
+#. when trying to obtain encoder connection status.
+msgid "Only one encoder type can be active at once"
+msgstr ""
+
+#. Translators: presented when at least one encoder is connected.
+#, python-brace-format
+msgid "Connected encoders: {encodersConnected}"
+msgstr ""
+
+#. Translators: presented when no encoders are connected.
+msgid "No encoders connected"
+msgstr ""
+
 #. Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
 msgid "Moves to SPL Studio window from other programs."
 msgstr "Prebacuje se na prozor programa SPL studio iz drugih programa"
@@ -1878,3 +1868,7 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist.\n"
 "Takođe, dodaje globalne komande za studio bilo gde."
+
+#, fuzzy
+#~ msgid "Cannot locate current track information"
+#~ msgstr "Nemoguće pronaći informacije trenutnog zapisa"
