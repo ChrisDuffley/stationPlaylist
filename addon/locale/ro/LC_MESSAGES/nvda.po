@@ -653,10 +653,6 @@ msgstr "Nu se pot găsi informații despre următoarea melodie"
 msgid "Announces title of the currently playing track"
 msgstr "Anunță titlul melodiei curente"
 
-#, fuzzy
-msgid "Cannot locate current track information"
-msgstr "Nu se pot găsi informații despre melodia curentă"
-
 #. Translators: Presented when current track information is unavailable.
 msgid "Cannot find current track information"
 msgstr "Nu se pot găsi informații despre melodia curentă"
@@ -1224,12 +1220,6 @@ msgstr "Când profilul de comutare instantanee este activ"
 msgid "&Metadata streaming notification and connection"
 msgstr "Notificare și conectare emisie &metadata"
 
-#. WX's native CheckListBox isn't user friendly.
-#. Therefore use checkboxes laid out across the top.
-#. 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
-#. Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
-#. Add checkboxes for each stream, beginning with the DSP encoder.
-#. #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
 #. # Translators: the label for a setting in SPL add-on settings
 #. to configure streaming status for metadata streams.
 msgid "&Select the URL for metadata streaming upon request:"
@@ -1590,25 +1580,6 @@ msgstr "Redă &bipul de stare a conexiunii când se conectează"
 msgid "Announce connection &status until encoder connects"
 msgstr ""
 
-#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-#, fuzzy
-msgid "No encoders found"
-msgstr "Niciun marcaj de loc găsit"
-
-#. Translators: presented when more than one encoder type is active
-#. when trying to obtain encoder connection status.
-msgid "Only one encoder type can be active at once"
-msgstr ""
-
-#. Translators: presented when at least one encoder is connected.
-#, python-brace-format
-msgid "Connected encoders: {encodersConnected}"
-msgstr ""
-
-#. Translators: presented when no encoders are connected.
-msgid "No encoders connected"
-msgstr ""
-
 #. Translators: presented when SPL Studio window is minimized.
 #, fuzzy
 msgid "SPL Studio is minimized to system tray."
@@ -1789,6 +1760,25 @@ msgstr ""
 "Tastele de funcție și rândul tastelor cu numere, cu sau fără Shift, Alt și "
 "Control: Redau cart-urile."
 
+#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
+#, fuzzy
+msgid "No encoders found"
+msgstr "Niciun marcaj de loc găsit"
+
+#. Translators: presented when more than one encoder type is active
+#. when trying to obtain encoder connection status.
+msgid "Only one encoder type can be active at once"
+msgstr ""
+
+#. Translators: presented when at least one encoder is connected.
+#, python-brace-format
+msgid "Connected encoders: {encodersConnected}"
+msgstr ""
+
+#. Translators: presented when no encoders are connected.
+msgid "No encoders connected"
+msgstr ""
+
 #. Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
 msgid "Moves to SPL Studio window from other programs."
 msgstr "Comutare la fereastra studioului SPL de la alte programe."
@@ -1869,3 +1859,7 @@ msgid ""
 msgstr ""
 "Conține suport pentru StationPlaylist.\n"
 "De asemenea, adaugă comenzi globale pentru studio de oriunde."
+
+#, fuzzy
+#~ msgid "Cannot locate current track information"
+#~ msgstr "Nu se pot găsi informații despre melodia curentă"

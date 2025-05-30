@@ -19,9 +19,9 @@ NOTAS IMPORTANTES:
   NVDA se ejecuta en modo seguro, como por ejemplo en la pantalla de inicio
   de sesión.
 * Para una mejor experiencia, deshabilita el modo atenuación de audio.
-* A partir de 2018, los [registros de cambios para versiones antiguas][2] se
-  encontrarán en GitHub. Este léeme del complemento listará cambios desde la
-  versión 23.02 (2023) en adelante.
+* Starting from 2018, [changelogs for old add-on releases][2] will be found
+  on GitHub. This add-on readme will list changes from version 25.01 (2025)
+  onwards.
 * Cuando Studio está en ejecución, se pueden guardar, restablecer o poner
   los valores de fábrica del complemento pulsando control+NVDA+c,
   control+NVDA+r una vez o control+NVDA+r tres veces, respectivamente. Esto
@@ -401,6 +401,8 @@ a 25.06.x si es necesario.
 * La interfaz de usuario del diálogo de confirmación mostrada al eliminar
   perfiles de emisión ahora recuerda a la interfaz de eliminación de
   perfiles de NVDA.
+* In add-on settings, NVDA will no longer move keyboard focus to OK button
+  after closing columns explorer and reset dialogs.
 * NVDA reconocerá los cambios de columna de pista introducidos en Creator y
   la herramienta de pista 6.11.
 * En el explorador de columnas de Creator, la columna "Restricción por
@@ -418,9 +420,8 @@ a 25.06.x si es necesario.
 * Se añade un botón de cierre a las instantáneas de lista de reproducción,
   transcripciones de lista de reproducción, y las pantallas de ayuda del
   asistente y el controlador de SPL (NVDA 2025.1 y posterior).
-* NVDA ya no hará nada o reproducirá tonos de error al anunciar la
-  información meteorológica y de temperatura en Studio 6.x (asistente de
-  SPL, w).
+* NVDA will no longer do nothing or play error tones when announcing weather
+  and temperature information in Studio 6.1x (SPL Assistant, W).
 
 ## Versión 25.01
 
@@ -436,42 +437,6 @@ a 25.06.x si es necesario.
 * En Studio 6.10 o posterior, se ha añadido una nueva orden al asistente de
   SPL para anunciar el estado activado o desactivado de las teclas de
   control (control+d).
-
-## Versión 24.03
-
-* Compatible con NVDA 2024.1.
-* Se requiere NVDA 2023.3.3 o posterior.
-* Soporte para la suite StationPlaylist 6.10.
-* La mayoría de órdenes soportan el modo de voz a petición (NVDA 2024.1),
-  por lo que los anuncios se pueden verbalizar en este modo.
-
-## Versión 24.01
-
-* Las órdenes del diálogo de opciones del codificador para usar con los
-  codificadores SAM y SPL son ahora asignables, lo que significa que puedes
-  cambiarlos desde sus valores por defecto en la categoría StationPlaylist
-  en el menú NVDA > Preferencias > Gestos de entrada. Los únicos gestos que
-  no son asignables son los de conectar y desconectar. Además, para evitar
-  conflictos de atajos y facilitar mucho más el uso de esta orden en
-  servidores remotos, el gesto por defecto para pasar a Studio tras conectar
-  es ahora control+shift+f11 (antes sólo f11). Todos estos se pueden
-  conmutar desde el diálogo de opciones del codificador, (NVDA+alt+0 o f12),
-  por supuesto.
-
-## Versión 23.05
-
-* Para reflejar el cambio de responsable del mantenimiento, se ha
-  actualizado el manifiesto.
-
-## Versión 23.02
-
-* Se requiere NVDA 2022.4 o posterior.
-* Se requiere Windows 10 21H2 (actualización de noviembre de 2021 /
-  compilación 19044) o posterior.
-* En el visualizador de listas de reproducción de Studio, NVDA no anunciará
-  cabeceras de columna como la de artista o título si se ha configurado el
-  ajuste de cabeceras de tabla a "filas y columnas" o "columnas" en el panel
-  de opciones de formateado de documentos de NVDA.
 
 ## Versiones antiguas
 

@@ -18,7 +18,7 @@ VAŽNE NAPOMENE:
   radi u sigurnom modusu kao što je prozor prijave.
 * Za najbolje iskustvo, deaktiviraj modus stišavanja zvuka.
 * Starting from 2018, [changelogs for old add-on releases][2] will be found
-  on GitHub. This add-on readme will list changes from version 23.02 (2023)
+  on GitHub. This add-on readme will list changes from version 25.01 (2025)
   onwards.
 * Dok je Studio pokrenut, moguće je spremiti postavke, ponovo učitati
   spremljene postavke ili resetirati postavke dodatka na standardne
@@ -361,6 +361,8 @@ releases requiring Studio 6.x. Some new features will be backported to
   performing some SPL Assistant commands after resizing Studio window.
 * The user interface for confirmation dialog shown when deleting broadcast
   profiles now resembles NVDA's configuration profile deletion interface.
+* In add-on settings, NVDA will no longer move keyboard focus to OK button
+  after closing columns explorer and reset dialogs.
 * NVDA will recognize track column changes introduced in Creator and Track
   Tool 6.11.
 * In columns explorer for Creator, "Date Restriction" column is now
@@ -377,7 +379,7 @@ releases requiring Studio 6.x. Some new features will be backported to
 * Added close button to playlist snapshots, playlist transcripts, and SPL
   Assistant and Controller layer help screens (NVDA 2025.1 and later).
 * NVDA will no longer do nothing or play error tones when announcing weather
-  and temperature information in Studio 6.x (SPL Assistant, W).
+  and temperature information in Studio 6.1x (SPL Assistant, W).
 
 ## Version 25.01
 
@@ -390,41 +392,6 @@ releases requiring Studio 6.x. Some new features will be backported to
   add-on.
 * In Studio 6.10 and later, added a new command in SPL Assistant to announce
   control keys enabled/disabled status (Control+D).
-
-## Verzija 24.03
-
-* Compatible with NVDA 2024.1.
-* Zahtijeva NVDA 2023.3.3 ili noviju verziju.
-* Podrška za StationPlaylist izdanje 6.10.
-* Most commands support speak on demand (NVDA 2024.1) so announcements can
-  be spoken in this mode.
-
-## Verzija 24.01
-
-* The commands for the Encoder Settings dialog for use with the SPL and SAM
-  Encoders are now assignable, meaning that you can change them from their
-  defaults under the StationPlaylist category in NVDA Menu > Preferences >
-  Input Gestures. The ones that are not assignable are the connect and
-  disconnect commands. Also, to prevent command conflicts and make much
-  easier use of this command on remote servers, the default gesture for
-  switching to Studio after connecting is now Control+Shift+F11 (previously
-  just F11). All of these can of course still be toggled from the Encoder
-  Settings dialog (NVDA+Alt+0 or F12).
-
-## Verzija 23.05
-
-* To reflect the maintainer change, the manifest has been updated to
-  indicate as such.
-
-## Verzija 23.02
-
-* Potrebna je NVDA verzija 2022.4 ili novija.
-* Potreban je sustav Windows 10 21H2 (aktualizirana verzija iz studenog
-  2021./izgradnja 19044) ili novija verzija.
-* U pregledniku popisa snimaka programa Studio, NVDA neće najavljivati
-  zaglavlja stupaca kao što su izvođač i naslov ako je postavka zaglavlja
-  tablice postavljena na „Redci i stupci” ili „Stupci” u NVDA ploči postavki
-  formatiranja dokumenta.
 
 ## Starija izdanja
 

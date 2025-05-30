@@ -7,20 +7,20 @@
 Este pacote de complemento fornece uso aprimorado do StationPlaylist Studio
 e outros aplicativos StationPlaylist, além de fornecer utilitários para
 controlar o Studio de qualquer lugar. Os aplicativos compatíveis incluem
-Studio, Creator — Criador —, Track Tool — Ferramenta de Faixa —, VT Recorder
+Studio, Criador — Criador —, Track Tool — Ferramenta de Faixa —, VT Recorder
 e Streamer, bem como codificadores — encoders — SAM, SPL e AltaCast.
 
-For more information about the add-on, read the [add-on guide][1].
+Para obter mais informações sobre o add-on, leia o [guia do add-on][1].
 
 NOTAS IMPORTANTES:
 
-* This add-on requires StationPlaylist suite 5.50 or later.
+* Esse complemento requer o StationPlaylist Suite 5.50 ou posterior.
 * Alguns recursos complementares serão desativados ou limitados se o NVDA
   estiver sendo executado em modo seguro, como na tela de logon.
 * Para obter a melhor experiência, desative o modo de redução de áudio.
-* Starting from 2018, [changelogs for old add-on releases][2] will be found
-  on GitHub. This add-on readme will list changes from version 23.02 (2023)
-  onwards.
+* A partir de 2018, [changelogs para versões antigas do complemento][2]
+  serão encontrados no GitHub. Este Leiame do complemento listará as
+  alterações da versão 25.01 (2025) em diante.
 * Enquanto o Studio está em execução, você pode salvar, recarregar as
   configurações salvas ou redefinir as configurações do complemento para os
   padrões pressionando Control+NVDA+C, Control+NVDA+R uma vez ou
@@ -49,40 +49,41 @@ fala sob demanda.
 * Alt+NVDA+1 (movimento de dois dedos para a direita no modo SPL) na janela
   do Studio: Abre a categoria de alarmes na caixa de diálogo de configuração
   do complemento do Studio (não suporta falar sob demanda).
-* Alt+NVDA+1 no Editor de Lista de Reprodução do Creator e no editor de
+* Alt+NVDA+1 no Editor de Lista de Reprodução do Creador e no editor de
   lista de reprodução Remote VT: Anuncia a hora programada para a lista de
   reprodução — playlist — carregada.
-* Alt+NVDA+2 no Editor de Lista de Reprodução do Creator e editor de lista
+* Alt+NVDA+2 no Editor de Lista de Reprodução do Criador e editor de lista
   de reprodução Remote VT: Anuncia a duração total da lista de reprodução.
 * Alt+NVDA+3 na janela do Studio: Alterna o explorador de carrinhos para
   aprender as atribuições de carrinhos (não suporta falar sob demanda).
-* Alt+NVDA+3 no Editor de Lista de Reprodução do Creator e editor de lista
+* Alt+NVDA+3 no Editor de Lista de Reprodução do Criador e editor de lista
   de reprodução Remote VT: Anuncia quando a faixa selecionada está
   programada para tocar.
-* Alt+NVDA+4 no Editor de Lista de Reprodução do Creator e editor de lista
+* Alt+NVDA+4 no Editor de Lista de Reprodução do Criador e editor de lista
   de reprodução Remote VT: Anuncia rotação e categoria associada à lista de
   reprodução carregada.
-* Control+NVDA+F from Studio window: Opens a dialog to find a track based on
-  artist or song name. Press NVDA+F3 to find forward or NVDA+Shift+F3 to
-  find backward (does not support speak on demand).
-* Shift+NVDA+R from Studio window: Steps through library scan announcement
-  settings (does not support speak on demand).
+* Control+NVDA+F na janela do Studio: Abre uma caixa de diálogo para
+  localizar uma faixa com base no nome do artista ou da música. Pressione
+  NVDA+F3 para procurar para frente ou NVDA+Shift+F3 para procurar para trás
+  (não suporta falar sob demanda).
+* Shift+NVDA+R na janela do Studio: Percorre as configurações de anúncio de
+  varredura da biblioteca (não suporta falar sob demanda).
 * Control+Shift+X na janela do Studio: Percorre as configurações do
   temporizador em braile (não suporta falar sob demanda).
 * Control+Alt+seta para a esquerda/direita (enquanto estiver focado em uma
-  faixa no Studio, Creator, Remote VT e Ferramenta de rastreamento): Mover
+  faixa no Studio, Criador, Remote VT e Ferramenta de rastreamento): Mover
   para a coluna da faixa anterior/seguinte (não suporta falar sob demanda).
 * Control+Alt+seta para cima/para baixo (enquanto estiver focado em uma
-  faixa no Studio, Creator, Remote VT e Track Tool): Move para a faixa
+  faixa no Studio, Criador, Remote VT e Track Tool): Move para a faixa
   anterior/próxima e anuncia colunas específicas (não suporta falar sob
   demanda).
-* Control+NVDA+1 a 0 (enquanto focalizado numa faixa no Studio, Creator
+* Control+NVDA+1 a 0 (enquanto focalizado numa faixa no Studio, Criador
   (incluindo o Editor de Lista de Reprodução), Remote VT e ferramenta de
   Faixa): Anuncia o conteúdo da coluna para uma coluna especificada (as
   primeiras dez colunas por padrão). Pressionar este comando duas vezes
   exibirá as informações da coluna numa janela em modo de navegação.
 * Control+NVDA+- (hífen enquanto estiver focado em uma faixa no Studio,
-  Creator, Remote VT e Track Tool): exibe dados de todas as colunas em uma
+  Criador, Remote VT e Track Tool): exibe dados de todas as colunas em uma
   faixa em uma janela de modo de navegação (não suporta falar sob demanda).
 * NVDA+V enquanto estiver focado em uma faixa (somente no visualizador de
   listas de reprodução do Studio): alterna o anúncio da coluna da faixa
@@ -207,7 +208,7 @@ sob demanda):
 * L (Shift+L no leiaute JAWS): Entrada de linha.
 * M: Microfone.
 * N: Título para a próxima faixa programada.
-* O: Playlist hour over/under by.
+* O: Fim da hora da lista de reprodução/sob por.
 * P: Status de reprodução (reproduzindo ou parado).
 * Shift+P: Tonalidade — pitch — da faixa atual.
 * * R (Shift+E no leiaute JAWS): Gravar no arquivo habilitado/desabilitado.
@@ -249,7 +250,7 @@ falar sob demanda):
 * T: Parada instantânea.
 * M: Liga o microfone.
 * Shift+M: Desliga o microfone.
-* N: Turn microphone on without fade.
+* N: Liga o microfone sem desvanecimento.
 * A: Ativa a automatização.
 * Shift+A: Desativa a automatização.
 * L: Ativa entrada de linha.
@@ -314,9 +315,9 @@ pressione Assistente SPL, F10 quando chegar ao final da seleção.
 Pressionando Control+NVDA+1 a 0, você pode obter o conteúdo de colunas
 específicas. Por padrão, essas são as primeiras dez colunas para um item de
 faixa (no Studio: intérprete, título, duração, introdução, outro, categoria,
-ano, álbum, gênero, modo). Para o editor de lista de reprodução no Creator e
+ano, álbum, gênero, modo). Para o editor de lista de reprodução no Criador e
 cliente Remote VT, os dados da coluna dependem da ordem das colunas,
-conforme mostrada na tela. No Studio, lista de faixas principal do Creator,
+conforme mostrada na tela. No Studio, lista de faixas principal do Criador,
 e Ferramenta de Faixa, os espaços de coluna são predefinidos
 independentemente da ordem das colunas na tela e podem ser configurados no
 diálogo de configurações do complemento na categoria de explorador de
@@ -374,40 +375,52 @@ tela sensível ao toque. Primeiro, use o toque de três dedos para alternar
 para o modo SPL e, em seguida, use os comandos de toque listados acima para
 executar os comandos.
 
-## Version 25.06-LTS
+## Versão 25.06-LTS
 
-Version 25.06.x is the last release series to support Studio 5.x with future
-releases requiring Studio 6.x. Some new features will be backported to
-25.06.x if needed.
+A versão 25.06.x é a última série de versões compatíveis com o Studio 5.x,
+sendo que as versões futuras exigirão o Studio 6.x. Alguns novos recursos
+serão transferidos para a versão 25.06.x, se necessário.A versão 20.09.x é a
+última série de lançamento a suportar o Studio 5.20 e baseada em tecnologias
+antigas, com versões futuras suportando o Studio 5.30 e recursos mais
+recentes do NVDA. Alguns novos recursos serão portados para 20.09.x, se
+necessário.
 
-* NVDA will no longer forget to transfer broadcast profiles while updating
-  the add-on (fixing a regression introduced in 25.05).
-* Added a new command in SPL Assistant to announce playlist hour over/under
-  by in minutes and seconds (O).
-* In Studio, the command to step through library scan announcement settings
-  has changed from Alt+NVDA+R to Shift+NVDA+R as the former command toggles
-  remote access feature in NVDA 2025.1.
-* NVDA will no longer play error tones or appear to do nothing when
-  performing some SPL Assistant commands after resizing Studio window.
-* The user interface for confirmation dialog shown when deleting broadcast
-  profiles now resembles NVDA's configuration profile deletion interface.
-* NVDA will recognize track column changes introduced in Creator and Track
-  Tool 6.11.
-* In columns explorer for Creator, "Date Restriction" column is now
-  "Restrictions".
-* NVDA will no longer play wrong carts when playing them via SPL Controller
-  layer.
+* O NVDA não se esquecerá mais de transferir perfis de transmissão ao
+  atualizar o complemento (corrigindo uma regressão introduzida na versão
+  25.05).
+* Adição de um novo comando no SPL Assistant para anunciar a hora da lista
+  de reprodução acima/abaixo em minutos e segundos (O).
+* No Studio, o comando para percorrer as configurações de anúncio de
+  varredura da biblioteca foi alterado de Alt+NVDA+R para Shift+NVDA+R, pois
+  o primeiro comando ativa o recurso de acesso remoto no NVDA 2025.1.
+* O NVDA não reproduzirá mais tons de erro ou parecerá não fazer nada ao
+  executar alguns comandos do SPL Assistant depois de redimensionar a janela
+  do Studio.
+* A interface do usuário para a caixa de diálogo de confirmação exibida ao
+  excluir perfis de transmissão agora se assemelha à interface de exclusão
+  de perfil de configuração do NVDA.
+* Nas configurações do complemento, o NVDA não moverá mais o foco do teclado
+  para o botão OK após fechar o explorador de colunas e as caixas de diálogo
+  de redefinição.
+* O NVDA reconhecerá as alterações de coluna de trilha introduzidas no
+  Criador e no Track Tool 6.11.
+* No explorador de colunas do Criador, a coluna “Restrição de data” agora é
+  “Restrições”.
+* O NVDA não reproduzirá mais carrinhos errados ao reproduzi-los por meio da
+  camada do controlador SPL.
 
-## Version 25.05
+## Versão 25.05
 
-* NVDA 2024.1 or later is required due to Python 3.11 upgrade.
-* Restored limited support for Windows 8.1.
-* Moved ad-on wiki documents such as add-on changelog to the main code
-  repository.
-* Added close button to playlist snapshots, playlist transcripts, and SPL
-  Assistant and Controller layer help screens (NVDA 2025.1 and later).
-* NVDA will no longer do nothing or play error tones when announcing weather
-  and temperature information in Studio 6.x (SPL Assistant, W).
+* É necessário o NVDA 2024.1 ou posterior devido à atualização do Python
+  3.11.
+* Suporte limitado restaurado para o Windows 8.1.
+* Movemos os documentos wiki de complementos, como o changelog de
+  complementos, para o repositório de código principal.
+* Foi adicionado  o botão Fechar às telas de instantâneos de listas de
+  reprodução, transcrições de listas de reprodução e ajuda do SPL Assistant
+  e da camada Controller (NVDA 2025.1 e posterior).
+* O NVDA não fará mais nada ou reproduzirá tons de erro ao anunciar
+  informações sobre clima e temperatura no Studio 6.1x (SPL Assistant, W).
 
 ## Versão 25.01
 
@@ -425,46 +438,10 @@ releases requiring Studio 6.x. Some new features will be backported to
   Assistant para anunciar o status de ativação/desativação das teclas de
   controle (Control+D).
 
-## Versão 24.03
-
-* Compatível com o NVDA 2024.1.
-* É necessário o NVDA 2023.3.3 ou posterior.21.01: NVDA 2020.3 ou posterior
-  é requerido.
-* Suporte para a suíte StationPlaylist 6.10.
-* A maioria dos comandos é compatível com a fala sob demanda (NVDA 2024.1),
-  portanto, os anúncios podem ser falados nesse modo.
-
-## Versão 24.01
-
-* Os comandos da caixa de diálogo Configurações do codificador para uso com
-  os codificadores SPL e SAM agora são atribuíveis, o que significa que você
-  pode alterá-los em relação aos padrões na categoria StationPlaylist no
-  Menu NVDA > Preferências > Gestos de entrada. Os comandos de conexão e
-  desconexão não podem ser atribuídos. Além disso, para evitar conflitos de
-  comandos e facilitar muito o uso desse comando em servidores remotos, o
-  gesto padrão para alternar para o Studio após a conexão agora é
-  Control+Shift+F11 (antes era apenas F11). É claro que tudo isso ainda pode
-  ser alternado na caixa de diálogo Encoder Settings (NVDA+Alt+0 ou F12).
-
-## Versão 23.05
-
-* Para refletir a mudança do mantenedor, o manifesto foi atualizado para
-  indicar isso.
-
-## Versão 23.02
-
-* É necessário o NVDA 2022.4 ou posterior.21.01: NVDA 2020.3 ou posterior é
-  requerido.
-* É necessário o Windows 10 21H2 (atualização/compilação 19044 de novembro
-  de 2021) ou posterior.
-* No visualizador de listas de reprodução do Studio, o NVDA não anunciará
-  cabeçalhos de coluna, como artista e título, se a configuração de
-  cabeçalhos de tabela estiver definida como “linhas e colunas” ou “colunas”
-  no painel de configurações de formatação de documentos do NVDA.
-
 ## Versões mais antigas
 
-Please see the [changelog][2] for release notes for old add-on releases.
+Consulte o [changelog][2] para obter as notas de versão das versões antigas
+do complemento.
 
 [1]:
 https://github.com/ChrisDuffley/stationPlaylist/blob/main/addonuserguide.md
