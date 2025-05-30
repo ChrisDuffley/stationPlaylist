@@ -52,7 +52,7 @@ In addition to StationPlaylist Studio, this add-on comes with support for the fo
 
 * StationPlaylist Creator (including Playlist Editor)
 * Track Tool
-* Remote VT client
+* Remote VT client (mostly playlist editor)
 * StationPlaylist Streamer
 * SAM Encoders
 * SPL Encoders
@@ -155,7 +155,7 @@ By default, the following columns or slots are defined:
 
 Note: Position 10 is 0 (zero) key. Notice that these are the first ten columns from left to right unless reordered.
 
-To configure column slots, open add-on settings, select Columns Explorer category, then click Columns Explorer button. You'll be greeted with ten combo boxes (one per column slot) where you can select columns you'd like to explore when Control+NVDA+column slot (1 through 0) keys are pressed.
+To configure column slots, open add-on settings, select Columns Explorer category, then click "Columns Explorer for SPL Studio" button. You'll be greeted with ten combo boxes (one per column slot) where you can select columns you'd like to explore when Control+NVDA+column slot (1 through 0) keys are pressed.
 
 #### Customizing column announcements
 
@@ -504,9 +504,7 @@ Following are the information you can query regarding a track in SPL Creator:
 
 Both Creator's playlist editor and Remote VT client lets you manage playlists for a station. The differences are where the station is hosted (local for Creator, remote for VT client), along with ability to record voice tracks for a remote playlist in Remote VT client which affects the length of a playlist.
 
-Track information shown differs across SPL Creator's Playlist Editor and Remote VT client versions. Following are track information shown in Creator's Playlist Editor and Remote VT client once a remote playlist is loaded:
-
-Versions 5.50 and 6.0x:
+Following are track information shown in Creator's Playlist Editor and Remote VT client once a remote playlist is loaded:
 
 * Control+NVDA+1: Artist.
 * Control+NVDA+2: Track title.
@@ -519,20 +517,9 @@ Versions 5.50 and 6.0x:
 * Control+NVDA+9: Genre.
 * Control+NVDA+0: Mood.
 
-Version 6.1x:
+In addition, version 6.1x displays scheduled time as the leftmost column.
 
-* Control+NVDA+1: Scheduled time.
-* Control+NVDA+2: Artist.
-* Control+NVDA+3: Track title.
-* Control+NVDA+4: Duration of the selected track.
-* Control+NVDA+5: Length of the intro.
-* Control+NVDA+6: Length of the outro.
-* Control+NVDA+7: Category.
-* Control+NVDA+8: Year.
-* Control+NVDA+9: Album.
-* Control+NVDA+0: Genre.
-
-In addition, Playlist Editor in creator and Remote VT client includes the following commands:
+Playlist Editor in creator and Remote VT client includes the following additional commands:
 
 * Alt+NVDA+1: Date and time for the playlist.
 * Alt+NVDA+2: Duration of the playlist.
@@ -568,7 +555,7 @@ Most of the settings in this dialog were discussed throughout the add-on guide. 
 * Column announcement: handles column announcements such as column order. Settings in this category include:
 	* Announce columns in the order shown on screen (enabled by default): if checked, NVDA will use column order as shown on screen when announcing track columns (applicable to Studio's playlist viewer only). To use custom column order and/or exclude certain columns from being announced, uncheck this checkbox.
 	* Column inclusion and/or order: check or uncheck columns to be announced and/or customize the announcement order. See column announcements section for details.
-* Columns explorer: The three buttons in this category opens dialogs where you can configure columns explorer slots when you use Studio, Track Tool, or SPL Creator. See Columns Explorer section for details.
+* Columns explorer: The four buttons in this category opens dialogs where you can configure columns explorer slots when you use Studio, Track Tool, Creator, or playlist editor in Creator and Remote VT. See Columns Explorer section for details.
 * Playlist Transcripts: you can configure various settings related to Playlist Transcripts feature, including which columns to include and column order. See Playlist Transcripts section for details.
 * Status announcement: this category contains four checkboxes to configure announcement of certain status information. These include announcing scheduled time for the selected track, listener count, name of the currently playing cart and position of the player used for playing the current and the next track.
 * Advanced (unavailable in secure mode): This category allows you to configure various advanced options. These include:
