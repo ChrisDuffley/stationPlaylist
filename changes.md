@@ -2,6 +2,13 @@
 
 This page lists the complete changelog for StationPlaylist add-on releases.
 
+## Version 25.07
+
+Version 25.07 supports SPL Studio 6.0 and later.
+
+* Columns explorer (Control+NVDA+number row) is now configurable for Creator and Remote VT's playlist editor. A new button, "columns explorer for playlist editor" is available from columns explorer add-on settings screen.
+* In columns explorer add-on settings, renamed "columns explorer" to "columns explorer for SPL Studio".
+
 ## Version 25.06-LTS
 
 Version 25.06.x is the last release series to support Studio 5.x with future releases requiring Studio 6.x. Some new features will be backported to 25.06.x if needed.
