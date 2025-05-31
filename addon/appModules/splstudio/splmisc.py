@@ -380,8 +380,8 @@ def cartExplorerInit(
 	if carts is None:
 		carts = {"standardLicense": StudioTitle.startswith("StationPlaylist Studio Standard")}
 	# Obtain the "real" path for SPL via environment variables and open the cart data folder.
-	# Provided that Studio was installed using default path.
-	cartsDataPath = os.path.join(os.environ["PROGRAMFILES"], "StationPlaylist", "Data")
+	# Provided that Studio was installed using default path for 32-bit x86 programs.
+	cartsDataPath = os.path.join(os.environ["PROGRAMFILES(X86)"], "StationPlaylist", "Data")
 	# See if multiple users are using SPl Studio.
 	userNameIndex = StudioTitle.find("-")
 	# Read *.cart files and process the cart entries within
