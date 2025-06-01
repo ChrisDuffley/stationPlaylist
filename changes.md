@@ -8,6 +8,7 @@ Version 25.07 supports SPL Studio 6.0 and later.
 
 * Columns explorer (Control+NVDA+number row) is now configurable for Creator and Remote VT's playlist editor. A new button, "columns explorer for playlist editor" is available from columns explorer add-on settings screen.
 * In columns explorer add-on settings, renamed "columns explorer" to "columns explorer for SPL Studio".
+* Added Markdown table format as a playlist transcripts format.
 
 ## Version 25.06-LTS
 
