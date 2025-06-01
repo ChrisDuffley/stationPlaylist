@@ -647,6 +647,20 @@ def savePlaylistTranscriptsToFile(
 	ui.message("Playlist transcripts saved at {location}".format(location=transcriptPath))
 
 
+def postTranscriptsAction(
+	playlistTranscripts: list[str], transcriptAction: int, extension: str, HTMLDecoration: bool = False
+) -> None:
+	match transcriptAction:
+		case 0:  # View transcripts
+			displayPlaylistTranscripts(playlistTranscripts, HTMLDecoration=HTMLDecoration)
+		case 1:  # Copy transcripts (text formats only)
+			copyPlaylistTranscriptsToClipboard(playlistTranscripts)
+		case 2:  # Save transcripts
+			savePlaylistTranscriptsToFile(playlistTranscripts, extension)
+		case _:  # Unknown action
+			raise RuntimeError(f"SPL: unknown playlist transcripts action: {transcriptAction}")
+
+
 # Several converters rely on assistants for their work.
 # For text file 1 and HTML list 1, it expects playlist data in the format presented by MSAA.
 # Header will not be included if additional decorations will be done (mostly for HTML and others).
