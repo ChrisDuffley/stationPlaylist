@@ -617,9 +617,7 @@ def copyPlaylistTranscriptsToClipboard(playlistTranscripts: list[str]) -> None:
 	ui.message(_("Playlist data copied to clipboard"))
 
 
-def savePlaylistTranscriptsToFile(
-	playlistTranscripts: list[str], extension: str, location: str | None = None
-) -> None:
+def savePlaylistTranscriptsToFile(playlistTranscripts: list[str], extension: str) -> None:
 	# Security: do not save transcripts to files in secure mode.
 	if globalVars.appArgs.secure:
 		return
