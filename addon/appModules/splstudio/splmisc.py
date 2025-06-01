@@ -739,11 +739,11 @@ def playlist2htmlTable(start: NVDAObject, end: NVDAObject | None, transcriptActi
 		)
 		obj = obj.next
 	playlistTranscripts.append("</table>")
-	if transcriptAction == 0:
-		displayPlaylistTranscripts(playlistTranscripts, HTMLDecoration=True)
-	elif transcriptAction == 1:
+	# HTML table processor does not support copy operation.
+	if transcriptAction == 1:
 		playlistTranscripts.append("</body></html>")
-		savePlaylistTranscriptsToFile(playlistTranscripts, "htm")
+		transcriptAction = 2
+	postTranscriptsAction(playlistTranscripts, transcriptAction, "htm", HTMLDecoration=True)
 
 
 SPLPlaylistTranscriptFormats.append(("htmltable", playlist2htmlTable, "Table in HTML format"))
@@ -759,11 +759,11 @@ def playlist2htmlList(start: NVDAObject, end: NVDAObject | None, transcriptActio
 	playlistTranscripts.append("<p><ol>")
 	playlistTranscripts += playlist2msaa(start, end, additionalDecorations=True, prefix="<li>")
 	playlistTranscripts.append("</ol>")
-	if transcriptAction == 0:
-		displayPlaylistTranscripts(playlistTranscripts, HTMLDecoration=True)
-	elif transcriptAction == 1:
+	# HTML list processor does not support copy operation.
+	if transcriptAction == 1:
 		playlistTranscripts.append("</body></html>")
-		savePlaylistTranscriptsToFile(playlistTranscripts, "htm")
+		transcriptAction = 2
+	postTranscriptsAction(playlistTranscripts, transcriptAction, "htm", HTMLDecoration=True)
 
 
 SPLPlaylistTranscriptFormats.append(("htmllist", playlist2htmlList, "Data list in HTML format"))
