@@ -314,8 +314,9 @@ The available transcript formats include:
 * HTML list: similar to plain text option except each track is a list item.
 * Markdown table: each column data is surrounded by vertical bars (|) and is formatted for viewing or converting to other formats.
 * Comma-separated values (CSV): a popular tabular data exchange format, suitable for opening the CSV file in programs such as Excel for further processing.
+* JavaScript Object Notation (JSON): a popular web-based data exchange format, suitable for sharing or processing data over the Internet.
 
-All formats listed above will let you view transcripts in a browse mode window or save it to a file. In addition, transcripts in plain text, Markdown table, and CSV formats can be copied to the clipboard.
+All formats listed above will let you view transcripts in a browse mode window or save it to a file. In addition, transcripts in plain text, Markdown table, CSV, and JSON formats can be copied to the clipboard.
 
 In addition to viewing transcripts in a variety of formats, you can customize which columns are included and in which order. This can be done via Playlist Transcripts category found in add-on settings. From there, select columns to be included by checking various checkboxes and/or rearrange the presentation order. By default, all columns are included (except status column) and is shown according to default column presentation order as seen by NVDA.
 
