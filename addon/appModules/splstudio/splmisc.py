@@ -712,12 +712,7 @@ def playlist2msaa(
 
 def playlist2txt(start: NVDAObject, end: NVDAObject | None, transcriptAction: int) -> None:
 	playlistTranscripts = playlist2msaa(start, end)
-	if transcriptAction == 0:
-		displayPlaylistTranscripts(playlistTranscripts)
-	elif transcriptAction == 1:
-		copyPlaylistTranscriptsToClipboard(playlistTranscripts)
-	elif transcriptAction == 2:
-		savePlaylistTranscriptsToFile(playlistTranscripts, "txt")
+	postTranscriptsAction(playlistTranscripts, transcriptAction, "txt")
 
 
 SPLPlaylistTranscriptFormats.append(("txt", playlist2txt, "plain text with one line per entry"))
@@ -784,12 +779,7 @@ def playlist2mdTable(start: NVDAObject, end: NVDAObject | None, transcriptAction
 		columnContents = obj._getColumnContents(columns=columnPos, readable=True)
 		playlistTranscripts.append("| {trackContents} |\n".format(trackContents=" | ".join(columnContents)))
 		obj = obj.next
-	if transcriptAction == 0:
-		displayPlaylistTranscripts(playlistTranscripts)
-	elif transcriptAction == 1:
-		copyPlaylistTranscriptsToClipboard(playlistTranscripts)
-	elif transcriptAction == 2:
-		savePlaylistTranscriptsToFile(playlistTranscripts, "md")
+	postTranscriptsAction(playlistTranscripts, transcriptAction, "md")
 
 
 SPLPlaylistTranscriptFormats.append(("mdtable", playlist2mdTable, "Table in Markdown format"))
@@ -805,12 +795,7 @@ def playlist2csv(start: NVDAObject, end: NVDAObject | None, transcriptAction: in
 		columnContents = obj._getColumnContents(columns=columnPos, readable=True)
 		playlistTranscripts.append('"{0}"\n'.format('","'.join([content for content in columnContents])))
 		obj = obj.next
-	if transcriptAction == 0:
-		displayPlaylistTranscripts(playlistTranscripts)
-	elif transcriptAction == 1:
-		copyPlaylistTranscriptsToClipboard(playlistTranscripts)
-	elif transcriptAction == 2:
-		savePlaylistTranscriptsToFile(playlistTranscripts, "csv")
+	postTranscriptsAction(playlistTranscripts, transcriptAction, "csv")
 
 
 SPLPlaylistTranscriptFormats.append(("csv", playlist2csv, "Comma-separated values"))
@@ -832,12 +817,7 @@ def playlist2json(start: NVDAObject, end: NVDAObject | None, transcriptAction: i
 		obj = obj.next
 	# Transform the tabbed json output to a list as that is what display/copy/save methods want.
 	playlistTranscripts = [json.dumps(playlistTranscripts, indent="\t")]
-	if transcriptAction == 0:
-		displayPlaylistTranscripts(playlistTranscripts)
-	elif transcriptAction == 1:
-		copyPlaylistTranscriptsToClipboard(playlistTranscripts)
-	elif transcriptAction == 2:
-		savePlaylistTranscriptsToFile(playlistTranscripts, "json")
+	postTranscriptsAction(playlistTranscripts, transcriptAction, "json")
 
 
 SPLPlaylistTranscriptFormats.append(("json", playlist2json, "JSON (JavaScript Object Notation)"))
