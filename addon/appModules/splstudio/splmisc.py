@@ -10,6 +10,7 @@ import os
 import threading
 from _csv import reader  # For cart explorer.
 import datetime
+import json
 import api
 import gui
 import wx
@@ -800,6 +801,33 @@ def playlist2csv(start: NVDAObject, end: NVDAObject | None, transcriptAction: in
 
 SPLPlaylistTranscriptFormats.append(("csv", playlist2csv, "Comma-separated values"))
 
+
+def playlist2json(start: NVDAObject, end: NVDAObject | None, transcriptAction: int) -> None:
+	playlistTranscripts = []
+	columnHeaders = columnPresentationOrder()
+	obj = start
+	columnPos = [obj.indexOf(column) for column in columnHeaders]
+	while obj not in (None, end):
+		columnContents = obj._getColumnContents(columns=columnPos)
+		# Transform column contents into header:content dictionary.
+		columnHeadersContents = {}
+		for header, content in zip(columnHeaders, columnContents):
+			if content:
+				columnHeadersContents[header] = content
+		playlistTranscripts.append(columnHeadersContents)
+		obj = obj.next
+	# Transform the tabbed json output to a list as that is what display/copy/save methods want.
+	playlistTranscripts = [json.dumps(playlistTranscripts, indent="\t")]
+	if transcriptAction == 0:
+		displayPlaylistTranscripts(playlistTranscripts)
+	elif transcriptAction == 1:
+		copyPlaylistTranscriptsToClipboard(playlistTranscripts)
+	elif transcriptAction == 2:
+		savePlaylistTranscriptsToFile(playlistTranscripts, "json")
+
+
+SPLPlaylistTranscriptFormats.append(("json", playlist2json, "JSON (JavaScript Object Notation)"))
+
 # Playlist transcripts help desk
 _plTranscriptsDialogOpened = False
 
@@ -875,8 +903,9 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 			self.transcriptActions.append(_("copy to clipboard"))
 			# Translators: one of the playlist transcript actions.
 			self.transcriptActions.append(_("save to file"))
-		# Clipboard copying is possible for plain text (0), markdown table (3), CSV (4) but not in secure mode.
-		self.copy2clipPossible = [0, 3, 4]
+		# Clipboard copying is possible for plain text (0), markdown table (3), CSV (4), json (5)
+		# but not in secure mode.
+		self.copy2clipPossible = [0, 3, 4, 5]
 
 		# Translators: The label in playlist transcripts dialog to select transcript action.
 		transcriptActionLabel = _("Transcript action:")
