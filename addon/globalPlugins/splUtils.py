@@ -2,7 +2,6 @@
 # Copyright 2013-2025 Joseph Lee, released under GPL.
 # Adds a few utility features such as switching focus to the SPL Studio window and some global scripts.
 
-from functools import wraps
 import sys
 import globalPluginHandler
 import api
@@ -19,23 +18,6 @@ import versionInfo
 import addonHandler
 
 addonHandler.initTranslation()
-
-
-# The finally function for status announcement scripts in this module (source: Tyler Spivey's code).
-def finally_(func, final):
-	"""Calls final after func, even if it fails."""
-
-	def wrap(f):
-		@wraps(f)
-		def new(*args, **kwargs):
-			try:
-				func(*args, **kwargs)
-			finally:
-				final()
-
-		return new
-
-	return wrap(final)
 
 
 # SPL Studio uses WM messages to send and receive data, similar to Winamp.
@@ -219,7 +201,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		script = globalPluginHandler.GlobalPlugin.getScript(self, gesture)
 		if not script:
 			script = self.script_error
-		return finally_(script, self.script_finish)
+		return splbase.finally_(script, self.script_finish)
 
 	@scriptHandler.script(speakOnDemand=True)
 	def script_finish(self):
