@@ -24,7 +24,7 @@ import addonHandler
 from winUser import user32
 import versionInfo
 from NVDAObjects import NVDAObject
-from . import splbase
+from ..splcommon import splbase
 from . import splactions
 from . import splconfig
 from ..skipTranslation import translate

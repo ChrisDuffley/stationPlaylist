@@ -43,7 +43,7 @@ from NVDAObjects.behaviors import Dialog
 import textInfos
 import tones
 import versionInfo
-from . import splbase
+from ..splcommon import splbase
 from . import splconfig
 from . import splconfui
 from . import splmisc
