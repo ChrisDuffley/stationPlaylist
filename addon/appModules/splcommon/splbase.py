@@ -4,6 +4,7 @@
 
 # Base services for Studio app module and support modules
 
+from functools import wraps
 import ui
 import api
 import windowUtils
@@ -81,3 +82,20 @@ def focusToSPLWindow(studioWindowChecked: bool = False) -> None:
 	except LookupError:
 		# Translators: presented when SPL Studio window is minimized.
 		ui.message(_("SPL Studio is minimized to system tray."))
+
+
+# The finally function for status announcement scripts in this module (source: Tyler Spivey's code).
+def finally_(func, final):
+	"""Calls final after func, even if it fails."""
+
+	def wrap(f):
+		@wraps(f)
+		def new(*args, **kwargs):
+			try:
+				func(*args, **kwargs)
+			finally:
+				final()
+
+		return new
+
+	return wrap(final)
