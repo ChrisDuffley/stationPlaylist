@@ -13,7 +13,6 @@
 # Minimum version: SPL 6.0, NVDA 2024.1.
 
 from typing import Any, Callable
-from functools import wraps
 import os
 import time
 import threading
@@ -52,23 +51,6 @@ import addonHandler
 from ..skipTranslation import translate
 
 addonHandler.initTranslation()
-
-
-# The finally function for status announcement scripts in this module (source: Tyler Spivey's code).
-def finally_(func, final):
-	"""Calls final after func, even if it fails."""
-
-	def wrap(f):
-		@wraps(f)
-		def new(*args, **kwargs):
-			try:
-				func(*args, **kwargs)
-			finally:
-				final()
-
-		return new
-
-	return wrap(final)
 
 
 # Make sure the broadcaster is running a compatible version.
@@ -2253,7 +2235,7 @@ class AppModule(appModuleHandler.AppModule):
 		script = appModuleHandler.AppModule.getScript(self, gesture)
 		if not script:
 			script = self.script_error
-		return finally_(script, self.script_finish)
+		return splbase.finally_(script, self.script_finish)
 
 	@scriptHandler.script(speakOnDemand=True)
 	def script_finish(self):
