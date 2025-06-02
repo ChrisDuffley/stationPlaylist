@@ -24,6 +24,7 @@ import gui
 import wx
 from appModules.splstudio import splactions
 from ..skipTranslation import translate
+from ..splcommon import splbase
 import addonHandler
 
 addonHandler.initTranslation()
@@ -475,7 +476,6 @@ class Encoder(IAccessible):
 				# Translators: presented when SPL Studio window is minimized.
 				ui.message(_("SPL Studio is minimized to system tray."))
 		if self.playAfterConnecting:
-			from appModules.splstudio import splbase
 			# Do not interupt the currently playing track.
 			if splbase.studioAPI(0, SPL_TrackPlaybackStatus) == 0:
 				splbase.studioAPI(0, SPLPlay)
