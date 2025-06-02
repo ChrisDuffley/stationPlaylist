@@ -465,7 +465,7 @@ class Encoder(IAccessible):
 			return
 		# #150: announce a message if Studio window is minimized.
 		if self.focusToStudio:
-			splbase.focusToSPLWindow()
+			splbase.focusToSPLWindow(studioWindowChecked=True)
 		if self.playAfterConnecting:
 			# Do not interupt the currently playing track.
 			if splbase.studioAPI(0, SPL_TrackPlaybackStatus) == 0:
