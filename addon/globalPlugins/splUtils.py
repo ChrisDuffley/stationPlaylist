@@ -153,18 +153,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	# Control Studio from anywhere.
 	SPLController = False
-	# Status flags for Studio 5.20 API.
-	# Studio 5.20 and later allows fetching status bar info from anywhere via Studio API,
-	# including playback and automation status.
-	# For consistency reasons (because of the Studio status bar),
-	# messages in this collection will remain in English.
-	_statusBarMessages = (
-		["Play status: Stopped", "Play status: Playing"],
-		["Automation Off", "Automation On"],
-		["Microphone Off", "Microphone On"],
-		["Line-In Off", "Line-In On"],
-		["Record to file Off", "Record to file On"],
-	)
 
 	def getScript(self, gesture):
 		if not self.SPLController:
@@ -366,7 +354,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.script_finish()
 			return
 		statusInfo = [
-			self._statusBarMessages[status][splbase.studioAPI(status, SPLStatusInfo)]
+			splconsts.studioStatusMessages[status][splbase.studioAPI(status, SPLStatusInfo)]
 			for status in range(5)  # Playback/automation/mic/line-in/record to file
 		]
 		# Special handling for cart edit/insert.
