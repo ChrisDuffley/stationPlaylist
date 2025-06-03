@@ -24,7 +24,7 @@ import addonHandler
 from winUser import user32
 import versionInfo
 from NVDAObjects import NVDAObject
-from ..splcommon import splbase
+from ..splcommon import splbase, splconsts
 from . import splactions
 from . import splconfig
 from ..skipTranslation import translate
@@ -293,37 +293,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 
 
 # Cart Explorer helper.
-
-# Manual definitions of cart keys.
-cartKeys = (
-	# Function key carts (Studio all editions)
-	"f1",
-	"f2",
-	"f3",
-	"f4",
-	"f5",
-	"f6",
-	"f7",
-	"f8",
-	"f9",
-	"f10",
-	"f11",
-	"f12",
-	# Number row (all editions except Standard)
-	"1",
-	"2",
-	"3",
-	"4",
-	"5",
-	"6",
-	"7",
-	"8",
-	"9",
-	"0",
-	"-",
-	"=",
-)
-
+# Cart keys are defined in SPL constants module.
 
 def _populateCarts(
 	carts: dict[str, Any],
@@ -352,7 +322,7 @@ def _populateCarts(
 			cartName = entry.split(",")[0]
 		else:
 			cartName = entry.split('"')[1]
-		cart = cartKeys[pos] if not modifier else "+".join([modifier, cartKeys[pos]])
+		cart = splconsts.cartKeys[pos] if not modifier else "+".join([modifier, splconsts.cartKeys[pos]])
 		if noEntry and refresh:
 			if cart in carts:
 				del carts[cart]
