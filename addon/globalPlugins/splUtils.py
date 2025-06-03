@@ -9,7 +9,7 @@ import ui
 import scriptHandler
 import globalVars
 import appModuleHandler
-from appModules.splcommon import splbase
+from appModules.splcommon import splbase, splconsts
 import tones
 import windowUtils
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent
@@ -153,35 +153,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	# Control Studio from anywhere.
 	SPLController = False
-	# Manual definitions of cart keys.
-	cartKeys = (
-		# Function key carts (Studio all editions)
-		"f1",
-		"f2",
-		"f3",
-		"f4",
-		"f5",
-		"f6",
-		"f7",
-		"f8",
-		"f9",
-		"f10",
-		"f11",
-		"f12",
-		# Number row (all editions except Standard)
-		"1",
-		"2",
-		"3",
-		"4",
-		"5",
-		"6",
-		"7",
-		"8",
-		"9",
-		"0",
-		"-",
-		"=",
-	)
 	# Status flags for Studio 5.20 API.
 	# Studio 5.20 and later allows fetching status bar info from anywhere via Studio API,
 	# including playback and automation status.
@@ -269,7 +240,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				lastCart = 24
 			else:
 				lastCart = 12
-			for cart in self.cartKeys[:lastCart]:
+			for cart in splconsts.cartKeys[:lastCart]:
 				self.bindGesture(f"kb:{cart}", "cartsWithoutBorders")
 				self.bindGesture(f"kb:shift+{cart}", "cartsWithoutBorders")
 				self.bindGesture(f"kb:control+{cart}", "cartsWithoutBorders")
@@ -427,7 +398,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Multiply modifiers by 24 (1 (None), 25 (Shift), 49 (Control), 73 (Alt)).
 		modifier = (None, "shift", "ctrl", "alt").index(modifier) * 24
 		# Add 1 to cart index to comply with Studio API.
-		cart = self.cartKeys.index(cart) + 1
+		cart = splconsts.cartKeys.index(cart) + 1
 		splbase.studioAPI(cart + modifier, SPLCartPlayer)
 		self.script_finish()
 
