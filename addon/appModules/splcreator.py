@@ -85,25 +85,7 @@ def indexOf(creatorVersion: str) -> tuple[str, ...]:
 
 # Playlist editor version.
 def indexOfPlaylistEditor(editorVersion: str) -> tuple[str, ...]:
-	if editorVersion < "6.0":
-		return (
-			"Artist",
-			"Title",
-			"Duration",
-			"Intro",
-			"Outro",
-			"Category",
-			"Year",
-			"Album",
-			"Genre",
-			"Mood",
-			"Energy",
-			"Tempo",
-			"Gender",
-			"Rating",
-			"Filename",
-		)
-	elif editorVersion.startswith("6.0"):
+	if editorVersion < "6.10":
 		return (
 			"Artist",
 			"Title",
