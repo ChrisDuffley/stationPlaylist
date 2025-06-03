@@ -2353,22 +2353,12 @@ class AppModule(appModuleHandler.AppModule):
 				return api.getFocusObject()
 		return self._cachedStatusObjs[infoIndex]
 
-	# Status flags returned by Studio API.
-	_statusBarMessages = (
-		["Play status: Stopped", "Play status: Playing"],
-		["Automation Off", "Automation On"],
-		["Microphone Off", "Microphone On"],
-		["Line-In Off", "Line-In On"],
-		["Record to file Off", "Record to file On"],
-	)
-
-	# Fetch status bar texts via Studio API.
 	def sayStatus(self, index: int) -> None:
 		# No, status index must be an integer.
 		studioStatus = splbase.studioAPI(index, SPLStatusInfo)
 		if studioStatus is None:
 			return
-		status = self._statusBarMessages[index][studioStatus]
+		status = splconsts.studioStatusMessages[index][studioStatus]
 		if splconfig.SPLConfig["General"]["MessageVerbosity"] == "advanced":
 			status = status.split()[-1]
 		ui.message(status)
