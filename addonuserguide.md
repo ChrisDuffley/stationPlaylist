@@ -1,6 +1,6 @@
 # StationPlaylist Add-on User Guide
 
-Revision: June 2025 for StationPlaylist add-on 25.06
+Revision: June 2025 for StationPlaylist add-on 25.07
 
 Author: Christopher Duffley (formerly Joseph Lee)
 
@@ -64,8 +64,8 @@ Certain commands will work across Studio and apps listed above, while others are
 
 StationPlaylist add-on requires the following:
 
-* An evaluation or a registered copy of StationPlaylist Studio 5.50 or later installed on a computer running Windows 10 or later.
-* Optional: an evaluation or registered copy of StationPlaylist Creator and/or StationPlaylist Streamer, version 5.50 or later.
+* An evaluation or a registered copy of StationPlaylist Studio 6.0 or later installed on a computer running Windows 10 or later.
+* Optional: an evaluation or registered copy of StationPlaylist Creator and/or StationPlaylist Streamer, version 6.0 or later.
 * Optional: Remote VT client
 * Optional: an evaluation or registered copy of SAM Encoders.
 * Optional: AltaCast Winamp plugin (one must copy AltaCast Winamp plugin DLL to Studio's plugins folder for Studio to recognize AltaCast).
@@ -958,8 +958,8 @@ Q. Which versions of Studio are supported by which add-on releases?
 * Studio 5.3x: Add-on 17.11 to 22.12 (November 2017-December 2022).
 * Studio 5.40: Add-on 19.11 to 25.05.4 (November 2019-May 2025).
 * Studio 5.50: Add-on 20.11 to 25.06 (November 2020-June 2025).
-* Studio 6.0x: Add-on 21.11 to 25.06 (November 2021-June 2025).
-* Studio 6.1x: Add-on 24.03 to 25.06 (April 2024-June 2025).
+* Studio 6.0x: Add-on 21.11 to 25.07 (November 2021-June 2025).
+* Studio 6.1x: Add-on 24.03 to 25.07 (April 2024-June 2025).
 
 Note: the schedule above is subject to change.
 
