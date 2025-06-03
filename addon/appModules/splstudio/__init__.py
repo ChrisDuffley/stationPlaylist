@@ -42,7 +42,7 @@ from NVDAObjects.behaviors import Dialog
 import textInfos
 import tones
 import versionInfo
-from ..splcommon import splbase
+from ..splcommon import splbase, splconsts
 from . import splconfig
 from . import splconfui
 from . import splmisc
@@ -1613,7 +1613,7 @@ class AppModule(appModuleHandler.AppModule):
 	def cartsBuilder(self, build: bool = True) -> None:
 		# A function to build and return cart commands.
 		if build:
-			for cart in splmisc.cartKeys:
+			for cart in splconsts.cartKeys:
 				self.bindGesture(f"kb:{cart}", "cartExplorer")
 				self.bindGesture(f"kb:shift+{cart}", "cartExplorer")
 				self.bindGesture(f"kb:control+{cart}", "cartExplorer")
