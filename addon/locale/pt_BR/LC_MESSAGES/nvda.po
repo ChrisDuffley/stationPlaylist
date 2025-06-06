@@ -651,9 +651,6 @@ msgstr "Não é possível encontrar as informações da próxima faixa"
 msgid "Announces title of the currently playing track"
 msgstr "Anuncia o título da faixa atualmente em reprodução"
 
-msgid "Cannot locate current track information"
-msgstr "Não é possível localizar as informações da faixa atual"
-
 #. Translators: Presented when current track information is unavailable.
 msgid "Cannot find current track information"
 msgstr "Não é possível encontrar as informações da faixa atual"
@@ -766,10 +763,6 @@ msgstr "Ajuda do Assistente SPL"
 #. Translators: The title for SPL Assistant help screen.
 msgid "SPL Assistant help for JAWS layout"
 msgstr "Ajuda do Assistente SPL para o leiaute JAWS"
-
-#. Translators: A message informing users that Studio is not running so certain commands will not work.
-msgid "Studio main window not found"
-msgstr "Janela principal do estúdio não encontrada"
 
 #. Translators: The name of the default (normal) profile.
 msgid "Normal profile"
@@ -1237,12 +1230,6 @@ msgstr "Quando o perfil de troca instantânea está ativo"
 msgid "&Metadata streaming notification and connection"
 msgstr "Notificação e conexão de fluxo (transmissão) de &metadados"
 
-#. WX's native CheckListBox isn't user friendly.
-#. Therefore use checkboxes laid out across the top.
-#. 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
-#. Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
-#. Add checkboxes for each stream, beginning with the DSP encoder.
-#. #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
 #. # Translators: the label for a setting in SPL add-on settings
 #. to configure streaming status for metadata streams.
 msgid "&Select the URL for metadata streaming upon request:"
@@ -1302,8 +1289,9 @@ msgstr "Explorador de colunas"
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Studio.
-msgid "Columns E&xplorer..."
-msgstr "E&xplorador de Colunas..."
+#, fuzzy
+msgid "Columns E&xplorer for SPL Studio..."
+msgstr "Explorador de Colunas para &SPL Creator..."
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for Track Tool.
@@ -1313,6 +1301,12 @@ msgstr "Explorador de Colunas para Ferramen&ta de Faixa..."
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Creator.
 msgid "Columns Explorer for &SPL Creator..."
+msgstr "Explorador de Colunas para &SPL Creator..."
+
+#. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
+#. for Creator and Remote VT playlist editor.
+#, fuzzy
+msgid "Columns Explorer for &playlist editor..."
 msgstr "Explorador de Colunas para &SPL Creator..."
 
 #. Translators: The title of Columns Explorer configuration dialog.
@@ -1325,6 +1319,11 @@ msgstr "Explorador de Colunas para Ferramenta de Faixa"
 
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer for SPL Creator"
+msgstr "Explorador de Colunas para SPL Creator"
+
+#. Translators: The title of Columns Explorer configuration dialog.
+#, fuzzy
+msgid "Columns Explorer for playlist editor (Creator and Remote VT)"
 msgstr "Explorador de Colunas para SPL Creator"
 
 #, python-brace-format
@@ -1604,29 +1603,6 @@ msgstr "Reproduzir &bipe de status de conexão enquanto conectando"
 msgid "Announce connection &status until encoder connects"
 msgstr "Anunciar o &status da conexão até que o codificador se conecte"
 
-#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-msgid "No encoders found"
-msgstr "Nenhum codificador encontrado"
-
-#. Translators: presented when more than one encoder type is active
-#. when trying to obtain encoder connection status.
-msgid "Only one encoder type can be active at once"
-msgstr "Apenas um tipo de codificador pode estar ativo por vez"
-
-#. Translators: presented when at least one encoder is connected.
-#, python-brace-format
-msgid "Connected encoders: {encodersConnected}"
-msgstr "Codificadores conectados: {encodersConnected}"
-
-#. Translators: presented when no encoders are connected.
-msgid "No encoders connected"
-msgstr "Sem codificadores conectados"
-
-#. Translators: presented when SPL Studio window is minimized.
-msgid "SPL Studio is minimized to system tray."
-msgstr ""
-"O SPL Studio é minimizado para bandeja do sistema — área de notificação."
-
 #. Translators: Input help mode message for an encoder settings command.
 msgid ""
 "Toggles whether NVDA will switch to Studio when connected to a streaming "
@@ -1793,6 +1769,24 @@ msgstr ""
 "Teclas de função e teclas de linha numérica com ou sem Shift, Alt e teclas "
 "de controle: Reproduzir carrinhos."
 
+#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
+msgid "No encoders found"
+msgstr "Nenhum codificador encontrado"
+
+#. Translators: presented when more than one encoder type is active
+#. when trying to obtain encoder connection status.
+msgid "Only one encoder type can be active at once"
+msgstr "Apenas um tipo de codificador pode estar ativo por vez"
+
+#. Translators: presented when at least one encoder is connected.
+#, python-brace-format
+msgid "Connected encoders: {encodersConnected}"
+msgstr "Codificadores conectados: {encodersConnected}"
+
+#. Translators: presented when no encoders are connected.
+msgid "No encoders connected"
+msgstr "Sem codificadores conectados"
+
 #. Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
 msgid "Moves to SPL Studio window from other programs."
 msgstr "Mover-se para a janela SPL Studio a partir de outros programas."
@@ -1873,3 +1867,16 @@ msgstr ""
 "comandos globais para o aplicativo Studio de qualquer lugar.Melhora o "
 "suporte para aplicativos StationPlaylist.\n"
 "Além disso, adiciona comandos globais para o Studio em qualquer lugar."
+
+#~ msgid "Cannot locate current track information"
+#~ msgstr "Não é possível localizar as informações da faixa atual"
+
+#~ msgid "Studio main window not found"
+#~ msgstr "Janela principal do estúdio não encontrada"
+
+#~ msgid "Columns E&xplorer..."
+#~ msgstr "E&xplorador de Colunas..."
+
+#~ msgid "SPL Studio is minimized to system tray."
+#~ msgstr ""
+#~ "O SPL Studio é minimizado para bandeja do sistema — área de notificação."

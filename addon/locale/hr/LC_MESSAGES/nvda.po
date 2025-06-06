@@ -638,9 +638,6 @@ msgstr "Nije moguće pronaći informacije o sljedećoj snimci"
 msgid "Announces title of the currently playing track"
 msgstr "Najavljuje naslov trenutačne snimke, ako postoji"
 
-msgid "Cannot locate current track information"
-msgstr "Nije moguće pronaći informacije o trenutačnoj snimci"
-
 #. Translators: Presented when current track information is unavailable.
 msgid "Cannot find current track information"
 msgstr "Nije moguće pronaći informacije o trenutačnoj snimci"
@@ -754,10 +751,6 @@ msgstr "Pomoć za SPL Assistant"
 #. Translators: The title for SPL Assistant help screen.
 msgid "SPL Assistant help for JAWS layout"
 msgstr "Pomoć za SPL Assistant za JAWS raspored"
-
-#. Translators: A message informing users that Studio is not running so certain commands will not work.
-msgid "Studio main window not found"
-msgstr "Glavni prozor programa Studio nije pronađen"
 
 #. Translators: The name of the default (normal) profile.
 msgid "Normal profile"
@@ -1221,12 +1214,6 @@ msgstr "Kad je profil za trenutno mijenjanje aktivan"
 msgid "&Metadata streaming notification and connection"
 msgstr "&Obavijesti internetskog prijenosa metapodataka i povezivanja"
 
-#. WX's native CheckListBox isn't user friendly.
-#. Therefore use checkboxes laid out across the top.
-#. 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
-#. Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
-#. Add checkboxes for each stream, beginning with the DSP encoder.
-#. #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
 #. # Translators: the label for a setting in SPL add-on settings
 #. to configure streaming status for metadata streams.
 msgid "&Select the URL for metadata streaming upon request:"
@@ -1286,8 +1273,9 @@ msgstr "Istraživač stupaca"
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Studio.
-msgid "Columns E&xplorer..."
-msgstr "&Istraživač stupaca …"
+#, fuzzy
+msgid "Columns E&xplorer for SPL Studio..."
+msgstr "Istraživač stupaca za &SPL Creator …"
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for Track Tool.
@@ -1297,6 +1285,12 @@ msgstr "Istraživač stupaca za &Track Tool …"
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Creator.
 msgid "Columns Explorer for &SPL Creator..."
+msgstr "Istraživač stupaca za &SPL Creator …"
+
+#. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
+#. for Creator and Remote VT playlist editor.
+#, fuzzy
+msgid "Columns Explorer for &playlist editor..."
 msgstr "Istraživač stupaca za &SPL Creator …"
 
 #. Translators: The title of Columns Explorer configuration dialog.
@@ -1309,6 +1303,11 @@ msgstr "Istraživač stupaca za Track Tool"
 
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer for SPL Creator"
+msgstr "Istraživač stupaca za SPL Creator"
+
+#. Translators: The title of Columns Explorer configuration dialog.
+#, fuzzy
+msgid "Columns Explorer for playlist editor (Creator and Remote VT)"
 msgstr "Istraživač stupaca za SPL Creator"
 
 #, python-brace-format
@@ -1590,28 +1589,6 @@ msgstr "Sviraj &zvučni signal za stanje povezivanja tijekom povezivanja"
 msgid "Announce connection &status until encoder connects"
 msgstr "Najavi &stanje veze dok se koder ne poveže"
 
-#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-msgid "No encoders found"
-msgstr "Nema kodera"
-
-#. Translators: presented when more than one encoder type is active
-#. when trying to obtain encoder connection status.
-msgid "Only one encoder type can be active at once"
-msgstr "U određenom trenutku može biti aktivna samo jedna vrsta kodera"
-
-#. Translators: presented when at least one encoder is connected.
-#, python-brace-format
-msgid "Connected encoders: {encodersConnected}"
-msgstr "Povezani koderi: {encodersConnected}"
-
-#. Translators: presented when no encoders are connected.
-msgid "No encoders connected"
-msgstr "Nema povezanih kodera"
-
-#. Translators: presented when SPL Studio window is minimized.
-msgid "SPL Studio is minimized to system tray."
-msgstr "SPL Studio je sklopljen u traku sustava."
-
 #. Translators: Input help mode message for an encoder settings command.
 msgid ""
 "Toggles whether NVDA will switch to Studio when connected to a streaming "
@@ -1776,6 +1753,24 @@ msgstr ""
 "Tipke funkcija i brojeva redaka sa ili bez tipki Šift, Alt i Kontrol: sviraj "
 "džinglove."
 
+#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
+msgid "No encoders found"
+msgstr "Nema kodera"
+
+#. Translators: presented when more than one encoder type is active
+#. when trying to obtain encoder connection status.
+msgid "Only one encoder type can be active at once"
+msgstr "U određenom trenutku može biti aktivna samo jedna vrsta kodera"
+
+#. Translators: presented when at least one encoder is connected.
+#, python-brace-format
+msgid "Connected encoders: {encodersConnected}"
+msgstr "Povezani koderi: {encodersConnected}"
+
+#. Translators: presented when no encoders are connected.
+msgid "No encoders connected"
+msgstr "Nema povezanih kodera"
+
 #. Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
 msgid "Moves to SPL Studio window from other programs."
 msgstr "Premješta se na prozor programa SPL Studio iz drugih programa."
@@ -1851,3 +1846,15 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist programe. Dodatno tome, dodaje "
 "globalne naredbe za program Studio s bilo kojeg mjesta."
+
+#~ msgid "Cannot locate current track information"
+#~ msgstr "Nije moguće pronaći informacije o trenutačnoj snimci"
+
+#~ msgid "Studio main window not found"
+#~ msgstr "Glavni prozor programa Studio nije pronađen"
+
+#~ msgid "Columns E&xplorer..."
+#~ msgstr "&Istraživač stupaca …"
+
+#~ msgid "SPL Studio is minimized to system tray."
+#~ msgstr "SPL Studio je sklopljen u traku sustava."

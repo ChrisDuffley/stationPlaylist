@@ -630,9 +630,6 @@ msgstr "Nepodarilo sa zistiť informáciu o nasledujúcej skladbe"
 msgid "Announces title of the currently playing track"
 msgstr "Oznámi názov práve hrajúcej skladby"
 
-msgid "Cannot locate current track information"
-msgstr "Nepodarilo sa zistiť informácie o aktuálnej skladbe"
-
 #. Translators: Presented when current track information is unavailable.
 msgid "Cannot find current track information"
 msgstr "Nepodarilo sa zistiť informácie o aktuálnej skladbe"
@@ -738,10 +735,6 @@ msgstr "Pomocník SPL asistenta"
 #. Translators: The title for SPL Assistant help screen.
 msgid "SPL Assistant help for JAWS layout"
 msgstr "Pomocník SPL asistenta rozloženie pre čítač obrazovky JAWS"
-
-#. Translators: A message informing users that Studio is not running so certain commands will not work.
-msgid "Studio main window not found"
-msgstr "Nepodarilo sa nájsť hlavné okno SPL"
 
 #. Translators: The name of the default (normal) profile.
 msgid "Normal profile"
@@ -1175,12 +1168,6 @@ msgstr "Po ručnej aktivácii profilu"
 msgid "&Metadata streaming notification and connection"
 msgstr "Upozornenia a vysielanie &Metadát"
 
-#. WX's native CheckListBox isn't user friendly.
-#. Therefore use checkboxes laid out across the top.
-#. 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
-#. Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
-#. Add checkboxes for each stream, beginning with the DSP encoder.
-#. #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
 #. # Translators: the label for a setting in SPL add-on settings
 #. to configure streaming status for metadata streams.
 msgid "&Select the URL for metadata streaming upon request:"
@@ -1234,8 +1221,9 @@ msgstr "Prehliadač metadát"
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Studio.
-msgid "Columns E&xplorer..."
-msgstr "Prehliadač &metadát..."
+#, fuzzy
+msgid "Columns E&xplorer for SPL Studio..."
+msgstr "Prehliadač metadát pre &SPL creator..."
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for Track Tool.
@@ -1245,6 +1233,12 @@ msgstr "Prehliadač me&tadát pre nástroj skladieb..."
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Creator.
 msgid "Columns Explorer for &SPL Creator..."
+msgstr "Prehliadač metadát pre &SPL creator..."
+
+#. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
+#. for Creator and Remote VT playlist editor.
+#, fuzzy
+msgid "Columns Explorer for &playlist editor..."
 msgstr "Prehliadač metadát pre &SPL creator..."
 
 #. Translators: The title of Columns Explorer configuration dialog.
@@ -1257,6 +1251,11 @@ msgstr "Prehladač metadát pre nástroj skladieb"
 
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer for SPL Creator"
+msgstr "Prehliadač metadát pre SPL Creator"
+
+#. Translators: The title of Columns Explorer configuration dialog.
+#, fuzzy
+msgid "Columns Explorer for playlist editor (Creator and Remote VT)"
 msgstr "Prehliadač metadát pre SPL Creator"
 
 #, python-brace-format
@@ -1531,28 +1530,6 @@ msgstr "Oznamovať stav pripojenia pípaním"
 msgid "Announce connection &status until encoder connects"
 msgstr "Pípať počas pripájania"
 
-#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-msgid "No encoders found"
-msgstr "Žiadne pripojenia"
-
-#. Translators: presented when more than one encoder type is active
-#. when trying to obtain encoder connection status.
-msgid "Only one encoder type can be active at once"
-msgstr "Súčasne môžete používať len jeden typ pripojenia"
-
-#. Translators: presented when at least one encoder is connected.
-#, python-brace-format
-msgid "Connected encoders: {encodersConnected}"
-msgstr "Aktívne pripojenia: {encodersConnected}"
-
-#. Translators: presented when no encoders are connected.
-msgid "No encoders connected"
-msgstr "Žiadne aktívne pripojenia"
-
-#. Translators: presented when SPL Studio window is minimized.
-msgid "SPL Studio is minimized to system tray."
-msgstr "SPL studio minimalizované na systémovom panely."
-
 #. Translators: Input help mode message for an encoder settings command.
 msgid ""
 "Toggles whether NVDA will switch to Studio when connected to a streaming "
@@ -1712,6 +1689,24 @@ msgstr ""
 "Funkčné klávesy a klávesy v hornom rade čísel so a bez shiftu a v kombinácii "
 "s klávesmi alt a ctrl: Prehrávať jingle."
 
+#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
+msgid "No encoders found"
+msgstr "Žiadne pripojenia"
+
+#. Translators: presented when more than one encoder type is active
+#. when trying to obtain encoder connection status.
+msgid "Only one encoder type can be active at once"
+msgstr "Súčasne môžete používať len jeden typ pripojenia"
+
+#. Translators: presented when at least one encoder is connected.
+#, python-brace-format
+msgid "Connected encoders: {encodersConnected}"
+msgstr "Aktívne pripojenia: {encodersConnected}"
+
+#. Translators: presented when no encoders are connected.
+msgid "No encoders connected"
+msgstr "Žiadne aktívne pripojenia"
+
 #. Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
 msgid "Moves to SPL Studio window from other programs."
 msgstr "Presunie fokus do okna SPL Studio."
@@ -1787,3 +1782,15 @@ msgstr ""
 "Zlepšuje prístupnosť programu StationPlaylist.\n"
 "Navyše pridáva globálne skratky, ktoré sa dajú použiť aj mimo hlavného okna "
 "SPL."
+
+#~ msgid "Cannot locate current track information"
+#~ msgstr "Nepodarilo sa zistiť informácie o aktuálnej skladbe"
+
+#~ msgid "Studio main window not found"
+#~ msgstr "Nepodarilo sa nájsť hlavné okno SPL"
+
+#~ msgid "Columns E&xplorer..."
+#~ msgstr "Prehliadač &metadát..."
+
+#~ msgid "SPL Studio is minimized to system tray."
+#~ msgstr "SPL studio minimalizované na systémovom panely."

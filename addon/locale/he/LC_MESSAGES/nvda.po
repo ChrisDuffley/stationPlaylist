@@ -738,10 +738,6 @@ msgstr "עזרת המסייע של SPL"
 msgid "SPL Assistant help for JAWS layout"
 msgstr "עזרת המסייע של SPL עבור פקודות JAWS"
 
-#. Translators: A message informing users that Studio is not running so certain commands will not work.
-msgid "Studio main window not found"
-msgstr "לא נמצא חלון ראשי של סטודיו"
-
 #. Translators: The name of the default (normal) profile.
 msgid "Normal profile"
 msgstr "פרופיל בסיסי"
@@ -1231,8 +1227,9 @@ msgstr "סייר העמודות"
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Studio.
-msgid "Columns E&xplorer..."
-msgstr "סייר &הפקודות..."
+#, fuzzy
+msgid "Columns E&xplorer for SPL Studio..."
+msgstr "סייר &הפקודות עבור יוצר SPL..."
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for Track Tool.
@@ -1242,6 +1239,12 @@ msgstr "סייר &הפקודות..."
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Creator.
 msgid "Columns Explorer for &SPL Creator..."
+msgstr "סייר &הפקודות עבור יוצר SPL..."
+
+#. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
+#. for Creator and Remote VT playlist editor.
+#, fuzzy
+msgid "Columns Explorer for &playlist editor..."
 msgstr "סייר &הפקודות עבור יוצר SPL..."
 
 #. Translators: The title of Columns Explorer configuration dialog.
@@ -1254,6 +1257,11 @@ msgstr "סייר העמודות"
 
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer for SPL Creator"
+msgstr "סייר &הפקודות עבור יוצר SPL"
+
+#. Translators: The title of Columns Explorer configuration dialog.
+#, fuzzy
+msgid "Columns Explorer for playlist editor (Creator and Remote VT)"
 msgstr "סייר &הפקודות עבור יוצר SPL"
 
 #, python-brace-format
@@ -1525,11 +1533,6 @@ msgstr "השמע &צליל מצב בעת התחברות"
 msgid "Announce connection &status until encoder connects"
 msgstr ""
 
-#. Translators: presented when SPL Studio window is minimized.
-#, fuzzy
-msgid "SPL Studio is minimized to system tray."
-msgstr "SPL Studio  אינה בריצה."
-
 #. Translators: Input help mode message for an encoder settings command.
 msgid ""
 "Toggles whether NVDA will switch to Studio when connected to a streaming "
@@ -1764,6 +1767,16 @@ msgid ""
 msgstr ""
 "מנגיש את תוכנת StationPlaylist.\n"
 "בנוסף, מאפשר ביצוע פקודות מכל מקום אחר במחשב."
+
+#~ msgid "Studio main window not found"
+#~ msgstr "לא נמצא חלון ראשי של סטודיו"
+
+#~ msgid "Columns E&xplorer..."
+#~ msgstr "סייר &הפקודות..."
+
+#, fuzzy
+#~ msgid "SPL Studio is minimized to system tray."
+#~ msgstr "SPL Studio  אינה בריצה."
 
 #, fuzzy
 #~ msgid "Cannot locate current track information"

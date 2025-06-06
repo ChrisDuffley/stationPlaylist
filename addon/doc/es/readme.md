@@ -19,9 +19,9 @@ NOTAS IMPORTANTES:
   NVDA se ejecuta en modo seguro, como por ejemplo en la pantalla de inicio
   de sesión.
 * Para una mejor experiencia, deshabilita el modo atenuación de audio.
-* Starting from 2018, [changelogs for old add-on releases][2] will be found
-  on GitHub. This add-on readme will list changes from version 25.01 (2025)
-  onwards.
+* A partir de 2018, los [registros de cambios para versiones antiguas][2] se
+  encontrarán en GitHub. Este léeme del complemento listará cambios desde la
+  versión 25.01 (2025) en adelante.
 * Cuando Studio está en ejecución, se pueden guardar, restablecer o poner
   los valores de fábrica del complemento pulsando control+NVDA+c,
   control+NVDA+r una vez o control+NVDA+r tres veces, respectivamente. Esto
@@ -387,6 +387,8 @@ La versión 25.06.x es la última que soportará Studio 5.x. Las siguientes
 versiones necesitarán Studio 6.x. Algunas características nuevas se llevarán
 a 25.06.x si es necesario.
 
+* Cambios internos para hacer el complemento más compatible con el futuro
+  NVDA de 64 bits.
 * NVDA ya no olvidará transmitir perfiles de emisión al actualizar el
   complemento (corrigiendo una regresión introducida en 25.05).
 * Se ha añadido una nueva orden en el asistente de SPL para anunciar si la
@@ -401,8 +403,9 @@ a 25.06.x si es necesario.
 * La interfaz de usuario del diálogo de confirmación mostrada al eliminar
   perfiles de emisión ahora recuerda a la interfaz de eliminación de
   perfiles de NVDA.
-* In add-on settings, NVDA will no longer move keyboard focus to OK button
-  after closing columns explorer and reset dialogs.
+* En las opciones del complemento, NVDA ya no moverá el foco del teclado al
+  botón Aceptar tras cerrar el explorador de columnas y restablecer
+  diálogos.
 * NVDA reconocerá los cambios de columna de pista introducidos en Creator y
   la herramienta de pista 6.11.
 * En el explorador de columnas de Creator, la columna "Restricción por
@@ -420,8 +423,9 @@ a 25.06.x si es necesario.
 * Se añade un botón de cierre a las instantáneas de lista de reproducción,
   transcripciones de lista de reproducción, y las pantallas de ayuda del
   asistente y el controlador de SPL (NVDA 2025.1 y posterior).
-* NVDA will no longer do nothing or play error tones when announcing weather
-  and temperature information in Studio 6.1x (SPL Assistant, W).
+* NVDA ya no hará nada o reproducirá tonos de error al anunciar la
+  información meteorológica y de temperatura en Studio 6.1x (asistente de
+  SPL, w).
 
 ## Versión 25.01
 

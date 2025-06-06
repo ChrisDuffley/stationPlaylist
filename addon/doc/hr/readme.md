@@ -350,6 +350,8 @@ Version 25.06.x is the last release series to support Studio 5.x with future
 releases requiring Studio 6.x. Some new features will be backported to
 25.06.x if needed.
 
+* Internal changes to make the add-on more compatible with upcoming 64-bit
+  NVDA.
 * NVDA will no longer forget to transfer broadcast profiles while updating
   the add-on (fixing a regression introduced in 25.05).
 * Added a new command in SPL Assistant to announce playlist hour over/under
