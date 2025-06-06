@@ -632,9 +632,6 @@ msgstr "Không tìm thấy thông tin của track kế"
 msgid "Announces title of the currently playing track"
 msgstr "Thông báo tựa đề của track đang được phát"
 
-msgid "Cannot locate current track information"
-msgstr "Không tìm thấy thông tin của track hiện tại"
-
 #. Translators: Presented when current track information is unavailable.
 msgid "Cannot find current track information"
 msgstr "Không tìm thấy thông tin của track hiện tại"
@@ -746,10 +743,6 @@ msgstr "Trợ giúp SPL Assistant"
 msgid "SPL Assistant help for JAWS layout"
 msgstr "Trợ giúp SPL Assistant cho kiểu phím lệnh của Jaws"
 
-#. Translators: A message informing users that Studio is not running so certain commands will not work.
-msgid "Studio main window not found"
-msgstr "Không tìm thấy cửa sổ chính của Studio"
-
 #. Translators: The name of the default (normal) profile.
 msgid "Normal profile"
 msgstr "Hồ sơ bình thường"
@@ -847,8 +840,8 @@ msgstr ""
 "\n"
 "Truy cập www.stationplaylist.com để biết thêm chi tiết về bộ ứng dụng của "
 "StationPlaylist.\n"
-"Xem bài viết về  StationPlaylist trên trang cộng đồng NVDA Add-ons "
-"(addons.nvda-project.org) để có thêm thông tin và tài liệu về add-on này.\n"
+"Xem bài viết về  StationPlaylist trên trang cộng đồng NVDA Add-ons (addons."
+"nvda-project.org) để có thêm thông tin và tài liệu về add-on này.\n"
 "Bạn muốn xem lại hộp thoại này nữa không? Chỉ việc bấm Alt+NVDA+F1 khi dùng "
 "Studio để trở về hộp thoại này.\n"
 "Bạn có gì muốn nói về Add-on này?\n"
@@ -1209,12 +1202,6 @@ msgstr "Khi hồ sơ chuyển nhanh hoạt động"
 msgid "&Metadata streaming notification and connection"
 msgstr "Thông báo và kết nối &truyền siêu dữ liệu"
 
-#. WX's native CheckListBox isn't user friendly.
-#. Therefore use checkboxes laid out across the top.
-#. 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
-#. Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
-#. Add checkboxes for each stream, beginning with the DSP encoder.
-#. #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
 #. # Translators: the label for a setting in SPL add-on settings
 #. to configure streaming status for metadata streams.
 msgid "&Select the URL for metadata streaming upon request:"
@@ -1266,8 +1253,9 @@ msgstr "Khám phá các cột"
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Studio.
-msgid "Columns E&xplorer..."
-msgstr "Khám phá các &cột..."
+#, fuzzy
+msgid "Columns E&xplorer for SPL Studio..."
+msgstr "Khám phá các cột cho &SPL Creator..."
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for Track Tool.
@@ -1277,6 +1265,12 @@ msgstr "Khám phá các cột cho công cụ &track..."
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Creator.
 msgid "Columns Explorer for &SPL Creator..."
+msgstr "Khám phá các cột cho &SPL Creator..."
+
+#. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
+#. for Creator and Remote VT playlist editor.
+#, fuzzy
+msgid "Columns Explorer for &playlist editor..."
 msgstr "Khám phá các cột cho &SPL Creator..."
 
 #. Translators: The title of Columns Explorer configuration dialog.
@@ -1289,6 +1283,11 @@ msgstr "Khám phá các cột cho công cụ track"
 
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer for SPL Creator"
+msgstr "Khám phá các cột của SPL Creator"
+
+#. Translators: The title of Columns Explorer configuration dialog.
+#, fuzzy
+msgid "Columns Explorer for playlist editor (Creator and Remote VT)"
 msgstr "Khám phá các cột của SPL Creator"
 
 #, python-brace-format
@@ -1566,28 +1565,6 @@ msgstr "Phát trạng thái kết nối &beep trong khi kết nối"
 msgid "Announce connection &status until encoder connects"
 msgstr "Thông báo &trạng thái kết nối cho đến khi kết nối bộ mã hóa"
 
-#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-msgid "No encoders found"
-msgstr "Không tìm thấy bộ mã hóa nào"
-
-#. Translators: presented when more than one encoder type is active
-#. when trying to obtain encoder connection status.
-msgid "Only one encoder type can be active at once"
-msgstr "Chỉ có thể kích hoạt một loại mã hóa cho một lần"
-
-#. Translators: presented when at least one encoder is connected.
-#, python-brace-format
-msgid "Connected encoders: {encodersConnected}"
-msgstr "Các bộ mã hóa đã kết nối: {encodersConnected}"
-
-#. Translators: presented when no encoders are connected.
-msgid "No encoders connected"
-msgstr "Không có bộ mã hóa nào được kết nối"
-
-#. Translators: presented when SPL Studio window is minimized.
-msgid "SPL Studio is minimized to system tray."
-msgstr "Đã thu nhỏ SPL Studio xuống khay hệ thống."
-
 #. Translators: Input help mode message for an encoder settings command.
 msgid ""
 "Toggles whether NVDA will switch to Studio when connected to a streaming "
@@ -1754,6 +1731,24 @@ msgstr ""
 "Các phím chức năng và phím số có hoặc không có phím Shift, Alt, và Control: "
 "phát cart."
 
+#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
+msgid "No encoders found"
+msgstr "Không tìm thấy bộ mã hóa nào"
+
+#. Translators: presented when more than one encoder type is active
+#. when trying to obtain encoder connection status.
+msgid "Only one encoder type can be active at once"
+msgstr "Chỉ có thể kích hoạt một loại mã hóa cho một lần"
+
+#. Translators: presented when at least one encoder is connected.
+#, python-brace-format
+msgid "Connected encoders: {encodersConnected}"
+msgstr "Các bộ mã hóa đã kết nối: {encodersConnected}"
+
+#. Translators: presented when no encoders are connected.
+msgid "No encoders connected"
+msgstr "Không có bộ mã hóa nào được kết nối"
+
 #. Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
 msgid "Moves to SPL Studio window from other programs."
 msgstr "Chuyển từ chương trình khác đến cửa sổ SPL Studio."
@@ -1832,3 +1827,15 @@ msgid ""
 msgstr ""
 "Cải thiện hỗ trợ cho StationPlaylist.\n"
 "Ngoài ra là thêm các lệnh toàn cục cho studio từ bất cứ đâu."
+
+#~ msgid "Cannot locate current track information"
+#~ msgstr "Không tìm thấy thông tin của track hiện tại"
+
+#~ msgid "Studio main window not found"
+#~ msgstr "Không tìm thấy cửa sổ chính của Studio"
+
+#~ msgid "Columns E&xplorer..."
+#~ msgstr "Khám phá các &cột..."
+
+#~ msgid "SPL Studio is minimized to system tray."
+#~ msgstr "Đã thu nhỏ SPL Studio xuống khay hệ thống."

@@ -766,10 +766,6 @@ msgstr "Ajutor asistent SPL"
 msgid "SPL Assistant help for JAWS layout"
 msgstr "Ajutor asistent SPL pentru aspectul JAWS"
 
-#. Translators: A message informing users that Studio is not running so certain commands will not work.
-msgid "Studio main window not found"
-msgstr "Fereastra principală Studio nu a fost găsită"
-
 #. Translators: The name of the default (normal) profile.
 msgid "Normal profile"
 msgstr "Profil normal"
@@ -1277,8 +1273,9 @@ msgstr "Explorator de coloane"
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Studio.
-msgid "Columns E&xplorer..."
-msgstr "E&xplorer coloane..."
+#, fuzzy
+msgid "Columns E&xplorer for SPL Studio..."
+msgstr "Exploratorul de coloane pentru unealta &piesei."
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for Track Tool.
@@ -1289,6 +1286,12 @@ msgstr "Exploratorul de coloane pentru unealta &piesei."
 #. for StationPlaylist Creator.
 #, fuzzy
 msgid "Columns Explorer for &SPL Creator..."
+msgstr "Exploratorul de coloane pentru unealta &piesei."
+
+#. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
+#. for Creator and Remote VT playlist editor.
+#, fuzzy
+msgid "Columns Explorer for &playlist editor..."
 msgstr "Exploratorul de coloane pentru unealta &piesei."
 
 #. Translators: The title of Columns Explorer configuration dialog.
@@ -1302,6 +1305,11 @@ msgstr "Exploratorul de coloane pentru unealta piesei"
 #. Translators: The title of Columns Explorer configuration dialog.
 #, fuzzy
 msgid "Columns Explorer for SPL Creator"
+msgstr "Exploratorul de coloane pentru unealta piesei"
+
+#. Translators: The title of Columns Explorer configuration dialog.
+#, fuzzy
+msgid "Columns Explorer for playlist editor (Creator and Remote VT)"
 msgstr "Exploratorul de coloane pentru unealta piesei"
 
 #, python-brace-format
@@ -1580,11 +1588,6 @@ msgstr "Redă &bipul de stare a conexiunii când se conectează"
 msgid "Announce connection &status until encoder connects"
 msgstr ""
 
-#. Translators: presented when SPL Studio window is minimized.
-#, fuzzy
-msgid "SPL Studio is minimized to system tray."
-msgstr "Studioul SPL nu rulează."
-
 #. Translators: Input help mode message for an encoder settings command.
 msgid ""
 "Toggles whether NVDA will switch to Studio when connected to a streaming "
@@ -1859,6 +1862,16 @@ msgid ""
 msgstr ""
 "Conține suport pentru StationPlaylist.\n"
 "De asemenea, adaugă comenzi globale pentru studio de oriunde."
+
+#~ msgid "Studio main window not found"
+#~ msgstr "Fereastra principală Studio nu a fost găsită"
+
+#~ msgid "Columns E&xplorer..."
+#~ msgstr "E&xplorer coloane..."
+
+#, fuzzy
+#~ msgid "SPL Studio is minimized to system tray."
+#~ msgstr "Studioul SPL nu rulează."
 
 #, fuzzy
 #~ msgid "Cannot locate current track information"

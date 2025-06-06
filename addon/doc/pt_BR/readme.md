@@ -385,6 +385,8 @@ antigas, com versões futuras suportando o Studio 5.30 e recursos mais
 recentes do NVDA. Alguns novos recursos serão portados para 20.09.x, se
 necessário.
 
+* Internal changes to make the add-on more compatible with upcoming 64-bit
+  NVDA.
 * O NVDA não se esquecerá mais de transferir perfis de transmissão ao
   atualizar o complemento (corrigindo uma regressão introduzida na versão
   25.05).

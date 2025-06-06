@@ -633,9 +633,6 @@ msgstr "Sonraki parça bilgisi bulunmuyor"
 msgid "Announces title of the currently playing track"
 msgstr "O anda çalınan parçanın başlığını duyurur"
 
-msgid "Cannot locate current track information"
-msgstr "Mevcut parça bilgisi bulunamıyor"
-
 #. Translators: Presented when current track information is unavailable.
 msgid "Cannot find current track information"
 msgstr "Mevcut parça bilgisi bulunmuyor"
@@ -747,10 +744,6 @@ msgstr "SPL Yardımcısı yardımı"
 msgid "SPL Assistant help for JAWS layout"
 msgstr "JAWS düzeni için SPL Yardımcısı yardımı"
 
-#. Translators: A message informing users that Studio is not running so certain commands will not work.
-msgid "Studio main window not found"
-msgstr "Stüdyo ana penceresi bulunamadı"
-
 #. Translators: The name of the default (normal) profile.
 msgid "Normal profile"
 msgstr "Normal profil"
@@ -846,8 +839,8 @@ msgstr ""
 "* Tamamen ücretsiz, açık kaynaklı, topluluk odaklı\n"
 "* Ve çok daha fazlası.\n"
 "\n"
-"StationPlaylist uygulama paketi hakkında ayrıntılı bilgi için "
-"www.stationplaylist.com adresini ziyaret edin.\n"
+"StationPlaylist uygulama paketi hakkında ayrıntılı bilgi için www."
+"stationplaylist.com adresini ziyaret edin.\n"
 "StationPlaylist eklentisi Github sayfasını ziyaret edin (https://github.com/"
 "chrisduffley/stationplaylist)\n"
 "Eklenti ayrıntıları ve belgeleri okumak için.\n"
@@ -1214,12 +1207,6 @@ msgstr "Anında geçiş profili etkin olduğunda"
 msgid "&Metadata streaming notification and connection"
 msgstr "&Meta veri akışı bildirimi ve bağlantısı"
 
-#. WX's native CheckListBox isn't user friendly.
-#. Therefore use checkboxes laid out across the top.
-#. 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
-#. Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
-#. Add checkboxes for each stream, beginning with the DSP encoder.
-#. #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
 #. # Translators: the label for a setting in SPL add-on settings
 #. to configure streaming status for metadata streams.
 msgid "&Select the URL for metadata streaming upon request:"
@@ -1277,8 +1264,9 @@ msgstr "Sütun gezgini"
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Studio.
-msgid "Columns E&xplorer..."
-msgstr "Sütun Ge&zgini..."
+#, fuzzy
+msgid "Columns E&xplorer for SPL Studio..."
+msgstr "&SPL Oluşturucu için Sütun Gezgini..."
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for Track Tool.
@@ -1288,6 +1276,12 @@ msgstr "&Parça Aracı için Sütun Gezgini..."
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Creator.
 msgid "Columns Explorer for &SPL Creator..."
+msgstr "&SPL Oluşturucu için Sütun Gezgini..."
+
+#. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
+#. for Creator and Remote VT playlist editor.
+#, fuzzy
+msgid "Columns Explorer for &playlist editor..."
 msgstr "&SPL Oluşturucu için Sütun Gezgini..."
 
 #. Translators: The title of Columns Explorer configuration dialog.
@@ -1300,6 +1294,11 @@ msgstr "Parça Aracı için Sütun Gezgini"
 
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer for SPL Creator"
+msgstr "SPL Oluşturucu için Sütun Gezgini"
+
+#. Translators: The title of Columns Explorer configuration dialog.
+#, fuzzy
+msgid "Columns Explorer for playlist editor (Creator and Remote VT)"
 msgstr "SPL Oluşturucu için Sütun Gezgini"
 
 #, python-brace-format
@@ -1573,28 +1572,6 @@ msgstr "Bağlanırken bağlantı durumu &bip sesi çal"
 msgid "Announce connection &status until encoder connects"
 msgstr "&Kodlayıcı bağlanana kadar bağlantı durumunu duyur"
 
-#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-msgid "No encoders found"
-msgstr "Kodlayıcı bulunamadı"
-
-#. Translators: presented when more than one encoder type is active
-#. when trying to obtain encoder connection status.
-msgid "Only one encoder type can be active at once"
-msgstr "Aynı anda yalnızca bir kodlayıcı türü etkin olabilir"
-
-#. Translators: presented when at least one encoder is connected.
-#, python-brace-format
-msgid "Connected encoders: {encodersConnected}"
-msgstr "Bağlı kodlayıcılar: {encodersConnected}"
-
-#. Translators: presented when no encoders are connected.
-msgid "No encoders connected"
-msgstr "Bağlı kodlayıcı yok"
-
-#. Translators: presented when SPL Studio window is minimized.
-msgid "SPL Studio is minimized to system tray."
-msgstr "SPL Studio sistem tepsisine küçültülmüş."
-
 #. Translators: Input help mode message for an encoder settings command.
 msgid ""
 "Toggles whether NVDA will switch to Studio when connected to a streaming "
@@ -1761,6 +1738,24 @@ msgstr ""
 "Shift, Alt ve Control tuşları olan veya olmayan fonksiyon tuşları ve sayı "
 "satırı tuşları: Çalma sepeti."
 
+#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
+msgid "No encoders found"
+msgstr "Kodlayıcı bulunamadı"
+
+#. Translators: presented when more than one encoder type is active
+#. when trying to obtain encoder connection status.
+msgid "Only one encoder type can be active at once"
+msgstr "Aynı anda yalnızca bir kodlayıcı türü etkin olabilir"
+
+#. Translators: presented when at least one encoder is connected.
+#, python-brace-format
+msgid "Connected encoders: {encodersConnected}"
+msgstr "Bağlı kodlayıcılar: {encodersConnected}"
+
+#. Translators: presented when no encoders are connected.
+msgid "No encoders connected"
+msgstr "Bağlı kodlayıcı yok"
+
 #. Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
 msgid "Moves to SPL Studio window from other programs."
 msgstr "Diğer programlardan SPL Studio penceresine gider."
@@ -1835,3 +1830,15 @@ msgid ""
 msgstr ""
 "StationPlaylist uygulamalarına yönelik desteği geliştirir. Ayrıca Studio "
 "uygulamasına her yerden global komutlar ekler."
+
+#~ msgid "Cannot locate current track information"
+#~ msgstr "Mevcut parça bilgisi bulunamıyor"
+
+#~ msgid "Studio main window not found"
+#~ msgstr "Stüdyo ana penceresi bulunamadı"
+
+#~ msgid "Columns E&xplorer..."
+#~ msgstr "Sütun Ge&zgini..."
+
+#~ msgid "SPL Studio is minimized to system tray."
+#~ msgstr "SPL Studio sistem tepsisine küçültülmüş."

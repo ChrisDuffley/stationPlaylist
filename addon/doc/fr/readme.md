@@ -394,6 +394,8 @@ Version 25.06.x est la dernière version des séries à prendre en charge
 Studio 5.x avec les versions futures nécessitant Studio 6.x. Certaines
 nouvelles fonctionnalités seront recouvertes à la 25.06.x si nécessaire.
 
+* Internal changes to make the add-on more compatible with upcoming 64-bit
+  NVDA.
 * NVDA n'oubliera plus de transférer des profils de diffusion lors de la
   mise à jour de l'extension (fixant une régression introduite dans la
   25.05).

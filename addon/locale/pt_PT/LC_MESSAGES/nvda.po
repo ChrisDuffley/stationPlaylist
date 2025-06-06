@@ -699,10 +699,6 @@ msgstr "Ajuda do assistente SPL"
 msgid "SPL Assistant help for JAWS layout"
 msgstr "Ajuda do Assistente SPL para o layout JAWS"
 
-#. Translators: A message informing users that Studio is not running so certain commands will not work.
-msgid "Studio main window not found"
-msgstr "Janela principal do estúdio não encontrada"
-
 #. Translators: The name of the default (normal) profile.
 msgid "Normal profile"
 msgstr "Perfil normal"
@@ -1197,8 +1193,9 @@ msgstr "Explorador de colunas"
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Studio.
-msgid "Columns E&xplorer..."
-msgstr "&Explorador de colunas..."
+#, fuzzy
+msgid "Columns E&xplorer for SPL Studio..."
+msgstr "Explorador de colunas para o criador &SPL"
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for Track Tool.
@@ -1208,6 +1205,12 @@ msgstr "Explorador de colunas para ferramen&tas de pista..."
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Creator.
 msgid "Columns Explorer for &SPL Creator..."
+msgstr "Explorador de colunas para o criador &SPL"
+
+#. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
+#. for Creator and Remote VT playlist editor.
+#, fuzzy
+msgid "Columns Explorer for &playlist editor..."
 msgstr "Explorador de colunas para o criador &SPL"
 
 #. Translators: The title of Columns Explorer configuration dialog.
@@ -1220,6 +1223,11 @@ msgstr "Explorador de colunas para ferramenta de pista"
 
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer for SPL Creator"
+msgstr "Explorador de colunas para o criador SPL"
+
+#. Translators: The title of Columns Explorer configuration dialog.
+#, fuzzy
+msgid "Columns Explorer for playlist editor (Creator and Remote VT)"
 msgstr "Explorador de colunas para o criador SPL"
 
 #, python-brace-format
@@ -1494,10 +1502,6 @@ msgstr "Reproduzir o estado da conexão e o sinal sonoro durante a conexão"
 msgid "Announce connection &status until encoder connects"
 msgstr ""
 
-#. Translators: presented when SPL Studio window is minimized.
-msgid "SPL Studio is minimized to system tray."
-msgstr ""
-
 #. Translators: Input help mode message for an encoder settings command.
 msgid ""
 "Toggles whether NVDA will switch to Studio when connected to a streaming "
@@ -1747,3 +1751,9 @@ msgid ""
 msgstr ""
 "Melhora o suporte para StationPlaylist.\n"
 "Além disso, adiciona comandos globais para o estúdio em todos os lugares."
+
+#~ msgid "Studio main window not found"
+#~ msgstr "Janela principal do estúdio não encontrada"
+
+#~ msgid "Columns E&xplorer..."
+#~ msgstr "&Explorador de colunas..."

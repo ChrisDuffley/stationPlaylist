@@ -365,6 +365,8 @@ Sürüm 25.06.x, Studio 6.x gerektiren gelecekteki sürümlerle Studio 5.x'i
 destekleyen son sürüm serisidir. Bazı yeni özellikler gerekirse 25.06.x'e
 geri dönecektir.
 
+* Yaklaşan 64 bit NVDA ile eklentiyi daha uyumlu hale getirmek için dahili
+  değişiklikler.
 * NVDA artık eklentiyi güncellerken yayın profillerini aktarmayı unutmayacak
   (25.05'te tanıtılan bir gerileme düzeltildi).
 * SPL Assistant'a oynatma listesi zamanı Kalan/geçen dakika ve saniye
@@ -377,8 +379,8 @@ geri dönecektir.
   hiçbir şey yapmıyor gibi görünmeyecek.
 * Yayın profillerini silerken gösterilen onay iletişim kutusu için kullanıcı
   arayüzü artık NVDA'nın yapılandırma profili silme arabirimine benziyor.
-* In add-on settings, NVDA will no longer move keyboard focus to OK button
-  after closing columns explorer and reset dialogs.
+* Eklenti ayarlarında, NVDA artık sütun gezgini ve sıfırlama iletişim
+  kutularını kapattıktan sonra klavye odağını Tamam düğmesine taşımayacak.
 * NVDA, Yaratıcı ve Track Aracı 6.11'de tanıtılan parça sütun
   değişikliklerini tanıyacaktır.
 * Oluşturucu için sütun gezgininde “Tarih Kısıtlaması” sütunu artık

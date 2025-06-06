@@ -650,9 +650,6 @@ msgstr "Не удалось найти информацию о следующе�
 msgid "Announces title of the currently playing track"
 msgstr "Объявляет название проигрываемой в данный момент дорожки"
 
-msgid "Cannot locate current track information"
-msgstr "Не удалось найти информацию о текущей дорожке"
-
 #. Translators: Presented when current track information is unavailable.
 msgid "Cannot find current track information"
 msgstr "Не удалось найти информацию о текущей дорожке"
@@ -763,10 +760,6 @@ msgstr "Справка по Помощнику SPL"
 #. Translators: The title for SPL Assistant help screen.
 msgid "SPL Assistant help for JAWS layout"
 msgstr "Справка по Помощнику SPL для раскладки JAWS"
-
-#. Translators: A message informing users that Studio is not running so certain commands will not work.
-msgid "Studio main window not found"
-msgstr "Не найдено главное окно Studio"
 
 #. Translators: The name of the default (normal) profile.
 msgid "Normal profile"
@@ -1235,12 +1228,6 @@ msgstr "Когда активен профиль мгновенного пере
 msgid "&Metadata streaming notification and connection"
 msgstr "Уведомление о потоковой передаче &метаданных и подключения"
 
-#. WX's native CheckListBox isn't user friendly.
-#. Therefore use checkboxes laid out across the top.
-#. 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
-#. Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
-#. Add checkboxes for each stream, beginning with the DSP encoder.
-#. #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
 #. # Translators: the label for a setting in SPL add-on settings
 #. to configure streaming status for metadata streams.
 msgid "&Select the URL for metadata streaming upon request:"
@@ -1298,8 +1285,9 @@ msgstr "Обозреватель столбцов"
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Studio.
-msgid "Columns E&xplorer..."
-msgstr "О&бозреватель столбцов..."
+#, fuzzy
+msgid "Columns E&xplorer for SPL Studio..."
+msgstr "Обозреватель столбцов для &SPL Creator..."
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for Track Tool.
@@ -1309,6 +1297,12 @@ msgstr "Обозреватель столбцов для &Track Tool..."
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Creator.
 msgid "Columns Explorer for &SPL Creator..."
+msgstr "Обозреватель столбцов для &SPL Creator..."
+
+#. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
+#. for Creator and Remote VT playlist editor.
+#, fuzzy
+msgid "Columns Explorer for &playlist editor..."
 msgstr "Обозреватель столбцов для &SPL Creator..."
 
 #. Translators: The title of Columns Explorer configuration dialog.
@@ -1321,6 +1315,11 @@ msgstr "Обозреватель столбцов для Track Tool"
 
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer for SPL Creator"
+msgstr "Обозреватель столбцов для SPL Creator"
+
+#. Translators: The title of Columns Explorer configuration dialog.
+#, fuzzy
+msgid "Columns Explorer for playlist editor (Creator and Remote VT)"
 msgstr "Обозреватель столбцов для SPL Creator"
 
 #, python-brace-format
@@ -1605,28 +1604,6 @@ msgstr ""
 msgid "Announce connection &status until encoder connects"
 msgstr "Объявлять &состояние соединения до тех пор, пока не подключится кодер"
 
-#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-msgid "No encoders found"
-msgstr "Кодировщики не найдены"
-
-#. Translators: presented when more than one encoder type is active
-#. when trying to obtain encoder connection status.
-msgid "Only one encoder type can be active at once"
-msgstr "Одновременно может быть активен только один тип кодировщика"
-
-#. Translators: presented when at least one encoder is connected.
-#, python-brace-format
-msgid "Connected encoders: {encodersConnected}"
-msgstr "Подключенные кодировщики: {encodersConnected}"
-
-#. Translators: presented when no encoders are connected.
-msgid "No encoders connected"
-msgstr "Нет подключённых кодеров"
-
-#. Translators: presented when SPL Studio window is minimized.
-msgid "SPL Studio is minimized to system tray."
-msgstr "SPL Studio свёрнуто в системный лоток."
-
 #. Translators: Input help mode message for an encoder settings command.
 msgid ""
 "Toggles whether NVDA will switch to Studio when connected to a streaming "
@@ -1795,6 +1772,24 @@ msgstr ""
 "Функциональные клавиши и клавиши цифрового ряда с клавишами Shift, Alt и "
 "Control или без них: воспроизводить корзины."
 
+#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
+msgid "No encoders found"
+msgstr "Кодировщики не найдены"
+
+#. Translators: presented when more than one encoder type is active
+#. when trying to obtain encoder connection status.
+msgid "Only one encoder type can be active at once"
+msgstr "Одновременно может быть активен только один тип кодировщика"
+
+#. Translators: presented when at least one encoder is connected.
+#, python-brace-format
+msgid "Connected encoders: {encodersConnected}"
+msgstr "Подключенные кодировщики: {encodersConnected}"
+
+#. Translators: presented when no encoders are connected.
+msgid "No encoders connected"
+msgstr "Нет подключённых кодеров"
+
 #. Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
 msgid "Moves to SPL Studio window from other programs."
 msgstr "Переходит в окно SPL Studio из других программ."
@@ -1872,3 +1867,15 @@ msgid ""
 msgstr ""
 "Улучшает поддержку приложений StationPlaylist. Кроме того, добавлены "
 "глобальные команды для приложения Studio."
+
+#~ msgid "Cannot locate current track information"
+#~ msgstr "Не удалось найти информацию о текущей дорожке"
+
+#~ msgid "Studio main window not found"
+#~ msgstr "Не найдено главное окно Studio"
+
+#~ msgid "Columns E&xplorer..."
+#~ msgstr "О&бозреватель столбцов..."
+
+#~ msgid "SPL Studio is minimized to system tray."
+#~ msgstr "SPL Studio свёрнуто в системный лоток."
