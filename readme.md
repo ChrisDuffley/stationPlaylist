@@ -211,6 +211,7 @@ Version 25.07 supports SPL Studio 6.0 and later.
 * Columns explorer (Control+NVDA+number row) is now configurable for Creator and Remote VT's playlist editor. A new button, "columns explorer for playlist editor" is available from columns explorer add-on settings screen.
 * In columns explorer add-on settings, renamed "columns explorer" to "columns explorer for SPL Studio".
 * Added JSON (JavaScript Object Notation) format as a playlist transcripts format.
+* When starting Track Tool, NVDA will announce app name and version similar to other SPL components although this may result in repetitions.
 
 ## Version 25.06-LTS
 
