@@ -190,11 +190,11 @@ class AppModule(appModuleHandler.AppModule):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		# #64 (18.07): load config database if not done already.
-		splconfig.openConfig("tracktool")
+		splconfig.openConfig(self.appName)
 
 	def terminate(self):
 		super().terminate()
-		splconfig.closeConfig("tracktool")
+		splconfig.closeConfig(self.appName)
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		if obj.windowClassName == "TTntListView.UnicodeClass":

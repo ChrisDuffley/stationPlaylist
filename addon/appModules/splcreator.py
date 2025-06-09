@@ -217,11 +217,11 @@ class AppModule(appModuleHandler.AppModule):
 		except Exception:
 			pass
 		# #64 (18.07): load config database if not done already.
-		splconfig.openConfig("splcreator")
+		splconfig.openConfig(self.appName)
 
 	def terminate(self):
 		super().terminate()
-		splconfig.closeConfig("splcreator")
+		splconfig.closeConfig(self.appName)
 		# Clear Playlist Editor status cache,
 		# otherwise it will generate errors when Creator restarts without restarting NVDA.
 		self._playlistEditorStatusCache.clear()
