@@ -35,11 +35,11 @@ class AppModule(splcreator.AppModule):
 		except Exception:
 			pass
 		# #64: load config database if not done already.
-		splconfig.openConfig("splremotevt")
+		splconfig.openConfig(self.appName)
 
 	def terminate(self):
 		super(splcreator.AppModule, self).terminate()
-		splconfig.closeConfig("splremotevt")
+		splconfig.closeConfig(self.appName)
 		# Just like Creator, clear Playlist Editor status cache,
 		# otherwise it will generate errors when Remote VT restarts without restarting NVDA.
 		self._playlistEditorStatusCache.clear()
