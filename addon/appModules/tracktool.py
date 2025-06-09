@@ -10,8 +10,6 @@
 import appModuleHandler
 import addonHandler
 import tones
-import globalVars
-import ui
 import controlTypes
 from NVDAObjects.IAccessible import sysListView32
 from .splstudio import splconfig, SPLTrackItem
@@ -157,13 +155,6 @@ class TrackToolItem(SPLTrackItem):
 class AppModule(appModuleHandler.AppModule):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
-		# Announce app version at startup unless minimal flag is set.
-		try:
-			if not globalVars.appArgs.minimal:
-				# No translation.
-				ui.message("{} {}".format(self.productName, self.productVersion))
-		except Exception:
-			pass
 		# #64: load config database if not done already.
 		splconfig.openConfig(self.appName)
 
