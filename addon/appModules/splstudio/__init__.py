@@ -696,11 +696,11 @@ class AppModule(appModuleHandler.AppModule):
 			log.debug("SPL: Studio is starting")
 		else:
 			log.debug("SPL: Studio is already running")
-		# Announce Studio version if minimal startup flag is not set.
+		# Announce app version if minimal startup flag is not set.
 		try:
 			if not globalVars.appArgs.minimal:
 				# No translation.
-				ui.message("SPL Studio {SPLVersion}".format(SPLVersion=self.productVersion))
+				ui.message("{} {}".format(self.productName, self.productVersion))
 		except Exception:
 			pass
 		# #40: react to profile switches.

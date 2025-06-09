@@ -157,11 +157,11 @@ class SPLPlaylistEditorItem(SPLTrackItem):
 class AppModule(appModuleHandler.AppModule):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
-		# Announce Creator version at startup unless minimal flag is set.
+		# Announce app version at startup unless minimal flag is set.
 		try:
 			if not globalVars.appArgs.minimal:
 				# No translation.
-				ui.message("SPL Creator {SPLVersion}".format(SPLVersion=self.productVersion))
+				ui.message("{} {}".format(self.productName, self.productVersion))
 		except Exception:
 			pass
 		# #64: load config database if not done already.
