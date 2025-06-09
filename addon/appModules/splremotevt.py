@@ -7,13 +7,10 @@
 
 from typing import Any
 import addonHandler
-import globalVars
-import ui
 import controlTypes
 from NVDAObjects.IAccessible import sysListView32
 from NVDAObjects.behaviors import Dialog
 from . import splcreator
-from .splstudio import splconfig
 
 addonHandler.initTranslation()
 
@@ -25,25 +22,6 @@ class SPLRemotePlaylistEditorItem(splcreator.SPLPlaylistEditorItem):
 
 
 class AppModule(splcreator.AppModule):
-	def __init__(self, *args, **kwargs):
-		super(splcreator.AppModule, self).__init__(*args, **kwargs)
-		# Announce app version at startup unless minimal flag is set.
-		try:
-			if not globalVars.appArgs.minimal:
-				# No translation.
-				ui.message("{} {}".format(self.productName, self.productVersion))
-		except Exception:
-			pass
-		# #64: load config database if not done already.
-		splconfig.openConfig(self.appName)
-
-	def terminate(self):
-		super(splcreator.AppModule, self).terminate()
-		splconfig.closeConfig(self.appName)
-		# Just like Creator, clear Playlist Editor status cache,
-		# otherwise it will generate errors when Remote VT restarts without restarting NVDA.
-		self._playlistEditorStatusCache.clear()
-
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		# Tracks list uses a different window class name other than "TListView".
 		# Resort to window style and other tricks if other lists with the class name below is found
