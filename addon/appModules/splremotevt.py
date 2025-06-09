@@ -27,11 +27,11 @@ class SPLRemotePlaylistEditorItem(splcreator.SPLPlaylistEditorItem):
 class AppModule(splcreator.AppModule):
 	def __init__(self, *args, **kwargs):
 		super(splcreator.AppModule, self).__init__(*args, **kwargs)
-		# Announce VT Client version at startup unless minimal flag is set.
+		# Announce app version at startup unless minimal flag is set.
 		try:
 			if not globalVars.appArgs.minimal:
 				# No translation.
-				ui.message("SPL VT Client {SPLVersion}".format(SPLVersion=self.productVersion))
+				ui.message("{} {}".format(self.productName, self.productVersion))
 		except Exception:
 			pass
 		# #64: load config database if not done already.
