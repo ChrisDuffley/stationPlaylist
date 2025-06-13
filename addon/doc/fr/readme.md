@@ -17,9 +17,10 @@ NOTES IMPORTANTES :
 * Certaines fonctionnalités de l'extension seront désactivées ou limitées si
   NVDA s'exécute en mode sécurisé, comme dans l'écran de connexion.
 * Pour une meilleure expérience, désactiver le Mode d'atténuation audio.
-* Starting from 2018, [changelogs for old add-on releases][2] will be found
-  on GitHub. This add-on readme will list changes from version 25.01 (2025)
-  onwards.
+* À partir de 2018, les [changelogs des anciennes versions de
+  l'extension][2] seront disponibles sur GitHub. Ce fichier readme de
+  l'extension listera les modifications apportées à partir de la version
+  25.01 (2025 en avant).
 * Pendant que Studio est en cours d'exécution, vous pouvez sauvegarder,
   recharger les paramètres sauvegardés, ou rétablir les paramètres par
   défaut de l'extension en pressant Contrôle+NVDA+C, Contrôle+NVDA+R une
@@ -394,8 +395,8 @@ Version 25.06.x est la dernière version des séries à prendre en charge
 Studio 5.x avec les versions futures nécessitant Studio 6.x. Certaines
 nouvelles fonctionnalités seront recouvertes à la 25.06.x si nécessaire.
 
-* Internal changes to make the add-on more compatible with upcoming 64-bit
-  NVDA.
+* Modifications internes pour rendre l'extension plus compatible avec le
+  prochain NVDA 64 bits.
 * NVDA n'oubliera plus de transférer des profils de diffusion lors de la
   mise à jour de l'extension (fixant une régression introduite dans la
   25.05).
@@ -410,8 +411,9 @@ nouvelles fonctionnalités seront recouvertes à la 25.06.x si nécessaire.
 * La boîte de  dialogue de l'interface utilisateur pour la confirmation
   affichée lors de la suppression des profils de diffusion ressemble
   désormais à l'interface de suppression du profil de configuration de NVDA.
-* In add-on settings, NVDA will no longer move keyboard focus to OK button
-  after closing columns explorer and reset dialogs.
+* Dans les paramètres de l'extension, NVDA ne déplacera plus le focus au
+  clavier vers le bouton OK après la fermeture de l'Explorateur de Colonnes
+  et de réinitialiser les dialogues.
 * NVDA reconnaîtra les changements de colonne de piste introduits dans
   Creator et l'Outil de piste 6.11.
 * Dans l'Explorateur de Colonnes pour Creator, la colonne "Date Restriction"
@@ -429,8 +431,9 @@ nouvelles fonctionnalités seront recouvertes à la 25.06.x si nécessaire.
 * Ajout du bouton Fermer aux Instantanés de playlist, Transcriptions de
   Playlist et Assistant SPL et écrans d'Aide du Contrôleur  en Couche (NVDA
   2025.1 et ultérieur).
-* NVDA will no longer do nothing or play error tones when announcing weather
-  and temperature information in Studio 6.1x (SPL Assistant, W).
+* NVDA ne fera plus rien ni ne jouera des tonalités d'erreur lors de
+  l'annonce des informations Météo et température dans Studio 6.1x
+  (Assistant SPL, W).
 
 ## Version 25.01
 

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-05-22 22:26-0600\n"
+"PO-Revision-Date: 2025-06-06 22:28+0300\n"
 "Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language-Team: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language: tr_TR\n"
@@ -839,8 +839,8 @@ msgstr ""
 "* Tamamen ücretsiz, açık kaynaklı, topluluk odaklı\n"
 "* Ve çok daha fazlası.\n"
 "\n"
-"StationPlaylist uygulama paketi hakkında ayrıntılı bilgi için www."
-"stationplaylist.com adresini ziyaret edin.\n"
+"StationPlaylist uygulama paketi hakkında ayrıntılı bilgi için "
+"www.stationplaylist.com adresini ziyaret edin.\n"
 "StationPlaylist eklentisi Github sayfasını ziyaret edin (https://github.com/"
 "chrisduffley/stationplaylist)\n"
 "Eklenti ayrıntıları ve belgeleri okumak için.\n"
@@ -1264,9 +1264,8 @@ msgstr "Sütun gezgini"
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Studio.
-#, fuzzy
 msgid "Columns E&xplorer for SPL Studio..."
-msgstr "&SPL Oluşturucu için Sütun Gezgini..."
+msgstr "&SPL Studio için Sütun Gezgini..."
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for Track Tool.
@@ -1280,9 +1279,8 @@ msgstr "&SPL Oluşturucu için Sütun Gezgini..."
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for Creator and Remote VT playlist editor.
-#, fuzzy
 msgid "Columns Explorer for &playlist editor..."
-msgstr "&SPL Oluşturucu için Sütun Gezgini..."
+msgstr "&Çalma listesi düzenleyicisi için Sütun Gezgini..."
 
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer"
@@ -1297,9 +1295,8 @@ msgid "Columns Explorer for SPL Creator"
 msgstr "SPL Oluşturucu için Sütun Gezgini"
 
 #. Translators: The title of Columns Explorer configuration dialog.
-#, fuzzy
 msgid "Columns Explorer for playlist editor (Creator and Remote VT)"
-msgstr "SPL Oluşturucu için Sütun Gezgini"
+msgstr "Çalma listesi düzenleyicisi için Sütun Gezgini (Oluşturucu ve Uzak VT)"
 
 #, python-brace-format
 msgid "Slot {position}"
