@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 24.03\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2024-07-31 18:07+0300\n"
-"PO-Revision-Date: 2025-05-17 09:31+0300\n"
+"PO-Revision-Date: 2025-06-10 22:12+0300\n"
 "Last-Translator: Ruslan Kolodyazhni <rupelodn@gmail.com>\n"
 "Language-Team: Translators <nvda-translations@groups.io>\n"
 "Language: ru_RU\n"
@@ -1285,9 +1285,8 @@ msgstr "Обозреватель столбцов"
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Studio.
-#, fuzzy
 msgid "Columns E&xplorer for SPL Studio..."
-msgstr "Обозреватель столбцов для &SPL Creator..."
+msgstr "О&бозреватель столбцов для SPL Studio..."
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for Track Tool.
@@ -1301,9 +1300,8 @@ msgstr "Обозреватель столбцов для &SPL Creator..."
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for Creator and Remote VT playlist editor.
-#, fuzzy
 msgid "Columns Explorer for &playlist editor..."
-msgstr "Обозреватель столбцов для &SPL Creator..."
+msgstr "Обозреватель столбцов для &Редактора списков воспроизведения..."
 
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer"
@@ -1318,9 +1316,10 @@ msgid "Columns Explorer for SPL Creator"
 msgstr "Обозреватель столбцов для SPL Creator"
 
 #. Translators: The title of Columns Explorer configuration dialog.
-#, fuzzy
 msgid "Columns Explorer for playlist editor (Creator and Remote VT)"
-msgstr "Обозреватель столбцов для SPL Creator"
+msgstr ""
+"Обозреватель столбцов для редактора списка воспроизведения (Creator и Remote "
+"VT)"
 
 #, python-brace-format
 msgid "Slot {position}"
@@ -1867,15 +1866,3 @@ msgid ""
 msgstr ""
 "Улучшает поддержку приложений StationPlaylist. Кроме того, добавлены "
 "глобальные команды для приложения Studio."
-
-#~ msgid "Cannot locate current track information"
-#~ msgstr "Не удалось найти информацию о текущей дорожке"
-
-#~ msgid "Studio main window not found"
-#~ msgstr "Не найдено главное окно Studio"
-
-#~ msgid "Columns E&xplorer..."
-#~ msgstr "О&бозреватель столбцов..."
-
-#~ msgid "SPL Studio is minimized to system tray."
-#~ msgstr "SPL Studio свёрнуто в системный лоток."

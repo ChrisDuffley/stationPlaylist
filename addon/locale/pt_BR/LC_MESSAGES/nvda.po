@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist add-on\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2020-04-10 19:10+1000\n"
-"PO-Revision-Date: 2025-05-30 15:08-0300\n"
+"PO-Revision-Date: 2025-06-08 16:35-0300\n"
 "Last-Translator: Josevan Barbosa Fernandes <josevanfernandes@yahoo.com.br>\n"
 "Language-Team: NVDA Brazilian Portuguese translation team (Equipe de "
 "tradução do NVDA para Português Brasileiro) <clever97@gmail.com>\n"
@@ -1289,9 +1289,8 @@ msgstr "Explorador de colunas"
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Studio.
-#, fuzzy
 msgid "Columns E&xplorer for SPL Studio..."
-msgstr "Explorador de Colunas para &SPL Creator..."
+msgstr "E&xplorador de colunas para o SPL Studio..."
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for Track Tool.
@@ -1305,9 +1304,8 @@ msgstr "Explorador de Colunas para &SPL Creator..."
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for Creator and Remote VT playlist editor.
-#, fuzzy
 msgid "Columns Explorer for &playlist editor..."
-msgstr "Explorador de Colunas para &SPL Creator..."
+msgstr "Explorador de colunas para o editor &playlist..."
 
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer"
@@ -1322,9 +1320,10 @@ msgid "Columns Explorer for SPL Creator"
 msgstr "Explorador de Colunas para SPL Creator"
 
 #. Translators: The title of Columns Explorer configuration dialog.
-#, fuzzy
 msgid "Columns Explorer for playlist editor (Creator and Remote VT)"
-msgstr "Explorador de Colunas para SPL Creator"
+msgstr ""
+"Explorador de colunas para o editor de listas de reprodução (Creator e "
+"Remote VT)"
 
 #, python-brace-format
 msgid "Slot {position}"

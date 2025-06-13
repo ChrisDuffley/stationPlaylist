@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-05-22 22:24-0600\n"
+"PO-Revision-Date: 2025-06-07 09:27+0200\n"
 "Last-Translator: José Manuel Delicado <jm.delicado@nvda.es>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -1292,9 +1292,8 @@ msgstr "Explorador de Columnas"
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Studio.
-#, fuzzy
 msgid "Columns E&xplorer for SPL Studio..."
-msgstr "Explorador de Columnas para el &SPL Creator..."
+msgstr "E&xplorador de Columnas para SPL Studio..."
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for Track Tool.
@@ -1308,9 +1307,8 @@ msgstr "Explorador de Columnas para el &SPL Creator..."
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for Creator and Remote VT playlist editor.
-#, fuzzy
 msgid "Columns Explorer for &playlist editor..."
-msgstr "Explorador de Columnas para el &SPL Creator..."
+msgstr "Explorador de Columnas para el editor de &listas de reproducción..."
 
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer"
@@ -1325,9 +1323,10 @@ msgid "Columns Explorer for SPL Creator"
 msgstr "Explorador de Columnas para el SPL Creator"
 
 #. Translators: The title of Columns Explorer configuration dialog.
-#, fuzzy
 msgid "Columns Explorer for playlist editor (Creator and Remote VT)"
-msgstr "Explorador de Columnas para el SPL Creator"
+msgstr ""
+"Explorador de Columnas para el editor de listas de reproducción (Creator y "
+"Remote VT)"
 
 #, python-brace-format
 msgid "Slot {position}"
@@ -1874,15 +1873,3 @@ msgid ""
 msgstr ""
 "Mejora el soporte para las aplicaciones de StationPlaylist. Además, agrega "
 "órdenes globales para la aplicación de Studio desde cualquier parte."
-
-#~ msgid "Cannot locate current track information"
-#~ msgstr "No se pudo encontrar información de la pista actual"
-
-#~ msgid "Studio main window not found"
-#~ msgstr "Ventana principal de Studio no encontrada"
-
-#~ msgid "Columns E&xplorer..."
-#~ msgstr "E&xplorador de Columnas..."
-
-#~ msgid "SPL Studio is minimized to system tray."
-#~ msgstr "SPL Studio está minimizado en la bandeja del sistema."
