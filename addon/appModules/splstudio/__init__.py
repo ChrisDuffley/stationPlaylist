@@ -906,6 +906,8 @@ class AppModule(appModuleHandler.AppModule):
 				# Status bar labels are not found in Studio 6 but is written to the screen.
 				if obj.name is None:
 					obj.name = obj.displayText
+			case _:
+				pass
 
 	# Some controls which needs special routines.
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
@@ -937,6 +939,8 @@ class AppModule(appModuleHandler.AppModule):
 			# Temporary cue time picker and friends.
 			case "TDateTimePicker":
 				clsList.insert(0, SPLTimePicker)
+			case _:
+				pass
 
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
@@ -1536,6 +1540,8 @@ class AppModule(appModuleHandler.AppModule):
 				case 2:
 					# Translators: Presented when a user attempts to find tracks but is not at the track list.
 					ui.message(_("Time range finder is available only in track list."))
+				case _:
+					pass
 			return False
 		# 17.06/15.8-LTS: use Studio API to find out if a playlist is even loaded,
 		# otherwise Track Finder will fail to notice a playlist.
@@ -2000,7 +2006,8 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when playlist analysis cannot be activated.
 				ui.message(_("No tracks are selected, cannot perform playlist analysis."))
 				return False
-		return True
+			case _:
+				return True
 
 	# Return total duration of a range of tracks.
 	# This is used in track time analysis when multiple tracks are selected.
