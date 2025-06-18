@@ -177,13 +177,13 @@ def indexOfPlaylistEditor(editorVersion: str) -> tuple[str, ...]:
 class SPLCreatorItem(SPLTrackItem):
 	"""An entry in SPL Creator (mostly tracks)."""
 
-	def indexOf(self, header: str) -> int | None:
+	def indexOf(self, columnHeader: str) -> int | None:
 		# 22.03: Creator 6 renamed Date Restriction column to Restrictions.
 		# 25.06: use Creator 6 column header by default.
-		if self.appModule.productVersion < "6.0" and header == "Restrictions":
-			header = "Date Restriction"
+		if self.appModule.productVersion < "6.0" and columnHeader == "Restrictions":
+			columnHeader = "Date Restriction"
 		try:
-			return indexOf(self.appModule.productVersion).index(header)
+			return indexOf(self.appModule.productVersion).index(columnHeader)
 		except ValueError:
 			return None
 
@@ -195,9 +195,9 @@ class SPLCreatorItem(SPLTrackItem):
 class SPLPlaylistEditorItem(SPLTrackItem):
 	"""An entry in SPL Creator's Playlist Editor."""
 
-	def indexOf(self, header: str) -> int | None:
+	def indexOf(self, columnHeader: str) -> int | None:
 		try:
-			return indexOfPlaylistEditor(self.appModule.productVersion).index(header)
+			return indexOfPlaylistEditor(self.appModule.productVersion).index(columnHeader)
 		except ValueError:
 			return None
 
