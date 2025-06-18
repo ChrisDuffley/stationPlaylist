@@ -141,9 +141,9 @@ class TrackToolItem(SPLTrackItem):
 			tones.beep(550, 100)
 		super(TrackToolItem, self).reportFocus()
 
-	def indexOf(self, header: str) -> int | None:
+	def indexOf(self, columnHeader: str) -> int | None:
 		try:
-			return indexOf(self.appModule.productVersion).index(header)
+			return indexOf(self.appModule.productVersion).index(columnHeader)
 		except ValueError:
 			return None
 
