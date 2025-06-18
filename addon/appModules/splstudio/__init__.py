@@ -341,7 +341,8 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 
 	# #12 (18.04): select and set focus to this track.
 	def doAction(self, index=None):
-		self.setFocus(), self.setFocus()
+		self.setFocus()
+		self.setFocus()
 		splbase.selectTrack(self.IAccessibleChildID - 1)
 
 	# Obtain column contents for all columns for this track.
