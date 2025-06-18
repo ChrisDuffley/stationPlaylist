@@ -1307,6 +1307,8 @@ class ColumnsExplorerDialog(wx.Dialog):
 					"Filename",
 				)
 				slots = parent.exploreColumnsPlsEditor
+			case _:
+				pass
 		# Gather column slots.
 		self.columnSlots = []
 
@@ -1366,6 +1368,8 @@ class ColumnsExplorerDialog(wx.Dialog):
 				parent.exploreColumnsCreator = slots
 			case 3:
 				parent.exploreColumnsPlsEditor = slots
+			case _:
+				pass
 		parent.Enable()
 		self.Destroy()
 
