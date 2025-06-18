@@ -894,9 +894,9 @@ class AppModule(appModuleHandler.AppModule):
 			case "TEdit" | "TComboBox":
 				# In certain edit fields and combo boxes, the field name is written to the screen,
 				# and there's no way to fetch the object for this text.
-				# Thus use review position text.
+				# Thus use review position text (first item in screen position function return tuple).
 				if not obj.name:
-					fieldName, fieldObj = review.getScreenPosition(obj)
+					fieldName = review.getScreenPosition(obj)[0]
 					fieldName.expand(textInfos.UNIT_LINE)
 					if obj.windowClassName == "TComboBox":
 						obj.name = fieldName.text.replace(obj.windowText, "")
