@@ -1230,7 +1230,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		match level:
 			case 0:
 				# Translators: The title of Columns Explorer configuration dialog.
-				actualTitle = _("Columns Explorer")
+				actualTitle = _("Columns Explorer for SPL Studio")
 				cols = splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 				slots = parent.exploreColumns
 			case 1:
