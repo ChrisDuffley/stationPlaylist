@@ -155,7 +155,8 @@ class ConfigHub(ChainMap):
 
 	# Various properties
 	@property
-	def activeProfile(self) -> str:
+	def activeProfile(self) -> str | None:
+		# Profile name can be None until a name is given during construction.
 		return self.profiles[0].name
 
 	@property
