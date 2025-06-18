@@ -1105,7 +1105,7 @@ class AppModule(appModuleHandler.AppModule):
 		# (only if Studio is still alive and Studio API says something).
 		status = splbase.studioAPI(2, SPLStatusInfo)
 		if splbase.studioIsRunning(justChecking=True) and status is not None:
-			self.doExtraAction(self._statusBarMessages[2][status])
+			self.doExtraAction(splconsts.studioStatusMessages[2][status])
 
 	def actionSettingsReset(self, factoryDefaults: bool = False) -> None:
 		global micAlarmT, micAlarmT2
@@ -1118,7 +1118,7 @@ class AppModule(appModuleHandler.AppModule):
 		micAlarmT2 = None
 		status = splbase.studioAPI(2, SPLStatusInfo)
 		if splbase.studioIsRunning(justChecking=True) and status is not None:
-			self.doExtraAction(self._statusBarMessages[2][status])
+			self.doExtraAction(splconsts.studioStatusMessages[2][status])
 
 	# Alarm announcement: Alarm notification via beeps, speech or both.
 	def alarmAnnounce(self, timeText: str, tone: float, duration: int, intro: bool = False) -> None:
