@@ -105,10 +105,8 @@ class BroadcastProfilesDialog(wx.Dialog):
 		self.switchProfileDeleted = False
 
 		# Close button logic comes from NVDA Core (credit: NV Access)
-		closeButton = wx.Button(self, wx.ID_CLOSE, label=translate("&Close"))
-		closeButton.Bind(wx.EVT_BUTTON, lambda evt: self.Close())
-		broadcastProfilesHelper.addDialogDismissButtons(closeButton, separated=True)
-		self.Bind(wx.EVT_CLOSE, self.onClose)
+		broadcastProfilesHelper.addDialogDismissButtons(wx.CLOSE, separated=True)
+		self.Bind(wx.EVT_BUTTON, self.onClose, id=wx.ID_CLOSE)
 		self.EscapeId = wx.ID_CLOSE
 
 		mainSizer.Add(broadcastProfilesHelper.sizer, flag=wx.ALL, border=gui.guiHelper.BORDER_FOR_DIALOGS)
