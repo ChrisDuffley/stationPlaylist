@@ -135,7 +135,7 @@ class ConfigHub(ChainMap):
 		self.profiles = self.maps
 		# Active profile name is retrieved via the below property function.
 		if "InstantProfile" in self.profiles[0] and not self.normalProfileOnly:
-			self.instantSwitch = self.profiles[0]["InstantProfile"]
+			self.instantSwitch: str | None = self.profiles[0]["InstantProfile"]
 		else:
 			self.instantSwitch = None
 		self.prevProfile: str | None = None
