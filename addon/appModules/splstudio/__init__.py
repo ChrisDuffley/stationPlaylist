@@ -2436,14 +2436,15 @@ class AppModule(appModuleHandler.AppModule):
 			# so resort to retrieving focused object instead.
 			if fg is not None and fg.childCount > 1:
 				obj = fg
+				# In most cases, first-level child object holds status information.
+				if isinstance(statusIndex, int):
+					obj = fg.getChild(statusIndex)
 				# #119 (20.03): for some status items, an object one level below info index must be fetched,
 				# evidenced by different window handles.
 				# For situations like this (a list of navigational child indecies), an iterative descent will be used.
-				if isinstance(statusIndex, list):
+				else:
 					for child in statusIndex:
 						obj = obj.getChild(child)
-				else:
-					obj = fg.getChild(statusIndex)
 				self._cachedStatusObjs[infoIndex] = obj
 			else:
 				return api.getFocusObject()
