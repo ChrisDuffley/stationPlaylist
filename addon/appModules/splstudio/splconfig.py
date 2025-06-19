@@ -20,7 +20,7 @@ import ui
 import gui
 import wx
 from logHandler import log
-from . import splactions
+from ..splcommon import splactions
 from .splconfspec import confspec
 import addonHandler
 from ..skipTranslation import translate
