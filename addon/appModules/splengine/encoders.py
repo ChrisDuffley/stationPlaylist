@@ -181,8 +181,11 @@ def cleanup(appTerminating: bool = False, reset: bool = False) -> None:
 		SPLNoConnectionTone,
 		SPLConnectionStopOnError,
 	]:
-		if flag is not None:
+		try:
+			# Provided that flags dictionary/set is still alive (not None).
 			flag.clear()
+		except AttributeError:
+			pass
 	# Save a "clean" copy after resetting encoder settings.
 	if reset:
 		encoderConfig.write()
