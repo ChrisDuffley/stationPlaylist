@@ -10,6 +10,7 @@ import addonHandler
 import globalVars
 import ui
 import controlTypes
+from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32
 from NVDAObjects.behaviors import Dialog
 from . import splcreator
@@ -44,7 +45,7 @@ class AppModule(splcreator.AppModule):
 		# otherwise it will generate errors when Remote VT restarts without restarting NVDA.
 		self._playlistEditorStatusCache.clear()
 
-	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
+	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
 		# 20.02: tracks list uses a different window class name other than "TListView".
 		# Resort to window style and other tricks if other lists with the class name below is found
 		# yet are not tracks list.

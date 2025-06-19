@@ -75,7 +75,7 @@ class AppModule(appModuleHandler.AppModule):
 				if encoderSettingsLabel:
 					obj.name = encoderSettingsLabel
 
-	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
+	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
 		# Detect encoders.
 		if obj.windowClassName == "TListView":
 			# #87: add support for table navigation commands

@@ -11,6 +11,7 @@ import appModuleHandler
 import addonHandler
 import tones
 import controlTypes
+from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32
 from .splstudio import splconfig, SPLTrackItem
 
@@ -196,7 +197,7 @@ class AppModule(appModuleHandler.AppModule):
 		super().terminate()
 		splconfig.closeConfig(self.appName)
 
-	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
+	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
 		if obj.windowClassName == "TTntListView.UnicodeClass":
 			if obj.role == controlTypes.Role.LISTITEM:
 				clsList.insert(0, TrackToolItem)

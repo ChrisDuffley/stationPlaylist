@@ -910,7 +910,7 @@ class AppModule(appModuleHandler.AppModule):
 				pass
 
 	# Some controls which needs special routines.
-	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
+	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
 		role = obj.role
 		try:
 			windowStyle = obj.windowStyle
