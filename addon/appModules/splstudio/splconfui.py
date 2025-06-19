@@ -18,7 +18,7 @@ from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 from winUser import user32, OBJID_CLIENT
 import tones
 import addonHandler
-from ..splcommon import splactions, splconfig
+from ..splcommon import splactions, splconfig, splbase
 from . import splmisc
 from ..skipTranslation import translate
 
@@ -854,7 +854,8 @@ class MetadataStreamingDialog(wx.Dialog):
 		labelText = _("Check to enable metadata streaming, uncheck to disable.")
 		metadataSizerHelper.addItem(wx.StaticText(self, label=labelText))
 
-		streams = splmisc.metadataList()
+		SPLMetadataStreaming = 36
+		streams = [splbase.studioAPI(pos, SPLMetadataStreaming) for pos in range(5)]
 		self.checkedStreams = metadataSizerHelper.addLabeledControl(
 			# Translators: the label for a setting in SPL add-on settings
 			# to configure streaming status for metadata streams.
