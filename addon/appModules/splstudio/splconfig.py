@@ -545,7 +545,7 @@ class ConfigHub(ChainMap):
 				"Only normal profile is in use or config was loaded from memory, cannot switch profiles"
 			)
 		# Check profile flags (for now, instant switch (0x1)).
-		if switchFlags is not None and not 0 <= switchFlags < 0x2:
+		if not 0 <= switchFlags < 0x2:
 			raise RuntimeError("Profile switch flag out of range")
 		self.swapProfiles(prevProfile, newProfile)
 		# Set the prev flag manually.
