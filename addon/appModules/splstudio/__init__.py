@@ -42,8 +42,7 @@ from NVDAObjects.behaviors import Dialog
 import textInfos
 import tones
 import versionInfo
-from ..splcommon import splbase, splconsts, splactions
-from . import splconfig
+from ..splcommon import splbase, splconsts, splactions, splconfig
 from . import splconfui
 from . import splmisc
 import addonHandler

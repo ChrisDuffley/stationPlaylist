@@ -18,8 +18,7 @@ from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 from winUser import user32, OBJID_CLIENT
 import tones
 import addonHandler
-from . import splconfig
-from ..splcommon import splactions
+from ..splcommon import splactions, splconfig
 from . import splmisc
 from ..skipTranslation import translate
 
