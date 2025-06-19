@@ -19,7 +19,6 @@ from winUser import user32, OBJID_CLIENT
 import tones
 import addonHandler
 from ..splcommon import splactions, splconfig, splbase
-from . import splmisc
 from ..skipTranslation import translate
 
 addonHandler.initTranslation()
