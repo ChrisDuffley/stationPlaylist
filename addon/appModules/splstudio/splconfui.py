@@ -891,7 +891,10 @@ class MetadataStreamingDialog(wx.Dialog):
 		# Prepare checkbox values first for various reasons.
 		# #76: traverse check list box and build boolean list accordingly.
 		metadataEnabled = [self.checkedStreams.IsChecked(url) for url in range(5)]
-		splmisc.metadataConnector(servers=metadataEnabled)
+		SPLMetadataStreaming = 36
+		for url in range(5):
+			dataLo = 0x00010000 if metadataEnabled[url] else 0xFFFF0000
+			splbase.studioAPI(dataLo | url, SPLMetadataStreaming)
 		# Store just toggled settings to profile if told to do so.
 		if self.applyCheckbox.Value:
 			splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = metadataEnabled
@@ -949,11 +952,13 @@ class MetadataStreamingPanel(gui.settingsDialogs.SettingsPanel):
 			self.metadataList.GetSelection()
 		][0]
 		# #76: traverse check list box and build boolean list accordingly.
-		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = [
-			self.checkedStreams.IsChecked(url) for url in range(5)
-		]
+		metadataEnabled = [self.checkedStreams.IsChecked(url) for url in range(5)]
+		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = metadataEnabled
 		# Try connecting to metadata streaming servers if any.
-		splmisc.metadata_actionProfileSwitched(configDialogActive=True)
+		SPLMetadataStreaming = 36
+		for url in range(5):
+			dataLo = 0x00010000 if metadataEnabled[url] else 0xFFFF0000
+			splbase.studioAPI(dataLo | url, SPLMetadataStreaming)
 
 
 # Column announcement manager.
