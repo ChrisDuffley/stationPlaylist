@@ -14,7 +14,8 @@ import api
 import controlTypes
 from NVDAObjects.IAccessible import sysListView32
 from NVDAObjects.behaviors import Dialog
-from .splstudio import splconfig, SPLTrackItem
+from .splstudio import SPLTrackItem
+from .splcommon import splconfig
 
 addonHandler.initTranslation()
 

@@ -12,7 +12,8 @@ import addonHandler
 import tones
 import controlTypes
 from NVDAObjects.IAccessible import sysListView32
-from .splstudio import splconfig, SPLTrackItem
+from .splstudio import SPLTrackItem
+from .splcommon import splconfig
 
 addonHandler.initTranslation()
 
