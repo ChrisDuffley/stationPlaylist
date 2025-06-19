@@ -103,9 +103,6 @@ def _removeEncoderID(encoderType: str, pos: str) -> None:
 		SPLNoConnectionTone,
 		SPLConnectionStopOnError,
 	):
-		# Encoder settings must be either a set or a dictionary unless changed in the future.
-		if not isinstance(encoderSettings, (set, dict)):
-			continue
 		if encoderID in encoderSettings:
 			# Other than encoder labels (a dictionary), others are sets.
 			if isinstance(encoderSettings, set):
