@@ -2867,13 +2867,18 @@ class AppModule(appModuleHandler.AppModule):
 			)
 
 	def script_layerHelp(self, gesture):
-		if (compatibility := splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]) == "off":
+		layerHelpTitle = {
 			# Translators: The title for SPL Assistant help screen.
-			title = _("SPL Assistant help")
-		elif compatibility == "jfw":
+			"off": _("SPL Assistant help"),
 			# Translators: The title for SPL Assistant help screen.
-			title = _("SPL Assistant help for JAWS layout")
-		ui.browseableMessage(SPLAssistantHelp[compatibility], title=title, **browseableMessageButtons)
+			"jfw": _("SPL Assistant help for JAWS layout"),
+		}
+		compatibility = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
+		ui.browseableMessage(
+			SPLAssistantHelp[compatibility],
+			title=layerHelpTitle[compatibility],
+			**browseableMessageButtons
+		)
 
 	__SPLAssistantGestures = {
 		"off": {
