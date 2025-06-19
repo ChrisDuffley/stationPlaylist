@@ -296,7 +296,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_libraryScanProgress(self, gesture):
 		scanned = splbase.studioAPI(1, SPLLibraryScanCount)
-		if scanned >= 0:
+		if scanned is not None and scanned >= 0:
 			# Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
 			ui.message(_("Scan in progress with {itemCount} items scanned").format(itemCount=scanned))
 		else:
@@ -317,7 +317,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_remainingTime(self, gesture):
 		remainingTime = splbase.studioAPI(3, SPLCurTrackPlaybackTime)
-		if remainingTime < 0:
+		if remainingTime is not None and remainingTime < 0:
 			# Translators: Presented when no track is playing in StationPlaylist Studio.
 			ui.message(_("There is no track playing."))
 		else:
