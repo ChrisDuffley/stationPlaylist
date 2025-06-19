@@ -1225,13 +1225,9 @@ class ColumnsExplorerPanel(gui.settingsDialogs.SettingsPanel):
 class ColumnsExplorerDialog(wx.Dialog):
 	def __init__(self, parent, level=0):
 		self.level = level
+		# Counterintuitive, but start with level 1 (fallback will be level 0/Studio).
 		match level:
-			case 0:
-				# Translators: The title of Columns Explorer configuration dialog.
-				actualTitle = _("Columns Explorer for SPL Studio")
-				cols = splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
-				slots = parent.exploreColumns
-			case 1:
+			case 1:  # Track Tool
 				# Translators: The title of Columns Explorer configuration dialog.
 				actualTitle = _("Columns Explorer for Track Tool")
 				cols = (
@@ -1252,7 +1248,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 					"Genre",
 				)
 				slots = parent.exploreColumnsTT
-			case 2:
+			case 2:  # Creator
 				# Translators: The title of Columns Explorer configuration dialog.
 				actualTitle = _("Columns Explorer for SPL Creator")
 				cols = (
@@ -1284,7 +1280,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 					"Outro Link",
 				)
 				slots = parent.exploreColumnsCreator
-			case 3:
+			case 3:  # Playlist editor
 				# Translators: The title of Columns Explorer configuration dialog.
 				actualTitle = _("Columns Explorer for playlist editor (Creator and Remote VT)")
 				cols = (
@@ -1305,8 +1301,11 @@ class ColumnsExplorerDialog(wx.Dialog):
 					"Filename",
 				)
 				slots = parent.exploreColumnsPlsEditor
-			case _:
-				pass
+			case _:  # Studio
+				# Translators: The title of Columns Explorer configuration dialog.
+				actualTitle = _("Columns Explorer for SPL Studio")
+				cols = splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+				slots = parent.exploreColumns
 		# Gather column slots.
 		self.columnSlots = []
 
