@@ -2421,10 +2421,12 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_sayHourOvertime(self, gesture):
 		playlistOvertime = splbase.studioAPI(2, SPLPlaylistHourDuration)
-		overtimePrefix = "+" if playlistOvertime >= 0 else "-"
-		ui.message("{}{}".format(
-			overtimePrefix, self._ms2time(abs(playlistOvertime), includeHours=False)
-		))
+		# Highly unlikely but None check is done to satisfy type checkers.
+		if playlistOvertime is not None:
+			overtimePrefix = "+" if playlistOvertime >= 0 else "-"
+			ui.message("{}{}".format(
+				overtimePrefix, self._ms2time(abs(playlistOvertime), includeHours=False)
+			))
 
 	def script_sayPlaylistModified(self, gesture):
 		obj = self.status(self.SPLSystemStatus).getChild(5)
