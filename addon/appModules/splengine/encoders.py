@@ -105,10 +105,9 @@ def _removeEncoderID(encoderType: str, pos: str) -> None:
 	):
 		if encoderID in encoderSettings:
 			# Other than encoder labels (a dictionary), others are sets.
-			# Ignore dict instance type check on encoder labels as removal methods are different from sets.
 			if isinstance(encoderSettings, set):
 				encoderSettings.remove(encoderID)
-			elif isinstance(encoderSettings, dict):  # type: ignore
+			else:  # Encoder labels
 				del encoderSettings[encoderID]
 		# In flag sets, unless members are sorted, encoders will appear in random order
 		# (a downside of using sets, as their ordering is quite unpredictable).
@@ -126,7 +125,7 @@ def _removeEncoderID(encoderType: str, pos: str) -> None:
 				if isinstance(encoderSettings, set):
 					encoderSettings.remove(item)
 					encoderSettings.add("{} {}".format(encoderType, int(item.split()[-1]) - 1))
-				elif isinstance(encoderSettings, dict):  # type: ignore
+				else:  # Encoder labels
 					encoderSettings["{} {}".format(encoderType, int(item.split()[-1]) - 1)] = (
 						encoderSettings.pop(item)
 					)
