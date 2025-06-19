@@ -351,8 +351,6 @@ class Encoder(IAccessible):
 
 	@encoderLabel.setter
 	def encoderLabel(self, newEncoderLabel: str) -> None:
-		if not isinstance(newEncoderLabel, str):
-			raise TypeError("Encoder label must be a string")
 		if len(newEncoderLabel):
 			SPLEncoderLabels[self.encoderId] = newEncoderLabel
 		else:
@@ -367,8 +365,6 @@ class Encoder(IAccessible):
 
 	@focusToStudio.setter
 	def focusToStudio(self, flag: bool) -> None:
-		if not isinstance(flag, bool):
-			raise TypeError("Flag must be a boolean")
 		if flag:
 			SPLFocusToStudio.add(self.encoderId)
 		else:
@@ -380,8 +376,6 @@ class Encoder(IAccessible):
 
 	@playAfterConnecting.setter
 	def playAfterConnecting(self, flag: bool) -> None:
-		if not isinstance(flag, bool):
-			raise TypeError("Flag must be a boolean")
 		if flag:
 			SPLPlayAfterConnecting.add(self.encoderId)
 		else:
@@ -393,8 +387,6 @@ class Encoder(IAccessible):
 
 	@backgroundMonitor.setter
 	def backgroundMonitor(self, flag: bool) -> None:
-		if not isinstance(flag, bool):
-			raise TypeError("Flag must be a boolean")
 		if flag:
 			SPLBackgroundMonitor.add(self.encoderId)
 		else:
@@ -408,8 +400,6 @@ class Encoder(IAccessible):
 
 	@connectionTone.setter
 	def connectionTone(self, flag: bool) -> None:
-		if not isinstance(flag, bool):
-			raise TypeError("Flag must be a boolean")
 		if not flag:
 			SPLNoConnectionTone.add(self.encoderId)
 		else:
@@ -421,8 +411,6 @@ class Encoder(IAccessible):
 
 	@announceStatusUntilConnected.setter
 	def announceStatusUntilConnected(self, flag: bool) -> None:
-		if not isinstance(flag, bool):
-			raise TypeError("Flag must be a boolean")
 		if not flag:
 			SPLConnectionStopOnError.add(self.encoderId)
 		else:
