@@ -42,11 +42,10 @@ from NVDAObjects.behaviors import Dialog
 import textInfos
 import tones
 import versionInfo
-from ..splcommon import splbase, splconsts
+from ..splcommon import splbase, splconsts, splactions
 from . import splconfig
 from . import splconfui
 from . import splmisc
-from . import splactions
 import addonHandler
 from ..skipTranslation import translate
 

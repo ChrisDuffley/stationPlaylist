@@ -20,9 +20,8 @@ from NVDAObjects.IAccessible import IAccessible, sysListView32
 import tones
 import gui
 import wx
-from appModules.splstudio import splactions
 from ..skipTranslation import translate
-from ..splcommon import splbase
+from ..splcommon import splbase, splactions
 import addonHandler
 
 addonHandler.initTranslation()
