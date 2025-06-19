@@ -265,7 +265,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 	# This is a proxy to the splconfig module level profile flag retriever with custom strings/maps as arguments.
 	# Contained flag is set to False if this is called for display purposes,
 	# otherwise it is used to set flags based on flag set.
-	def getProfileFlags(self, name, contained=True):
+	def getProfileFlags(self, name: str, contained: bool = True):
 		return splconfig.SPLConfig.getProfileFlags(
 			name, active=self.activeProfile, instant=self.switchProfile, contained=contained
 		)
@@ -273,7 +273,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 	# Handle flag modifications such as when toggling instant switch.
 	# Unless given, flags will be queried.
 	# This is a sister function to profile flags retriever.
-	def setProfileFlags(self, index, action, flag, flags=None):
+	def setProfileFlags(self, index: int, action: str, flag: str, flags: str | set[str] | None = None):
 		profile = self.profileNames[index]
 		if flags is None:
 			flags = self.getProfileFlags(profile)
@@ -1601,7 +1601,7 @@ def _configDialogOpenError() -> None:
 
 
 # #125: open any settings panel from main add-on settings, also checking if other dialogs are open.
-def openAddonSettingsPanel(panel):
+def openAddonSettingsPanel(panel: gui.settingsDialogs.SettingsPanel):
 	if _configDialogOpened:
 		wx.CallAfter(_configDialogOpenError)
 	else:
