@@ -766,158 +766,6 @@ msgstr "Ajutor asistent SPL"
 msgid "SPL Assistant help for JAWS layout"
 msgstr "Ajutor asistent SPL pentru aspectul JAWS"
 
-#. Translators: The name of the default (normal) profile.
-msgid "Normal profile"
-msgstr "Profil normal"
-
-#. Translators: Message displayed when attempting to reset Studio add-on settings
-#. while an instant switch profile is active.
-#, fuzzy
-msgid ""
-"An instant switch profile is active. Resetting Studio add-on settings means "
-"normal profile will become active and switch profile settings will be left "
-"in unpredictable state. Are you sure you wish to reset Studio add-on "
-"settings to factory defaults?"
-msgstr ""
-"Este activ un comutator instant sau un profil bazat pe timp. Resetarea "
-"configurărilor suplimentului Studio înseamnă că profilul normal devine activ "
-"și că setările profilului de comutare vor fi lăsate într-o stare "
-"imprevizibilă. Sunteți sigur că vreți să resetați configurările "
-"suplimentului  Studio la valorile implicite?"
-
-#. Translators: The title of the confirmation dialog for Studio add-on settings reset.
-#, fuzzy
-msgid "SPL Studio add-on reset"
-msgstr "Verifică actualizări addon"
-
-#. Translators: A flag indicating the currently active broadcast profile.
-msgid "active"
-msgstr "activ"
-
-#. Translators: A flag indicating the broadcast profile is an instant switch profile.
-msgid "instant switch"
-msgstr "comutare instantanee"
-
-#. Translators: Presented when switch to instant switch profile was successful.
-#, python-brace-format
-msgid "Switching to {newProfileName}"
-msgstr "Comutare la {newProfileName}"
-
-#. Translators: Presented when switching from instant switch profile to a previous profile.
-#, python-brace-format
-msgid "Returning to {previousProfile}"
-msgstr "Întoarcere la {previousProfile}"
-
-#. Translators: Standard error title for configuration error.
-msgid "Studio add-on Configuration error"
-msgstr "Eroare la configurarea add-onului Studio"
-
-#. Translators: announced when only normal profile is in use.
-msgid "Only normal profile is in use"
-msgstr "Doar profilul normal e în uz"
-
-#. Translators: Presented when trying to switch to an instant switch profile
-#. when the instant switch profile is not defined.
-msgid "No instant switch profile is defined"
-msgstr "Niciun profil de comutare instantanee definit"
-
-#. Translators: Presented when trying to switch to an instant switch profile
-#. when one is already using the instant switch profile.
-msgid "You are already in the instant switch profile"
-msgstr "Ești deja în profilul de comutare instantanee"
-
-#. Translators: A message giving basic information about the add-on.
-msgid ""
-"Welcome to StationPlaylist add-on for NVDA,\n"
-"your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
-"\n"
-"Highlights of StationPlaylist add-on include:\n"
-"* Layer commands for obtaining status information\n"
-"* Various ways to examine track columns\n"
-"* Various ways to find tracks\n"
-"* Tools to analyze the loaded playlist\n"
-"* Cart Explorer to learn cart assignments\n"
-"* Comprehensive settings and documentation\n"
-"* Completely free, open-source and community-driven\n"
-"* And much more\n"
-"\n"
-"Visit www.stationplaylist.com for details on StationPlaylist suite of "
-"applications.\n"
-"Visit StationPlaylist add-on GitHub page (https://github.com/ChrisDuffley/"
-"stationPlaylist)\n"
-"for add-on details and to read the documentation.\n"
-"Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to "
-"return to this dialog.\n"
-"\n"
-"Thank you."
-msgstr ""
-
-#. Translators: Title of a dialog displayed when the add-on starts presenting basic information,
-#. similar to NVDA's own welcome dialog.
-#, fuzzy
-msgid "Welcome to StationPlaylist add-on"
-msgstr "Bun venit la extensia StationPlaylist Studio"
-
-msgid "Show welcome dialog when I start Studio"
-msgstr "Arată dialogul de bun venit când pornesc Studio"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille timer off"
-msgstr "Cronometrul braille dezactivat"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille track endings"
-msgstr "Sfârșitul melodiei în mod braille"
-
-#. Translators: A setting in braille timer options.
-msgid "Outro"
-msgstr "Ieșire"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille intro endings"
-msgstr "Finaluri de intrare în mod braille"
-
-#. Translators: A setting in braille timer options.
-msgid "Intro"
-msgstr "Intrare"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille intro and track endings"
-msgstr "Finaluri de intrare și melodie în mod braille"
-
-#. Translators: A setting in braille timer options.
-#. Translators: One of the track comment notification settings.
-msgid "Both"
-msgstr "Ambele"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Do not announce library scans"
-msgstr "Nu mai anunța scanările de librării"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Announce start and end of a library scan"
-msgstr "Anunță începutul și sfârșitul unei scanări de librării"
-
-#. Translators: One of the library scan announcement settings.
-msgid "Start and end only"
-msgstr "Doar început și sfârșit"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Announce the progress of a library scan"
-msgstr "Anunță progresul unei scanări de librării"
-
-#. Translators: One of the library scan announcement settings.
-msgid "Scan progress"
-msgstr "Progres scanare"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Announce progress and item count of a library scan"
-msgstr "Anunță progresul și numărul de elemente ale scanării de librării"
-
-#. Translators: One of the library scan announcement settings.
-msgid "Scan count"
-msgstr "Numărul de scanări"
-
 #. Translators: title of a dialog to configure broadcast profiles.
 #, fuzzy
 msgid "SPL Broadcast Profiles"
@@ -987,6 +835,9 @@ msgstr "Declanșatoare de profil pentru {profileName}"
 msgid "This is an &instant switch profile"
 msgstr "Acest profil este un profil de comutare &instantanee"
 
+msgid "instant switch"
+msgstr "comutare instantanee"
+
 #. Translators: the label for a setting in SPL add-on settings
 #. to set status announcement between words and beeps.
 msgid "&Beep for status announcements"
@@ -1022,6 +873,18 @@ msgstr "Începutul și sfârșiutl melodiei"
 msgid "&Braille timer:"
 msgstr "Cronometru &braille:"
 
+#. Translators: One of the library scan announcement settings.
+msgid "Start and end only"
+msgstr "Doar început și sfârșit"
+
+#. Translators: One of the library scan announcement settings.
+msgid "Scan progress"
+msgstr "Progres scanare"
+
+#. Translators: One of the library scan announcement settings.
+msgid "Scan count"
+msgstr "Numărul de scanări"
+
 #. Translators: The label for a setting in SPL add-on settings
 #. to control library scan announcement.
 msgid "&Library scan announcement:"
@@ -1053,6 +916,10 @@ msgstr "Mesaj"
 #. Translators: One of the track comment notification settings.
 msgid "Beep"
 msgstr "Bip"
+
+#. Translators: One of the track comment notification settings.
+msgid "Both"
+msgstr "Ambele"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to set how track comments are announced.
@@ -1294,23 +1161,28 @@ msgstr "Exploratorul de coloane pentru unealta &piesei."
 msgid "Columns Explorer for &playlist editor..."
 msgstr "Exploratorul de coloane pentru unealta &piesei."
 
-#. Translators: The title of Columns Explorer configuration dialog.
-msgid "Columns Explorer"
-msgstr "Explorer coloane"
-
+#. Track Tool
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer for Track Tool"
 msgstr "Exploratorul de coloane pentru unealta piesei"
 
+#. Creator
 #. Translators: The title of Columns Explorer configuration dialog.
 #, fuzzy
 msgid "Columns Explorer for SPL Creator"
 msgstr "Exploratorul de coloane pentru unealta piesei"
 
+#. Playlist editor
 #. Translators: The title of Columns Explorer configuration dialog.
 #, fuzzy
 msgid "Columns Explorer for playlist editor (Creator and Remote VT)"
 msgstr "Exploratorul de coloane pentru unealta piesei"
+
+#. Studio
+#. Translators: The title of Columns Explorer configuration dialog.
+#, fuzzy
+msgid "Columns Explorer for SPL Studio"
+msgstr "Exploratorul de coloane pentru unealta &piesei."
 
 #, python-brace-format
 msgid "Slot {position}"
@@ -1862,6 +1734,89 @@ msgid ""
 msgstr ""
 "Conține suport pentru StationPlaylist.\n"
 "De asemenea, adaugă comenzi globale pentru studio de oriunde."
+
+#~ msgid "Normal profile"
+#~ msgstr "Profil normal"
+
+#, fuzzy
+#~ msgid ""
+#~ "An instant switch profile is active. Resetting Studio add-on settings "
+#~ "means normal profile will become active and switch profile settings will "
+#~ "be left in unpredictable state. Are you sure you wish to reset Studio add-"
+#~ "on settings to factory defaults?"
+#~ msgstr ""
+#~ "Este activ un comutator instant sau un profil bazat pe timp. Resetarea "
+#~ "configurărilor suplimentului Studio înseamnă că profilul normal devine "
+#~ "activ și că setările profilului de comutare vor fi lăsate într-o stare "
+#~ "imprevizibilă. Sunteți sigur că vreți să resetați configurările "
+#~ "suplimentului  Studio la valorile implicite?"
+
+#, fuzzy
+#~ msgid "SPL Studio add-on reset"
+#~ msgstr "Verifică actualizări addon"
+
+#~ msgid "active"
+#~ msgstr "activ"
+
+#, python-brace-format
+#~ msgid "Switching to {newProfileName}"
+#~ msgstr "Comutare la {newProfileName}"
+
+#, python-brace-format
+#~ msgid "Returning to {previousProfile}"
+#~ msgstr "Întoarcere la {previousProfile}"
+
+#~ msgid "Studio add-on Configuration error"
+#~ msgstr "Eroare la configurarea add-onului Studio"
+
+#~ msgid "Only normal profile is in use"
+#~ msgstr "Doar profilul normal e în uz"
+
+#~ msgid "No instant switch profile is defined"
+#~ msgstr "Niciun profil de comutare instantanee definit"
+
+#~ msgid "You are already in the instant switch profile"
+#~ msgstr "Ești deja în profilul de comutare instantanee"
+
+#, fuzzy
+#~ msgid "Welcome to StationPlaylist add-on"
+#~ msgstr "Bun venit la extensia StationPlaylist Studio"
+
+#~ msgid "Show welcome dialog when I start Studio"
+#~ msgstr "Arată dialogul de bun venit când pornesc Studio"
+
+#~ msgid "Braille timer off"
+#~ msgstr "Cronometrul braille dezactivat"
+
+#~ msgid "Braille track endings"
+#~ msgstr "Sfârșitul melodiei în mod braille"
+
+#~ msgid "Outro"
+#~ msgstr "Ieșire"
+
+#~ msgid "Braille intro endings"
+#~ msgstr "Finaluri de intrare în mod braille"
+
+#~ msgid "Intro"
+#~ msgstr "Intrare"
+
+#~ msgid "Braille intro and track endings"
+#~ msgstr "Finaluri de intrare și melodie în mod braille"
+
+#~ msgid "Do not announce library scans"
+#~ msgstr "Nu mai anunța scanările de librării"
+
+#~ msgid "Announce start and end of a library scan"
+#~ msgstr "Anunță începutul și sfârșitul unei scanări de librării"
+
+#~ msgid "Announce the progress of a library scan"
+#~ msgstr "Anunță progresul unei scanări de librării"
+
+#~ msgid "Announce progress and item count of a library scan"
+#~ msgstr "Anunță progresul și numărul de elemente ale scanării de librării"
+
+#~ msgid "Columns Explorer"
+#~ msgstr "Explorer coloane"
 
 #~ msgid "Studio main window not found"
 #~ msgstr "Fereastra principală Studio nu a fost găsită"
