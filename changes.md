@@ -2,6 +2,8 @@
 
 This page lists the complete changelog for StationPlaylist add-on releases.
 
+## Version 25.06.2-LTS
+
 ## Version 25.06.1-LTS
 
 * Initial version for 2025 long-term support release.
