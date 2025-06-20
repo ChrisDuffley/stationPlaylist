@@ -389,6 +389,22 @@ NVDA installé, vous pouvez exécuter certaines commandes Studio depuis un
 en mode SPL, puis utilisez les commandes tactile énumérées ci-dessus pour
 exécuter des commandes.
 
+## Version 25.07/25.06.2-LTS
+
+Version 25.07 supports SPL Studio 6.0 and later.
+
+* 25.07: code was refactored, including through use of Pyright (a Python
+  static type checker). Some prominent code changes were also backported to
+  25.06.2-LTS.
+* Columns explorer (Control+NVDA+number row) is now configurable for Creator
+  and Remote VT's playlist editor. A new button, "columns explorer for
+  playlist editor" is available from columns explorer add-on settings
+  screen.
+* In columns explorer add-on settings, renamed "columns explorer" to
+  "columns explorer for SPL Studio".
+* Added JSON (JavaScript Object Notation) format as a playlist transcripts
+  format.
+
 ## Version 25.06-LTS
 
 Version 25.06.x est la dernière version des séries à prendre en charge

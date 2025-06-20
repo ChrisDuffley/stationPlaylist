@@ -10,8 +10,8 @@ msgstr ""
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2025-06-07 08:53+0200\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
-"Language-Team: Rémy Ruiz <remyruiz@gmail.com> ; Michel Such "
-"<michel.such@free.fr>\n"
+"Language-Team: Rémy Ruiz <remyruiz@gmail.com> ; Michel Such <michel."
+"such@free.fr>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -775,180 +775,6 @@ msgstr "Aide de l'Assistant SPL"
 msgid "SPL Assistant help for JAWS layout"
 msgstr "Aide de l'Assistant SPL pour la disposition de JAWS"
 
-#. Translators: The name of the default (normal) profile.
-msgid "Normal profile"
-msgstr "Profil normal"
-
-#. Translators: Message displayed when attempting to reset Studio add-on settings
-#. while an instant switch profile is active.
-msgid ""
-"An instant switch profile is active. Resetting Studio add-on settings means "
-"normal profile will become active and switch profile settings will be left "
-"in unpredictable state. Are you sure you wish to reset Studio add-on "
-"settings to factory defaults?"
-msgstr ""
-"Un changement de profil immédiat est actif. Réinitialiser les paramètres de "
-"l'extension Studio signifie que le profil normal deviendra actif et que les "
-"paramètres du changement de profil resteront dans un état imprévisible. "
-"Voulez-vous vraiment réinitialiser les paramètres de l'extension Studio aux "
-"paramètres d’usine ?"
-
-#. Translators: The title of the confirmation dialog for Studio add-on settings reset.
-msgid "SPL Studio add-on reset"
-msgstr "Réinitialiser l'extension SPL Studio"
-
-#. Translators: A flag indicating the currently active broadcast profile.
-msgid "active"
-msgstr "active"
-
-#. Translators: A flag indicating the broadcast profile is an instant switch profile.
-msgid "instant switch"
-msgstr "changement immédiat"
-
-#. Translators: Presented when switch to instant switch profile was successful.
-#, python-brace-format
-msgid "Switching to {newProfileName}"
-msgstr "Bascule vers {newProfileName}"
-
-#. Translators: Presented when switching from instant switch profile to a previous profile.
-#, python-brace-format
-msgid "Returning to {previousProfile}"
-msgstr "Retour au {previousProfile}"
-
-#. Translators: Standard error title for configuration error.
-msgid "Studio add-on Configuration error"
-msgstr "Erreur de Configuration de l'extension Studio"
-
-#. Translators: announced when only normal profile is in use.
-msgid "Only normal profile is in use"
-msgstr "Seul le profil normal est utilisé"
-
-#. Translators: Presented when trying to switch to an instant switch profile
-#. when the instant switch profile is not defined.
-msgid "No instant switch profile is defined"
-msgstr "Aucun changement de profil immédiat est défini"
-
-#. Translators: Presented when trying to switch to an instant switch profile
-#. when one is already using the instant switch profile.
-msgid "You are already in the instant switch profile"
-msgstr "Vous êtes déjà dans le changement de profil immédiat"
-
-#. Translators: A message giving basic information about the add-on.
-msgid ""
-"Welcome to StationPlaylist add-on for NVDA,\n"
-"your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
-"\n"
-"Highlights of StationPlaylist add-on include:\n"
-"* Layer commands for obtaining status information\n"
-"* Various ways to examine track columns\n"
-"* Various ways to find tracks\n"
-"* Tools to analyze the loaded playlist\n"
-"* Cart Explorer to learn cart assignments\n"
-"* Comprehensive settings and documentation\n"
-"* Completely free, open-source and community-driven\n"
-"* And much more\n"
-"\n"
-"Visit www.stationplaylist.com for details on StationPlaylist suite of "
-"applications.\n"
-"Visit StationPlaylist add-on GitHub page (https://github.com/ChrisDuffley/"
-"stationPlaylist)\n"
-"for add-on details and to read the documentation.\n"
-"Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to "
-"return to this dialog.\n"
-"\n"
-"Thank you."
-msgstr ""
-"Bienvenue dans l'extension StationPlayList pour NVDA,\n"
-"Votre compagnon de diffusion avec SPL Studio à l'aide du lecteur d'écran "
-"NVDA.\n"
-"\n"
-"Les faits remarquables de l'extension StationPlayList incluent:\n"
-"* Commandes en couche pour obtenir le statut des informations\n"
-"* Diverses façons d'examiner les colonnes de piste\n"
-"* Diverses façons de trouver des pistes\n"
-"* Outils pour analyser la playlist chargée\n"
-"* Explorateur de paniers pour apprendre les assignations de panier\n"
-"* Paramètres et documentation complète\n"
-"* Entièrement libre, open-source et axé sur la communauté\n"
-"* Et beaucoup plus\n"
-"\n"
-"Visitez www.stationplaylist.com pour plus de détails sur StationPlayList "
-"suite des applications.\n"
-"Visitez la page de l'extension StationPlayList sur GitHub (https://"
-"github.com/ChrisDuffley/stationPlaylist)\n"
-"pour des détails complémentaires et pour lire la documentation.\n"
-"Vous voulez revoir ce dialogue ? Appuyez simplement sur Alt+NVDA+F1 tout en "
-"utilisant Studio pour revenir à ce dialogue.\n"
-"\n"
-"Merci."
-
-#. Translators: Title of a dialog displayed when the add-on starts presenting basic information,
-#. similar to NVDA's own welcome dialog.
-msgid "Welcome to StationPlaylist add-on"
-msgstr "Bienvenue dans l'extension StationPlaylist"
-
-msgid "Show welcome dialog when I start Studio"
-msgstr "Afficher  le  dialogue bienvenue lorsque je démarre Studio"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille timer off"
-msgstr "Minuteur braille désactivé"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille track endings"
-msgstr "Braille fin piste"
-
-#. Translators: A setting in braille timer options.
-msgid "Outro"
-msgstr "Outro"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille intro endings"
-msgstr "Braille fin intro"
-
-#. Translators: A setting in braille timer options.
-msgid "Intro"
-msgstr "Intro"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille intro and track endings"
-msgstr "Braille fin intro et piste"
-
-#. Translators: A setting in braille timer options.
-#. Translators: One of the track comment notification settings.
-msgid "Both"
-msgstr "Tous les deux"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Do not announce library scans"
-msgstr "Ne pas annoncer les balayages d'une bibliothèque"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Announce start and end of a library scan"
-msgstr "Annoncer le début et la fin de balayage d'une bibliothèque"
-
-#. Translators: One of the library scan announcement settings.
-msgid "Start and end only"
-msgstr "Début et fin seulement"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Announce the progress of a library scan"
-msgstr "Annoncer l'avancement du balayage d'une bibliothèque"
-
-#. Translators: One of the library scan announcement settings.
-msgid "Scan progress"
-msgstr "Progression du balayage"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Announce progress and item count of a library scan"
-msgstr ""
-"Annoncer l'avancement et le nombre des éléments lors du balayage d'une "
-"bibliothèque"
-
-#. Translators: One of the library scan announcement settings.
-msgid "Scan count"
-msgstr "Nombre de balayage"
-
 #. Translators: title of a dialog to configure broadcast profiles.
 msgid "SPL Broadcast Profiles"
 msgstr "Profil de diffusion SPL"
@@ -1017,6 +843,9 @@ msgstr "Déclencheurs de profil pour {profileName}"
 msgid "This is an &instant switch profile"
 msgstr "Ceci est un changement de profil &immédiat"
 
+msgid "instant switch"
+msgstr "changement immédiat"
+
 #. Translators: the label for a setting in SPL add-on settings
 #. to set status announcement between words and beeps.
 msgid "&Beep for status announcements"
@@ -1052,6 +881,18 @@ msgstr "Piste intro et fin"
 msgid "&Braille timer:"
 msgstr "Minuteur &braille :"
 
+#. Translators: One of the library scan announcement settings.
+msgid "Start and end only"
+msgstr "Début et fin seulement"
+
+#. Translators: One of the library scan announcement settings.
+msgid "Scan progress"
+msgstr "Progression du balayage"
+
+#. Translators: One of the library scan announcement settings.
+msgid "Scan count"
+msgstr "Nombre de balayage"
+
 #. Translators: The label for a setting in SPL add-on settings
 #. to control library scan announcement.
 msgid "&Library scan announcement:"
@@ -1084,6 +925,10 @@ msgstr "Message"
 #. Translators: One of the track comment notification settings.
 msgid "Beep"
 msgstr "Bip"
+
+#. Translators: One of the track comment notification settings.
+msgid "Both"
+msgstr "Tous les deux"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to set how track comments are announced.
@@ -1319,22 +1164,27 @@ msgstr "Explorateur de colonnes pour &SPL Creator..."
 msgid "Columns Explorer for &playlist editor..."
 msgstr "Explorateur de colonnes pour l'éditeur de &playlist..."
 
-#. Translators: The title of Columns Explorer configuration dialog.
-msgid "Columns Explorer"
-msgstr "Explorateur de Colonnes"
-
+#. Track Tool
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer for Track Tool"
 msgstr "Explorateur de Colonnes pour l'Outil de piste"
 
+#. Creator
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer for SPL Creator"
 msgstr "Explorateur de Colonnes pour SPL Creator"
 
+#. Playlist editor
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer for playlist editor (Creator and Remote VT)"
 msgstr ""
 "Explorateur de Colonnes pour l'éditeur de playlist (Creator et Remote VT)"
+
+#. Studio
+#. Translators: The title of Columns Explorer configuration dialog.
+#, fuzzy
+msgid "Columns Explorer for SPL Studio"
+msgstr "E&xplorateur de colonnes pour SPL Studio..."
 
 #, python-brace-format
 msgid "Slot {position}"
@@ -1882,6 +1732,136 @@ msgid ""
 msgstr ""
 "Améliore la prise en charge des applications StationPlaylist. En outre, "
 "ajoute des commandes globales pour studio où que vous soyez."
+
+#~ msgid "Normal profile"
+#~ msgstr "Profil normal"
+
+#~ msgid ""
+#~ "An instant switch profile is active. Resetting Studio add-on settings "
+#~ "means normal profile will become active and switch profile settings will "
+#~ "be left in unpredictable state. Are you sure you wish to reset Studio add-"
+#~ "on settings to factory defaults?"
+#~ msgstr ""
+#~ "Un changement de profil immédiat est actif. Réinitialiser les paramètres "
+#~ "de l'extension Studio signifie que le profil normal deviendra actif et "
+#~ "que les paramètres du changement de profil resteront dans un état "
+#~ "imprévisible. Voulez-vous vraiment réinitialiser les paramètres de "
+#~ "l'extension Studio aux paramètres d’usine ?"
+
+#~ msgid "SPL Studio add-on reset"
+#~ msgstr "Réinitialiser l'extension SPL Studio"
+
+#~ msgid "active"
+#~ msgstr "active"
+
+#, python-brace-format
+#~ msgid "Switching to {newProfileName}"
+#~ msgstr "Bascule vers {newProfileName}"
+
+#, python-brace-format
+#~ msgid "Returning to {previousProfile}"
+#~ msgstr "Retour au {previousProfile}"
+
+#~ msgid "Studio add-on Configuration error"
+#~ msgstr "Erreur de Configuration de l'extension Studio"
+
+#~ msgid "Only normal profile is in use"
+#~ msgstr "Seul le profil normal est utilisé"
+
+#~ msgid "No instant switch profile is defined"
+#~ msgstr "Aucun changement de profil immédiat est défini"
+
+#~ msgid "You are already in the instant switch profile"
+#~ msgstr "Vous êtes déjà dans le changement de profil immédiat"
+
+#~ msgid ""
+#~ "Welcome to StationPlaylist add-on for NVDA,\n"
+#~ "your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
+#~ "\n"
+#~ "Highlights of StationPlaylist add-on include:\n"
+#~ "* Layer commands for obtaining status information\n"
+#~ "* Various ways to examine track columns\n"
+#~ "* Various ways to find tracks\n"
+#~ "* Tools to analyze the loaded playlist\n"
+#~ "* Cart Explorer to learn cart assignments\n"
+#~ "* Comprehensive settings and documentation\n"
+#~ "* Completely free, open-source and community-driven\n"
+#~ "* And much more\n"
+#~ "\n"
+#~ "Visit www.stationplaylist.com for details on StationPlaylist suite of "
+#~ "applications.\n"
+#~ "Visit StationPlaylist add-on GitHub page (https://github.com/ChrisDuffley/"
+#~ "stationPlaylist)\n"
+#~ "for add-on details and to read the documentation.\n"
+#~ "Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio "
+#~ "to return to this dialog.\n"
+#~ "\n"
+#~ "Thank you."
+#~ msgstr ""
+#~ "Bienvenue dans l'extension StationPlayList pour NVDA,\n"
+#~ "Votre compagnon de diffusion avec SPL Studio à l'aide du lecteur d'écran "
+#~ "NVDA.\n"
+#~ "\n"
+#~ "Les faits remarquables de l'extension StationPlayList incluent:\n"
+#~ "* Commandes en couche pour obtenir le statut des informations\n"
+#~ "* Diverses façons d'examiner les colonnes de piste\n"
+#~ "* Diverses façons de trouver des pistes\n"
+#~ "* Outils pour analyser la playlist chargée\n"
+#~ "* Explorateur de paniers pour apprendre les assignations de panier\n"
+#~ "* Paramètres et documentation complète\n"
+#~ "* Entièrement libre, open-source et axé sur la communauté\n"
+#~ "* Et beaucoup plus\n"
+#~ "\n"
+#~ "Visitez www.stationplaylist.com pour plus de détails sur StationPlayList "
+#~ "suite des applications.\n"
+#~ "Visitez la page de l'extension StationPlayList sur GitHub (https://github."
+#~ "com/ChrisDuffley/stationPlaylist)\n"
+#~ "pour des détails complémentaires et pour lire la documentation.\n"
+#~ "Vous voulez revoir ce dialogue ? Appuyez simplement sur Alt+NVDA+F1 tout "
+#~ "en utilisant Studio pour revenir à ce dialogue.\n"
+#~ "\n"
+#~ "Merci."
+
+#~ msgid "Welcome to StationPlaylist add-on"
+#~ msgstr "Bienvenue dans l'extension StationPlaylist"
+
+#~ msgid "Show welcome dialog when I start Studio"
+#~ msgstr "Afficher  le  dialogue bienvenue lorsque je démarre Studio"
+
+#~ msgid "Braille timer off"
+#~ msgstr "Minuteur braille désactivé"
+
+#~ msgid "Braille track endings"
+#~ msgstr "Braille fin piste"
+
+#~ msgid "Outro"
+#~ msgstr "Outro"
+
+#~ msgid "Braille intro endings"
+#~ msgstr "Braille fin intro"
+
+#~ msgid "Intro"
+#~ msgstr "Intro"
+
+#~ msgid "Braille intro and track endings"
+#~ msgstr "Braille fin intro et piste"
+
+#~ msgid "Do not announce library scans"
+#~ msgstr "Ne pas annoncer les balayages d'une bibliothèque"
+
+#~ msgid "Announce start and end of a library scan"
+#~ msgstr "Annoncer le début et la fin de balayage d'une bibliothèque"
+
+#~ msgid "Announce the progress of a library scan"
+#~ msgstr "Annoncer l'avancement du balayage d'une bibliothèque"
+
+#~ msgid "Announce progress and item count of a library scan"
+#~ msgstr ""
+#~ "Annoncer l'avancement et le nombre des éléments lors du balayage d'une "
+#~ "bibliothèque"
+
+#~ msgid "Columns Explorer"
+#~ msgstr "Explorateur de Colonnes"
 
 #~ msgid "Cannot locate current track information"
 #~ msgstr "Impossible de localiser les informations de la piste actuelle"
