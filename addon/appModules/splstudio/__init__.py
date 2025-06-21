@@ -2273,28 +2273,25 @@ class AppModule(appModuleHandler.AppModule):
 			gesture.send()
 			self.script_finish()
 			return
-		try:
-			# Don't bother if Studio main window handle isn't found (Studio is not fully running).
-			if not splbase.studioIsRunning(justChecking=True):
-				# Translators: Presented when SPL Assistant cannot be invoked.
-				ui.message(_("Failed to locate Studio main window, cannot enter SPL Assistant"))
-				return
-			if self.SPLAssistant:
-				self.script_error(gesture)
-				return
-			# To prevent entering wrong gesture while the layer is active.
-			self.clearGestureBindings()
-			# Choose the required compatibility layer.
-			CompatibilityLayer = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
-			self.bindGestures(self.__SPLAssistantGestures[CompatibilityLayer])
-			for i in range(5):
-				self.bindGesture(f"kb:shift+{i}", "metadataEnabled")
-			self.SPLAssistant = True
-			tones.beep(512, 50)
-			if CompatibilityLayer == "jfw":
-				ui.message("JAWS")
-		except WindowsError:
+		# Don't bother if Studio main window handle isn't found (Studio is not fully running).
+		if not splbase.studioIsRunning(justChecking=True):
+			# Translators: Presented when SPL Assistant cannot be invoked.
+			ui.message(_("Failed to locate Studio main window, cannot enter SPL Assistant"))
 			return
+		if self.SPLAssistant:
+			self.script_error(gesture)
+			return
+		# To prevent entering wrong gesture while the layer is active.
+		self.clearGestureBindings()
+		# Choose the required compatibility layer.
+		CompatibilityLayer = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
+		self.bindGestures(self.__SPLAssistantGestures[CompatibilityLayer])
+		for i in range(5):
+			self.bindGesture(f"kb:shift+{i}", "metadataEnabled")
+		self.SPLAssistant = True
+		tones.beep(512, 50)
+		if CompatibilityLayer == "jfw":
+			ui.message("JAWS")
 
 	# Status table keys
 	SPLPlayStatus = 0
