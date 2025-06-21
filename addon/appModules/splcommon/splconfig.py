@@ -31,8 +31,8 @@ addonHandler.initTranslation()
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 SPLProfiles = os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "profiles")
 # The following settings can be changed in profiles:
-_mutatableSettings = ("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
-confspecprofiles = {sect: key for sect, key in confspec.items() if sect in _mutatableSettings}
+mutatableSettings = ("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
+confspecprofiles = {sect: key for sect, key in confspec.items() if sect in mutatableSettings}
 # Translators: The name of the default (normal) profile.
 defaultProfileName = _("Normal profile")
 # StationPlaylist components.
@@ -240,7 +240,7 @@ class ConfigHub(ChainMap):
 			defaultConfig = SPLDefaults.dict()
 			if SPLConfigCheckpoint.filename != SPLIni:
 				defaultConfig = {
-					sect: key for sect, key in defaultConfig.items() if sect in _mutatableSettings
+					sect: key for sect, key in defaultConfig.items() if sect in mutatableSettings
 				}
 			SPLConfigCheckpoint.update(defaultConfig)
 			_configLoadStatus[profileName] = "completeReset"
@@ -346,7 +346,7 @@ class ConfigHub(ChainMap):
 		# Consult profile-specific key first before deleting anything.
 		pos = (
 			0
-			if key in _mutatableSettings
+			if key in mutatableSettings
 			else [profile.name for profile in self.maps].index(defaultProfileName)
 		)
 		try:
@@ -446,7 +446,7 @@ class ConfigHub(ChainMap):
 		# Keep complete and profile-specific defaults handy.
 		defaultConfig = SPLDefaults.dict()
 		defaultProfileConfig = {
-			sect: key for sect, key in defaultConfig.items() if sect in _mutatableSettings
+			sect: key for sect, key in defaultConfig.items() if sect in mutatableSettings
 		}
 		for profile in self.profiles:
 			# Retrieve the profile path, as ConfigObj.reset nullifies it.
