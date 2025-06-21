@@ -765,7 +765,7 @@ class AppModule(appModuleHandler.AppModule):
 				return
 		# Only this thread will have privilege of notifying Studio handle's existence.
 		with threading.Lock():
-			splbase._SPLWin = hwnd
+			splbase.setStudioWindowHandle(hwnd)
 			log.debug(f"SPL: Studio handle is {hwnd}")
 		# #41: start background monitor unless Studio is exiting.
 		try:
@@ -1218,8 +1218,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Don't forget to reset timestamps for cart files.
 		splmisc._cartEditTimestamps = []
 		# Just to make sure:
-		if splbase._SPLWin:
-			splbase._SPLWin = None
+		splbase.setStudioWindowHandle(None)
 
 	# A few time related scripts (elapsed time, remaining time, etc.).
 
