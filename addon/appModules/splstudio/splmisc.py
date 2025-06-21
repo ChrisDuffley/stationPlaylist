@@ -511,6 +511,25 @@ def _earlyMetadataAnnouncerInternal(status: str, startup: bool = False) -> None:
 _delayMetadataAction = False
 
 
+# Announce and connect to metadata streams at Studio startup.
+def startupMetadataReminder(startupEvent: threading.Event) -> None:
+	global _delayMetadataAction
+	if splconfig.SPLConfig["General"]["MetadataReminder"] == "startup" or _delayMetadataAction:
+		_delayMetadataAction = False
+		# If told to remind and connect, metadata streaming will be enabled at this time
+		# (call the metadata connector).
+		metadataConnector()
+		# #40: call the internal metadata announcer in order to not hold up action handler queue.
+		# #82: wait until Studio window shows up (foreground or background) for the first time.
+		# #83: if NVDA restarts while Studio is running and foreground window is
+		# something other than playlist viewer, the below method won't work at all.
+		# Thankfully, NVDA's notion of foreground window depends on a global variable,
+		# and if it is not set, this is a restart with Studio running, so just announce it.
+		if api.getForegroundObject() is not None:
+			startupEvent.wait()
+		_earlyMetadataAnnouncerInternal(metadataStatus(), startup=True)
+
+
 # Connect and/or announce metadata status when broadcast profile switching occurs.
 # The config dialog active flag is only invoked when being notified while add-on settings dialog is focused.
 # Settings reset flag is used to prevent metadata server connection

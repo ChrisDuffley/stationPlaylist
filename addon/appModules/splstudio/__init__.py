@@ -776,20 +776,8 @@ class AppModule(appModuleHandler.AppModule):
 		# Remind me to broadcast metadata information.
 		# Also when delayed action is needed
 		# because metadata action handler couldn't locate Studio handle itself.
-		if splconfig.SPLConfig["General"]["MetadataReminder"] == "startup" or splmisc._delayMetadataAction:
-			splmisc._delayMetadataAction = False
-			# If told to remind and connect, metadata streaming will be enabled at this time
-			# (call the metadata connector).
-			splmisc.metadataConnector()
-			# #40: call the internal metadata announcer in order to not hold up action handler queue.
-			# #82: wait until Studio window shows up (foreground or background) for the first time.
-			# #83: if NVDA restarts while Studio is running and foreground window is
-			# something other than playlist viewer, the below method won't work at all.
-			# Thankfully, NVDA's notion of foreground window depends on a global variable,
-			# and if it is not set, this is a restart with Studio running, so just announce it.
-			if api.getForegroundObject() is not None:
-				self._initStudioWindowFocused.wait()
-			splmisc._earlyMetadataAnnouncerInternal(splmisc.metadataStatus(), startup=True)
+		# Pass in Studio init event so the below function can ask the event to wait.
+		splmisc.startupMetadataReminder(self._initStudioWindowFocused)
 
 	# Studio API heartbeat.
 	# Although useful for library scan detection, it can be extended to cover other features.
