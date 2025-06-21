@@ -1592,7 +1592,7 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 
 # Centralize error handling for various SPL add-on settings dialogs.
 # The below error message came directly from NVDA Core's settings dialog opener method (credit: NV Access)
-def _configDialogOpenError() -> None:
+def configDialogOpenError() -> None:
 	gui.messageBox(
 		translate("An NVDA settings dialog is already open. Please close it first."),
 		translate("Error"),
@@ -1603,7 +1603,7 @@ def _configDialogOpenError() -> None:
 # #125: open any settings panel from main add-on settings, also checking if other dialogs are open.
 def openAddonSettingsPanel(panel: gui.settingsDialogs.SettingsPanel):
 	if _configDialogOpened:
-		wx.CallAfter(_configDialogOpenError)
+		wx.CallAfter(configDialogOpenError)
 	else:
 		gui.mainFrame._popupSettingsDialog(SPLConfigDialog, panel)
 
@@ -1616,7 +1616,7 @@ def onConfigDialog(evt):
 # Open broadcast profiles dialog and its friends upon request.
 def onBroadcastProfilesDialog(evt):
 	if _configDialogOpened:
-		wx.CallAfter(_configDialogOpenError)
+		wx.CallAfter(configDialogOpenError)
 		return
 	# Present an error message if only normal profile is in use.
 	if splconfig.SPLConfig.configInMemory or splconfig.SPLConfig.normalProfileOnly:

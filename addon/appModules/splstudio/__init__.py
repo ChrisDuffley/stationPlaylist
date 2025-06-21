@@ -1856,7 +1856,8 @@ class AppModule(appModuleHandler.AppModule):
 			gui.mainFrame.postPopup()
 			splconfui._configDialogOpened = True
 		except RuntimeError:
-			wx.CallAfter(splconfui._configDialogOpenError)
+			# #125: call centralized error handler.
+			wx.CallAfter(splconfui.configDialogOpenError)
 
 	# Playlist Analyzer
 	# These include track time analysis, playlist snapshots, and some form of playlist transcripts and others.
