@@ -1921,10 +1921,6 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when streaming dialog cannot be shown.
 			ui.message(_("Cannot open metadata streaming dialog"))
 			return
-		if splconfui._configDialogOpened:
-			# #125 (20.04) temporary: call centralized error handler.
-			wx.CallAfter(splconfui._configDialogOpenError)
-			return
 		try:
 			# #44 (18.02): do not rely on Studio API function object as its workings (including arguments) may change.
 			# Use a flag to tell the streaming dialog that this is
@@ -1936,7 +1932,8 @@ class AppModule(appModuleHandler.AppModule):
 			gui.mainFrame.postPopup()
 			splconfui._configDialogOpened = True
 		except RuntimeError:
-			pass
+			# #125: call centralized error handler.
+			wx.CallAfter(splconfui._configDialogOpenError)
 
 	# Playlist Analyzer
 	# These include track time analysis, playlist snapshots, and some form of playlist transcripts and others.
