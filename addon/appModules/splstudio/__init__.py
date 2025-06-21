@@ -1577,7 +1577,6 @@ class AppModule(appModuleHandler.AppModule):
 			d.Raise()
 			d.Show()
 			gui.mainFrame.postPopup()
-			splmisc._findDialogOpened = True
 		except RuntimeError:
 			wx.CallAfter(splmisc._finderError)
 
@@ -1674,7 +1673,6 @@ class AppModule(appModuleHandler.AppModule):
 				d.Raise()
 				d.Show()
 				gui.mainFrame.postPopup()
-				splmisc._findDialogOpened = True
 			except RuntimeError:
 				wx.CallAfter(splmisc._finderError)
 
@@ -1930,7 +1928,6 @@ class AppModule(appModuleHandler.AppModule):
 			d.Raise()
 			d.Show()
 			gui.mainFrame.postPopup()
-			splconfui._configDialogOpened = True
 		except RuntimeError:
 			# #125: call centralized error handler.
 			wx.CallAfter(splconfui._configDialogOpenError)
@@ -2786,7 +2783,6 @@ class AppModule(appModuleHandler.AppModule):
 			d.Raise()
 			d.Show()
 			gui.mainFrame.postPopup()
-			splmisc._plTranscriptsDialogOpened = True
 		except RuntimeError:
 			wx.CallAfter(splmisc.plTranscriptsDialogError)
 		self.script_finish()

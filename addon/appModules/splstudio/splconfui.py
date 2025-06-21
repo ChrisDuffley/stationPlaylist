@@ -853,6 +853,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		return instance
 
 	def __init__(self, parent):
+		global _configDialogOpened
 		if MetadataStreamingDialog._instance() is not None:
 			return
 		# Use a weakref so the instance can die.
@@ -905,6 +906,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		self.Sizer = mainSizer
 		self.checkedStreams.SetFocus()
 		self.CenterOnScreen()
+		_configDialogOpened = True
 
 	def onOk(self, evt):
 		global _configDialogOpened

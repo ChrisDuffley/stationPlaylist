@@ -84,6 +84,7 @@ class SPLFindDialog(wx.Dialog):
 		return instance
 
 	def __init__(self, parent, obj, text, title, columnSearch=False):
+		global _findDialogOpened
 		if SPLFindDialog._instance() is not None:
 			return
 		# Use a weakref so the instance can die.
@@ -128,6 +129,7 @@ class SPLFindDialog(wx.Dialog):
 		self.Sizer = mainSizer
 		self.CenterOnScreen()
 		self.findEntry.SetFocus()
+		_findDialogOpened = True
 
 	def onOk(self, evt):
 		global _findDialogOpened
@@ -183,6 +185,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 		return instance
 
 	def __init__(self, parent, obj):
+		global _findDialogOpened
 		if SPLTimeRangeDialog._instance() is not None:
 			return
 		# Use a weakref so the instance can die.
@@ -241,6 +244,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 		self.Sizer = mainSizer
 		self.CenterOnScreen()
 		self.minMinEntry.SetFocus()
+		_findDialogOpened = True
 
 	def onOk(self, evt):
 		minDuration = ((self.minMinEntry.GetValue() * 60) + self.minSecEntry.GetValue()) * 1000
@@ -850,6 +854,7 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 		return instance
 
 	def __init__(self, parent, obj):
+		global _plTranscriptsDialogOpened
 		if SPLPlaylistTranscriptsDialog._instance() is not None:
 			return
 		# Use a weakref so the instance can die.
@@ -916,6 +921,7 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 		self.Sizer = mainSizer
 		self.CenterOnScreen()
 		self.transcriptRange.SetFocus()
+		_plTranscriptsDialogOpened = True
 
 	def onTranscriptFormatSelection(self, evt):
 		# 22.03 (security): disable options other than viewing the transcript in secure mode.
