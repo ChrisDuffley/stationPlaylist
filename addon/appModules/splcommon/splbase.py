@@ -37,6 +37,12 @@ def studioIsRunning(justChecking: bool = False) -> bool:
 	return isStudioAlive
 
 
+# Set Studio window handle to the given value so the handle itself can remain private.
+def setStudioWindowHandle(hwnd: int | None) -> None:
+	global _SPLWin
+	_SPLWin = hwnd
+
+
 # Use SPL Studio API to obtain needed values.
 # A thin wrapper around user32.SendMessage function with Studio handle and WM_USER supplied.
 # #45: returns whatever result SendMessage function says.
