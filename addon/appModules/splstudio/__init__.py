@@ -1916,8 +1916,8 @@ class AppModule(appModuleHandler.AppModule):
 		description=_("Opens a dialog to quickly enable or disable metadata streaming.")
 	)
 	def script_manageMetadataStreams(self, gesture):
-		# Do not even think about opening this dialog if handle to Studio isn't found.
-		if splbase._SPLWin is None:
+		# Do not even think about opening this dialog if handle to Studio isn't found (not fully running).
+		if not splbase.studioIsRunning(justChecking=True):
 			# Translators: Presented when streaming dialog cannot be shown.
 			ui.message(_("Cannot open metadata streaming dialog"))
 			return
