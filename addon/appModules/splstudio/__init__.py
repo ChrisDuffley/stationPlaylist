@@ -227,7 +227,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 		# Catch an unusual case where screen order is off yet column order is same as screen order
 		# and NVDA is told to announce all columns.
 		if not splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] and (
-			columnOrder != splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+			columnOrder != splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 			or len(columnsToInclude) != 17
 		):
 			trackNamePieces = []
@@ -268,7 +268,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	# #142: do not ignore Status column (0) just because it is the name of the track as reported by MSAA.
 	def indexOf(self, columnHeader: str) -> int | None:
 		try:
-			columnHeaders = ["Status"] + splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+			columnHeaders = ["Status"] + splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 			return columnHeaders.index(columnHeader)
 		except ValueError:
 			return None

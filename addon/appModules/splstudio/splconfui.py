@@ -516,7 +516,7 @@ class GeneralSettingsPanel(gui.settingsDialogs.SettingsPanel):
 
 		# Translators: The label for a setting in SPL add-on dialog to set vertical column.
 		verticalColLabel = _("&Vertical column navigation announcement:")
-		verticalColChoices = ["Status"] + splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+		verticalColChoices = ["Status"] + splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 		# Translators: One of the options for vertical column navigation
 		# denoting NVDA will announce current column position (e.g. second column position from the left).
 		verticalColChoices.insert(0, _("whichever column I am reviewing"))
@@ -1273,7 +1273,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 			case _:  # Studio
 				# Translators: The title of Columns Explorer configuration dialog.
 				actualTitle = _("Columns Explorer for SPL Studio")
-				cols = splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+				cols = splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 				slots = parent.exploreColumns
 		# Gather column slots.
 		self.columnSlots = []

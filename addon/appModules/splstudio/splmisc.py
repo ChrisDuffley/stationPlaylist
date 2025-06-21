@@ -112,7 +112,7 @@ class SPLFindDialog(wx.Dialog):
 				# Translators: The label in track finder to search columns.
 				_("C&olumn to search:"),
 				wx.Choice,
-				choices=splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"],
+				choices=splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"],
 			)
 			self.columnHeaders.SetSelection(0)
 

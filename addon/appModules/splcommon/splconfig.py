@@ -106,7 +106,7 @@ class ConfigHub(ChainMap):
 			)
 		else:
 			# Get the dictionary version of default settings map.
-			self.maps[0] = ConfigObj(_SPLDefaults.dict(), configspec=confspec, encoding="UTF-8")
+			self.maps[0] = ConfigObj(SPLDefaults.dict(), configspec=confspec, encoding="UTF-8")
 			self.maps[0].name = defaultProfileName
 			# Convert the following to runtime data structures.
 			self.maps[0]["ColumnAnnouncement"]["IncludedColumns"] = set(
@@ -237,7 +237,7 @@ class ConfigHub(ChainMap):
 		# "False" for unrecoverable error, or a dictionary of failed keys.
 		if isinstance(configTest, bool) and not configTest:
 			# Case 1: restore settings to defaults when config validation has failed on all values.
-			defaultConfig = _SPLDefaults.dict()
+			defaultConfig = SPLDefaults.dict()
 			if SPLConfigCheckpoint.filename != SPLIni:
 				defaultConfig = {
 					sect: key for sect, key in defaultConfig.items() if sect in _mutatableSettings
@@ -249,7 +249,7 @@ class ConfigHub(ChainMap):
 			for setting in list(configTest.keys()):
 				if isinstance(configTest[setting], dict):
 					for failedKey in list(configTest[setting].keys()):
-						SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults[setting][failedKey]
+						SPLConfigCheckpoint[setting][failedKey] = SPLDefaults[setting][failedKey]
 			SPLConfigCheckpoint.write()
 			_configLoadStatus[profileName] = "partialReset"
 
@@ -258,7 +258,7 @@ class ConfigHub(ChainMap):
 		global _configLoadStatus
 		columnOrder = conf["ColumnAnnouncement"]["ColumnOrder"]
 		# Catch suttle errors.
-		fields = _SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+		fields = SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 		invalidFields = 0
 		for field in fields:
 			if field not in columnOrder:
@@ -375,7 +375,7 @@ class ConfigHub(ChainMap):
 			for setting in list(profile.keys()):
 				for key in list(profile[setting].keys()):
 					try:
-						if profile[setting][key] == _SPLDefaults[setting][key]:
+						if profile[setting][key] == SPLDefaults[setting][key]:
 							del profile[setting][key]
 					except KeyError:
 						pass
@@ -444,7 +444,7 @@ class ConfigHub(ChainMap):
 				else:
 					raise RuntimeError("Instant switch profile must remain active, reset cannot proceed")
 		# Keep complete and profile-specific defaults handy.
-		defaultConfig = _SPLDefaults.dict()
+		defaultConfig = SPLDefaults.dict()
 		defaultProfileConfig = {
 			sect: key for sect, key in defaultConfig.items() if sect in _mutatableSettings
 		}
@@ -607,9 +607,9 @@ class ConfigHub(ChainMap):
 SPLConfig: ConfigHub | None = None
 
 # Default config spec container.
-_SPLDefaults = ConfigObj(None, configspec=confspec, encoding="UTF-8")
+SPLDefaults = ConfigObj(None, configspec=confspec, encoding="UTF-8")
 _val = Validator()
-_SPLDefaults.validate(_val, copy=True)
+SPLDefaults.validate(_val, copy=True)
 # Track comments map.
 trackComments = {}
 
