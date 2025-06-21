@@ -1511,7 +1511,7 @@ class AppModule(appModuleHandler.AppModule):
 			gui.mainFrame.postPopup()
 			splmisc._findDialogOpened = True
 		except RuntimeError:
-			wx.CallAfter(splmisc._finderError)
+			wx.CallAfter(splmisc.finderError)
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
@@ -1606,7 +1606,7 @@ class AppModule(appModuleHandler.AppModule):
 				gui.mainFrame.postPopup()
 				splmisc._findDialogOpened = True
 			except RuntimeError:
-				wx.CallAfter(splmisc._finderError)
+				wx.CallAfter(splmisc.finderError)
 
 	# Cart explorer
 	cartExplorer = False

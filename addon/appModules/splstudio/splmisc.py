@@ -48,7 +48,7 @@ _findDialogOpened = False
 
 
 # Track Finder error dialog.
-def _finderError() -> None:
+def finderError() -> None:
 	global _findDialogOpened
 	if _findDialogOpened:
 		gui.messageBox(
