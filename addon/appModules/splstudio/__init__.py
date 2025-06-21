@@ -2353,8 +2353,8 @@ class AppModule(appModuleHandler.AppModule):
 			self.script_finish()
 			return
 		try:
-			# 7.0: Don't bother if handle to Studio isn't found.
-			if splbase._SPLWin is None:
+			# 7.0: Don't bother if Studio main window handle isn't found (Studio is not fully running).
+			if not splbase.studioIsRunning(justChecking=True):
 				# Translators: Presented when SPL Assistant cannot be invoked.
 				ui.message(_("Failed to locate Studio main window, cannot enter SPL Assistant"))
 				return
