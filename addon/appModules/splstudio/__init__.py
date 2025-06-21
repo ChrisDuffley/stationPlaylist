@@ -1216,7 +1216,7 @@ class AppModule(appModuleHandler.AppModule):
 		self.carts.clear()
 		self._cachedStatusObjs.clear()
 		# Don't forget to reset timestamps for cart files.
-		splmisc._cartEditTimestamps = []
+		splmisc.cartEditTimestamps = []
 		# Just to make sure:
 		splbase.setStudioWindowHandle(None)
 
@@ -1657,7 +1657,7 @@ class AppModule(appModuleHandler.AppModule):
 			self.cartExplorer = False
 			self.cartsBuilder(build=False)
 			self.carts.clear()
-			splmisc._cartEditTimestamps = []
+			splmisc.cartEditTimestamps = []
 			# Translators: Presented when cart explorer is off.
 			ui.message(_("Exiting cart explorer"))
 

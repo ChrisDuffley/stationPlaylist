@@ -333,7 +333,7 @@ def _populateCarts(
 
 
 # Cart file timestamps.
-_cartEditTimestamps: list[float] = []
+cartEditTimestamps: list[float] = []
 
 
 # Initialize Cart Explorer i.e. fetch carts.
@@ -344,7 +344,7 @@ def cartExplorerInit(
 	refresh: bool = False,
 	carts: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-	global _cartEditTimestamps
+	global cartEditTimestamps
 	log.debug("SPL: refreshing Cart Explorer" if refresh else "preparing cart Explorer")
 	# Use cart files in SPL's data folder to build carts dictionary.
 	# use a combination of SPL user name and static cart location to locate cart bank files.
@@ -364,7 +364,7 @@ def cartExplorerInit(
 		cartFiles = [StudioTitle[userNameIndex + 2 :] + " " + cartFile for cartFile in cartFiles]
 	faultyCarts = False
 	if not refresh:
-		_cartEditTimestamps = []
+		cartEditTimestamps = []
 	for f in cartFiles:
 		# Only do this if told to build cart banks from scratch,
 		# as refresh flag is set if cart explorer is active in the first place.
@@ -383,10 +383,10 @@ def cartExplorerInit(
 			continue
 		log.debug(f"SPL: examining carts from file {cartFile}")
 		cartTimestamp = os.path.getmtime(cartFile)
-		if refresh and _cartEditTimestamps[cartFiles.index(f)] == cartTimestamp:
+		if refresh and cartEditTimestamps[cartFiles.index(f)] == cartTimestamp:
 			log.debug("SPL: no changes to cart bank, skipping")
 			continue
-		_cartEditTimestamps.append(cartTimestamp)
+		cartEditTimestamps.append(cartTimestamp)
 		with open(cartFile) as cartInfo:
 			cl = [row for row in reader(cartInfo)]
 		# Let empty string represent main cart bank to avoid this being partially consulted up to 24 times.
