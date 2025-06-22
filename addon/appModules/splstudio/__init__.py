@@ -1633,7 +1633,7 @@ class AppModule(appModuleHandler.AppModule):
 					and startObj.role == controlTypes.Role.LIST
 				):
 					startObj = startObj.firstChild
-				self.trackFinder(self.findText[0], obj=startObj.next)
+				self.trackFinder(self.findText[0], startObj.next)
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
@@ -1656,7 +1656,7 @@ class AppModule(appModuleHandler.AppModule):
 					and startObj.role == controlTypes.Role.LIST
 				):
 					startObj = startObj.lastChild
-				self.trackFinder(self.findText[0], obj=startObj.previous, directionForward=False)
+				self.trackFinder(self.findText[0], startObj.previous, directionForward=False)
 
 	# Time range finder.
 	# Locate a track with duration falling between min and max.
