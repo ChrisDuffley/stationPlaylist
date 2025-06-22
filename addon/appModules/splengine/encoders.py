@@ -97,6 +97,7 @@ def loadEncoderConfig() -> None:
 # This is a private module level function in order for it to be invoked by humans alone.
 def _removeEncoderID(encoderType: str, pos: str) -> None:
 	encoderID = f"{encoderType} {pos}"
+	encoderPos = int(pos)
 	# Go through each feature map/set, remove the encoder ID and manipulate encoder positions.
 	for encoderSettings in (
 		SPLEncoderLabels,
@@ -115,22 +116,25 @@ def _removeEncoderID(encoderType: str, pos: str) -> None:
 		# In flag sets, unless members are sorted, encoders will appear in random order
 		# (a downside of using sets, as their ordering is quite unpredictable).
 		# The below list comprehension also works for dictionaries as it will iterate over keys.
-		currentEncoders = sorted([x for x in encoderSettings if x.startswith(encoderType)])
-		if len(currentEncoders) and encoderID < currentEncoders[-1]:
+		currentEncoders = [x for x in encoderSettings if x.startswith(encoderType)]
+		# Strings (encoder ID's) are sorted based on character values, requiring integer conversion.
+		currentEncoders = sorted([int(id.split()[-1]) for id in currentEncoders])
+		# Go through the below procedure if encoder ID's are present.
+		if len(currentEncoders) and encoderPos < max(currentEncoders):
 			# Locate position of the just removed encoder and move entries forward.
 			start = 0
-			if encoderID > currentEncoders[0]:
+			if encoderPos > min(currentEncoders):
 				for candidate in currentEncoders:
-					if encoderID < candidate:
+					if encoderPos < candidate:
 						start = currentEncoders.index(candidate)
 			# Do set/dictionary entry manipulations (remove first, then add).
 			for item in currentEncoders[start:]:
 				if isinstance(encoderSettings, set):
-					encoderSettings.remove(item)
-					encoderSettings.add("{} {}".format(encoderType, int(item.split()[-1]) - 1))
+					encoderSettings.remove(f"{encoderType} {item}")
+					encoderSettings.add(f"{encoderType} {item-1}")
 				else:  # Encoder labels
-					encoderSettings["{} {}".format(encoderType, int(item.split()[-1]) - 1)] = (
-						encoderSettings.pop(item)
+					encoderSettings[f"{encoderType} {item - 1}"] = (
+						encoderSettings.pop(f"{encoderType} {item}")
 					)
 
 
