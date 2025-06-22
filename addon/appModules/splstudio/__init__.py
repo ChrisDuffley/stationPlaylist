@@ -1460,7 +1460,7 @@ class AppModule(appModuleHandler.AppModule):
 	findText: list[str] | None = None
 
 	def trackFinder(
-		self, text: str, obj: NVDAObject, directionForward: bool = True, column: list[int] = []
+		self, text: str, obj: NVDAObject, directionForward: bool = True, column: list[int] | None = None
 	) -> None:
 		speech.cancelSpeech()
 		# #32 (17.06/15.8 LTS): Update search text even if the track with the search term in columns does not exist.
