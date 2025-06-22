@@ -154,7 +154,7 @@ class SPLFindDialog(wx.Dialog):
 						appMod.findText[0],
 					)
 			# If this is called right away, we land on an invisible window.
-			wx.CallLater(100, appMod.trackFinder, text, obj=startObj, column=column)
+			wx.CallLater(100, appMod.trackFinder, text, startObj, column=column)
 		self.Destroy()
 		_findDialogOpened = False
 
