@@ -1500,9 +1500,9 @@ class AppModule(appModuleHandler.AppModule):
 	def _trackLocator(
 		self,
 		text: str,
-		obj: NVDAObject = api.getFocusObject(),
+		obj: NVDAObject | None = None,
 		directionForward: bool = True,
-		columns: list[int] = [],
+		columns: list[int] | None = None,
 	) -> NVDAObject | None:
 		# 21.03/20.09.6-LTS: it doesn't make sense to search for tracks if text and/or columns are not specified.
 		# It is also an optimization because the below loop will not be run if any of the following are true.
