@@ -12,7 +12,8 @@
 
 # Minimum version: SPL 6.0, NVDA 2024.1.
 
-from typing import Any, Callable
+from typing import Any
+from collections.abc import Callable
 import os
 import time
 import threading
