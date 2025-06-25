@@ -12,7 +12,8 @@
 
 # Minimum version: SPL 5.50, NVDA 2024.1.
 
-from typing import Any, Callable
+from typing import Any
+from collections.abc import Callable
 from functools import wraps
 import os
 import time
