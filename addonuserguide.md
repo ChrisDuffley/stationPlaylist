@@ -947,7 +947,7 @@ LTS stands for long-term support. This is a special version of a software that w
 
 Usually a version of the StationPlaylist add-on for NVDA receives support until the next version is released (typically several weeks to months). However, because there are broadcasters who would like to use a stable version of the add-on for a long time (either because they have to or they cannot upgrade to the latest version of Studio), a long-term support version of the add-on is released every few years to give people time to upgrade to a future stable version of Studio. In addition to longer support period (up to a year or more), a LTS version of the add-on is the last version to support the oldest stable Studio version, or in some cases, provides compatibility with old NVDA and/or Windows releases. Due to special nature of LTS releases, releases in a LTS series must be instaled manually i.e. they will not be made available on the add-on store.
 
-As of 2025, add-on versions 3.x (September 2014-June 2015), 7.x/15.x (April 2016-April 2018; 15.x since October 2016), and 18.09.x (September 2018-December 2019) were designated as LTS releases, supporting Studio 4.33, 5.01, and 5.1x, respectively. Version 20.09.x (September 2020-April 2021), the most recent LTS release, supports Studio 5.20 and NVDA 2019.3 and later, with upcoming 25.06.x designated as last LTS releases to support Studio 5.x.
+As of 2025, add-on versions 3.x (September 2014-June 2015), 7.x/15.x (April 2016-April 2018; 15.x since October 2016),, 18.09.x (September 2018-December 2019), and 20.09.x (September 2020-April 2021) were designated as LTS releases, supporting Studio 4.33, 5.01, 5.1x, and 5.20, respectively. Version 25.06.x, the latest LTS release, is the last LTS series to support Studio 5.x.
 
 Q. Which versions of Studio are supported by which add-on releases?
 
@@ -957,9 +957,9 @@ Q. Which versions of Studio are supported by which add-on releases?
 * Studio 5.20: Add-on 16.11 to 20.09.7 (November 2016-April 2021).
 * Studio 5.3x: Add-on 17.11 to 22.12 (November 2017-December 2022).
 * Studio 5.40: Add-on 19.11 to 25.05.4 (November 2019-May 2025).
-* Studio 5.50: Add-on 20.11 to 25.06 (November 2020-June 2025).
-* Studio 6.0x: Add-on 21.11 to 25.06 (November 2021-June 2025).
-* Studio 6.1x: Add-on 24.03 to 25.06 (April 2024-June 2025).
+* Studio 5.50: Add-on 20.11 to 25.06.2 (November 2020-July 2025).
+* Studio 6.0x: Add-on 21.11 to 25.07 (November 2021-July 2025).
+* Studio 6.1x: Add-on 24.03 to 25.07 (April 2024-July 2025).
 
 Note: the schedule above is subject to change.
 
