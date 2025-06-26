@@ -107,7 +107,7 @@ StationPlaylist add-on for NVDA consists of seven app modules (including two app
 
 The overall design is that of a partnership between the main Studio app module and the Studio Utilities (SPLUtils) global plugin. Studio app module performs things expected from scripts such as responding to key presses, announcing status information, configuration management and so forth, while the global plugin is responsible for running Studio commands from anywhere, and in older add-on releases, for encoder support (the add-on supports SAM, SPL, and AltaCast encoders). In reality, the global plugin is subordinate to the app module, as the app module controls overall functionality of the add-on and because the global plugin requires Studio to be running to unlock some features (here, unlock means using layer commands and parts of encoder support).
 
-As part of the app modules, a common services module (splcommon) is included to house functions and constants common across the ap modules and the global plugin. Contents include Studio API wrapper, cart key definitions, and status messages colection. The common services module resembles Studio app module package in prior add-on releases as majority of its contents indeed come from the Studio app module package, thus the common services serves as an extension of the Studio app module.
+As part of the app modules, a common services module (splcommon) is included to house functions and constants common across the ap modules and the global plugin. Contents include Studio API wrapper, cart key definitions, configuration management, and status messages colection. The common services module resembles Studio app module package in prior add-on releases as majority of its contents indeed come from the Studio app module package, thus the common services serves as an extension of the Studio app module.
 
 When it comes to hierarchy of app modules, Studio app module package is ranked first. This is because Studio app module is the oldest part of the add-on, and it provides base services and blueprints for other app modules. For instance, Creator and Track Tool rely on configuration facility provided by Studio app module package for Columns Explorer (explained later), and Voice Track (VT) Recorder app module cannot function properly without Studio app module running. Even though SPL Engine and Streamer are independent of Studio app module, they still require Studio app module to function (this is especially the case with SPL Engine, as Studio loads splengine.exe, the DSP Engine executable).
 
@@ -1450,8 +1450,7 @@ Second, later in 2023, the NV Access add-on store debuted. Among other things, t
 
 In 2024, NVDA went through another Python transition, this time from 3.7 to 3.11. With blessing form Chris Duffley, i rewrote parts of the add-on in late 2024 to upgrade the code ot use Python 3.11 facilities, including structural pattern matching and assignment expression. Most notably, tnaks for linting and type hints work in 2021 left the code spinrkled with type hints, and I took the opportunity to update type hints syntax to use Python 3.11 changes as part of this work.
 
-
-In 2025, I revisited the add-on source code, noticing duplications and outdated comments. With another blessing from Chris Duffley, I have restructured and refactored the add-on source code and the code repository. Most notably, the common services (splcommon) module was introduced to gather duplicated code across the app modules set and the SPL Utilities global plugin, including Stuido API definitions, constants such as cart keys definition, and the routine to focus to Studio. This work is not new - I have worked on a similar idea a while ago after noticing that there were commonalities across app modules, but this was the first time working on code deduplication and refactoring across the entire add-on source code.
+In 2025, I revisited the add-on source code, noticing duplications and outdated comments. With another blessing from Chris Duffley, I have restructured and refactored the add-on source code and the code repository. Most notably, the common services (splcommon) module was introduced to gather duplicated code across the app modules set and the SPL Utilities global plugin, including Studio API definitions, constants such as cart keys definition, and the routine to focus to Studio. This package also includes ocnfiguration management (splconfig) so app modules other than Studio can use it directly without going through the Studio app module. This work is not new - I have worked on a similar idea a while ago after noticing that there were commonalities across app modules, but this was the first time working on code deduplication and refactoring across the entire add-on source code.
 
 Add-on code restructuring and refactoring led to the following changes:
 
@@ -1459,12 +1458,12 @@ Add-on code restructuring and refactoring led to the following changes:
 * Both the app modules set and the global plugin will use the new common services module when performing actions such as invoking Studio API.
 * Only the common services will be imported when requested. This reduces dependency on Studio app module for things such as Studio API call and constants, especially when the common services module is imported from the global plugin.
 
-With this change, the add-on devlopers must think carefully about where the code belongs:
+With this change, the add-on maintainers must think carefully about where the code belongs:
 
 * If the code is to be used from two or more app modules and/or one or more app modules and the global plugin, it should be housed in the SPL common services package.
 * Code specific to an app module or the global plugin will remain in their respective modules.
 
-A notable exception is SPL config module as most of its contents is used by the Studio app module (Creator, Track Tool, and Remote VT ap modules import the config module but only to help Columns Explorer).
+The code refactoring work also led to introduction of Pyright into add-on code checking routines. Pyright is a static type checker similar to Mypy but faster. Examining code with Pyright led to adding more type annotations and resolving bugs, as well as removing obsolete code paths and restructuring how modules were imported (a notable change was moving SPL config module from the Studio app module to the common services package).
 
 #### Long-term support release
 
