@@ -381,21 +381,26 @@ táctil. Primero utiliza un toque con tres dedos para cambiar a modo SPL,
 entonces utiliza las órdenes táctiles listadas arriba para llevar a cabo
 tareas.
 
-## Version 25.07/25.06.2-LTS
+## Versión 25.07/25.06-LTS
 
-Version 25.07 supports SPL Studio 6.0 and later.
+La versión 25.07 soporta SPL Studio 6.0 y posterior.
 
-* 25.07: code was refactored, including through use of Pyright (a Python
-  static type checker). Some prominent code changes were also backported to
-  25.06.2-LTS.
-* Columns explorer (Control+NVDA+number row) is now configurable for Creator
-  and Remote VT's playlist editor. A new button, "columns explorer for
-  playlist editor" is available from columns explorer add-on settings
-  screen.
-* In columns explorer add-on settings, renamed "columns explorer" to
-  "columns explorer for SPL Studio".
-* Added JSON (JavaScript Object Notation) format as a playlist transcripts
-  format.
+* 25.07: se ha refactorizado el código, incluyendo el uso de Pyright (un
+  comprobador de tipos estáticos en Python). Algunos cambios de código
+  destacados se han llevado también a 25.06.2-LTS.
+* El explorador de columnas (Control+NVDA+fila numérica) ahora es
+  configurable en Creator y el editor de listas de reproducción Remote
+  VT. Hay disponible un nuevo botón, "Explorador de columnas del editor de
+  listas de reproducción", desde la pantalla de opciones del complemento del
+  explorador de columnas.
+* En las opciones del complemento del explorador de columnas, se ha
+  renombrado "Explorador de columnas" como "Explorador de columnas de SPL
+  Studio".
+* Se ha añadido JSON (notación de objetos JavaScript) como formato de
+  transcripción de listas de reproducción.
+* In encoders, NVDA will remove encoder settings if pressing Control+F12 to
+  remove settings for encoder 10 and above if more than ten encoders are
+  present.
 
 ## Versión 25.06-LTS
 

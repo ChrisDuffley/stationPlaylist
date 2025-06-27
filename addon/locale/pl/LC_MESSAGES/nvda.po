@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-05-22 22:25-0600\n"
+"PO-Revision-Date: 2025-06-23 07:23-0600\n"
 "Last-Translator: zvonimir stanecic <zvonimirek222@yandex.com>\n"
 "Language-Team: Polish <killer@tyflonet.com>\n"
 "Language: pl\n"
@@ -1668,85 +1668,3 @@ msgid ""
 msgstr ""
 "Poprawia dostępność StationPlaylist.\n"
 "Ponadto, dodaje globalne komendy dla studia, dostępne z każdego miejsca."
-
-#~ msgid "Normal profile"
-#~ msgstr "Profil standardowy"
-
-#~ msgid "SPL Studio add-on reset"
-#~ msgstr "Resetowanie dodatku SPL studio"
-
-#~ msgid "active"
-#~ msgstr "Aktywny"
-
-#, python-brace-format
-#~ msgid "Switching to {newProfileName}"
-#~ msgstr "Uaktywniam:  {newProfileName}"
-
-#, python-brace-format
-#~ msgid "Returning to {previousProfile}"
-#~ msgstr "Powrót do profilu {previousProfile}"
-
-#~ msgid "Studio add-on Configuration error"
-#~ msgstr "Błąd konfiguracji dodatku studia"
-
-#~ msgid "Only normal profile is in use"
-#~ msgstr "tylkoProfil standardowy jest w użyciu"
-
-#~ msgid "No instant switch profile is defined"
-#~ msgstr "Niezdefiniowano profilu czasowego"
-
-#~ msgid "You are already in the instant switch profile"
-#~ msgstr "Używasz szybkiego profilu"
-
-#~ msgid "Welcome to StationPlaylist add-on"
-#~ msgstr "Witamy w Station Playlist Studio"
-
-#~ msgid "Show welcome dialog when I start Studio"
-#~ msgstr "Pokazuj okno powitalne po uruchomieniu Studia"
-
-#~ msgid "Braille timer off"
-#~ msgstr "Timer brajlowski wyłączony"
-
-#~ msgid "Braille track endings"
-#~ msgstr "Wyświetlaj końce utworów w brajlu"
-
-#~ msgid "Outro"
-#~ msgstr "Outro"
-
-#~ msgid "Braille intro endings"
-#~ msgstr "Wyświetlaj Intra w brajlu"
-
-#~ msgid "Intro"
-#~ msgstr "Intro"
-
-#~ msgid "Braille intro and track endings"
-#~ msgstr "Wyświetlaj końce ścieżek i intra w brajlu"
-
-#~ msgid "Do not announce library scans"
-#~ msgstr "Nie oznajmiaj skanowania biblioteki"
-
-#~ msgid "Announce start and end of a library scan"
-#~ msgstr "Oznajmiaj początek i koniec skanowania biblioteki"
-
-#~ msgid "Announce the progress of a library scan"
-#~ msgstr "Oznajmiaj postęp skanowania biblioteki"
-
-#~ msgid "Announce progress and item count of a library scan"
-#~ msgstr "Oznajmiaj postęp i ilość elementów podczas skanowania biblioteki"
-
-#~ msgid "Columns Explorer"
-#~ msgstr "Eksplorator kolumn"
-
-#~ msgid "Studio main window not found"
-#~ msgstr "Nie znaleziono okna głównego SPL Studio"
-
-#~ msgid "Columns E&xplorer..."
-#~ msgstr "Eksplorator kolumn"
-
-#, fuzzy
-#~ msgid "SPL Studio is minimized to system tray."
-#~ msgstr "SPL Studio nie jest uruchomione."
-
-#, fuzzy
-#~ msgid "Cannot locate current track information"
-#~ msgstr "Informacja o obecnym utworze niedostępna."

@@ -374,6 +374,9 @@ Sürüm 25.07, SPL Studio 6.0 ve sonraki sürümlerini destekler.
   gezgini" olarak yeniden adlandırıldı.
 * Çalma listesi transkript formatı olarak JSON (JavaScript Object Notation)
   formatı eklendi.
+* Kodlayıcılarda, ondan fazla kodlayıcı varsa 10 ve üzeri kodlayıcı
+  ayarlarını kaldırmak için Control+F12 tuşlarına basıldığında NVDA
+  kodlayıcı ayarlarını kaldıracaktır.
 
 ## Sürüm 25.06-lts
 

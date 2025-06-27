@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-06-07 09:27+0200\n"
+"PO-Revision-Date: 2025-06-20 22:50+0200\n"
 "Last-Translator: José Manuel Delicado <jm.delicado@nvda.es>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -1174,9 +1174,8 @@ msgstr ""
 
 #. Studio
 #. Translators: The title of Columns Explorer configuration dialog.
-#, fuzzy
 msgid "Columns Explorer for SPL Studio"
-msgstr "E&xplorador de Columnas para SPL Studio..."
+msgstr "Explorador de Columnas para SPL Studio"
 
 #, python-brace-format
 msgid "Slot {position}"
@@ -1723,133 +1722,3 @@ msgid ""
 msgstr ""
 "Mejora el soporte para las aplicaciones de StationPlaylist. Además, agrega "
 "órdenes globales para la aplicación de Studio desde cualquier parte."
-
-#~ msgid "Normal profile"
-#~ msgstr "Perfil normal"
-
-#~ msgid ""
-#~ "An instant switch profile is active. Resetting Studio add-on settings "
-#~ "means normal profile will become active and switch profile settings will "
-#~ "be left in unpredictable state. Are you sure you wish to reset Studio add-"
-#~ "on settings to factory defaults?"
-#~ msgstr ""
-#~ "Hay un perfil de cambio instantáneo activado. Si restableces los ajustes "
-#~ "del complemento de Studio se activará el perfil normal y los ajustes de "
-#~ "los perfiles de cambio quedarán en un estado impredecible. ¿Estás seguro "
-#~ "de que quieres restablecer los ajustes del complemento de Studio a los "
-#~ "valores de fábrica?"
-
-#~ msgid "SPL Studio add-on reset"
-#~ msgstr "Restablecimiento del complemento SPL Studio"
-
-#~ msgid "active"
-#~ msgstr "activo"
-
-#, python-brace-format
-#~ msgid "Switching to {newProfileName}"
-#~ msgstr "Cambiando a {newProfileName}"
-
-#, python-brace-format
-#~ msgid "Returning to {previousProfile}"
-#~ msgstr "Regresando a {previousProfile}"
-
-#~ msgid "Studio add-on Configuration error"
-#~ msgstr "Erro da configuración do complemento do Studio"
-
-#~ msgid "Only normal profile is in use"
-#~ msgstr "Sólo el perfil normal está en uso"
-
-#~ msgid "No instant switch profile is defined"
-#~ msgstr "No se definió el perfil cambio istantáneo"
-
-#~ msgid "You are already in the instant switch profile"
-#~ msgstr "Ya estás en el perfil cambio instantáneo"
-
-#~ msgid ""
-#~ "Welcome to StationPlaylist add-on for NVDA,\n"
-#~ "your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
-#~ "\n"
-#~ "Highlights of StationPlaylist add-on include:\n"
-#~ "* Layer commands for obtaining status information\n"
-#~ "* Various ways to examine track columns\n"
-#~ "* Various ways to find tracks\n"
-#~ "* Tools to analyze the loaded playlist\n"
-#~ "* Cart Explorer to learn cart assignments\n"
-#~ "* Comprehensive settings and documentation\n"
-#~ "* Completely free, open-source and community-driven\n"
-#~ "* And much more\n"
-#~ "\n"
-#~ "Visit www.stationplaylist.com for details on StationPlaylist suite of "
-#~ "applications.\n"
-#~ "Visit StationPlaylist add-on GitHub page (https://github.com/ChrisDuffley/"
-#~ "stationPlaylist)\n"
-#~ "for add-on details and to read the documentation.\n"
-#~ "Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio "
-#~ "to return to this dialog.\n"
-#~ "\n"
-#~ "Thank you."
-#~ msgstr ""
-#~ "Bienvenido al complemento de StationPlaylist para NVDA,\n"
-#~ "tu compañero para la radiodifusión con SPL Studio utilizando el lector de "
-#~ "pantalla NVDA.\n"
-#~ "\n"
-#~ "Lo subrayable del complemento para StationPlaylist incluye:\n"
-#~ "* Capa de órdenes para obtener información de estado.\n"
-#~ "* Varios modos para examinar columnas de pista.\n"
-#~ "* Varios modos para encontrar pistas.\n"
-#~ "* Herramientas para analizar la lista de reproducción cargada.\n"
-#~ "* Explorador de Cart para aprender la asignación de los cart.\n"
-#~ "* Opciones extensas y documentación.\n"
-#~ "* Completamente libre, de código abierto e impulsado por la comunidad.\n"
-#~ "* Y mucho más.\n"
-#~ "\n"
-#~ "Visita www.stationplaylist.com para detalles  sobre la suite de "
-#~ "aplicaciones de StationPlaylist.\n"
-#~ "Visita la página de GitHub del complemento de StationPlaylist (https://"
-#~ "github.com/ChrisDuffley/stationPlaylist)\n"
-#~ "para más información sobre el complemento y para leer la documentación.\n"
-#~ "¿Quieres consultar de nuevo este diálogo? Sólo pulsa Alt+NVDA+F1 mientras "
-#~ "utilizas Studio para volver a este diálogo.\n"
-#~ "\n"
-#~ "Gracias."
-
-#~ msgid "Welcome to StationPlaylist add-on"
-#~ msgstr "Bienvenido al complemento StationPlaylist"
-
-#~ msgid "Show welcome dialog when I start Studio"
-#~ msgstr "Mostrar el diálogo de bienvenida al iniciar Studio"
-
-#~ msgid "Braille timer off"
-#~ msgstr "Temporizador braille apagado"
-
-#~ msgid "Braille track endings"
-#~ msgstr "Terminaciones braille de pista"
-
-#~ msgid "Outro"
-#~ msgstr "OQtro"
-
-#~ msgid "Braille intro endings"
-#~ msgstr "Terminaciones braille de intro"
-
-#~ msgid "Intro"
-#~ msgstr "Intro"
-
-#~ msgid "Braille intro and track endings"
-#~ msgstr "Terminaciones de intro y de pista braille"
-
-#~ msgid "Do not announce library scans"
-#~ msgstr "No anunciar escaneados de la biblioteca"
-
-#~ msgid "Announce start and end of a library scan"
-#~ msgstr "Anunciar inicio y fin de un escaneado de la biblioteca"
-
-#~ msgid "Announce the progress of a library scan"
-#~ msgstr "Anunciar el progreso de un escaneado de la biblioteca"
-
-#~ msgid "Announce progress and item count of a library scan"
-#~ msgstr ""
-#~ "Anunciar el progreso y la cuenta de elementos de un escaneado de la "
-#~ "biblioteca"
-
-#~ msgid "Columns Explorer"
-#~ msgstr "Explorador de Columnas"

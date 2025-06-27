@@ -391,19 +391,23 @@ exécuter des commandes.
 
 ## Version 25.07/25.06.2-LTS
 
-Version 25.07 supports SPL Studio 6.0 and later.
+La version 25.07 prend en charge SPL Studio 6.0 et versions ultérieures.
 
-* 25.07: code was refactored, including through use of Pyright (a Python
-  static type checker). Some prominent code changes were also backported to
-  25.06.2-LTS.
-* Columns explorer (Control+NVDA+number row) is now configurable for Creator
-  and Remote VT's playlist editor. A new button, "columns explorer for
-  playlist editor" is available from columns explorer add-on settings
-  screen.
-* In columns explorer add-on settings, renamed "columns explorer" to
-  "columns explorer for SPL Studio".
-* Added JSON (JavaScript Object Notation) format as a playlist transcripts
-  format.
+* 25.07: Le code a été refactorisé, y compris en utilisant Pyright (un
+  vérificateur de type statique Python). Certains modifications de code
+  proéminentes ont également été recouvertes de 25.06.2-lts.
+* Explorateur de Colonnes (Contrôle+NVDA+rangée numérique) est désormais
+  configurable pour Creator et Remote VT l'éditeur de playlist. Un nouveau
+  bouton, "Explorateur de Colonnes pour l'éditeur de playlist" est
+  disponible à partir de l'Explorateur de colonnes de l'écran des paramètres
+  de l'extension.
+* Dans les paramètres de l'explorateur de colonnes de l'extension, renommé
+  "Explorateur de Colonnes" à "Explorateur de Colonnes pour SPL Studio".
+* Ajout du format JSON (JavaScript Object Notation) comme un format de
+  transcriptions de playlist.
+* In encoders, NVDA will remove encoder settings if pressing Control+F12 to
+  remove settings for encoder 10 and above if more than ten encoders are
+  present.
 
 ## Version 25.06-LTS
 

@@ -375,6 +375,9 @@ Version 25.07 supports SPL Studio 6.0 and later.
   "columns explorer for SPL Studio".
 * Added JSON (JavaScript Object Notation) format as a playlist transcripts
   format.
+* In encoders, NVDA will remove encoder settings if pressing Control+F12 to
+  remove settings for encoder 10 and above if more than ten encoders are
+  present.
 
 ## Version 25.06-LTS
 

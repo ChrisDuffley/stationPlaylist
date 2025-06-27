@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 5.5\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-05-22 22:25-0600\n"
+"PO-Revision-Date: 2025-06-23 07:24-0600\n"
 "Last-Translator: shmuel naaman <shmuel_naaman@yahoo.com>\n"
 "Language-Team: Shmuel Naaman <nvda.israel@gmail.com>\n"
 "Language: he\n"
@@ -1645,87 +1645,3 @@ msgid ""
 msgstr ""
 "מנגיש את תוכנת StationPlaylist.\n"
 "בנוסף, מאפשר ביצוע פקודות מכל מקום אחר במחשב."
-
-#~ msgid "Normal profile"
-#~ msgstr "פרופיל בסיסי"
-
-#, fuzzy
-#~ msgid "SPL Studio add-on reset"
-#~ msgstr "הגדרות תוסף הסטודיו"
-
-#~ msgid "active"
-#~ msgstr "פעיל"
-
-#, python-brace-format
-#~ msgid "Switching to {newProfileName}"
-#~ msgstr "טוען את הפרופיל.. {newProfileName}"
-
-#, python-brace-format
-#~ msgid "Returning to {previousProfile}"
-#~ msgstr "חזרה ל{previousProfile}"
-
-#~ msgid "Studio add-on Configuration error"
-#~ msgstr "שגיאה בהגדרות התוסף"
-
-#~ msgid "Only normal profile is in use"
-#~ msgstr "פרופיל בסיסי"
-
-#~ msgid "No instant switch profile is defined"
-#~ msgstr "לא הוגדרה החלפה מיידית של פרופילים"
-
-#~ msgid "You are already in the instant switch profile"
-#~ msgstr "אתה כבר נמצא בחלון החלפת הפרופילים"
-
-#, fuzzy
-#~ msgid "Welcome to StationPlaylist add-on"
-#~ msgstr "ברוך הבא להרחבת StationPlaylist"
-
-#~ msgid "Show welcome dialog when I start Studio"
-#~ msgstr "הצג חלון דו שיח בהפעלת התוכנה"
-
-#~ msgid "Braille timer off"
-#~ msgstr "תזמון הודעה בברייל לא פעיל"
-
-#~ msgid "Braille track endings"
-#~ msgstr "סיום הרצועות בברייל"
-
-#~ msgid "Outro"
-#~ msgstr "Outro"
-
-#~ msgid "Braille intro endings"
-#~ msgstr "סיום הודעות בברייל"
-
-#~ msgid "Intro"
-#~ msgstr "Intro"
-
-#~ msgid "Braille intro and track endings"
-#~ msgstr "מידע וסיום רצועות בברייל"
-
-#~ msgid "Do not announce library scans"
-#~ msgstr "ללא הודעה על סריקת הספריות"
-
-#~ msgid "Announce start and end of a library scan"
-#~ msgstr "הודעה על סריקת הספריות"
-
-#~ msgid "Announce the progress of a library scan"
-#~ msgstr "הודעה על התקדמות סריקת הספריות"
-
-#~ msgid "Announce progress and item count of a library scan"
-#~ msgstr "הודעה על התקדמות סריקת הספריות ועל מספר הפריטים"
-
-#~ msgid "Columns Explorer"
-#~ msgstr "סייר העמודות"
-
-#~ msgid "Studio main window not found"
-#~ msgstr "לא נמצא חלון ראשי של סטודיו"
-
-#~ msgid "Columns E&xplorer..."
-#~ msgstr "סייר &הפקודות..."
-
-#, fuzzy
-#~ msgid "SPL Studio is minimized to system tray."
-#~ msgstr "SPL Studio  אינה בריצה."
-
-#, fuzzy
-#~ msgid "Cannot locate current track information"
-#~ msgstr "לא ניתן למצוא מידע על הרצועה הנוכחית"

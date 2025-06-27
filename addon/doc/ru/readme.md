@@ -367,21 +367,24 @@ NVDA, вы можете выполнять некоторые команды Stu
 затем используйте сенсорные команды, перечисленные выше, для выполнения
 команд.
 
-## Version 25.07/25.06.2-LTS
+## Версия 25.07/25.06.2-LTS
 
-Version 25.07 supports SPL Studio 6.0 and later.
+Версия 25.07 поддерживает SPL Studio 6.0 и позже.
 
-* 25.07: code was refactored, including through use of Pyright (a Python
-  static type checker). Some prominent code changes were also backported to
-  25.06.2-LTS.
-* Columns explorer (Control+NVDA+number row) is now configurable for Creator
-  and Remote VT's playlist editor. A new button, "columns explorer for
-  playlist editor" is available from columns explorer add-on settings
-  screen.
-* In columns explorer add-on settings, renamed "columns explorer" to
-  "columns explorer for SPL Studio".
-* Added JSON (JavaScript Object Notation) format as a playlist transcripts
-  format.
+* 25.07: Код был переделан, в том числе с помощью Pyright (Проверка
+  статического типа Python). Некоторые значительные изменения кода также
+  были возвращены в 25.06.2-LTS.
+* Обозреватель столбцов (Control+NVDA+цифра верхнего ряда) теперь
+  настраивается для редактора списка воспроизведения Creator и удаленного
+  VT. На экране настроек обозревателя столбцов дополнения доступна новая
+  кнопка "Обозреватель столбцов для редактора списка воспроизведения".
+* В настройках дополнения обозревателя столбцов, переименовано с
+  "обозреватель столбцов" в "обозреватель столбцов для SPL Studio".
+* Добавлен формат JSON (обозначение объекта javascript) в качестве формата
+  расшифровки списка воспроизведения.
+* В кодерах NVDA удалит настройки кодера, если нажимать Control+F12, чтобы
+  удалить настройки для кодера 10 и более, если присутствует более десяти
+  кодеров.
 
 ## Версия 25.06-LTS
 

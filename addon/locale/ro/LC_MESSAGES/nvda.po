@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 6.4\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-05-22 22:27-0600\n"
+"PO-Revision-Date: 2025-06-23 07:22-0600\n"
 "Last-Translator: Florian Ionașcu <florianionascu@hotmail.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -1734,100 +1734,3 @@ msgid ""
 msgstr ""
 "Conține suport pentru StationPlaylist.\n"
 "De asemenea, adaugă comenzi globale pentru studio de oriunde."
-
-#~ msgid "Normal profile"
-#~ msgstr "Profil normal"
-
-#, fuzzy
-#~ msgid ""
-#~ "An instant switch profile is active. Resetting Studio add-on settings "
-#~ "means normal profile will become active and switch profile settings will "
-#~ "be left in unpredictable state. Are you sure you wish to reset Studio add-"
-#~ "on settings to factory defaults?"
-#~ msgstr ""
-#~ "Este activ un comutator instant sau un profil bazat pe timp. Resetarea "
-#~ "configurărilor suplimentului Studio înseamnă că profilul normal devine "
-#~ "activ și că setările profilului de comutare vor fi lăsate într-o stare "
-#~ "imprevizibilă. Sunteți sigur că vreți să resetați configurările "
-#~ "suplimentului  Studio la valorile implicite?"
-
-#, fuzzy
-#~ msgid "SPL Studio add-on reset"
-#~ msgstr "Verifică actualizări addon"
-
-#~ msgid "active"
-#~ msgstr "activ"
-
-#, python-brace-format
-#~ msgid "Switching to {newProfileName}"
-#~ msgstr "Comutare la {newProfileName}"
-
-#, python-brace-format
-#~ msgid "Returning to {previousProfile}"
-#~ msgstr "Întoarcere la {previousProfile}"
-
-#~ msgid "Studio add-on Configuration error"
-#~ msgstr "Eroare la configurarea add-onului Studio"
-
-#~ msgid "Only normal profile is in use"
-#~ msgstr "Doar profilul normal e în uz"
-
-#~ msgid "No instant switch profile is defined"
-#~ msgstr "Niciun profil de comutare instantanee definit"
-
-#~ msgid "You are already in the instant switch profile"
-#~ msgstr "Ești deja în profilul de comutare instantanee"
-
-#, fuzzy
-#~ msgid "Welcome to StationPlaylist add-on"
-#~ msgstr "Bun venit la extensia StationPlaylist Studio"
-
-#~ msgid "Show welcome dialog when I start Studio"
-#~ msgstr "Arată dialogul de bun venit când pornesc Studio"
-
-#~ msgid "Braille timer off"
-#~ msgstr "Cronometrul braille dezactivat"
-
-#~ msgid "Braille track endings"
-#~ msgstr "Sfârșitul melodiei în mod braille"
-
-#~ msgid "Outro"
-#~ msgstr "Ieșire"
-
-#~ msgid "Braille intro endings"
-#~ msgstr "Finaluri de intrare în mod braille"
-
-#~ msgid "Intro"
-#~ msgstr "Intrare"
-
-#~ msgid "Braille intro and track endings"
-#~ msgstr "Finaluri de intrare și melodie în mod braille"
-
-#~ msgid "Do not announce library scans"
-#~ msgstr "Nu mai anunța scanările de librării"
-
-#~ msgid "Announce start and end of a library scan"
-#~ msgstr "Anunță începutul și sfârșitul unei scanări de librării"
-
-#~ msgid "Announce the progress of a library scan"
-#~ msgstr "Anunță progresul unei scanări de librării"
-
-#~ msgid "Announce progress and item count of a library scan"
-#~ msgstr "Anunță progresul și numărul de elemente ale scanării de librării"
-
-#~ msgid "Columns Explorer"
-#~ msgstr "Explorer coloane"
-
-#~ msgid "Studio main window not found"
-#~ msgstr "Fereastra principală Studio nu a fost găsită"
-
-#~ msgid "Columns E&xplorer..."
-#~ msgstr "E&xplorer coloane..."
-
-#, fuzzy
-#~ msgid "SPL Studio is minimized to system tray."
-#~ msgstr "Studioul SPL nu rulează."
-
-#, fuzzy
-#~ msgid "Cannot locate current track information"
-#~ msgstr "Nu se pot găsi informații despre melodia curentă"

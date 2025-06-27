@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 3.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-05-24 04:55-0600\n"
+"PO-Revision-Date: 2025-06-23 07:22-0600\n"
 "Last-Translator: Ângelo Miguel Abrantes <ampa4374@gmail.com>\n"
 "Language-Team: Equipa Portuguesa do NVDA <angelomiguelabrantes@gmail.com; "
 "rui.fontes@tiflotecnia.com>\n"
@@ -1630,76 +1630,3 @@ msgid ""
 msgstr ""
 "Melhora o suporte para StationPlaylist.\n"
 "Além disso, adiciona comandos globais para o estúdio em todos os lugares."
-
-#~ msgid "Normal profile"
-#~ msgstr "Perfil normal"
-
-#, fuzzy
-#~ msgid "SPL Studio add-on reset"
-#~ msgstr "Configurações do extra do Studio"
-
-#~ msgid "active"
-#~ msgstr "Acttivo"
-
-#, python-brace-format
-#~ msgid "Switching to {newProfileName}"
-#~ msgstr "Alternar para {newProfileName}"
-
-#, python-brace-format
-#~ msgid "Returning to {previousProfile}"
-#~ msgstr "Retornando para {previousProfile}"
-
-#~ msgid "Studio add-on Configuration error"
-#~ msgstr "Erro de configuração do complemento do Studio"
-
-#~ msgid "Only normal profile is in use"
-#~ msgstr "Apenas o perfil normal está em uso"
-
-#~ msgid "No instant switch profile is defined"
-#~ msgstr "Nenhum perfil de switch instantâneo está definido"
-
-#~ msgid "You are already in the instant switch profile"
-#~ msgstr "Já está no perfil de troca instantânea"
-
-#~ msgid "Show welcome dialog when I start Studio"
-#~ msgstr "Mostrar caixa de diálogo de boas-vindas quando eu iniciar o Studio"
-
-#~ msgid "Braille timer off"
-#~ msgstr "Temporizador Braille desligado"
-
-#~ msgid "Braille track endings"
-#~ msgstr "Terminais de pista braille"
-
-#~ msgid "Outro"
-#~ msgstr "Outro"
-
-#~ msgid "Braille intro endings"
-#~ msgstr "Introdução em braille"
-
-#~ msgid "Intro"
-#~ msgstr "Introdução"
-
-#~ msgid "Braille intro and track endings"
-#~ msgstr "Introdução de Braille e finais de pista"
-
-#~ msgid "Do not announce library scans"
-#~ msgstr "Não anuncia varrimento de biblioteca."
-
-#~ msgid "Announce start and end of a library scan"
-#~ msgstr "Anuncia início e fim de varrimento de biblioteca."
-
-#~ msgid "Announce the progress of a library scan"
-#~ msgstr "Anuncia o progresso do varrimento da biblioteca"
-
-#~ msgid "Announce progress and item count of a library scan"
-#~ msgstr ""
-#~ "Anuncia o progresso e a contagem de items do varrimento da biblioteca"
-
-#~ msgid "Columns Explorer"
-#~ msgstr "Explorador de colunas"
-
-#~ msgid "Studio main window not found"
-#~ msgstr "Janela principal do estúdio não encontrada"
-
-#~ msgid "Columns E&xplorer..."
-#~ msgstr "&Explorador de colunas..."
