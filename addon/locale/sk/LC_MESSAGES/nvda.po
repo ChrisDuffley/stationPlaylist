@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-05-22 22:27-0600\n"
+"PO-Revision-Date: 2025-06-23 07:21-0600\n"
 "Last-Translator: Ondrej Rosík <ondrej.rosik@gmail.com>\n"
 "Language-Team: \n"
 "Language: sk\n"
@@ -1660,92 +1660,3 @@ msgstr ""
 "Zlepšuje prístupnosť programu StationPlaylist.\n"
 "Navyše pridáva globálne skratky, ktoré sa dajú použiť aj mimo hlavného okna "
 "SPL."
-
-#~ msgid "Normal profile"
-#~ msgstr "Predvolený profil"
-
-#~ msgid ""
-#~ "An instant switch profile is active. Resetting Studio add-on settings "
-#~ "means normal profile will become active and switch profile settings will "
-#~ "be left in unpredictable state. Are you sure you wish to reset Studio add-"
-#~ "on settings to factory defaults?"
-#~ msgstr ""
-#~ "Máte aktivovaný profil. Ak obnovíte nastavenia doplnku, aktivuje sa "
-#~ "predvolený profil. Želáte si pokračovať?"
-
-#~ msgid "SPL Studio add-on reset"
-#~ msgstr "Obnovenie nastavení doplnku SPL studio"
-
-#~ msgid "active"
-#~ msgstr "Aktívny"
-
-#, python-brace-format
-#~ msgid "Switching to {newProfileName}"
-#~ msgstr "Prepínam na {newProfileName}"
-
-#, python-brace-format
-#~ msgid "Returning to {previousProfile}"
-#~ msgstr "Vraciam sa na {previousProfile}"
-
-#~ msgid "Studio add-on Configuration error"
-#~ msgstr "Chyba nastavení doplnku SPL Studio"
-
-#~ msgid "Only normal profile is in use"
-#~ msgstr "Používa sa len predvolený profil"
-
-#~ msgid "No instant switch profile is defined"
-#~ msgstr "Nemáte nastavený žiadny ručný profil"
-
-#~ msgid "You are already in the instant switch profile"
-#~ msgstr "Profil je už aktivovaný"
-
-#~ msgid "Welcome to StationPlaylist add-on"
-#~ msgstr "Vitajte v doplnku Station Playlist"
-
-#~ msgid "Show welcome dialog when I start Studio"
-#~ msgstr "Po spustení SPL zobraziť uvítací dialóg"
-
-#~ msgid "Braille timer off"
-#~ msgstr "Nezobrazovať čas na braillovskom riadku"
-
-#~ msgid "Braille track endings"
-#~ msgstr "Čas konca skladby"
-
-#~ msgid "Outro"
-#~ msgstr "Outro"
-
-#~ msgid "Braille intro endings"
-#~ msgstr "Koniec úvodu skladby"
-
-#~ msgid "Intro"
-#~ msgstr "Intro"
-
-#~ msgid "Braille intro and track endings"
-#~ msgstr "Intro a konce skladieb"
-
-#~ msgid "Do not announce library scans"
-#~ msgstr "neoznamovať skenovanie knižnice"
-
-#~ msgid "Announce start and end of a library scan"
-#~ msgstr "Oznamovať začiatok a koniec skenovania knižnice"
-
-#~ msgid "Announce the progress of a library scan"
-#~ msgstr "Oznamovať priebeh skenovania knižnice"
-
-#~ msgid "Announce progress and item count of a library scan"
-#~ msgstr "oznamovať priebeh a počet naskenovaných položiek"
-
-#~ msgid "Columns Explorer"
-#~ msgstr "Prehliadač metadát"
-
-#~ msgid "Cannot locate current track information"
-#~ msgstr "Nepodarilo sa zistiť informácie o aktuálnej skladbe"
-
-#~ msgid "Studio main window not found"
-#~ msgstr "Nepodarilo sa nájsť hlavné okno SPL"
-
-#~ msgid "Columns E&xplorer..."
-#~ msgstr "Prehliadač &metadát..."
-
-#~ msgid "SPL Studio is minimized to system tray."
-#~ msgstr "SPL studio minimalizované na systémovom panely."

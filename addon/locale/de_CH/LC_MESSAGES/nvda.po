@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-05-22 22:24-0600\n"
+"PO-Revision-Date: 2025-06-23 07:20-0600\n"
 "Last-Translator: Robert Hänggi <aarjay.robert@gmail.com>\n"
 "Language-Team: \n"
 "Language: de_CH\n"
@@ -1529,8 +1529,8 @@ msgid ""
 "Opens a dialog to erase encoder labels and settings from an encoder that was "
 "deleted."
 msgstr ""
-"Öffnet ein Dialogfeld zum Löschen von Messgerätebeschriftungen und -"
-"einstellungen von einem Messgerät, das gelöscht wurde."
+"Öffnet ein Dialogfeld zum Löschen von Messgerätebeschriftungen und "
+"-einstellungen von einem Messgerät, das gelöscht wurde."
 
 #. Translators: The text of the stream configuration eraser dialog.
 msgid "Enter the position of the encoder you wish to delete or will delete"
@@ -1733,99 +1733,3 @@ msgstr ""
 "Verbessert die Unterstützung für StationPlaylist.\n"
 "Des weiteren fügt es Tastenkombinationen für das Studio aus beliebigen "
 "Programmen hinzu."
-
-#~ msgid "Normal profile"
-#~ msgstr "Normales Profil"
-
-#~ msgid ""
-#~ "An instant switch profile is active. Resetting Studio add-on settings "
-#~ "means normal profile will become active and switch profile settings will "
-#~ "be left in unpredictable state. Are you sure you wish to reset Studio add-"
-#~ "on settings to factory defaults?"
-#~ msgstr ""
-#~ "Ein Sofortwechselprofil ist aktiv. Das Zurücksetzen der Studio-"
-#~ "Zusatzeinstellungen bedeutet, dass das normale Profil aktiv wird und die "
-#~ "Schalterprofileinstellungen in einem unvorhersehbaren Zustand belassen "
-#~ "werden. Möchten Sie wirklich die Studio-Zusatzeinstellungen auf die "
-#~ "Standard-Einstellungen zurücksetzen?"
-
-#~ msgid "SPL Studio add-on reset"
-#~ msgstr "Zurücksetzen der SPL-Studio-Erweiterung"
-
-#~ msgid "active"
-#~ msgstr "aktiv"
-
-#, python-brace-format
-#~ msgid "Switching to {newProfileName}"
-#~ msgstr "Wechseln zum {newProfileName}"
-
-#, python-brace-format
-#~ msgid "Returning to {previousProfile}"
-#~ msgstr "Kehrt zum {previousProfile} zurück"
-
-#~ msgid "Studio add-on Configuration error"
-#~ msgstr "Fehler beim Konfigurieren der Studio-Erweiterung"
-
-#~ msgid "Only normal profile is in use"
-#~ msgstr "Nur das normale Profil ist gerade aktiv"
-
-#~ msgid "No instant switch profile is defined"
-#~ msgstr "Kein Profil für den Sofortwechsel definiert"
-
-#~ msgid "You are already in the instant switch profile"
-#~ msgstr "Sie befinden sich bereits im Profil für den Sofortwechsel"
-
-#~ msgid "Welcome to StationPlaylist add-on"
-#~ msgstr "Willkommen zur StationPlaylist-Erweiterung"
-
-#~ msgid "Show welcome dialog when I start Studio"
-#~ msgstr "Willkommensdialog beim Starten der Studio-Erweiterung anzeigen"
-
-#~ msgid "Braille timer off"
-#~ msgstr "Braille-Timer aus"
-
-#~ msgid "Braille track endings"
-#~ msgstr "Titel-Ende in Braille melden"
-
-#~ msgid "Outro"
-#~ msgstr "Epilog"
-
-#~ msgid "Braille intro endings"
-#~ msgstr "Prolog-Ende in Braille melden"
-
-#~ msgid "Intro"
-#~ msgstr "Prolog"
-
-#~ msgid "Braille intro and track endings"
-#~ msgstr "Ende von Prolog und Titel in Braille melden"
-
-#~ msgid "Do not announce library scans"
-#~ msgstr "Scan-Vorgang der Bibliothek nicht vorlesen"
-
-#~ msgid "Announce start and end of a library scan"
-#~ msgstr "Start und Ende des Scan-Vorgangs in der Bibliothek vorlesen"
-
-#~ msgid "Announce the progress of a library scan"
-#~ msgstr ""
-#~ "Während des Scan-Vorgangs der Bibliothek den Fortschrittsbalken mitteilen"
-
-#~ msgid "Announce progress and item count of a library scan"
-#~ msgstr ""
-#~ "Fortschrittsbalken und Anzahl der Einträge während des Scan-Vorgangs der "
-#~ "Bibliothek mitteilen"
-
-#~ msgid "Columns Explorer"
-#~ msgstr "Spaltenexplorer"
-
-#~ msgid "Cannot locate current track information"
-#~ msgstr "Keine Informationen über den aktuellen Titel"
-
-#~ msgid "Studio main window not found"
-#~ msgstr "Das Hauptfenster des Studios wurde nicht gefunden"
-
-#~ msgid "Columns E&xplorer..."
-#~ msgstr "Spaltene&xplorer..."
-
-#, fuzzy
-#~ msgid "SPL Studio is minimized to system tray."
-#~ msgstr "SPL-Studio läuft gerade nicht."

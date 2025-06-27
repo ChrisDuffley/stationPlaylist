@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 19.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-06-07 08:53+0200\n"
+"PO-Revision-Date: 2025-06-23 07:25-0600\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
-"Language-Team: Rémy Ruiz <remyruiz@gmail.com> ; Michel Such <michel."
-"such@free.fr>\n"
+"Language-Team: Rémy Ruiz <remyruiz@gmail.com> ; Michel Such "
+"<michel.such@free.fr>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1147,22 +1147,22 @@ msgstr "Explorateur de colonnes"
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Studio.
 msgid "Columns E&xplorer for SPL Studio..."
-msgstr "E&xplorateur de colonnes pour SPL Studio..."
+msgstr "E&xplorateur de Colonnes pour SPL Studio..."
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for Track Tool.
 msgid "Columns Explorer for &Track Tool..."
-msgstr "Explorateur de colonnes pour l'Ou&til de piste..."
+msgstr "Explorateur de Colonnes pour l'Ou&til de piste..."
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Creator.
 msgid "Columns Explorer for &SPL Creator..."
-msgstr "Explorateur de colonnes pour &SPL Creator..."
+msgstr "Explorateur de Colonnes pour &SPL Creator..."
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for Creator and Remote VT playlist editor.
 msgid "Columns Explorer for &playlist editor..."
-msgstr "Explorateur de colonnes pour l'éditeur de &playlist..."
+msgstr "Explorateur de Colonnes pour l'éditeur de &playlist..."
 
 #. Track Tool
 #. Translators: The title of Columns Explorer configuration dialog.
@@ -1182,9 +1182,8 @@ msgstr ""
 
 #. Studio
 #. Translators: The title of Columns Explorer configuration dialog.
-#, fuzzy
 msgid "Columns Explorer for SPL Studio"
-msgstr "E&xplorateur de colonnes pour SPL Studio..."
+msgstr "Explorateur de Colonnes pour SPL Studio"
 
 #, python-brace-format
 msgid "Slot {position}"
@@ -1732,145 +1731,3 @@ msgid ""
 msgstr ""
 "Améliore la prise en charge des applications StationPlaylist. En outre, "
 "ajoute des commandes globales pour studio où que vous soyez."
-
-#~ msgid "Normal profile"
-#~ msgstr "Profil normal"
-
-#~ msgid ""
-#~ "An instant switch profile is active. Resetting Studio add-on settings "
-#~ "means normal profile will become active and switch profile settings will "
-#~ "be left in unpredictable state. Are you sure you wish to reset Studio add-"
-#~ "on settings to factory defaults?"
-#~ msgstr ""
-#~ "Un changement de profil immédiat est actif. Réinitialiser les paramètres "
-#~ "de l'extension Studio signifie que le profil normal deviendra actif et "
-#~ "que les paramètres du changement de profil resteront dans un état "
-#~ "imprévisible. Voulez-vous vraiment réinitialiser les paramètres de "
-#~ "l'extension Studio aux paramètres d’usine ?"
-
-#~ msgid "SPL Studio add-on reset"
-#~ msgstr "Réinitialiser l'extension SPL Studio"
-
-#~ msgid "active"
-#~ msgstr "active"
-
-#, python-brace-format
-#~ msgid "Switching to {newProfileName}"
-#~ msgstr "Bascule vers {newProfileName}"
-
-#, python-brace-format
-#~ msgid "Returning to {previousProfile}"
-#~ msgstr "Retour au {previousProfile}"
-
-#~ msgid "Studio add-on Configuration error"
-#~ msgstr "Erreur de Configuration de l'extension Studio"
-
-#~ msgid "Only normal profile is in use"
-#~ msgstr "Seul le profil normal est utilisé"
-
-#~ msgid "No instant switch profile is defined"
-#~ msgstr "Aucun changement de profil immédiat est défini"
-
-#~ msgid "You are already in the instant switch profile"
-#~ msgstr "Vous êtes déjà dans le changement de profil immédiat"
-
-#~ msgid ""
-#~ "Welcome to StationPlaylist add-on for NVDA,\n"
-#~ "your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
-#~ "\n"
-#~ "Highlights of StationPlaylist add-on include:\n"
-#~ "* Layer commands for obtaining status information\n"
-#~ "* Various ways to examine track columns\n"
-#~ "* Various ways to find tracks\n"
-#~ "* Tools to analyze the loaded playlist\n"
-#~ "* Cart Explorer to learn cart assignments\n"
-#~ "* Comprehensive settings and documentation\n"
-#~ "* Completely free, open-source and community-driven\n"
-#~ "* And much more\n"
-#~ "\n"
-#~ "Visit www.stationplaylist.com for details on StationPlaylist suite of "
-#~ "applications.\n"
-#~ "Visit StationPlaylist add-on GitHub page (https://github.com/ChrisDuffley/"
-#~ "stationPlaylist)\n"
-#~ "for add-on details and to read the documentation.\n"
-#~ "Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio "
-#~ "to return to this dialog.\n"
-#~ "\n"
-#~ "Thank you."
-#~ msgstr ""
-#~ "Bienvenue dans l'extension StationPlayList pour NVDA,\n"
-#~ "Votre compagnon de diffusion avec SPL Studio à l'aide du lecteur d'écran "
-#~ "NVDA.\n"
-#~ "\n"
-#~ "Les faits remarquables de l'extension StationPlayList incluent:\n"
-#~ "* Commandes en couche pour obtenir le statut des informations\n"
-#~ "* Diverses façons d'examiner les colonnes de piste\n"
-#~ "* Diverses façons de trouver des pistes\n"
-#~ "* Outils pour analyser la playlist chargée\n"
-#~ "* Explorateur de paniers pour apprendre les assignations de panier\n"
-#~ "* Paramètres et documentation complète\n"
-#~ "* Entièrement libre, open-source et axé sur la communauté\n"
-#~ "* Et beaucoup plus\n"
-#~ "\n"
-#~ "Visitez www.stationplaylist.com pour plus de détails sur StationPlayList "
-#~ "suite des applications.\n"
-#~ "Visitez la page de l'extension StationPlayList sur GitHub (https://github."
-#~ "com/ChrisDuffley/stationPlaylist)\n"
-#~ "pour des détails complémentaires et pour lire la documentation.\n"
-#~ "Vous voulez revoir ce dialogue ? Appuyez simplement sur Alt+NVDA+F1 tout "
-#~ "en utilisant Studio pour revenir à ce dialogue.\n"
-#~ "\n"
-#~ "Merci."
-
-#~ msgid "Welcome to StationPlaylist add-on"
-#~ msgstr "Bienvenue dans l'extension StationPlaylist"
-
-#~ msgid "Show welcome dialog when I start Studio"
-#~ msgstr "Afficher  le  dialogue bienvenue lorsque je démarre Studio"
-
-#~ msgid "Braille timer off"
-#~ msgstr "Minuteur braille désactivé"
-
-#~ msgid "Braille track endings"
-#~ msgstr "Braille fin piste"
-
-#~ msgid "Outro"
-#~ msgstr "Outro"
-
-#~ msgid "Braille intro endings"
-#~ msgstr "Braille fin intro"
-
-#~ msgid "Intro"
-#~ msgstr "Intro"
-
-#~ msgid "Braille intro and track endings"
-#~ msgstr "Braille fin intro et piste"
-
-#~ msgid "Do not announce library scans"
-#~ msgstr "Ne pas annoncer les balayages d'une bibliothèque"
-
-#~ msgid "Announce start and end of a library scan"
-#~ msgstr "Annoncer le début et la fin de balayage d'une bibliothèque"
-
-#~ msgid "Announce the progress of a library scan"
-#~ msgstr "Annoncer l'avancement du balayage d'une bibliothèque"
-
-#~ msgid "Announce progress and item count of a library scan"
-#~ msgstr ""
-#~ "Annoncer l'avancement et le nombre des éléments lors du balayage d'une "
-#~ "bibliothèque"
-
-#~ msgid "Columns Explorer"
-#~ msgstr "Explorateur de Colonnes"
-
-#~ msgid "Cannot locate current track information"
-#~ msgstr "Impossible de localiser les informations de la piste actuelle"
-
-#~ msgid "Studio main window not found"
-#~ msgstr "La fenêtre principale de Studio est introuvable"
-
-#~ msgid "Columns E&xplorer..."
-#~ msgstr "E&xplorateur de colonnes..."
-
-#~ msgid "SPL Studio is minimized to system tray."
-#~ msgstr "SPL Studio est minimisé dans la zone de notification."

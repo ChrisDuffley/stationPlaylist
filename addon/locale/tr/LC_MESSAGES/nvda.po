@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-06-06 22:28+0300\n"
+"PO-Revision-Date: 2025-06-23 07:21-0600\n"
 "Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language-Team: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language: tr_TR\n"
@@ -1148,9 +1148,8 @@ msgstr "Çalma listesi düzenleyicisi için Sütun Gezgini (Oluşturucu ve Uzak 
 
 #. Studio
 #. Translators: The title of Columns Explorer configuration dialog.
-#, fuzzy
 msgid "Columns Explorer for SPL Studio"
-msgstr "&SPL Studio için Sütun Gezgini..."
+msgstr "SPL Studio için Sütun Gezgini"
 
 #, python-brace-format
 msgid "Slot {position}"
@@ -1681,141 +1680,3 @@ msgid ""
 msgstr ""
 "StationPlaylist uygulamalarına yönelik desteği geliştirir. Ayrıca Studio "
 "uygulamasına her yerden global komutlar ekler."
-
-#~ msgid "Normal profile"
-#~ msgstr "Normal profil"
-
-#~ msgid ""
-#~ "An instant switch profile is active. Resetting Studio add-on settings "
-#~ "means normal profile will become active and switch profile settings will "
-#~ "be left in unpredictable state. Are you sure you wish to reset Studio add-"
-#~ "on settings to factory defaults?"
-#~ msgstr ""
-#~ "Anında geçiş profili etkin. Studio eklenti ayarlarının sıfırlanması, "
-#~ "normal profilin etkinleşeceği ve geçiş profili ayarlarının öngörülemez "
-#~ "durumda kalacağı anlamına gelir. Studio eklenti ayarlarını fabrika "
-#~ "varsayılanlarına sıfırlamak istediğinizden emin misiniz?"
-
-#~ msgid "SPL Studio add-on reset"
-#~ msgstr "SPL Studio eklentisi sıfırlandı"
-
-#~ msgid "active"
-#~ msgstr "etkin"
-
-#, python-brace-format
-#~ msgid "Switching to {newProfileName}"
-#~ msgstr "{newProfileName} profiline geçiliyor"
-
-#, python-brace-format
-#~ msgid "Returning to {previousProfile}"
-#~ msgstr "{previousProfile} profiline geri dönülüyor"
-
-#~ msgid "Studio add-on Configuration error"
-#~ msgstr "Stüdyo eklentisi Yapılandırma hatası"
-
-#~ msgid "Only normal profile is in use"
-#~ msgstr "Yalnızca normal profil kullanılıyor"
-
-#~ msgid "No instant switch profile is defined"
-#~ msgstr "Anında geçiş profili tanımlanmadı"
-
-#~ msgid "You are already in the instant switch profile"
-#~ msgstr "Zaten anlık geçiş profilindesiniz"
-
-#~ msgid ""
-#~ "Welcome to StationPlaylist add-on for NVDA,\n"
-#~ "your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
-#~ "\n"
-#~ "Highlights of StationPlaylist add-on include:\n"
-#~ "* Layer commands for obtaining status information\n"
-#~ "* Various ways to examine track columns\n"
-#~ "* Various ways to find tracks\n"
-#~ "* Tools to analyze the loaded playlist\n"
-#~ "* Cart Explorer to learn cart assignments\n"
-#~ "* Comprehensive settings and documentation\n"
-#~ "* Completely free, open-source and community-driven\n"
-#~ "* And much more\n"
-#~ "\n"
-#~ "Visit www.stationplaylist.com for details on StationPlaylist suite of "
-#~ "applications.\n"
-#~ "Visit StationPlaylist add-on GitHub page (https://github.com/ChrisDuffley/"
-#~ "stationPlaylist)\n"
-#~ "for add-on details and to read the documentation.\n"
-#~ "Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio "
-#~ "to return to this dialog.\n"
-#~ "\n"
-#~ "Thank you."
-#~ msgstr ""
-#~ "NVDA için StationPlaylist eklentisine hoş geldiniz.\n"
-#~ "NVDA ekran okuyucu kullanarak SPL Studio ile yayın yapmak için yol "
-#~ "arkadaşınız.\n"
-#~ "\n"
-#~ "StationPlaylist eklentisinin öne çıkan özellikleri şunlardır:\n"
-#~ "* Durum bilgisini elde etmek için katman komutları.\n"
-#~ "* Parça sütunlarını incelemenin çeşitli yolları.\n"
-#~ "* Parçaları bulmanın çeşitli yolları.\n"
-#~ "* Sepet atamalarını öğrenmek için Sepet Gezgini.\n"
-#~ "* Kapsamlı ayarlar ve belgeler.\n"
-#~ "* Tamamen ücretsiz, açık kaynaklı, topluluk odaklı\n"
-#~ "* Ve çok daha fazlası.\n"
-#~ "\n"
-#~ "StationPlaylist uygulama paketi hakkında ayrıntılı bilgi için www."
-#~ "stationplaylist.com adresini ziyaret edin.\n"
-#~ "StationPlaylist eklentisi Github sayfasını ziyaret edin (https://github."
-#~ "com/chrisduffley/stationplaylist)\n"
-#~ "Eklenti ayrıntıları ve belgeleri okumak için.\n"
-#~ "Bu iletişim kutusunu tekrar görmek ister misiniz? Bu iletişim kutusuna "
-#~ "dönmek için stüdyo kullanırken Alt+NVDA+F1 tuşuna basın.\n"
-#~ "\n"
-#~ "Teşekkür ederim."
-
-#~ msgid "Welcome to StationPlaylist add-on"
-#~ msgstr "StationPlaylist eklentisine hoş geldiniz"
-
-#~ msgid "Show welcome dialog when I start Studio"
-#~ msgstr "Studio'yu başlattığımda hoş geldiniz iletişim kutusunu göster"
-
-#~ msgid "Braille timer off"
-#~ msgstr "Braille zamanlayıcı kapalı"
-
-#~ msgid "Braille track endings"
-#~ msgstr "Braille parça sonları"
-
-#~ msgid "Outro"
-#~ msgstr "Diğer"
-
-#~ msgid "Braille intro endings"
-#~ msgstr "Braille intro sonları"
-
-#~ msgid "Intro"
-#~ msgstr "İntro"
-
-#~ msgid "Braille intro and track endings"
-#~ msgstr "Braille intro ve parça sonları"
-
-#~ msgid "Do not announce library scans"
-#~ msgstr "Kütüphane taramaları duyurulmaz"
-
-#~ msgid "Announce start and end of a library scan"
-#~ msgstr "Kütüphane taramasının başlangıcını ve sonunu duyurur"
-
-#~ msgid "Announce the progress of a library scan"
-#~ msgstr "Kütüphane tarama ilerlemesi duyurulur"
-
-#~ msgid "Announce progress and item count of a library scan"
-#~ msgstr "Bir kitaplık taramasının ilerlemesini ve öğe sayısını duyurur"
-
-#~ msgid "Columns Explorer"
-#~ msgstr "Sütun gezgini"
-
-#~ msgid "Cannot locate current track information"
-#~ msgstr "Mevcut parça bilgisi bulunamıyor"
-
-#~ msgid "Studio main window not found"
-#~ msgstr "Stüdyo ana penceresi bulunamadı"
-
-#~ msgid "Columns E&xplorer..."
-#~ msgstr "Sütun Ge&zgini..."
-
-#~ msgid "SPL Studio is minimized to system tray."
-#~ msgstr "SPL Studio sistem tepsisine küçültülmüş."
