@@ -364,13 +364,8 @@ ausführen. Wechseln Sie zunächst mit drei Fingern in den SPL-Modus und
 verwenden Sie dann die oben aufgeführten Touch-Befehle, um Befehle
 auszuführen.
 
-## Version 25.07/25.06.2-LTS
+## Version 25.06.2-LTS
 
-Version 25.07 supports SPL Studio 6.0 and later.
-
-* 25.07: code was refactored, including through use of Pyright (a Python
-  static type checker). Some prominent code changes were also backported to
-  25.06.2-LTS.
 * Columns explorer (Control+NVDA+number row) is now configurable for Creator
   and Remote VT's playlist editor. A new button, "columns explorer for
   playlist editor" is available from columns explorer add-on settings

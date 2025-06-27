@@ -389,13 +389,8 @@ NVDA installé, vous pouvez exécuter certaines commandes Studio depuis un
 en mode SPL, puis utilisez les commandes tactile énumérées ci-dessus pour
 exécuter des commandes.
 
-## Version 25.07/25.06.2-LTS
+## Version 25.06.2-LTS
 
-La version 25.07 prend en charge SPL Studio 6.0 et versions ultérieures.
-
-* 25.07: Le code a été refactorisé, y compris en utilisant Pyright (un
-  vérificateur de type statique Python). Certains modifications de code
-  proéminentes ont également été recouvertes de 25.06.2-lts.
 * Explorateur de Colonnes (Contrôle+NVDA+rangée numérique) est désormais
   configurable pour Creator et Remote VT l'éditeur de playlist. Un nouveau
   bouton, "Explorateur de Colonnes pour l'éditeur de playlist" est

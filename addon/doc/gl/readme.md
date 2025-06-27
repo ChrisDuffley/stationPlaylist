@@ -360,13 +360,8 @@ instalado, podes realizar algunhas ordes do Studio dende a pantalla
 tactil. Primeiro usa un toque con tres dedos para cambiar a modo SPL, logo
 usa as ordes tactiles listadas arriba para realizar ordes.
 
-## Version 25.07/25.06.2-LTS
+## Version 25.06.2-LTS
 
-Version 25.07 supports SPL Studio 6.0 and later.
-
-* 25.07: code was refactored, including through use of Pyright (a Python
-  static type checker). Some prominent code changes were also backported to
-  25.06.2-LTS.
 * Columns explorer (Control+NVDA+number row) is now configurable for Creator
   and Remote VT's playlist editor. A new button, "columns explorer for
   playlist editor" is available from columns explorer add-on settings

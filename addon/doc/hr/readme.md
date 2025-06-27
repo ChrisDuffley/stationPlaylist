@@ -344,13 +344,8 @@ instaliranim NVDA čitačem, neke Studio naredbe možeš izvršiti na ekranu
 osjetljivim na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri
 prsta. Zatim koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
-## Version 25.07/25.06.2-LTS
+## Version 25.06.2-LTS
 
-Version 25.07 supports SPL Studio 6.0 and later.
-
-* 25.07: code was refactored, including through use of Pyright (a Python
-  static type checker). Some prominent code changes were also backported to
-  25.06.2-LTS.
 * Columns explorer (Control+NVDA+number row) is now configurable for Creator
   and Remote VT's playlist editor. A new button, "columns explorer for
   playlist editor" is available from columns explorer add-on settings

@@ -381,13 +381,8 @@ táctil. Primero utiliza un toque con tres dedos para cambiar a modo SPL,
 entonces utiliza las órdenes táctiles listadas arriba para llevar a cabo
 tareas.
 
-## Versión 25.07/25.06-LTS
+## Versión 25.06-LTS
 
-La versión 25.07 soporta SPL Studio 6.0 y posterior.
-
-* 25.07: se ha refactorizado el código, incluyendo el uso de Pyright (un
-  comprobador de tipos estáticos en Python). Algunos cambios de código
-  destacados se han llevado también a 25.06.2-LTS.
 * El explorador de columnas (Control+NVDA+fila numérica) ahora es
   configurable en Creator y el editor de listas de reproducción Remote
   VT. Hay disponible un nuevo botón, "Explorador de columnas del editor de

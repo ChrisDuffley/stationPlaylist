@@ -359,13 +359,8 @@ bazı Studio komutlarını dokunmatik ekrandan gerçekleştirebilirsiniz. Önce
 SPL moduna geçmek için üç parmakla dokunmayı kullanın, ardından komutları
 gerçekleştirmek için yukarıda listelenen dokunma komutlarını kullanın.
 
-## Sürüm 25.07/25.06.2-lts
+## Sürüm 25.06.2-lts
 
-Sürüm 25.07, SPL Studio 6.0 ve sonraki sürümlerini destekler.
-
-* 25.07: Kod, Pyright (Python statik tip denetleyici) kullanımı dahil olmak
-  üzere yeniden düzenlendi. Bazı önemli kod değişiklikleri de 25.06.2-lts'e
-  geri döndü.
 * Sütun gezgini (Control+NVDA+numara satırı) artık Yaratıcı ve Kumanda
   VT'nin oynatma listesi düzenleyicisi için yapılandırılabilir. Sütun
   gezgini eklenti ayarları ekranından yeni bir düğme olan “oynatma listesi
