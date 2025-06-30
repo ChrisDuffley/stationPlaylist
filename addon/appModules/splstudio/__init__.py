@@ -321,7 +321,10 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 			elif verticalColumnAnnounce is None:
 				colNumber = self._savedColumnNumber - 1
 			else:
-				colNumber = list(self.parent._columnOrderArray).index(self.indexOf(verticalColumnAnnounce))
+				# Get the raw view of column array (pass in "18" columns directly).
+				colNumber = list(self.parent._getColumnOrderArrayRaw(18)).index(
+					self.indexOf(verticalColumnAnnounce)
+				)
 			# Add track check status to column data if needed by using a customized move to column number method.
 			cell = self.getChild(colNumber)
 			if colNumber > 0 and self.firstChild.name:
