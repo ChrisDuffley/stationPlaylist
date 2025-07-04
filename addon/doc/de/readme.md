@@ -364,6 +364,14 @@ ausführen. Wechseln Sie zunächst mit drei Fingern in den SPL-Modus und
 verwenden Sie dann die oben aufgeführten Touch-Befehle, um Befehle
 auszuführen.
 
+## Version 25.07.1/25.06.3-LTS
+
+* In Studio's playlist viewer, NVDA will no longer appear to do nothing or
+  play error tones when reporting column contents if vertical column
+  navigation is set to values other than "whichever column I am reviewing".
+* Setting vertical column navigation to "Status" column is deprecated and
+  will be removed in a future add-on release.
+
 ## Version 25.07/25.06.2-LTS
 
 Version 25.07 supports SPL Studio 6.0 and later.

@@ -381,6 +381,14 @@ táctil. Primero utiliza un toque con tres dedos para cambiar a modo SPL,
 entonces utiliza las órdenes táctiles listadas arriba para llevar a cabo
 tareas.
 
+## Version 25.07.1/25.06.3-LTS
+
+* In Studio's playlist viewer, NVDA will no longer appear to do nothing or
+  play error tones when reporting column contents if vertical column
+  navigation is set to values other than "whichever column I am reviewing".
+* Setting vertical column navigation to "Status" column is deprecated and
+  will be removed in a future add-on release.
+
 ## Versión 25.07/25.06-LTS
 
 La versión 25.07 soporta SPL Studio 6.0 y posterior.
@@ -398,9 +406,9 @@ La versión 25.07 soporta SPL Studio 6.0 y posterior.
   Studio".
 * Se ha añadido JSON (notación de objetos JavaScript) como formato de
   transcripción de listas de reproducción.
-* In encoders, NVDA will remove encoder settings if pressing Control+F12 to
-  remove settings for encoder 10 and above if more than ten encoders are
-  present.
+* En los codificadores, NVDA eliminará los ajustes del codificador si se
+  pulsa control+f12 para eliminar los ajustes del codificador 10 o superior
+  cuando hay más de diez codificadores presentes.
 
 ## Versión 25.06-LTS
 

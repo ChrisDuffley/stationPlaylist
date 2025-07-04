@@ -389,6 +389,14 @@ NVDA installé, vous pouvez exécuter certaines commandes Studio depuis un
 en mode SPL, puis utilisez les commandes tactile énumérées ci-dessus pour
 exécuter des commandes.
 
+## Version 25.07.1/25.06.3-LTS
+
+* In Studio's playlist viewer, NVDA will no longer appear to do nothing or
+  play error tones when reporting column contents if vertical column
+  navigation is set to values other than "whichever column I am reviewing".
+* Setting vertical column navigation to "Status" column is deprecated and
+  will be removed in a future add-on release.
+
 ## Version 25.07/25.06.2-LTS
 
 La version 25.07 prend en charge SPL Studio 6.0 et versions ultérieures.
@@ -405,9 +413,9 @@ La version 25.07 prend en charge SPL Studio 6.0 et versions ultérieures.
   "Explorateur de Colonnes" à "Explorateur de Colonnes pour SPL Studio".
 * Ajout du format JSON (JavaScript Object Notation) comme un format de
   transcriptions de playlist.
-* In encoders, NVDA will remove encoder settings if pressing Control+F12 to
-  remove settings for encoder 10 and above if more than ten encoders are
-  present.
+* Dans les encodeurs, NVDA supprimera les paramètres de l'encodeur si vous
+  appuyez sur Control+F12 pour supprimer les paramètres de l'encodeur 10 et
+  plus si plus de dix encodeurs sont présents.
 
 ## Version 25.06-LTS
 
