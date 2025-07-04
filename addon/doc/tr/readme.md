@@ -359,6 +359,15 @@ bazı Studio komutlarını dokunmatik ekrandan gerçekleştirebilirsiniz. Önce
 SPL moduna geçmek için üç parmakla dokunmayı kullanın, ardından komutları
 gerçekleştirmek için yukarıda listelenen dokunma komutlarını kullanın.
 
+## Sürüm 25.06.3-lts
+
+* Studio'nun çalma listesi görüntüleyicisinde, dikey sütun gezintisi
+  “incelediğim sütun” dışındaki değerlere ayarlanmışsa, NVDA artık sütun
+  içeriklerini bildirirken hiçbir şey yapmıyor veya hata sesleri çalmıyor
+  gibi görünmeyecek.
+* Dikey sütun dolaşımını "Durum" sütunu olarak ayarlamak kullanımdan
+  kaldırılmıştır ve gelecekteki bir eklenti sürümünde kaldırılacaktır.
+
 ## Sürüm 25.06.2-lts
 
 * Sütun gezgini (Control+NVDA+numara satırı) artık Yaratıcı ve Kumanda

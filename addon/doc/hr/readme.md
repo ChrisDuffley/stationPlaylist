@@ -344,6 +344,14 @@ instaliranim NVDA čitačem, neke Studio naredbe možeš izvršiti na ekranu
 osjetljivim na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri
 prsta. Zatim koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
+## Version 25.06.3-LTS
+
+* In Studio's playlist viewer, NVDA will no longer appear to do nothing or
+  play error tones when reporting column contents if vertical column
+  navigation is set to values other than "whichever column I am reviewing".
+* Setting vertical column navigation to "Status" column is deprecated and
+  will be removed in a future add-on release.
+
 ## Version 25.06.2-LTS
 
 * Columns explorer (Control+NVDA+number row) is now configurable for Creator
