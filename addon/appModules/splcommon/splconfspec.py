@@ -23,7 +23,7 @@ TopBottomAnnounce = boolean(default=true)
 RequestsAlert = boolean(default=true)
 MetadataReminder = option("off", "startup", "instant", default="off")
 TimeHourAnnounce = boolean(default=true)
-VerticalColumnAnnounce = option(None,"Status","Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled",default=None)
+VerticalColumnAnnounce = option(None,"Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled",default=None)
 [ExploreColumns]
 Studio = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood"))
 TrackTool = string_list(default=list("Artist","Title","Duration","Cue","Overlap","Intro","Segue","Filename","Album","CD Code"))
