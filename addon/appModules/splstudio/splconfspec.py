@@ -26,7 +26,7 @@ TimeHourAnnounce = boolean(default=true)
 ExploreColumns = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood"))
 ExploreColumnsTT = string_list(default=list("Artist","Title","Duration","Cue","Overlap","Intro","Segue","Filename","Album","CD Code"))
 ExploreColumnsCreator = string_list(default=list("Artist","Title","Position","Cue","Intro","Outro","Segue","Duration","Last Scheduled","7 Days"))
-VerticalColumnAnnounce = option(None,"Status","Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled",default=None)
+VerticalColumnAnnounce = option(None,"Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled",default=None)
 [ExploreColumns]
 Studio = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood"))
 TrackTool = string_list(default=list("Artist","Title","Duration","Cue","Overlap","Intro","Segue","Filename","Album","CD Code"))
