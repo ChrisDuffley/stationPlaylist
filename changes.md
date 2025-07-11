@@ -2,6 +2,10 @@
 
 This page lists the complete changelog for StationPlaylist add-on releases.
 
+## Version 25.06.5-LTS
+
+* In Studio ad-on general settings, removed "Status" from vertical column announcement options
+
 ## Version 25.06.4-LTS
 
 * Restored missing localized messages including track comment announcement in Studio's playlist viewer.
