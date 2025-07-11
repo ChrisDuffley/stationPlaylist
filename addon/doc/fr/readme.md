@@ -391,11 +391,13 @@ exécuter des commandes.
 
 ## Version 25.07.1/25.06.3-LTS
 
-* In Studio's playlist viewer, NVDA will no longer appear to do nothing or
-  play error tones when reporting column contents if vertical column
-  navigation is set to values other than "whichever column I am reviewing".
-* Setting vertical column navigation to "Status" column is deprecated and
-  will be removed in a future add-on release.
+* Dans le visualiseur de playlist de Studio, NVDA ne semblera plus rien
+  faire ni jouera des tonalités d'erreur lors du signalement du contenu de
+  la colonne si la navigation de colonne verticale est définie sur des
+  valeurs autres "quel que soit la colonne que je passe en revue".
+* Le paramètre de navigation de la colonne verticale vers la colonne
+  "Statut" est obsolète et sera supprimé dans une future version de
+  l'extension.
 
 ## Version 25.07/25.06.2-LTS
 

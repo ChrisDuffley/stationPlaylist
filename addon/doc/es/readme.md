@@ -381,13 +381,14 @@ táctil. Primero utiliza un toque con tres dedos para cambiar a modo SPL,
 entonces utiliza las órdenes táctiles listadas arriba para llevar a cabo
 tareas.
 
-## Version 25.07.1/25.06.3-LTS
+## Versión 25.07.1
 
-* In Studio's playlist viewer, NVDA will no longer appear to do nothing or
-  play error tones when reporting column contents if vertical column
-  navigation is set to values other than "whichever column I am reviewing".
-* Setting vertical column navigation to "Status" column is deprecated and
-  will be removed in a future add-on release.
+* El el visualizador de listas de reproducción de Studio, NVDA ya no
+  parecerá hacer nada o reproducirá tonos de error al indicar los contenidos
+  de la columna si la navegación vertical por columnas está configurada en
+  valores distintos a "la columna que esté revisando".
+* Configurar la navegación vertical por columnas en la columna "estado" está
+  obsoleto y se eliminará en una futura versión del complemento.
 
 ## Versión 25.07/25.06-LTS
 
