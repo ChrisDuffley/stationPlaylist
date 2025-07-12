@@ -1609,7 +1609,7 @@ def openAddonSettingsPanel(panel: gui.settingsDialogs.SettingsPanel):
 	if _configDialogOpened:
 		wx.CallAfter(configDialogOpenError)
 	else:
-		gui.mainFrame._popupSettingsDialog(SPLConfigDialog, panel)
+		gui.mainFrame.popupSettingsDialog(SPLConfigDialog, panel)
 
 
 # Main add-on settings screen.
