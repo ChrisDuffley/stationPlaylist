@@ -6,14 +6,14 @@
 
 import appModuleHandler
 import eventHandler
-from winUser import user32
 from logHandler import log
+from .splcommon import splbase
 
 
 class AppModule(appModuleHandler.AppModule):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
-		if user32.FindWindowW("SPLStudio", None):
+		if splbase.studioIsRunning(justChecking=True):
 			log.debug("SPL: VT Recorder is online, disabling background event tracking for Studio")
 			for appMod in appModuleHandler.runningTable.values():
 				if appMod.appName == "splstudio":
@@ -26,7 +26,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def terminate(self):
 		super().terminate()
-		if user32.FindWindowW("SPLStudio", None):
+		if splbase.studioIsRunning(justChecking=True):
 			log.debug("SPL: VT Recorder is offline, enabling background event tracking for Studio")
 			for pid, appMod in appModuleHandler.runningTable.items():
 				if appMod.appName == "splstudio":
