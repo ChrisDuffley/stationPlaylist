@@ -21,7 +21,6 @@ import speech
 import ui
 from logHandler import log
 import addonHandler
-from winUser import user32
 import versionInfo
 from NVDAObjects import NVDAObject
 from ..splcommon import splbase, splconsts, splactions, splconfig
@@ -132,7 +131,7 @@ class SPLFindDialog(wx.Dialog):
 		global _findDialogOpened
 		text = self.findEntry.Value
 		# Studio, are you alive?
-		if user32.FindWindowW("SPLStudio", None) and text:
+		if splbase.studioIsRunning(justChecking=True) and text:
 			appMod = self.obj.appModule
 			# Search columns should not be None - list of integers expected.
 			column = [self.columnHeaders.Selection + 1] if self.columnSearch else []
@@ -259,7 +258,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 			return
 		self.Destroy()
 		global _findDialogOpened
-		if user32.FindWindowW("SPLStudio", None):
+		if splbase.studioIsRunning(justChecking=True):
 			obj = self.obj.next
 			# Manually locate tracks here.
 			while obj is not None:
@@ -546,11 +545,10 @@ def metadata_actionProfileSwitched(configDialogActive: bool = False, settingsRes
 	# #49: no, don't announce this if the app module is told to announce metadata status at startup only.
 	if splconfig.SPLConfig["General"]["MetadataReminder"] == "instant":
 		# If told to remind and connect, metadata streaming will be enabled at this time.
-		# Ask the handle finder to return to this place if Studio handle isn't ready.
+		# Ask the handle finder to return to this place if Studio isn't ready.
 		# This is typically the case when launching Studio
 		# and profile switch occurs while demo registration screen is up.
-		handle = user32.FindWindowW("SPLStudio", None)
-		if not handle:
+		if not splbase.studioIsRunning(justChecking=True):
 			_delayMetadataAction = True
 			return
 		if not settingsReset:
