@@ -788,8 +788,8 @@ class AppModule(appModuleHandler.AppModule):
 	# Although useful for library scan detection, it can be extended to cover other features.
 
 	def studioAPIMonitor(self) -> None:
-		# Only proceed if Studio handle is valid.
-		if not user32.FindWindowW("SPLStudio", None):
+		# Only proceed if Studio handle is valid (Studio is fully operational).
+		if not splbase.studioIsRunning(justChecking=True):
 			if self._SPLStudioMonitor is not None:
 				self._SPLStudioMonitor.Stop()
 				self._SPLStudioMonitor = None
@@ -801,7 +801,7 @@ class AppModule(appModuleHandler.AppModule):
 		# #155: library scan count must be an integer.
 		libScanCount: int | None = splbase.studioAPI(1, SPLLibraryScanCount)
 		if libScanCount and libScanCount >= 0:
-			if not user32.FindWindowW("SPLStudio", None):
+			if not splbase.studioIsRunning(justChecking=True):
 				return
 			if not self.libraryScanning:
 				self.script_libraryScanMonitor(None)
@@ -1742,7 +1742,7 @@ class AppModule(appModuleHandler.AppModule):
 		scanIter = 0
 		scanCount: int | None = splbase.studioAPI(1, SPLLibraryScanCount)
 		while scanCount is not None and scanCount >= 0:
-			if not self.libraryScanning or not user32.FindWindowW("SPLStudio", None):
+			if not self.libraryScanning or not splbase.studioIsRunning(justChecking=True):
 				return
 			time.sleep(1)
 			# Do not continue if we're back on insert tracks form or library scan is finished.
