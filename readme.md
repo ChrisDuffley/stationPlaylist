@@ -206,7 +206,7 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 
 ## Version 25.06.5-LTS
 
-* In Studio ad-on general settings, removed "Status" from vertical column announcement options
+* Removed "Status" from vertical column navigation options.
 
 ## Version 25.06.4-LTS
 
