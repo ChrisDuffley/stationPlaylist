@@ -5,6 +5,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 ## Version 25.08/25.06.4-LTS
 
 * In Studio ad-on general settings, removed "Status" from vertical column announcement options
+* In Track Tool, NVDA will no longer play a beep when moving through tracks, especially for tracks without an intro set.
 
 ## Version 25.07.1/25.06.3-LTS
 
