@@ -139,7 +139,7 @@ class TrackToolItem(SPLTrackItem):
 
 	def reportFocus(self):
 		# Play a beep when intro exists.
-		if self._getColumnContentRaw(self.indexOf("Intro")) is not None:
+		if self._getColumnContentRaw(self.indexOf("Intro")) not in (None, ""):
 			tones.beep(550, 100)
 		super(TrackToolItem, self).reportFocus()
 
