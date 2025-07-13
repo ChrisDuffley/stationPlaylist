@@ -166,28 +166,19 @@ class SPLTrackItem(sysListView32.ListItem):
 		columnContent = column.name
 		if header is None:
 			header = column.columnHeaderText
+		# Empty string (or None) is column content, so make no distinction.
+		# However, if column content is None (seen when NVDA restarts while focused on a track item),
+		# None will become an empty string ("").
+		if columnContent is None:
+			columnContent = ""
+		# Translators: Standard message for announcing column content.
+		columnData = _("{header}: {content}").format(header=header, content=columnContent)
 		# #61: pressed once will announce column data, twice will present it in a browse mode window.
 		if scriptHandler.getLastScriptRepeatCount() == 0:
-			if columnContent:
-				# Translators: Standard message for announcing column content.
-				ui.message(_("{header}: {content}").format(header=header, content=columnContent))
-			else:
-				ui.message(
-					# Translators: Spoken when column content is blank.
-					_("{header}: blank").format(header=header),
-					# Translators: Brailled to indicate empty column content.
-					brailleText=_("{header}: ()").format(header=header),
-				)
+			ui.message(columnData)
 		else:
-			if not columnContent:
-				# Translators: presented when column information for a track is empty.
-				columnContent = _("blank")
-			ui.browseableMessage(
-				"{0}: {1}".format(header, columnContent),
-				# Translators: Title of the column data window.
-				title=_("Track data"),
-				**browseableMessageButtons,
-			)
+			# Translators: Title of the column data window.
+			ui.browseableMessage(columnData, title=_("Track data"), **browseableMessageButtons)
 
 	@scriptHandler.script(
 		# Translators: input help mode message for columns viewer command.
