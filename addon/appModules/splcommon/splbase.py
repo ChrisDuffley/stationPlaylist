@@ -3,6 +3,7 @@
 # Copyright 2018-2025 Joseph Lee, released under GPL.
 
 # Base services for Studio app module and support modules
+# These include Studio API handler, layer commands manager, and base track item class.
 
 from functools import wraps
 from abc import abstractmethod
