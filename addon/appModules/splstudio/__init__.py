@@ -188,13 +188,11 @@ class SPLTrackItem(sysListView32.ListItem):
 	def script_trackColumnsViewer(self, gesture):
 		# Fetch column headers and texts from child columns,
 		# meaning columns viewer will reflect visual display order.
-		columnContents = []
-		for column in self.children:
-			columnContents.append(
-				"{}: {}".format(
-					column.columnHeaderText, column.name if column.name is not None else ""
-				)
-			)
+		columnContents = [
+			"{}: {}".format(
+				column.columnHeaderText, column.name if column.name is not None else ""
+			) for column in self.children
+		]
 		# Translators: Title of the column data window.
 		ui.browseableMessage("\n".join(columnContents), title=_("Track data"), **browseableMessageButtons)
 
