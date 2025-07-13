@@ -216,7 +216,7 @@ class SPLTrackItem(sysListView32.ListItem):
 		for column in self.children:
 			columnContents.append(
 				"{}: {}".format(
-					column.columnHeaderText, column.name if column.name is not None else _("blank")
+					column.columnHeaderText, column.name if column.name is not None else ""
 				)
 			)
 		# Translators: Title of the column data window.
