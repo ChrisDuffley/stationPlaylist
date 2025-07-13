@@ -5,6 +5,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 ## Version 25.08/25.06.4-LTS
 
 * Removed "Status" from vertical column navigation options.
+* In columns explorer (Studio, Track Tool, Creator, Remote VT), NVDA will no longer anounce "blank" for empty colunn content (only column header will be announced).
 * In Track Tool, NVDA will no longer play a beep when moving through tracks, especially for tracks without an intro set.
 
 ## Version 25.07.1/25.06.3-LTS
