@@ -192,8 +192,7 @@ class SPLTrackItem(sysListView32.ListItem):
 		# None will become an empty string ("").
 		if columnContent is None:
 			columnContent = ""
-		# Translators: Standard message for announcing column content.
-		columnData = _("{header}: {content}").format(header=header, content=columnContent)
+		columnData = f"{header}: {columnContent}"
 		# #61 (18.06): pressed once will announce column data, twice will present it in a browse mode window.
 		if scriptHandler.getLastScriptRepeatCount() == 0:
 			ui.message(columnData)
