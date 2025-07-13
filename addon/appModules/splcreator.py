@@ -15,8 +15,7 @@ import controlTypes
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32
 from NVDAObjects.behaviors import Dialog
-from .splstudio import SPLTrackItem
-from .splcommon import splconfig
+from .splcommon import splconfig, splbase
 
 addonHandler.initTranslation()
 
@@ -128,7 +127,7 @@ def indexOfPlaylistEditor(editorVersion: str) -> tuple[str, ...]:
 		)
 
 
-class SPLCreatorItem(SPLTrackItem):
+class SPLCreatorItem(splbase.SPLTrackItem):
 	"""An entry in SPL Creator (mostly tracks)."""
 
 	def indexOf(self, columnHeader: str) -> int | None:
@@ -142,7 +141,7 @@ class SPLCreatorItem(SPLTrackItem):
 		return splconfig.SPLConfig["ExploreColumns"]["Creator"]
 
 
-class SPLPlaylistEditorItem(SPLTrackItem):
+class SPLPlaylistEditorItem(splbase.SPLTrackItem):
 	"""An entry in SPL Creator's Playlist Editor."""
 
 	def indexOf(self, columnHeader: str) -> int | None:

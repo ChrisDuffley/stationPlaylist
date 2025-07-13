@@ -13,8 +13,7 @@ import tones
 import controlTypes
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32
-from .splstudio import SPLTrackItem
-from .splcommon import splconfig
+from .splcommon import splconfig, splbase
 
 addonHandler.initTranslation()
 
@@ -134,7 +133,7 @@ def indexOf(ttVersion: str) -> tuple[str, ...]:
 		)
 
 
-class TrackToolItem(SPLTrackItem):
+class TrackToolItem(splbase.SPLTrackItem):
 	"""An entry in Track Tool, used to implement some exciting features."""
 
 	def reportFocus(self):
