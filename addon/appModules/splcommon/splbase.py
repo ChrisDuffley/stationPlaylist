@@ -5,11 +5,15 @@
 # Base services for Studio app module and support modules
 
 from functools import wraps
+from abc import abstractmethod
 import ui
 import api
 import windowUtils
+import scriptHandler
+import versionInfo
 from winUser import sendMessage, user32
 from logHandler import log
+from NVDAObjects.IAccessible import sysListView32
 import addonHandler
 
 addonHandler.initTranslation()
@@ -105,3 +109,97 @@ def finally_(func, final):
 		return new
 
 	return wrap(final)
+
+
+# Show additional controls in browseable message window.
+browseableMessageButtons = {"closeButton": True} if versionInfo.version_year >= 2025 else {}
+
+
+# SPL Playlist item (SPL add-on base object)
+# #65: this base class represents trakc items
+# across StationPlaylist suites such as Studio, Creator and Track Tool.
+class SPLTrackItem(sysListView32.ListItem):
+	"""An abstract class representing track items across SPL suite of applications
+	including Studio, Creator, Track Tool, and Remote VT.
+	This base class provides common properties, scripts, and methods such as Columns Explorer and others.
+	Subclasses should provide custom routines for various attributes, including global ones to suit their needs.
+
+	Each subclass, housed in app modules, is named after the app module name where tracks are encountered,
+	such as SPLStudioTrackItem for Studio.
+	Subclasses of module-specific subclasses are named after SPL version, for example
+	SPL510TrackItem for studio 5.10 if version-specific handling is required.
+	Classes representing different parts of an app are given descriptive names such as
+	StudioPlaylistViewerItem for tracks found in Studio's Playlist Viewer (main window).
+	"""
+
+	# #103: provide an abstract index of function.
+	@abstractmethod
+	def indexOf(self, columnHeader: str) -> int | None:
+		return None
+
+	@scriptHandler.script(
+		description=_(
+			# Translators: input help mode message for column explorer commands.
+			"Pressing once announces data for a track column, "
+			"pressing twice will present column data in a browse mode window"
+		),
+		# Script decorator can take in a list of gestures, thus take advantage of it.
+		gestures=[f"kb:control+nvda+{i}" for i in range(10)],
+		category=_("StationPlaylist"),
+		speakOnDemand=True,
+	)
+	def script_columnExplorer(self, gesture):
+		# Due to the below formula, columns explorer will be restricted to number commands.
+		columnPos = int(gesture.displayName.split("+")[-1])
+		if columnPos == 0:
+			columnPos = 10
+		# #115: do not proceed if parent list reports less than 10 columns.
+		if columnPos > self.parent.columnCount:
+			log.debug(f"SPL: column {columnPos} is out of range for this item")
+			# Translators: Presented when column is out of range.
+			ui.message(_("Column {columnPosition} not found").format(columnPosition=columnPos))
+			return
+		columnPos -= 1
+		header = None
+		# Search for the correct column (child object) based on the header from explore columns list.
+		# Because of this, track items must expose individual columns as child objects.
+		if hasattr(self, "exploreColumns"):
+			columnHeaders = [child.columnHeaderText for child in self.children]
+			header = self.exploreColumns[columnPos]
+			if header not in columnHeaders:
+				# Translators: Presented when a specific column header is not found.
+				ui.message(_("{headerText} not found").format(headerText=header))
+				return
+			columnPos = columnHeaders.index(header)
+		column = self.getChild(columnPos)
+		columnContent = column.name
+		if header is None:
+			header = column.columnHeaderText
+		# Empty string (or None) is column content, so make no distinction.
+		# However, if column content is None (seen when NVDA restarts while focused on a track item),
+		# None will become an empty string ("").
+		if columnContent is None:
+			columnContent = ""
+		columnData = f"{header}: {columnContent}"
+		# #61: pressed once will announce column data, twice will present it in a browse mode window.
+		if scriptHandler.getLastScriptRepeatCount() == 0:
+			ui.message(columnData)
+		else:
+			# Translators: Title of the column data window.
+			ui.browseableMessage(columnData, title=_("Track data"), **browseableMessageButtons)
+
+	@scriptHandler.script(
+		# Translators: input help mode message for columns viewer command.
+		description=_("Presents data for all columns in the currently selected track"),
+		gesture="kb:control+NVDA+-",
+	)
+	def script_trackColumnsViewer(self, gesture):
+		# Fetch column headers and texts from child columns,
+		# meaning columns viewer will reflect visual display order.
+		columnContents = [
+			"{}: {}".format(
+				column.columnHeaderText, column.name if column.name is not None else ""
+			) for column in self.children
+		]
+		# Translators: Title of the column data window.
+		ui.browseableMessage("\n".join(columnContents), title=_("Track data"), **browseableMessageButtons)
