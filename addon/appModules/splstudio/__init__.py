@@ -2193,9 +2193,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Some handlers for native commands.
 
-	# The below hack is sensitive to changes in NVDA core.
-	deletedFocusObj = False
-
 	@scriptHandler.script(gestures=["kb:Shift+delete", "kb:Shift+numpadDelete"])
 	def script_deleteTrack(self, gesture):
 		self.preTrackRemoval()
