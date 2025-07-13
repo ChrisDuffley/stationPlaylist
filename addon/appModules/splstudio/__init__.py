@@ -1127,13 +1127,6 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when end of track is approaching.
 				ui.message(_("Warning: {seconds} sec remaining").format(seconds=str(alarmTime)))
 
-	# Hacks for gain focus events.
-	def event_gainFocus(self, obj: NVDAObject, nextHandler: collections.abc.Callable[[], None]):
-		if self.deletedFocusObj or (obj.windowClassName == "TListView" and obj.role == 0):
-			self.deletedFocusObj = False
-			return
-		nextHandler()
-
 	# Add or remove SPL-specific touch commands.
 	# Code comes from Enhanced Touch Gestures add-on from the same author.
 	# This may change if NVDA core decides to abandon touch mode concept.
