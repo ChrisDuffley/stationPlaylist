@@ -79,7 +79,7 @@ class SPLFindDialog(wx.Dialog):
 			return super(SPLFindDialog, cls).__new__(cls, *args, **kwargs)
 		return instance
 
-	def __init__(self, parent, obj, text, title, columnSearch=False):
+	def __init__(self, parent, obj, text, title, directionForward=True, columnSearch=False):
 		global _findDialogOpened
 		if SPLFindDialog._instance() is not None:
 			return
@@ -88,6 +88,7 @@ class SPLFindDialog(wx.Dialog):
 
 		super().__init__(parent, wx.ID_ANY, title)
 		self.obj = obj
+		self.directionForward = directionForward
 		self.columnSearch = columnSearch
 		if not columnSearch:
 			# Translators: the label for find prompt in track finder dialog.
@@ -139,7 +140,7 @@ class SPLFindDialog(wx.Dialog):
 			if appMod.findText is None or (
 				len(appMod.findText) and (text == appMod.findText[0] or text in appMod.findText)
 			):
-				startObj = startObj.next
+				startObj = startObj.next if self.directionForward else startObj.previous
 				if appMod.findText is None:
 					appMod.findText = [text]
 				# #27: Move the new text to the top of the search history.
@@ -150,7 +151,14 @@ class SPLFindDialog(wx.Dialog):
 						appMod.findText[0],
 					)
 			# If this is called right away, we land on an invisible window.
-			wx.CallLater(100, appMod.trackFinder, text, startObj, column=column)
+			wx.CallLater(
+				100,
+				appMod.trackFinder,
+				text,
+				startObj,
+				directionForward=self.directionForward,
+				column=column
+			)
 		self.Destroy()
 		_findDialogOpened = False
 
