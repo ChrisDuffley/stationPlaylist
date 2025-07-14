@@ -1368,7 +1368,7 @@ class AppModule(appModuleHandler.AppModule):
 			return False
 		return True
 
-	def trackFinderGUI(self, columnSearch: bool = False) -> None:
+	def trackFinderGUI(self, directionForward: bool = True, columnSearch: bool = False) -> None:
 		try:
 			if not columnSearch:
 				# Translators: Title for track finder dialog.
@@ -1387,6 +1387,7 @@ class AppModule(appModuleHandler.AppModule):
 				startObj,
 				self.findText[0] if self.findText and len(self.findText) else "",
 				title,
+				directionForward=directionForward,
 				columnSearch=columnSearch,
 			)
 			gui.mainFrame.prePopup()
@@ -1462,7 +1463,7 @@ class AppModule(appModuleHandler.AppModule):
 				if not len(self.findText):
 					self.findText = None
 			if self.findText is None:
-				self.trackFinderGUI()
+				self.trackFinderGUI(directionForward=False)
 			else:
 				startObj = api.getFocusObject()
 				if (
