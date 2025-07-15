@@ -718,6 +718,15 @@ class AppModule(appModuleHandler.AppModule):
 			return
 		super().__init__(*args, **kwargs)
 		if self.productVersion < SPLMinVersion:
+			wx.CallAfter(gui.messageBox,
+			# Translators: error dialog shown when a broadcaster is running an unsupported STduio release.
+			_("You are using an unsupported version of {appName}. "
+			"This add-on requires {appName} {version} or later").format(
+				appName=self.productName, version=SPLMinVersion
+			),
+			# Translators: the title of the app version error dialog.
+			_("Unsupported {appName} release").format(appName=self.productName),
+			)
 			raise RuntimeError("Unsupported version of Studio is running, exiting app module")
 		log.debug(f"SPL: using SPL Studio version {self.productVersion}")
 		# #84: if foreground object is defined, this is a true Studio start,
