@@ -5,6 +5,7 @@
 # Basic support for StationPlaylist Creator.
 
 from typing import Any
+import gettext
 import appModuleHandler
 import addonHandler
 import scriptHandler
@@ -19,6 +20,8 @@ from .splcommon import splconfig, splbase
 
 addonHandler.initTranslation()
 
+# Define gettext.gettext call to satisfy type checkers.
+_ = gettext.gettext
 
 # Return a tuple of column headers.
 # This is just a thinly disguised indexOf function from Studio's track item class.
