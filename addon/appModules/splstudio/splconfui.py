@@ -11,6 +11,7 @@ import gui
 from gui.nvdaControls import CustomCheckListBox
 import os
 import weakref
+import gettext
 import api
 import wx
 import ui
@@ -23,6 +24,9 @@ from ..splcommon import splactions, splconfig, splbase
 from ..skipTranslation import translate
 
 addonHandler.initTranslation()
+
+# Define gettext.gettext call to satisfy type checkers.
+_ = gettext.gettext
 
 # Due to syntax/variable name issues, the actual add-on settings class can be found at the end of this module.
 

@@ -11,6 +11,7 @@ import os
 import pickle
 from collections import ChainMap
 import weakref
+import gettext
 import appModuleHandler
 from configobj import ConfigObj, get_extra_values, ConfigObjError
 from configobj.validate import Validator
@@ -26,6 +27,9 @@ import addonHandler
 from ..skipTranslation import translate
 
 addonHandler.initTranslation()
+
+# Define gettext.gettext call to satisfy type checkers.
+_ = gettext.gettext
 
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
