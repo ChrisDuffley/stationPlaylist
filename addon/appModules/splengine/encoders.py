@@ -8,6 +8,7 @@ import os
 import weakref
 import itertools
 from abc import abstractmethod
+import gettext
 import api
 import config
 import configobj
@@ -25,6 +26,9 @@ from ..splcommon import splbase, splactions
 import addonHandler
 
 addonHandler.initTranslation()
+
+# Define gettext.gettext call to satisfy type checkers.
+_ = gettext.gettext
 
 # Various SPL IPC tags.
 SPLPlay = 12
