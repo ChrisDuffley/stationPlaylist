@@ -11,6 +11,7 @@ import threading
 from _csv import reader  # For cart explorer.
 import datetime
 import json
+import gettext
 import api
 import gui
 import wx
@@ -27,6 +28,9 @@ from ..splcommon import splbase, splconsts, splactions, splconfig
 from ..skipTranslation import translate
 
 addonHandler.initTranslation()
+
+# Define gettext.gettext call to satisfy type checkers.
+_ = gettext.gettext
 
 # Various SPL IPC tags.
 SPLFileDuration = 30

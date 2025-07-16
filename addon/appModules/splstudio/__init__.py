@@ -17,6 +17,7 @@ import os
 import time
 import threading
 import collections
+import gettext
 import controlTypes
 import appModuleHandler
 import api
@@ -49,6 +50,8 @@ from ..skipTranslation import translate
 
 addonHandler.initTranslation()
 
+# Define gettext.gettext call to satisfy type checkers.
+_ = gettext.gettext
 
 # Make sure the broadcaster is running a compatible version.
 SPLMinVersion = "6.0"
