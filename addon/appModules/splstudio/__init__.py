@@ -1406,34 +1406,48 @@ class AppModule(appModuleHandler.AppModule):
 		except RuntimeError:
 			wx.CallAfter(splmisc.finderError)
 
+	# Perform actions as directed by below scripts
+	# (open track finder dialog variants, search forward or backward, full find or find next/previous).
+	def findTrackDispatch(
+		self, directionForward: bool = True, columnSearch: bool = False, incrementalFind: bool = False
+	) -> None:
+		if self._trackFinderCheck(1 if columnSearch else 0):
+			# Although counterintuitive, filtering must take place to avoid finding nothing or everything.
+			# With incremental find set, passing in None or an empty string to track finder
+			# results in "finding" the next or previous track.
+			if self.findText is not None:
+				# Avoid type error when opening track finder dialog.
+				self.findText = list(filter(lambda x: x not in (None, ""), self.findText))
+				# Nullify find text list if it is empty for compatibility with code checking for None.
+				# This is more so for incremental find next/previous.
+				if not len(self.findText):
+					self.findText = None
+			if self.findText is None or not incrementalFind:
+				self.trackFinderGUI(directionForward=directionForward, columnSearch=columnSearch)
+			else:
+				startObj = api.getFocusObject()
+				if (
+					api.getForegroundObject().windowClassName == "TStudioForm"
+					and startObj.role == controlTypes.Role.LIST
+				):
+					startObj = startObj.firstChild if directionForward else startObj.lastChild
+				startObj = startObj.next if directionForward else startObj.previous
+				self.trackFinder(self.findText[0], startObj, directionForward=directionForward)
+
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Finds a track in the track list."),
 		gesture="kb:control+nvda+f",
 	)
 	def script_findTrack(self, gesture):
-		if self._trackFinderCheck(0):
-			if self.findText is not None:
-				# Avoid type error when opening track finder dialog.
-				# This is applicable for track finder, next/previous track finder, and column search.
-				self.findText = list(filter(lambda x: x not in (None, ""), self.findText))
-				# Nullify find text list if it is empty for compatibility with code checking for None.
-				# This is more so for find next/previous, therefore repeated in those scripts as well.
-				if not len(self.findText):
-					self.findText = None
-			self.trackFinderGUI()
+		self.findTrackDispatch()
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Finds text in columns.")
 	)
 	def script_columnSearch(self, gesture):
-		if self._trackFinderCheck(1):
-			if self.findText is not None:
-				self.findText = list(filter(lambda x: x not in (None, ""), self.findText))
-				if not len(self.findText):
-					self.findText = None
-			self.trackFinderGUI(columnSearch=True)
+		self.findTrackDispatch(columnSearch=True)
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
@@ -1441,23 +1455,7 @@ class AppModule(appModuleHandler.AppModule):
 		gesture="kb:nvda+f3",
 	)
 	def script_findTrackNext(self, gesture):
-		if self._trackFinderCheck(0):
-			# Although counterintuitive, filtering must take place here as well to avoid finding nothing or everything.
-			# Passing in None or an empty string to track finder results in "finding" the next track.
-			if self.findText is not None:
-				self.findText = list(filter(lambda x: x not in (None, ""), self.findText))
-				if not len(self.findText):
-					self.findText = None
-			if self.findText is None:
-				self.trackFinderGUI()
-			else:
-				startObj = api.getFocusObject()
-				if (
-					api.getForegroundObject().windowClassName == "TStudioForm"
-					and startObj.role == controlTypes.Role.LIST
-				):
-					startObj = startObj.firstChild
-				self.trackFinder(self.findText[0], startObj.next)
+		self.findTrackDispatch(incrementalFind=True)
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
@@ -1465,22 +1463,7 @@ class AppModule(appModuleHandler.AppModule):
 		gesture="kb:shift+nvda+f3",
 	)
 	def script_findTrackPrevious(self, gesture):
-		if self._trackFinderCheck(0):
-			# Same as find next: filter find text list here, too.
-			if self.findText is not None:
-				self.findText = list(filter(lambda x: x not in (None, ""), self.findText))
-				if not len(self.findText):
-					self.findText = None
-			if self.findText is None:
-				self.trackFinderGUI(directionForward=False)
-			else:
-				startObj = api.getFocusObject()
-				if (
-					api.getForegroundObject().windowClassName == "TStudioForm"
-					and startObj.role == controlTypes.Role.LIST
-				):
-					startObj = startObj.lastChild
-				self.trackFinder(self.findText[0], startObj.previous, directionForward=False)
+		self.findTrackDispatch(directionForward=False, incrementalFind=True)
 
 	# Time range finder.
 	# Locate a track with duration falling between min and max.
