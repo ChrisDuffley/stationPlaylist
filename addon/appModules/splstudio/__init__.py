@@ -185,12 +185,9 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 		else:
 			# Don't forget that column position starts at 1, not 0 (therefore subtract 1).
 			colNumber = self._savedColumnNumber - 1
-			verticalColumnAnnounce = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
-			if verticalColumnAnnounce is None and self._savedColumnNumber == 1:
-				colNumber = 0
-			elif verticalColumnAnnounce is None:
-				colNumber = self._savedColumnNumber - 1
-			else:
+			if (
+				(verticalColumnAnnounce := splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]) is not None
+			):
 				# Get the raw view of column array (pass in "18" columns directly).
 				colNumber = list(self.parent._getColumnOrderArrayRaw(18)).index(
 					self.indexOf(verticalColumnAnnounce)
