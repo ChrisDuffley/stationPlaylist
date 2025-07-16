@@ -4,6 +4,7 @@
 
 import sys
 import globalPluginHandler
+import gettext
 import api
 import ui
 import scriptHandler
@@ -19,6 +20,8 @@ import addonHandler
 
 addonHandler.initTranslation()
 
+# Define gettext.gettext call to satisfy type checkers.
+_ = gettext.gettext
 
 # SPL Studio uses WM messages to send and receive data, similar to Winamp.
 # See NVDA source/appModules/winamp.py for more information.
