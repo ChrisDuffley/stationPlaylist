@@ -7,6 +7,7 @@
 
 from functools import wraps
 from abc import abstractmethod
+import gettext
 import ui
 import api
 import windowUtils
@@ -18,6 +19,9 @@ from NVDAObjects.IAccessible import sysListView32
 import addonHandler
 
 addonHandler.initTranslation()
+
+# Define gettext.gettext call to satisfy type checkers.
+_ = gettext.gettext
 
 # Cache the handle to main Studio window.
 _SPLWin: int | None = None
