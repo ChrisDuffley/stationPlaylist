@@ -186,11 +186,7 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 			# Don't forget that column position starts at 1, not 0 (therefore subtract 1).
 			colNumber = self._savedColumnNumber - 1
 			verticalColumnAnnounce = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
-			# "Status" column reporting is deprecated
-			# as it does not expose header text unless accessibility mode is on.
-			if verticalColumnAnnounce == "Status" or (
-				verticalColumnAnnounce is None and self._savedColumnNumber == 1
-			):
+			if verticalColumnAnnounce is None and self._savedColumnNumber == 1:
 				colNumber = 0
 			elif verticalColumnAnnounce is None:
 				colNumber = self._savedColumnNumber - 1
