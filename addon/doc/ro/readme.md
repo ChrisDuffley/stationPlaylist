@@ -351,8 +351,6 @@ to perform commands.
 
 Please see the [changelog][3] for release notes for old add-on releases.
 
-[[!tag dev stable]]
-
 [1]: https://www.nvaccess.org/addonStore/legacy?file=stationPlaylist
 
 [2]: https://github.com/chrisDuffley/stationplaylist/wiki/SPLAddonGuide

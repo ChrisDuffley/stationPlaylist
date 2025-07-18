@@ -1068,8 +1068,6 @@ A kiegészítő 4.0 verziója a Studio 5.00 és későbbi kiadásait támogatja.
 
 * Első kiadás
 
-[[!tag dev stable]]
-
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
 
 [2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
