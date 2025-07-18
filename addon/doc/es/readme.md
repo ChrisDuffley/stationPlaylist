@@ -96,8 +96,8 @@ de voz a petición.
   petición).
 * Alt+NVDA+C mientras se enfoca una pista (sólo en el visor de listas de
   reproducción de Studio): anuncia los comentarios de pista si los hay.
-* Alt+NVDA+0 desde la ventana de Studio: abre el diálogo de configuración
-  del complemento para Studio (no soporta el modo de voz a petición).
+* Alt+NVDA+0 (two finger flick left in SPL mode) from Studio window: Opens
+  the Studio add-on configuration dialog (does not support speak on demand).
 * Alt+NVDA+p desde la ventana de Studio: abre el diálogo de perfiles de
   emisión de Studio (no soporta el modo de voz a petición).
 * Alt+NVDA+F1: abre el diálogo de bienvenida (no soporta el modo de voz a
@@ -380,6 +380,32 @@ instalado, puedes realizar algunas órdenes de Studio desde la pantalla
 táctil. Primero utiliza un toque con tres dedos para cambiar a modo SPL,
 entonces utiliza las órdenes táctiles listadas arriba para llevar a cabo
 tareas.
+
+## Version 25.08/25.06.5-LTS
+
+* 25.08: se eliminan traducciones sin mantenimiento (mensajes del
+  complemento y documentación).
+* NVDA presentará un diálogo de error al ejecutar versiones de Studio
+  anteriores a la versión requerida por el complemento.
+* In Studio, added two-finger flick left gesture in SPL touch mode to open
+  SPL add-on settings.
+* Se elimina "estado" de las opciones de navegación de columna vertical.
+* En el explorador de columnas (Studio, Herramienta de pista, Creador,
+  Remote VT), NVDA ya no anunciará "en blanco" en el contenido de columna
+  vacío (sólo se anunciará la cabecera de la columna).
+* En Studio, Creador, la herramienta de pista y Remote VT, NVDA anunciará la
+  posición en la pista y el total cuando se realice la orden de posición
+  (NVDA+suprimir del teclado numérico (escritorio) / NVDA+suprimir
+  (portátil) y añadiendo shift para la versión del cursor de revisión).
+* En Studio, pulsar NVDA+shift+f3 por primera vez sin abrir el diálogo de
+  búsqueda hará que NVDA busque hacia atrás.
+* En la herramienta de pista, NVDA ya no pitará al moverse por las pistas,
+  especialmente en pistas sin un conjunto introductorio.
+
+## Version 25.07.2/25.06.4-LTS
+
+* Restored missing localized messages including track comment announcement
+  in Studio's playlist viewer.
 
 ## Versión 25.07.1
 
