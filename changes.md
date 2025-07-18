@@ -2,7 +2,7 @@
 
 This page lists the complete changelog for StationPlaylist add-on releases.
 
-## Version 25.08/25.06.4-LTS
+## Version 25.08/25.06.5-LTS
 
 * NVDA will present an error dialog when running Studio releases earlier than the version required for the add-on.
 * Removed "Status" from vertical column navigation options.

@@ -204,7 +204,7 @@ You can save settings for specific shows into broadcast profiles. These profiles
 
 If you are using Studio on a touchscreen computer with NVDA installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
-## Version 25.08/25.06.4-LTS
+## Version 25.08/25.06.5-LTS
 
 * NVDA will present an error dialog when running Studio releases earlier than the version required for the add-on.
 * Removed "Status" from vertical column navigation options.
