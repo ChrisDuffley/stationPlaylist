@@ -204,3 +204,10 @@ class SPLTrackItem(sysListView32.ListItem):
 		]
 		# Translators: Title of the column data window.
 		ui.browseableMessage("\n".join(columnContents), title=_("Track data"), **browseableMessageButtons)
+
+	# A friendly way to report track position via location text.
+	def _get_locationText(self):
+		# Translators: location text for a playlist item (example: item 1 of 10).
+		return _("Item {current} of {total}").format(
+			current=self.IAccessibleChildID, total=self.parent.rowCount
+		)
