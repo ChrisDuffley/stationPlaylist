@@ -60,6 +60,7 @@ addon_info = {
 pythonSources = [
 	"addon/*.py",
 	"addon/appModules/*.py",
+	"addon/appModules/splcommon/*.py",
 	"addon/appModules/splstudio/*.py",
 	"addon/appModules/splengine/*.py",
 	"addon/globalPlugins/splUtils.py"
