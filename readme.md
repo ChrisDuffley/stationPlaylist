@@ -204,6 +204,13 @@ You can save settings for specific shows into broadcast profiles. These profiles
 
 If you are using Studio on a touchscreen computer with NVDA installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 25.06.4-LTS
+
+* Restored missing localized messages including track comment announcement in Studio's playlist viewer.
+* NVDA will present an error dialog when running Studio releases earlier than the version required for the add-on.
+* In Studio, pressing NVDA+Shift+F3 the first time without opening find dialog will cause NVDA to search backwards.
+* In Track Tool, NVDA will no longer play a beep when moving through tracks, especially for tracks without an intro set.
+
 ## Version 25.06.3-LTS
 
 * In Studio's playlist viewer, NVDA will no longer appear to do nothing or play error tones when reporting column contents if vertical column navigation is set to values other than "whichever column I am reviewing".
