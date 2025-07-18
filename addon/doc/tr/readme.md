@@ -87,8 +87,8 @@ belirtilmedikçe, bu komutlar isteğe bağlı konuşma modunu destekler.
   arasında değiştirir (talep üzerine konuşmayı desteklemez).
 * Bir parçaya odaklanıldığında Alt+NVDA+C (yalnızca Studio'nun çalma listesi
   görüntüleyicisi): varsa parça yorumlarını duyurur.
-* Studio penceresinde Alt+NVDA+0: Studio eklenti yapılandırma iletişim
-  kutusunu açar (talep üzerine konuşmayı desteklemez).
+* Alt+NVDA+0 (two finger flick left in SPL mode) from Studio window: Opens
+  the Studio add-on configuration dialog (does not support speak on demand).
 * Stüdyo penceresinde Alt+NVDA+P: Studio yayın profilleri iletişim kutusunu
   açar (talep üzerine konuşmayı desteklemez).
 * Alt+NVDA+F1: Karşılama iletişim kutusunu açar (talep üzerine konuşmayı
@@ -358,6 +358,32 @@ Studio'yu NVDA kurulu dokunmatik ekranlı bir bilgisayarda kullanıyorsanız,
 bazı Studio komutlarını dokunmatik ekrandan gerçekleştirebilirsiniz. Önce
 SPL moduna geçmek için üç parmakla dokunmayı kullanın, ardından komutları
 gerçekleştirmek için yukarıda listelenen dokunma komutlarını kullanın.
+
+## Version 25.08/25.06.5-LTS
+
+* 25.08: bakımı yapılmamış yerelleştirmeler kaldırıldı (eklenti mesajları ve
+  belgeler).
+* NVDA, eklenti için gereken sürümden önceki Studio sürümlerini
+  çalıştırırken bir hata iletişim kutusu gösterecek.
+* In Studio, added two-finger flick left gesture in SPL touch mode to open
+  SPL add-on settings.
+* Dikey sütun gezinme seçeneklerinden “Durum” kaldırıldı.
+* Sütun gezgininde (Stüdyo, parça aracı, Oluşturucu, Uzak VT), NVDA artık
+  boş sütun içeriği için “boş” anonsu yapmayacak (sadece sütun başlığı anons
+  edilecek).
+* Studio, Parça Aracı, Oluşturucu ve Uzak VT'de, konum komutu
+  gerçekleştirildiğinde (NVDA+Numpad Delete (masaüstü)/NVDA+Delete (dizüstü)
+  ve inceleme imleci sürümü için Shift eklendiğinde) NVDA parça konumunu ve
+  sayısını bildirecektir.
+* Studio'da, bul iletişim kutusunu açmadan NVDA+Shift+F3 tuşlarına ilk kez
+  basmak, NVDA'nın geriye doğru arama yapmasına neden olur.
+* Parça aracı'nda, NVDA artık parçalar arasında ilerlerken, özellikle de
+  giriş seti olmayan parçalar için bip sesi çıkarmayacak.
+
+## Version 25.07.2/25.06.4-LTS
+
+* Restored missing localized messages including track comment announcement
+  in Studio's playlist viewer.
 
 ## Sürüm 25.07.1/25.06.3-lts
 

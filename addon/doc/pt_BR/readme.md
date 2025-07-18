@@ -91,8 +91,8 @@ fala sob demanda.
   demanda).
 * Alt+NVDA+C enquanto focalizado numa faixa (somente visualizador da lista
   de reprodução do Studio): anuncia os comentários da faixa, se houver.
-* Alt+NVDA+0 na janela do Studio: Abre a caixa de diálogo de configuração do
-  add-on do Studio (não suporta falar sob demanda).
+* Alt+NVDA+0 (two finger flick left in SPL mode) from Studio window: Opens
+  the Studio add-on configuration dialog (does not support speak on demand).
 * Alt+NVDA+P na janela do Studio: Abre a caixa de diálogo de perfis de
   transmissão do Studio (não suporta falar sob demanda).
 * Alt+NVDA+F1: Abre a caixa de diálogo de boas-vindas (não oferece suporte
@@ -374,6 +374,32 @@ e com o NVDA instalado, pode executar alguns comandos do Studio a partir da
 tela sensível ao toque. Primeiro, use o toque de três dedos para alternar
 para o modo SPL e, em seguida, use os comandos de toque listados acima para
 executar os comandos.
+
+## Version 25.08/25.06.5-LTS
+
+* 25.08: removed unmaintained localizations (add-on messages and
+  documentation).
+* NVDA will present an error dialog when running Studio releases earlier
+  than the version required for the add-on.
+* In Studio, added two-finger flick left gesture in SPL touch mode to open
+  SPL add-on settings.
+* Removed "Status" from vertical column navigation options.
+* In columns explorer (Studio, Track Tool, Creator, Remote VT), NVDA will no
+  longer anounce "blank" for empty colunn content (only column header will
+  be announced).
+* In Studio, Track Tool, Creator, and Remote VT, NVDA will announce track
+  position and count when location command is performed (NVDA+Numpad Delete
+  (desktop)/NVDA+Delete (laptop) and adding Shift for review cursor
+  version).
+* In Studio, pressing NVDA+Shift+F3 the first time without opening find
+  dialog will cause NVDA to search backwards.
+* In Track Tool, NVDA will no longer play a beep when moving through tracks,
+  especially for tracks without an intro set.
+
+## Version 25.07.2/25.06.4-LTS
+
+* Restored missing localized messages including track comment announcement
+  in Studio's playlist viewer.
 
 ## Version 25.07.1/25.06.3-LTS
 

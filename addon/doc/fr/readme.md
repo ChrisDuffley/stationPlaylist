@@ -95,9 +95,8 @@ mode parole à la demande.
   demande).
 * Alt+NVDA+C si une piste est en focus (Studio uniquement): annonce les
   commentaires de piste le cas échéant.
-* Alt+NVDA+0 depuis la fenêtre de Studio : Ouvre le dialogue de
-  configuration de l'extension Studio (ne prend pas en charge la parole à la
-  demande).
+* Alt+NVDA+0 (two finger flick left in SPL mode) from Studio window: Opens
+  the Studio add-on configuration dialog (does not support speak on demand).
 * Alt+NVDA+P à partir de la fenêtre Studio : ouvre le dialogue des profils
   de diffusion Studio (ne prend pas en charge la parole à la demande).
 * Alt+NVDA+F1: Ouvre le dialogue de bienvenue (ne prend pas en charge la
@@ -388,6 +387,32 @@ NVDA installé, vous pouvez exécuter certaines commandes Studio depuis un
 écran tactile. Tout d'abord utiliser une tape à trois doigts pour basculer
 en mode SPL, puis utilisez les commandes tactile énumérées ci-dessus pour
 exécuter des commandes.
+
+## Version 25.08/25.06.5-LTS
+
+* 25.08: removed unmaintained localizations (add-on messages and
+  documentation).
+* NVDA présentera un dialogue d'erreur lors de l'exécution des versions de
+  Studio plus tôt que la version requise pour l'extension.
+* In Studio, added two-finger flick left gesture in SPL touch mode to open
+  SPL add-on settings.
+* Supprimé "Statut" des options de navigation de la colonne verticale.
+* Dans l'Explorateur de Colonnes (Studio, l'Outil de piste, Creator, Remote
+  VT), NVDA n'annoncera plus "vide" pour le contenu de la colonne vide (seul
+  l'en-tête de colonne sera annoncé).
+* In Studio, Track Tool, Creator, and Remote VT, NVDA will announce track
+  position and count when location command is performed (NVDA+Numpad Delete
+  (desktop)/NVDA+Delete (laptop) and adding Shift for review cursor
+  version).
+* Dans Studio, en appuyant sur NVDA+Maj+F3 la première fois sans ouvrir le
+  dialogue pour chercher provoquera la recherche de NVDA vers l'arrière.
+* Dans l'Outil de piste, NVDA ne jouera plus un bip lors du déplacement des
+  pistes, en particulier pour les pistes sans définir l'intro.
+
+## Version 25.07.2/25.06.4-LTS
+
+* Restored missing localized messages including track comment announcement
+  in Studio's playlist viewer.
 
 ## Version 25.07.1/25.06.3-LTS
 
