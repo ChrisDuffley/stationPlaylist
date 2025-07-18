@@ -7,6 +7,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 * NVDA will present an error dialog when running Studio releases earlier than the version required for the add-on.
 * Removed "Status" from vertical column navigation options.
 * In columns explorer (Studio, Track Tool, Creator, Remote VT), NVDA will no longer anounce "blank" for empty colunn content (only column header will be announced).
+* In Studio, Track Tool, Creator, and Remote VT, NVDA will announce track position and count when location command is performed (NVDA+Numpad Delete (desktop)/NVDA+Delete (laptop) and adding Shift for review cursor version).
 * In Studio, pressing NVDA+Shift+F3 the first time without opening find dialog will cause NVDA to search backwards.
 * In Track Tool, NVDA will no longer play a beep when moving through tracks, especially for tracks without an intro set.
 
