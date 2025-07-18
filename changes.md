@@ -11,6 +11,10 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 * In Studio, pressing NVDA+Shift+F3 the first time without opening find dialog will cause NVDA to search backwards.
 * In Track Tool, NVDA will no longer play a beep when moving through tracks, especially for tracks without an intro set.
 
+## Version 25.07.2/25.06.4-LTS
+
+* Restored missing localized messages including track comment announcement in Studio's playlist viewer.
+
 ## Version 25.07.1/25.06.3-LTS
 
 * In Studio's playlist viewer, NVDA will no longer appear to do nothing or play error tones when reporting column contents if vertical column navigation is set to values other than "whichever column I am reviewing".
