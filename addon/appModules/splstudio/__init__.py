@@ -325,7 +325,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 		# #142 (20.09): just like fake table row behavior class, nullify saved column number.
 		self.__class__._savedColumnNumber = None
 
-	# A friendly way to report track position via location text.
+	# Use Studio API to obtain track position and item count.
 	def _get_locationText(self):
 		# Translators: location text for a playlist item (example: item 1 of 10).
 		return _("Item {current} of {total}").format(
