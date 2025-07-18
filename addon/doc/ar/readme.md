@@ -949,8 +949,6 @@ for stable releases.
 
 Please see changelog link for release notes for old add-on releases.
 
-[[!tag dev stable]]
-
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
 
 [2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
