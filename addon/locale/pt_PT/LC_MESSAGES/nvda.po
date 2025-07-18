@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 3.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-07-06 19:12+0100\n"
-"Last-Translator: Ângelo Abrantes <ampa4374@gmail.com>\n"
+"PO-Revision-Date: 2025-07-18 12:48-0600\n"
+"Last-Translator: Ângelo Miguel Abrantes <ampa4374@gmail.com>\n"
 "Language-Team: Equipa Portuguesa do NVDA <angelomiguelabrantes@gmail.com; "
 "rui.fontes@tiflotecnia.com>\n"
 "Language: pt_PT\n"
@@ -27,9 +27,14 @@ msgstr ""
 "Não está no visualizador de lista de reprodução, não pode entrar no "
 "explorador de placa"
 
-#. Translators: Presented when microphone has been active for a while.
-msgid "Microphone active"
-msgstr "Microfone activo"
+#. Translators: A message informing users that Studio is not running so certain commands will not work.
+msgid "Studio main window not found"
+msgstr "Janela principal do estúdio não encontrada"
+
+#. Translators: presented when SPL Studio window is minimized.
+#, fuzzy
+msgid "SPL Studio is minimized to system tray."
+msgstr "O SPL Studio não está aberto"
 
 #. Translators: input help mode message for column explorer commands.
 msgid ""
@@ -57,38 +62,167 @@ msgstr ""
 msgid "{headerText} not found"
 msgstr "{headerText} não encontrado"
 
-#. Translators: Standard message for announcing column content.
-#, python-brace-format
-msgid "{header}: {content}"
-msgstr "{header}: {content}"
-
-#. Translators: Spoken when column content is blank.
-#, python-brace-format
-msgid "{header}: blank"
-msgstr "{header}: vazio"
-
-#. Translators: Brailled to indicate empty column content.
-#, python-brace-format
-msgid "{header}: ()"
-msgstr "{header}: ()"
-
-#. Translators: presented when column information for a track is empty.
-msgid "blank"
-msgstr "em branco"
-
 #. Translators: Title of the column data window.
 msgid "Track data"
-msgstr "Dados da pista"
+msgstr "dados da pista"
 
 #. Translators: input help mode message for columns viewer command.
 msgid "Presents data for all columns in the currently selected track"
-msgstr ""
-"Apresenta os dados de todas as colunas do percurso atualmente selecionado"
+msgstr "Apresenta os dados para todas as colunas de uma pista seleccionada."
 
 #. Translators: location text for a playlist item (example: item 1 of 10).
 #, python-brace-format
 msgid "Item {current} of {total}"
 msgstr "Item {current} do {total}"
+
+#. Translators: The name of the default (normal) profile.
+msgid "Normal profile"
+msgstr "Perfil normal"
+
+#. Translators: Message displayed when attempting to reset Studio add-on settings
+#. while an instant switch profile is active.
+msgid ""
+"An instant switch profile is active. Resetting Studio add-on settings means "
+"normal profile will become active and switch profile settings will be left "
+"in unpredictable state. Are you sure you wish to reset Studio add-on "
+"settings to factory defaults?"
+msgstr ""
+
+#. Translators: The title of the confirmation dialog for Studio add-on settings reset.
+#, fuzzy
+msgid "SPL Studio add-on reset"
+msgstr "Configurações do extra do Studio"
+
+#. Translators: A flag indicating the currently active broadcast profile.
+msgid "active"
+msgstr "Acttivo"
+
+#. Translators: A flag indicating the broadcast profile is an instant switch profile.
+msgid "instant switch"
+msgstr "interruptor instantâneo"
+
+#. Translators: Presented when switch to instant switch profile was successful.
+#, python-brace-format
+msgid "Switching to {newProfileName}"
+msgstr "Alternar para {newProfileName}"
+
+#. Translators: Presented when switching from instant switch profile to a previous profile.
+#, python-brace-format
+msgid "Returning to {previousProfile}"
+msgstr "Retornando para {previousProfile}"
+
+#. Translators: Standard error title for configuration error.
+msgid "Studio add-on Configuration error"
+msgstr "Erro de configuração do complemento do Studio"
+
+#. Translators: announced when only normal profile is in use.
+msgid "Only normal profile is in use"
+msgstr "Apenas o perfil normal está em uso"
+
+#. Translators: Presented when trying to switch to an instant switch profile
+#. when the instant switch profile is not defined.
+msgid "No instant switch profile is defined"
+msgstr "Nenhum perfil de switch instantâneo está definido"
+
+#. Translators: Presented when trying to switch to an instant switch profile
+#. when one is already using the instant switch profile.
+msgid "You are already in the instant switch profile"
+msgstr "Já está no perfil de troca instantânea"
+
+#. Translators: A message giving basic information about the add-on.
+msgid ""
+"Welcome to StationPlaylist add-on for NVDA,\n"
+"your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
+"\n"
+"Highlights of StationPlaylist add-on include:\n"
+"* Layer commands for obtaining status information\n"
+"* Various ways to examine track columns\n"
+"* Various ways to find tracks\n"
+"* Tools to analyze the loaded playlist\n"
+"* Cart Explorer to learn cart assignments\n"
+"* Comprehensive settings and documentation\n"
+"* Completely free, open-source and community-driven\n"
+"* And much more\n"
+"\n"
+"Visit www.stationplaylist.com for details on StationPlaylist suite of "
+"applications.\n"
+"Visit StationPlaylist add-on GitHub page (https://github.com/ChrisDuffley/"
+"stationPlaylist)\n"
+"for add-on details and to read the documentation.\n"
+"Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to "
+"return to this dialog.\n"
+"\n"
+"Thank you."
+msgstr ""
+
+#. Translators: Title of a dialog displayed when the add-on starts presenting basic information,
+#. similar to NVDA's own welcome dialog.
+msgid "Welcome to StationPlaylist add-on"
+msgstr ""
+
+msgid "Show welcome dialog when I start Studio"
+msgstr "Mostrar caixa de diálogo de boas-vindas quando eu iniciar o Studio"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille timer off"
+msgstr "Temporizador Braille desligado"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille track endings"
+msgstr "Terminais de pista braille"
+
+#. Translators: A setting in braille timer options.
+msgid "Outro"
+msgstr "Outro"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille intro endings"
+msgstr "Introdução em braille"
+
+#. Translators: A setting in braille timer options.
+msgid "Intro"
+msgstr "Introdução"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille intro and track endings"
+msgstr "Introdução de Braille e finais de pista"
+
+#. Translators: A setting in braille timer options.
+#. Translators: One of the track comment notification settings.
+msgid "Both"
+msgstr "ambos"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Do not announce library scans"
+msgstr "Não anuncia varrimento de biblioteca."
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce start and end of a library scan"
+msgstr "Anuncia início e fim de varrimento de biblioteca."
+
+#. Translators: One of the library scan announcement settings.
+msgid "Start and end only"
+msgstr "Apenas início e fim"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce the progress of a library scan"
+msgstr "Anuncia o progresso do varrimento da biblioteca"
+
+#. Translators: One of the library scan announcement settings.
+msgid "Scan progress"
+msgstr "Progresso do varrimento"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce progress and item count of a library scan"
+msgstr "Anuncia o progresso e a contagem de items do varrimento da biblioteca"
+
+#. Translators: One of the library scan announcement settings.
+msgid "Scan count"
+msgstr "Contagem de varrimento"
+
+#. Translators: Presented when microphone has been active for a while.
+msgid "Microphone active"
+msgstr "Microfone activo"
 
 #. Translators: Input help message for screen column order toggle command in SPL Studio.
 msgid ""
@@ -205,6 +339,18 @@ msgid ""
 "F12: Switch to an instant switch profile."
 msgstr ""
 
+#. Translators: error dialog shown when a broadcaster is running an unsupported STduio release.
+#, python-brace-format
+msgid ""
+"You are using an unsupported version of {appName}. This add-on requires "
+"{appName} {version} or later"
+msgstr ""
+
+#. Translators: the title of the app version error dialog.
+#, python-brace-format
+msgid "Unsupported {appName} release"
+msgstr ""
+
 #. Translators: the label for a menu item in NVDA Preferences menu
 #. to open SPL Studio add-on settings.
 msgid "SPL Studio Settings..."
@@ -216,7 +362,7 @@ msgstr "Configurações do SPL"
 
 #, python-brace-format
 msgid "Scan complete with {scanCount} items"
-msgstr "Digitalização completa com {scanCount} itens"
+msgstr "itens completamente digitalizados com {scanCount}"
 
 #. Translators: Presented when cart modes are toggled while cart explorer is on.
 msgid "Cart explorer is active"
@@ -224,7 +370,7 @@ msgstr "O explorador de placa está activo"
 
 #. Translators: Presented when microphone was on for more than a specified time in microphone alarm dialog.
 msgid "Warning: Microphone active"
-msgstr "Aviso: Microfone ativo"
+msgstr "Aviso: Microfone activo!"
 
 #, python-brace-format
 msgid "Warning: {seconds} sec left in track introduction"
@@ -250,7 +396,7 @@ msgstr ""
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces time including seconds."
-msgstr "Anuncia a hora, incluindo os segundos."
+msgstr "Anuncia o tempo, incluindo segundos"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 #, fuzzy
@@ -259,7 +405,7 @@ msgstr "Configurações do SPL Studio..."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL Studio add-on configuration dialog."
-msgstr "Abre a caixa de diálogo de configuração do complemento SPL Studio."
+msgstr "Abre o diálogo de configurações do extra do SPL Studio"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL add-on broadcast profiles dialog."
@@ -267,7 +413,7 @@ msgstr ""
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL Studio add-on welcome dialog."
-msgstr "Abre a caixa de diálogo de boas-vindas do complemento SPL Studio."
+msgstr "Abre o diálogo de boas vindas do extra do SPL Studio"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Toggles between various braille timer settings."
@@ -295,7 +441,7 @@ msgstr ""
 
 #. Translators: Presented when a user wishes to find a track but didn't add any tracks.
 msgid "You need to add at least one track to find tracks."
-msgstr "É necessário adicionar pelo menos uma faixa para encontrar faixas."
+msgstr "precisa adicionar pelo menos uma pista para encontrar pistas."
 
 #. Translators: Title for track finder dialog.
 msgid "Find track"
@@ -338,8 +484,8 @@ msgstr ""
 #. Translators: presented when cart explorer could not be switched on.
 msgid "Some or all carts could not be assigned, cannot enter cart explorer"
 msgstr ""
-"Não foi possível atribuir alguns ou todos os carrinhos, não é possível "
-"entrar no explorador de carrinhos"
+"Algumas ou todas as placas não podem ser atribuídas, não é possível entrar "
+"no explorador de placa."
 
 #. Translators: Presented when cart explorer is on.
 msgid "Entering cart explorer"
@@ -347,15 +493,15 @@ msgstr "A entrar no Explorador de placa"
 
 #. Translators: Presented when cart explorer is off.
 msgid "Exiting cart explorer"
-msgstr "Sair do explorador de placas"
+msgstr "a sair o explorador de placa"
 
 #. Translators: Presented when cart command is unavailable.
 msgid "Cart command unavailable"
-msgstr "Comando de placas indisponível"
+msgstr "Comando de placa indisponível."
 
 #. Translators: Presented when there is no cart assigned to a cart command.
 msgid "Cart unassigned"
-msgstr "Placa não atribuída"
+msgstr "Placa não atribuída."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Toggles library scan progress settings."
@@ -372,10 +518,10 @@ msgstr "itens {itemCount} na biblioteca"
 
 #, python-brace-format
 msgid "Scan complete with {itemCount} items"
-msgstr "Digitalização completa com {itemCount} itens"
+msgstr "varredura completa com {itemCount} items"
 
 msgid "Scanning"
-msgstr "A Examinar"
+msgstr "Fazendo varredura."
 
 #. Translators: Presented when library scan is in progress.
 #, python-brace-format
@@ -659,13 +805,6 @@ msgstr ""
 "Presta informações de instantâneo de lista de reprodução, como número de "
 "pistas e artistas no início ."
 
-#. Translators: Presented when trying to switch to an instant switch profile
-#. when add-on settings dialog is active.
-msgid "Add-on settings dialog is open, cannot switch profiles"
-msgstr ""
-"O diálogo de configurações de complemento está aberto, não é possível trocar "
-"perfis"
-
 #. Translators: Presented when place marker cannot be set.
 msgid "No tracks found, cannot set place marker"
 msgstr "Nenhuma pista encontrada, não se pode definir marcador de lugar"
@@ -762,9 +901,6 @@ msgstr "O perfil dispara para {profileName}"
 msgid "This is an &instant switch profile"
 msgstr "Este é um perfil de troca instantânea"
 
-msgid "instant switch"
-msgstr "interruptor instantâneo"
-
 #. Translators: the label for a setting in SPL add-on settings
 #. to set status announcement between words and beeps.
 msgid "&Beep for status announcements"
@@ -800,18 +936,6 @@ msgstr "introdução e fim de pista"
 msgid "&Braille timer:"
 msgstr "& Temporizador Braille:"
 
-#. Translators: One of the library scan announcement settings.
-msgid "Start and end only"
-msgstr "Apenas início e fim"
-
-#. Translators: One of the library scan announcement settings.
-msgid "Scan progress"
-msgstr "Progresso do varrimento"
-
-#. Translators: One of the library scan announcement settings.
-msgid "Scan count"
-msgstr "Contagem de varrimento"
-
 #. Translators: The label for a setting in SPL add-on settings
 #. to control library scan announcement.
 msgid "&Library scan announcement:"
@@ -843,10 +967,6 @@ msgstr "Mensagem"
 #. Translators: One of the track comment notification settings.
 msgid "Beep"
 msgstr "Beep"
-
-#. Translators: One of the track comment notification settings.
-msgid "Both"
-msgstr "ambos"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to set how track comments are announced.
@@ -1204,6 +1324,13 @@ msgstr ""
 
 msgid "Normal profile is in use, cannot open broadcast profiles dialog."
 msgstr ""
+
+#. Translators: Presented when trying to switch to an instant switch profile
+#. when add-on settings dialog is active.
+msgid "Add-on settings dialog is open, cannot switch profiles"
+msgstr ""
+"O diálogo de configurações de complemento está aberto, não é possível trocar "
+"perfis"
 
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."
@@ -1631,3 +1758,24 @@ msgid ""
 msgstr ""
 "Melhora o suporte para StationPlaylist.\n"
 "Além disso, adiciona comandos globais para o estúdio em todos os lugares."
+
+#, python-brace-format
+#~ msgid "{header}: {content}"
+#~ msgstr "{header}: {content}"
+
+#, python-brace-format
+#~ msgid "{header}: blank"
+#~ msgstr "{header}: vazio"
+
+#, python-brace-format
+#~ msgid "{header}: ()"
+#~ msgstr "{header}: ()"
+
+#~ msgid "blank"
+#~ msgstr "Em branco"
+
+#~ msgid "Columns Explorer"
+#~ msgstr "Explorador de colunas"
+
+#~ msgid "Columns E&xplorer..."
+#~ msgstr "&Explorador de colunas..."

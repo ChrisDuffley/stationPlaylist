@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-06-23 07:28-0600\n"
+"PO-Revision-Date: 2025-07-18 12:42-0600\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: \n"
 "Language: hr\n"
@@ -24,9 +24,13 @@ msgstr ""
 msgid "You are not in playlist editor"
 msgstr "Ne nalaziš se u uređivaču popisa snimaka"
 
-#. Translators: Presented when microphone has been active for a while.
-msgid "Microphone active"
-msgstr "Mikrofon je aktivan"
+#. Translators: A message informing users that Studio is not running so certain commands will not work.
+msgid "Studio main window not found"
+msgstr "Glavni prozor programa Studio nije pronađen"
+
+#. Translators: presented when SPL Studio window is minimized.
+msgid "SPL Studio is minimized to system tray."
+msgstr "SPL Studio je sklopljen u traku sustava."
 
 #. Translators: input help mode message for column explorer commands.
 msgid ""
@@ -54,25 +58,6 @@ msgstr "Stupac {columnPosition} nije pronađen"
 msgid "{headerText} not found"
 msgstr "{headerText} nije pronađeno"
 
-#. Translators: Standard message for announcing column content.
-#, python-brace-format
-msgid "{header}: {content}"
-msgstr "{header}: {content}"
-
-#. Translators: Spoken when column content is blank.
-#, python-brace-format
-msgid "{header}: blank"
-msgstr "{header}: prazno"
-
-#. Translators: Brailled to indicate empty column content.
-#, python-brace-format
-msgid "{header}: ()"
-msgstr "{header}: ()"
-
-#. Translators: presented when column information for a track is empty.
-msgid "blank"
-msgstr "prazno"
-
 #. Translators: Title of the column data window.
 msgid "Track data"
 msgstr "Podaci snimke"
@@ -85,6 +70,182 @@ msgstr "Prikazuje podatke svih stupaca u trenutačno odabranoj snimci"
 #, python-brace-format
 msgid "Item {current} of {total}"
 msgstr "Stavka {current} od {total}"
+
+#. Translators: The name of the default (normal) profile.
+msgid "Normal profile"
+msgstr "Normalni profil"
+
+#. Translators: Message displayed when attempting to reset Studio add-on settings
+#. while an instant switch profile is active.
+msgid ""
+"An instant switch profile is active. Resetting Studio add-on settings means "
+"normal profile will become active and switch profile settings will be left "
+"in unpredictable state. Are you sure you wish to reset Studio add-on "
+"settings to factory defaults?"
+msgstr ""
+"Aktivno je trenutno mijenjanje profila. Resetiranjem postavki Studio "
+"dodatka, normalni profil će postati aktivan, a postavke profila za trenutno "
+"mijenjanje će ostati u nepredviđenom stanju. Stvarno želiš resetirati "
+"postavke Studio dodatka na izvorne vrijednosti?"
+
+#. Translators: The title of the confirmation dialog for Studio add-on settings reset.
+msgid "SPL Studio add-on reset"
+msgstr "Resetiranje SPL Studio dodatka"
+
+#. Translators: A flag indicating the currently active broadcast profile.
+msgid "active"
+msgstr "aktivni"
+
+#. Translators: A flag indicating the broadcast profile is an instant switch profile.
+msgid "instant switch"
+msgstr "trenutno mijenjanje"
+
+#. Translators: Presented when switch to instant switch profile was successful.
+#, python-brace-format
+msgid "Switching to {newProfileName}"
+msgstr "Prebacivanje na profil {newProfileName}"
+
+#. Translators: Presented when switching from instant switch profile to a previous profile.
+#, python-brace-format
+msgid "Returning to {previousProfile}"
+msgstr "Vraćanje na profil {previousProfile}"
+
+#. Translators: Standard error title for configuration error.
+msgid "Studio add-on Configuration error"
+msgstr "Greška u konfiguraciji Studio dodatka"
+
+#. Translators: announced when only normal profile is in use.
+msgid "Only normal profile is in use"
+msgstr "Koristi se samo normalni profil"
+
+#. Translators: Presented when trying to switch to an instant switch profile
+#. when the instant switch profile is not defined.
+msgid "No instant switch profile is defined"
+msgstr "Nijedan profil za trenutno mijenjanje nije definiran"
+
+#. Translators: Presented when trying to switch to an instant switch profile
+#. when one is already using the instant switch profile.
+msgid "You are already in the instant switch profile"
+msgstr "Već se nalaziš u profilu za trenutno mijenjanje"
+
+#. Translators: A message giving basic information about the add-on.
+#, fuzzy
+msgid ""
+"Welcome to StationPlaylist add-on for NVDA,\n"
+"your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
+"\n"
+"Highlights of StationPlaylist add-on include:\n"
+"* Layer commands for obtaining status information\n"
+"* Various ways to examine track columns\n"
+"* Various ways to find tracks\n"
+"* Tools to analyze the loaded playlist\n"
+"* Cart Explorer to learn cart assignments\n"
+"* Comprehensive settings and documentation\n"
+"* Completely free, open-source and community-driven\n"
+"* And much more\n"
+"\n"
+"Visit www.stationplaylist.com for details on StationPlaylist suite of "
+"applications.\n"
+"Visit StationPlaylist add-on GitHub page (https://github.com/ChrisDuffley/"
+"stationPlaylist)\n"
+"for add-on details and to read the documentation.\n"
+"Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to "
+"return to this dialog.\n"
+"\n"
+"Thank you."
+msgstr ""
+"Dobro došli u NVDA dodatak StationPlaylist Studio,\n"
+"pomagač za emitiranje pomoću programa Station Playlist Studio, upotrebom "
+"NVDA čitača ekrana.\n"
+"\n"
+"Glavne karakteristike ovog dodatka uključuju:\n"
+"* naredbe sloja za dobivanje podataka o stanju\n"
+"* razni načini istraživanja stupaca snimaka\n"
+"* razni načini pronalaženja snimaka\n"
+"* istraživač džinglova za javljanje njihovih naredbi\n"
+"* razne postavke i dokumentacija\n"
+"* u potpunosti besplatan, otvorenog koda i razvijen od zajednice\n"
+"* i još puno više\n"
+"\n"
+"Posjeti www.stationplaylist.com za detalje o programu Station Playlist "
+"Studio.\n"
+"Posjeti StationPlaylist stranicu na web stranici dodataka NVDA zajednice "
+"(addons.nvda-project.org)\n"
+"za daljnje informacije o dodatku i za dokumentaciju dodatka.\n"
+"Želiš li ponovo vidjeti ovaj dijaloški okvir? Za vraćanje na ovaj dijaloški "
+"okvir, pritisni Alt+NVDA+F1 dok koristiš Studio.\n"
+"\n"
+"Hvala."
+
+#. Translators: Title of a dialog displayed when the add-on starts presenting basic information,
+#. similar to NVDA's own welcome dialog.
+msgid "Welcome to StationPlaylist add-on"
+msgstr "Dobro došli u StationPlaylist dodatak"
+
+msgid "Show welcome dialog when I start Studio"
+msgstr ""
+"Prikaži dijaloški okvir dobrodošlice tijekom pokretanja programa Studio"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille timer off"
+msgstr "Brajeva štoperica isključena"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille track endings"
+msgstr "Brajevi završni dijelovi snimaka"
+
+#. Translators: A setting in braille timer options.
+msgid "Outro"
+msgstr "Završni dio"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille intro endings"
+msgstr "Brajevi uvodni dijelovi snimaka"
+
+#. Translators: A setting in braille timer options.
+msgid "Intro"
+msgstr "Uvodni dio"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille intro and track endings"
+msgstr "Brajevi uvodni i završni dijelovi snimaka"
+
+#. Translators: A setting in braille timer options.
+#. Translators: One of the track comment notification settings.
+msgid "Both"
+msgstr "Oboje"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Do not announce library scans"
+msgstr "Ne najavljuj skeniranja biblioteke"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce start and end of a library scan"
+msgstr "Najavi početak i završetak skeniranja biblioteke"
+
+#. Translators: One of the library scan announcement settings.
+msgid "Start and end only"
+msgstr "Samo početak i kraj"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce the progress of a library scan"
+msgstr "Najavi napredovanje skeniranja biblioteke"
+
+#. Translators: One of the library scan announcement settings.
+msgid "Scan progress"
+msgstr "Napredovanje skeniranja"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce progress and item count of a library scan"
+msgstr "Najavi napredovanje i broj stavki skeniranja biblioteke"
+
+#. Translators: One of the library scan announcement settings.
+msgid "Scan count"
+msgstr "Broj skeniranja"
+
+#. Translators: Presented when microphone has been active for a while.
+msgid "Microphone active"
+msgstr "Mikrofon je aktivan"
 
 #. Translators: Input help message for screen column order toggle command in SPL Studio.
 msgid ""
@@ -267,6 +428,18 @@ msgstr ""
 "F9: Označi trenutačnu snimku kao početak za vremensku analizu snimaka.\n"
 "F10: Izvrši vremensku analizu snimke.\n"
 "F12: Prebaci na trenutnu promjenu profila."
+
+#. Translators: error dialog shown when a broadcaster is running an unsupported STduio release.
+#, python-brace-format
+msgid ""
+"You are using an unsupported version of {appName}. This add-on requires "
+"{appName} {version} or later"
+msgstr ""
+
+#. Translators: the title of the app version error dialog.
+#, python-brace-format
+msgid "Unsupported {appName} release"
+msgstr ""
 
 #. Translators: the label for a menu item in NVDA Preferences menu
 #. to open SPL Studio add-on settings.
@@ -810,9 +983,6 @@ msgstr "Okidači profila za {profileName}"
 msgid "This is an &instant switch profile"
 msgstr "Ovo je profil za &trenutno mijenjanje"
 
-msgid "instant switch"
-msgstr "trenutno mijenjanje"
-
 #. Translators: the label for a setting in SPL add-on settings
 #. to set status announcement between words and beeps.
 msgid "&Beep for status announcements"
@@ -848,18 +1018,6 @@ msgstr "Uvodni i završni dio snimke"
 msgid "&Braille timer:"
 msgstr "&Brajeva štoperica:"
 
-#. Translators: One of the library scan announcement settings.
-msgid "Start and end only"
-msgstr "Samo početak i kraj"
-
-#. Translators: One of the library scan announcement settings.
-msgid "Scan progress"
-msgstr "Napredovanje skeniranja"
-
-#. Translators: One of the library scan announcement settings.
-msgid "Scan count"
-msgstr "Broj skeniranja"
-
 #. Translators: The label for a setting in SPL add-on settings
 #. to control library scan announcement.
 msgid "&Library scan announcement:"
@@ -891,10 +1049,6 @@ msgstr "Poruka"
 #. Translators: One of the track comment notification settings.
 msgid "Beep"
 msgstr "Zvučni signal"
-
-#. Translators: One of the track comment notification settings.
-msgid "Both"
-msgstr "Oboje"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to set how track comments are announced.
@@ -1698,3 +1852,27 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist programe. Dodatno tome, dodaje "
 "globalne naredbe za program Studio s bilo kojeg mjesta."
+
+#, python-brace-format
+#~ msgid "{header}: {content}"
+#~ msgstr "{header}: {content}"
+
+#, python-brace-format
+#~ msgid "{header}: blank"
+#~ msgstr "{header}: prazno"
+
+#, python-brace-format
+#~ msgid "{header}: ()"
+#~ msgstr "{header}: ()"
+
+#~ msgid "blank"
+#~ msgstr "prazno"
+
+#~ msgid "Columns Explorer"
+#~ msgstr "Istraživač stupaca"
+
+#~ msgid "Cannot locate current track information"
+#~ msgstr "Nije moguće pronaći informacije o trenutačnoj snimci"
+
+#~ msgid "Columns E&xplorer..."
+#~ msgstr "&Istraživač stupaca …"
