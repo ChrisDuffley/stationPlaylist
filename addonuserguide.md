@@ -455,7 +455,8 @@ If you have NVDA installed on a touchscreen computer, you can use touchscreen ge
 
 The commands in SPL mode are as follows:
 
-* Two finger flick left: open alarms settings.
+* Two finger flick right: open alarms settings.
+* Two finger flick left: open add-on settings.
 * Two finger flick up: announces broadcaster time.
 * Two finger flick down: announces remaining time for the currently playing track.
 
