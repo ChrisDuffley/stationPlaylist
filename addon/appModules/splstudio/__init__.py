@@ -1402,7 +1402,7 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Opens SPL Studio add-on configuration dialog."),
-		gesture="kb:alt+NVDA+0",
+		gestures=["kb:alt+NVDA+0", "ts(SPL):2finger_flickLeft"],
 	)
 	def script_openConfigDialog(self, gesture):
 		# 20.05: rather than calling the config dialog open event,
