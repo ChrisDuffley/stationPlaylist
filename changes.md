@@ -4,6 +4,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 
 ## Version 25.08/25.06.5-LTS
 
+* 25.08: removed unmaintained localizations (add-on messages and documentation).
 * In Studio, added two-finger flick left gesture in SPL touch mode to open SPL add-on settings.
 * Removed "Status" from vertical column navigation options.
 * In columns explorer (Studio, Track Tool, Creator, Remote VT), NVDA will no longer anounce "blank" for empty colunn content (only column header will be announced).
