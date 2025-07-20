@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 4.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-07-18 12:46-0600\n"
+"PO-Revision-Date: 2025-07-18 21:43-0600\n"
 "Last-Translator: Nikola Jović <wwenikola123@gmail.com>\n"
 "Language-Team: \n"
 "Language: sr\n"
@@ -32,6 +32,45 @@ msgstr "Glavni prozor Studija nije pronađen"
 #, fuzzy
 msgid "SPL Studio is minimized to system tray."
 msgstr "SPL studio nije pokrenut"
+
+#. Translators: input help mode message for column explorer commands.
+msgid ""
+"Pressing once announces data for a track column, pressing twice will present "
+"column data in a browse mode window"
+msgstr ""
+
+#. Translators: Script category for StationPlaylist add-on commands in input gestures dialog.
+#. Translators: Script category for StationPlaylist commands in input gestures dialog.
+#. Add-on summary/title, usually the user visible name of the add-on
+#. Translators: Summary/title for this add-on
+#. to be shown on installation and add-on information found in add-on store
+#, fuzzy
+msgid "StationPlaylist"
+msgstr "StationPlaylist Studio"
+
+#. Translators: Presented when column is out of range.
+#, python-brace-format
+msgid "Column {columnPosition} not found"
+msgstr ""
+
+#. Translators: Presented when a specific column header is not found.
+#, python-brace-format
+msgid "{headerText} not found"
+msgstr "{headerText} nije pronađen"
+
+#. Translators: Title of the column data window.
+#, fuzzy
+msgid "Track data"
+msgstr "Uvodni zapis"
+
+#. Translators: input help mode message for columns viewer command.
+msgid "Presents data for all columns in the currently selected track"
+msgstr ""
+
+#. Translators: location text for a playlist item (example: item 1 of 10).
+#, python-brace-format
+msgid "Item {current} of {total}"
+msgstr "Stavka{current} od{total}"
 
 #. Translators: The name of the default (normal) profile.
 msgid "Normal profile"
@@ -209,64 +248,6 @@ msgstr "Broj skeniranja"
 #. Translators: Presented when microphone has been active for a while.
 msgid "Microphone active"
 msgstr "Mikrofon aktivan"
-
-#. Translators: input help mode message for column explorer commands.
-msgid ""
-"Pressing once announces data for a track column, pressing twice will present "
-"column data in a browse mode window"
-msgstr ""
-
-#. Translators: Script category for StationPlaylist add-on commands in input gestures dialog.
-#. Translators: Script category for StationPlaylist commands in input gestures dialog.
-#. Add-on summary/title, usually the user visible name of the add-on
-#. Translators: Summary/title for this add-on
-#. to be shown on installation and add-on information found in add-on store
-#, fuzzy
-msgid "StationPlaylist"
-msgstr "StationPlaylist Studio"
-
-#. Translators: Presented when column is out of range.
-#, python-brace-format
-msgid "Column {columnPosition} not found"
-msgstr ""
-
-#. Translators: Presented when a specific column header is not found.
-#, python-brace-format
-msgid "{headerText} not found"
-msgstr "{headerText} nije pronađen"
-
-#. Translators: Standard message for announcing column content.
-#, python-brace-format
-msgid "{header}: {content}"
-msgstr "{header}: {content}"
-
-#. Translators: Spoken when column content is blank.
-#, python-brace-format
-msgid "{header}: blank"
-msgstr "{header}: prazno"
-
-#. Translators: Brailled to indicate empty column content.
-#, python-brace-format
-msgid "{header}: ()"
-msgstr "{header}: ()"
-
-#. Translators: presented when column information for a track is empty.
-msgid "blank"
-msgstr ""
-
-#. Translators: Title of the column data window.
-#, fuzzy
-msgid "Track data"
-msgstr "Uvodni zapis"
-
-#. Translators: input help mode message for columns viewer command.
-msgid "Presents data for all columns in the currently selected track"
-msgstr ""
-
-#. Translators: location text for a playlist item (example: item 1 of 10).
-#, python-brace-format
-msgid "Item {current} of {total}"
-msgstr "Stavka{current} od{total}"
 
 #. Translators: Input help message for screen column order toggle command in SPL Studio.
 msgid ""
@@ -449,6 +430,18 @@ msgstr ""
 "F10: Izvrši vremensku analizu zapisa.\n"
 "F12: Prebaci se na profil za trenutnu promenu.\n"
 "Šift+F1: Otvori online uputstvo."
+
+#. Translators: error dialog shown when a broadcaster is running an unsupported STduio release.
+#, python-brace-format
+msgid ""
+"You are using an unsupported version of {appName}. This add-on requires "
+"{appName} {version} or later"
+msgstr ""
+
+#. Translators: the title of the app version error dialog.
+#, python-brace-format
+msgid "Unsupported {appName} release"
+msgstr ""
 
 #. Translators: the label for a menu item in NVDA Preferences menu
 #. to open SPL Studio add-on settings.
@@ -1885,13 +1878,3 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist.\n"
 "Takođe, dodaje globalne komande za studio bilo gde."
-
-#~ msgid "Columns Explorer"
-#~ msgstr "Istraživač kolona"
-
-#~ msgid "Columns E&xplorer..."
-#~ msgstr "&Istraživač kolona"
-
-#, fuzzy
-#~ msgid "Cannot locate current track information"
-#~ msgstr "Nemoguće pronaći informacije trenutnog zapisa"
