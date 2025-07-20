@@ -1,6 +1,6 @@
 # StationPlaylist Add-on User Guide
 
-Revision: July 2025 for StationPlaylist add-on 25.07.1/25.06.3-LTS
+Revision: August 2025 for StationPlaylist add-on 25.08/25.06.5-LTS
 
 Author: Christopher Duffley (formerly Joseph Lee)
 
@@ -58,7 +58,7 @@ In addition to StationPlaylist Studio, this add-on comes with support for the fo
 * SPL Encoders
 * AltaCast encoders
 
-Certain commands will work across Studio and apps listed above, while others are specific to Studio, Track Tool, or encoders. See the sections below for details.
+Unless otherwise noted, this add-on guide will focus primarily on StationPlaylist Studio. Certain commands will work across Studio and apps listed above, while others are specific to Studio, Track Tool, or encoders. See the sections below for details.
 
 ## Add-on requirements and versions
 
@@ -958,9 +958,9 @@ Q. Which versions of Studio are supported by which add-on releases?
 * Studio 5.20: Add-on 16.11 to 20.09.7 (November 2016-April 2021).
 * Studio 5.3x: Add-on 17.11 to 22.12 (November 2017-December 2022).
 * Studio 5.40: Add-on 19.11 to 25.05.4 (November 2019-May 2025).
-* Studio 5.50: Add-on 20.11 to 25.06.3 (November 2020-July 2025).
-* Studio 6.0x: Add-on 21.11 to 25.07.1 (November 2021-July 2025).
-* Studio 6.1x: Add-on 24.03 to 25.07.1 (April 2024-July 2025).
+* Studio 5.50: Add-on 20.11 to 25.06.5 (November 2020-August 2025).
+* Studio 6.0x: Add-on 21.11 to 25.08 (November 2021-August 2025).
+* Studio 6.1x: Add-on 24.03 to 25.08 (April 2024-August 2025).
 
 Note: the schedule above is subject to change.
 
