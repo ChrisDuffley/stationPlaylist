@@ -303,8 +303,7 @@ class ConfigHub(ChainMap):
 				_configLoadStatus[profileName] = "metadataReset"
 			conf["MetadataStreaming"]["MetadataEnabled"] = [False, False, False, False, False]
 		# 17.04: If vertical column announcement value is "None", transform this to NULL.
-		# Temporary: also do this if "Status" (track item name) is set as vertical column announce value.
-		if conf["General"]["VerticalColumnAnnounce"] in ("None", "Status"):
+		if conf["General"]["VerticalColumnAnnounce"] == "None":
 			conf["General"]["VerticalColumnAnnounce"] = None
 		# 25.06: change explore columns/Creator "Date Restriction" column to "Restrictions".
 		for index in range(len(conf["General"]["ExploreColumnsCreator"])):
