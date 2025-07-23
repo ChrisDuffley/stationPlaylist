@@ -283,8 +283,7 @@ class ConfigHub(ChainMap):
 				_configLoadStatus[profileName] = "metadataReset"
 			conf["MetadataStreaming"]["MetadataEnabled"] = [False, False, False, False, False]
 		# If vertical column announcement value is "None", transform this to NULL.
-		# Temporary: also do this if "Status" (track item name) is set as vertical column announce value.
-		if conf["General"]["VerticalColumnAnnounce"] in ("None", "Status"):
+		if conf["General"]["VerticalColumnAnnounce"] == "None":
 			conf["General"]["VerticalColumnAnnounce"] = None
 
 	# Remove deprecated sections/keys.
