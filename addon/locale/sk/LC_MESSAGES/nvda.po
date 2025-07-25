@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-07-18 12:47-0600\n"
+"PO-Revision-Date: 2025-07-18 21:42-0600\n"
 "Last-Translator: Ondrej Rosík <ondrej.rosik@gmail.com>\n"
 "Language-Team: \n"
 "Language: sk\n"
@@ -1788,27 +1788,3 @@ msgstr ""
 "Zlepšuje prístupnosť programu StationPlaylist.\n"
 "Navyše pridáva globálne skratky, ktoré sa dajú použiť aj mimo hlavného okna "
 "SPL."
-
-#, python-brace-format
-#~ msgid "{header}: {content}"
-#~ msgstr "{header}: {content}"
-
-#, python-brace-format
-#~ msgid "{header}: blank"
-#~ msgstr "{header}: prázdny"
-
-#, python-brace-format
-#~ msgid "{header}: ()"
-#~ msgstr "{header}: ()"
-
-#~ msgid "blank"
-#~ msgstr "prázdny"
-
-#~ msgid "Columns Explorer"
-#~ msgstr "Prehliadač metadát"
-
-#~ msgid "Cannot locate current track information"
-#~ msgstr "Nepodarilo sa zistiť informácie o aktuálnej skladbe"
-
-#~ msgid "Columns E&xplorer..."
-#~ msgstr "Prehliadač &metadát..."

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-07-18 12:48-0600\n"
+"PO-Revision-Date: 2025-07-18 21:41-0600\n"
 "Last-Translator: zvonimir stanecic <zvonimirek222@yandex.com>\n"
 "Language-Team: Polish <killer@tyflonet.com>\n"
 "Language: pl\n"
@@ -1795,28 +1795,3 @@ msgid ""
 msgstr ""
 "Poprawia dostępność StationPlaylist.\n"
 "Ponadto, dodaje globalne komendy dla studia, dostępne z każdego miejsca."
-
-#, python-brace-format
-#~ msgid "{header}: {content}"
-#~ msgstr "{header}: {content}"
-
-#, python-brace-format
-#~ msgid "{header}: blank"
-#~ msgstr "{header}: pusto"
-
-#, python-brace-format
-#~ msgid "{header}: ()"
-#~ msgstr "{header}: ()"
-
-#~ msgid "blank"
-#~ msgstr "pusto"
-
-#~ msgid "Columns Explorer"
-#~ msgstr "Eksplorator kolumn"
-
-#~ msgid "Columns E&xplorer..."
-#~ msgstr "Eksplorator kolumn"
-
-#, fuzzy
-#~ msgid "Cannot locate current track information"
-#~ msgstr "Informacja o obecnym utworze niedostępna."

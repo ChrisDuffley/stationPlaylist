@@ -14,7 +14,7 @@ Eklenti hakkında daha fazla bilgi için [eklenti kılavuzunu][1] okuyun.
 
 ÖNEMLİ NOTLAR:
 
-* Bu eklenti, StationPlaylist Suite 5.50 veya sonraki sürümünü gerektirir.
+* Bu eklenti, StationPlaylist Suite 6.0 veya sonraki sürümünü gerektirir.
 * NVDA oturum açma ekranı gibi güvenli modda çalışıyorsa bazı eklenti
   özellikleri devre dışı bırakılır veya sınırlandırılır.
 * En iyi deneyim için ses zayıflaması modunu devre dışı bırakın.
@@ -87,8 +87,9 @@ belirtilmedikçe, bu komutlar isteğe bağlı konuşma modunu destekler.
   arasında değiştirir (talep üzerine konuşmayı desteklemez).
 * Bir parçaya odaklanıldığında Alt+NVDA+C (yalnızca Studio'nun çalma listesi
   görüntüleyicisi): varsa parça yorumlarını duyurur.
-* Alt+NVDA+0 (two finger flick left in SPL mode) from Studio window: Opens
-  the Studio add-on configuration dialog (does not support speak on demand).
+* Studio penceresinde Alt+NVDA+0 (SPL modunda sola iki parmak hareketi):
+  Studio eklenti yapılandırma iletişim kutusunu açar (talep üzerine
+  konuşmayı desteklemez).
 * Stüdyo penceresinde Alt+NVDA+P: Studio yayın profilleri iletişim kutusunu
   açar (talep üzerine konuşmayı desteklemez).
 * Alt+NVDA+F1: Karşılama iletişim kutusunu açar (talep üzerine konuşmayı
@@ -301,14 +302,13 @@ ardından seçimin sonuna ulaştığınızda SPL Yardımcısı, F10'a basın.
 
 ## Sütun Gezgini
 
-Control+NVDA+1'den 0'a kadar tuşlara basarak belirli sütunların içeriklerini
-elde edebilirsiniz. Varsayılan olarak bunlar bir parça öğesinin ilk on
-sütunudur (Studio'da: sanatçı, başlık, süre, giriş, çıkış, kategori, yıl,
-albüm, tür, ruh hali). Oluşturucu ve Remote VT istemcisindeki çalma listesi
-düzenleyicisi için sütun verileri, ekranda gösterilen sütun sırasına
-bağlıdır. Studio'da, Oluşturucu'nun ana parça listesi ve İzleme Aracı'nda
-sütun yuvaları, ekrandaki sütun sırasına bakılmaksızın önceden ayarlanır ve
-sütun gezgini kategorisi altındaki eklenti ayarları iletişim kutusundan
+Control+NVDA+1'den 0'a kadar basarak belirli sütunların içeriğini elde
+edebilirsiniz. Varsayılan olarak, bunlar bir parça öğesi için ilk on
+sütundur (Studio'da: sanatçı, başlık, süre, giriş, çıkış, kategori, yıl,
+albüm, tür, ruh hali). Studio'da, Oluşturucu'nun ana parça listesi ve çalma
+listesi düzenleyicisinde, Parça Araçları'nda ve Remote VT'de, sütun yuvaları
+ekrandaki sütun sırasından bağımsız olarak önceden ayarlanmıştır ve sütun
+gezgini kategorisi altındaki eklenti ayarları iletişim kutusundan
 yapılandırılabilir.
 
 ## Parça sütunu anonsu
@@ -359,31 +359,31 @@ bazı Studio komutlarını dokunmatik ekrandan gerçekleştirebilirsiniz. Önce
 SPL moduna geçmek için üç parmakla dokunmayı kullanın, ardından komutları
 gerçekleştirmek için yukarıda listelenen dokunma komutlarını kullanın.
 
-## Version 25.08/25.06.5-LTS
+## Sürüm 25.08/25.06.5-LTS
 
 * 25.08: bakımı yapılmamış yerelleştirmeler kaldırıldı (eklenti mesajları ve
   belgeler).
-* NVDA, eklenti için gereken sürümden önceki Studio sürümlerini
-  çalıştırırken bir hata iletişim kutusu gösterecek.
-* In Studio, added two-finger flick left gesture in SPL touch mode to open
-  SPL add-on settings.
+* Studio'da, SPL eklenti ayarlarını açmak için SPL dokunma modunda iki
+  parmakla sola kaydırma hareketi eklendi.
 * Dikey sütun gezinme seçeneklerinden “Durum” kaldırıldı.
-* Sütun gezgininde (Stüdyo, parça aracı, Oluşturucu, Uzak VT), NVDA artık
-  boş sütun içeriği için “boş” anonsu yapmayacak (sadece sütun başlığı anons
-  edilecek).
+* Sütun gezgininde (Studio, Parça aracı, Oluşturucu, Uzak VT), NVDA artık
+  boş sütun içeriği için "boş" mesajını vermeyecektir (yalnızca sütun
+  başlığı duyurulacaktır).
 * Studio, Parça Aracı, Oluşturucu ve Uzak VT'de, konum komutu
   gerçekleştirildiğinde (NVDA+Numpad Delete (masaüstü)/NVDA+Delete (dizüstü)
   ve inceleme imleci sürümü için Shift eklendiğinde) NVDA parça konumunu ve
   sayısını bildirecektir.
+
+## Sürüm 25.07.2/25.06.4-LTS
+
+* Studio'nun çalma listesi görüntüleyicisinde parça yorumu duyurusu da dahil
+  olmak üzere eksik yerelleştirilmiş mesajlar geri yüklendi.
+* NVDA, eklenti için gereken sürümden önceki Studio sürümlerini
+  çalıştırırken bir hata iletişim kutusu gösterecek.
 * Studio'da, bul iletişim kutusunu açmadan NVDA+Shift+F3 tuşlarına ilk kez
   basmak, NVDA'nın geriye doğru arama yapmasına neden olur.
 * Parça aracı'nda, NVDA artık parçalar arasında ilerlerken, özellikle de
   giriş seti olmayan parçalar için bip sesi çıkarmayacak.
-
-## Version 25.07.2/25.06.4-LTS
-
-* Restored missing localized messages including track comment announcement
-  in Studio's playlist viewer.
 
 ## Sürüm 25.07.1/25.06.3-lts
 

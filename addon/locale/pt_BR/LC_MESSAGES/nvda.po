@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist add-on\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-07-18 12:56-0600\n"
+"PO-Revision-Date: 2025-07-18 21:41-0600\n"
 "Last-Translator: Josevan Barbosa Fernandes <josevanfernandes@yahoo.com.br>\n"
 "Language-Team: NVDA Brazilian Portuguese translation team (Equipe de "
 "tradução do NVDA para Português Brasileiro) <clever97@gmail.com>\n"
@@ -1872,27 +1872,3 @@ msgstr ""
 "comandos globais para o aplicativo Studio de qualquer lugar.Melhora o "
 "suporte para aplicativos StationPlaylist.\n"
 "Além disso, adiciona comandos globais para o Studio em qualquer lugar."
-
-#, python-brace-format
-#~ msgid "{header}: {content}"
-#~ msgstr "{header}: {content}"
-
-#, python-brace-format
-#~ msgid "{header}: blank"
-#~ msgstr "{header}: em branco"
-
-#, python-brace-format
-#~ msgid "{header}: ()"
-#~ msgstr "{header}: ()"
-
-#~ msgid "blank"
-#~ msgstr "em branco"
-
-#~ msgid "Columns Explorer"
-#~ msgstr "Explorador de Colunas"
-
-#~ msgid "Cannot locate current track information"
-#~ msgstr "Não é possível localizar as informações da faixa atual"
-
-#~ msgid "Columns E&xplorer..."
-#~ msgstr "E&xplorador de Colunas..."

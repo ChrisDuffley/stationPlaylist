@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-07-18 12:40-0600\n"
+"PO-Revision-Date: 2025-07-18 21:39-0600\n"
 "Last-Translator: Robert Hänggi <aarjay.robert@gmail.com>\n"
 "Language-Team: \n"
 "Language: de_CH\n"
@@ -1664,8 +1664,8 @@ msgid ""
 "Opens a dialog to erase encoder labels and settings from an encoder that was "
 "deleted."
 msgstr ""
-"Öffnet ein Dialogfeld zum Löschen von Messgerätebeschriftungen und -"
-"einstellungen von einem Messgerät, das gelöscht wurde."
+"Öffnet ein Dialogfeld zum Löschen von Messgerätebeschriftungen und "
+"-einstellungen von einem Messgerät, das gelöscht wurde."
 
 #. Translators: The text of the stream configuration eraser dialog.
 msgid "Enter the position of the encoder you wish to delete or will delete"
@@ -1868,27 +1868,3 @@ msgstr ""
 "Verbessert die Unterstützung für StationPlaylist.\n"
 "Des weiteren fügt es Tastenkombinationen für das Studio aus beliebigen "
 "Programmen hinzu."
-
-#, python-brace-format
-#~ msgid "{header}: {content}"
-#~ msgstr "{header}: {content}"
-
-#, python-brace-format
-#~ msgid "{header}: blank"
-#~ msgstr "{header}: Keine"
-
-#, python-brace-format
-#~ msgid "{header}: ()"
-#~ msgstr "{header}: ()"
-
-#~ msgid "blank"
-#~ msgstr "Leer"
-
-#~ msgid "Columns Explorer"
-#~ msgstr "Spaltenexplorer"
-
-#~ msgid "Cannot locate current track information"
-#~ msgstr "Keine Informationen über den aktuellen Titel"
-
-#~ msgid "Columns E&xplorer..."
-#~ msgstr "Spaltene&xplorer..."

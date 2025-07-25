@@ -14,7 +14,7 @@ Para más información sobre este complemento, lee su [guía][1].
 
 NOTAS IMPORTANTES:
 
-* Este complemento requiere StationPlaylist Suite 5.50 o posterior.
+* Este complemento requiere StationPlaylist Suite 6.0 o posterior.
 * Algunas funciones del complemento quedan deshabilitadas o muy limitadas si
   NVDA se ejecuta en modo seguro, como por ejemplo en la pantalla de inicio
   de sesión.
@@ -96,8 +96,9 @@ de voz a petición.
   petición).
 * Alt+NVDA+C mientras se enfoca una pista (sólo en el visor de listas de
   reproducción de Studio): anuncia los comentarios de pista si los hay.
-* Alt+NVDA+0 (two finger flick left in SPL mode) from Studio window: Opens
-  the Studio add-on configuration dialog (does not support speak on demand).
+* Alt+NVDA+0 (deslizamiento hacia la izquierda con dos dedos en el modo SPL)
+  desde la ventana de Studio: abre el diálogo de configuración del
+  complemento de Studio (no soporta el modo de voz a petición).
 * Alt+NVDA+p desde la ventana de Studio: abre el diálogo de perfiles de
   emisión de Studio (no soporta el modo de voz a petición).
 * Alt+NVDA+F1: abre el diálogo de bienvenida (no soporta el modo de voz a
@@ -323,13 +324,11 @@ entonces pulsa SPL Assistant, F10 cuando se llegue a la selección final.
 Pulsando Control+NVDA+1 hasta 0, puedes obtener contenidos de columnas
 específicas. Por defecto, estas son las diez primeras columnas de un
 elemento de pista (en Studio: artista, título, duración, intro, outro,
-categoría, año, álbum, género, mood). En el editor de listas de reproducción
-de Creator y del cliente Remote VT, los datos de las columnas dependen del
-orden de las mismas según se muestren en pantalla. En Studio, la lista
-principal de pistas de Creator y la herramienta de pista, los slots de
-columna están predefinidos sin importar el orden de las columnas en pantalla
-y se pueden configurar desde el diálogo de opciones del complemento, bajo la
-categoría Explorador de columnas.
+categoría, año, álbum, género, mood). En Studio, la lista principal de
+pistas de Creator y la herramienta de pista, los slots de columna están
+predefinidos sin importar el orden de las columnas en pantalla y se pueden
+configurar desde el diálogo de opciones del complemento, bajo la categoría
+Explorador de columnas.
 
 ## Anuncio de columnas de pista
 
@@ -381,14 +380,12 @@ táctil. Primero utiliza un toque con tres dedos para cambiar a modo SPL,
 entonces utiliza las órdenes táctiles listadas arriba para llevar a cabo
 tareas.
 
-## Version 25.08/25.06.5-LTS
+## Versión 25.08/25.06.5-LTS
 
 * 25.08: se eliminan traducciones sin mantenimiento (mensajes del
   complemento y documentación).
-* NVDA presentará un diálogo de error al ejecutar versiones de Studio
-  anteriores a la versión requerida por el complemento.
-* In Studio, added two-finger flick left gesture in SPL touch mode to open
-  SPL add-on settings.
+* En Studio, se ha añadido el gesto de deslizar con dos dedos a la izquierda
+  en el modo táctil de SPL para abrir las opciones del complemento de SPL.
 * Se elimina "estado" de las opciones de navegación de columna vertical.
 * En el explorador de columnas (Studio, Herramienta de pista, Creador,
   Remote VT), NVDA ya no anunciará "en blanco" en el contenido de columna
@@ -397,15 +394,17 @@ tareas.
   posición en la pista y el total cuando se realice la orden de posición
   (NVDA+suprimir del teclado numérico (escritorio) / NVDA+suprimir
   (portátil) y añadiendo shift para la versión del cursor de revisión).
+
+## Versión 25.07.2/25.06.4-LTS
+
+* Se restauran mensajes traducidos faltantes, incluido el anuncio del
+  comentario de pista en el visualizador de lista de reproducción de Studio.
+* NVDA presentará un diálogo de error al ejecutar versiones de Studio
+  anteriores a la versión requerida por el complemento.
 * En Studio, pulsar NVDA+shift+f3 por primera vez sin abrir el diálogo de
   búsqueda hará que NVDA busque hacia atrás.
 * En la herramienta de pista, NVDA ya no pitará al moverse por las pistas,
   especialmente en pistas sin un conjunto introductorio.
-
-## Version 25.07.2/25.06.4-LTS
-
-* Restored missing localized messages including track comment announcement
-  in Studio's playlist viewer.
 
 ## Versión 25.07.1
 

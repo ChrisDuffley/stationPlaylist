@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 17.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-07-18 12:44-0600\n"
+"PO-Revision-Date: 2025-07-18 21:43-0600\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: \n"
 "Language: vi\n"
@@ -165,8 +165,8 @@ msgstr ""
 "\n"
 "Truy cập www.stationplaylist.com để biết thêm chi tiết về bộ ứng dụng của "
 "StationPlaylist.\n"
-"Xem bài viết về  StationPlaylist trên trang cộng đồng NVDA Add-ons (addons."
-"nvda-project.org) để có thêm thông tin và tài liệu về add-on này.\n"
+"Xem bài viết về  StationPlaylist trên trang cộng đồng NVDA Add-ons "
+"(addons.nvda-project.org) để có thêm thông tin và tài liệu về add-on này.\n"
 "Bạn muốn xem lại hộp thoại này nữa không? Chỉ việc bấm Alt+NVDA+F1 khi dùng "
 "Studio để trở về hộp thoại này.\n"
 "Bạn có gì muốn nói về Add-on này?\n"
@@ -1833,27 +1833,3 @@ msgid ""
 msgstr ""
 "Cải thiện hỗ trợ cho StationPlaylist.\n"
 "Ngoài ra là thêm các lệnh toàn cục cho studio từ bất cứ đâu."
-
-#, python-brace-format
-#~ msgid "{header}: {content}"
-#~ msgstr "{header}: {content}"
-
-#, python-brace-format
-#~ msgid "{header}: blank"
-#~ msgstr "{header}: rỗng"
-
-#, python-brace-format
-#~ msgid "{header}: ()"
-#~ msgstr "{header}: ()"
-
-#~ msgid "blank"
-#~ msgstr "rỗng"
-
-#~ msgid "Columns Explorer"
-#~ msgstr "Khám phá các cột"
-
-#~ msgid "Cannot locate current track information"
-#~ msgstr "Không tìm thấy thông tin của track hiện tại"
-
-#~ msgid "Columns E&xplorer..."
-#~ msgstr "Khám phá các &cột..."

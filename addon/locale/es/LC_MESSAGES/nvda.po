@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-07-18 12:54-0600\n"
+"PO-Revision-Date: 2025-07-18 23:48+0200\n"
 "Last-Translator: José Manuel Delicado <jm.delicado@nvda.es>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -26,12 +26,11 @@ msgstr "No estás en el editor de lista de reproducción"
 
 #. Translators: A message informing users that Studio is not running so certain commands will not work.
 msgid "Studio main window not found"
-msgstr ""
+msgstr "Ventana principal de Studio no encontrada"
 
 #. Translators: presented when SPL Studio window is minimized.
-#, fuzzy
 msgid "SPL Studio is minimized to system tray."
-msgstr "No se está ejecutando SPL Studio."
+msgstr "SPL Studio está minimizado en la bandeja del sistema."
 
 #. Translators: input help mode message for column explorer commands.
 msgid ""
@@ -443,11 +442,13 @@ msgid ""
 "You are using an unsupported version of {appName}. This add-on requires "
 "{appName} {version} or later"
 msgstr ""
+"Estás usando una versión no soportada de {appName}. Este complemento "
+"requiere {appName} {version} o posterior"
 
 #. Translators: the title of the app version error dialog.
 #, python-brace-format
 msgid "Unsupported {appName} release"
-msgstr ""
+msgstr "Versión de {appName} no soportada"
 
 #. Translators: the label for a menu item in NVDA Preferences menu
 #. to open SPL Studio add-on settings.
@@ -1325,7 +1326,7 @@ msgstr ""
 #. Studio
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer for SPL Studio"
-msgstr "E&xplorador de Columnas para SPL Studio..."
+msgstr "Explorador de Columnas para SPL Studio"
 
 #, python-brace-format
 msgid "Slot {position}"
@@ -1879,21 +1880,3 @@ msgid ""
 msgstr ""
 "Mejora el soporte para las aplicaciones de StationPlaylist. Además, agrega "
 "órdenes globales para la aplicación de Studio desde cualquier parte."
-
-#, python-brace-format
-#~ msgid "{header}: {content}"
-#~ msgstr "{header}: {content}"
-
-#, python-brace-format
-#~ msgid "{header}: blank"
-#~ msgstr "{header}: en blanco"
-
-#, python-brace-format
-#~ msgid "{header}: ()"
-#~ msgstr "{header}: ()"
-
-#~ msgid "blank"
-#~ msgstr "en blanco"
-
-#~ msgid "Columns Explorer"
-#~ msgstr "Explorador de Columnas"

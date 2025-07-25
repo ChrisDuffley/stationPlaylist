@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 3.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-07-18 12:48-0600\n"
+"PO-Revision-Date: 2025-07-18 21:41-0600\n"
 "Last-Translator: Ângelo Miguel Abrantes <ampa4374@gmail.com>\n"
 "Language-Team: Equipa Portuguesa do NVDA <angelomiguelabrantes@gmail.com; "
 "rui.fontes@tiflotecnia.com>\n"
@@ -1758,24 +1758,3 @@ msgid ""
 msgstr ""
 "Melhora o suporte para StationPlaylist.\n"
 "Além disso, adiciona comandos globais para o estúdio em todos os lugares."
-
-#, python-brace-format
-#~ msgid "{header}: {content}"
-#~ msgstr "{header}: {content}"
-
-#, python-brace-format
-#~ msgid "{header}: blank"
-#~ msgstr "{header}: vazio"
-
-#, python-brace-format
-#~ msgid "{header}: ()"
-#~ msgstr "{header}: ()"
-
-#~ msgid "blank"
-#~ msgstr "Em branco"
-
-#~ msgid "Columns Explorer"
-#~ msgstr "Explorador de colunas"
-
-#~ msgid "Columns E&xplorer..."
-#~ msgstr "&Explorador de colunas..."

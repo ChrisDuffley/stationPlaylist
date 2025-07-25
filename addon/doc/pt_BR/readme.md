@@ -14,7 +14,7 @@ Para obter mais informações sobre o add-on, leia o [guia do add-on][1].
 
 NOTAS IMPORTANTES:
 
-* Esse complemento requer o StationPlaylist Suite 5.50 ou posterior.
+* This add-on requires StationPlaylist suite 6.0 or later.
 * Alguns recursos complementares serão desativados ou limitados se o NVDA
   estiver sendo executado em modo seguro, como na tela de logon.
 * Para obter a melhor experiência, desative o modo de redução de áudio.
@@ -312,16 +312,13 @@ pressione Assistente SPL, F10 quando chegar ao final da seleção.
 
 ## Explorador de colunas
 
-Pressionando Control+NVDA+1 a 0, você pode obter o conteúdo de colunas
-específicas. Por padrão, essas são as primeiras dez colunas para um item de
-faixa (no Studio: intérprete, título, duração, introdução, outro, categoria,
-ano, álbum, gênero, modo). Para o editor de lista de reprodução no Criador e
-cliente Remote VT, os dados da coluna dependem da ordem das colunas,
-conforme mostrada na tela. No Studio, lista de faixas principal do Criador,
-e Ferramenta de Faixa, os espaços de coluna são predefinidos
-independentemente da ordem das colunas na tela e podem ser configurados no
-diálogo de configurações do complemento na categoria de explorador de
-colunas.
+By pressing Control+NVDA+1 through 0, you can obtain contents of specific
+columns. By default, these are first ten columns for a track item (in
+Studio: artist, title, duration, intro, outro, category, year, album, genre,
+mood). In Studio, Creator's main track list and playlist editor, Track Tool,
+and Remote VT, column slots are preset regardless of column order on screen
+and can be configured from add-on settings dialog under columns explorer
+category.
 
 ## Anúncio da coluna de faixa
 
@@ -379,27 +376,27 @@ executar os comandos.
 
 * 25.08: removed unmaintained localizations (add-on messages and
   documentation).
-* NVDA will present an error dialog when running Studio releases earlier
-  than the version required for the add-on.
 * In Studio, added two-finger flick left gesture in SPL touch mode to open
   SPL add-on settings.
 * Removed "Status" from vertical column navigation options.
 * In columns explorer (Studio, Track Tool, Creator, Remote VT), NVDA will no
-  longer anounce "blank" for empty colunn content (only column header will
+  longer announce "blank" for empty column content (only column header will
   be announced).
 * In Studio, Track Tool, Creator, and Remote VT, NVDA will announce track
   position and count when location command is performed (NVDA+Numpad Delete
   (desktop)/NVDA+Delete (laptop) and adding Shift for review cursor
   version).
-* In Studio, pressing NVDA+Shift+F3 the first time without opening find
-  dialog will cause NVDA to search backwards.
-* In Track Tool, NVDA will no longer play a beep when moving through tracks,
-  especially for tracks without an intro set.
 
 ## Version 25.07.2/25.06.4-LTS
 
 * Restored missing localized messages including track comment announcement
   in Studio's playlist viewer.
+* NVDA will present an error dialog when running Studio releases earlier
+  than the version required for the add-on.
+* In Studio, pressing NVDA+Shift+F3 the first time without opening find
+  dialog will cause NVDA to search backwards.
+* In Track Tool, NVDA will no longer play a beep when moving through tracks,
+  especially for tracks without an intro set.
 
 ## Version 25.07.1/25.06.3-LTS
 

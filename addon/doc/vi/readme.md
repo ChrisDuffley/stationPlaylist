@@ -13,7 +13,7 @@ For more information about the add-on, read the [add-on guide][1].
 
 CÁC LƯU Ý QUAN TRỌNG:
 
-* This add-on requires StationPlaylist suite 5.50 or later.
+* This add-on requires StationPlaylist suite 6.0 or later.
 * Some add-on features will be disabled or limited if NVDA is running in
   secure mode such as in logon screen.
 * For best experience, disable audio ducking mode.
@@ -278,14 +278,13 @@ Assistant, F10 khi kết thúc vùng chọn.
 
 ## Khám phá các cột
 
-Bấm Control+NVDA+1 đến 0, bạn có thể thu thập các nội dung của các cột cụ
-thể. Mặc định là mười cột đầu tiên (trong Studio: ca sĩ, tựa đề, thời lượng,
-nhạc dạo, nhạc kết thúc, loại, năm, album, thể loại, trạng thái) cho
-playlist editor trong Creator và Remote VT client, dữ lieu các cột phụ thuộc
-vào việc sắp xếp cột được hiển thị trên màn hình. Trong Studio, danh sách
-các track chính của Creator và track tool, các cột được xếp theo sắp xếp cột
-trên màn hình và có thể cấu hình trong hộp thoại cài đặt add-on, ở phân loại
-khám phá cột.
+By pressing Control+NVDA+1 through 0, you can obtain contents of specific
+columns. By default, these are first ten columns for a track item (in
+Studio: artist, title, duration, intro, outro, category, year, album, genre,
+mood). In Studio, Creator's main track list and playlist editor, Track Tool,
+and Remote VT, column slots are preset regardless of column order on screen
+and can be configured from add-on settings dialog under columns explorer
+category.
 
 ## Track column announcement
 
@@ -336,27 +335,27 @@ to perform commands.
 
 * 25.08: removed unmaintained localizations (add-on messages and
   documentation).
-* NVDA will present an error dialog when running Studio releases earlier
-  than the version required for the add-on.
 * In Studio, added two-finger flick left gesture in SPL touch mode to open
   SPL add-on settings.
 * Removed "Status" from vertical column navigation options.
 * In columns explorer (Studio, Track Tool, Creator, Remote VT), NVDA will no
-  longer anounce "blank" for empty colunn content (only column header will
+  longer announce "blank" for empty column content (only column header will
   be announced).
 * In Studio, Track Tool, Creator, and Remote VT, NVDA will announce track
   position and count when location command is performed (NVDA+Numpad Delete
   (desktop)/NVDA+Delete (laptop) and adding Shift for review cursor
   version).
-* In Studio, pressing NVDA+Shift+F3 the first time without opening find
-  dialog will cause NVDA to search backwards.
-* In Track Tool, NVDA will no longer play a beep when moving through tracks,
-  especially for tracks without an intro set.
 
 ## Version 25.07.2/25.06.4-LTS
 
 * Restored missing localized messages including track comment announcement
   in Studio's playlist viewer.
+* NVDA will present an error dialog when running Studio releases earlier
+  than the version required for the add-on.
+* In Studio, pressing NVDA+Shift+F3 the first time without opening find
+  dialog will cause NVDA to search backwards.
+* In Track Tool, NVDA will no longer play a beep when moving through tracks,
+  especially for tracks without an intro set.
 
 ## Version 25.07.1/25.06.3-LTS
 

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 6.4\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-07-18 12:47-0600\n"
+"PO-Revision-Date: 2025-07-18 21:42-0600\n"
 "Last-Translator: Florian Ionașcu <florianionascu@hotmail.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -1869,28 +1869,3 @@ msgid ""
 msgstr ""
 "Conține suport pentru StationPlaylist.\n"
 "De asemenea, adaugă comenzi globale pentru studio de oriunde."
-
-#, python-brace-format
-#~ msgid "{header}: {content}"
-#~ msgstr "{header}: {content}"
-
-#, python-brace-format
-#~ msgid "{header}: blank"
-#~ msgstr "{header}: gol"
-
-#, python-brace-format
-#~ msgid "{header}: ()"
-#~ msgstr "{header}: ()"
-
-#~ msgid "blank"
-#~ msgstr "gol"
-
-#~ msgid "Columns Explorer"
-#~ msgstr "Explorer coloane"
-
-#~ msgid "Columns E&xplorer..."
-#~ msgstr "E&xplorer coloane..."
-
-#, fuzzy
-#~ msgid "Cannot locate current track information"
-#~ msgstr "Nu se pot găsi informații despre melodia curentă"

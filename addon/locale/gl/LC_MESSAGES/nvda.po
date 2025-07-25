@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-07-18 12:42-0600\n"
+"PO-Revision-Date: 2025-07-18 21:40-0600\n"
 "Last-Translator: Juan C. Buño <oprisniki@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -1864,27 +1864,3 @@ msgid ""
 msgstr ""
 "Mellora o soporte para as aplicacións de StationPlaylist. Ademáis, engade "
 "ordes globais para o estudio dende calquera parte."
-
-#, python-brace-format
-#~ msgid "{header}: {content}"
-#~ msgstr "{header}: {content}"
-
-#, python-brace-format
-#~ msgid "{header}: blank"
-#~ msgstr "{header}: en branco"
-
-#, python-brace-format
-#~ msgid "{header}: ()"
-#~ msgstr "{header}: ()"
-
-#~ msgid "blank"
-#~ msgstr "en branco"
-
-#~ msgid "Columns Explorer"
-#~ msgstr "Explorador de Columnas"
-
-#~ msgid "Cannot locate current track information"
-#~ msgstr "Non se puido atopar a información da pista actual"
-
-#~ msgid "Columns E&xplorer..."
-#~ msgstr "E&xplorador de Columnas..."

@@ -12,8 +12,7 @@ l'extension][1].
 
 NOTES IMPORTANTES :
 
-* Cette extension nécessite StationPlaylist suite 5.50 ou version
-  ultérieure.
+* Cette extension nécessite StationPlaylist suite 6.0 ou version ultérieure.
 * Certaines fonctionnalités de l'extension seront désactivées ou limitées si
   NVDA s'exécute en mode sécurisé, comme dans l'écran de connexion.
 * Pour une meilleure expérience, désactiver le Mode d'atténuation audio.
@@ -49,9 +48,9 @@ mode parole à la demande.
   de la fenêtre Studio : ouvre la catégorie des alarmes dans le dialogue de
   configuration de l'extension de Studio (ne prend pas en charge la parole à
   la demande).
-* Alt+NVDA+1 à partir de l'éditeur de liste de lecture du créateur et de
-  l'éditeur de liste de lecture à distance VT : annonce l'heure programmée
-  pour la liste de lecture chargée.
+* Alt+NVDA+1 à partir de l'éditeur de liste de lecture de Creator et de
+  l'éditeur de liste de lecture Remote VT : annonce l'heure programmée pour
+  la liste de lecture chargée.
 * Alt+NVDA+2 à partir de l'éditeur de liste de lecture de Creator et de
   l'éditeur de liste de lecture Remote VT : annonce la durée totale de la
   liste de lecture.
@@ -95,8 +94,9 @@ mode parole à la demande.
   demande).
 * Alt+NVDA+C si une piste est en focus (Studio uniquement): annonce les
   commentaires de piste le cas échéant.
-* Alt+NVDA+0 (two finger flick left in SPL mode) from Studio window: Opens
-  the Studio add-on configuration dialog (does not support speak on demand).
+* Alt+NVDA+0 (faire glisser deux doigts vers la gauche en mode SPL) à partir
+  de la fenêtre Studio : ouvre le dialogue de configuration de l'extension
+  Studio (ne prend pas en charge la parole à la demande).
 * Alt+NVDA+P à partir de la fenêtre Studio : ouvre le dialogue des profils
   de diffusion Studio (ne prend pas en charge la parole à la demande).
 * Alt+NVDA+F1: Ouvre le dialogue de bienvenue (ne prend pas en charge la
@@ -332,13 +332,11 @@ sélection.
 En appuyant sur Ctrl+NVDA+1 à 0, vous pouvez obtenir le contenu de colonnes
 spécifiques. Par défaut, ce sont les dix premières colonnes d'un élément de
 piste (dans Studio : artiste, titre, durée, intro, outro, catégorie, année,
-album, genre, ambiance). Pour l'éditeur de liste de lecture dans le client
-Creator et Remote VT, les données de colonne dépendent de l'ordre des
-colonnes, comme indiqué à l'écran. Dans Studio, la liste des pistes
-principale de Creator et l'outil de piste, les emplacements de colonne sont
-prédéfinis quel que soit l'ordre des colonnes à l'écran et peuvent être
-configurés à partir du dialogue des paramètres de l'extension sous la
-catégorie explorateur de colonnes.
+album, genre, ambiance). Dans Studio, la liste des pistes principales de
+Creator et l'éditeur de liste de lecture, l'Outil de piste, et Remote VT,
+les emplacements de colonne sont prédéfinis quel que soit l'ordre des
+colonnes à l'écran et peuvent être configurés à partir du dialogue des
+paramètres de l'extension sous la catégorie explorateur de colonnes.
 
 ## Annonce des colonnes des pistes
 
@@ -390,29 +388,31 @@ exécuter des commandes.
 
 ## Version 25.08/25.06.5-LTS
 
-* 25.08: removed unmaintained localizations (add-on messages and
-  documentation).
-* NVDA présentera un dialogue d'erreur lors de l'exécution des versions de
-  Studio plus tôt que la version requise pour l'extension.
-* In Studio, added two-finger flick left gesture in SPL touch mode to open
-  SPL add-on settings.
+* 25.08: Suppression des localisations non maintenues (messages et
+  documentation de l'extension).
+* Dans Studio, il a été ajouté un geste pour faire glisser deux doigts vers
+  la gauche en mode tactile SPL pour ouvrir les paramètres de l'extension
+  SPL.
 * Supprimé "Statut" des options de navigation de la colonne verticale.
 * Dans l'Explorateur de Colonnes (Studio, l'Outil de piste, Creator, Remote
   VT), NVDA n'annoncera plus "vide" pour le contenu de la colonne vide (seul
   l'en-tête de colonne sera annoncé).
-* In Studio, Track Tool, Creator, and Remote VT, NVDA will announce track
-  position and count when location command is performed (NVDA+Numpad Delete
-  (desktop)/NVDA+Delete (laptop) and adding Shift for review cursor
-  version).
+* Dans Studio, l'Outil de piste, Creator, et Remote VT, NVDA annoncera la
+  position de la piste et le total lorsque la commande de position sera
+  effectuée (NVDA+pavnumEffacement (Ordinateur de bureau)/NVDA+effacement
+  (Ordinateur portable) puis en ajoutant Maj pour la version du curseur de
+  revue).
+
+## Version 25.07.2/25.06.4-LTS
+
+* Les messages traduits manquants sont restaurés, y compris l'annonce de
+  commentaire de piste dans la visionneuse de playlist de Studio.
+* NVDA présentera un dialogue d'erreur lors de l'exécution des versions de
+  Studio plus tôt que la version requise pour l'extension.
 * Dans Studio, en appuyant sur NVDA+Maj+F3 la première fois sans ouvrir le
   dialogue pour chercher provoquera la recherche de NVDA vers l'arrière.
 * Dans l'Outil de piste, NVDA ne jouera plus un bip lors du déplacement des
   pistes, en particulier pour les pistes sans définir l'intro.
-
-## Version 25.07.2/25.06.4-LTS
-
-* Restored missing localized messages including track comment announcement
-  in Studio's playlist viewer.
 
 ## Version 25.07.1/25.06.3-LTS
 

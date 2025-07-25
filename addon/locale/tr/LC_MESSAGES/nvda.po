@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-07-18 22:05+0300\n"
+"PO-Revision-Date: 2025-07-18 21:43-0600\n"
 "Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language-Team: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language: tr_TR\n"
@@ -166,8 +166,8 @@ msgstr ""
 "* Tamamen ücretsiz, açık kaynaklı, topluluk odaklı\n"
 "* Ve çok daha fazlası.\n"
 "\n"
-"StationPlaylist uygulama paketi hakkında ayrıntılı bilgi için www."
-"stationplaylist.com adresini ziyaret edin.\n"
+"StationPlaylist uygulama paketi hakkında ayrıntılı bilgi için "
+"www.stationplaylist.com adresini ziyaret edin.\n"
 "StationPlaylist eklentisi Github sayfasını ziyaret edin (https://github.com/"
 "chrisduffley/stationplaylist)\n"
 "Eklenti ayrıntıları ve belgeleri okumak için.\n"
@@ -432,11 +432,13 @@ msgid ""
 "You are using an unsupported version of {appName}. This add-on requires "
 "{appName} {version} or later"
 msgstr ""
+"Desteklenmeyen bir {appName} sürümü kullanıyorsunuz. Bu eklenti {appName} "
+"{version} veya sonrası sürümleri gerektirir"
 
 #. Translators: the title of the app version error dialog.
 #, python-brace-format
 msgid "Unsupported {appName} release"
-msgstr ""
+msgstr "Desteklenmeyen {appName} sürümü"
 
 #. Translators: the label for a menu item in NVDA Preferences menu
 #. to open SPL Studio add-on settings.
@@ -1832,27 +1834,3 @@ msgid ""
 msgstr ""
 "StationPlaylist uygulamalarına yönelik desteği geliştirir. Ayrıca Studio "
 "uygulamasına her yerden global komutlar ekler."
-
-#, python-brace-format
-#~ msgid "{header}: {content}"
-#~ msgstr "{header}: {content}"
-
-#, python-brace-format
-#~ msgid "{header}: blank"
-#~ msgstr "{header}: boş"
-
-#, python-brace-format
-#~ msgid "{header}: ()"
-#~ msgstr "{header}: ()"
-
-#~ msgid "blank"
-#~ msgstr "boş"
-
-#~ msgid "Columns Explorer"
-#~ msgstr "Sütun gezgini"
-
-#~ msgid "Cannot locate current track information"
-#~ msgstr "Mevcut parça bilgisi bulunamıyor"
-
-#~ msgid "Columns E&xplorer..."
-#~ msgstr "Sütun Ge&zgini..."
