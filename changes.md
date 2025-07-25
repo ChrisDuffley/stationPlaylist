@@ -6,7 +6,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 
 * In Studio, added two-finger flick left gesture in SPL touch mode to open SPL add-on settings.
 * Removed "Status" from vertical column navigation options.
-* In columns explorer (Studio, Track Tool, Creator, Remote VT), NVDA will no longer anounce "blank" for empty colunn content (only column header will be announced).
+* In columns explorer (Studio, Track Tool, Creator, Remote VT), NVDA will no longer announce "blank" for empty column content (only column header will be announced).
 * In Studio, Track Tool, Creator, and Remote VT, NVDA will announce track position and count when location command is performed (NVDA+Numpad Delete (desktop)/NVDA+Delete (laptop) and adding Shift for review cursor version).
 
 ## Version 25.06.4-LTS
