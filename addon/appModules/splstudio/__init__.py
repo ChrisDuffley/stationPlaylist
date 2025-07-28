@@ -437,8 +437,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 				self._trackCommentsEntry(filename, splconfig.trackComments[filename])
 		else:
 			if level in (1, 2):
-				# Translators: Presented when there is no track comment for the focused track.
-				ui.message(_("No comment"))
+				ui.message(translate("No comments"))
 			elif level >= 3:
 				# 16.12: timed break notes shows an odd value for filename (seconds in integers followed by a colon),
 				# potentially confusing users.)
