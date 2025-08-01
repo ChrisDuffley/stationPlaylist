@@ -624,10 +624,9 @@ def openConfig(splComponent: str) -> None:
 		SPLConfig.splComponents.add(splComponent)
 
 
-def initialize() -> None:
+# Additional steps used by Studio.
+def initStudioExtraSteps() -> None:
 	global SPLConfig, _configLoadStatus, trackComments
-	# Load the default config from a list of profiles.
-	openConfig("splstudio")
 	# #155: Mypy will say that SPLConfig is None when in fact it is ready
 	# simply because openConfig function does not return SPLConfig.
 	# Therefore do a None guard check just to tell Mypy it is safe to proceed.
