@@ -662,7 +662,7 @@ _SPLDefaults.validate(_val, copy=True)
 trackComments = {}
 
 
-# Open config database, used mostly from modules other than Studio.
+# Open config database, used from app modules (including Studio).
 def openConfig(splComponent: str) -> None:
 	global SPLConfig
 	# #64 (18.07): skip this step if another SPL component (such as Creator) opened this.
