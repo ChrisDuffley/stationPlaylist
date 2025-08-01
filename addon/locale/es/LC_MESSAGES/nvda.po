@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-07-18 23:48+0200\n"
+"PO-Revision-Date: 2025-08-01 08:44-0600\n"
 "Last-Translator: José Manuel Delicado <jm.delicado@nvda.es>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -269,10 +269,6 @@ msgstr "Usar orden personalizado al anunciar columnas de pista"
 #. Translators: Presented when track comment has been copied to clipboard.
 msgid "Track comment copied to clipboard"
 msgstr "Comentario de pista copiado al portapapeles"
-
-#. Translators: Presented when there is no track comment for the focused track.
-msgid "No comment"
-msgstr "No hay comentario"
 
 #. Translators: Presented when focused on a track other than an actual track (such as hour marker).
 msgid "Comments cannot be added to this kind of track"

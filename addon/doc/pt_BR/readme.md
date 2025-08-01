@@ -7,14 +7,14 @@
 Este pacote de complemento fornece uso aprimorado do StationPlaylist Studio
 e outros aplicativos StationPlaylist, além de fornecer utilitários para
 controlar o Studio de qualquer lugar. Os aplicativos compatíveis incluem
-Studio, Criador — Criador —, Track Tool — Ferramenta de Faixa —, VT Recorder
-e Streamer, bem como codificadores — encoders — SAM, SPL e AltaCast.
+Studio, Criador —  —, Track Tool — Ferramenta de Faixa —, VT Recorder e
+Streamer, bem como codificadores — encoders — SAM, SPL e AltaCast.
 
 Para obter mais informações sobre o add-on, leia o [guia do add-on][1].
 
 NOTAS IMPORTANTES:
 
-* This add-on requires StationPlaylist suite 6.0 or later.
+* Este complemento requer o StationPlaylist suite 6.0 ou posterior.
 * Alguns recursos complementares serão desativados ou limitados se o NVDA
   estiver sendo executado em modo seguro, como na tela de logon.
 * Para obter a melhor experiência, desative o modo de redução de áudio.
@@ -91,8 +91,9 @@ fala sob demanda.
   demanda).
 * Alt+NVDA+C enquanto focalizado numa faixa (somente visualizador da lista
   de reprodução do Studio): anuncia os comentários da faixa, se houver.
-* Alt+NVDA+0 (two finger flick left in SPL mode) from Studio window: Opens
-  the Studio add-on configuration dialog (does not support speak on demand).
+* Alt+NVDA+0 (deslizar dois dedos para a esquerda no modo SPL) na janela do
+  Studio: abre a caixa de diálogo de configuração do complemento do Studio
+  (não suporta fala sob demanda).
 * Alt+NVDA+P na janela do Studio: Abre a caixa de diálogo de perfis de
   transmissão do Studio (não suporta falar sob demanda).
 * Alt+NVDA+F1: Abre a caixa de diálogo de boas-vindas (não oferece suporte
@@ -312,13 +313,15 @@ pressione Assistente SPL, F10 quando chegar ao final da seleção.
 
 ## Explorador de colunas
 
-By pressing Control+NVDA+1 through 0, you can obtain contents of specific
-columns. By default, these are first ten columns for a track item (in
-Studio: artist, title, duration, intro, outro, category, year, album, genre,
-mood). In Studio, Creator's main track list and playlist editor, Track Tool,
-and Remote VT, column slots are preset regardless of column order on screen
-and can be configured from add-on settings dialog under columns explorer
-category.
+Ao pressionar Control+NVDA+1 a 0, você pode obter o conteúdo de colunas
+específicas. Por padrão, essas são as dez primeiras colunas de um item de
+faixa (no Studio: artista, título, duração, introdução, encerramento,
+categoria, ano, álbum, gênero, clima). No Studio, na lista de faixas
+principal do Creator e no editor de listas de reprodução, na Ferramenta de
+Faixas e no Remote VT, os espaços das colunas são predefinidos,
+independentemente da ordem das colunas na tela, e podem ser configurados na
+caixa de diálogo de configurações do complemento, na categoria explorador de
+colunas.
 
 ## Anúncio da coluna de faixa
 
@@ -372,58 +375,60 @@ tela sensível ao toque. Primeiro, use o toque de três dedos para alternar
 para o modo SPL e, em seguida, use os comandos de toque listados acima para
 executar os comandos.
 
-## Version 25.08/25.06.5-LTS
+## Versão 25.08/25.06.5-LTS
 
-* 25.08: removed unmaintained localizations (add-on messages and
-  documentation).
-* In Studio, added two-finger flick left gesture in SPL touch mode to open
-  SPL add-on settings.
-* Removed "Status" from vertical column navigation options.
-* In columns explorer (Studio, Track Tool, Creator, Remote VT), NVDA will no
-  longer announce "blank" for empty column content (only column header will
-  be announced).
-* In Studio, Track Tool, Creator, and Remote VT, NVDA will announce track
-  position and count when location command is performed (NVDA+Numpad Delete
-  (desktop)/NVDA+Delete (laptop) and adding Shift for review cursor
-  version).
+* 25.08: removidas localizações não mantidas (mensagens e documentação do
+  complemento).
+* No Studio, adicionou-se o gesto de deslizar dois dedos para a esquerda no
+  modo de toque SPL para abrir as configurações do complemento SPL.
+* Removido “Status” das opções de navegação da coluna vertical.
+* No explorador de colunas (Studio, Track Tool, Creator, Remote VT), o NVDA
+  não anunciará mais “em branco” para o conteúdo vazio da coluna (apenas o
+  cabeçalho da coluna será anunciado).
+* No Studio, Track Tool, Creator e Remote VT, o NVDA anunciará a posição e a
+  contagem da trilha quando o comando de localização for executado
+  (NVDA+Delete do teclado numérico (desktop)/NVDA+Delete (laptop) e
+  adicionando Shift para a versão do cursor de revisão).
 
-## Version 25.07.2/25.06.4-LTS
+## Versão 25.07.2/25.06.4-LTS
 
-* Restored missing localized messages including track comment announcement
-  in Studio's playlist viewer.
-* NVDA will present an error dialog when running Studio releases earlier
-  than the version required for the add-on.
-* In Studio, pressing NVDA+Shift+F3 the first time without opening find
-  dialog will cause NVDA to search backwards.
-* In Track Tool, NVDA will no longer play a beep when moving through tracks,
-  especially for tracks without an intro set.
+* Restauraram as mensagens localizadas que estavam faltando, incluindo o
+  anúncio de comentários de faixas no visualizador de playlists do Studio.
+* O NVDA apresentará uma caixa de diálogo de erro ao executar versões do
+  Studio anteriores à versão exigida para o complemento.
+* No Studio, pressionar NVDA+Shift+F3 pela primeira vez sem abrir a caixa de
+  diálogo de pesquisa fará com que o NVDA pesquise para trás.
+* Na ferramenta Faixa, o NVDA não emitirá mais um sinal sonoro ao percorrer
+  as faixas, especialmente para faixas sem uma introdução definida.
 
-## Version 25.07.1/25.06.3-LTS
+## Versão 25.07.1/25.06.3-LTS
 
-* In Studio's playlist viewer, NVDA will no longer appear to do nothing or
-  play error tones when reporting column contents if vertical column
-  navigation is set to values other than "whichever column I am reviewing".
-* Setting vertical column navigation to "Status" column is deprecated and
-  will be removed in a future add-on release.
+* No visualizador de listas de reprodução do Studio, o NVDA não parecerá
+  mais não fazer nada ou reproduzir tons de erro ao relatar o conteúdo das
+  colunas se a navegação vertical das colunas estiver definida para valores
+  diferentes de “qualquer coluna que eu estiver revisando”.
+* A configuração da navegação da coluna vertical para a coluna “Status” está
+  obsoleta e será removida em uma versão futura do complemento.
 
-## Version 25.07/25.06.2-LTS
+## Versão 25.07/25.06.2-LTS
 
-Version 25.07 supports SPL Studio 6.0 and later.
+A versão 25.07 é compatível com o SPL Studio 6.0 e versões posteriores.
 
-* 25.07: code was refactored, including through use of Pyright (a Python
-  static type checker). Some prominent code changes were also backported to
-  25.06.2-LTS.
-* Columns explorer (Control+NVDA+number row) is now configurable for Creator
-  and Remote VT's playlist editor. A new button, "columns explorer for
-  playlist editor" is available from columns explorer add-on settings
-  screen.
-* In columns explorer add-on settings, renamed "columns explorer" to
-  "columns explorer for SPL Studio".
-* Added JSON (JavaScript Object Notation) format as a playlist transcripts
-  format.
-* In encoders, NVDA will remove encoder settings if pressing Control+F12 to
-  remove settings for encoder 10 and above if more than ten encoders are
-  present.
+* 25.07: o código foi refatorado, incluindo o uso do Pyright (um verificador
+  de tipos estáticos Python). Algumas alterações importantes no código
+  também foram retrocompatíveis com a versão 25.06.2-LTS.
+* O explorador de colunas (Control+NVDA+linha numérica) agora pode ser
+  configurado para o editor de listas de reprodução do Creator e do Remote
+  VT. Um novo botão, “explorador de colunas para editor de listas de
+  reprodução”, está disponível na tela de configurações do complemento do
+  explorador de colunas.
+* Nas configurações do complemento do explorador de colunas, renomeou
+  “explorador de colunas” para “explorador de colunas para SPL Studio”.
+* Adicionado o formato JSON (JavaScript Object Notation) como formato de
+  transcrição de playlists.
+* Nos codificadores, o NVDA removerá as configurações do codificador se você
+  pressionar Control+F12 para remover as configurações do codificador 10 e
+  acima, se houver mais de dez codificadores presentes.
 
 ## Versão 25.06-LTS
 
@@ -435,8 +440,8 @@ antigas, com versões futuras suportando o Studio 5.30 e recursos mais
 recentes do NVDA. Alguns novos recursos serão portados para 20.09.x, se
 necessário.
 
-* Internal changes to make the add-on more compatible with upcoming 64-bit
-  NVDA.
+* Alterações internas para tornar o complemento mais compatível com o futuro
+  NVDA de 64 bits.
 * O NVDA não se esquecerá mais de transferir perfis de transmissão ao
   atualizar o complemento (corrigindo uma regressão introduzida na versão
   25.05).

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist add-on\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-07-18 21:41-0600\n"
+"PO-Revision-Date: 2025-08-01 08:40-0600\n"
 "Last-Translator: Josevan Barbosa Fernandes <josevanfernandes@yahoo.com.br>\n"
 "Language-Team: NVDA Brazilian Portuguese translation team (Equipe de "
 "tradução do NVDA para Português Brasileiro) <clever97@gmail.com>\n"
@@ -269,10 +269,6 @@ msgstr "Use a ordem personalizada ao anunciar as colunas da faixa"
 msgid "Track comment copied to clipboard"
 msgstr "Comentário da faixa copiado para a área de transferência"
 
-#. Translators: Presented when there is no track comment for the focused track.
-msgid "No comment"
-msgstr "Sem comentário"
-
 #. Translators: Presented when focused on a track other than an actual track (such as hour marker).
 msgid "Comments cannot be added to this kind of track"
 msgstr "Não podem ser adicionados comentários a esse tipo de faixa"
@@ -441,11 +437,13 @@ msgid ""
 "You are using an unsupported version of {appName}. This add-on requires "
 "{appName} {version} or later"
 msgstr ""
+"Você está usando uma versão não compatível do {appName}. Este complemento "
+"requer {appName} {version} ou posterior"
 
 #. Translators: the title of the app version error dialog.
 #, python-brace-format
 msgid "Unsupported {appName} release"
-msgstr ""
+msgstr "Versão {appName} não suportada"
 
 #. Translators: the label for a menu item in NVDA Preferences menu
 #. to open SPL Studio add-on settings.
@@ -1322,7 +1320,7 @@ msgstr ""
 #. Studio
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer for SPL Studio"
-msgstr "E&xplorador de colunas para o SPL Studio..."
+msgstr "Explorador de colunas para SPL Studio"
 
 #, python-brace-format
 msgid "Slot {position}"

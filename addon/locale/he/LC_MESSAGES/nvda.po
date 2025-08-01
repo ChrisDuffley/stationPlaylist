@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 5.5\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-07-18 21:40-0600\n"
+"PO-Revision-Date: 2025-08-01 08:43-0600\n"
 "Last-Translator: shmuel naaman <shmuel_naaman@yahoo.com>\n"
 "Language-Team: Shmuel Naaman <nvda.israel@gmail.com>\n"
 "Language: he\n"
@@ -242,10 +242,6 @@ msgstr "כלול כותרות עמודות בעת הכרזה על פרטי &רצ
 #. Translators: Presented when track comment has been copied to clipboard.
 msgid "Track comment copied to clipboard"
 msgstr "הערת רצועה הועתקה"
-
-#. Translators: Presented when there is no track comment for the focused track.
-msgid "No comment"
-msgstr "ללא הערה"
 
 #. Translators: Presented when focused on a track other than an actual track (such as hour marker).
 msgid "Comments cannot be added to this kind of track"

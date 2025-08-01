@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 6.4\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-07-18 21:42-0600\n"
+"PO-Revision-Date: 2025-08-01 08:40-0600\n"
 "Last-Translator: Florian Ionașcu <florianionascu@hotmail.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -247,10 +247,6 @@ msgstr "&Include antete de coloană la anunțarea informațiilor melodiei"
 #. Translators: Presented when track comment has been copied to clipboard.
 msgid "Track comment copied to clipboard"
 msgstr "Comentariul melodiei copiat pe planșetă"
-
-#. Translators: Presented when there is no track comment for the focused track.
-msgid "No comment"
-msgstr "Nici un comentariu"
 
 #. Translators: Presented when focused on a track other than an actual track (such as hour marker).
 msgid "Comments cannot be added to this kind of track"

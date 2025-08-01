@@ -375,9 +375,9 @@ NVDA, вы можете выполнять некоторые команды Stu
 * В Studio, добавлен жест пролистывания двумя пальцами влево в сенсорном
   режиме SPL для открытия настроек дополнения SPL.
 * Удалено "состояние" из параметров навигации по вертикальным столбцам.
-* In columns explorer (Studio, Track Tool, Creator, Remote VT), NVDA will no
-  longer announce "blank" for empty column content (only column header will
-  be announced).
+* В обозревателе столбцов (Studio, Track Tool, Creator, Remote VT), NVDA
+  больше не будет объявлять "пусто" для пустого содержимого столбца (будет
+  объявлен только заголовок столбца).
 * В Studio, Track Tool, Creator, и Remote VT, NVDA объявит о позиции дорожки
   и подсчитает, когда будет выполнена команда местоположения (NVDA+Delete на
   цифровом блоке (настольная)/NVDA+Delete (ноутбук) и добавление Shift для
