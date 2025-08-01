@@ -590,16 +590,6 @@ class AppModule(appModuleHandler.AppModule):
 			_("Unsupported {appName} release").format(appName=self.productName),
 			)
 			raise RuntimeError("Unsupported version of Studio is running, exiting app module")
-		log.debug(f"SPL: using SPL Studio version {self.productVersion}")
-		# #84: if foreground object is defined, this is a true Studio start,
-		# otherwise this is an NVDA restart with Studio running.
-		# The latter is possible because app module constructor can run before NVDA finishes initializing,
-		# particularly if system focus is located somewhere other than Taskbar.
-		# Note that this is an internal implementation detail and is subject to change without notice.
-		if api.getForegroundObject() is not None:
-			log.debug("SPL: Studio is starting")
-		else:
-			log.debug("SPL: Studio is already running")
 		# Announce app version if minimal startup flag is not set.
 		try:
 			if not globalVars.appArgs.minimal:
@@ -615,7 +605,6 @@ class AppModule(appModuleHandler.AppModule):
 		# not when splmisc module is being imported.
 		splactions.SPLActionProfileSwitched.register(splmisc.metadata_actionProfileSwitched)
 		splactions.SPLActionSettingsReset.register(splmisc.metadata_actionSettingsReset)
-		log.debug("SPL: loading add-on settings")
 		splconfig.initialize()
 		# Announce status changes while using other programs.
 		eventHandler.requestEvents(
@@ -626,7 +615,6 @@ class AppModule(appModuleHandler.AppModule):
 		)
 		# Also for requests window.
 		eventHandler.requestEvents(eventName="show", processId=self.processID, windowClassName="TRequests")
-		log.debug("SPL: preparing GUI subsystem")
 		try:
 			self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
 			self.SPLSettings = self.prefsMenu.Append(
@@ -639,7 +627,6 @@ class AppModule(appModuleHandler.AppModule):
 			)
 			gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfui.onConfigDialog, self.SPLSettings)
 		except AttributeError:
-			log.debug("SPL: failed to initialize GUI subsystem")
 			self.prefsMenu = None
 		# #82: notify others when Studio window gets focused the first time
 		# in order to synchronize announcement order.
@@ -647,7 +634,6 @@ class AppModule(appModuleHandler.AppModule):
 		# Let me know the Studio window handle.
 		# Do not allow this thread to run forever (seen when evaluation times out and the app module starts).
 		self.noMoreHandle = threading.Event()
-		log.debug("SPL: locating Studio window handle")
 		# If this is started right away, foreground and focus objects will be NULL according to NVDA
 		# if NVDA restarts while Studio is running.
 		t = threading.Thread(target=self._locateSPLHwnd)
@@ -1063,7 +1049,6 @@ class AppModule(appModuleHandler.AppModule):
 	# Save configuration and perform other tasks when terminating.
 	def terminate(self):
 		super().terminate()
-		log.debug("SPL: terminating app module")
 		# Unregister profile switch and reset handlers.
 		splactions.SPLActionProfileSwitched.unregister(self.actionProfileSwitched)
 		splactions.SPLActionSettingsReset.unregister(self.actionSettingsReset)
@@ -1073,7 +1058,6 @@ class AppModule(appModuleHandler.AppModule):
 		# Perform app module termination work via action handlers.
 		# Among other tasks, close any opened SPL add-on dialogs.
 		splactions.SPLActionAppTerminating.notify()
-		log.debug("SPL: closing microphone alarm/interval thread")
 		# #39: terminate microphone alarm/interval threads, otherwise errors are seen.
 		global micAlarmT, micAlarmT2
 		if micAlarmT is not None:
@@ -1082,7 +1066,6 @@ class AppModule(appModuleHandler.AppModule):
 		if micAlarmT2 is not None:
 			micAlarmT2.Stop()
 		micAlarmT2 = None
-		log.debug("SPL: saving add-on settings")
 		splconfig.terminate()
 		# Delete focused track reference.
 		self._focusedTrack = None
