@@ -605,7 +605,9 @@ class AppModule(appModuleHandler.AppModule):
 		# not when splmisc module is being imported.
 		splactions.SPLActionProfileSwitched.register(splmisc.metadata_actionProfileSwitched)
 		splactions.SPLActionSettingsReset.register(splmisc.metadata_actionSettingsReset)
-		splconfig.initialize()
+		# Load config database if not done already.
+		splconfig.openConfig(self.appName)
+		splconfig.initStudioExtraSteps()
 		# Announce status changes while using other programs.
 		eventHandler.requestEvents(
 			eventName="nameChange", processId=self.processID, windowClassName="TStatusBar"
@@ -1066,7 +1068,8 @@ class AppModule(appModuleHandler.AppModule):
 		if micAlarmT2 is not None:
 			micAlarmT2.Stop()
 		micAlarmT2 = None
-		splconfig.terminate()
+		splconfig.terminateStudioExtraSteps()
+		splconfig.closeConfig(self.appName)
 		# Delete focused track reference.
 		self._focusedTrack = None
 		# #86: track time analysis marker should be gone, too.
