@@ -742,8 +742,8 @@ def closeConfig(splComponent: str) -> None:
 		SPLConfig = None
 
 
-# Terminate the config and related subsystems.
-def terminate() -> None:
+# Extra steps when Studio app module is terminating.
+def terminateStudioExtraSteps() -> None:
 	global trackComments
 	# Dump and clear track comments.
 	# 22.03 (security): but not in secure mode.
@@ -752,10 +752,6 @@ def terminate() -> None:
 			pickle.dump(trackComments, f, protocol=4)
 	trackComments.clear()
 	trackComments = {}
-	# Now save profiles.
-	# 8.0: Call the save method.
-	# #64 (18.07): separated into its own function in 2018.
-	closeConfig("splstudio")
 
 
 # Called from within the app module.
