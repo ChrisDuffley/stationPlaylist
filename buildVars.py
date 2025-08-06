@@ -32,9 +32,9 @@ addon_info = AddonInfo(
 	addon_sourceURL="https://github.com/ChrisDuffley/stationPlaylist",
 	# Documentation file name
 	addon_docFileName="readme.html",
-	# Minimum NVDA version supported (e.g. "2018.3.0", minor version is optional)
+	# Minimum NVDA version supported (e.g. "2019.3.0", minor version is optional)
 	addon_minimumNVDAVersion="2024.1",
-	# Last NVDA version supported/tested (e.g. "2018.4.0", ideally more recent than minimum version)
+	# Last NVDA version supported/tested (e.g. "2024.4.0", ideally more recent than minimum version)
 	addon_lastTestedNVDAVersion="2025.2",
 	# Add-on update channel (default is None, denoting stable releases,
 	# and for development releases, use "dev".)
