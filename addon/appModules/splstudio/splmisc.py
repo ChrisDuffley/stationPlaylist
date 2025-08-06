@@ -14,6 +14,7 @@ import json
 import api
 import gui
 import wx
+import core
 import globalVars
 import nvwave
 import queueHandler
@@ -151,7 +152,7 @@ class SPLFindDialog(wx.Dialog):
 						appMod.findText[0],
 					)
 			# If this is called right away, we land on an invisible window.
-			wx.CallLater(
+			core.callLater(
 				100,
 				appMod.trackFinder,
 				text,
@@ -937,7 +938,7 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 				end = self.obj.appModule._trackLocator(
 					"Hour Marker", obj=self.obj.next, columns=[self.obj.indexOf("Category")]
 				)
-		wx.CallLater(
+		core.callLater(
 			200,
 			SPLPlaylistTranscriptFormats[self.transcriptFormat.Selection][1],
 			start,
