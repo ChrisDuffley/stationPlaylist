@@ -647,6 +647,50 @@ class AppModule(appModuleHandler.AppModule):
 		except Exception:
 			pass
 
+	# Save configuration and perform other tasks when terminating.
+	def terminate(self):
+		super().terminate()
+		# Unregister profile switch and reset handlers.
+		splactions.SPLActionProfileSwitched.unregister(self.actionProfileSwitched)
+		splactions.SPLActionSettingsReset.unregister(self.actionSettingsReset)
+		# Don't forget about metadata connection announcement handlers.
+		splactions.SPLActionProfileSwitched.unregister(splmisc.metadata_actionProfileSwitched)
+		splactions.SPLActionSettingsReset.unregister(splmisc.metadata_actionSettingsReset)
+		# Perform app module termination work via action handlers.
+		# Among other tasks, close any opened SPL add-on dialogs.
+		splactions.SPLActionAppTerminating.notify()
+		# #39: terminate microphone alarm/interval threads, otherwise errors are seen.
+		global micAlarmT, micAlarmT2
+		if micAlarmT is not None:
+			micAlarmT.cancel()
+		micAlarmT = None
+		if micAlarmT2 is not None:
+			micAlarmT2.Stop()
+		micAlarmT2 = None
+		splconfig.terminateStudioExtraSteps()
+		splconfig.closeConfig(self.appName)
+		# Delete focused track reference.
+		self._focusedTrack = None
+		# #86: track time analysis marker should be gone, too.
+		self._analysisMarker = None
+		# #41: We're done monitoring Studio API.
+		if self._SPLStudioMonitor is not None:
+			self._SPLStudioMonitor.Stop()
+			self._SPLStudioMonitor = None
+		try:
+			self.prefsMenu.Remove(self.SPLSettings)
+		except (RuntimeError, AttributeError):
+			pass
+		# Tell the handle finder thread it's time to leave this world.
+		self.noMoreHandle.set()
+		# Manually clear the following dictionaries.
+		self.carts.clear()
+		self._cachedStatusObjs.clear()
+		# Don't forget to reset timestamps for cart files.
+		splmisc.cartEditTimestamps = []
+		# Just to make sure:
+		splbase.setStudioWindowHandle(None)
+
 	# Locate the handle for main window for caching purposes.
 	def _locateSPLHwnd(self) -> None:
 		while not (hwnd := user32.FindWindowW("SPLStudio", None)):
@@ -1047,50 +1091,6 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.windowClassName == "TRequests" and splconfig.SPLConfig["General"]["RequestsAlert"]:
 			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Requests.wav"))
 		nextHandler()
-
-	# Save configuration and perform other tasks when terminating.
-	def terminate(self):
-		super().terminate()
-		# Unregister profile switch and reset handlers.
-		splactions.SPLActionProfileSwitched.unregister(self.actionProfileSwitched)
-		splactions.SPLActionSettingsReset.unregister(self.actionSettingsReset)
-		# Don't forget about metadata connection announcement handlers.
-		splactions.SPLActionProfileSwitched.unregister(splmisc.metadata_actionProfileSwitched)
-		splactions.SPLActionSettingsReset.unregister(splmisc.metadata_actionSettingsReset)
-		# Perform app module termination work via action handlers.
-		# Among other tasks, close any opened SPL add-on dialogs.
-		splactions.SPLActionAppTerminating.notify()
-		# #39: terminate microphone alarm/interval threads, otherwise errors are seen.
-		global micAlarmT, micAlarmT2
-		if micAlarmT is not None:
-			micAlarmT.cancel()
-		micAlarmT = None
-		if micAlarmT2 is not None:
-			micAlarmT2.Stop()
-		micAlarmT2 = None
-		splconfig.terminateStudioExtraSteps()
-		splconfig.closeConfig(self.appName)
-		# Delete focused track reference.
-		self._focusedTrack = None
-		# #86: track time analysis marker should be gone, too.
-		self._analysisMarker = None
-		# #41: We're done monitoring Studio API.
-		if self._SPLStudioMonitor is not None:
-			self._SPLStudioMonitor.Stop()
-			self._SPLStudioMonitor = None
-		try:
-			self.prefsMenu.Remove(self.SPLSettings)
-		except (RuntimeError, AttributeError):
-			pass
-		# Tell the handle finder thread it's time to leave this world.
-		self.noMoreHandle.set()
-		# Manually clear the following dictionaries.
-		self.carts.clear()
-		self._cachedStatusObjs.clear()
-		# Don't forget to reset timestamps for cart files.
-		splmisc.cartEditTimestamps = []
-		# Just to make sure:
-		splbase.setStudioWindowHandle(None)
 
 	# A few time related scripts (elapsed time, remaining time, etc.).
 
