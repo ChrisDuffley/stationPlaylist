@@ -1424,7 +1424,6 @@ class AppModule(appModuleHandler.AppModule):
 					and startObj.role == controlTypes.Role.LIST
 				):
 					startObj = startObj.firstChild if directionForward else startObj.lastChild
-				startObj = startObj.next if directionForward else startObj.previous
 				self.trackFinder(self.findText[0], startObj, directionForward=directionForward)
 
 	@scriptHandler.script(
