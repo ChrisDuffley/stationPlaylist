@@ -1453,15 +1453,24 @@ class AppModule(appModuleHandler.AppModule):
 		speech.cancelSpeech()
 		# #32 (17.06/15.8 LTS): Update search text even if the track with the search term in columns does not exist.
 		# #27 (17.08): especially if the search history is empty.
-		# Thankfully, track finder dialog will populate the first item,
-		# but it is better to check a second time for debugging purposes.
 		if self.findText is None:
-			self.findText = []
-		if text not in self.findText:
-			self.findText.insert(0, text)
-		# #33 (17.06/15.8-LTS): In case the track is NULL
-		# (seen when attempting to perform forward search from the last track and what not),
-		# this function should fail instead of raising attribute error.
+			self.findText = [text]
+		# Locate previously searched text by index (-1 means no result)
+		else:
+			try:
+				textIndex = self.findText.index(text)
+			except ValueError:
+				textIndex = -1
+			if textIndex == -1:
+				self.findText.insert(0, text)
+			elif textIndex > 0:
+				self.findText[0], self.findText[textIndex] = (
+					self.findText[textIndex],
+					self.findText[0],
+				)
+		# Start from next/previous track if this text was searched before.
+		if text in self.findText:
+			obj = obj.next if directionForward else obj.previous
 		if obj is not None and not column:
 			column = [obj.indexOf("Artist"), obj.indexOf("Title")]
 		track = self._trackLocator(text, obj=obj, directionForward=directionForward, columns=column)
