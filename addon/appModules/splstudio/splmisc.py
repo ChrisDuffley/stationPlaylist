@@ -136,34 +136,32 @@ class SPLFindDialog(wx.Dialog):
 	def onOk(self, evt):
 		global _findDialogOpened
 		text = self.findEntry.Value
-		# Studio, are you alive?
-		if user32.FindWindowW("SPLStudio", None) and text:
-			appMod = self.obj.appModule
-			# 21.03/20.09.6-LTS: search columns should not be None - list of integers expected.
-			column = [self.columnHeaders.Selection + 1] if self.columnSearch else []
-			startObj = self.obj
-			if appMod.findText is None or (
-				len(appMod.findText) and (text == appMod.findText[0] or text in appMod.findText)
-			):
-				startObj = startObj.next if self.directionForward else startObj.previous
-				if appMod.findText is None:
-					appMod.findText = [text]
-				# #27: Move the new text to the top of the search history.
-				if text in appMod.findText and text != appMod.findText[0]:
-					oldTextIndex = appMod.findText.index(text)
-					appMod.findText[0], appMod.findText[oldTextIndex] = (
-						appMod.findText[oldTextIndex],
-						appMod.findText[0],
-					)
-			# If this is called right away, we land on an invisible window.
-			core.callLater(
-				100,
-				appMod.trackFinder,
-				text,
-				startObj,
-				directionForward=self.directionForward,
-				column=column
-			)
+		appMod = self.obj.appModule
+		# 21.03/20.09.6-LTS: search columns should not be None - list of integers expected.
+		column = [self.columnHeaders.Selection + 1] if self.columnSearch else []
+		startObj = self.obj
+		if appMod.findText is None or (
+			len(appMod.findText) and (text == appMod.findText[0] or text in appMod.findText)
+		):
+			startObj = startObj.next if self.directionForward else startObj.previous
+			if appMod.findText is None:
+				appMod.findText = [text]
+			# #27: Move the new text to the top of the search history.
+			if text in appMod.findText and text != appMod.findText[0]:
+				oldTextIndex = appMod.findText.index(text)
+				appMod.findText[0], appMod.findText[oldTextIndex] = (
+					appMod.findText[oldTextIndex],
+					appMod.findText[0],
+				)
+		# If this is called right away, we land on an invisible window.
+		core.callLater(
+			100,
+			appMod.trackFinder,
+			text,
+			startObj,
+			directionForward=self.directionForward,
+			column=column
+		)
 		self.Destroy()
 		_findDialogOpened = False
 
