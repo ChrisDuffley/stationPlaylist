@@ -1277,6 +1277,9 @@ class AppModule(appModuleHandler.AppModule):
 	def trackFinder(
 		self, text: str, obj: NVDAObject, directionForward: bool = True, column: list[int] | None = None
 	) -> None:
+		# Optimization/alignment with NVDA Core: do nothing if text is empty.
+		if not text:
+			return
 		speech.cancelSpeech()
 		# #32: Update search text even if the track with the search term in columns does not exist.
 		# #27: especially if the search history is empty.
