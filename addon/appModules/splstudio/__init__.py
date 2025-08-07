@@ -1404,27 +1404,28 @@ class AppModule(appModuleHandler.AppModule):
 	def findTrackDispatch(
 		self, directionForward: bool = True, columnSearch: bool = False, incrementalFind: bool = False
 	) -> None:
-		if self._trackFinderCheck(1 if columnSearch else 0):
-			# Although counterintuitive, filtering must take place to avoid finding nothing or everything.
-			# With incremental find set, passing in None or an empty string to track finder
-			# results in "finding" the next or previous track.
-			if self.findText is not None:
-				# Avoid type error when opening track finder dialog.
-				self.findText = list(filter(lambda x: x not in (None, ""), self.findText))
-				# Nullify find text list if it is empty for compatibility with code checking for None.
-				# This is more so for incremental find next/previous.
-				if not len(self.findText):
-					self.findText = None
-			if self.findText is None or not incrementalFind:
-				self.trackFinderGUI(directionForward=directionForward, columnSearch=columnSearch)
-			else:
-				startObj = api.getFocusObject()
-				if (
-					api.getForegroundObject().windowClassName == "TStudioForm"
-					and startObj.role == controlTypes.Role.LIST
-				):
-					startObj = startObj.firstChild if directionForward else startObj.lastChild
-				self.trackFinder(self.findText[0], startObj, directionForward=directionForward)
+		if not self._trackFinderCheck(1 if columnSearch else 0):
+			return
+		# Although counterintuitive, filtering must take place to avoid finding nothing or everything.
+		# With incremental find set, passing in None or an empty string to track finder
+		# results in "finding" the next or previous track.
+		if self.findText is not None:
+			# Avoid type error when opening track finder dialog.
+			self.findText = list(filter(lambda x: x not in (None, ""), self.findText))
+			# Nullify find text list if it is empty for compatibility with code checking for None.
+			# This is more so for incremental find next/previous.
+			if not len(self.findText):
+				self.findText = None
+		if self.findText is None or not incrementalFind:
+			self.trackFinderGUI(directionForward=directionForward, columnSearch=columnSearch)
+		else:
+			startObj = api.getFocusObject()
+			if (
+				api.getForegroundObject().windowClassName == "TStudioForm"
+				and startObj.role == controlTypes.Role.LIST
+			):
+				startObj = startObj.firstChild if directionForward else startObj.lastChild
+			self.trackFinder(self.findText[0], startObj, directionForward=directionForward)
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
