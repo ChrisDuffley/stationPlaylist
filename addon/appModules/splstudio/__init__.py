@@ -1466,15 +1466,16 @@ class AppModule(appModuleHandler.AppModule):
 		description=_("Locates track with duration within a time range")
 	)
 	def script_timeRangeFinder(self, gesture):
-		if self._trackFinderCheck(2):
-			try:
-				d = splmisc.SPLTimeRangeDialog(gui.mainFrame, api.getFocusObject())
-				gui.mainFrame.prePopup()
-				d.Raise()
-				d.Show()
-				gui.mainFrame.postPopup()
-			except RuntimeError:
-				wx.CallAfter(splmisc.finderError)
+		if not self._trackFinderCheck(2):
+			return
+		try:
+			d = splmisc.SPLTimeRangeDialog(gui.mainFrame, api.getFocusObject())
+			gui.mainFrame.prePopup()
+			d.Raise()
+			d.Show()
+			gui.mainFrame.postPopup()
+		except RuntimeError:
+			wx.CallAfter(splmisc.finderError)
 
 	# Cart explorer
 	cartExplorer = False
