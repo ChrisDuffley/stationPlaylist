@@ -106,6 +106,7 @@ class SPLFindDialog(wx.Dialog):
 		findSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
+		# Deprecated, track find text will become a string (revert to 2017 code).
 		findHistory = obj.appModule.findText if obj.appModule.findText is not None else []
 		# #68: use a custom combo box as it does not derive from wx.Choice in wxPython 4.
 		self.findEntry = findSizerHelper.addLabeledControl(
