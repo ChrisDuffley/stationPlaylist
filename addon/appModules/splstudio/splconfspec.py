@@ -65,7 +65,7 @@ SayListenerCount = boolean(default=true)
 SayPlayingCartName = boolean(default=true)
 SayStudioPlayerPosition = boolean(default=false)
 [Advanced]
-SPLConPassthrough = boolean(default=false)
+SPLConPassthrough = boolean(default=true)
 CompatibilityLayer = option("off", "jfw", default="off")
 [Startup]
 WelcomeDialog = boolean(default=true)
