@@ -129,11 +129,11 @@ The available commands are (most commands support speak on demand):
 
 ## SPL Controller
 
-The SPL Controller is a set of layered commands you can use to control SPL Studio anywhere. Press the SPL Controller layer command, and NVDA will say, "SPL Controller." Press another command to control various Studio settings such as microphone on/off or play the next track.
+The SPL Controller is a set of layered commands you can use to control SPL Studio anywhere. Press the SPL Controller layer command, and NVDA will say, "SPL Controller." Press another command to control various Studio settings such as microphone on/off or play the next track. You can also configure NVDA to enter SPL Assistant layer (see above) by pressing SPL Controller layer command (passthrough mode, enabled by default).
 
 Important: SPL Controller layer commands are disabled if NVDA is running in secure mode.
 
-The available SPL Controller commands are (some commands support speak on demand):
+Outside of Studio, the available SPL Controller commands are (some commands support speak on demand):
 
 * P: Play the next selected track.
 * U: Pause or unpause playback.
@@ -155,6 +155,8 @@ The available SPL Controller commands are (some commands support speak on demand
 * Q: Studio status information such as whether a track is playing, microphone is on and others (supports speak on demand).
 * Cart keys (F1, Control+1, for example): Play assigned carts from anywhere.
 * H: Layer help.
+
+From inside Studio, SPL Controller layer command will invoke SPL Assistant layer by default.
 
 ## Track and microphone alarms
 
@@ -207,6 +209,7 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 ## Version 25.06.6-LTS
 
 * In Studio, search history in track finder (Control+NVDA+F) is deprecated and will be removed in a future release to align with NVDA's own find dialog experience.
+* In Studio, performing SPL Controller layer entry command will enter SPL Assistant layer, and the add-on setting to configure this option is checked by default for new installations.
 
 ## Version 25.06.5-LTS
 
