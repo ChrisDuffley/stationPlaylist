@@ -1406,16 +1406,6 @@ class AppModule(appModuleHandler.AppModule):
 	) -> None:
 		if not self._trackFinderCheck(1 if columnSearch else 0):
 			return
-		# Although counterintuitive, filtering must take place to avoid finding nothing or everything.
-		# With incremental find set, passing in None or an empty string to track finder
-		# results in "finding" the next or previous track.
-		if self.findText is not None:
-			# Avoid type error when opening track finder dialog.
-			self.findText = list(filter(lambda x: x not in (None, ""), self.findText))
-			# Nullify find text list if it is empty for compatibility with code checking for None.
-			# This is more so for incremental find next/previous.
-			if not len(self.findText):
-				self.findText = None
 		if self.findText is None or not incrementalFind:
 			self.trackFinderGUI(directionForward=directionForward, columnSearch=columnSearch)
 		else:
