@@ -102,11 +102,11 @@ You can use many of the native SPL Studio commands to control the program. In ad
 NVDA provides two layer command sets when using Studio to perform various tasks and announce status information:
 
 * SPL Assistant: this layer set, available from within SPL Studio, allows you to obtain various SPL status information such as whether a track is playing, automation status and so on.
-* SPL Controller: this command set, available everywhere, allows you to control SPL Studio from anywhere, including playing the next track and turning microphone on and off.
+* SPL Controller: this command set, available everywhere except in Studio, allows you to control SPL Studio from anywhere, including playing the next track and turning microphone on and off.
 
-We'll meet these layer commands and how to use them throughout this guide.
+By default, while focused in Studio, performing SPL Controller layer command will invoke SPL Assistant layer. We'll meet these two layer command sets and how to use them throughout this guide (described separately for historical reasons).
 
-Note: the layer entry commands are not assigned so you can assign your own commands. So whenever you see SPL Assistant or SPL Controller, substitute your command (e.g. if you have assigned NVDA+grave accent for SPL Controller, press NVDA+Grave to access SPL Controller layer).
+Note: the layer entry commands are not assigned so you can assign your own commands. So whenever you see SPL Assistant or SPL Controller, substitute your command (e.g. if you have assigned NVDA+grave accent for SPL Controller, press NVDA+Grave to access SPL Controller layer). For convenience, assign a command to enter SPL Controller, then from add-on settings (while focused in Studio), configure NVDA to invoke SPL Assistant layer when SPL Controller command is pressed (described later in this guide).
 
 #### Playlist Viewer
 
@@ -561,7 +561,7 @@ Most of the settings in this dialog were discussed throughout the add-on guide. 
 * Playlist Transcripts: you can configure various settings related to Playlist Transcripts feature, including which columns to include and column order. See Playlist Transcripts section for details.
 * Status announcement: this category contains four checkboxes to configure announcement of certain status information. These include announcing scheduled time for the selected track, listener count, name of the currently playing cart and position of the player used for playing the current and the next track.
 * Advanced (unavailable in secure mode): This category allows you to configure various advanced options. These include:
-	* Use SPl Controller to invoke SPL Assistant (disabled by default): If you check this box after assigning a command to invoke SPL Controller layer (see below), you can use SPl Controller command you assigned to invoke SPl Assistant layer. This is useful for people used to other screen readers where a single layer is used to access functions normally performed by both Controller and Assistant layers in NVDA.
+	* Use SPl Controller to invoke SPL Assistant (enabled by default): If you check this box after assigning a command to invoke SPL Controller layer (see below), you can use SPl Controller command you assigned to invoke SPl Assistant layer. This is useful for people used to other screen readers where a single layer is used to access functions normally performed by both Controller and Assistant layers in NVDA.
 	* Assistant layer layout (NVDA by default): By default, NVDA will use the Assistant layer commands described throughout this user guide. You can choose between this default command set and JAWS for Windows, with layer commands used by these screen reader scripts replacing commands in the SPL Assistant layer. For example, with JAWS for Windows layout active, pressing SPL Assistant, R will announce playlist duration (default is SPL Assistant, D). See the list below for SPL Assistant command changes between layouts.
 
 After configuring the above settings, select OK from main settings dialog to save your changes, Cancel to discard them, or Apply to apply changes without closing the settings dialog.
