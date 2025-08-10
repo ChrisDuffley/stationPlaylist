@@ -2,6 +2,10 @@
 
 This page lists the complete changelog for StationPlaylist add-on releases.
 
+## Version 25.06.6-LTS
+
+* In Studio, search history in track finder (Control+NVDA+F) is deprecated and will be removed in a future release to align with NVDA's own find dialog experience.
+
 ## Version 25.06.5-LTS
 
 * In Studio, added two-finger flick left gesture in SPL touch mode to open SPL add-on settings.
