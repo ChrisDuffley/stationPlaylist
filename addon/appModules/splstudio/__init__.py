@@ -40,7 +40,7 @@ from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent, sysList
 from NVDAObjects.behaviors import Dialog
 import textInfos
 import tones
-import versionInfo
+import buildVersion
 from ..splcommon import splbase, splconsts, splactions, splconfig
 from . import splconfui
 from . import splmisc
@@ -102,7 +102,7 @@ _SPLCategoryTones = {
 
 
 # Show additional controls in browseable message window.
-browseableMessageButtons = {"closeButton": True} if versionInfo.version_year >= 2025 else {}
+browseableMessageButtons = {"closeButton": True} if buildVersion.version_year >= 2025 else {}
 
 
 # SPL Playlist item (SPL add-on base object) is defined in splcommon.splbase module.
