@@ -42,7 +42,7 @@ from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent, sysList
 from NVDAObjects.behaviors import Dialog
 import textInfos
 import tones
-import versionInfo
+import buildVersion
 from . import splbase
 from . import splconfig
 from . import splconfui
@@ -123,7 +123,7 @@ _SPLCategoryTones = {
 
 
 # Show additional controls in browseable message window.
-browseableMessageButtons = {"closeButton": True} if versionInfo.version_year >= 2025 else {}
+browseableMessageButtons = {"closeButton": True} if buildVersion.version_year >= 2025 else {}
 
 
 # Routines for track items themselves (prepare for future work).

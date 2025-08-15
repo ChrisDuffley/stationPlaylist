@@ -23,7 +23,7 @@ import ui
 from logHandler import log
 import addonHandler
 from winUser import user32
-import versionInfo
+import buildVersion
 from NVDAObjects import NVDAObject
 from . import splbase
 from . import splactions
@@ -38,7 +38,7 @@ SPLMetadataStreaming = 36
 SPLTrackFilename = 211
 
 # Show additional controls in browseable message window.
-browseableMessageButtons = {"closeButton": True} if versionInfo.version_year >= 2025 else {}
+browseableMessageButtons = {"closeButton": True} if buildVersion.version_year >= 2025 else {}
 
 
 # A custom combo box for cases where combo boxes are not choice controls.
