@@ -11,7 +11,7 @@ import ui
 import api
 import windowUtils
 import scriptHandler
-import versionInfo
+import buildVersion
 from winUser import sendMessage, user32
 from logHandler import log
 from NVDAObjects.IAccessible import sysListView32
@@ -113,7 +113,7 @@ def finally_(func, final):
 
 
 # Show additional controls in browseable message window.
-browseableMessageButtons = {"closeButton": True} if versionInfo.version_year >= 2025 else {}
+browseableMessageButtons = {"closeButton": True} if buildVersion.version_year >= 2025 else {}
 
 
 # SPL Playlist item (SPL add-on base object)
