@@ -15,7 +15,7 @@ import tones
 import windowUtils
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 from winUser import user32, OBJID_CLIENT, getWindowText
-import versionInfo
+import buildVersion
 import addonHandler
 
 addonHandler.initTranslation()
@@ -152,7 +152,7 @@ def disableInSecureMode(cls):
 
 
 # Show additional controls in browseable message window.
-browseableMessageButtons = {"closeButton": True} if versionInfo.version_year >= 2025 else {}
+browseableMessageButtons = {"closeButton": True} if buildVersion.version_year >= 2025 else {}
 
 
 @disableInSecureMode
