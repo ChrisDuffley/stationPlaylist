@@ -22,7 +22,6 @@ import speech
 import ui
 from logHandler import log
 import addonHandler
-import buildVersion
 from NVDAObjects import NVDAObject
 from ..splcommon import splbase, splconsts, splactions, splconfig
 from ..skipTranslation import translate
@@ -33,10 +32,6 @@ addonHandler.initTranslation()
 SPLFileDuration = 30
 SPLMetadataStreaming = 36
 SPLTrackFilename = 211
-
-# Show additional controls in browseable message window.
-browseableMessageButtons = {"closeButton": True} if buildVersion.version_year >= 2025 else {}
-
 
 # A custom combo box for cases where combo boxes are not choice controls.
 class CustomComboBox(wx.ComboBox, wx.Choice):
@@ -587,7 +582,7 @@ def displayPlaylistTranscripts(transcript: list[str], HTMLDecoration: bool = Fal
 		"\n".join(transcript),
 		title=_("Playlist Transcripts"),
 		isHtml=HTMLDecoration,
-		**browseableMessageButtons,
+		closeButton=True,
 	)
 
 

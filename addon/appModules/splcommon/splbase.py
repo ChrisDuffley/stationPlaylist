@@ -11,7 +11,6 @@ import ui
 import api
 import windowUtils
 import scriptHandler
-import buildVersion
 from winUser import sendMessage, user32
 from logHandler import log
 from NVDAObjects.IAccessible import sysListView32
@@ -112,10 +111,6 @@ def finally_(func, final):
 	return wrap(final)
 
 
-# Show additional controls in browseable message window.
-browseableMessageButtons = {"closeButton": True} if buildVersion.version_year >= 2025 else {}
-
-
 # SPL Playlist item (SPL add-on base object)
 # #65: this base class represents trakc items
 # across StationPlaylist suites such as Studio, Creator and Track Tool.
@@ -187,7 +182,7 @@ class SPLTrackItem(sysListView32.ListItem):
 			ui.message(columnData)
 		else:
 			# Translators: Title of the column data window.
-			ui.browseableMessage(columnData, title=_("Track data"), **browseableMessageButtons)
+			ui.browseableMessage(columnData, title=_("Track data"), closeButton=True)
 
 	@scriptHandler.script(
 		# Translators: input help mode message for columns viewer command.
@@ -203,7 +198,7 @@ class SPLTrackItem(sysListView32.ListItem):
 			) for column in self.children
 		]
 		# Translators: Title of the column data window.
-		ui.browseableMessage("\n".join(columnContents), title=_("Track data"), **browseableMessageButtons)
+		ui.browseableMessage("\n".join(columnContents), title=_("Track data"), closeButton=True)
 
 	# A friendly way to report track position via location text.
 	def _get_locationText(self):

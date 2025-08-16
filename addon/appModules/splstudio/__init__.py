@@ -40,7 +40,6 @@ from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent, sysList
 from NVDAObjects.behaviors import Dialog
 import textInfos
 import tones
-import buildVersion
 from ..splcommon import splbase, splconsts, splactions, splconfig
 from . import splconfui
 from . import splmisc
@@ -99,10 +98,6 @@ _SPLCategoryTones = {
 	"Timed Break Note": 208,
 	"<Manual Intro>": 600,
 }
-
-
-# Show additional controls in browseable message window.
-browseableMessageButtons = {"closeButton": True} if buildVersion.version_year >= 2025 else {}
 
 
 # SPL Playlist item (SPL add-on base object) is defined in splcommon.splbase module.
@@ -2064,7 +2059,7 @@ class AppModule(appModuleHandler.AppModule):
 				"<p>".join(statusInfo),
 				title=_("Playlist snapshots"),
 				isHtml=True,
-				**browseableMessageButtons,
+				closeButton=True,
 			)
 
 	# Some handlers for native commands.
@@ -2604,7 +2599,7 @@ class AppModule(appModuleHandler.AppModule):
 		ui.browseableMessage(
 			SPLAssistantHelp[compatibility],
 			title=layerHelpTitle[compatibility],
-			**browseableMessageButtons
+			closeButton=True,
 		)
 
 	__SPLAssistantGestures = {

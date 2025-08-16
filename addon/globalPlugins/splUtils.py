@@ -14,7 +14,6 @@ import tones
 import windowUtils
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 from winUser import user32, OBJID_CLIENT, getWindowText
-import buildVersion
 import addonHandler
 
 addonHandler.initTranslation()
@@ -131,10 +130,6 @@ def processArgs(cliArgument: str) -> bool:
 # Security: disable the global plugin altogether in secure mode.
 def disableInSecureMode(cls):
 	return globalPluginHandler.GlobalPlugin if globalVars.appArgs.secure else cls
-
-
-# Show additional controls in browseable message window.
-browseableMessageButtons = {"closeButton": True} if buildVersion.version_year >= 2025 else {}
 
 
 @disableInSecureMode
@@ -392,7 +387,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_conHelp(self, gesture):
 		# Translators: The title for SPL Controller help screen.
-		ui.browseableMessage(SPLConHelp, title=_("SPL Controller help"), **browseableMessageButtons)
+		ui.browseableMessage(SPLConHelp, title=_("SPL Controller help"), closeButton=True)
 		self.script_finish()
 
 	__SPLControllerGestures = {
