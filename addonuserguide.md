@@ -1,6 +1,6 @@
 # StationPlaylist Add-on User Guide
 
-Revision: August 2025 for StationPlaylist add-on 25.08/25.06.5-LTS
+Revision: September 2025 for StationPlaylist add-on 25.09/25.06.6-LTS
 
 Author: Christopher Duffley (formerly Joseph Lee)
 
@@ -69,7 +69,7 @@ StationPlaylist add-on requires the following:
 * Optional: Remote VT client
 * Optional: an evaluation or registered copy of SAM Encoders.
 * Optional: AltaCast Winamp plugin (one must copy AltaCast Winamp plugin DLL to Studio's plugins folder for Studio to recognize AltaCast).
-* NVDA 2024.1 or later. Certain features will require later versions of NVDA.
+* NVDA 2025.1 (2024.1 for 25.06.x) or later. Certain features will require later versions of NVDA.
 
 ## Installing and updating the add-on
 
@@ -796,6 +796,14 @@ Q. Can I use SPL Assistant commands from Studio windows other than playlist view
 
 Yes with one exception: you can use various SPL Assistant layer commands outside of playlist viewer (say, from within insert tracks window) except jumping to place marker track (K). Also, when pressing SPL Assistant, D (remaining time for the entire playlist), sometimes you'll be asked to move back to playlist viewer, and from then on, this command will work regardless of where you are in Studio.
 
+Q. Why are there two layer command sets?
+
+This is to separate Studio specific functions from global commands to control Studio from everywhere. For SPL Controller (global commands), commands mirror that of Studio itself such as U to pause playback. SPL Assistant (Studio specific functions) assigns different functions for the same letter such as U for Studio uptime.
+
+Q. Can I set it so one layer command can invoke both layer command sets?
+
+Yes. If SPL Controller command is not assigned or want to make sure there is a command associated with SPL Controller entry command, open input gestures (NVDA menu/Preferences/Input gestures), expand StationPlaylist category, look for SPL Controller, then press Alt+A to add a new command. Unless you want your command to work in specific layouts, select "all layouts" from the list of gesture availability choices, then select OK button. Then, while focused in Studio, open add-on settings (NVDA+Alt+0), go to "advanced" category, and check "Use SPl Controller to invoke SPL Assistant" checkbox (checked by default for new installations of 25.09/25.06.6-LTS or later) and press Enter (OK button). 
+
 Q. How can I tell NVDA to use a different sound card from the card used for streaming radio shows?
 
 To change sound cards for NVDA, Open NVDA menu, go to Preferences, Settings, then select audio settings category (you can also open this window directly by pressing Control+NVDA+U). Go to output device combo box, select the desired sound card for NVDA, then press ENTER. To switch back to the original sound card, repeat these steps, then choose the original sound card from output device combo box.
@@ -958,9 +966,9 @@ Q. Which versions of Studio are supported by which add-on releases?
 * Studio 5.20: Add-on 16.11 to 20.09.7 (November 2016-April 2021).
 * Studio 5.3x: Add-on 17.11 to 22.12 (November 2017-December 2022).
 * Studio 5.40: Add-on 19.11 to 25.05.4 (November 2019-May 2025).
-* Studio 5.50: Add-on 20.11 to 25.06.5 (November 2020-August 2025).
-* Studio 6.0x: Add-on 21.11 to 25.08 (November 2021-August 2025).
-* Studio 6.1x: Add-on 24.03 to 25.08 (April 2024-August 2025).
+* Studio 5.50: Add-on 20.11 to 25.06.6 (November 2020-September 2025).
+* Studio 6.0x: Add-on 21.11 to 25.09 (November 2021-September 2025).
+* Studio 6.1x: Add-on 24.03 to 25.09 (April 2024-September 2025).
 
 Note: the schedule above is subject to change.
 
@@ -971,6 +979,10 @@ In August 2017, NV Access announced that NVDA 2017.3 is the last version to supp
 Q. From 2023, can I use the add-on on Windows versions prior to Windows 10?
 
 Windows 7 and 8.x are out of support from Microsoft from January 2023. You can use the add-on on these Windows releases but note that support will not be provided. Add-on 23.01 and later will not install on unsupported Windows releases, and version 25.05 no longer supports Windows 7 and 8.
+
+Q. Will the add-on work with 64-bit NVDA?
+
+Yes to an extent. NV Access and contributors are working on 64-bit NVDA, and testing shows some parts of the SPL ad-on will work on it. The biggest limitation is inability to review track and encoder data, and work is ongoing to resolve this issue.
 
 Q. What are update channels?
 
