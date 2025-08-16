@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 24.03\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-07-18 12:57-0600\n"
+"PO-Revision-Date: 2025-08-16 06:14-0600\n"
 "Last-Translator: Ruslan Kolodyazhni <rupelodn@gmail.com>\n"
 "Language-Team: Translators <nvda-translations@groups.io>\n"
 "Language: ru_RU\n"
@@ -23,14 +23,9 @@ msgstr ""
 msgid "You are not in playlist editor"
 msgstr "Вы не находитесь в редакторе списков воспроизведения"
 
-#. Translators: A message informing users that Studio is not running so certain commands will not work.
-msgid "Studio main window not found"
-msgstr ""
-
-#. Translators: presented when SPL Studio window is minimized.
-#, fuzzy
-msgid "SPL Studio is minimized to system tray."
-msgstr "SPL Studio не выполняется."
+#. Translators: Presented when microphone has been active for a while.
+msgid "Microphone active"
+msgstr "Микрофон работает"
 
 #. Translators: input help mode message for column explorer commands.
 msgid ""
@@ -72,182 +67,6 @@ msgstr ""
 msgid "Item {current} of {total}"
 msgstr "Элемент {current} из {total}"
 
-#. Translators: The name of the default (normal) profile.
-msgid "Normal profile"
-msgstr "Обычный профиль"
-
-#. Translators: Message displayed when attempting to reset Studio add-on settings
-#. while an instant switch profile is active.
-msgid ""
-"An instant switch profile is active. Resetting Studio add-on settings means "
-"normal profile will become active and switch profile settings will be left "
-"in unpredictable state. Are you sure you wish to reset Studio add-on "
-"settings to factory defaults?"
-msgstr ""
-"Активен профиль мгновенного переключения. Сброс настроек дополнения Studio "
-"означает, что активируется обычный профиль, а настройки профиля переключения "
-"останутся в непредсказуемом состоянии. Вы действительно хотите восстановить "
-"заводские настройки дополнения Studio по умолчанию?"
-
-#. Translators: The title of the confirmation dialog for Studio add-on settings reset.
-msgid "SPL Studio add-on reset"
-msgstr "Сброс настроек дополнения SPL Studio"
-
-#. Translators: A flag indicating the currently active broadcast profile.
-msgid "active"
-msgstr "активен"
-
-#. Translators: A flag indicating the broadcast profile is an instant switch profile.
-msgid "instant switch"
-msgstr "мгновенное переключение"
-
-#. Translators: Presented when switch to instant switch profile was successful.
-#, python-brace-format
-msgid "Switching to {newProfileName}"
-msgstr "Переключение на {newProfileName}"
-
-#. Translators: Presented when switching from instant switch profile to a previous profile.
-#, python-brace-format
-msgid "Returning to {previousProfile}"
-msgstr "Возврат к {previousProfile}"
-
-#. Translators: Standard error title for configuration error.
-msgid "Studio add-on Configuration error"
-msgstr "Ошибка конфигурации дополнения Studio"
-
-#. Translators: announced when only normal profile is in use.
-msgid "Only normal profile is in use"
-msgstr "Используется только обычный профиль"
-
-#. Translators: Presented when trying to switch to an instant switch profile
-#. when the instant switch profile is not defined.
-msgid "No instant switch profile is defined"
-msgstr "Профиль мгновенного переключения не определён"
-
-#. Translators: Presented when trying to switch to an instant switch profile
-#. when one is already using the instant switch profile.
-msgid "You are already in the instant switch profile"
-msgstr "Вы уже зарегистрированы в профиле мгновенного переключения"
-
-#. Translators: A message giving basic information about the add-on.
-msgid ""
-"Welcome to StationPlaylist add-on for NVDA,\n"
-"your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
-"\n"
-"Highlights of StationPlaylist add-on include:\n"
-"* Layer commands for obtaining status information\n"
-"* Various ways to examine track columns\n"
-"* Various ways to find tracks\n"
-"* Tools to analyze the loaded playlist\n"
-"* Cart Explorer to learn cart assignments\n"
-"* Comprehensive settings and documentation\n"
-"* Completely free, open-source and community-driven\n"
-"* And much more\n"
-"\n"
-"Visit www.stationplaylist.com for details on StationPlaylist suite of "
-"applications.\n"
-"Visit StationPlaylist add-on GitHub page (https://github.com/ChrisDuffley/"
-"stationPlaylist)\n"
-"for add-on details and to read the documentation.\n"
-"Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to "
-"return to this dialog.\n"
-"\n"
-"Thank you."
-msgstr ""
-"Добро пожаловать в дополнение StationPlaylist для NVDA,\n"
-"которое станет вашим помощником в трансляции с SPL Studio с помощью "
-"программы чтения с экрана NVDA.\n"
-"\n"
-"Основные возможности дополнения StationPlaylist включают в себя:\n"
-"* Уровневые команды для получения информации о состоянии\n"
-"* Различные способы просмотра столбцов дорожек\n"
-"* Различные способы поиска дорожек\n"
-"* Инструменты для анализа загруженного списка воспроизведения\n"
-"* Обозреватель корзин для изучения назначений в корзинах\n"
-"* Подробные настройки и документация\n"
-"* Полностью бесплатное, с открытым исходным кодом и поддерживаемое "
-"сообществом\n"
-"* И многое другое\n"
-"\n"
-"Посетите www.stationplaylist.com для получения подробной информации о пакете "
-"приложений StationPlaylist.\n"
-"Посетите запись StationPlaylist на странице дополнения в github(https://"
-"github.com/ChrisDuffley/stationPlaylist)\n"
-"для более подробной информации о дополнении и ознакомления с документацией.\n"
-"Хотите ещё раз увидеть это диалог? Просто нажмите Alt+NVDA+F1 во время "
-"использования Studio, чтобы вернуться к нему.\n"
-"\n"
-"Спасибо."
-
-#. Translators: Title of a dialog displayed when the add-on starts presenting basic information,
-#. similar to NVDA's own welcome dialog.
-msgid "Welcome to StationPlaylist add-on"
-msgstr "Добро пожаловать в дополнение StationPlaylist"
-
-msgid "Show welcome dialog when I start Studio"
-msgstr "Показывать диалог приветствия при запуске Studio"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille timer off"
-msgstr "Брайлевский таймер отключён"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille track endings"
-msgstr "Окончания дорожек по брайлю"
-
-#. Translators: A setting in braille timer options.
-msgid "Outro"
-msgstr "Окончание"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille intro endings"
-msgstr "Вступления и окончание по Брайлю"
-
-#. Translators: A setting in braille timer options.
-msgid "Intro"
-msgstr "Вступление"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille intro and track endings"
-msgstr "Вступление и окончания дорожек по брайлю"
-
-#. Translators: A setting in braille timer options.
-#. Translators: One of the track comment notification settings.
-msgid "Both"
-msgstr "Оба"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Do not announce library scans"
-msgstr "Не объявлять о сканировании библиотеки"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Announce start and end of a library scan"
-msgstr "Объявлять о начале и завершении сканирования библиотеки"
-
-#. Translators: One of the library scan announcement settings.
-msgid "Start and end only"
-msgstr "Только начало и конец"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Announce the progress of a library scan"
-msgstr "Объявлять о ходе проверки библиотеки"
-
-#. Translators: One of the library scan announcement settings.
-msgid "Scan progress"
-msgstr "Ход сканирования"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Announce progress and item count of a library scan"
-msgstr "Объявлять о ходе сканирования и количестве элементов библиотеки"
-
-#. Translators: One of the library scan announcement settings.
-msgid "Scan count"
-msgstr "Количество сканирований"
-
-#. Translators: Presented when microphone has been active for a while.
-msgid "Microphone active"
-msgstr "Микрофон работает"
-
 #. Translators: Input help message for screen column order toggle command in SPL Studio.
 msgid ""
 "Toggles track column announcement order between screen layout and custom "
@@ -268,10 +87,6 @@ msgstr "Использовать свой порядок при объявлен
 #. Translators: Presented when track comment has been copied to clipboard.
 msgid "Track comment copied to clipboard"
 msgstr "Коментарий дорожки скопирован в буфер обмена"
-
-#. Translators: Presented when there is no track comment for the focused track.
-msgid "No comment"
-msgstr "Нет комментария"
 
 #. Translators: Presented when focused on a track other than an actual track (such as hour marker).
 msgid "Comments cannot be added to this kind of track"
@@ -824,6 +639,11 @@ msgstr "Не удалось найти информацию о следующе�
 msgid "Announces title of the currently playing track"
 msgstr "Объявляет название проигрываемой в данный момент дорожки"
 
+#, fuzzy
+#| msgid "Cannot find current track information"
+msgid "Cannot locate current track information"
+msgstr "Не удалось найти информацию о текущей дорожке"
+
 #. Translators: Presented when current track information is unavailable.
 msgid "Cannot find current track information"
 msgstr "Не удалось найти информацию о текущей дорожке"
@@ -896,6 +716,11 @@ msgstr ""
 "Предоставляет информацию о снимке списка воспроизведения, такую как число "
 "дорожек и лучшие исполнители"
 
+#. Translators: Presented when trying to switch to an instant switch profile
+#. when add-on settings dialog is active.
+msgid "Add-on settings dialog is open, cannot switch profiles"
+msgstr "Открыт диалог настроек дополнения, переключение профилей невозможно"
+
 #. Translators: Presented when place marker cannot be set.
 msgid "No tracks found, cannot set place marker"
 msgstr "Дорожки не найдены, невозможно установить метку места"
@@ -929,6 +754,182 @@ msgstr "Справка по Помощнику SPL"
 #. Translators: The title for SPL Assistant help screen.
 msgid "SPL Assistant help for JAWS layout"
 msgstr "Справка по Помощнику SPL для раскладки JAWS"
+
+#. Translators: A message informing users that Studio is not running so certain commands will not work.
+msgid "Studio main window not found"
+msgstr ""
+
+#. Translators: The name of the default (normal) profile.
+msgid "Normal profile"
+msgstr "Обычный профиль"
+
+#. Translators: Message displayed when attempting to reset Studio add-on settings
+#. while an instant switch profile is active.
+msgid ""
+"An instant switch profile is active. Resetting Studio add-on settings means "
+"normal profile will become active and switch profile settings will be left "
+"in unpredictable state. Are you sure you wish to reset Studio add-on "
+"settings to factory defaults?"
+msgstr ""
+"Активен профиль мгновенного переключения. Сброс настроек дополнения Studio "
+"означает, что активируется обычный профиль, а настройки профиля переключения "
+"останутся в непредсказуемом состоянии. Вы действительно хотите восстановить "
+"заводские настройки дополнения Studio по умолчанию?"
+
+#. Translators: The title of the confirmation dialog for Studio add-on settings reset.
+msgid "SPL Studio add-on reset"
+msgstr "Сброс настроек дополнения SPL Studio"
+
+#. Translators: A flag indicating the currently active broadcast profile.
+msgid "active"
+msgstr "активен"
+
+#. Translators: A flag indicating the broadcast profile is an instant switch profile.
+msgid "instant switch"
+msgstr "мгновенное переключение"
+
+#. Translators: Presented when switch to instant switch profile was successful.
+#, python-brace-format
+msgid "Switching to {newProfileName}"
+msgstr "Переключение на {newProfileName}"
+
+#. Translators: Presented when switching from instant switch profile to a previous profile.
+#, python-brace-format
+msgid "Returning to {previousProfile}"
+msgstr "Возврат к {previousProfile}"
+
+#. Translators: Standard error title for configuration error.
+msgid "Studio add-on Configuration error"
+msgstr "Ошибка конфигурации дополнения Studio"
+
+#. Translators: announced when only normal profile is in use.
+msgid "Only normal profile is in use"
+msgstr "Используется только обычный профиль"
+
+#. Translators: Presented when trying to switch to an instant switch profile
+#. when the instant switch profile is not defined.
+msgid "No instant switch profile is defined"
+msgstr "Профиль мгновенного переключения не определён"
+
+#. Translators: Presented when trying to switch to an instant switch profile
+#. when one is already using the instant switch profile.
+msgid "You are already in the instant switch profile"
+msgstr "Вы уже зарегистрированы в профиле мгновенного переключения"
+
+#. Translators: A message giving basic information about the add-on.
+msgid ""
+"Welcome to StationPlaylist add-on for NVDA,\n"
+"your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
+"\n"
+"Highlights of StationPlaylist add-on include:\n"
+"* Layer commands for obtaining status information\n"
+"* Various ways to examine track columns\n"
+"* Various ways to find tracks\n"
+"* Tools to analyze the loaded playlist\n"
+"* Cart Explorer to learn cart assignments\n"
+"* Comprehensive settings and documentation\n"
+"* Completely free, open-source and community-driven\n"
+"* And much more\n"
+"\n"
+"Visit www.stationplaylist.com for details on StationPlaylist suite of "
+"applications.\n"
+"Visit StationPlaylist add-on GitHub page (https://github.com/ChrisDuffley/"
+"stationPlaylist)\n"
+"for add-on details and to read the documentation.\n"
+"Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to "
+"return to this dialog.\n"
+"\n"
+"Thank you."
+msgstr ""
+"Добро пожаловать в дополнение StationPlaylist для NVDA,\n"
+"которое станет вашим помощником в трансляции с SPL Studio с помощью "
+"программы чтения с экрана NVDA.\n"
+"\n"
+"Основные возможности дополнения StationPlaylist включают в себя:\n"
+"* Уровневые команды для получения информации о состоянии\n"
+"* Различные способы просмотра столбцов дорожек\n"
+"* Различные способы поиска дорожек\n"
+"* Инструменты для анализа загруженного списка воспроизведения\n"
+"* Обозреватель корзин для изучения назначений в корзинах\n"
+"* Подробные настройки и документация\n"
+"* Полностью бесплатное, с открытым исходным кодом и поддерживаемое "
+"сообществом\n"
+"* И многое другое\n"
+"\n"
+"Посетите www.stationplaylist.com для получения подробной информации о пакете "
+"приложений StationPlaylist.\n"
+"Посетите запись StationPlaylist на странице дополнения в github(https://"
+"github.com/ChrisDuffley/stationPlaylist)\n"
+"для более подробной информации о дополнении и ознакомления с документацией.\n"
+"Хотите ещё раз увидеть это диалог? Просто нажмите Alt+NVDA+F1 во время "
+"использования Studio, чтобы вернуться к нему.\n"
+"\n"
+"Спасибо."
+
+#. Translators: Title of a dialog displayed when the add-on starts presenting basic information,
+#. similar to NVDA's own welcome dialog.
+msgid "Welcome to StationPlaylist add-on"
+msgstr "Добро пожаловать в дополнение StationPlaylist"
+
+msgid "Show welcome dialog when I start Studio"
+msgstr "Показывать диалог приветствия при запуске Studio"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille timer off"
+msgstr "Брайлевский таймер отключён"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille track endings"
+msgstr "Окончания дорожек по брайлю"
+
+#. Translators: A setting in braille timer options.
+msgid "Outro"
+msgstr "Окончание"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille intro endings"
+msgstr "Вступления и окончание по Брайлю"
+
+#. Translators: A setting in braille timer options.
+msgid "Intro"
+msgstr "Вступление"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille intro and track endings"
+msgstr "Вступление и окончания дорожек по брайлю"
+
+#. Translators: A setting in braille timer options.
+#. Translators: One of the track comment notification settings.
+msgid "Both"
+msgstr "Оба"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Do not announce library scans"
+msgstr "Не объявлять о сканировании библиотеки"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce start and end of a library scan"
+msgstr "Объявлять о начале и завершении сканирования библиотеки"
+
+#. Translators: One of the library scan announcement settings.
+msgid "Start and end only"
+msgstr "Только начало и конец"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce the progress of a library scan"
+msgstr "Объявлять о ходе проверки библиотеки"
+
+#. Translators: One of the library scan announcement settings.
+msgid "Scan progress"
+msgstr "Ход сканирования"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce progress and item count of a library scan"
+msgstr "Объявлять о ходе сканирования и количестве элементов библиотеки"
+
+#. Translators: One of the library scan announcement settings.
+msgid "Scan count"
+msgstr "Количество сканирований"
 
 #. Translators: title of a dialog to configure broadcast profiles.
 msgid "SPL Broadcast Profiles"
@@ -1225,6 +1226,12 @@ msgstr "Когда активен профиль мгновенного пере
 msgid "&Metadata streaming notification and connection"
 msgstr "Уведомление о потоковой передаче &метаданных и подключения"
 
+#. WX's native CheckListBox isn't user friendly.
+#. Therefore use checkboxes laid out across the top.
+#. 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
+#. Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
+#. Add checkboxes for each stream, beginning with the DSP encoder.
+#. #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
 #. # Translators: the label for a setting in SPL add-on settings
 #. to configure streaming status for metadata streams.
 msgid "&Select the URL for metadata streaming upon request:"
@@ -1421,11 +1428,6 @@ msgstr ""
 "Используется обычный профиль, не возможно открыть диалог широковещательных "
 "профилей."
 
-#. Translators: Presented when trying to switch to an instant switch profile
-#. when add-on settings dialog is active.
-msgid "Add-on settings dialog is open, cannot switch profiles"
-msgstr "Открыт диалог настроек дополнения, переключение профилей невозможно"
-
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."
 msgstr "Открыт ещё один диалог поиска."
@@ -1608,6 +1610,11 @@ msgstr ""
 #. to set if NVDA should announce connection progress until an encoder connects.
 msgid "Announce connection &status until encoder connects"
 msgstr "Объявлять &состояние соединения до тех пор, пока не подключится кодер"
+
+#. Translators: presented when SPL Studio window is minimized.
+#, fuzzy
+msgid "SPL Studio is minimized to system tray."
+msgstr "SPL Studio не выполняется."
 
 #. Translators: Input help mode message for an encoder settings command.
 msgid ""
@@ -1872,21 +1879,3 @@ msgid ""
 msgstr ""
 "Улучшает поддержку приложений StationPlaylist. Кроме того, добавлены "
 "глобальные команды для приложения Studio."
-
-#, python-brace-format
-#~ msgid "{header}: {content}"
-#~ msgstr "{header}: {content}"
-
-#, python-brace-format
-#~ msgid "{header}: blank"
-#~ msgstr "{header}: пусто"
-
-#, python-brace-format
-#~ msgid "{header}: ()"
-#~ msgstr "{header}: ()"
-
-#~ msgid "blank"
-#~ msgstr "пусто"
-
-#~ msgid "Columns Explorer"
-#~ msgstr "Обозреватель столбцов"

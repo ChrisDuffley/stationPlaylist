@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 17.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-07-18 12:44-0600\n"
+"PO-Revision-Date: 2025-08-16 06:08-0600\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: \n"
 "Language: vi\n"
@@ -21,13 +21,9 @@ msgstr ""
 msgid "You are not in playlist editor"
 msgstr "Bạn không ở trong trình chỉnh sửa danh sách phát"
 
-#. Translators: A message informing users that Studio is not running so certain commands will not work.
-msgid "Studio main window not found"
-msgstr "Không tìm thấy cửa sổ chính của Studio"
-
-#. Translators: presented when SPL Studio window is minimized.
-msgid "SPL Studio is minimized to system tray."
-msgstr "Đã thu nhỏ SPL Studio xuống khay hệ thống."
+#. Translators: Presented when microphone has been active for a while.
+msgid "Microphone active"
+msgstr "Microphone hoạt động"
 
 #. Translators: input help mode message for column explorer commands.
 msgid ""
@@ -68,182 +64,6 @@ msgstr "Trình bày tất cả các cột dữ liệu cho track đang được c
 msgid "Item {current} of {total}"
 msgstr "Mục {current} của {total}"
 
-#. Translators: The name of the default (normal) profile.
-msgid "Normal profile"
-msgstr "Hồ sơ bình thường"
-
-#. Translators: Message displayed when attempting to reset Studio add-on settings
-#. while an instant switch profile is active.
-msgid ""
-"An instant switch profile is active. Resetting Studio add-on settings means "
-"normal profile will become active and switch profile settings will be left "
-"in unpredictable state. Are you sure you wish to reset Studio add-on "
-"settings to factory defaults?"
-msgstr ""
-"Một hồ sơ chuyển nhanh đang hoạt động. Việc khôi phục các cài đặt của Studio "
-"add-on có nghĩa là hồ sơ bình thường sẽ được kích hoạt và các cài đặt chuyển "
-"hồ sơ sẽ còn trong trạng thái không xác định. Bạn có chắc chắn khôi phục các "
-"cài đặt Studio add-on về thiết lập mặc định của nhà sản xuất không?"
-
-#. Translators: The title of the confirmation dialog for Studio add-on settings reset.
-msgid "SPL Studio add-on reset"
-msgstr "Khôi phục cài đặt SPL Studio add-on"
-
-#. Translators: A flag indicating the currently active broadcast profile.
-msgid "active"
-msgstr "hoạt động"
-
-#. Translators: A flag indicating the broadcast profile is an instant switch profile.
-msgid "instant switch"
-msgstr "chuyển nhanh"
-
-#. Translators: Presented when switch to instant switch profile was successful.
-#, python-brace-format
-msgid "Switching to {newProfileName}"
-msgstr "Đang chuyển sang {newProfileName}"
-
-#. Translators: Presented when switching from instant switch profile to a previous profile.
-#, python-brace-format
-msgid "Returning to {previousProfile}"
-msgstr "Đang trở về {previousProfile}"
-
-#. Translators: Standard error title for configuration error.
-msgid "Studio add-on Configuration error"
-msgstr "Studio add-on lỗi cấu hình"
-
-#. Translators: announced when only normal profile is in use.
-msgid "Only normal profile is in use"
-msgstr "Chỉ đang dùng hồ sơ bình thường"
-
-#. Translators: Presented when trying to switch to an instant switch profile
-#. when the instant switch profile is not defined.
-msgid "No instant switch profile is defined"
-msgstr "Không có hồ sơ chuyển nhanh nào được chỉ định"
-
-#. Translators: Presented when trying to switch to an instant switch profile
-#. when one is already using the instant switch profile.
-msgid "You are already in the instant switch profile"
-msgstr "Bạn đã ở trong hồ sơ chuyển nhanh"
-
-#. Translators: A message giving basic information about the add-on.
-#, fuzzy
-msgid ""
-"Welcome to StationPlaylist add-on for NVDA,\n"
-"your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
-"\n"
-"Highlights of StationPlaylist add-on include:\n"
-"* Layer commands for obtaining status information\n"
-"* Various ways to examine track columns\n"
-"* Various ways to find tracks\n"
-"* Tools to analyze the loaded playlist\n"
-"* Cart Explorer to learn cart assignments\n"
-"* Comprehensive settings and documentation\n"
-"* Completely free, open-source and community-driven\n"
-"* And much more\n"
-"\n"
-"Visit www.stationplaylist.com for details on StationPlaylist suite of "
-"applications.\n"
-"Visit StationPlaylist add-on GitHub page (https://github.com/ChrisDuffley/"
-"stationPlaylist)\n"
-"for add-on details and to read the documentation.\n"
-"Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to "
-"return to this dialog.\n"
-"\n"
-"Thank you."
-msgstr ""
-"Chào mừng đến với StationPlaylist add-on cho NVDA,\n"
-"đồng hành với bạn để phát thanh bằng SPL với trình đọc màn hình NVDA.\n"
-"\n"
-"Các tính năng nổi bật của StationPlaylist add-on bao gồm:\n"
-"* Các lệnh lớp để xem thông tin trạng thái.\n"
-"* Nhiều cách xem các cột của track.\n"
-"* Nhiều cách để tìm kiếm track.\n"
-"* Cart Explorer để học cách gán cart.\n"
-"* Tài liệu và các thiết lập toàn diện.\n"
-"* Hoàn toàn miễn phí, mã nguồn mở và hướng về cộng đồng.\n"
-"* Và nhiều hơn nữa.\n"
-"\n"
-"Truy cập www.stationplaylist.com để biết thêm chi tiết về bộ ứng dụng của "
-"StationPlaylist.\n"
-"Xem bài viết về  StationPlaylist trên trang cộng đồng NVDA Add-ons (addons."
-"nvda-project.org) để có thêm thông tin và tài liệu về add-on này.\n"
-"Bạn muốn xem lại hộp thoại này nữa không? Chỉ việc bấm Alt+NVDA+F1 khi dùng "
-"Studio để trở về hộp thoại này.\n"
-"Bạn có gì muốn nói về Add-on này?\n"
-"Bấm Control+NVDA+trừ (-) để gửi phản hồi cho người phát triển add-on này "
-"bằng trình gửi thư điện tử mặc định của bạn.\n"
-"\n"
-"Xin cảm ơn."
-
-#. Translators: Title of a dialog displayed when the add-on starts presenting basic information,
-#. similar to NVDA's own welcome dialog.
-msgid "Welcome to StationPlaylist add-on"
-msgstr "Chào mừng đến với StationPlaylist add-on"
-
-msgid "Show welcome dialog when I start Studio"
-msgstr "Hiện hộp thoại chào mừng khi khởi động Studio"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille timer off"
-msgstr "Tắt hẹn giờ chữ nổi"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille track endings"
-msgstr "Track chữ nổi kết thúc"
-
-#. Translators: A setting in braille timer options.
-msgid "Outro"
-msgstr "Kết thúc"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille intro endings"
-msgstr "Nhạc kết thúc chữ nổi"
-
-#. Translators: A setting in braille timer options.
-msgid "Intro"
-msgstr "Bắt đầu"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille intro and track endings"
-msgstr "Track chữ nổi bắt đầu và kết thúc"
-
-#. Translators: A setting in braille timer options.
-#. Translators: One of the track comment notification settings.
-msgid "Both"
-msgstr "Cả hai"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Do not announce library scans"
-msgstr "Không thông báo quét thư viện"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Announce start and end of a library scan"
-msgstr "Thông báo khi bắt đầu và kết thúc quét một thư viện"
-
-#. Translators: One of the library scan announcement settings.
-msgid "Start and end only"
-msgstr "Chỉ bắt đầu và kết thúc"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Announce the progress of a library scan"
-msgstr "Thông báo tiến trình của việc quét thư viện"
-
-#. Translators: One of the library scan announcement settings.
-msgid "Scan progress"
-msgstr "Tiến độ quét"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Announce progress and item count of a library scan"
-msgstr "Thông báo tiến trình và số lượng thành phần khi quét thư viện"
-
-#. Translators: One of the library scan announcement settings.
-msgid "Scan count"
-msgstr "Lượt quét"
-
-#. Translators: Presented when microphone has been active for a while.
-msgid "Microphone active"
-msgstr "Microphone hoạt động"
-
 #. Translators: Input help message for screen column order toggle command in SPL Studio.
 msgid ""
 "Toggles track column announcement order between screen layout and custom "
@@ -263,10 +83,6 @@ msgstr "Bao gồm cột và tiêu đề khi thông báo thông tin track"
 #. Translators: Presented when track comment has been copied to clipboard.
 msgid "Track comment copied to clipboard"
 msgstr "Đã chép chú thích track vào bộ nhớ tạm"
-
-#. Translators: Presented when there is no track comment for the focused track.
-msgid "No comment"
-msgstr "Không có chú thích"
 
 #. Translators: Presented when focused on a track other than an actual track (such as hour marker).
 msgid "Comments cannot be added to this kind of track"
@@ -805,6 +621,9 @@ msgstr "Không tìm thấy thông tin của track kế"
 msgid "Announces title of the currently playing track"
 msgstr "Thông báo tựa đề của track đang được phát"
 
+msgid "Cannot locate current track information"
+msgstr "Không tìm thấy thông tin của track hiện tại"
+
 #. Translators: Presented when current track information is unavailable.
 msgid "Cannot find current track information"
 msgstr "Không tìm thấy thông tin của track hiện tại"
@@ -877,6 +696,11 @@ msgstr ""
 "Trình bày thông tin ảnh chụp danh sách phát như số track và các ca sĩ tiêu "
 "biểu"
 
+#. Translators: Presented when trying to switch to an instant switch profile
+#. when add-on settings dialog is active.
+msgid "Add-on settings dialog is open, cannot switch profiles"
+msgstr "Hộp thoại cài đặt add-on đang mở, không thể chuyển hồ sơ"
+
 #. Translators: Presented when place marker cannot be set.
 msgid "No tracks found, cannot set place marker"
 msgstr "Không có track nào. Không thể tạo điểm đánh dấu"
@@ -910,6 +734,182 @@ msgstr "Trợ giúp SPL Assistant"
 #. Translators: The title for SPL Assistant help screen.
 msgid "SPL Assistant help for JAWS layout"
 msgstr "Trợ giúp SPL Assistant cho kiểu phím lệnh của Jaws"
+
+#. Translators: A message informing users that Studio is not running so certain commands will not work.
+msgid "Studio main window not found"
+msgstr "Không tìm thấy cửa sổ chính của Studio"
+
+#. Translators: The name of the default (normal) profile.
+msgid "Normal profile"
+msgstr "Hồ sơ bình thường"
+
+#. Translators: Message displayed when attempting to reset Studio add-on settings
+#. while an instant switch profile is active.
+msgid ""
+"An instant switch profile is active. Resetting Studio add-on settings means "
+"normal profile will become active and switch profile settings will be left "
+"in unpredictable state. Are you sure you wish to reset Studio add-on "
+"settings to factory defaults?"
+msgstr ""
+"Một hồ sơ chuyển nhanh đang hoạt động. Việc khôi phục các cài đặt của Studio "
+"add-on có nghĩa là hồ sơ bình thường sẽ được kích hoạt và các cài đặt chuyển "
+"hồ sơ sẽ còn trong trạng thái không xác định. Bạn có chắc chắn khôi phục các "
+"cài đặt Studio add-on về thiết lập mặc định của nhà sản xuất không?"
+
+#. Translators: The title of the confirmation dialog for Studio add-on settings reset.
+msgid "SPL Studio add-on reset"
+msgstr "Khôi phục cài đặt SPL Studio add-on"
+
+#. Translators: A flag indicating the currently active broadcast profile.
+msgid "active"
+msgstr "hoạt động"
+
+#. Translators: A flag indicating the broadcast profile is an instant switch profile.
+msgid "instant switch"
+msgstr "chuyển nhanh"
+
+#. Translators: Presented when switch to instant switch profile was successful.
+#, python-brace-format
+msgid "Switching to {newProfileName}"
+msgstr "Đang chuyển sang {newProfileName}"
+
+#. Translators: Presented when switching from instant switch profile to a previous profile.
+#, python-brace-format
+msgid "Returning to {previousProfile}"
+msgstr "Đang trở về {previousProfile}"
+
+#. Translators: Standard error title for configuration error.
+msgid "Studio add-on Configuration error"
+msgstr "Studio add-on lỗi cấu hình"
+
+#. Translators: announced when only normal profile is in use.
+msgid "Only normal profile is in use"
+msgstr "Chỉ đang dùng hồ sơ bình thường"
+
+#. Translators: Presented when trying to switch to an instant switch profile
+#. when the instant switch profile is not defined.
+msgid "No instant switch profile is defined"
+msgstr "Không có hồ sơ chuyển nhanh nào được chỉ định"
+
+#. Translators: Presented when trying to switch to an instant switch profile
+#. when one is already using the instant switch profile.
+msgid "You are already in the instant switch profile"
+msgstr "Bạn đã ở trong hồ sơ chuyển nhanh"
+
+#. Translators: A message giving basic information about the add-on.
+#, fuzzy
+msgid ""
+"Welcome to StationPlaylist add-on for NVDA,\n"
+"your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
+"\n"
+"Highlights of StationPlaylist add-on include:\n"
+"* Layer commands for obtaining status information\n"
+"* Various ways to examine track columns\n"
+"* Various ways to find tracks\n"
+"* Tools to analyze the loaded playlist\n"
+"* Cart Explorer to learn cart assignments\n"
+"* Comprehensive settings and documentation\n"
+"* Completely free, open-source and community-driven\n"
+"* And much more\n"
+"\n"
+"Visit www.stationplaylist.com for details on StationPlaylist suite of "
+"applications.\n"
+"Visit StationPlaylist add-on GitHub page (https://github.com/ChrisDuffley/"
+"stationPlaylist)\n"
+"for add-on details and to read the documentation.\n"
+"Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to "
+"return to this dialog.\n"
+"\n"
+"Thank you."
+msgstr ""
+"Chào mừng đến với StationPlaylist add-on cho NVDA,\n"
+"đồng hành với bạn để phát thanh bằng SPL với trình đọc màn hình NVDA.\n"
+"\n"
+"Các tính năng nổi bật của StationPlaylist add-on bao gồm:\n"
+"* Các lệnh lớp để xem thông tin trạng thái.\n"
+"* Nhiều cách xem các cột của track.\n"
+"* Nhiều cách để tìm kiếm track.\n"
+"* Cart Explorer để học cách gán cart.\n"
+"* Tài liệu và các thiết lập toàn diện.\n"
+"* Hoàn toàn miễn phí, mã nguồn mở và hướng về cộng đồng.\n"
+"* Và nhiều hơn nữa.\n"
+"\n"
+"Truy cập www.stationplaylist.com để biết thêm chi tiết về bộ ứng dụng của "
+"StationPlaylist.\n"
+"Xem bài viết về  StationPlaylist trên trang cộng đồng NVDA Add-ons "
+"(addons.nvda-project.org) để có thêm thông tin và tài liệu về add-on này.\n"
+"Bạn muốn xem lại hộp thoại này nữa không? Chỉ việc bấm Alt+NVDA+F1 khi dùng "
+"Studio để trở về hộp thoại này.\n"
+"Bạn có gì muốn nói về Add-on này?\n"
+"Bấm Control+NVDA+trừ (-) để gửi phản hồi cho người phát triển add-on này "
+"bằng trình gửi thư điện tử mặc định của bạn.\n"
+"\n"
+"Xin cảm ơn."
+
+#. Translators: Title of a dialog displayed when the add-on starts presenting basic information,
+#. similar to NVDA's own welcome dialog.
+msgid "Welcome to StationPlaylist add-on"
+msgstr "Chào mừng đến với StationPlaylist add-on"
+
+msgid "Show welcome dialog when I start Studio"
+msgstr "Hiện hộp thoại chào mừng khi khởi động Studio"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille timer off"
+msgstr "Tắt hẹn giờ chữ nổi"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille track endings"
+msgstr "Track chữ nổi kết thúc"
+
+#. Translators: A setting in braille timer options.
+msgid "Outro"
+msgstr "Kết thúc"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille intro endings"
+msgstr "Nhạc kết thúc chữ nổi"
+
+#. Translators: A setting in braille timer options.
+msgid "Intro"
+msgstr "Bắt đầu"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille intro and track endings"
+msgstr "Track chữ nổi bắt đầu và kết thúc"
+
+#. Translators: A setting in braille timer options.
+#. Translators: One of the track comment notification settings.
+msgid "Both"
+msgstr "Cả hai"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Do not announce library scans"
+msgstr "Không thông báo quét thư viện"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce start and end of a library scan"
+msgstr "Thông báo khi bắt đầu và kết thúc quét một thư viện"
+
+#. Translators: One of the library scan announcement settings.
+msgid "Start and end only"
+msgstr "Chỉ bắt đầu và kết thúc"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce the progress of a library scan"
+msgstr "Thông báo tiến trình của việc quét thư viện"
+
+#. Translators: One of the library scan announcement settings.
+msgid "Scan progress"
+msgstr "Tiến độ quét"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce progress and item count of a library scan"
+msgstr "Thông báo tiến trình và số lượng thành phần khi quét thư viện"
+
+#. Translators: One of the library scan announcement settings.
+msgid "Scan count"
+msgstr "Lượt quét"
 
 #. Translators: title of a dialog to configure broadcast profiles.
 msgid "SPL Broadcast Profiles"
@@ -1198,6 +1198,12 @@ msgstr "Khi hồ sơ chuyển nhanh hoạt động"
 msgid "&Metadata streaming notification and connection"
 msgstr "Thông báo và kết nối &truyền siêu dữ liệu"
 
+#. WX's native CheckListBox isn't user friendly.
+#. Therefore use checkboxes laid out across the top.
+#. 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
+#. Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
+#. Add checkboxes for each stream, beginning with the DSP encoder.
+#. #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
 #. # Translators: the label for a setting in SPL add-on settings
 #. to configure streaming status for metadata streams.
 msgid "&Select the URL for metadata streaming upon request:"
@@ -1387,11 +1393,6 @@ msgid "Normal profile is in use, cannot open broadcast profiles dialog."
 msgstr ""
 "Hồ sơ bình thường đang được sử dụng. Không thể mở hộp thoại hồ sơ phát thanh."
 
-#. Translators: Presented when trying to switch to an instant switch profile
-#. when add-on settings dialog is active.
-msgid "Add-on settings dialog is open, cannot switch profiles"
-msgstr "Hộp thoại cài đặt add-on đang mở, không thể chuyển hồ sơ"
-
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."
 msgstr "Một hộp thoại tìm kiếm khác đang mở."
@@ -1570,6 +1571,10 @@ msgstr "Phát trạng thái kết nối &beep trong khi kết nối"
 #. to set if NVDA should announce connection progress until an encoder connects.
 msgid "Announce connection &status until encoder connects"
 msgstr "Thông báo &trạng thái kết nối cho đến khi kết nối bộ mã hóa"
+
+#. Translators: presented when SPL Studio window is minimized.
+msgid "SPL Studio is minimized to system tray."
+msgstr "Đã thu nhỏ SPL Studio xuống khay hệ thống."
 
 #. Translators: Input help mode message for an encoder settings command.
 msgid ""
@@ -1833,27 +1838,3 @@ msgid ""
 msgstr ""
 "Cải thiện hỗ trợ cho StationPlaylist.\n"
 "Ngoài ra là thêm các lệnh toàn cục cho studio từ bất cứ đâu."
-
-#, python-brace-format
-#~ msgid "{header}: {content}"
-#~ msgstr "{header}: {content}"
-
-#, python-brace-format
-#~ msgid "{header}: blank"
-#~ msgstr "{header}: rỗng"
-
-#, python-brace-format
-#~ msgid "{header}: ()"
-#~ msgstr "{header}: ()"
-
-#~ msgid "blank"
-#~ msgstr "rỗng"
-
-#~ msgid "Columns Explorer"
-#~ msgstr "Khám phá các cột"
-
-#~ msgid "Cannot locate current track information"
-#~ msgstr "Không tìm thấy thông tin của track hiện tại"
-
-#~ msgid "Columns E&xplorer..."
-#~ msgstr "Khám phá các &cột..."
