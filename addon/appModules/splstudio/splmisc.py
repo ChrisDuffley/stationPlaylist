@@ -86,24 +86,12 @@ class SPLFindDialog(wx.Dialog):
 		self.obj = obj
 		self.directionForward = directionForward
 		self.columnSearch = columnSearch
-		if not columnSearch:
-			# Translators: the label for find prompt in track finder dialog.
-			findPrompt = _("Enter or select the name or the artist of the track you wish to &search")
-		else:
-			# Translators: the label for find prompt in column search dialog.
-			findPrompt = _("Enter or select text to be &searched in a column")
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		findSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
-		# Deprecated, track find text will become a string (revert to 2017 code).
-		findHistory = obj.appModule.findText if obj.appModule.findText is not None else []
-		# #68: use a custom combo box as it does not derive from wx.Choice in wxPython 4.
-		self.findEntry = findSizerHelper.addLabeledControl(
-			findPrompt, CustomComboBox, choices=findHistory
-		)
-		self.findEntry.Value = text
+		self.findEntry = findSizerHelper.addLabeledControl(findPrompt, wx.TextCtrl, value=text)
 
 		if columnSearch:
 			self.columnHeaders = findSizerHelper.addLabeledControl(
