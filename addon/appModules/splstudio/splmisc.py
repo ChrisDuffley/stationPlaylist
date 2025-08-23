@@ -86,11 +86,16 @@ class SPLFindDialog(wx.Dialog):
 		self.obj = obj
 		self.directionForward = directionForward
 		self.columnSearch = columnSearch
-
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		findSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
+		if not columnSearch:
+			# Translators: the label for find prompt in track finder dialog.
+			findPrompt = _("Enter or select the name or the artist of the track you wish to &search")
+		else:
+			# Translators: the label for find prompt in column search dialog.
+			findPrompt = _("Enter or select text to be &searched in a column")
 		self.findEntry = findSizerHelper.addLabeledControl(findPrompt, wx.TextCtrl, value=text)
 
 		if columnSearch:
