@@ -41,11 +41,6 @@ SPLTrackFilename = 211
 browseableMessageButtons = {"closeButton": True} if buildVersion.version_year >= 2025 else {}
 
 
-# A custom combo box for cases where combo boxes are not choice controls.
-class CustomComboBox(wx.ComboBox, wx.Choice):
-	pass
-
-
 # A common dialog for Track Finder
 _findDialogOpened = False
 
