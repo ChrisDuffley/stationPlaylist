@@ -1568,14 +1568,6 @@ class AppModule(appModuleHandler.AppModule):
 	)
 	def script_findTrack(self, gesture):
 		if self._trackFinderCheck(0):
-			if self.findText is not None:
-				# 21.03/20.09.6-LTS: avoid type error when opening track finder dialog.
-				# This is applicable for track finder, next/previous track finder, and column search.
-				self.findText = list(filter(lambda x: x not in (None, ""), self.findText))
-				# Nullify find text list if it is empty for compatibility with code checking for None.
-				# This is more so for find next/previous, therefore repeated in those scripts as well.
-				if not len(self.findText):
-					self.findText = None
 			self.trackFinderGUI()
 
 	@scriptHandler.script(
@@ -1584,10 +1576,6 @@ class AppModule(appModuleHandler.AppModule):
 	)
 	def script_columnSearch(self, gesture):
 		if self._trackFinderCheck(1):
-			if self.findText is not None:
-				self.findText = list(filter(lambda x: x not in (None, ""), self.findText))
-				if not len(self.findText):
-					self.findText = None
 			self.trackFinderGUI(columnSearch=True)
 
 	# Find next and previous scripts.
@@ -1599,12 +1587,6 @@ class AppModule(appModuleHandler.AppModule):
 	)
 	def script_findTrackNext(self, gesture):
 		if self._trackFinderCheck(0):
-			# Although counterintuitive, filtering must take place here as well to avoid finding nothing or everything.
-			# Passing in None or an empty string to track finder results in "finding" the next track.
-			if self.findText is not None:
-				self.findText = list(filter(lambda x: x not in (None, ""), self.findText))
-				if not len(self.findText):
-					self.findText = None
 			if self.findText is None:
 				self.trackFinderGUI()
 			else:
@@ -1623,11 +1605,6 @@ class AppModule(appModuleHandler.AppModule):
 	)
 	def script_findTrackPrevious(self, gesture):
 		if self._trackFinderCheck(0):
-			# Same as find next: filter find text list here, too.
-			if self.findText is not None:
-				self.findText = list(filter(lambda x: x not in (None, ""), self.findText))
-				if not len(self.findText):
-					self.findText = None
 			if self.findText is None:
 				self.trackFinderGUI(directionForward=False)
 			else:
