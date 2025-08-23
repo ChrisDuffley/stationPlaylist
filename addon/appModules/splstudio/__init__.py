@@ -1364,7 +1364,7 @@ class AppModule(appModuleHandler.AppModule):
 			d = splmisc.SPLFindDialog(
 				gui.mainFrame,
 				startObj,
-				self.findText[0] if self.findText and len(self.findText) else "",
+				self.findText if self.findText is not None else "",
 				title,
 				directionForward=directionForward,
 				columnSearch=columnSearch,
@@ -1392,7 +1392,7 @@ class AppModule(appModuleHandler.AppModule):
 				and startObj.role == controlTypes.Role.LIST
 			):
 				startObj = startObj.firstChild if directionForward else startObj.lastChild
-			self.trackFinder(self.findText[0], startObj, directionForward=directionForward)
+			self.trackFinder(self.findText, startObj, directionForward=directionForward)
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
