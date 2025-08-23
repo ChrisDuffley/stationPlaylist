@@ -1264,10 +1264,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Perform a linear search to locate the track name and/or description which matches the entered value.
 	# Also, find column content for a specific column if requested.
 	# The below routines are also used in place marker track locator.
-
-	# Search history
-	# Accept both None and str because it will be filtered to remove None anyway.
-	findText: list[str] | None = None
+	findText: str | None = None
 
 	def trackFinder(
 		self, text: str, obj: NVDAObject, directionForward: bool = True, column: list[int] | None = None
