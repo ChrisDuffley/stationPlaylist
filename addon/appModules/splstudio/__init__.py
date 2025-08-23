@@ -1440,9 +1440,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Also, find column content for a specific column if requested.
 	# 6.0: Split this routine into two functions, with the while loop moving to a function of its own.
 	# This new function will be used by track finder and place marker locator.
-	# 17.08: now it is a list that records search history.
-	# 21.03: accept both None and str because it will be filtered to remove None anyway.
-	findText: list[str] | None = None
+	findText: str | None = None
 
 	def trackFinder(
 		self, text: str, obj: NVDAObject, directionForward: bool = True, column: list[int] | None = None
