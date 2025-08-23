@@ -1449,29 +1449,14 @@ class AppModule(appModuleHandler.AppModule):
 		if not text:
 			return
 		speech.cancelSpeech()
-		# #32 (17.06/15.8 LTS): Update search text even if the track with the search term in columns does not exist.
-		# #27 (17.08): especially if the search history is empty.
-		if self.findText is None:
-			self.findText = [text]
-		# Locate previously searched text by index (-1 means no result)
-		else:
-			try:
-				textIndex = self.findText.index(text)
-			except ValueError:
-				textIndex = -1
-			if textIndex == -1:
-				self.findText.insert(0, text)
-			elif textIndex > 0:
-				self.findText[0], self.findText[textIndex] = (
-					self.findText[textIndex],
-					self.findText[0],
-				)
 		# Start from next/previous track if this text was searched before.
-		if text in self.findText:
+		if text == self.findText:
 			obj = obj.next if directionForward else obj.previous
 		if obj is not None and not column:
 			column = [obj.indexOf("Artist"), obj.indexOf("Title")]
 		track = self._trackLocator(text, obj=obj, directionForward=directionForward, columns=column)
+		# #32 (17.06/15.8 LTS): Update search text even if the track with the search term in columns does not exist.
+		self.findText = text
 		if track:
 			# We need to fire set focus event twice and exit this routine.
 			# 16.10.1/15.2 LTS: Just select this track in order to
