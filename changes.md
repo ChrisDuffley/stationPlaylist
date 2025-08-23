@@ -2,6 +2,10 @@
 
 This page lists the complete changelog for StationPlaylist add-on releases.
 
+## Version 25.11/25.06.7-LTS
+
+* In Studio, search history in track finder (Control+NVDA+F) is replaced with a search edit field to align with NVDA's own find dialog experience.
+
 ## Version 25.09/25.06.6-LTS
 
 * 25.09: NVDA 2025.1 or later is required.
