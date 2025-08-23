@@ -1549,7 +1549,7 @@ class AppModule(appModuleHandler.AppModule):
 			d = splmisc.SPLFindDialog(
 				gui.mainFrame,
 				startObj,
-				self.findText[0] if self.findText and len(self.findText) else "",
+				self.findText if self.findText else "",
 				title,
 				directionForward=directionForward,
 				columnSearch=columnSearch,
@@ -1596,7 +1596,7 @@ class AppModule(appModuleHandler.AppModule):
 					and startObj.role == controlTypes.Role.LIST
 				):
 					startObj = startObj.firstChild
-				self.trackFinder(self.findText[0], startObj.next)
+				self.trackFinder(self.findText, startObj.next)
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
@@ -1614,7 +1614,7 @@ class AppModule(appModuleHandler.AppModule):
 					and startObj.role == controlTypes.Role.LIST
 				):
 					startObj = startObj.lastChild
-				self.trackFinder(self.findText[0], startObj.previous, directionForward=False)
+				self.trackFinder(self.findText, startObj.previous, directionForward=False)
 
 	# Time range finder.
 	# Locate a track with duration falling between min and max.
