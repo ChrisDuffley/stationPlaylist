@@ -33,11 +33,6 @@ SPLFileDuration = 30
 SPLMetadataStreaming = 36
 SPLTrackFilename = 211
 
-# A custom combo box for cases where combo boxes are not choice controls.
-class CustomComboBox(wx.ComboBox, wx.Choice):
-	pass
-
-
 # A common dialog for Track Finder
 _findDialogOpened = False
 
