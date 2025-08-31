@@ -11,6 +11,7 @@ import ui
 import api
 import windowUtils
 import scriptHandler
+import globalVars
 from winUser import sendMessage, user32
 from logHandler import log
 from NVDAObjects.IAccessible import sysListView32
@@ -50,7 +51,7 @@ def setStudioWindowHandle(hwnd: int | None) -> None:
 # Use SPL Studio API to obtain needed values.
 # A thin wrapper around user32.SendMessage function with Studio handle and WM_USER supplied.
 # #45: returns whatever result SendMessage function says.
-# If NVDA is in debug mode, print arg, command and other values.
+# If NVDA is in debug mode, print arg, command and other values if accompanied by "--spl-apidebug" option.
 # Strengthen this by checking for the handle once more.
 # #92: SendMessage function returns something from anything (including from dead window handles),
 # so really make sure Studio window handle is alive.
@@ -61,9 +62,11 @@ def studioAPI(arg: int, command: int) -> int | None:
 	global _SPLWin
 	if _SPLWin is None:
 		_SPLWin = user32.FindWindowW("SPLStudio", None)
-	log.debug(f"SPL: Studio API wParem is {arg}, lParem is {command}")
+	if (studioAPIDebug := "--spl-apidebug" in globalVars.unknownAppArgs):
+		log.debug(f"SPL: Studio API wParem is {arg}, lParem is {command}")
 	val = sendMessage(_SPLWin, 1024, arg, command)
-	log.debug(f"SPL: Studio API result is {val}")
+	if studioAPIDebug:
+		log.debug(f"SPL: Studio API result is {val}")
 	# SendMessage function might be stuck while Studio exits, resulting in NULL window handle.
 	if not user32.FindWindowW("SPLStudio", None):
 		val = None
