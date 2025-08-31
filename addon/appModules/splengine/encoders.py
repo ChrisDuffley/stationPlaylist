@@ -771,15 +771,15 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 	# Announce SAM columns: encoder name/type, status and description.
 	@scriptHandler.script(gesture="kb:control+NVDA+3", speakOnDemand=True)
 	def script_announceEncoderFormat(self, gesture):
-		ui.message("{0}: {1}".format(self.getChild(1).columnHeaderText, self.encoderFormat))
+		self.announceEncoderData(1)
 
 	@scriptHandler.script(gesture="kb:control+NVDA+4", speakOnDemand=True)
 	def script_announceEncoderStatus(self, gesture):
-		ui.message("{0}: {1}".format(self.getChild(2).columnHeaderText, self.getChild(2).name))
+		self.announceEncoderData(2)
 
 	@scriptHandler.script(gesture="kb:control+NVDA+5", speakOnDemand=True)
 	def script_announceEncoderStatusDesc(self, gesture):
-		ui.message("{0}: {1}".format(self.getChild(3).columnHeaderText, self.getChild(3).name))
+		self.announceEncoderData(3)
 
 
 class SPLEncoder(Encoder):
