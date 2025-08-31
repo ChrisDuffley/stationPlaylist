@@ -623,6 +623,10 @@ class Encoder(IAccessible):
 			# Translators: describes the current encoder label if any.
 			ui.message(_("No encoder label"))
 
+	# Announce encoder specific data (located in columns unless noted otherwise).
+	def announceEncoderData(self, column: int):
+		ui.message("{0}: {1}".format(self.getChild(column).columnHeaderText, self.getChild(column).name))
+
 	def initOverlayClass(self):
 		# Load encoder settings upon request.
 		if encoderConfig is None:
