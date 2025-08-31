@@ -1,6 +1,6 @@
 # StationPlaylist Add-on User Guide
 
-Revision: September 2025 for StationPlaylist add-on 25.09/25.06.6-LTS
+Revision: September 2025 for StationPlaylist add-on 25.11/25.06.7-LTS
 
 Author: Christopher Duffley (formerly Joseph Lee)
 
@@ -1007,8 +1007,9 @@ The switches for this add-on are:
 
 * --spl-normalprofileonly: only loads normal profile.
 * --spl-configinmemory: not only this will use normal profile only, but settings will not be loaded from disk nor saved to it.
+* --spl-apidebug (25.11 and later): record Studio API specific debug messages (requires debug log to be enabled and to be used as directed by add-on developers).
 
-If any of these switches are used, broadcast profiles functionality will be disabled.
+Except for "--spl-apidebug", broadcast profiles functionality will be disabled if any of these command-line switches are present.
 
 Q. What is NVDA in secure mode?
 
