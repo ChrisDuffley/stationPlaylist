@@ -891,11 +891,11 @@ class SPLEncoder(Encoder):
 	# Announce SPL Encoder columns: encoder settings and transfer rate.
 	@scriptHandler.script(gesture="kb:control+NVDA+3", speakOnDemand=True)
 	def script_announceEncoderSettings(self, gesture):
-		ui.message("{0}: {1}".format(self.firstChild.columnHeaderText, self.encoderFormat))
+		self.announceEncoderData(0)
 
 	@scriptHandler.script(gesture="kb:control+NVDA+4", speakOnDemand=True)
 	def script_announceEncoderTransfer(self, gesture):
-		ui.message("{0}: {1}".format(self.getChild(1).columnHeaderText, self.getChild(1).name))
+		self.announceEncoderData(1)
 
 
 class AltaCastEncoder(SPLEncoder):
