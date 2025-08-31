@@ -115,8 +115,9 @@ def studioAppModuleCommand(func: str, *args, **kwargs) -> None:
 # Process add-on specific command-line switches.
 # --spl-configinmemory: load add-on settings from memory as if the add-on is run for the first time.
 # --spl-normalprofileonly: load only the default broadcast profile.
+# --spl-apidebug: record Studio API specific debug messages (requires debug log to be enabled).
 def processArgs(cliArgument: str) -> bool:
-	splAddonCLIParems = ("--spl-configinmemory", "--spl-normalprofileonly")
+	splAddonCLIParems = ("--spl-configinmemory", "--spl-normalprofileonly", "--spl-apidebug")
 	if cliArgument in splAddonCLIParems:
 		# Remove the command-line switch from sys.argv so the add-on can
 		# function normally unless restarted with these switches added.
