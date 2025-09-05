@@ -982,7 +982,7 @@ Windows 7 and 8.x are out of support from Microsoft from January 2023. You can u
 
 Q. Will the add-on work with 64-bit NVDA?
 
-Yes to an extent. NV Access and contributors are working on 64-bit NVDA, and testing shows some parts of the SPL ad-on will work on it. The biggest limitation is inability to review track and encoder data, and work is ongoing to resolve this issue.
+Yes for the most part. NV Access and contributors are working on 64-bit NVDA, and testing shows parts of the SPL ad-on will work on it.
 
 Q. What are update channels?
 
