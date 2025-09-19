@@ -12,10 +12,15 @@ import api
 import windowUtils
 import scriptHandler
 import globalVars
-from winUser import sendMessage, user32
+from winUser import sendMessage
 from logHandler import log
 from NVDAObjects.IAccessible import sysListView32
 import addonHandler
+# From NVDA 2026.1 onwards, winBindings package should be used to look for Windows API dll's.
+try:
+	from winBindings.user32 import dll as user32
+except ModuleNotFoundError:
+	from winUser import user32
 
 addonHandler.initTranslation()
 
