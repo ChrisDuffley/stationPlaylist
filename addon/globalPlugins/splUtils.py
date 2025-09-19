@@ -13,8 +13,13 @@ from appModules.splcommon import splbase, splconsts
 import tones
 import windowUtils
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent
-from winUser import user32, OBJID_CLIENT, getWindowText
+from winUser import OBJID_CLIENT, getWindowText
 import addonHandler
+# From NVDA 2026.1 onwards, winBindings package should be used to look for Windows API dll's.
+try:
+	from winBindings.user32 import dll as user32
+except ModuleNotFoundError:
+	from winUser import user32
 
 addonHandler.initTranslation()
 
