@@ -15,7 +15,12 @@ import api
 import wx
 import globalVars
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent
-from winUser import user32, OBJID_CLIENT
+# From NVDA 2026.1 onwards, winBindings package should be used to look for Windows API dll's.
+try:
+	from winBindings.user32 import dll as user32
+except ModuleNotFoundError:
+	from winUser import user32
+from winUser import OBJID_CLIENT
 import tones
 import addonHandler
 from . import splconfig
