@@ -22,7 +22,11 @@ import speech
 import ui
 from logHandler import log
 import addonHandler
-from winUser import user32
+# From NVDA 2026.1 onwards, winBindings package should be used to look for Windows API dll's.
+try:
+	from winBindings.user32 import dll as user32
+except ModuleNotFoundError:
+	from winUser import user32
 import buildVersion
 from NVDAObjects import NVDAObject
 from . import splbase
