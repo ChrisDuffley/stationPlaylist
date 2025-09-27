@@ -18,7 +18,11 @@ import scriptHandler
 import windowUtils
 import winKernel
 from NVDAObjects.IAccessible import IAccessible, sysListView32
-from winUser import user32
+# From NVDA 2026.1 onwards, winBindings package should be used to look for Windows API dll's.
+try:
+	from winBindings.user32 import dll as user32
+except ModuleNotFoundError:
+	from winUser import user32
 import tones
 import gui
 import wx
