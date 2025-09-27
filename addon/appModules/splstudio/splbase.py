@@ -5,9 +5,14 @@
 # Base services for Studio app module and support modules
 
 import ui
-from winUser import sendMessage, user32
 from logHandler import log
 import addonHandler
+# From NVDA 2026.1 onwards, winBindings package should be used to look for Windows API dll's.
+try:
+	from winBindings.user32 import dll as user32
+except ModuleNotFoundError:
+	from winUser import user32
+from winUser import sendMessage
 
 addonHandler.initTranslation()
 
