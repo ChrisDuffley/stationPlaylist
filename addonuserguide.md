@@ -1,6 +1,6 @@
 # StationPlaylist Add-on User Guide
 
-Revision: September 2025 for StationPlaylist add-on 25.11/25.06.8-LTS
+Revision: October 2025 for StationPlaylist add-on 25.10/25.06.8-LTS
 
 Author: Christopher Duffley (formerly Joseph Lee)
 
@@ -966,9 +966,9 @@ Q. Which versions of Studio are supported by which add-on releases?
 * Studio 5.20: Add-on 16.11 to 20.09.7 (November 2016-April 2021).
 * Studio 5.3x: Add-on 17.11 to 22.12 (November 2017-December 2022).
 * Studio 5.40: Add-on 19.11 to 25.05.4 (November 2019-May 2025).
-* Studio 5.50: Add-on 20.11 to 25.06.6 (November 2020-September 2025).
-* Studio 6.0x: Add-on 21.11 to 25.09 (November 2021-September 2025).
-* Studio 6.1x: Add-on 24.03 to 25.09 (April 2024-September 2025).
+* Studio 5.50: Add-on 20.11 to 25.06.8 (November 2020-October 2025).
+* Studio 6.0x: Add-on 21.11 to 25.10 (November 2021-October 2025).
+* Studio 6.1x: Add-on 24.03 to 25.10 (April 2024-October 2025).
 
 Note: the schedule above is subject to change.
 
