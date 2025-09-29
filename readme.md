@@ -209,6 +209,7 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 ## Version 25.06.8-LTS
 
 * In Studio, search history in track finder (Control+NVDA+F) is replaced with a search edit field to align with NVDA's own find dialog experience.
+* In Studio, when braille timer is enabled, NVDA will only announce remaining track/intro duration if the value displayed falls below end of track/song ramp alarm value instead of displaying track remaining time.
 
 ## Version 25.06.6-LTS
 
