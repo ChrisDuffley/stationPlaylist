@@ -926,6 +926,7 @@ class AppModule(appModuleHandler.AppModule):
 					if (
 						splconfig.SPLConfig["General"]["BrailleTimer"] in ("outro", "both")
 						and api.getForegroundObject().processID == self.processID
+						and self._isWithinBrailleTimerThreshold(obj.name, splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"])
 					):
 						braille.handler.message(obj.name)
 					if (
@@ -939,6 +940,7 @@ class AppModule(appModuleHandler.AppModule):
 					if (
 						splconfig.SPLConfig["General"]["BrailleTimer"] in ("intro", "both")
 						and api.getForegroundObject().processID == self.processID
+						and self._isWithinBrailleTimerThreshold(obj.name, splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"])
 					):
 						braille.handler.message(obj.name)
 					if (
@@ -948,6 +950,31 @@ class AppModule(appModuleHandler.AppModule):
 					):
 						self.alarmAnnounce(obj.name, 512, 400, intro=True)
 		nextHandler()
+
+	# Helper method to check if timer value is within alarm threshold for braille display.
+	def _isWithinBrailleTimerThreshold(self, timeText: str, thresholdSeconds: int) -> bool:
+		"""
+		Check if time text (MM:SS format) represents a time <= threshold seconds.
+		Used to limit braille timer output to alarm threshold and below.
+		"""
+		try:
+			# Parse time text in MM:SS format using string rpartition
+			prefix, separator, secondsPart = timeText.rpartition(":")
+			# Ensure we actually found a colon separator and have valid parts
+			if not separator or not secondsPart:
+				return False
+			
+			# Parse minutes and seconds
+			seconds = int(secondsPart)
+			minutes = int(prefix) if prefix else 0
+			
+			# Convert total time to seconds
+			totalSeconds = minutes * 60 + seconds
+			
+			return totalSeconds <= thresholdSeconds
+		except (ValueError, AttributeError):
+			# If parsing fails, don't show braille to be safe
+			return False
 
 	# Handle toggle messages.
 	def _toggleMessage(self, msg: str) -> None:
