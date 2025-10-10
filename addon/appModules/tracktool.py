@@ -11,9 +11,11 @@ import appModuleHandler
 import addonHandler
 import tones
 import controlTypes
+import scriptHandler
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32
 from .splcommon import splconfig, splbase
+from .splcommon.trackproperties import TrackPropertiesLabeledField, is_track_properties_field
 
 addonHandler.initTranslation()
 
@@ -164,8 +166,19 @@ class AppModule(appModuleHandler.AppModule):
 		splconfig.closeConfig(self.appName)
 
 	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
-		if obj.windowClassName == "TTntListView.UnicodeClass":
-			if obj.role == controlTypes.Role.LISTITEM:
+		role = obj.role
+		windowClassName = obj.windowClassName
+		
+		if windowClassName == "TTntListView.UnicodeClass":
+			if role == controlTypes.Role.LISTITEM:
 				clsList.insert(0, TrackToolItem)
-			elif obj.role == controlTypes.Role.LIST:
+			elif role == controlTypes.Role.LIST:
 				clsList.insert(0, sysListView32.List)
+		
+		# Apply track properties field overlay for TrackTool track properties
+		elif (is_track_properties_field(obj) and 
+			role in (controlTypes.Role.EDITABLETEXT, controlTypes.Role.COMBOBOX, controlTypes.Role.SPINBUTTON, controlTypes.Role.PANE) and 
+			windowClassName in ("TEdit", "TTntEdit.UnicodeClass", "TComboBox", "TTntComboBox.UnicodeClass", 
+								"TSpinEdit", "TSpinEditMS", "TDateTimePicker", "TTntMemo.UnicodeClass")):
+			clsList.insert(0, TrackPropertiesLabeledField)
+
