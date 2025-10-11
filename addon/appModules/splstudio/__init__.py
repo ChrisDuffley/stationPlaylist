@@ -46,6 +46,7 @@ from NVDAObjects.behaviors import Dialog
 import textInfos
 import tones
 from ..splcommon import splbase, splconsts, splactions, splconfig
+from ..splcommon.trackproperties import TrackPropertiesLabeledField, is_track_properties_field
 from . import splconfui
 from . import splmisc
 import addonHandler
@@ -828,6 +829,14 @@ class AppModule(appModuleHandler.AppModule):
 				clsList.insert(0, SPLTimePicker)
 			case _:
 				pass
+		
+		# Apply track properties field overlay but only for controls that actually need labels
+		# Be conservative to avoid interferring with Ctrl+Tab navigation
+		if (is_track_properties_field(obj) and 
+			role in (controlTypes.Role.EDITABLETEXT, controlTypes.Role.COMBOBOX, controlTypes.Role.SPINBUTTON, controlTypes.Role.PANE) and 
+			obj.windowClassName in ("TEdit", "TTntEdit.UnicodeClass", "TComboBox", "TTntComboBox.UnicodeClass", 
+									"TSpinEdit", "TSpinEditMS", "TDateTimePicker", "TTntMemo.UnicodeClass")):
+			clsList.insert(0, TrackPropertiesLabeledField)
 
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
@@ -2666,3 +2675,4 @@ class AppModule(appModuleHandler.AppModule):
 			"kb:f1": "layerHelp",
 		}
 	}
+
