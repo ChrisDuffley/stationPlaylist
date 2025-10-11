@@ -822,7 +822,7 @@ class AppModule(appModuleHandler.AppModule):
 				clsList.insert(0, Dialog)
 			# For Studio's About dialog (prior to 6.0) to reverse dialog content traversal.
 			case "TAboutForm":
-				clsList.insert(0, ReversedDialog if self.productVersion < "6.0" else Dialog)
+				clsList.insert(0, Dialog)
 			# Temporary cue time picker and friends.
 			case "TDateTimePicker":
 				clsList.insert(0, SPLTimePicker)
