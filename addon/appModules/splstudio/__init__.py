@@ -820,9 +820,9 @@ class AppModule(appModuleHandler.AppModule):
 			# Recognize known dialogs.
 			case "TDemoRegForm" | "TOpenPlaylist":
 				clsList.insert(0, Dialog)
-			# For Studio's About dialog to reverse dialog content traversal.
+			# For Studio's About dialog (prior to 6.0) to reverse dialog content traversal.
 			case "TAboutForm":
-				clsList.insert(0, ReversedDialog)
+				clsList.insert(0, ReversedDialog if self.productVersion < "6.0" else Dialog)
 			# Temporary cue time picker and friends.
 			case "TDateTimePicker":
 				clsList.insert(0, SPLTimePicker)
