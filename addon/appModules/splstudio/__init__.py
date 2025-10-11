@@ -40,7 +40,7 @@ except ModuleNotFoundError:
 	from winUser import user32
 from winUser import OBJID_CLIENT
 from logHandler import log
-from NVDAObjects import NVDAObject, NVDAObjectTextInfo
+from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent, sysListView32
 from NVDAObjects.behaviors import Dialog
 import textInfos
@@ -442,114 +442,6 @@ F9: Mark current track as start of track time analysis.
 F10: Perform track time analysis.
 F12: Switch to an instant switch profile."""),
 }
-
-
-# Provide a way to fetch dialog description in reverse order.
-# This is used in Studio's About dialog as children are in reverse tab order somehow.
-class ReversedDialog(Dialog):
-	"""Overrides the description property to obtain dialog text except in reverse order.
-	This is employed in Studio's help/About dialog.
-	"""
-
-	@classmethod
-	def getDialogText(cls, obj, allowFocusedDescendants=True):
-		"""This classmethod walks through the children of the given object, and collects up and
-		returns any text that seems to be  part of a dialog's message text.
-		@param obj: the object who's children you want to collect the text from
-		@type obj: L{IAccessible}
-		@param allowFocusedDescendants: if false no text will be returned at all
-		if one of the descendants is focused.
-		@type allowFocusedDescendants: boolean
-		"""
-		children = obj.children
-		textList = []
-		childCount = len(children)
-		# For these dialogs, children are arranged in reverse tab order (very strange indeed).
-		for index in range(childCount - 1, -1, -1):
-			child = children[index]
-			childStates = child.states
-			childRole = child.role
-			# We don't want to handle invisible or unavailable objects
-			if controlTypes.State.INVISIBLE in childStates or controlTypes.State.UNAVAILABLE in childStates:
-				continue
-			# For particular objects, we want to descend in to them and get their children's message text
-			if childRole in (
-				controlTypes.Role.PROPERTYPAGE,
-				controlTypes.Role.PANE,
-				controlTypes.Role.PANEL,
-				controlTypes.Role.WINDOW,
-				controlTypes.Role.GROUPING,
-				controlTypes.Role.PARAGRAPH,
-				controlTypes.Role.SECTION,
-				controlTypes.Role.TEXTFRAME,
-				controlTypes.Role.UNKNOWN,
-			):
-				# Grab text from descendants, but not for a child which inherits from Dialog and has focusable descendants
-				# Stops double reporting when focus is in a property page in a dialog
-				childText = cls.getDialogText(child, not isinstance(child, Dialog))
-				if childText:
-					textList.append(childText)
-				elif childText is None:
-					return None
-				continue
-			# If the child is focused  we should just stop and return None
-			if not allowFocusedDescendants and controlTypes.State.FOCUSED in child.states:
-				return None
-			# We only want text from certain controls.
-			if not (
-				# Static text, labels and links
-				childRole in (controlTypes.Role.STATICTEXT, controlTypes.Role.LABEL, controlTypes.Role.LINK)
-				# Read-only, non-multiline edit fields
-				or (
-					childRole == controlTypes.Role.EDITABLETEXT
-					and controlTypes.State.READONLY in childStates
-					and controlTypes.State.MULTILINE not in childStates
-				)
-			):
-				continue
-			# We should ignore a text object directly after a grouping object,
-			# as it's probably the grouping's description
-			if index > 0 and children[index - 1].role == controlTypes.Role.GROUPING:
-				continue
-			# Like the last one, but a graphic might be before the grouping's description
-			if (
-				index > 1
-				and children[index - 1].role == controlTypes.Role.GRAPHIC
-				and children[index - 2].role == controlTypes.Role.GROUPING
-			):
-				continue
-			childName = child.name
-			if (
-				childName
-				and index < (childCount - 1)
-				and children[index + 1].role
-				not in (
-					controlTypes.Role.GRAPHIC,
-					controlTypes.Role.STATICTEXT,
-					controlTypes.Role.SEPARATOR,
-					controlTypes.Role.WINDOW,
-					controlTypes.Role.PANE,
-					controlTypes.Role.BUTTON,
-				)
-				and children[index + 1].name == childName
-			):
-				# This is almost certainly the label for the next object, so skip it.
-				continue
-			isNameIncluded = child.TextInfo is NVDAObjectTextInfo or childRole in (
-				controlTypes.Role.LABEL,
-				controlTypes.Role.STATICTEXT,
-			)
-			childText = child.makeTextInfo(textInfos.POSITION_ALL).text
-			if not childText or childText.isspace() and child.TextInfo is not NVDAObjectTextInfo:
-				childText = child.basicText
-				isNameIncluded = True
-			if not isNameIncluded:
-				# The label isn't in the text, so explicitly include it first.
-				if childName:
-					textList.append(childName)
-			if childText:
-				textList.append(childText)
-		return "\n".join(textList)
 
 
 # Temporary Cue time pickers does not expose the correct tree.
