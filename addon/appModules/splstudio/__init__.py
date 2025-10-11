@@ -575,7 +575,7 @@ F12: Switch to an instant switch profile."""),
 
 
 # Provide a way to fetch dialog description in reverse order.
-# This is used in Studio's About dialog as children are in reverse tab order somehow.
+# This is used in Studio's About dialog prior to 6.0 as children are in reverse tab order somehow.
 class ReversedDialog(Dialog):
 	"""Overrides the description property to obtain dialog text except in reverse order.
 	This is employed in Studio's help/About dialog.
