@@ -710,10 +710,7 @@ class AppModule(appModuleHandler.AppModule):
 				elif role == controlTypes.Role.LIST:
 					clsList.insert(0, sysListView32.List)
 			# Recognize known dialogs.
-			case "TDemoRegForm" | "TOpenPlaylist":
-				clsList.insert(0, Dialog)
-			# For Studio's About dialog (prior to 6.0) to reverse dialog content traversal.
-			case "TAboutForm":
+			case "TDemoRegForm" | "TOpenPlaylist" | "TAboutForm":
 				clsList.insert(0, Dialog)
 			# Temporary cue time picker and friends.
 			case "TDateTimePicker":
