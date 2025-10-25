@@ -1025,6 +1025,9 @@ class AppModule(appModuleHandler.AppModule):
 				if self.cartExplorer or splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]:
 					# Activate mic alarm or announce when cart explorer is active.
 					self.doExtraAction(obj.name)
+			# Announce connection status in Remote Studio.
+			if self.appName == "remotestudio":
+				ui.message(obj.name)
 		# Monitor the end of track and song intro time and announce it.
 		# Note that Studio 5.x and 6 uses different layouts.
 		elif obj.windowClassName == "TStaticText":
