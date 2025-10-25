@@ -8,4 +8,5 @@
 from . import splstudio
 
 class AppModule(splstudio.AppModule):
-	pass
+	# Remote Studio does not require Studio API to function.
+	_studioAPIRequired = False
