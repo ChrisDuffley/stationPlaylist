@@ -529,11 +529,13 @@ class AppModule(appModuleHandler.AppModule):
 		self._initStudioWindowFocused = threading.Event()
 		# Let me know the Studio window handle.
 		# Do not allow this thread to run forever (seen when evaluation times out and the app module starts).
-		self.noMoreHandle = threading.Event()
-		# If this is started right away, foreground and focus objects will be NULL according to NVDA
-		# if NVDA restarts while Studio is running.
-		t = threading.Thread(target=self._locateSPLHwnd)
-		wx.CallAfter(t.start)
+		# Only do this if the app module says Studio API is required.
+		if self._studioAPIRequired:
+			self.noMoreHandle = threading.Event()
+			# If this is started right away, foreground and focus objects will be NULL according to NVDA
+			# if NVDA restarts while Studio is running.
+			t = threading.Thread(target=self._locateSPLHwnd)
+			wx.CallAfter(t.start)
 		# Display startup dialogs if any (but not when minimal startup flag is set).
 		# Sometimes, wxPython 4 says wx.App isn't ready.
 		try:
@@ -576,7 +578,9 @@ class AppModule(appModuleHandler.AppModule):
 		except (RuntimeError, AttributeError):
 			pass
 		# Tell the handle finder thread it's time to leave this world.
-		self.noMoreHandle.set()
+		# Only set the event if Studio API is required.
+		if self._studioAPIRequired:
+			self.noMoreHandle.set()
 		# Manually clear the following dictionaries.
 		self.carts.clear()
 		self._cachedStatusObjs.clear()
