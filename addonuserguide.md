@@ -50,6 +50,7 @@ And so much more.
 
 In addition to StationPlaylist Studio, this add-on comes with support for the following:
 
+* StationPlaylist Remote Studio
 * StationPlaylist Creator (including Playlist Editor)
 * Track Tool
 * Remote VT client (mostly playlist editor)
@@ -58,7 +59,9 @@ In addition to StationPlaylist Studio, this add-on comes with support for the fo
 * SPL Encoders
 * AltaCast encoders
 
-Unless otherwise noted, this add-on guide will focus primarily on StationPlaylist Studio. Certain commands will work across Studio and apps listed above, while others are specific to Studio, Track Tool, or encoders. See the sections below for details.
+Note: to differentiate between StationPlaylist Studio and Remote Studio, the former will be called "local" or "on premise" Studio in most cases throughout this user guide.
+
+Unless otherwise noted, this add-on guide will focus primarily on StationPlaylist (local) Studio. Certain commands will work across Studio and apps listed above, while others are specific to local and Remote Studio, Track Tool, or encoders. See the sections below for details.
 
 ## Add-on requirements and versions
 
@@ -66,6 +69,7 @@ StationPlaylist add-on requires the following:
 
 * An evaluation or a registered copy of StationPlaylist Studio 6.0 (5.50 for 25.06.x) or later installed on a computer running Windows 10 or later.
 * Optional: an evaluation or registered copy of StationPlaylist Creator and/or StationPlaylist Streamer, version 6.0 (5.50 for 25.06.x) or later.
+* Optional: an evaluation or registered copy of StationPlaylist Remote Studio
 * Optional: Remote VT client
 * Optional: an evaluation or registered copy of SAM Encoders.
 * Optional: AltaCast Winamp plugin (one must copy AltaCast Winamp plugin DLL to Studio's plugins folder for Studio to recognize AltaCast).
@@ -85,13 +89,15 @@ Notes:
 
 ### Welcome dialog
 
-When you start Studio after installing the add-on for the first time, a welcome dialog will be presented, giving you essential information about the add-on and basic concepts. After dismissing this dialog, from Studio window, press Alt+NVDA+F1 to reopen this dialog.
+When you start Studio (local or remote) after installing the add-on for the first time, a welcome dialog will be presented, giving you essential information about the add-on and basic concepts. After dismissing this dialog, from Studio window, press Alt+NVDA+F1 to reopen this dialog.
 
 ## Using SPl suite with NVDA
 
 This section describes features available when using SPL suite of applications with this add-on.
 
-### StationPlaylist Studio
+### StationPlaylist Studio (local and remote)
+
+Note: most add-on features for StationPlaylist local Studio will work for Remote Studio. For this section, unless otherwise noted, Studio refers to both local and Remote Studio.
 
 #### About add-on commands
 
