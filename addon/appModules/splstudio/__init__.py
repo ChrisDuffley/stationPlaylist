@@ -1363,7 +1363,7 @@ class AppModule(appModuleHandler.AppModule):
 		speakOnDemand=True,
 	)
 	def script_sayBroadcasterTime(self, gesture):
-		if not splbase.studioIsRunning():
+		if self._studioAPIRequired and not splbase.studioIsRunning():
 			return
 		# Says things such as "25 minutes to 2" and "5 past 11".
 		# #29: Also announces top of hour timer (mm:ss), the clock next to broadcaster time.
@@ -1398,7 +1398,7 @@ class AppModule(appModuleHandler.AppModule):
 		speakOnDemand=True,
 	)
 	def script_sayCompleteTime(self, gesture):
-		if not splbase.studioIsRunning():
+		if self._studioAPIRequired and not splbase.studioIsRunning():
 			return
 		# Says complete time in hours, minutes and seconds via kernel32's routines.
 		ui.message(winKernel.GetTimeFormatEx(winKernel.LOCALE_NAME_USER_DEFAULT, 0, None, None))
@@ -1693,7 +1693,7 @@ class AppModule(appModuleHandler.AppModule):
 		gesture="kb:alt+nvda+3",
 	)
 	def script_toggleCartExplorer(self, gesture):
-		if not splbase.studioIsRunning():
+		if self._studioAPIRequired and not splbase.studioIsRunning():
 			return
 		if not self.cartExplorer:
 			# Prevent cart explorer from being engaged outside of playlist viewer.
@@ -1906,7 +1906,7 @@ class AppModule(appModuleHandler.AppModule):
 	)
 	def script_manageMetadataStreams(self, gesture):
 		# Do not even think about opening this dialog if handle to Studio isn't found (not fully running).
-		if not splbase.studioIsRunning(justChecking=True):
+		if self._studioAPIRequired and not splbase.studioIsRunning(justChecking=True):
 			# Translators: Presented when streaming dialog cannot be shown.
 			ui.message(_("Cannot open metadata streaming dialog"))
 			return
@@ -2339,7 +2339,7 @@ class AppModule(appModuleHandler.AppModule):
 			return
 		try:
 			# 7.0: Don't bother if Studio main window handle isn't found (Studio is not fully running).
-			if not splbase.studioIsRunning(justChecking=True):
+			if self._studioAPIRequired and not splbase.studioIsRunning(justChecking=True):
 				# Translators: Presented when SPL Assistant cannot be invoked.
 				ui.message(_("Failed to locate Studio main window, cannot enter SPL Assistant"))
 				return
@@ -2530,7 +2530,7 @@ class AppModule(appModuleHandler.AppModule):
 		speakOnDemand=True,
 	)
 	def script_sayNextTrackTitle(self, gesture):
-		if not splbase.studioIsRunning():
+		if self._studioAPIRequired and not splbase.studioIsRunning():
 			self.script_finish()
 			return
 		try:
@@ -2560,7 +2560,7 @@ class AppModule(appModuleHandler.AppModule):
 		speakOnDemand=True,
 	)
 	def script_sayCurrentTrackTitle(self, gesture):
-		if not splbase.studioIsRunning():
+		if self._studioAPIRequired and not splbase.studioIsRunning():
 			self.script_finish()
 			return
 		try:
@@ -2742,7 +2742,7 @@ class AppModule(appModuleHandler.AppModule):
 		speakOnDemand=True,
 	)
 	def script_takePlaylistSnapshots(self, gesture):
-		if not splbase.studioIsRunning():
+		if self._studioAPIRequired and not splbase.studioIsRunning():
 			self.script_finish()
 			return
 		if not self._trackAnalysisAllowed(mustSelectTrack=False):
@@ -2775,7 +2775,7 @@ class AppModule(appModuleHandler.AppModule):
 		self.script_finish()
 
 	def script_playlistTranscripts(self, gesture):
-		if not splbase.studioIsRunning():
+		if self._studioAPIRequired and not splbase.studioIsRunning():
 			self.script_finish()
 			return
 		if not self._trackAnalysisAllowed(mustSelectTrack=False):
