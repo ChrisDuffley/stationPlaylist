@@ -589,6 +589,17 @@ class AppModule(appModuleHandler.AppModule):
 		# Just to make sure:
 		splbase.setStudioWindowHandle(None)
 
+	# The local Studio app module is the basis for Remote Studio support.
+	# Note: not all features and commands will work on Remote Studio.
+	def localStudioOnly(func):
+		def remoteStudioCheck(self, *args, **kwargs):
+			if self.appName != "splstudio":
+				# Translators: messages shown when trying to perform Studio commands in Remote Studio.
+				ui.message(_("Unavailable in Remote Studio"))
+			else:
+				func()
+		return remoteStudioCheck
+
 	# Locate the handle for main window for caching purposes.
 	def _locateSPLHwnd(self) -> None:
 		while not (hwnd := user32.FindWindowW("SPLStudio", None)):
