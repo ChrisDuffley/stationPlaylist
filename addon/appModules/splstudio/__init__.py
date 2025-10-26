@@ -1633,7 +1633,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Check to make sure a playlist is indeed loaded through varous means.
 	# uses Studio API for local Studio and item count for Remote Studio.
 	def playlistLoaded(self) -> bool:
-		return splbase.studioAPI(0, SPLTrackCount)
+		return bool(splbase.studioAPI(0, SPLTrackCount))
 
 	def canPerformPlaylistCommands(
 		self, playlistViewerRequired: bool = True, mustSelectTrack: bool = False, announceErrors: bool = True
