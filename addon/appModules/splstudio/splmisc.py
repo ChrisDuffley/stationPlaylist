@@ -318,21 +318,18 @@ cartEditTimestamps: list[float] = []
 
 # Initialize local Studio carts.
 def _cartExplorerInitLocal(
+	cartsDataPath: str,
 	StudioTitle: str,
 	refresh: bool = False,
 	carts: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
 	global cartEditTimestamps
-	log.debug("SPL: refreshing Cart Explorer" if refresh else "preparing cart Explorer")
 	# Use cart files in SPL's data folder to build carts dictionary.
 	# use a combination of SPL user name and static cart location to locate cart bank files.
 	# Once the cart banks are located, use the routines in the populate method above to assign carts.
 	# Since sstandard edition does not support number row carts, skip them if told to do so.
 	if carts is None:
 		carts = {"standardLicense": StudioTitle.startswith("StationPlaylist Studio Standard")}
-	# Obtain the "real" path for SPL via environment variables and open the cart data folder.
-	# Provided that Studio was installed using default path for 32-bit x86 programs.
-	cartsDataPath = os.path.join(os.environ["PROGRAMFILES(X86)"], "StationPlaylist", "Data")
 	# See if multiple users are using SPl Studio.
 	userNameIndex = StudioTitle.find("-")
 	# Read *.cart files and process the cart entries within
@@ -385,14 +382,8 @@ def _cartExplorerInitLocal(
 
 
 # Initialize Remote Studio carts.
-def _cartExplorerInitRemote() -> dict[str, Any]:
-	log.debug("SPL: refreshing Cart Explorer" if refresh else "preparing cart Explorer")
-	# Use cart files in SPL's data folder to build carts dictionary.
+def _cartExplorerInitRemote(cartsDataPath: str) -> dict[str, Any]:
 	carts = {"faultyCarts": False}
-	# Obtain the "real" path for SPL via environment variables and open the cart data folder.
-	# Provided that Studio was installed using default path for 32-bit x86 programs.
-	cartsDataPath = os.path.join(os.environ["PROGRAMFILES(X86)"], "StationPlaylist", "Data")
-	# Check for existence of Remote Studio data file.
 	cartFile = os.path.join(cartsDataPath, "RemoteStudio.dat")
 	# Check for existence of Remote Studio data file.
 	if not os.path.isfile(cartFile):
@@ -427,10 +418,13 @@ def cartExplorerInit(
 	log.debug("SPL: refreshing Cart Explorer" if refresh else "preparing cart Explorer")
 	# Use files in SPL's data folder to build carts dictionary
 	# (local Studio = cart files, Remote Studio = app data).
+	# Obtain the "real" path for SPL via environment variables and open the cart data folder.
+	# Provided that Studio was installed using default path for 32-bit x86 programs.
+	cartsDataPath = os.path.join(os.environ["PROGRAMFILES(X86)"], "StationPlaylist", "Data")
 	if remoteStudio:
-		return _cartExplorerInitRemote()
+		return _cartExplorerInitRemote(cartsDataPath)
 	else:
-		return _cartExplorerInitLocal(StudioTitle, refresh=refresh, carts=carts)
+		return _cartExplorerInitLocal(cartsDataPath, StudioTitle, refresh=refresh, carts=carts)
 
 
 # Refresh carts upon request.
