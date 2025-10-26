@@ -285,7 +285,10 @@ class SPLTimeRangeDialog(wx.Dialog):
 		self.onCancel(None)
 
 
-# Cart Explorer helper.
+# Cart Explorer helper for local and Remote Studio
+# While mechanics are similar, local and Remote Studio store carts in different formats
+# (comma-separated values for local Studio, one cart per line in a dedicated data file for Remote Studio).
+# Therefore, some functions will be duplicated.
 
 # Manual definitions of cart keys.
 cartKeys = (
@@ -355,6 +358,142 @@ def _populateCarts(
 
 # Cart file timestamps.
 _cartEditTimestamps: list[float] = []
+
+
+# Initialize local Studio carts.
+def cartExplorerInitLocal(
+	StudioTitle: str,
+	refresh: bool = False,
+	carts: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+	global cartEditTimestamps
+	log.debug("SPL: refreshing Cart Explorer" if refresh else "preparing cart Explorer")
+	# Use cart files in SPL's data folder to build carts dictionary.
+	# use a combination of SPL user name and static cart location to locate cart bank files.
+	# Once the cart banks are located, use the routines in the populate method above to assign carts.
+	# Since sstandard edition does not support number row carts, skip them if told to do so.
+	if carts is None:
+		carts = {"standardLicense": StudioTitle.startswith("StationPlaylist Studio Standard")}
+	# Obtain the "real" path for SPL via environment variables and open the cart data folder.
+	# Provided that Studio was installed using default path for 32-bit x86 programs.
+	cartsDataPath = os.path.join(os.environ["PROGRAMFILES(X86)"], "StationPlaylist", "Data")
+	# See if multiple users are using SPl Studio.
+	userNameIndex = StudioTitle.find("-")
+	# Read *.cart files and process the cart entries within
+	# (be careful when these cart file names change between SPL releases).
+	cartFiles = ["main carts.cart", "shift carts.cart", "ctrl carts.cart", "alt carts.cart"]
+	if userNameIndex >= 0:
+		cartFiles = [StudioTitle[userNameIndex + 2 :] + " " + cartFile for cartFile in cartFiles]
+	faultyCarts = False
+	if not refresh:
+		cartEditTimestamps = []
+	for f in cartFiles:
+		# Only do this if told to build cart banks from scratch,
+		# as refresh flag is set if cart explorer is active in the first place.
+		try:
+			mod = f.split()[-2]  # Checking for modifier string such as ctrl.
+			# Todo: Check just in case some SPL flavors doesn't ship with a particular cart file.
+		except IndexError:
+			# In a rare event that the broadcaster has saved the cart bank with the name like "carts.cart".
+			faultyCarts = True
+			continue
+		cartFile = os.path.join(cartsDataPath, f)
+		# Cart explorer can safely assume that the cart bank exists if refresh flag is set.
+		# But it falls apart if whitespaces are in the beginning or at the end of a user name.
+		if not refresh and not os.path.isfile(cartFile):
+			faultyCarts = True
+			continue
+		log.debug(f"SPL: examining carts from file {cartFile}")
+		cartTimestamp = os.path.getmtime(cartFile)
+		if refresh and cartEditTimestamps[cartFiles.index(f)] == cartTimestamp:
+			log.debug("SPL: no changes to cart bank, skipping")
+			continue
+		cartEditTimestamps.append(cartTimestamp)
+		with open(cartFile) as cartInfo:
+			cl = [row for row in reader(cartInfo)]
+		# Let empty string represent main cart bank to avoid this being partially consulted up to 24 times.
+		# The below method will just check for string length, which is faster than looking for specific substring.
+		# See the comment for _populate carts method for details.
+		_populateCarts(
+			carts,
+			cl[1],
+			mod if mod != "main" else "",
+			standardEdition=carts["standardLicense"],
+			refresh=refresh,
+		)
+		if not refresh:
+			log.debug(f"SPL: carts processed so far: {(len(carts)-1)}")
+	carts["faultyCarts"] = faultyCarts
+	log.debug(f"SPL: total carts processed: {(len(carts)-2)}")
+	return carts
+
+
+# Initialize Remote Studio carts.
+def cartExplorerInitRemote(
+	StudioTitle: str,
+	refresh: bool = False,
+	carts: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+	global cartEditTimestamps
+	log.debug("SPL: refreshing Cart Explorer" if refresh else "preparing cart Explorer")
+	# Use cart files in SPL's data folder to build carts dictionary.
+	# use a combination of SPL user name and static cart location to locate cart bank files.
+	# Once the cart banks are located, use the routines in the populate method above to assign carts.
+	# Since sstandard edition does not support number row carts, skip them if told to do so.
+	if carts is None:
+		carts = {"standardLicense": StudioTitle.startswith("StationPlaylist Studio Standard")}
+	# Obtain the "real" path for SPL via environment variables and open the cart data folder.
+	# Provided that Studio was installed using default path for 32-bit x86 programs.
+	cartsDataPath = os.path.join(os.environ["PROGRAMFILES(X86)"], "StationPlaylist", "Data")
+	# See if multiple users are using SPl Studio.
+	userNameIndex = StudioTitle.find("-")
+	# Read *.cart files and process the cart entries within
+	# (be careful when these cart file names change between SPL releases).
+	cartFiles = ["main carts.cart", "shift carts.cart", "ctrl carts.cart", "alt carts.cart"]
+	if userNameIndex >= 0:
+		cartFiles = [StudioTitle[userNameIndex + 2 :] + " " + cartFile for cartFile in cartFiles]
+	faultyCarts = False
+	if not refresh:
+		cartEditTimestamps = []
+	for f in cartFiles:
+		# Only do this if told to build cart banks from scratch,
+		# as refresh flag is set if cart explorer is active in the first place.
+		try:
+			mod = f.split()[-2]  # Checking for modifier string such as ctrl.
+			# Todo: Check just in case some SPL flavors doesn't ship with a particular cart file.
+		except IndexError:
+			# In a rare event that the broadcaster has saved the cart bank with the name like "carts.cart".
+			faultyCarts = True
+			continue
+		cartFile = os.path.join(cartsDataPath, f)
+		# Cart explorer can safely assume that the cart bank exists if refresh flag is set.
+		# But it falls apart if whitespaces are in the beginning or at the end of a user name.
+		if not refresh and not os.path.isfile(cartFile):
+			faultyCarts = True
+			continue
+		log.debug(f"SPL: examining carts from file {cartFile}")
+		cartTimestamp = os.path.getmtime(cartFile)
+		if refresh and cartEditTimestamps[cartFiles.index(f)] == cartTimestamp:
+			log.debug("SPL: no changes to cart bank, skipping")
+			continue
+		cartEditTimestamps.append(cartTimestamp)
+		with open(cartFile) as cartInfo:
+			cl = [row for row in reader(cartInfo)]
+		# Let empty string represent main cart bank to avoid this being partially consulted up to 24 times.
+		# The below method will just check for string length, which is faster than looking for specific substring.
+		# See the comment for _populate carts method for details.
+		_populateCarts(
+			carts,
+			cl[1],
+			mod if mod != "main" else "",
+			standardEdition=carts["standardLicense"],
+			refresh=refresh,
+		)
+		if not refresh:
+			log.debug(f"SPL: carts processed so far: {(len(carts)-1)}")
+	carts["faultyCarts"] = faultyCarts
+	log.debug(f"SPL: total carts processed: {(len(carts)-2)}")
+	return carts
 
 
 # Initialize Cart Explorer i.e. fetch carts.
