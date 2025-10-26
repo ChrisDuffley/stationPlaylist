@@ -436,14 +436,36 @@ def _cartExplorerInitRemote(cartsDataPath: str) -> dict[str, Any]:
 	# Each cart entry is on its own line (starting at line 14 for Remote Studio 6.20).
 	# A local file or local Studio slot can be assigned (twelve slots, F1 through F12).
 	# Local file: path (the entire path is recorded)
-	# Studio cart: "= {bankFile}{position}"
+	# Studio cart: "* ({bankFile}{position})" e.g. MF05 for F5 (main cart position 5)
 	log.debug(f"SPL: examining carts from file {cartFile}")
 	with open(cartFile) as cartInfo:
 		# Twelve cart slots in Remote Studio (starting on line 14)
 		cl = [row for row in reader(cartInfo)][13:25]
 	for pos, entry in enumerate(cl):
 		if entry:
-			carts[cartKeys[pos]] = entry[0]
+			remoteCartEntry = entry[0]
+			if remoteCartEntry.startswith("*"):
+				# Studio (remote) cart (parse the cart bank+position string of the form * ({cartBank}{pos}))
+				remoteCartEntry = remoteCartEntry.partition("(")[-1][:-1]
+				bank, position = remoteCartEntry[:2], int(remoteCartEntry[2:]) - 1
+				# At least Studio cart position is known, so obtain it from cart keys.
+				position = splconsts.cartKeys[position]
+				# Add appropriate modifiers (SF = Shift, CF = Control, AF = Alt, MF = none)
+				match bank:
+					case "SF":
+						remoteCartEntry = f"Shift+{position}"
+					case "CF":
+						remoteCartEntry = f"Control+{position}"
+					case "AF":
+						remoteCartEntry = f"Alt+{position}"
+					case _:
+						remoteCartEntry = position
+				remoteCartEntry = f"Studio cart ({remoteCartEntry})"
+			else:
+				# Local cart (only include base file name without the extension)
+				remoteCartEntry = os.path.basename(remoteCartEntry).rpartition(".")[0]
+				remoteCartEntry = f"Local cart ({remoteCartEntry})"
+			carts[cartKeys[pos]] = remoteCartEntry
 	# For compatibility with local Studio (Studio Pro is required, so set standard license flag to false)
 	carts["standardLicense"] = False
 	log.debug(f"SPL: total carts processed: {(len(carts)-2)}")
