@@ -1640,6 +1640,10 @@ def _configDialogOpenError() -> None:
 	)
 
 
+# Prevent multiple addition of SPL add-on settings entry when running both local Studio and Remote Studio.
+addonSettingsEntryPresent = False
+
+
 # #125 (20.05): open any settings panel from main add-on settings, also checking if other dialogs are open.
 def openAddonSettingsPanel(panel: gui.settingsDialogs.SettingsPanel):
 	# 5.2: Guard against alarm dialogs.
