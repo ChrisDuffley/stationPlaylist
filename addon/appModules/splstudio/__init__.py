@@ -2119,7 +2119,9 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(status)
 
 	# The layer commands themselves.
+	# Not all commands are available while using Remote Studio.
 
+	@localStudioOnly
 	def script_sayPlayStatus(self, gesture):
 		self.sayStatus(0)
 
@@ -2132,9 +2134,11 @@ class AppModule(appModuleHandler.AppModule):
 	def script_sayLineInStatus(self, gesture):
 		self.sayStatus(3)
 
+	@localStudioOnly
 	def script_sayRecToFileStatus(self, gesture):
 		self.sayStatus(4)
 
+	@localStudioOnly
 	def script_sayCartEditStatus(self, gesture):
 		# Because cart edit status also shows cart insert status, verbosity control will not apply.
 		cartEdit = splbase.studioAPI(5, SPLStatusInfo)
@@ -2146,6 +2150,7 @@ class AppModule(appModuleHandler.AppModule):
 		else:
 			ui.message("Cart Edit Off")
 
+	@localStudioOnly
 	def script_sayControlKeysStatus(self, gesture):
 		# Properly shown in Studio 6.10 and later.
 		if self.productVersion < "6.10":
@@ -2176,6 +2181,7 @@ class AppModule(appModuleHandler.AppModule):
 				overtimePrefix, self._ms2time(abs(playlistOvertime), includeHours=False)
 			))
 
+	@localStudioOnly
 	def script_sayPlaylistModified(self, gesture):
 		obj = self.status(self.SPLSystemStatus).getChild(5)
 		# Translators: presented when playlist modification message isn't shown.
@@ -2264,6 +2270,7 @@ class AppModule(appModuleHandler.AppModule):
 		finally:
 			self.script_finish()
 
+	@localStudioOnly
 	def script_sayUpTime(self, gesture):
 		obj = self.status(self.SPLSystemStatus).firstChild
 		ui.message(obj.name)
@@ -2289,17 +2296,20 @@ class AppModule(appModuleHandler.AppModule):
 		# Hour announcement should not be used to match what's displayed on screen.
 		self.announceTime(splbase.studioAPI(4, SPLPlaylistHourDuration), includeHours=False)
 
+	@localStudioOnly
 	def script_sayListenerCount(self, gesture):
 		obj = self.status(self.SPLSystemStatus).getChild(3)
 		# Translators: Presented when there is no listener count information.
 		ui.message(obj.name if obj.name else _("Listener count not found"))
 
+	@localStudioOnly
 	def script_sayTrackPitch(self, gesture):
 		obj = self.status(self.SPLSystemStatus).getChild(4)
 		ui.message(obj.name)
 
 	# Few toggle/misc scripts that may be excluded from the layer later.
 
+	@localStudioOnly
 	def script_libraryScanMonitor(self, gesture):
 		if not self.libraryScanning:
 			# #155: if library scan count is None, then final scan count would also be None.
@@ -2435,6 +2445,7 @@ class AppModule(appModuleHandler.AppModule):
 		# #118: do not allow profile switching while add-on settings screen is shown.
 		splconfui.instantProfileSwitchConfigUICheck()
 
+	@localStudioOnly
 	def script_setPlaceMarker(self, gesture):
 		obj = api.getFocusObject()
 		try:
@@ -2452,6 +2463,7 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when attempting to place a place marker on an unsupported track.
 			ui.message(_("This track cannot be used as a place marker track"))
 
+	@localStudioOnly
 	def script_findPlaceMarker(self, gesture):
 		# Place marker command will be restricted to playlist viewer in order to prevent focus bouncing.
 		if self.canPerformPlaylistCommands() == self.SPLPlaylistNoErrors:
@@ -2473,10 +2485,12 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when no place marker is found.
 				ui.message(_("No place marker found"))
 
+	@localStudioOnly
 	def script_metadataStreamingAnnouncer(self, gesture):
 		ui.message(splmisc.metadataStatus())
 
 	# Gesture(s) for the following script cannot be changed by users.
+	@localStudioOnly
 	def script_metadataEnabled(self, gesture):
 		# 0 is DSP encoder status, others are servers.
 		metadataStreams = ("DSP encoder", "URL 1", "URL 2", "URL 3", "URL 4")
