@@ -2,7 +2,7 @@
 
 * Authors: Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)
 
-This add-on package provides improved usage of StationPlaylist Studio and other StationPlaylist apps, as well as providing utilities to control Studio from anywhere. Supported apps include Studio, Creator, Track Tool, VT Recorder, and Streamer, as well as SAM, SPL, and AltaCast encoders.
+This add-on package provides improved usage of StationPlaylist Studio and other StationPlaylist apps, as well as providing utilities to control Studio from anywhere. Supported apps include Studio, Remote Studio, Creator, Track Tool, VT Recorder, and Streamer, as well as SAM, SPL, and AltaCast encoders.
 
 For more information about the add-on, read the [add-on guide][1].
 
@@ -14,6 +14,7 @@ IMPORTANT NOTES:
 * Starting from 2018, [changelogs for old add-on releases][2] will be found on GitHub. This add-on readme will list changes from version 25.01 (2025) onwards.
 * While Studio is running, you can save, reload saved settings, or reset add-on settings to defaults by pressing Control+NVDA+C, Control+NVDA+R once, or Control+NVDA+R three times, respectively. This is also applicable to encoder settings - you can save and reset (not reload) encoder settings if using encoders.
 * Many commands will provide speech output while NVDA is in speak on demand mode (NVDA 2024.1 and later).
+* When refering to Studio, both local (original) Studio and Remote Studio will be assumed. When something is specific to StationPlaylist Studio (original), local Studio will be used.
 
 ## Shortcut keys
 
@@ -31,12 +32,12 @@ Most of these will work in Studio only unless otherwise specified. Unless noted 
 * Control+NVDA+F from Studio window: Opens a dialog to find a track based on artist or song name. Press NVDA+F3 to find forward or NVDA+Shift+F3 to find backward (does not support speak on demand).
 * Shift+NVDA+R from Studio window: Steps through library scan announcement settings (does not support speak on demand).
 * Control+Shift+X from Studio window: Steps through braille timer settings (does not support speak on demand).
-* Control+Alt+left/right arrow (while focused on a track in Studio, Creator, Remote VT, and Track Tool): Move to previous/next track column (does not support speak on demand).
-* Control+Alt+up/down arrow (while focused on a track in Studio, Creator, Remote VT, and Track Tool): Move to previous/next track and announce specific columns (does not support speak on demand).
-* Control+NVDA+1 through 0 (while focused on a track in Studio, Creator (including Playlist Editor), Remote VT, and Track Tool): Announce column content for a specified column (first ten columns by default). Pressing this command twice will display column information on a browse mode window.
-* Control+NVDA+- (hyphen while focused on a track in Studio, Creator, Remote VT, and Track Tool): display data for all columns in a track on a browse mode window (does not support speak on demand).
+* Control+Alt+left/right arrow (while focused on a track in local and Remote Studio, Creator, Remote VT, and Track Tool): Move to previous/next track column (does not support speak on demand).
+* Control+Alt+up/down arrow (while focused on a track in local and Remote Studio, Creator, Remote VT, and Track Tool): Move to previous/next track and announce specific columns (does not support speak on demand).
+* Control+NVDA+1 through 0 (while focused on a track in local and Remote Studio, Creator (including Playlist Editor), Remote VT, and Track Tool): Announce column content for a specified column (first ten columns by default). Pressing this command twice will display column information on a browse mode window.
+* Control+NVDA+- (hyphen while focused on a track in local and Remote Studio, Creator, Remote VT, and Track Tool): display data for all columns in a track on a browse mode window (does not support speak on demand).
 * NVDA+V while focused on a track (Studio's playlist viewer only): toggles track column announcement between screen order and custom order (does not support speak on demand).
-* Alt+NVDA+C while focused on a track (Studio's playlist viewer only): announces track comments if any.
+* Alt+NVDA+C while focused on a track (local Studio's playlist viewer only): announces track comments if any.
 * Alt+NVDA+0 (two finger flick left in SPL mode) from Studio window: Opens the Studio add-on configuration dialog (does not support speak on demand).
 * Alt+NVDA+P from Studio window: Opens the Studio broadcast profiles dialog (does not support speak on demand).
 * Alt+NVDA+F1: Open welcome dialog (does not support speak on demand).
@@ -45,14 +46,14 @@ Most of these will work in Studio only unless otherwise specified. Unless noted 
 
 The following commands are not assigned by default; if you wish to assign them, use Input Gestures dialog to add custom commands. To do so, from Studio window, open NVDA menu, Preferences, then Input Gestures. Expand StationPlaylist category, then locate unassigned commands from the list below and select "Add", then type the gesture you wish to use.
 
-Important: some of these commands will not work if NVDA is running in secure mode such as from login screen. Not all commands support speak on demand.
+Important: some of these commands will not work if NVDA is running in secure mode such as from login screen. Not all commands support speak on demand and/or unavailable in Remote Studio.
 
-* Switching to SPL Studio window from any program (unavailable in secure mode, does not support speak on demand).
+* Switching to local SPL Studio window from any program (unavailable in secure mode, does not support speak on demand).
 * SPL Controller layer (unavailable in secure mode).
 * Announcing Studio status such as track playback from other programs (unavailable in secure mode).
 * Announcing encoder connection status from any program (unavailable in secure mode).
-* SPL Assistant layer from SPL Studio.
-* Announce time including seconds from SPL Studio.
+* SPL Assistant layer from Studio.
+* Announce time including seconds from Studio.
 * Announcing temperature.
 * Announcing title of next track if scheduled.
 * Announcing title of the currently playing track.
@@ -89,37 +90,37 @@ In addition, column review commands are available, including (supports speak on 
 
 ## SPL Assistant layer
 
-This layer command set allows you to obtain various status on SPL Studio, such as whether a track is playing, total duration of all tracks for the hour and so on. From any SPL Studio window, press the SPL Assistant layer command, then press one of the keys from the list below (one or more commands are exclusive to playlist viewer). You can also configure NVDA to emulate commands from other screen readers.
+This layer command set allows you to obtain various status on Studio, such as whether a track is playing, total duration of all tracks for the hour and so on. From any Studio window, press the SPL Assistant layer command, then press one of the keys from the list below (one or more commands are exclusive to playlist viewer). You can also configure NVDA to emulate commands from other screen readers.
 
-The available commands are (most commands support speak on demand):
+The available commands are (most commands support speak on demand and some commands are unavailable in Remote Studio):
 
 * A: Automation.
 * C (Shift+C  in JAWS layout): Title for the currently playing track.
 * C (JAWS layout): Toggle cart explorer (playlist viewer only, does not support speak on demand).
 * D (R in JAWS layout): Remaining duration for the playlist (if an error message is given, move to playlist viewer and then issue this command).
-* Control+D (Studio 6.10 and later): Control keys enabled/disabled.
-* E: Metadata streaming status.
-* Shift+1 through Shift+4, Shift+0: Status for individual metadata streaming URL's (0 is for DSP encoder).
+* Control+D (Studio 6.10 and later, unavailable in Remote Studio): Control keys enabled/disabled.
+* E (unavailable in Remote Studio): Metadata streaming status.
+* Shift+1 through Shift+4, Shift+0 (unavailable in Remote Studio): Status for individual metadata streaming URL's (0 is for DSP encoder).
 * F: Find track (playlist viewer only, does not support speak on demand).
 * H: Duration of music for the current hour slot.
 * Shift+H: Remaining track duration for the hour slot.
-* I (L in JAWS layout): Listener count.
-* K: Move to the marked track (playlist viewer only).
-* Control+K: Set the current track as the place marker track (playlist viewer only).
+* I (L in JAWS layout, unavailable in Remote Studio): Listener count.
+* K (unavailable in Remote Studio): Move to the marked track (playlist viewer only).
+* Control+K (unavailable in Remote Studio): Set the current track as the place marker track (playlist viewer only).
 * L (Shift+L in JAWS layout): Line in.
 * M: Microphone.
 * N: Title for the next scheduled track.
 * O: Playlist hour over/under by.
 * P: Playback status (playing or stopped).
-* Shift+P: Pitch of the current track.
-* R (Shift+E in JAWS layout): Record to file enabled/disabled.
-* Shift+R: Monitor library scan in progress.
+* Shift+P (unavailable in Remote Studio): Pitch of the current track.
+* R (Shift+E in JAWS layout, unavailable in Remote Studio): Record to file enabled/disabled.
+* Shift+R (unavailable in Remote Studio): Monitor library scan in progress.
 * S: Track starts (scheduled).
 * Shift+S: Time until selected track will play (track starts in).
-* T: Cart edit/insert mode on/off.
-* U: Studio up time.
-* W: Weather and temperature if configured.
-* Y: Playlist modified status.
+* T (unavailable in Remote Studio): Cart edit/insert mode on/off.
+* U (unavailable in Remote Studio): Studio up time.
+* W (unavailable in Remote Studio): Weather and temperature if configured.
+* Y (unavailable in Remote Studio): Playlist modified status.
 * F8: Take playlist snapshots (number of tracks, longest track, etc.).
 * Shift+F8: Request playlist transcripts in numerous formats.
 * F9: Mark current track for start of playlist analysis (playlist viewer only).
@@ -129,7 +130,7 @@ The available commands are (most commands support speak on demand):
 
 ## SPL Controller
 
-The SPL Controller is a set of layered commands you can use to control SPL Studio anywhere. Press the SPL Controller layer command, and NVDA will say, "SPL Controller." Press another command to control various Studio settings such as microphone on/off or play the next track. You can also configure NVDA to enter SPL Assistant layer (see above) by pressing SPL Controller layer command (passthrough mode, enabled by default).
+The SPL Controller is a set of layered commands you can use to control SPL local Studio anywhere. Press the SPL Controller layer command, and NVDA will say, "SPL Controller." Press another command to control various local Studio settings such as microphone on/off or play the next track. You can also configure NVDA to enter SPL Assistant layer (see above) by pressing SPL Controller layer command (passthrough mode, enabled by default).
 
 Important: SPL Controller layer commands are disabled if NVDA is running in secure mode.
 
@@ -156,7 +157,7 @@ Outside of Studio, the available SPL Controller commands are (some commands supp
 * Cart keys (F1, Control+1, for example): Play assigned carts from anywhere.
 * H: Layer help.
 
-From inside Studio, SPL Controller layer command will invoke SPL Assistant layer by default.
+From inside Studio (local and Remote Studio), SPL Controller layer command will invoke SPL Assistant layer by default.
 
 ## Track and microphone alarms
 
@@ -170,9 +171,9 @@ Note: Track Finder is case-sensitive.
 
 ## Cart Explorer
 
-Depending on edition, SPL Studio allows up to 96 carts to be assigned for playback. NVDA allows you to hear which cart, or jingle is assigned to these commands.
+Depending on edition and local versus remote studio access, SPL Studio allows up to 96 carts to be assigned for playback. NVDA allows you to hear which cart, or jingle is assigned to these commands.
 
-To learn cart assignments, from SPL Studio, press Alt+NVDA+3. Pressing the cart command once will tell you which jingle is assigned to the command. Pressing the cart command twice will play the jingle. Press Alt+NVDA+3 to exit cart explorer. See the add-on guide for more information on cart explorer.
+To learn cart assignments, from SPL Studio (local and Remote Studio), press Alt+NVDA+3. Pressing the cart command once will tell you which jingle is assigned to the command. Pressing the cart command twice will play the jingle. Press Alt+NVDA+3 to exit cart explorer. See the add-on guide for more information on cart explorer.
 
 ## Track time analysis
 
@@ -205,6 +206,11 @@ You can save settings for specific shows into broadcast profiles. These profiles
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer with NVDA installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Version 25.11/25.06.9-LTS
+
+* Initial support for Remote Studio. Although the interface resembles Studio, not all commands and features are available.
+* While in cart explorer from Remote Studio, NVDA will announce cart name and its type such as local or Studio cart.
 
 ## Version 25.10/25.06.8-LTS
 
