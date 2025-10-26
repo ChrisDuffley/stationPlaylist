@@ -1630,6 +1630,11 @@ class AppModule(appModuleHandler.AppModule):
 	SPLPlaylistNotLoaded = 2
 	SPLPlaylistLastFocusUnknown = 3
 
+	# Check to make sure a playlist is indeed loaded through varous means.
+	# uses Studio API for local Studio and item count for Remote Studio.
+	def playlistLoaded(self) -> bool:
+		return splbase.studioAPI(0, SPLTrackCount)
+
 	def canPerformPlaylistCommands(
 		self, playlistViewerRequired: bool = True, mustSelectTrack: bool = False, announceErrors: bool = True
 	) -> int:
@@ -1644,7 +1649,7 @@ class AppModule(appModuleHandler.AppModule):
 				# while focused on places other than Playlist Viewer.
 				ui.message(_("Please return to playlist viewer before invoking this command."))
 			return self.SPLPlaylistNotFocused
-		if not splbase.studioAPI(0, SPLTrackCount):
+		if not self.playlistLoaded():
 			if announceErrors:
 				# Translators: an error message presented when performing some playlist commands
 				# while no playlist has been loaded.
@@ -1668,7 +1673,7 @@ class AppModule(appModuleHandler.AppModule):
 	# require main playlist viewer to be the foreground window.
 	# Track time analysis does require knowing the start and ending track, while others do not.
 	def _trackAnalysisAllowed(self, mustSelectTrack: bool = True) -> bool:
-		if not splbase.studioIsRunning():
+		if self._studioAPIRequired and not splbase.studioIsRunning():
 			return False
 		# #81: just return the result of consulting playlist dispatch along with error messages if any.
 		match self.canPerformPlaylistCommands(mustSelectTrack=mustSelectTrack, announceErrors=False):
