@@ -1404,7 +1404,7 @@ class AppModule(appModuleHandler.AppModule):
 			studioTitle = fg.name
 			if "Demo - Demo" in studioTitle:
 				studioTitle = "StationPlaylist Studio Demo"
-			self.carts = splmisc.cartExplorerInit(studioTitle)
+			self.carts = splmisc.cartExplorerInit(studioTitle, remoteStudio=self.appName=="remotestudio")
 			if self.carts["faultyCarts"]:
 				# Translators: presented when cart explorer could not be switched on.
 				ui.message(_("Some or all carts could not be assigned, cannot enter cart explorer"))
