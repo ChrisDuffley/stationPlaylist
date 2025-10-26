@@ -761,19 +761,23 @@ class AppModule(appModuleHandler.AppModule):
 		)
 		# Also for requests window.
 		eventHandler.requestEvents(eventName="show", processId=self.processID, windowClassName="TRequests")
-		try:
-			self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
-			self.SPLSettings = self.prefsMenu.Append(
-				wx.ID_ANY,
-				# Translators: the label for a menu item in NVDA Preferences menu
-				# to open SPL Studio add-on settings.
-				_("SPL Studio Settings..."),
-				# Translators: tooltip for SPL Studio settings dialog.
-				_("SPL settings"),
-			)
-			gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfui.onConfigDialog, self.SPLSettings)
-		except AttributeError:
-			self.prefsMenu = None
+		# Only one add-on settings entry please.
+		self.prefsMenu = None
+		if not splconfui.addonSettingsEntryPresent:
+			try:
+				self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
+				self.SPLSettings = self.prefsMenu.Append(
+					wx.ID_ANY,
+					# Translators: the label for a menu item in NVDA Preferences menu
+					# to open SPL Studio add-on settings.
+					_("SPL Studio Settings..."),
+					# Translators: tooltip for SPL Studio settings dialog.
+					_("SPL settings"),
+				)
+				gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfui.onConfigDialog, self.SPLSettings)
+				splconfui.addonSettingsEntryPresent = True
+			except AttributeError:
+				pass
 		# #82 (18.11/18.09.5-lts): notify others when Studio window gets focused the first time
 		# in order to synchronize announcement order.
 		self._initStudioWindowFocused = threading.Event()
@@ -1269,8 +1273,11 @@ class AppModule(appModuleHandler.AppModule):
 		if self._SPLStudioMonitor is not None:
 			self._SPLStudioMonitor.Stop()
 			self._SPLStudioMonitor = None
+		# An attribute error will be raised when preferences menu reference is None
+		# because there is another SPL app running.
 		try:
 			self.prefsMenu.Remove(self.SPLSettings)
+			splconfui.addonSettingsEntryPresent = False
 		except (RuntimeError, AttributeError):
 			pass
 		# Tell the handle finder thread it's time to leave this world.
