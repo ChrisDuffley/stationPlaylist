@@ -1244,7 +1244,7 @@ class AppModule(appModuleHandler.AppModule):
 	# But first, check if track finder can be invoked.
 	# Attempt level specifies which track finder to open (0 = Track Finder, 1 = Column Search, 2 = Time range).
 	def _trackFinderCheck(self, attemptLevel: int) -> bool:
-		if not splbase.studioIsRunning():
+		if self._studioAPIRequired and not splbase.studioIsRunning():
 			return False
 		playlistErrors = self.canPerformPlaylistCommands(announceErrors=False)
 		if playlistErrors == self.SPLPlaylistNotFocused:
