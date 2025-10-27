@@ -1092,6 +1092,27 @@ class AppModule(appModuleHandler.AppModule):
 						and splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"]
 					):
 						self.alarmAnnounce(obj.name, 512, 400, intro=True)
+		# Perform actions such as changing cart explorer dictionary when the Studio window title changes.
+		elif obj.windowClassName == "TStudioForm":
+			if self.cartExplorer:
+				self.carts.clear()
+				splmisc.cartEditTimestamps = []
+				studioTitle = obj.name
+				# Studio 6 demo uses "Demo" as default user name, therefore remove user name.
+				if "Demo - Demo" in studioTitle:
+					studioTitle = "StationPlaylist Studio Demo"
+				# If default user is set for Standard and Pro, user name is not included in the title bar text.
+				# Therefore, just report the edition name after partitioning the title bar text.
+				studioTitlePartition = studioTitle.partition(" - ")
+				if not studioTitlePartition[2]:
+					studioTitle = studioTitlePartition[0]
+				self.carts = splmisc.cartExplorerInit(studioTitle, remoteStudio=self.appName=="remotestudio")
+				if self.carts["faultyCarts"]:
+					# Translators: presented when cart explorer could not be switched on.
+					ui.message(_("Some or all carts could not be assigned, cannot enter cart explorer"))
+					return
+				# Translators: presented when cart banks have changed while cart explorer is active.
+				wx.CallAfter(ui.message, _("Cart explorer is active, refreshing carts"))
 		nextHandler()
 
 	# JL's additions
