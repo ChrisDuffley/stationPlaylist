@@ -2,6 +2,13 @@
 
 This page lists the complete changelog for StationPlaylist add-on releases.
 
+## Version 25.11/25.06.9-LTS
+
+* Initial support for Remote Studio. Although the interface resembles Studio, not all commands and features are available.
+* While in cart explorer from Remote Studio, NVDA will announce cart name and its type such as local or Studio cart.
+* In local (original) Studio, NVDA will be more successful when entering Cart Explorer (Alt+NVDA+3) in more cases.
+* In local Studio, resolved a potential security and privacy issue after switching users while Cart Explorer is active where the cart assignments from the previous user can be announced.
+
 ## Version 25.10/25.06.8-LTS
 
 * 25.10: with debug logging enabled, NVDA will no longer record Studio API specific debug messages. A new command-line option (--spl-apidebug) was added to include Studio API debug messages and should be used as directed by add-on developers.
