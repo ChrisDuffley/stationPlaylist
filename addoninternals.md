@@ -2,7 +2,7 @@
 
 Author: Joseph Lee
 
-Based on StationPlaylist Add-on for NVDA 25.07
+Based on StationPlaylist Add-on for NVDA 25.11
 
 ## 2021 Preface and notes
 
@@ -20,11 +20,21 @@ Another big change in 2020 was removing unnecessary and problematic features. Fo
 
 2021 may turn out to be a turning point for the add-on. I (Joseph Lee) will be stepping down from maintaining this add-on, effective January 1, 2022. My hope is that new maintainers (whoever might be) will step up and improve this add-on greatly.
 
-## 2025 preface and notes
+## July 2025 preface and notes
 
 It's been four years since last editing this document. There is now a new maintainer (Chris Duffley), some life changes, and the ad-on source code was edited to take advantage of more recent NVDA features. In particular, since 2025, the add-on internals document is now part of the main Studio add-on repository instead of being a wiki document.
 
 While the add-on source code has gone through major changes and refactoring including adopting Python 3.11 syntax, the overall add-on design remains: one global plugin, multiple app modules, a common services module, with Studio app module at the center. In earlier add-on releases, this design was not enforced often, but with 25.06 and enhanced in 25.07, the global plugin (finally) imports parts of the Studio app module to perform some of its tasks. This and other refactoring work throughout 2025 gave me an opportunity to revise parts of this document to reflect what is happening in 2025, notably no more add-on update feature from this add-on (now done via add-on store).
+
+## November 2025 preface and notes
+
+Last time I (Joseph Lee) wrote a preface and notes, I was busy with add-on code restructuring, notably working on a common services module. The change did not stop there.
+
+One of the reason for adding a second preface and notes in 2025 ie changes made with the debut of Remote Studio. Largely based on SPL Studio interface, Remote Studio is designed to let broadcasters conduct shows from a remote location, away from a studio with local Studio instlaled. Because local (original) Studoi and Remote Studio share some features, osme of the command sets and features are the same or limited in Remote Studio.
+
+Because of the shared lineage, I decided to write Remote Studio app module as a derived app module on top of original Studio app module, similar to the approach taken with Creator and Remote VT. This meant editing the original (base) Studio app module to account for Remote Studio usage, notably introduction of a decorator that wraps scripts defined in the app module and presenting a message if the script cannot be used from Remote Studio. The decorator approach is more Pythonic than an idea I had - creating a dedicated function to force the local Studio only scripts to return early if running on Remote Studio; in sohrt, the new decorator does just that.
+
+As I mentioned in the July 2025 preface, I am experiencing major life changes. Therefore, I expect the November2025 preface to be the last preface I will write and the last add-on internals revisoin I might work on. I spent thirteen years workong in SPL add-on, and because my job as a researcher must take the center stage, I decided to fully retire from SPL add-on maintenance in December 2025. I know that the add-on is solid with room for improvement, and am glad that the add-on is in good hands with Chri Duffley's maintenance.
 
 ## Introduction
 
@@ -36,9 +46,11 @@ Note: throughout this guide, unless specified otherwise, the terms "StationPlayl
 
 ### Introducing StationPlaylist app suite and the NVDA add-on
 
-[StationPlaylist suite](www.stationplaylist.com) is a collection of programs to help broadcasters plan, run, and do related activities around broadcasting. The apps consist of Studio, Creator, Track Tool, Streamer and others.
+[StationPlaylist suite](www.stationplaylist.com) is a collection of programs to help broadcasters plan, run, and do related activities around broadcasting. The apps consist of Studio, Creator, Track Tool, Streamer, Remote Studio (introducedin 2025), and others.
 
 StationPlaylist Studio is a broadcast automation software that helps broadcasters schedule trakcs, play jingles and more. It includes support for break notes, hourly playlist, track tagging and comes with tools to manage track playback such as setting track intros. In studio 5.00 and later, it includes its own stream encoder.
+
+A version for broadcasters on the move, named StationPlaylist Remote Studio, made its debut in late 2025. Remote Studio is designed to work closely with a remote Studio installation, with the user interface largely deriving from Studio. However, due to its purpose as a remote broadcasting assistant, Remote Studio does not have all the features of local Studio.
 
 StationPlaylist Creator and Remote Voice Track (VT) are mostly used for planning a show and designing playlists to be used by Studio. It can be used to define spot groups, custom track categories and more. Whereas Creator is limited to local playlists, Remote VT is used to manage playlists stored on a remote computer.
 
@@ -54,15 +66,17 @@ Is Studio suite accessible? Surprisingly, yes. It is possible to use app feature
 
 In 2011, Geoff Shang, a seasoned blind broadcaster, started working on SPL Studio add-on. This early version (numbered 0.01) was developed to let NVDA announce various status changes such as automation toggle and so on. This initial version, co-developed by James Teh (a former lead developer of NVDA screen reader) was considered a quick project, and further development ceased until 2013.
 
-In 2013, I (Joseph Lee) received several emails regarding NVDA's support for SPL Studio with a request for someone to write an add-on for it. As I was still new to add-on development then (this was after I developed Control Usage Assistant and GoldWave), I decided to take on this challenge in order to learn more Python and to practice what I learned in computer science labs at UC Riverside. I first downloaded the existing add-on (0.01) and installed Studio 5.01 on my computer to learn more about this program and to gather suggestions from SPL users. After little over a month of development and preview releases, I released Studio add-on 1.0 in January 2014.
+In late 2013, I (Joseph Lee) received several emails regarding NVDA's support for SPL Studio with a request for someone to write an add-on for it. As I was still new to add-on development then (this was after I developed Control Usage Assistant and GoldWave), I decided to take on this challenge in order to learn more Python and to practice what I learned in computer science labs at UC Riverside. I first downloaded the existing add-on (0.01) and installed Studio 5.01 on my computer to learn more about this program and to gather suggestions from SPL users. After little over a month of development and preview releases, I released Studio add-on 1.0 in January 2014.
 
 Most of the early versions (1.x, 2.x, 3.x, released throughout 2014) were mostly quick projects that bridged the gap between NVDA and other screen readers (Brian Hartgen's JAWS scripts were my inspiration and have studied documentation for Jeff Bishop's Window-Eyes scripts). These early versions, supporting Studio 4.33 and later, were also used to fix bugs encountered by Studio users - for instance, a broadcaster posted  a YouTube video explaining how NVDA was not reading edit fields, which was fixed early on. Later releases (4.x, 5.x, 6.x, released throughout 2015), further bridged the gap with other screen readers and introduced unique features (for instance, add-on 5.0 introduced a configuration dialog, and 6.0 introduced concept of a broadcast profile). In late 2016, seeing that some of my add-ons were using year.month scheme for versioning, I decided to switch SPL to follow this model after receiving comments from the NVDA community.
 
 2018 is a memorable year in the ad-on history. Notably, a preliminary add-on update feature became its own add-on, aptly called Add-on Updater. While the add-on update feature was part of another add-on called Windows App Essentials, its potential was realized with StationPlaylist add-on such as choosing different update channels and testing preview features. Besides this change, the add-on went through a major refactor to expand columns explorer (described below) to places other than Studio, and this, together with other code changes, became part of the next LTS release (18.09.x).
 
-But the most significant change happened a year later. Throughout 2019, NV Access and other NVDA contributors (including I) embarked on Python 2 to 3 transition, resulting in NVDA 2019.3 in early 2020. The Python 2 to 3 transition affected this add-on as well, with changes made to features such as metadata streaming, add-on settings, to name a few. Building on top of Python 3 work, 2020 and 2021 saw the implementation of code linting while navigating the worst phases of the COVID-19 pandemic. All this work was also backported to the fourth LTS releases (20.09.x).
+But the most significant change up to that point happened a year later. Throughout 2019, NV Access and other NVDA contributors (including I) embarked on Python 2 to 3 transition, resulting in NVDA 2019.3 in early 2020. The Python 2 to 3 transition affected this add-on as well, with changes made to features such as metadata streaming, add-on settings, to name a few. Building on top of Python 3 work, 2020 and 2021 saw the implementation of code linting while navigating the worst phases of the COVID-19 pandemic. All this work was also backported to the fourth LTS releases (20.09.x).
 
-Just like 2019, 2023 was another significant year. As I entered a doctoral program, it became clear that I will not be able to maintain the add-on, thus I asked the NVDA add-ons community to maintain this add-on. Thankfully, Chris Duffley, a broadcaster and user of the add-on, agreed to maintain the add-on since March 2023. Chris and I continue to discuss the add-on maintenance, with both of us agreeing to review Python 3.7 to 3.11 transition work in 2024 and working on major refactoring work in 2025. All of these changes will be packaged into the next LTS release (25.06.x), ending more than a decade's long journey on supporting Studio 5.x.
+Just like 2019, 2023 was another significant year. As I entered a doctoral program, it became clear that I will not be able to maintain the add-on, thus I asked the NVDA add-ons community to maintain this add-on. Thankfully, Chris Duffley, a broadcaster and user of the add-on, agreed to maintain the add-on since March 2023. Chris and I continue to discuss the add-on maintenance, with both of us agreeing to review Python 3.7 to 3.11 transition work in 2024 and working on major refactoring work in 2025. All of these changes were packaged into the 2025 LTS release (25.06.x), ending more than a decade's long journey on supporting Studio 5.x.
+
+More work happened in 2025, and along with it, became the final year of me (Joseph) leading the add-on maintenance. The restructuring work continued beyond 25.06.x releases, resulting in the creation of SPL common services module (documented below). Later, I worked on getting 64-bit NVDA to read Studio track content (it was challenging as SPL suite is 32-bit applications). Most significanlty, the introduction of Remote Studio lead to redeisgn of some of the original Studio app module subsystem (this is because original (local) and the remote versions share some of the user interface as Remote Studio is designed to be a studio on the move and communicate with a local Studio version installed somewhere else). The work on Remote Studio wsa the last project I personally lead, and iwth its completion (or at least having basic support in place), I (Joseph) have retired from active maintainer role in late 2025.
 
 Highlights of past major releases and subsequent maintenance releases include:
 
@@ -94,6 +108,7 @@ Highlights of past major releases and subsequent maintenance releases include:
 * 25.01: dropped 32-bit Windows releases support, linter updates, Add-on Updater support removed with the introduction of NV Access add-on store.
 * 25.06: fifth LTS release, restored partial support for Windows 8.1 and older Windows 10 releases, code refactoring including Python 3.11 syntax.
 * 25.07: major code restructuring with the introduction of SPL common services module (housed along with app modules).
+* 25.11: Remote Studio, 64-bit NVDA compatibility.
 
 Throughout this document, you'll get a chance to see how the add-on works, design philosophy and how the add-on is being developed, with glimpses into the past and future. My hope is that this add-on internals document would be a valuable reference for users and developers - for users to see the inner workings of this add-on, and for developers to use this add-on as an example of how an add-on is planned, implemented, tested, released and maintained.
 
@@ -103,22 +118,22 @@ To download the add-on, visit NV Access add-on store.
 
 ### Overall design and source code layout
 
-StationPlaylist add-on for NVDA consists of seven app modules (including two app module packages), a common services module (housed along with app modules), and a global plugin. Because Studio and Creator come with Track Tool for managing tracks, the add-on includes an app module for Track Tool in addition to the main app module package for Studio, as well as an app module for StationPlaylist Creator. A fourth app module for Voice Track Recorder is present which is used for event tracking purposes. Remote VT client is the fifth app module and is mainly used to support remote playlist editor. The other two app modules deal with Streamer and SPL DSP Engine, with SPL Engine being an app module package due to inclusion of encoders support module which is also used by Streamer. The seventh module, Streamer, does not exist - it is an alias of SPL Engine app module.
+StationPlaylist add-on for NVDA consists of eight app modules (including two app module packages), a common services module (housed along with app modules), and a global plugin. Because Studio and Creator come with Track Tool for managing tracks, the add-on includes an app module for Track Tool in addition to the main app module package for Studio, as well as an app module for StationPlaylist Creator. A fourth app module for Voice Track Recorder is present which is used for event tracking purposes. Remote VT client is the fifth app module and is mainly used to support remote playlist editor. The other two app modules deal with Streamer and SPL DSP Engine, with SPL Engine being an app module package due to inclusion of encoders support module which is also used by Streamer. The seventh module, Streamer, does not exist - it is an alias of SPL Engine app module. Finally, the eighth module for Remote Studio borrows heavily from the original Studio app module as they share common features and commands.
 
-The overall design is that of a partnership between the main Studio app module and the Studio Utilities (SPLUtils) global plugin. Studio app module performs things expected from scripts such as responding to key presses, announcing status information, configuration management and so forth, while the global plugin is responsible for running Studio commands from anywhere, and in older add-on releases, for encoder support (the add-on supports SAM, SPL, and AltaCast encoders). In reality, the global plugin is subordinate to the app module, as the app module controls overall functionality of the add-on and because the global plugin requires Studio to be running to unlock some features (here, unlock means using layer commands and parts of encoder support).
+The overall design is that of a partnership between the main (local) Studio app module and the Studio Utilities (SPLUtils) global plugin. Studio app module performs things expected from scripts such as responding to key presses, announcing status information, configuration management and so forth, while the global plugin is responsible for running Studio commands from anywhere, and in older add-on releases, for encoder support (the add-on supports SAM, SPL, and AltaCast encoders). In reality, the global plugin is subordinate to the app module, as the app module controls overall functionality of the add-on and because the global plugin requires Studio to be running to unlock some features (here, unlock means using layer commands and parts of encoder support).
 
-As part of the app modules, a common services module (splcommon) is included to house functions and constants common across the ap modules and the global plugin. Contents include Studio API wrapper, cart key definitions, configuration management, and status messages colection. The common services module resembles Studio app module package in prior add-on releases as majority of its contents indeed come from the Studio app module package, thus the common services serves as an extension of the Studio app module.
+As part of the app modules package, a common services module (splcommon) is included to house functions and constants common across the ap modules and the global plugin. Contents include Studio API wrapper, cart key definitions, configuration management, and status messages colection. The common services module resembles Studio app module package in prior add-on releases as majority of its contents indeed come from the Studio app module package, thus the common services serves as an extension of the Studio app module.
 
-When it comes to hierarchy of app modules, Studio app module package is ranked first. This is because Studio app module is the oldest part of the add-on, and it provides base services and blueprints for other app modules. For instance, Creator and Track Tool rely on configuration facility provided by Studio app module package for Columns Explorer (explained later), and Voice Track (VT) Recorder app module cannot function properly without Studio app module running. Even though SPL Engine and Streamer are independent of Studio app module, they still require Studio app module to function (this is especially the case with SPL Engine, as Studio loads splengine.exe, the DSP Engine executable).
+When it comes to hierarchy of app modules, the original (local) Studio app module package is ranked first. This is because Studio app module is the oldest part of the add-on, and it provides base services and blueprints for other app modules. For instance, Creator and Track Tool rely on configuration facility provided by Studio app module package for Columns Explorer (explained later), and Voice Track (VT) Recorder app module cannot function properly without Studio app module running. Even though SPL Engine and Streamer are independent of Studio app module, they still require Studio app module to function (this is especially the case with SPL Engine, as Studio loads splengine.exe, the DSP Engine executable). The primacy of the original Studio app module is best seen with Remote Studio app module as the latter is the child of the former - not only the way the add-on is organized, but also with the relationship between Studio and Remote Studio promoted by the SPL suite developers.
 
 In short, all components of StationPlaylist add-on emphasize studio app module - although many components are independent of Studio, they still reference it for various reasons. Thus, Studio serves as the bridge that connects various add-on features together.
 
 The source code consists of:
 
-* appModules: This folder contains the main splstudio (app module) package and the app modules for Track Tool, Creator, VT Recorder, Remote VT client, and SPL DSP Engine app module package to support SPL Engine, Streamer, and encoders. The common services module is also stored in this folder.
-* The SPL Studio package consists of various modules, which include __init__ (main app module and track item classes), configuration manager and user interfaces (splconfig and splconfui) and miscellaneous services (splmisc) as well as support modules and various wave files used by the add-on.
+* appModules: This folder contains the main splstudio (app module) package and the app modules for Track Tool, Creator, VT Recorder, Remote VT client, Remote Studio, and SPL DSP Engine app module package to support SPL Engine, Streamer, and encoders. The common services module is also stored in this folder.
+* The SPL Studio package consists of various modules, which include __init__ (main app module and track item classes), configuration user interfaces (splconfui) and miscellaneous services (splmisc) as well as support modules and various wave files used by the add-on.
 * The SPL Engine package consists of main Engine module and encoder support module.
-* The SPL common services package includes the add-on base services (splbase) and constants collection (splconsts).
+* The SPL common services package includes the add-on base services (splbase), configuration manager (splconfig), and constants collection (splconsts).
 * The Studio main app module file is divided into sections. First, the overlay classes for track items are defined, then comes the app module, further divided into four sections: fundamental methods (constructor, events and others), time commands (end of track, broadcaster time, etc.), other commands (track Finder, cart explorer and others) and SPL Assistant layer. This allows me to identify where a bug is coming from and to add features in appropriate sections.
 * globalPlugins: This folder contains SPLUtils module, consisting of main global plugin code and SPL Controller layer.
 
@@ -142,7 +157,7 @@ When I first sat down to design the add-on, I knew I had to write both an app mo
 * SPL Assistant: This layer command set is available in the app module and is intended to obtain status information and to manage app module features. I called this Assistant because this layer serves as an assistant to a broadcaster in reading various status information. More details can be found later in this article.
 * SPL Controller: This layer is for the global plugin and performs Studio commands from anywhere. I called this "controller" because it controls various functions of Studio from other programs. More details will be provided below.
 
-In the early days, I enforced this separation, but in add-on 6.0, it is possible to invoke SPL Assistant layer by pressing the command used to invoke SPL Controller. In add-on 7.0, it is possible for SPL Assistant to emulate commands from other screen reader scripts, and the mechanics of it is covered later in this article.
+In the early days, I enforced this separation, but in add-on 6.0, it is possible to invoke SPL Assistant layer by pressing the command used to invoke SPL Controller and this behavior became the default in 2025. In add-on 7.0, it is possible for SPL Assistant to emulate commands from other screen reader scripts, and the mechanics of it is covered later in this article.
 
 ### The "magic" behind layer commands
 
@@ -165,7 +180,7 @@ A typical layer command execution is as follows:
 	* Removes the "current" gestures (main gestures and layer commands) and reassigns it to the main gestures map (this is dynamic binding removal).
 	* Performs additional actions depending on context (for example, if Cart Explorer was in use).
 
-### The importance of Studio window handle and Studio API
+### The importance of Studio window handle and Studio API (local Studio only)
 
 In order to use services offered by Studio, one has to use Studio API, which in turn requires one to keep an eye on window handle to Studio (in Windows API, a window handle (just called handle) is a reference to something, such as a window, a file, connection routines and so on). This is important if one wishes to perform Studio commands from other programs (Studio uses messages to communicate with the outside program in question via user32.dll's SendMessage function).
 
@@ -182,9 +197,11 @@ In reality, programs call FindWindow function, and the appropriate "version" was
 
 Until 2018, Studio app module and other components of the add-on called FindWindowA due to the fact that, in Python 2, a string is a read-only array of ANSI characters. Python 3 (and if a string is prefixed with "u" in Python 2) uses immutable array of Unicode characters for strings. Internally, NVDA expects Unicode strings for the function that wraps FindWindow function (located in winUser module), thus mimicking Python 3 behavior. StationPlaylist add-on adopted FindWindowW behavior in late 2018, but the wrapper provided by NVDA is not used due to incorrect error checking behavior in NVDA (if window handle is 0 (NULL), success error is raised, which goes against specifications from Windows API; no longer the case in NVDA 2019.3/Python 3).
 
-## Life of the SPL app module
+## Life of the SPL Studio app module
 
 Note: For the rest of this article, you'll see some portions of the source code to let you better understand how something works (mostly pseudo code will be provided). Also, certain things will require explaining how NVDA Core (the screen reader itself) works (so you'll learn several things at once).
+
+Important: most of the discussion on SPL Studio is applicable to Remote Studio.
 
 ### SPL Studio app module and friends: design and code overview
 
@@ -196,7 +213,7 @@ As noted previously, the SPL Studio app module (splstudio/__init__.py) and frien
 * Track item overlay classes: three classes are defined for various purposes. The first is a base class that provides commands and services across Studio and other apps, while other two classes provide support for tracks found throughout Studio (one is a general track items class, the other is specific to playlist viewer). We'll come back to these objects later.
 * App module class: This is the core of not only the app module, but the entire add-on package. The app module class (appModules.splstudio.AppModule) is further divided into sections as described in add-on design chapter.
 
-For Studio's colleagues (Creator, Track Tool, Remote VT client), they consist of sections listed above except layer command wrapper, and track item classes are simplified. For VT Recorder, because it controls certain internal behaviors of Studio app module when it starts, only the constructor and terminate methods (see below) are provided. For Streamer and DSP Engine, encoder specific workarounds are present.
+For Studio's colleagues (Creator, Track Tool, Remote VT client, Remote Studio), they consist of sections listed above except layer command wrapper, and track item classes are simplified. For VT Recorder, because it controls certain internal behaviors of Studio app module when it starts, only the constructor and terminate methods (see below) are provided. For Streamer and DSP Engine, encoder specific workarounds are present. For Remote Studio, only the code needed to customize Studio app module's behavior for remote broadcasting situations is included.
 
 Let's now tour the lifecycle of the app module object in question: before and during app module initialization, activities performed while the app module is active, death and (until 2018) add-on updates.
 
@@ -265,6 +282,12 @@ Because Columns Explorer (see the corresponding section below) is used in Studio
 
 In app modules for Creator, Remote VT, and Track Tool, the constructor will call splconfig.openConfig to perform the above activity. When the app module terminates (see below), splconfig.closeConfig will be called to unregister the component that is being terminated, and if no SPL components are active, add-on settings will be gone from memory.
 
+#### Changes introduced in 25.11 to support Remote Studio
+
+As noted above, Studio and Remote Studio share vairous components, including some features and commands. As a reuslt, the base Studio app module covers parts of Remote Studio app module, with the latter customizing the base app module.
+
+The biggest change introduced in 25.11 is selective API initialization. Because Remote Studio does not use the same Studio API as original (local) Studio, Studio app module was edited to answer "yes" when asked about requiring Studio API ("no" for Remote Studio)). This means window handle finder for Studio API will not be run when NVDA notices Remote Studio is starting, and this behavior is defined in the original Studio app module, not Remote Studio app module.
+
 ### Life of the app module: events, commands and output
 
 Once the Studio app module is ready, you can then move to Studio window and perform activities such as:
@@ -278,7 +301,7 @@ Once the Studio app module is ready, you can then move to Studio window and perf
 * For 6.0 and later, manage broadcast profiles (we'll talk about broadcast profiles in configuration management section).
 * For 17.12 and later, respond to actions such as broadcast profile switches.
 
-For Creator, Remote VT, and Track Tool, it will let you review column data, including playlist editor content in Creator and Remote VT.
+For Creator, Remote VT, and Track Tool, it will let you review column data, including playlist editor content in Creator and Remote VT. Due ot its purpose, Remote Studio borrows some features from original Studio app module and others are unavailable (for example, weather and temperature announcement is unavailable in Remote Studio).
 
 #### Extension points
 
@@ -798,15 +821,19 @@ A live radio broadcast would not be complete without jingles. This can range fro
 
 For blind broadcasters, one of the things they worry is pressing a wrong jingle key by accident, thus script writers were asked to implement a way for broadcasters to learn which carts are assigned to cart keys. As of time of this post, all three screen readers (JAWS for Windows (script author: Brian Hartgen), Window-Eyes (script author: Jeff Bishop), NVDA (script author: Joseph Lee (I, the author of this article)) includes a feature to learn jingle assignments. As this is an article on internals of an NVDA add-on, I'll give you an overview of what happens when you activate and explore cart assignments (in fact, this section was the most interesting and feedback driven portion of the add-on). Along the way you'll learn where Cart Explorer (NVDA's version of cart learn mode) draws its power and why it is very important.
 
-### Carts in StationPlaylist Studio
+### Carts in StationPlaylist Studio and Remote Studio
 
-Studio comes in three editions: Demo (same as Pro but for limited time trial), Standard and Pro. The first user visible difference between Standard and Pro is number of cart assignments: Standard can store 48 jingles, while Pro can work with 96 of them.
+Studio (for local installs) comes in three editions: Demo (same as Pro but for limited time trial), Standard and Pro. The first user visible difference between Standard and Pro is number of cart assignments: Standard can store 48 jingles, while Pro can work with 96 of them.
 
 To play jingles, a broadcaster would use Cart Edit Mode Control+T), then assign a hotkey to a file. For Studio Standard, you can assign F1 through F12 by themselves or in combination with Control, Shift or Alt. In Demo and Pro, number row can be assigned (1 through 9, 0, hyphen (-) and equals (=) either by themselves or in combination with Control, Shift or Alt, for a grand total of 96 jingles). Once jingles are assigned, they will appear under cart menus (there are four cart menus, one for standalone keys (called main) and one each for Control, Shift and Alt).
 
+Remote Studio does include carts but is limited to 12 slots and works differently than local Studio. Unlike local Studio, carts are limited to twelve function keys (F1 through F12). Another difference is cart source - whereas local Studio is limited to defining carts from the local storage device (file system), Remote Studio carts can be either local (stored on the local computer) or a slot from a cart defined remotely (accessing Studio installed somewhere). There is alos no cart edit mode - carts must be defined from Options/carts tab.
+
 ### Where does Studio store carts?
 
-Studio's "carts" are housed in Studio installation folder. There are four cart files (called banks) in use: a .cart file for each of the cart banks (main, Shift, Control, Alt). During normal business hours, Studio will work with these four banks unless told by a broadcaster to load carts from a different cart bank file.
+The local Studio's "carts" are housed in Studio installation folder. There are four cart files (called banks) in use: a .cart file for each of the cart banks (main, Shift, Control, Alt). During normal business hours, Studio will work with these four banks unless told by a broadcaster to load carts from a different cart bank file.
+
+Remote Studio also defines carts in a file located at the same location as local Studio. However, as Remote Studio is limited to twelve carts, all of them are defined in a single file and is stored differently.
 
 ### Cart Explorer: my own Summer of Code
 
@@ -854,11 +881,37 @@ In effect, the routine above (the "magic" behind Cart Explorer) replaced a hand-
 
 There were two issues with Cart Explorer version 2: confusing statements when cart insert mode was active, and inability to detect that cart editing is finished. Cart insert mode allows broadcasters to press the cart command to have the file inserted into the playlist as a regular track. Inability to detect cart edit completion meant one had to reenter Cart Explorer to view updated cart assignments.
 
-The first issue was solved by telling users that Cart Explorer was active while cart insert mode was active. The resolution to the second issue required a bit of work, and involved rewriting parts of Cart Explorer (now version 3), which is included as of add-on 17.01 (optimized in 17.04). The biggest difference is recording file modification timestamps for carts when carts dictionary is being built (see above), and if cart edit is turned off, checking the timestamps of newly modified cart banks against previous timestamps (when cart edit is off, when cart assignments have changed, cart files are written back to disk) and skipping unmodified cart banks. In spring 2017, this was further optimized by allowing carts dictionary to be modified on the fly (only changed bits will be modified, including possible new assignments, changes and deletions). This means no more need to reenter cart Explorer when cart assignments have changed, a huge relief for broadcasters who need to change cart assignments for holidays or other special occasions.
+The first issue was solved by telling users that Cart Explorer was active while cart insert mode was active. The resolution to the second issue required a bit of work, and involved rewriting parts of Cart Explorer (version 3), which is included as of add-on 17.01 (optimized in 17.04). The biggest difference is recording file modification timestamps for carts when carts dictionary is being built (see above), and if cart edit is turned off, checking the timestamps of newly modified cart banks against previous timestamps (when cart edit is off, when cart assignments have changed, cart files are written back to disk) and skipping unmodified cart banks. In spring 2017, this was further optimized by allowing carts dictionary to be modified on the fly (only changed bits will be modified, including possible new assignments, changes and deletions). This means no more need to reenter cart Explorer when cart assignments have changed, a huge relief for broadcasters who need to change cart assignments for holidays or other special occasions.
+
+For the next eight years, Cart Explorer 3 helped broadcasters using local Studio explore carts. This work was revisited in 2025 due to two significant changes explained below.
+
+### Cart Explorer version 4: supporting 64-bit NVDA and Remote Studio
+
+StationPlaylist suite of applications are 32-bit programs, and so was NVDA until late 2025. Communication between 32-bit programs was smooth, but problems arose when a 64-bit screen reader tried to communicate with 32-bit apps.
+
+Two problems with 64-bit NVDA arose: program paths and accessing 32-bit data structures. In 64-bit Windows, there are at least two "program files" folders - one named "Program Files" for 64-bit programs and another named "Program Files (x86)" for 32-bit x86 apps. On 32-bit Windows, the "PROGRAMFILES" environment variable points to "Program Files" folder (for 32-bit apps), whereas it says either "Program Files" or "Program Files (x86)" on 64-bit Windows depending on the program itself is a 64-bit (former) or 32-bit (latter).
+
+When using 32-bit NVDA on 64-bit Windows, NVDA wil assume that the default program path is "Program Files (x86)". However, on 64-bit NVDA, default program path is "Program Files" - the location designed to house 64-bit apps. But as noted above, SPL suite are 32-bit apps, so how would a 64-bit NVDA access carts when it cannot access 32-bit (Program Files (x86)) app installation location? This was resolved by telling 64-bit NVDA to access the path pointed to by "PROGRAMFILES(x86)" environment variable. That way, cart banks, including the additional bank coming from Remote Studio (explained below) can be accessed.
+
+The second problem was more important as it involved accessing Studio track item contents. Due to changes between 32-bit and 64-bit operating systems, 64-bit programs must access 32-bit data differently than 64-bit. For Studio, this meant inability for 64-bit NVDA to announce playlist viewer list content. This was resolved by changing the way NVDA accessed 32-bit data structures.
+
+While 64-bit NVDA development and supporting it from the add-on were in the works, Remote Studio was also under development. Because Remote Studio is designed as a studio on the move with similar interface to Studio and limited in features, Remote Studio also includes its own cart bank separate from the local Studio (limited to twelve function keys (F1 through F12)). However, unlike the local Studio cart banks (described in detail in the previous sections), Remote Studio carts are stored differently - one line per cart slot in a separate file). Making matters complicated is the fact that Remote Studio carts can be either local cart (a file stored locally) or a Studio cart slot (playing a cart defined in Studio installed somewhere), so a way to differentiate between cart types wsa needed.
+
+The inability to access 32-bit program files data (files) from 64-bit NVDA was resolved in June 2025, but it would not be until September 2025 that 64-bit NVDA can announce 32-bit Studio interface contents. Supporting Remote Studio cart bank was done in a weekend in October, involving fundamental alterations to how Cart Explorer was entered and carts fetched and parsed. Together with accessing 32-bit program files data from 64-bit NVDA, Remote Studio cart bank support forms Cart Explorer version 4.
+
+Cart Explorer version 4 involved fundamental changes to the operation of Cart Explorer. First, due to differences between local and remote Studio cart banks storage, two separate functions are defined to handle local and remote Studio carts, respectively. The local Studio cart banks routine was separated from the overall Cart Explorer entry function, with the entry function deciding which routine to call asedbased on executable name (local Studio if splstudio.exe, remote cart bank parser if remotestudio.exe). Second, the Remote Studio cart bank function, originally based on the local Studio carts parser, was added to handle Remote Studio. Lastly, common parts of the two new functions were combined into the restructured Cart Explorer entry function.
+
+The Remote Studio cart bank parser works as follows:
+
+1. Checks if he Remote Studio data file exists, and if not, sets faulty carts flag to True (this caues NVDA to not enter Cart Explorer).
+2. The routine then reads the data file line by line, capturing a specific line range in a variable (CSV reader is internally used by the routine but the file itself is not a CSV file).
+3. If there is text for each line in the line range captured, NVDA will determine if this is a local cart or a Studio cart. If this is a local cart (file path), the base name of the file path (file name part) minus the extension is recorded.
+4. A Studio cart entry starts with an asterisk (*) and uses a two letter code for cart bank and a number (from 01 through 24) denoting cart bank position written in parentheses. NVDA will parse it, first separating the cart bank code and the cart position, retrieve the user-friendly name for the cart position from a list of cart keys, then use structural pattern matching to interpret cart bank code. This, together with the user-friendly cart position name, is combined to produce the Studio cart entry.
+5. Just like local Studio cart bank parser, Remote Studio cart entries are stored inside a map to be returned to the Studio app module.
 
 ### Few remarks
 
-Cart Explorer has come a long way; from a simple suggestion to the CSV parsing routine above to checking timestamps for cart assignment changes, Cart Explorer has changed to meet the needs of broadcasters using Studio and NVDA. I would like to improve this further in future releases (another suggestion I received was ability to specify cart file names for individual banks, and I'm thinking about implementing this in the near future).
+Cart Explorer has come a long way; from a simple suggestion to the CSV parsing routine above to checking timestamps for cart assignment changes and working across two applications and 32-bit and 64-bit NVDA, Cart Explorer has changed to meet the needs of broadcasters using Studio and NVDA. I would like to improve this further in future releases (another suggestion I received was ability to specify cart file names for individual banks, and I'm thinking about implementing this in the near future).
 
 One of the things you may have noticed as you read this article so far is how I and other developers continue to research better ways of accomplishing something. You also saw a glimpse of how developers and users shape a feature and how much work is involved to bring a feature suggestion to life. These activities (research and feature development collaboration) are just two of the pillars of this add-on, and highlights how design philosophy and product development approach affects future course of product development.
 
