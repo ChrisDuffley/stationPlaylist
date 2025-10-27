@@ -2,6 +2,13 @@
 
 This page lists the complete changelog for StationPlaylist add-on releases.
 
+## Version 25.06.9-LTS
+
+* Initial support for Remote Studio. Although the interface resembles Studio, not all commands and features are available.
+* While in cart explorer from Remote Studio, NVDA will announce cart name and its type such as local or Studio cart.
+* In local (original) Studio, NVDA will be more successful when entering Cart Explorer (Alt+NVDA+3) in more cases.
+* In local Studio, resolved a potential security and privacy issue after switching users while Cart Explorer is active where the cart assignments from the previous user can be announced.
+
 ## Version 25.06.8-LTS
 
 * In Studio, search history in track finder (Control+NVDA+F) is replaced with a search edit field to align with NVDA's own find dialog experience.

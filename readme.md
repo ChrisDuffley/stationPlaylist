@@ -211,6 +211,8 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 
 * Initial support for Remote Studio. Although the interface resembles Studio, not all commands and features are available.
 * While in cart explorer from Remote Studio, NVDA will announce cart name and its type such as local or Studio cart.
+* In local (original) Studio, NVDA will be more successful when entering Cart Explorer (Alt+NVDA+3) in more cases.
+* In local Studio, resolved a potential security and privacy issue after switching users while Cart Explorer is active where the cart assignments from the previous user can be announced.
 
 ## Version 25.06.8-LTS
 
