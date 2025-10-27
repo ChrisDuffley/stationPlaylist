@@ -398,20 +398,22 @@ Note: You cannot set a breaknote or hour marker as place marker track, and if yo
 
 #### Cart Explorer
 
-SPL Studio allows you to assign up to 96 carts, or jingle machines. When the cart command is pressed, Studio plays the assigned jingle. You can also edit jingle assignments while cart edit mode is active.
+Both local Studio and Remote Studio includes dedicated cart banks or jingle machines. Local Studio allows you to assign up to 96 carts, whereas Remote Studio defines 12 cart slots. When the cart command is pressed, Studio (local and remote) plays the assigned jingle.
+
+In addition, local and Remote Studio allows adding, modifying, and removing cart assignments. In local Studio, cart assignments can be edited with cart edit mode active, and preset carts can be inserted into the playlist with cart insert mode. In Remote Studio, carts are managed from Options dialog under carts tab, and carts can be either a file stored locally (local cart) or a cart assignment defined in a remote Studio installation somewhere (Studio cart).
 
 The cart commands are:
 
-* F1 through F12 either by themselves, or in combination with Shift, Control or Alt (e.g. F2, Shift+F11, Control+F5, Alt+F12).
+* Function keys F1 through F12 either by themselves, or in combination with Shift, Control or Alt (e.g. F2, Shift+F11, Control+F5, Alt+F12). Remote Studio cart slots are function keys with no modifiers (hence twelve cart slots).
 * Number row from 1 through 9, 0, hyphen (-) and equals (=) either by themselves or in combination with Shift, Control or Alt (e.g. 5, Shift+-, Control+=, Alt+0). This set is unavailable in Studio Standard.
 
-Hint: because Alt+F4 is a cart command, press Control+Alt+X to quit SPL Studio.
+Hint: because Alt+F4 is a cart command, press Control+Alt+X to quit local Studio.
 
-Note: The modifier assigns carts to "banks". There are four cart banks included with SPL Studio: main (without modifier), and one each for shift, control (CTRL) and alt. You can access each cart bank from the menu bar.
+Note: for local Studio, the modifier assigns carts to "banks". There are four cart banks included with SPL Studio: main (without modifier), and one each for shift, control (CTRL) and alt. You can access each cart bank from the menu bar.
 
-To help you learn what jingle will play when a given cart key is pressed, NVDA allows you to explore cart assignments. Press Alt+NVDA+3 to enter Cart Explorer. When you press the cart key once, NVDA will tell you which jingle is assigned to that cart key. When pressed twice, the jingle associated with the cart command will be played. Once you've explored the cart assignments, press Alt+NVDA+3 to leave Cart Explorer.
+To help you learn what jingle or remote cart slot will play when a given cart key is pressed, NVDA allows you to explore cart assignments. Press Alt+NVDA+3 to enter Cart Explorer. When you press the cart key once, NVDA will tell you which jingle is assigned to that cart key. When pressed twice, the jingle associated with the cart command will be played. Once you've explored the cart assignments, press Alt+NVDA+3 to leave Cart Explorer.
 
-Hint: If you toggle cart edit mode or use cart insert mode, NVDA will remind you that Cart Explorer is active if this is such a case. Also, if you are using Studio Standard and press number row keys (with or without modifiers) while cart explorer is active, NVDA will alert you that the cart command is unavailable.
+Hint: If you toggle cart edit mode or use cart insert mode in local Studio, NVDA will remind you that Cart Explorer is active if this is such a case. Also, if you are using Studio Standard and press number row keys (with or without modifiers) while cart explorer is active, NVDA will alert you that the cart command is unavailable.
 
 Note: Cart explorer will not operate properly if:
 
