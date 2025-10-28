@@ -824,6 +824,10 @@ Q. How can I view latest cart assignments?
 
 When you exit cart edit mode, cart explorer will reflect latest cart assignments so you can view cart assignments right away.
 
+Q. Will NVDA announce updated cart assignments after switching Studio users?
+
+Yes. When switching Studio users while cart explorer is active, NVDA will refresh cart assignments and announce assignments for the new user.
+
 Q. When I try to switch to Studio, NVDA says, "SPL minimized."
 
 You can ask Studio to run from system tray. If this is the case, NVDA will announce that Studio is minimized to system tray. To open Studio, go to system tray, select Studio icon and open pop-up menu. Select "restore" from the menu that appears.
