@@ -108,7 +108,7 @@ You can use many of the native SPL Studio commands to control the program. In ad
 NVDA provides two layer command sets when using Studio to perform various tasks and announce status information:
 
 * SPL Assistant: this layer set, available from within SPL Studio, allows you to obtain various SPL status information such as whether a track is playing, automation status and so on.
-* SPL Controller: this command set, available everywhere except in Studio, allows you to control SPL Studio from anywhere, including playing the next track and turning microphone on and off.
+* SPL Controller: this command set, available everywhere except in Studio, allows you to control local Studio (not Remote Studio) from anywhere, including playing the next track and turning microphone on and off.
 
 By default, while focused in Studio, performing SPL Controller layer command will invoke SPL Assistant layer. We'll meet these two layer command sets and how to use them throughout this guide (described separately for historical reasons).
 
@@ -116,13 +116,13 @@ Note: the layer entry commands are not assigned so you can assign your own comma
 
 #### Playlist Viewer
 
-When you start or switch to SPL Studio, you'll be placed in Playlist Viewer. This screen shows a list of tracks you have added to be played via Studio. On top of the track listings is an hour marker to tell you the tracks you have added for this hour.
+When you start or switch to local Studio or connect to a Studio instance from Remote Studio, you'll be placed in Playlist Viewer. This screen shows a list of tracks you have added to be played via Studio. On top of the track listings is an hour marker to tell you the tracks you have added for this hour.
 
 For each trakc in the playlist, a check mark is available to select tracks for playback. As you select tracks in the playlist, Studio will show the total length of the playlist, useful if you wish to know if the selected track fills the current hour slot.
 
 If you press NVDA+Up Arrow (not the numpad up arrow in desktop layout; NVDA+L in laptop layout) or NVDA+Tab, NVDA will tell you the track information such as duration, artist, whether the track is selected for playback and so on. You can also let NVDA play a beep to indicate the track category, and when you reach top or bottom of the playlist, NVDA will play a beep to let you know of this fact. You can configure these behaviors from add-on settings.
 
-Note: for best experience, tell Studio to use accessibility mode from options dialog.
+Note: if using local Studio, for best experience, tell Studio to use accessibility mode from options dialog.
 
 #### Track playback controlls within Studio window
 
@@ -180,15 +180,15 @@ Notes:
 2. You can quickly toggle screen versus custom column order announcement for track columns by pressing NVDA+V while focused on a track in Studio's playlist viewer.
 3. To make column header announcement setting applicable in Studio, create a configuration profile (either manually activated or an app-specific profile for Studio).
 
-#### Track comments
+#### Track comments (local Studio only)
 
 In case you receive a request from someone and need to write it down, you can use track comments feature to add, change, review or remove comments (notes) for tracks. As you move through tracks, you may hear NVDA say, "has comment" or play a beep to indicate existence of a track comment for the selected track. Press Alt+NVDA+C to let NVDA announce track comments if any, or press it twice to copy track comment to the clipboard so you can review it from somewhere.
 
 To add a track comment, press Alt+NVDA+C three times. Type your comment and press ENTER. Leaving the track comment empty will remove track comments.
 
-Note: You cannot add track comments to hour markers, break notes and other such tracks.
+Note: You cannot add track comments to hour markers, break notes and other such tracks. Track comments is not available in Remote Studio.
 
-#### Listener requests
+#### Listener requests (local Studio only)
 
 From time to time, listeners may chime in and request a track or two to be played. Provided that you are using the StationPlaylist request scripts on your website, you can be notified of request arrival. When this happens, NVDA will play a beep to notify you of this. Once requests arrive, press Control+Q from StationPlaylist to open requests window.
 
@@ -210,7 +210,7 @@ As you work with SPL Studio, the following commands are available to obtain vari
 * SPL Assistant, S: Announces the time when the selected track will be played (scheduled).
 * SPL Assistant, Shift+S: Announces length of time before the current track will play (i.e. starts in; you should use this command about a second after moving to a new track).
 * SPL Assistant, D: Announces duration of the remaining tracks in the playlist (may become inaccurate (up to several seconds) for very long playlists).
-* SPL Assistant, Y: Announces whether the currently loaded playlist has been modified.
+* SPL Assistant, Y (local Studio only): Announces whether the currently loaded playlist has been modified.
 * SPL Assistant, F8: Takes a snapshot of the current playlist and presents information about the playlist on a window. These include total duration of the playlist (from start to finish), name of the longest track, number of categories and so on.
 * SPL Assistant, Shift+F8: transcribes playlist data in a number of formats. See Playlist Transcripts section for details.
 
@@ -226,22 +226,22 @@ Besides track and time information, NVDA allows you to use native Studio command
 * L: Line-in.
 * M: Microphone on/off.
 * N: Microphone on/off without fade.
-* R: Enable or disable record to file.
-* Control+T: Cart edit/insert mode on or off. If status message is set to beeps and if cart insert mode is active, you will hear "insert" when you press this command and status changes to cart insert mode on.
-* Control+D: Control keys enable/disable (Studio 6.10 and later).
+* R (local Studio only): Enable or disable record to file.
+* Control+T (local Studio only): Cart edit/insert mode on or off. If status message is set to beeps and if cart insert mode is active, you will hear "insert" when you press this command and status changes to cart insert mode on.
+* Control+D (local Studio only): Control keys enable/disable (Studio 6.10 and later).
 
 To announce current values for these options, enter SPL Assistant layer, then press the corresponding native command from the list above (except where noted). For example, to hear if automation is enabled, enter SPL Assistant then press A.
 
-Additional commands and exceptions for SPL Assistant layer include:
+Additional commands and exceptions for SPL Assistant layer include (most commands are unavailable in Remote Studio):
 
-* U: Studio up time.
-* T: Cart edit mode status. To change cart edit mode status, press Control+T (Control+T is a Studio command).
-* I: Listener count (I as in "Internet listeners").
-* Control+K: Drop a place marker on the selected track.
-* K: Move to a predefined marker track. See place marker section for more details.
-* Shift+P: Pitch for the current track.
-* Shift+R: Report library scan results (number of items scanned) or track current library scan in the background.
-* W: Weather and temperature (see below).
+* U (local Studio only): Studio up time.
+* T (local Studio only): Cart edit mode status. To change cart edit mode status, press Control+T (Control+T is a Studio command).
+* I (local Studio only): Listener count (I as in "Internet listeners").
+* Control+K (local Studio only): Drop a place marker on the selected track.
+* K (local Studio only): Move to a predefined marker track. See place marker section for more details.
+* Shift+P (local Studio only): Pitch for the current track.
+* Shift+R (local Studio only): Report library scan results (number of items scanned) or track current library scan in the background.
+* W (local Studio only): Weather and temperature (see below).
 * F1: Shows a dialog listing available layer commands.
 * F9: Mark the start of track time analysis.
 * F10: Performs track time analysis. See track time analysis section for more details.
@@ -258,7 +258,7 @@ The SPL Assistant layer commands described throughout this guide are the default
 Following are SPL Assistant command assignments when JAWS for Windows layout is active:
 
 * C: Cart Explorer (you can toggle this by pressing Alt+NVDA+3).
-* L: Listener count.
+* L (local Studio only): Listener count.
 * R: Playlist duration.
 
 Other SPL Assistant commands described in this guide are same across all layouts.
@@ -388,17 +388,17 @@ This dialog includes the following:
 
 Note: Pressing NVDA+F3 or NVDA+Shift+F3 will continue to search artist and title.
 
-#### Place marker track
+#### Place marker track (local Studio only)
 
 There are times when you need to mark a track to return to after editing a playlist. NVDA allows you to define a track as a place marker track so you can return to it later.
 
 To define a place marker track, press SPL Assistant, Control+K. NVDA will say, "place marker set". To return to the marked track, press SPL Assistant, K.
 
-Note: You cannot set a breaknote or hour marker as place marker track, and if you delete the place marker track, place marker will be gone. Place marker commands will not work outside of playlist viewer.
+Note: You cannot set a breaknote or hour marker as place marker track, and if you delete the place marker track, place marker will be gone. Place marker commands will not work outside of playlist viewer, and place marker track is unavailable in Remote Studio.
 
 #### Cart Explorer
 
-Both local Studio and Remote Studio includes dedicated cart banks or jingle machines. Local Studio allows you to assign up to 96 carts, whereas Remote Studio defines 12 cart slots. When the cart command is pressed, Studio (local and remote) plays the assigned jingle.
+Both local Studio and Remote Studio include dedicated cart banks or jingle machines. Local Studio allows you to assign up to 96 carts, whereas Remote Studio defines 12 cart slots. When the cart command is pressed, Studio (local and remote) plays the assigned jingle.
 
 In addition, local and Remote Studio allows adding, modifying, and removing cart assignments. In local Studio, cart assignments can be edited with cart edit mode active, and preset carts can be inserted into the playlist with cart insert mode. In Remote Studio, carts are managed from Options dialog under carts tab, and carts can be either a file stored locally (local cart) or a cart assignment defined in a remote Studio installation somewhere (Studio cart).
 
@@ -420,7 +420,7 @@ Note: Cart explorer will not operate properly if:
 1. Either you have custom names for your carts or saved your cart with a different name, or loaded other cart banks besides your own. Cart explorer will not pick up cart names for additional cart banks you insert into a cart bank (main, shift, control, alt). For example, if you have cart assignments for main cart bank and add cart entries from another user's main cart bank, cart explorer will not announce cart assignments from the added cart bank. For best results, do not load another cart bank apart from your own, or if you are the only user, do not add any other banks besides default user's cart banks.
 2. If one or more cart banks doesn't exist or your user name starts or ends with whitespace (" "). If this is the case, NVDA will report that some cart banks were not found and will not enter cart explorer.
 
-#### Music Library scan
+#### Music Library scan (local Studio only)
 
 As your music collection grows, you might wish to teach Studio where it can find tracks for your shows. To help you with this, Studio has an option to remember where you've stored your music files. This can be access from Studio's options dialog under folder name section. Then, you can start a library scan right away or open insert tracks dialog to start a scan.
 
@@ -441,11 +441,11 @@ Hint: If you set status announcement to beeps, NVDA will play a high and low ton
 
 Note: to monitor the progress of a library scan from insert tracks window, do not move away from Insert Tracks dialog until the scan is complete. This does not apply if you start library scan monitoring via Studio Options dialog method, as NVDA will announce scan progress from any program including from within Studio. Also, if library scan progress is set to scan count, you may hear repeats. Don't worry - this is the case when it takes a long time to perform library scans.
 
-#### Weather and temperature
+#### Weather and temperature (local Studio only)
 
 You can ask Studio to show you temperature and weather information for your local area. Once this is configured, from SPL Assistant, press W. Alternatively, assign a command to announce weather and temperature without invoking SPL Assistant.
 
-#### Metadata streaming
+#### Metadata streaming (local Studio only)
 
 You can ask Studio to use up to five streams to stream track metadata. These include the DSP encoder address and up to four additional URL's, and NVDA can be told to announce if metadata streaming is enabled and connect to predefined servers if any.
 
@@ -472,7 +472,7 @@ Note: When you switch away from Studio, you'll be placed in object touch mode.
 
 ### Other programs in SPL suite
 
-In addition to StationPlaylist Studio, SPL suite includes Track Tool, Creator, and Remote VT client. Track Tool is typically used to set intros, define cue positions and so on for a track. Creator is useful if you wish to create advanced playlists such as rotations and more interesting track categories. Remote VT client is used by broadcasters to manage a station's playlist remotely.
+In addition to StationPlaylist Studio (local) and Remote Studio, SPL suite includes Track Tool, Creator, and Remote VT client. Track Tool is typically used to set intros, define cue positions and so on for a track. Creator is useful if you wish to create advanced playlists such as rotations and more interesting track categories. Remote VT client is used by broadcasters to manage a station's playlist remotely.
 
 #### Track Tool
 
@@ -651,7 +651,7 @@ Note: if you rename the switch profile, the switch profile setting will carry ov
 
 Note: SPL Controller is disabled if NVDA is running in secure mode such as in secure screens.
 
-The SPL Controller is a set of commands used everywhere (except Studio itself) to control various aspects of Studio's functionality. For example, you can use this to start playing the next track right after a Skype call, or disable automation for the time being while conducting a live interview or tweeting.
+The SPL Controller is a set of commands used everywhere (except local Studio itself) to control various aspects of Studio's functionality. For example, you can use this to start playing the next track right after a Skype call, or disable automation for the time being while conducting a live interview or tweeting.
 
 To use these commands, enter SPL Controller layer. NVDA says, "SPL Controller." Then press the keys for the desired function from the list below.
 
@@ -693,11 +693,13 @@ In addition to playing carts when focused on Studio and learning about their ass
 
 ## Quickly switch to SPL Studio
 
-There are times when you might wish to switch quickly to SPL Studio from other programs (for example, if you wish to search a song from the playlist). To switch to SPL Studio from another program, press the command you assigned for this command (for 2.0 and above; for 1.2 and earlier, press NVDA+Shift+grave accent).
+There are times when you might wish to switch quickly to local Studio (not Remote Studio) from other programs (for example, if you wish to search a song from the playlist). To switch to SPL Studio from another program, press the command you assigned for this command (for 2.0 and above; for 1.2 and earlier, press NVDA+Shift+grave accent).
 
 Note: you cannot switch to Studio window from other programs if NVDA is running in secure mode such as in secure screens.
 
-## Broadcasting with stream encoders
+## Broadcasting with stream encoders (local Studio only)
+
+Note: Remote Studio does not have its own encoder engine as it is designed to play tracks playing on a Studio installation somewhere and transmit microphone and/or line-in input to a remote computer.
 
 Now that you know about how to use Studio, it's time to make your presence known on the internet. You can broadcast your show online using Studio, a stream encoder and a streaming server.
 
@@ -1015,7 +1017,7 @@ The switches for this add-on are:
 
 * --spl-normalprofileonly: only loads normal profile.
 * --spl-configinmemory: not only this will use normal profile only, but settings will not be loaded from disk nor saved to it.
-* --spl-apidebug (25.11 and later): record Studio API specific debug messages (requires debug log to be enabled and to be used as directed by add-on developers).
+* --spl-apidebug (25.10 and later): record Studio API specific debug messages (requires debug log to be enabled and to be used as directed by add-on developers).
 
 Except for "--spl-apidebug", broadcast profiles functionality will be disabled if any of these command-line switches are present.
 
