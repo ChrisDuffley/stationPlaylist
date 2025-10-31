@@ -2636,13 +2636,7 @@ class AppModule(appModuleHandler.AppModule):
 		speakOnDemand=True,
 	)
 	def script_sayTemperature(self, gesture):
-		if (
-			(
-				self._studioAPIRequired and not splbase.studioIsRunning()
-			) or self.appName != "splstudio"  # Local Studio only
-		):
-			if self.appName != "splstudio":
-				ui.message(_("Unavailable in Remote Studio"))
+		if self._studioAPIRequired and not splbase.studioIsRunning():
 			self.script_finish()
 			return
 		# 25.06: temperature object position is different between Studio 6.0x and 6.1x.

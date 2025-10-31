@@ -119,7 +119,7 @@ The available commands are (most commands support speak on demand and some comma
 * Shift+S: Time until selected track will play (track starts in).
 * T (unavailable in Remote Studio): Cart edit/insert mode on/off.
 * U (unavailable in Remote Studio): Studio up time.
-* W (unavailable in Remote Studio): Weather and temperature if configured.
+* W: Weather and temperature if configured.
 * Y (unavailable in Remote Studio): Playlist modified status.
 * F8: Take playlist snapshots (number of tracks, longest track, etc.).
 * Shift+F8: Request playlist transcripts in numerous formats.

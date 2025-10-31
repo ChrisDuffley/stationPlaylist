@@ -241,7 +241,7 @@ Additional commands and exceptions for SPL Assistant layer include (most command
 * K (local Studio only): Move to a predefined marker track. See place marker section for more details.
 * Shift+P (local Studio only): Pitch for the current track.
 * Shift+R (local Studio only): Report library scan results (number of items scanned) or track current library scan in the background.
-* W (local Studio only): Weather and temperature (see below).
+* W: Weather and temperature (see below).
 * F1: Shows a dialog listing available layer commands.
 * F9: Mark the start of track time analysis.
 * F10: Performs track time analysis. See track time analysis section for more details.
@@ -441,7 +441,7 @@ Hint: If you set status announcement to beeps, NVDA will play a high and low ton
 
 Note: to monitor the progress of a library scan from insert tracks window, do not move away from Insert Tracks dialog until the scan is complete. This does not apply if you start library scan monitoring via Studio Options dialog method, as NVDA will announce scan progress from any program including from within Studio. Also, if library scan progress is set to scan count, you may hear repeats. Don't worry - this is the case when it takes a long time to perform library scans.
 
-#### Weather and temperature (local Studio only)
+#### Weather and temperature
 
 You can ask Studio to show you temperature and weather information for your local area. Once this is configured, from SPL Assistant, press W. Alternatively, assign a command to announce weather and temperature without invoking SPL Assistant.
 
