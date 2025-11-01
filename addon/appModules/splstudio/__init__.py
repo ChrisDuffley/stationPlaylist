@@ -1639,6 +1639,10 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when streaming dialog cannot be shown.
 			ui.message(_("Cannot open metadata streaming dialog"))
 			return
+		# Metadata streaming is handled by local Studio, not Remote Studio.
+		if self.appName != "splstudio":
+			ui.message(_("Unavailable in Remote Studio"))
+			return
 		try:
 			# #44: do not rely on Studio API function object as its workings (including arguments) may change.
 			# Use a flag to tell the streaming dialog that this is
