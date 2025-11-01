@@ -4,6 +4,7 @@
 
 # Base services for Studio app module and support modules
 
+import ctypes
 import ui
 from logHandler import log
 import addonHandler
@@ -55,6 +56,12 @@ def studioAPI(arg: int, command: int) -> int | None:
 		_SPLWin = user32.FindWindowW("SPLStudio", None)
 	log.debug(f"SPL: Studio API wParem is {arg}, lParem is {command}")
 	val = sendMessage(_SPLWin, 1024, arg, command)
+	# 64-bit NVDA: Studio API results max out at 32 bits.
+	# Is the most significant bit set to 1 (signed integer but NVDA says unsigned)?
+	# This results in 32-bit overflow or erroneous messages when a negative integer is expected.
+	if val >= 0x80000000:
+		# Convert the value into a signed 32-bit integer.
+		val = ctypes.c_int32(val).value
 	log.debug(f"SPL: Studio API result is {val}")
 	# 21.03/20.09.6-LTS: SendMessage function might be stuck while Studio exits, resulting in NULL window handle.
 	if not user32.FindWindowW("SPLStudio", None):
