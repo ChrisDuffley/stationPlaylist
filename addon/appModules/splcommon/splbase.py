@@ -5,6 +5,7 @@
 # Base services for Studio app module and support modules
 # These include Studio API handler, layer commands manager, and base track item class.
 
+import ctypes
 from functools import wraps
 from abc import abstractmethod
 import ui
@@ -73,6 +74,12 @@ def studioAPI(arg: int, command: int) -> int | None:
 	if (studioAPIDebug := "--spl-apidebug" in globalVars.unknownAppArgs):
 		log.debug(f"SPL: Studio API wParem is {arg}, lParem is {command}")
 	val = sendMessage(_SPLWin, 1024, arg, command)
+	# 64-bit NVDA: Studio API results max out at 32 bits.
+	# Is the most significant bit set to 1 (signed integer but NVDA says unsigned)?
+	# This results in 32-bit overflow or erroneous messages when a negative integer is expected.
+	if val >= 0x80000000:
+		# Convert the value into a signed 32-bit integer.
+		val = ctypes.c_int32(val).value
 	if studioAPIDebug:
 		log.debug(f"SPL: Studio API result is {val}")
 	# SendMessage function might be stuck while Studio exits, resulting in NULL window handle.
