@@ -6,6 +6,7 @@
 # Borrows heavily from Studio as the user interface is quite similar with changes specific to Remote Studio.
 
 from typing import Any
+import api
 from . import splstudio
 from .splcommon import splconsts
 
@@ -29,3 +30,7 @@ class AppModule(splstudio.AppModule):
 		else:
 			self.clearGestureBindings()
 			self.bindGestures(self.__gestures)
+
+	# Check to make sure a playlist is indeed loaded by checking track count.
+	def playlistLoaded(self) -> bool:
+		return bool(getattr(api.getFocusObject(), "rowCount", 0))
