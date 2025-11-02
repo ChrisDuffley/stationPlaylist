@@ -6,6 +6,7 @@
 # Borrows heavily from Studio as the user interface is quite similar with changes specific to Remote Studio.
 
 from typing import Any
+import ui
 import api
 from . import splstudio
 from .splstudio import splmisc
@@ -73,3 +74,15 @@ class AppModule(splstudio.AppModule):
 	}
 
 	_cachedStatusObjs: dict[int, Any] = {}
+
+	# Announce elapsed and remaining times differently across local and Remote Studio
+	# (local Studio = Studio API, Remote Studio = screen traversal).
+	def announceTrackTime(self, trackTime: str) -> None:
+		# Track time parameter can be either "remaining" or "elapsed".
+		match trackTime:
+			case "remaining":
+				ui.message(self.status(self.SPLTrackRemainingTime).name)
+			case "elapsed":
+				ui.message(self.status(self.SPLTrackElapsedTime).name)
+			case _:
+				raise ValueError(f"Unrecognized track time announcement command: {trackTime}")
