@@ -1362,7 +1362,20 @@ class AppModule(appModuleHandler.AppModule):
 			else:
 				return f"{mm:02d}:{ss:02d}"
 
-	# Scripts which rely on API.
+	# Announce elapsed and remaining times differently across local and Remote Studio
+	# (local Studio = Studio API, Remote Studio = screen traversal).
+	def announceTrackTime(self, trackTime: str) -> None:
+		if not splbase.studioIsRunning():
+			return
+		# Track time parameter can be either "remaining" or "elapsed".
+		match trackTime:
+			case "remaining":
+				self.announceTime(splbase.studioAPI(3, SPLCurTrackPlaybackTime), offset=1)
+			case "elapsed":
+				self.announceTime(splbase.studioAPI(0, SPLCurTrackPlaybackTime))
+			case _:
+				raise ValueError(f"Unrecognized track time announcement command: {trackTime}")
+
 	@scriptHandler.script(
 		# Message comes from Foobar 2000 app module, part of NVDA Core.
 		description=translate("Reports the remaining time of the currently playing track, if any"),
