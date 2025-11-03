@@ -2421,11 +2421,11 @@ class AppModule(appModuleHandler.AppModule):
 	# Status table keys for screen traversal map
 	SPLPlayStatus = 0
 	SPLSystemStatus = 1
-	SPLNextTrackTitle = 3
-	SPLNextPlayer = 4
-	SPLCurrentTrackTitle = 5
-	SPLCurrentPlayer = 6
-	SPLTemperature = 7
+	SPLNextTrackTitle = 2
+	SPLNextPlayer = 3
+	SPLCurrentTrackTitle = 4
+	SPLCurrentPlayer = 5
+	SPLTemperature = 6
 
 	# Table of child constants based on versions
 	# These are scattered throughout the screen, so one can use foreground.getChild(index) to fetch them
