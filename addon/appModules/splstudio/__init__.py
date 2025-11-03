@@ -2658,9 +2658,9 @@ class AppModule(appModuleHandler.AppModule):
 		if self._studioAPIRequired and not splbase.studioIsRunning():
 			self.script_finish()
 			return
-		# 25.06: temperature object position is different between Studio 6.0x and 6.1x.
+		# 25.06: temperature object position is different between local Studio 6.0x and 6.1x.
 		# Therefore, manually change index traversal route whenever this script is run.
-		if self.productVersion.startswith("6.1"):
+		if self._studioAPIRequired and self.productVersion.startswith("6.1"):
 			self.statusObjs["6"][self.SPLTemperature] = [-1, 1, 3, 1]
 		try:
 			obj = self.status(self.SPLTemperature)
