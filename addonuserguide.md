@@ -538,36 +538,36 @@ Playlist Editor in creator and Remote VT client includes the following additiona
 
 ## Studio add-on preferences
 
-One of the strengths of NVDA is that it contains gateways for configuring various settings, such as voice, browse mode and so on, all housed in the multi-page Settings screen located in preferences menu. Just like any other settings, SPL add-on comes with its own settings dialog. As long as you are running Studio, you can open this dialog by going to NVDA's preferences menu and selecting "SPL add-on settings" item or pressing Alt+NVDA+0 (zero) from Studio window.
+One of the strengths of NVDA is that it contains gateways for configuring various settings, such as voice, browse mode and so on, all housed in the multi-page Settings screen located in preferences menu. Just like any other settings, SPL add-on comes with its own settings dialog. As long as you are running local and/or Remote Studio, you can open this dialog by going to NVDA's preferences menu and selecting "SPL add-on settings" item or pressing Alt+NVDA+0 (zero) from Studio window.
 
 When add-on settings opens, a list of settings categories will be shown on the left, with settings for the selected category on the right. Select a category from list of categories, or to move between categories, press Control+Tab or Control+Shift+Tab. After configuring settings, select OK to save settings and close the dialog, or select Apply button to save settings and keep the dialog open. To discard changes, select Cancel.
 
-Most of the settings in this dialog were discussed throughout the add-on guide. Here is a complete list of available settings and their options (some settings are unavailable if NVDA is running in secure mode):
+Most of the settings in this dialog were discussed throughout the add-on guide. Here is a complete list of available settings and their options (some settings are unavailable if NVDA is running in secure mode and some are not applicable to Remote Studio):
 
 * General add-on settings: home to a number of general options, including:
-	* Beep for status announcements (unchecked by default): See status announcement section. Status messages can be announced as beeps or words when this option is checked or unchecked, respectively.
-	* Message verbosity (beginner by default): See message verbosity section for more details and an entry in frequently asked questions for a complete list of messages that'll be affected by this setting.
+	* Beep for status announcements (unchecked by default, applicable to local Studio): See status announcement section. Status messages can be announced as beeps or words when this option is checked or unchecked, respectively.
+	* Message verbosity (beginner by default, applicable to local Studio): See message verbosity section for more details and an entry in frequently asked questions for a complete list of messages that'll be affected by this setting.
 	* Braille timer (off by default): select the desired braille timer option from this combo box. See braille timer section for more details.
-	* Library scan announcement (off by default): select the announcement option from this combo box. See library scan section for more details.
+	* Library scan announcement (off by default, applicable to local Studio): select the announcement option from this combo box. See library scan section for more details.
 	* Announce hour values when announcing track or playlist duration (on by default): If duration of the track or a playlist exceeds one hour, NVDA will announce minutes and seconds or hours, minutes and seconds when this option is disabled or enabled, respectively.
 	* Vertical column navigation announcement (currently reviewing column by default): When you move through columns vertically, you can ask NVDA to keep you on the column you are currently reviewing or announce a specific column. Choose the option or the column you want from this combo box.
 	* Beep for different track categories (disabled by default): Enabling this option allows NVDA to play different beeps for different track categories when moving between tracks in playlist viewer. See playlist viewer section for details.
 	* Track comment announcement (off by default): Select how NVDA will notify you of track comments if it exists. You can choose from off, message, beep or both. See track comments section for details.
 	* Notify when located at top or bottom of playlist viewer (enabled by default): If this is turned on, a beep will be heard when you are at the top or bottom of the playlist.
-	* Play a sound when listener requests arrive (enabled by default): if checked, NVDA will play a beep to indicate request arrival. See listener requests section for details.
+	* Play a sound when listener requests arrive (enabled by default, applicable to local Studio): if checked, NVDA will play a beep to indicate request arrival. See listener requests section for details.
 * Alarms: This category allows you to configure various alarm options, including:
 	* Track outro, intro alarms and notification toggle, microphone alarm and interval. See track and microphone alarms section for details.
 	* Alarm notification (beep by default): Selects alarm notification type. You can select from beep only, message only or both. See alarms section for more details.
 * Playlist snapshots: select this category to configure information to be gathered when you issue playlist snapshots command. See playlist snapshots section for details.
-* Metadata streaming: includes options for metadata streaming such as:
+* Metadata streaming (applicable to local Studio): includes options for metadata streaming such as:
 	* Metadata streaming notification and connection (off by default): controls when Studio will connect to and announce metadata streaming status. You can silence this (off), have Studio connect to streams and announce this when it starts, or whenever you switch to and from instant switch profiles.
 	* Metadata streams list: a list of five checkboxes used to toggle metadata streaming for DSP encoder and up to four additional streams. See metadata streaming section for details.
-* Column announcement: handles column announcements such as column order. Settings in this category include:
+* Column announcement (applicable to Studio's playlist viewer): handles column announcements such as column order. Settings in this category include:
 	* Announce columns in the order shown on screen (enabled by default): if checked, NVDA will use column order as shown on screen when announcing track columns (applicable to Studio's playlist viewer only). To use custom column order and/or exclude certain columns from being announced, uncheck this checkbox.
 	* Column inclusion and/or order: check or uncheck columns to be announced and/or customize the announcement order. See column announcements section for details.
-* Columns explorer: The four buttons in this category opens dialogs where you can configure columns explorer slots when you use Studio, Track Tool, Creator, or playlist editor in Creator and Remote VT. See Columns Explorer section for details.
+* Columns explorer: The four buttons in this category opens dialogs where you can configure columns explorer slots when you use Studio (playlist viewre), Track Tool, Creator (main tracks table), or playlist editor in Creator and Remote VT. See Columns Explorer section for details.
 * Playlist Transcripts: you can configure various settings related to Playlist Transcripts feature, including which columns to include and column order. See Playlist Transcripts section for details.
-* Status announcement: this category contains four checkboxes to configure announcement of certain status information. These include announcing scheduled time for the selected track, listener count, name of the currently playing cart and position of the player used for playing the current and the next track.
+* Status announcement (applicable to local Studio): this category contains four checkboxes to configure announcement of certain status information. These include announcing scheduled time for the selected track, listener count, name of the currently playing cart and position of the player used for playing the current and the next track.
 * Advanced (unavailable in secure mode): This category allows you to configure various advanced options. These include:
 	* Use SPl Controller to invoke SPL Assistant (enabled by default): If you check this box after assigning a command to invoke SPL Controller layer (see below), you can use SPl Controller command you assigned to invoke SPl Assistant layer. This is useful for people used to other screen readers where a single layer is used to access functions normally performed by both Controller and Assistant layers in NVDA.
 	* Assistant layer layout (NVDA by default): By default, NVDA will use the Assistant layer commands described throughout this user guide. You can choose between this default command set and JAWS for Windows, with layer commands used by these screen reader scripts replacing commands in the SPL Assistant layer. For example, with JAWS for Windows layout active, pressing SPL Assistant, R will announce playlist duration (default is SPL Assistant, D). See the list below for SPL Assistant command changes between layouts.
@@ -647,7 +647,7 @@ The triggers dialog is used to configure profile switching settings. The followi
 
 Note: if you rename the switch profile, the switch profile setting will carry over to the just renamed profile. If you delete the selected profile, instant switching setting will become undefined.
 
-## SPL Controller
+## SPL Controller (local Studio only)
 
 Note: SPL Controller is disabled if NVDA is running in secure mode such as in secure screens.
 
@@ -691,7 +691,7 @@ Note: SPL Controller, E and Q can be assigned to a different command from Input 
 
 In addition to playing carts when focused on Studio and learning about their assignments (see Cart Explorer section for details), you can play cart keys after entering SPL Controller. To do this, enter SPL Controller layer, then press the cart key.
 
-## Quickly switch to SPL Studio
+## Quickly switch to SPL local Studio
 
 There are times when you might wish to switch quickly to local Studio (not Remote Studio) from other programs (for example, if you wish to search a song from the playlist). To switch to SPL Studio from another program, press the command you assigned for this command (for 2.0 and above; for 1.2 and earlier, press NVDA+Shift+grave accent).
 
