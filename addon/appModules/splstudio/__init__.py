@@ -1986,8 +1986,7 @@ class AppModule(appModuleHandler.AppModule):
 	SPLPlaylistNotLoaded = 2
 	SPLPlaylistLastFocusUnknown = 3
 
-	# Check to make sure a playlist is indeed loaded through varous means.
-	# uses Studio API for local Studio and item count for Remote Studio.
+	# Check to make sure a playlist is indeed loaded by asking Studio API.
 	def playlistLoaded(self) -> bool:
 		return bool(splbase.studioAPI(0, SPLTrackCount))
 
@@ -2349,6 +2348,7 @@ class AppModule(appModuleHandler.AppModule):
 	# SPL Assistant: reports status on playback, operation, etc.
 	# Used layer command approach to save gesture assignments.
 	# Most were borrowed from JFW and Window-Eyes layer scripts (Window-Eyes command layout removed in 2020).
+	# Remote Studio requires performing screen traversal whereas local Studio offers its own API.
 
 	# Set up the layer script environment.
 	def getScript(self, gesture):
@@ -2415,7 +2415,10 @@ class AppModule(appModuleHandler.AppModule):
 		except WindowsError:
 			return
 
-	# Status table keys
+	# SPL Assistant layer helpers
+	# Includes screen traversal routes and playlist duration helpers.
+
+	# Status table keys for screen traversal map
 	SPLPlayStatus = 0
 	SPLSystemStatus = 1
 	SPLNextTrackTitle = 3
@@ -2501,6 +2504,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# In the layer commands below, sayStatus function is used if screen objects or API must be used
 	# (API is for Studio 5.20 and later).
+	# Local Studio: Studio API can be used.
 	def sayStatus(self, index: int) -> None:
 		# 21.03/20.09.6-LTS: no, status index must be an integer.
 		studioStatus = splbase.studioAPI(index, SPLStatusInfo)
