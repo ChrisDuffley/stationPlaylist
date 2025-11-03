@@ -87,22 +87,23 @@ class AppModule(splstudio.AppModule):
 			case _:
 				raise ValueError(f"Unrecognized track time announcement command: {trackTime}")
 
-	# SPL Assistant layer commands requiring Remote Studio specific procedure.
-
-	def script_sayHourTrackDuration(self, gesture):
-		ui.message(self.status(self.SPLTotalForHour).lastChild.name)
-
-	def script_sayHourRemaining(self, gesture):
-		ui.message(self.status(self.SPLPlaylistRemain).getChild(1).name)
-
-	def script_sayHourOvertime(self, gesture):
-		ui.message(self.status(self.SPLPlaylistRemain).firstChild.name)
-
-	def script_sayScheduledTime(self, gesture):
-		# Scheduled is the time originally specified in Studio,
-		# scheduled to play is broadcast time based on current time.
-		ui.message(self.status(self.SPLTrackStarts).firstChild.name)
-
-	def script_sayScheduledToPlay(self, gesture):
-		# This script announces length of time remaining until the selected track will play.
-		ui.message(self.status(self.SPLTrackStartsIn).firstChild.name)
+	# Announce playlist times
+	# Remote Studio: use screen traversal.
+	def announcePlaylistTimes(self, index: int) -> int:
+		# Playlist times index is an integer (Remote Studio: for compatibility with local Studio/API).
+		match index:
+			case 0:  # Hour duration
+				ui.message(self.status(self.SPLTotalForHour).lastChild.name)
+			case 1:  # Hour remaining
+				ui.message(self.status(self.SPLPlaylistRemain).getChild(1).name)
+			case 2:  # Overtime
+				ui.message(self.status(self.SPLPlaylistRemain).firstChild.name)
+			case 3:  # Scheduled/track starts
+				# Scheduled is the time originally specified in Studio,
+				# scheduled to play is broadcast time based on current time.
+				ui.message(self.status(self.SPLTrackStarts).firstChild.name)
+			case 4:  # Track starts in
+				# Announces length of time remaining until the selected track will play.
+				ui.message(self.status(self.SPLTrackStartsIn).firstChild.name)
+			case _:
+				raise ValueError(f"Unrecognized playlist time announcement command: {index}")
