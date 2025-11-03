@@ -130,6 +130,7 @@ def announceEncoderConnectionStatus() -> None:
 
 # 25.07: call Studio app module methods upon request (a higher order function).
 # Func must be a string to allow getattr to work and return nothing.
+# Applicable to local Studio (not Remote Studio).
 def studioAppModuleCommand(func: str, *args, **kwargs) -> None:
 	studioAppMod = getNVDAObjectFromEvent(
 		user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0
