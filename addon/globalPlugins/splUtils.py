@@ -111,6 +111,7 @@ def announceEncoderConnectionStatus() -> None:
 
 # Call Studio app module methods upon request.
 # Func must be a string to allow getattr to work and return nothing.
+# Applicable to local Studio (not Remote Studio).
 def studioAppModuleCommand(func: str, *args, **kwargs) -> None:
 	studioAppMod = getNVDAObjectFromEvent(
 		user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0
