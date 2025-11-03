@@ -1383,8 +1383,7 @@ class AppModule(appModuleHandler.AppModule):
 		speakOnDemand=True,
 	)
 	def script_sayRemainingTime(self, gesture):
-		if splbase.studioIsRunning():
-			self.announceTime(splbase.studioAPI(3, SPLCurTrackPlaybackTime), offset=1)
+		self.announceTrackTime("remaining")
 
 	@scriptHandler.script(
 		# Message comes from Foobar 2000 app module, part of NVDA Core.
@@ -1393,8 +1392,7 @@ class AppModule(appModuleHandler.AppModule):
 		speakOnDemand=True,
 	)
 	def script_sayElapsedTime(self, gesture):
-		if splbase.studioIsRunning():
-			self.announceTime(splbase.studioAPI(0, SPLCurTrackPlaybackTime))
+		self.announceTrackTime("elapsed")
 
 	@scriptHandler.script(
 		description=_(
