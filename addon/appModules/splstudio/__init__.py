@@ -2179,6 +2179,43 @@ class AppModule(appModuleHandler.AppModule):
 			status = status.split()[-1]
 		ui.message(status)
 
+	# Announce playlist times
+	# Local Studio only: Studio API canbe used.
+	def announcePlaylistTimes(self, index: int) -> None:
+		# Playlist times index is an integer.
+		playlistTime = splbase.studioAPI(index, SPLPlaylistHourDuration)
+		match index:
+			case 0 | 1:  # 0 = hour duration, 1 = hour remaining
+				self.announceTime(playlistTime)
+			case 2:  # Overtime
+				# Highly unlikely but None check is done to satisfy type checkers.
+				if playlistTime is not None:
+					overtimePrefix = "+" if playlistTime >= 0 else "-"
+					ui.message("{}{}".format(
+						overtimePrefix, self._ms2time(abs(playlistTime), includeHours=False)
+					))
+			case 3:  # Scheduled/track starts
+				# Scheduled is the time originally specified in Studio,
+				# scheduled to play is broadcast time based on current time.
+				# Sometimes, hour markers return seconds.999 due to rounding error,
+				# hence this must be taken care of here.
+				# #155: Studio API can return None if Studio dies.
+				if playlistTime is None:
+					return
+				trackStarts = divmod(playlistTime, 1000)
+				# For this method, all three components of time display (hour, minute, second) must be present.
+				# In case it is midnight (0.0 but sometimes shown as 86399.999 due to rounding error), just say "midnight".
+				if trackStarts in ((86399, 999), (0, 0)):
+					ui.message("00:00:00")
+				else:
+					self.announceTime(trackStarts[0] + 1 if trackStarts[1] == 999 else trackStarts[0], ms=False)
+			case 4:  # Track starts in
+				# Announces length of time remaining until the selected track will play.
+				# Hour announcement should not be used to match what's displayed on screen.
+				self.announceTime(playlistTime, includeHours=False)
+			case _:
+				raise ValueError(f"Unrecognized playlist time announcement command: {index}")
+
 	# The layer commands themselves.
 	# Not all commands are available while using Remote Studio.
 
