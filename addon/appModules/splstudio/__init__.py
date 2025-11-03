@@ -2258,10 +2258,10 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(obj.name)
 
 	def script_sayHourTrackDuration(self, gesture):
-		self.announceTime(splbase.studioAPI(0, SPLPlaylistHourDuration))
+		self.announcePlaylistTimes(0)
 
 	def script_sayHourRemaining(self, gesture):
-		self.announceTime(splbase.studioAPI(1, SPLPlaylistHourDuration))
+		self.announcePlaylistTimes(1)
 
 	def script_sayPlaylistRemainingDuration(self, gesture):
 		if self.canPerformPlaylistCommands() == self.SPLPlaylistNoErrors:
@@ -2271,13 +2271,7 @@ class AppModule(appModuleHandler.AppModule):
 			self.announceTime(self.playlistDuration(start=obj), ms=False)
 
 	def script_sayHourOvertime(self, gesture):
-		playlistOvertime = splbase.studioAPI(2, SPLPlaylistHourDuration)
-		# Highly unlikely but None check is done to satisfy type checkers.
-		if playlistOvertime is not None:
-			overtimePrefix = "+" if playlistOvertime >= 0 else "-"
-			ui.message("{}{}".format(
-				overtimePrefix, self._ms2time(abs(playlistOvertime), includeHours=False)
-			))
+		self.announcePlaylistTimes(2)
 
 	@localStudioOnly
 	def script_sayPlaylistModified(self, gesture):
@@ -2374,25 +2368,10 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(obj.name)
 
 	def script_sayScheduledTime(self, gesture):
-		# Scheduled is the time originally specified in Studio,
-		# scheduled to play is broadcast time based on current time.
-		# Sometimes, hour markers return seconds.999 due to rounding error, hence this must be taken care of here.
-		# #155: Studio API can return None if Studio dies.
-		trackStarts = splbase.studioAPI(3, SPLPlaylistHourDuration)
-		if trackStarts is None:
-			return
-		trackStarts = divmod(trackStarts, 1000)
-		# For this method, all three components of time display (hour, minute, second) must be present.
-		# In case it is midnight (0.0 but sometimes shown as 86399.999 due to rounding error), just say "midnight".
-		if trackStarts in ((86399, 999), (0, 0)):
-			ui.message("00:00:00")
-		else:
-			self.announceTime(trackStarts[0] + 1 if trackStarts[1] == 999 else trackStarts[0], ms=False)
+		self.announcePlaylistTimes(3)
 
 	def script_sayScheduledToPlay(self, gesture):
-		# This script announces length of time remaining until the selected track will play.
-		# Hour announcement should not be used to match what's displayed on screen.
-		self.announceTime(splbase.studioAPI(4, SPLPlaylistHourDuration), includeHours=False)
+		self.announcePlaylistTimes(4)
 
 	@localStudioOnly
 	def script_sayListenerCount(self, gesture):
