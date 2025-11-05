@@ -61,8 +61,8 @@ class AppModule(splstudio.AppModule):
 	statusObjs = {
 		"6": {
 			SPLRemoteStatus: [2, 0],  # Remote Studio status bar
-			SPLTrackRemainingTime: [2, 2, -1],
-			SPLTrackElapsedTime: [2, 2, -2],
+			SPLTrackRemainingTime: [2, 2, -2],
+			SPLTrackElapsedTime: [2, 2, -1],
 			SPLNextTrackTitle: [2, 2, 2],
 			SPLCurrentTrackTitle: [2, 2, 9],
 			SPLTrackStarts: [2, 2, -3],
