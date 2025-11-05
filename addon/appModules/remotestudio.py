@@ -51,19 +51,14 @@ class AppModule(splstudio.AppModule):
 	SPLTemperature = 9
 
 	# Table of child constants based on versions
-	# These are scattered throughout the screen, so one can use foreground.getChild(index) to fetch them
-	# (getChild tip from Jamie Teh (NV Access/Mozilla)).
-	# Because 6.x an possible future releases may use different screen layouts,
-	# look up the needed constant from the table below
-	# (row = info needed, column = version).
-	# As of 2025, the below table is based on Studio 6.0.
-	# #119: a list indicates iterative descent to locate the actual objects.
+	# Same as local Studio: scattered around the screen, so use foreground.getChild(index) to fetch them
+	# As of 2025, the below table is based on local Studio 6.10 interface.
 	statusObjs = {
 		"6": {
 			SPLRemoteStatus: [2, 0],  # Remote Studio status bar
 			SPLTrackRemainingTime: [2, 2, -2],
 			SPLTrackElapsedTime: [2, 2, -1],
-			SPLNextTrackTitle: [2, 2, 2],
+			SPLNextTrackTitle: [2, 2, 2, 0],
 			SPLCurrentTrackTitle: [2, 2, 9],
 			SPLTrackStarts: [2, 2, -3],
 			SPLTrackStartsIn: [2, 2, -6],
