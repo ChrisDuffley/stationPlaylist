@@ -69,7 +69,7 @@ class AppModule(splstudio.AppModule):
 			SPLTrackStartsIn: [2, 2, -6],
 			SPLPlaylistRemain: [2, 2, -5],
 			SPLTotalForHour: [2, 2, -4],
-			SPLTemperature: [-1, 1, 3, 0],  # Temperature for the current city.
+			SPLTemperature: [2, 2, 3, 1],  # Temperature for the current city.
 		},
 	}
 
