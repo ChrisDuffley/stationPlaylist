@@ -84,7 +84,7 @@ class AppModule(splstudio.AppModule):
 
 	# Announce playlist times
 	# Remote Studio: use screen traversal.
-	def announcePlaylistTimes(self, index: int) -> int:
+	def announcePlaylistTimes(self, index: int) -> None:
 		# Playlist times index is an integer (Remote Studio: for compatibility with local Studio/API).
 		match index:
 			case 0:  # Hour duration
