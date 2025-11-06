@@ -2518,7 +2518,6 @@ class AppModule(appModuleHandler.AppModule):
 	# The layer commands themselves.
 	# Not all commands are available while using Remote Studio.
 
-	@localStudioOnly
 	def script_sayPlayStatus(self, gesture):
 		self.sayStatus(0)
 
