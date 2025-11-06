@@ -109,7 +109,7 @@ def _micAlarmAnnouncer() -> None:
 
 # Manage microphone alarm announcement.
 def micAlarmManager(micAlarmWav: str, micAlarmMessage: str) -> None:
-	messageSound(micAlarmWav, micAlarmMessage)
+	wx.CallAfter(messageSound, micAlarmWav, micAlarmMessage)
 	# Play an alarm sound (courtesy of Jerry Mader from Mader Radio).
 	global micAlarmT2
 	# Use a timer to play a tone when microphone was active for more than the specified amount.
