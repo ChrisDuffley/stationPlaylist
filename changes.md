@@ -4,7 +4,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 
 ## Version 25.06.9-LTS
 
-* Initial support for Remote Studio. Although the interface resembles Studio, not all commands and features are available.
+* Initial support for StationPlaylist Remote Studio. Although the interface resembles local Studio, not all commands and features are available.
 * While in cart explorer from Remote Studio, NVDA will announce cart name and its type such as local or Studio cart.
 * Additional internal changes to make the add-on more compatible with upcoming 64-bit NVDA. In particular, resolved erroneous announcements when performing some SPL Assistant layer commands in local (original) Studio.
 * In local Studio, NVDA will be more successful when entering Cart Explorer (Alt+NVDA+3) in more cases.
