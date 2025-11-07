@@ -1,6 +1,6 @@
 # StationPlaylist Add-on User Guide
 
-Revision: October 2025 for StationPlaylist add-on 25.06.8-LTS
+Revision: November 2025 for StationPlaylist add-on 25.06.9-LTS
 
 Author: Christopher Duffley (formerly Joseph Lee)
 
@@ -59,7 +59,7 @@ In addition to StationPlaylist Studio, this add-on comes with support for the fo
 * SPL Encoders
 * AltaCast encoders
 
-Note: to differentiate between StationPlaylist Studio and Remote Studio, the former will be called "local" or "on premise" Studio in most cases throughout this user guide.
+Note: to differentiate between StationPlaylist Studio and Remote Studio, the former will be called "local" Studio in most cases throughout this user guide.
 
 Unless otherwise noted, this add-on guide will focus primarily on StationPlaylist (local) Studio. Certain commands will work across Studio and apps listed above, while others are specific to local and Remote Studio, Track Tool, or encoders. See the sections below for details.
 
@@ -82,16 +82,17 @@ You can install and update StationPlaylist add-on through NV Access add-on store
 Notes:
 
 1. Installing the add-on on a computer running an unsupported version of Studio is not supported.
-2. You need to disable audio ducking (NVDA+Shift+D), otherwise volume of audio from Studio will be lowered each time NVDA speaks.
-3. This add-on includes touchscreen commands. To use touchscreen commands, you need a touch capable computer with at least five touch points and NVDA must be installed as portable version does not support touch commands.
-4. Certain commands will be limited or disabled completely if NVDA is running in secure mode such as in secure screens. For best results, do not copy this add-on to secure screens.
-5. Some add-on commands support speech on demand mode to announce information via speech while keeping other announcements silent.
+2. Installing local Studio and Remote Studio on the same computer is not recommended.
+3. You need to disable audio ducking (NVDA+Shift+D), otherwise volume of audio from Studio will be lowered each time NVDA speaks.
+4. This add-on includes touchscreen commands. To use touchscreen commands, you need a touch capable computer with at least five touch points and NVDA must be installed as portable version does not support touch commands.
+5. Certain commands will be limited or disabled completely if NVDA is running in secure mode such as in secure screens. For best results, do not copy this add-on to secure screens.
+6. Some add-on commands support speech on demand mode to announce information via speech while keeping other announcements silent.
 
 ### Welcome dialog
 
 When you start Studio (local or remote) after installing the add-on for the first time, a welcome dialog will be presented, giving you essential information about the add-on and basic concepts. After dismissing this dialog, from Studio window, press Alt+NVDA+F1 to reopen this dialog.
 
-## Using SPl suite with NVDA
+## Using SPL suite with NVDA
 
 This section describes features available when using SPL suite of applications with this add-on.
 
@@ -118,7 +119,7 @@ Note: the layer entry commands are not assigned so you can assign your own comma
 
 When you start or switch to local Studio or connect to a Studio instance from Remote Studio, you'll be placed in Playlist Viewer. This screen shows a list of tracks you have added to be played via Studio. On top of the track listings is an hour marker to tell you the tracks you have added for this hour.
 
-For each trakc in the playlist, a check mark is available to select tracks for playback. As you select tracks in the playlist, Studio will show the total length of the playlist, useful if you wish to know if the selected track fills the current hour slot.
+For each track in the playlist, a check mark is available to select tracks for playback. As you select tracks in the playlist, Studio will show the total length of the playlist, useful if you wish to know if the selected track fills the current hour slot.
 
 If you press NVDA+Up Arrow (not the numpad up arrow in desktop layout; NVDA+L in laptop layout) or NVDA+Tab, NVDA will tell you the track information such as duration, artist, whether the track is selected for playback and so on. You can also let NVDA play a beep to indicate the track category, and when you reach top or bottom of the playlist, NVDA will play a beep to let you know of this fact. You can configure these behaviors from add-on settings.
 
@@ -180,7 +181,7 @@ Notes:
 2. You can quickly toggle screen versus custom column order announcement for track columns by pressing NVDA+V while focused on a track in Studio's playlist viewer.
 3. To make column header announcement setting applicable in Studio, create a configuration profile (either manually activated or an app-specific profile for Studio).
 
-#### Track comments (local Studio only)
+#### Track comments
 
 In case you receive a request from someone and need to write it down, you can use track comments feature to add, change, review or remove comments (notes) for tracks. As you move through tracks, you may hear NVDA say, "has comment" or play a beep to indicate existence of a track comment for the selected track. Press Alt+NVDA+C to let NVDA announce track comments if any, or press it twice to copy track comment to the clipboard so you can review it from somewhere.
 
@@ -534,7 +535,7 @@ Playlist Editor in creator and Remote VT client includes the following additiona
 * Alt+NVDA+1: Date and time for the playlist.
 * Alt+NVDA+2: Duration of the playlist.
 * Alt+NVDA+3: Date and time for when the selected track is scheduled to play.
-]* Alt+NVDA+4: Playlist category and rotation.
+* Alt+NVDA+4: Playlist category and rotation.
 
 ## Studio add-on preferences
 
@@ -687,7 +688,7 @@ Additional SPL Controller commands include:
 
 Note: SPL Controller, E and Q can be assigned to a different command from Input Gestures dialog.
 
-###Carts without borders
+### Carts without borders
 
 In addition to playing carts when focused on Studio and learning about their assignments (see Cart Explorer section for details), you can play cart keys after entering SPL Controller. To do this, enter SPL Controller layer, then press the cart key.
 
@@ -816,7 +817,7 @@ Yes. If SPL Controller command is not assigned or want to make sure there is a c
 
 Q. How can I tell NVDA to use a different sound card from the card used for streaming radio shows?
 
-To change sound cards for NVDA, Open NVDA menu, go to Preferences, Settings, then select audio settings category (you can also open this window directly by pressing Control+NVDA+U). Go to output device combo box, select the desired sound card for NVDA, then press ENTER. To switch back to the original sound card, repeat these steps, then choose the original sound card from output device combo box.
+To change sound cards for NVDA, open NVDA menu, go to Preferences, Settings, then select audio settings category (you can also open this window directly by pressing Control+NVDA+U). Go to output device combo box, select the desired sound card for NVDA, then press ENTER. To switch back to the original sound card, repeat these steps, then choose the original sound card from output device combo box.
 
 Alternatively, you can have different sound cards configured via a manually activated configuration profile that you can switch to while using Studio. First, open Configuration profiles dialog (Control+NVDA+P) and define a new manual profile. With the new profile active, select a sound card. Then switch back to the normal profile.
 
@@ -980,9 +981,9 @@ Q. Which versions of Studio are supported by which add-on releases?
 * Studio 5.20: Add-on 16.11 to 20.09.7 (November 2016-April 2021).
 * Studio 5.3x: Add-on 17.11 to 22.12 (November 2017-December 2022).
 * Studio 5.40: Add-on 19.11 to 25.05.4 (November 2019-May 2025).
-* Studio 5.50: Add-on 20.11 to 25.06.8 (November 2020-October 2025).
-* Studio 6.0x: Add-on 21.11 to 25.10 (November 2021-October 2025).
-* Studio 6.1x: Add-on 24.03 to 25.10 (April 2024-October 2025).
+* Studio 5.50: Add-on 20.11 to 25.06.9 (November 2020-November 2025).
+* Studio 6.0x: Add-on 21.11 to 25.11 (November 2021-November 2025).
+* Studio 6.1x: Add-on 24.03 to 25.11 (April 2024-November 2025).
 
 Note: the schedule above is subject to change.
 
