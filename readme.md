@@ -15,6 +15,7 @@ IMPORTANT NOTES:
 * While Studio is running, you can save, reload saved settings, or reset add-on settings to defaults by pressing Control+NVDA+C, Control+NVDA+R once, or Control+NVDA+R three times, respectively. This is also applicable to encoder settings - you can save and reset (not reload) encoder settings if using encoders.
 * Many commands will provide speech output while NVDA is in speak on demand mode (NVDA 2024.1 and later).
 * When refering to Studio, both local (original) Studio and Remote Studio will be assumed. When something is specific to StationPlaylist Studio (original), the term "local Studio" will be used.
+* Installing both Studio (local/original) and Remote Studio on the same computer is not recommended.
 
 ## Shortcut keys
 
@@ -209,7 +210,7 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 
 ## Version 25.11/25.06.9-LTS
 
-* Initial support for Remote Studio. Although the interface resembles Studio, not all commands and features are available.
+* Initial support for StationPlaylist Remote Studio. Although the interface resembles local Studio, not all commands and features are available.
 * While in cart explorer from Remote Studio, NVDA will announce cart name and its type such as local or Studio cart.
 * Additional internal changes to make the add-on more compatible with upcoming 64-bit NVDA. In particular, resolved erroneous announcements when performing some SPL Assistant layer commands in local (original) Studio.
 * In local Studio, NVDA will be more successful when entering Cart Explorer (Alt+NVDA+3) in more cases.
