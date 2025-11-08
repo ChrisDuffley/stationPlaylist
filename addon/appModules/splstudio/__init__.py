@@ -202,13 +202,6 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 		# #142: just like fake table row behavior class, nullify saved column number.
 		self.__class__._savedColumnNumber = None
 
-	# Use Studio API to obtain track position and item count.
-	def _get_locationText(self):
-		# Translators: location text for a playlist item (example: item 1 of 10).
-		return _("Item {current} of {total}").format(
-			current=self.IAccessibleChildID, total=splbase.studioAPI(0, SPLTrackCount)
-		)
-
 	# #12: select and set focus to this track.
 	def doAction(self, index=None):
 		self.setFocus()
