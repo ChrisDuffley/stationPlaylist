@@ -250,6 +250,10 @@ class SPLTimeRangeDialog(wx.Dialog):
 		self.Destroy()
 		global _findDialogOpened
 		obj = self.obj.next
+		# Exit early if Studio (local and remote) app module is gone.
+		if obj is None:
+			_findDialogOpened = False
+			return
 		# Either look up filename/track duration or duration text depending on Studio API availability.
 		if obj.appModule._studioAPIRequired:  # Local Studio
 			minDuration = ((minDuration[0] * 60) + minDuration[1]) * 1000
