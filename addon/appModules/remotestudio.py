@@ -10,9 +10,10 @@ import collections
 import ui
 import api
 import controlTypes
+import braille
 from NVDAObjects import NVDAObject
 from . import splstudio
-from .splstudio import splmisc
+from .splstudio import splmisc, splbase, splconfig
 
 
 class RemoteStudioPlaylistViewerItem(splstudio.StudioPlaylistViewerItem):
@@ -40,6 +41,43 @@ class AppModule(splstudio.AppModule):
 		if obj.windowClassName == "TStatusBar":
 			# Announce connection status in Remote Studio.
 			ui.message(obj.name)
+		# Monitor the end of track and song intro time and announce it.
+		elif obj.windowClassName == "TStaticText":
+			if obj.simplePrevious is not None:
+				if obj.simplePrevious.name == "Track Starts" and obj.parent.parent.firstChild.name == "Remaining":
+					# End of track text.
+					if (
+						splconfig.SPLConfig["General"]["BrailleTimer"] in ("outro", "both")
+						and api.getForegroundObject().processID == self.processID
+						# Only braille if end of track text is within track outro alarm threshold.
+						and splbase.studioAPI(3, SPLCurTrackPlaybackTime) < (
+							splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] * 1000  # Milliseconds
+						)
+					):
+						braille.handler.message(obj.name)
+					if (
+						obj.name
+						== "00:{0:02d}".format(splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"])
+						and splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"]
+					):
+						self.alarmAnnounce(obj.name, 440, 200)
+				elif obj.simplePrevious.name == "Track Starts" and obj.parent.parent.firstChild.name == "Song Ramp":
+					# Song intro content.
+					if (
+						splconfig.SPLConfig["General"]["BrailleTimer"] in ("intro", "both")
+						and api.getForegroundObject().processID == self.processID
+						# Only braille if track ramp text is within track intro alarm threshold.
+						and splbase.studioAPI(4, SPLCurTrackPlaybackTime) < (
+							splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"] * 1000  # Milliseconds
+						)
+					):
+						braille.handler.message(obj.name)
+					if (
+						obj.name
+						== "00:{0:02d}".format(splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"])
+						and splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"]
+					):
+						self.alarmAnnounce(obj.name, 512, 400, intro=True)
 		nextHandler()
 
 	# Cart explorer (Remote Studio)
