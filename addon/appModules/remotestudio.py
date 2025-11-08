@@ -13,7 +13,7 @@ import controlTypes
 import braille
 from NVDAObjects import NVDAObject
 from . import splstudio
-from .splcommon import splbase, splconfig, splconsts
+from .splcommon import splconfig, splconsts
 
 
 class RemoteStudioPlaylistViewerItem(splstudio.StudioPlaylistViewerItem):
@@ -50,9 +50,7 @@ class AppModule(splstudio.AppModule):
 						splconfig.SPLConfig["General"]["BrailleTimer"] in ("outro", "both")
 						and api.getForegroundObject().processID == self.processID
 						# Only braille if end of track text is within track outro alarm threshold.
-						and splbase.studioAPI(3, SPLCurTrackPlaybackTime) < (
-							splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] * 1000  # Milliseconds
-						)
+						and self._trackAlarmWithinThreshold(obj.name, splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"])
 					):
 						braille.handler.message(obj.name)
 					if (
@@ -67,9 +65,7 @@ class AppModule(splstudio.AppModule):
 						splconfig.SPLConfig["General"]["BrailleTimer"] in ("intro", "both")
 						and api.getForegroundObject().processID == self.processID
 						# Only braille if track ramp text is within track intro alarm threshold.
-						and splbase.studioAPI(4, SPLCurTrackPlaybackTime) < (
-							splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"] * 1000  # Milliseconds
-						)
+						and self._trackAlarmWithinThreshold(obj.name, splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"])
 					):
 						braille.handler.message(obj.name)
 					if (
@@ -79,6 +75,14 @@ class AppModule(splstudio.AppModule):
 					):
 						self.alarmAnnounce(obj.name, 512, 400, intro=True)
 		nextHandler()
+
+	def _trackAlarmWithinThreshold(self, trackTime: str, threshold: int) -> bool:
+		trackTimeComponents = [int(component) for component in trackTime.split(":")]
+		# Assume hh:mm:ss.
+		if len(trackTimeComponents) == 2:
+			trackTimeComponents.insert(0, 0)
+		trackTimeSeconds = (trackTimeComponents[0] * 3600) + (trackTimeComponents[1] * 60) + trackTimeComponents[2]
+		return trackTimeSeconds <= threshold
 
 	# Cart explorer (Remote Studio)
 	cartExplorer = False
