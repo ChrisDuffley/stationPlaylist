@@ -221,8 +221,8 @@ class SPLTimeRangeDialog(wx.Dialog):
 		_findDialogOpened = True
 
 	def onOk(self, evt):
-		minDuration = ((self.minMinEntry.GetValue() * 60) + self.minSecEntry.GetValue()) * 1000
-		maxDuration = ((self.maxMinEntry.GetValue() * 60) + self.maxSecEntry.GetValue()) * 1000
+		minDuration = (self.minMinEntry.GetValue(), self.minSecEntry.GetValue())
+		maxDuration = (self.maxMinEntry.GetValue(), self.maxSecEntry.GetValue())
 		# What if minimum is greater than maximum (subtle oversight)?
 		if minDuration >= maxDuration:
 			gui.messageBox(
@@ -236,31 +236,41 @@ class SPLTimeRangeDialog(wx.Dialog):
 			return
 		self.Destroy()
 		global _findDialogOpened
-		if splbase.studioIsRunning(justChecking=True):
-			obj = self.obj.next
-			# Manually locate tracks here.
-			while obj is not None:
+		obj = self.obj.next
+		# Either look up filename/track duration or duration text depending on Studio API availability.
+		if obj.appModule._studioAPIRequired:  # Local Studio
+			minDuration = ((minDuration[0] * 60) + minDuration[1]) * 1000
+			maxDuration = ((maxDuration[0] * 60) + maxDuration[1]) * 1000
+		else:  # Remote Studio
+			minDuration = f"{minDuration[0]:02d}:{minDuration[1]:02d}"
+			maxDuration = f"{maxDuration[0]:02d}:{maxDuration[1]:02d}"
+		# Manually locate tracks here.
+		while obj is not None:
+			if obj.appModule._studioAPIRequired:
 				filename = splbase.studioAPI(obj.IAccessibleChildID - 1, SPLTrackFilename)
-				if minDuration <= splbase.studioAPI(filename, SPLFileDuration) <= maxDuration:
-					break
-				obj = obj.next
-			if obj is not None:
-				# Set focus only once, as do action method on tracks will set focus twice.
-				obj.setFocus()
-				# Select the desired track manually.
-				# Selecting tracks via splbase module requires Studio API (local Studio only).
-				if obj.appModule._studioAPIRequired:
-					splbase.selectTrack(obj.IAccessibleChildID - 1)
+				duration = splbase.studioAPI(filename, SPLFileDuration)
 			else:
-				wx.CallAfter(
-					# Translators: Presented when a track with a duration
-					# between minimum and maximum duration is not found.
-					gui.messageBox,
-					_("No track with duration between minimum and maximum duration."),
-					# Translators: Standard error title for find error (copy this from main nvda.po).
-					_("Time range find error"),
-					wx.OK | wx.ICON_ERROR,
-				)
+				duration = obj._getColumnContentRaw(obj.indexOf("Duration"))
+			if minDuration <= duration <= maxDuration:
+				break
+			obj = obj.next
+		if obj is not None:
+			# Set focus only once, as do action method on tracks will set focus twice.
+			obj.setFocus()
+			# Select the desired track manually.
+			# Selecting tracks via splbase module requires Studio API (local Studio only).
+			if obj.appModule._studioAPIRequired:
+				splbase.selectTrack(obj.IAccessibleChildID - 1)
+		else:
+			wx.CallAfter(
+				# Translators: Presented when a track with a duration
+				# between minimum and maximum duration is not found.
+				gui.messageBox,
+				_("No track with duration between minimum and maximum duration."),
+				# Translators: Standard error title for find error (copy this from main nvda.po).
+				_("Time range find error"),
+				wx.OK | wx.ICON_ERROR,
+			)
 		_findDialogOpened = False
 
 	def onCancel(self, evt):
