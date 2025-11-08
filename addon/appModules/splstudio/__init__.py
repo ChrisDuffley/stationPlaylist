@@ -206,7 +206,9 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 	def doAction(self, index=None):
 		self.setFocus()
 		self.setFocus()
-		splbase.selectTrack(self.IAccessibleChildID - 1)
+		# Selecting tracks via splbase module requires Studio API (local Studio only).
+		if self.appModule._studioAPIRequired:
+			splbase.selectTrack(self.IAccessibleChildID - 1)
 
 	# Obtain column contents for all columns for this track.
 	# A convenience method that calls column content getter for a list of columns.
