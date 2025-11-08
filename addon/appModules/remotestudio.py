@@ -61,7 +61,10 @@ class AppModule(splstudio.AppModule):
 
 	# Check to make sure a playlist is indeed loaded by checking track count.
 	def playlistLoaded(self) -> bool:
-		return bool(getattr(api.getFocusObject(), "rowCount", 0))
+		focus = api.getFocusObject()
+		if isinstance(focus, RemoteStudioPlaylistViewerItem):
+			return True
+		return bool(getattr(focus, "rowCount", 0))
 
 	# Status table keys
 	# Unlike local Studio, Remote Studio may not have an API, so screen traversal must be done.
