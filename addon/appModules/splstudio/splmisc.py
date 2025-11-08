@@ -268,6 +268,10 @@ class SPLTimeRangeDialog(wx.Dialog):
 				duration = splbase.studioAPI(filename, SPLFileDuration)
 			else:
 				duration = obj._getColumnContentRaw(obj.indexOf("Duration"))
+				# Python says "01:00:00" < "59:59" thanks to string value comparison.
+				# Therefore, if there are two or more colons, convert this to an hour long track ("60:00").
+				if duration.count(":") > 1:
+					duration = "60:00"
 			if minDuration <= duration <= maxDuration:
 				break
 			obj = obj.next
