@@ -6,6 +6,7 @@
 # Borrows heavily from Studio as the user interface is quite similar with changes specific to Remote Studio.
 
 from typing import Any
+import collections
 import ui
 import api
 import controlTypes
@@ -34,6 +35,12 @@ class AppModule(splstudio.AppModule):
 		):
 			clsList.insert(0, RemoteStudioPlaylistViewerItem)
 		super().chooseNVDAObjectOverlayClasses(obj, clsList)
+
+	def event_nameChange(self, obj: NVDAObject, nextHandler: collections.abc.Callable[[], None]):
+		if obj.windowClassName == "TStatusBar":
+			# Announce connection status in Remote Studio.
+			ui.message(obj.name)
+		nextHandler()
 
 	# Cart explorer (Remote Studio)
 	cartExplorer = False
