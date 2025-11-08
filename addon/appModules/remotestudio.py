@@ -11,6 +11,14 @@ import api
 from . import splstudio
 from .splstudio import splmisc
 
+
+class RemoteStudioPlaylistViewerItem(splstudio.StudioPlaylistViewerItem):
+	"""Track items found in Remote Studio.
+	Columns are based on Studio 6.11 and earlier.
+	"""
+	pass
+
+
 class AppModule(splstudio.AppModule):
 	# Remote Studio does not require Studio API to function.
 	_studioAPIRequired = False
