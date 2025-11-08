@@ -248,7 +248,9 @@ class SPLTimeRangeDialog(wx.Dialog):
 				# Set focus only once, as do action method on tracks will set focus twice.
 				obj.setFocus()
 				# Select the desired track manually.
-				splbase.selectTrack(obj.IAccessibleChildID - 1)
+				# Selecting tracks via splbase module requires Studio API (local Studio only).
+				if obj.appModule._studioAPIRequired:
+					splbase.selectTrack(obj.IAccessibleChildID - 1)
 			else:
 				wx.CallAfter(
 					# Translators: Presented when a track with a duration
