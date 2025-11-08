@@ -1810,7 +1810,8 @@ class AppModule(appModuleHandler.AppModule):
 				trackLengths.append((segue, trackTitle))
 			obj = obj.next
 		# #55: use total track count if it is an entire playlist, if not, resort to categories count.
-		if completePlaylistSnapshot:
+		# Also resort to categories count if Studio API cannot be used (in Remote Studio).
+		if completePlaylistSnapshot and self._studioAPIRequired:
 			snapshot["PlaylistItemCount"] = splbase.studioAPI(0, SPLTrackCount)
 		else:
 			snapshot["PlaylistItemCount"] = len(categories)
