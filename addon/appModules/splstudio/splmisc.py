@@ -262,7 +262,9 @@ class SPLTimeRangeDialog(wx.Dialog):
 				obj.setFocus()
 				# 16.11: Select the desired track manually.
 				# #45 (18.02): call select track function in splbase module.
-				splbase.selectTrack(obj.IAccessibleChildID - 1)
+				# Selecting tracks via splbase module requires Studio API (local Studio only).
+				if obj.appModule._studioAPIRequired:
+					splbase.selectTrack(obj.IAccessibleChildID - 1)
 			else:
 				wx.CallAfter(
 					# Translators: Presented when a track with a duration
