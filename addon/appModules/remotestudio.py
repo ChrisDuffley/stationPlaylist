@@ -8,6 +8,8 @@
 from typing import Any
 import ui
 import api
+import controlTypes
+from NVDAObjects import NVDAObject
 from . import splstudio
 from .splstudio import splmisc
 
@@ -22,6 +24,16 @@ class RemoteStudioPlaylistViewerItem(splstudio.StudioPlaylistViewerItem):
 class AppModule(splstudio.AppModule):
 	# Remote Studio does not require Studio API to function.
 	_studioAPIRequired = False
+
+	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
+		# Same as local Studio but with different window style flags.
+		if (
+			obj.windowClassName == "TTntListView.UnicodeClass"
+			and obj.role == controlTypes.Role.LISTITEM
+			and obj.windowStyle == 1443991621
+		):
+			clsList.insert(0, RemoteStudioPlaylistViewerItem)
+		super().chooseNVDAObjectOverlayClasses(obj, clsList)
 
 	# Cart explorer (Remote Studio)
 	cartExplorer = False
