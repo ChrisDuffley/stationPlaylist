@@ -160,9 +160,11 @@ By default, the following columns or slots are defined:
 9. Genre
 10. Mood
 
-Note: Position 10 is 0 (zero) key. Notice that these are the first ten columns from left to right unless reordered.
+Note: Position 10 is 0 (zero) key. Notice that these are the first ten columns from left to right unless reordered. In local Studio 6.20, Time column is to the left of Artist column.
 
 To configure column slots, open add-on settings, select Columns Explorer category, then click "Columns Explorer for SPL Studio" button. You'll be greeted with ten combo boxes (one per column slot) where you can select columns you'd like to explore when Control+NVDA+column slot (1 through 0) keys are pressed.
+
+Note: in local Studio 6.20, when you select "Time Scheduled" from columns explorer and column order/inclusion settings (next section), NVDA will report "Time" column content. Time scheduled and time columns are not the same thing.
 
 #### Customizing column announcements
 
