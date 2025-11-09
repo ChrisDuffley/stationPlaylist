@@ -47,6 +47,7 @@ def finally_(func, final):
 # See NVDA source/appModules/winamp.py for more information.
 
 # Various SPL IPC tags.
+SPLVersion = 2
 SPLPlay = 12
 SPLStop = 13
 SPLPause = 15
@@ -216,6 +217,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		["Automation Off", "Automation On"],
 		["Microphone Off", "Microphone On"],
 		["Line-In Off", "Line-In On"],
+		["Record to file Off", "Record to file On"],
+	)
+
+	# Status messages in Studio 6.20.
+	_statusBar620Messages = (
+		["Play status: Stopped", "Play status: Playing"],
+		["Automate Off", "Automate On"],
+		["Mic Off", "Mic On"],
+		["Line Off", "Line On"],
 		["Record to file Off", "Record to file On"],
 	)
 
@@ -438,8 +448,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			ui.message(_("SPL Studio is not running."))
 			self.script_finish()
 			return
+		if splbase.studioAPI(0, SPLVersion) >= 620:
+			statusMessages = self._statusBar620Messages
+		else:
+			statusMessages = self._statusBarMessages
 		statusInfo = [
-			self._statusBarMessages[status][splbase.studioAPI(status, SPLStatusInfo)]
+			statusMessages[status][splbase.studioAPI(status, SPLStatusInfo)]
 			for status in range(5)  # Playback/automation/mic/line-in/record to file
 		]
 		# Special handling for cart edit/insert.
