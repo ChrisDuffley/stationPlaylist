@@ -26,9 +26,11 @@ addon_info = AddonInfo(
 	addon_version="25.10",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""* With debug logging enabled, NVDA will no longer record Studio API specific debug messages. A new command-line option (--spl-apidebug) was added to include Studio API debug messages and should be used as directed by add-on developers.
-* In Studio, search history in track finder (Control+NVDA+F) is replaced with a search edit field to align with NVDA's own find dialog experience.
-* In Studio, when braille timer is enabled, NVDA will only announce remaining track/intro duration if the value displayed falls below end of track/song ramp alarm value instead of displaying track remaining time."""),
+	addon_changelog=_("""* Initial support for StationPlaylist Remote Studio. Although the interface resembles local Studio, not all commands and features are available.
+* While in cart explorer from Remote Studio, NVDA will announce cart name and its type such as local or Studio cart.
+* Additional internal changes to make the add-on more compatible with upcoming 64-bit NVDA. In particular, resolved erroneous announcements when performing some SPL Assistant layer commands in local (original) Studio.
+* In local Studio, NVDA will be more successful when entering Cart Explorer (Alt+NVDA+3) in more cases.
+* In local Studio, resolved a potential security and privacy issue after switching users while Cart Explorer is active where the cart assignments from the previous user can be announced."""),
 	# Author(s)
 	addon_author="Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)",
 	# URL for the add-on documentation support
