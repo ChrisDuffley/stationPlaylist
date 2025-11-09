@@ -107,11 +107,13 @@ class SPLFindDialog(wx.Dialog):
 		self.findEntry = findSizerHelper.addLabeledControl(findPrompt, wx.TextCtrl, value=text)
 
 		if columnSearch:
+			# Use default screen column order when searching column content.
+			columns = list(self.obj.screenColumnOrder)
 			self.columnHeaders = findSizerHelper.addLabeledControl(
 				# Translators: The label in track finder to search columns.
 				_("C&olumn to search:"),
 				wx.Choice,
-				choices=splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"],
+				choices=columns,
 			)
 			self.columnHeaders.SetSelection(0)
 
