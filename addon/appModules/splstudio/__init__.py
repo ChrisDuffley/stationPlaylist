@@ -960,6 +960,7 @@ class AppModule(appModuleHandler.AppModule):
 		match obj.windowClassName:
 			case "TTntListView.UnicodeClass":
 				if role == controlTypes.Role.LISTITEM:
+					trackItemWindowStyle = 1443958849 if self.productVersion >= "6.20" else 1443991617
 					if trackItemWindowStyle in (
 						1443991617,  # Studio 6.11 and earlier
 						1443958849  # Studio 6.20
