@@ -2,6 +2,10 @@
 
 This page lists the complete changelog for StationPlaylist add-on releases.
 
+## Version 25.06.11-LTS
+
+* In local Studio 6.20, NVDA will no longer announce wrong column content when vertical column navigation is set to "Time Scheduled" (Time column).
+
 ## Version 25.06.9-LTS
 
 * Initial support for StationPlaylist suite 6.20.
