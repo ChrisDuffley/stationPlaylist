@@ -679,11 +679,16 @@ _timeScheduled2Time: bool = False
 # Although this is useful in playlist transcripts,
 # it can also be useful for column announcement inclusion and order.
 def columnPresentationOrder() -> list[str]:
-	return [
+	global _timeScheduled2Time
+	presentationOrder = [
 		column
 		for column in splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"]
 		if column in splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"]
 	]
+	if _timeScheduled2Time and "Time Scheduled" in presentationOrder:
+		presentationOrder[presentationOrder.index("Time Scheduled")] = "Time"
+		_timeScheduled2Time = False
+	return presentationOrder
 
 
 # Various post-transcript actions.
