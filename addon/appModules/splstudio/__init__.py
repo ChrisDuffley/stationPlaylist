@@ -254,6 +254,11 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	It provides utility scripts when Playlist Viewer entries are focused,
 	such as location text and enhanced column navigation."""
 
+	@property
+	def screenColumnOrder(self):
+		# Return the actual default column order based on Studio release.
+		return indexOf(self.appModule.productVersion)[1:]
+
 	def _get_name(self):
 		# 6.3: Catch an unusual case where screen order is off yet column order is same as screen order
 		# and NVDA is told to announce all columns.
