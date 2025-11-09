@@ -2534,6 +2534,15 @@ class AppModule(appModuleHandler.AppModule):
 		["Record to file Off", "Record to file On"],
 	)
 
+	# Status bar messages in Studio 6.20.
+	_statusBar620Messages = (
+		["Play status: Stopped", "Play status: Playing"],
+		["Automate Off", "Automate On"],
+		["Mic Off", "Mic On"],
+		["Line Off", "Line On"],
+		["Record to file Off", "Record to file On"],
+	)
+
 	# In the layer commands below, sayStatus function is used if screen objects or API must be used
 	# (API is for Studio 5.20 and later).
 	# Local Studio: Studio API can be used.
@@ -2542,7 +2551,10 @@ class AppModule(appModuleHandler.AppModule):
 		studioStatus = splbase.studioAPI(index, SPLStatusInfo)
 		if studioStatus is None:
 			return
-		status = self._statusBarMessages[index][studioStatus]
+		if self.productVersion >= "6.20":
+			status = self._statusBar620Messages[index][studioStatus]
+		else:
+			status = self._statusBarMessages[index][studioStatus]
 		if splconfig.SPLConfig["General"]["MessageVerbosity"] == "advanced":
 			status = status.split()[-1]
 		ui.message(status)
