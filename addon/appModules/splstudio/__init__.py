@@ -721,8 +721,10 @@ class AppModule(appModuleHandler.AppModule):
 		match obj.windowClassName:
 			case "TTntListView.UnicodeClass":
 				if role == controlTypes.Role.LISTITEM:
-					trackItemWindowStyle = 1443991617
-					if abs(windowStyle - trackItemWindowStyle) % 0x100000 == 0:
+					if trackItemWindowStyle in (
+						1443991617,  # Studio 6.11 and earlier
+						1443958849  # Studio 6.20
+					) and abs(windowStyle - trackItemWindowStyle) % 0x100000 == 0:
 						clsList.insert(0, StudioPlaylistViewerItem)
 					else:
 						clsList.insert(0, SPLStudioTrackItem)
