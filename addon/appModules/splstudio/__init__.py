@@ -2246,7 +2246,7 @@ class AppModule(appModuleHandler.AppModule):
 		if self.productVersion < "6.10":
 			self.script_error(None)
 			return
-		obj = self.status(self.SPLPlayStatus).lastChild
+		obj = self.status(self.SPLPlayStatus).getChild(7)
 		ui.message(obj.name)
 
 	def script_sayHourTrackDuration(self, gesture):
