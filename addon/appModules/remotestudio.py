@@ -172,6 +172,22 @@ class AppModule(splstudio.AppModule):
 			case _:
 				raise ValueError(f"Unrecognized track time announcement command: {trackTime}")
 
+	# Report status bar contents such as microphone status.
+	# Remote Studio: parse status bar text.
+	def sayStatus(self, index: int) -> None:
+		# No, status index must be an integer (compatibility with local Studio).
+		# Status bar is empty if not connected.
+		status = self.status(self.SPLRemoteStatus).displayText
+		if not status:
+			# Translators: presented when Remote Studio status cannot be obtained.
+			ui.message(_("No Remote Studio status Information"))
+			return
+		# Status text is separated by vertical lines.
+		status = status.split("  |  ")[index]
+		if splconfig.SPLConfig["General"]["MessageVerbosity"] == "advanced":
+			status = status.split()[-1]
+		ui.message(status)
+
 	# SPL Assistant layer commands requiring Remote Studio specific procedure.
 
 	def script_sayHourTrackDuration(self, gesture):
