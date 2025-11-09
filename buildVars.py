@@ -26,7 +26,8 @@ addon_info = AddonInfo(
 	addon_version="25.10",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""* Initial support for StationPlaylist Remote Studio. Although the interface resembles local Studio, not all commands and features are available.
+	addon_changelog=_("""* Initial support for StationPlaylist suite 6.20.
+* Initial support for StationPlaylist Remote Studio. Although the interface resembles local Studio, not all commands and features are available.
 * While in cart explorer from Remote Studio, NVDA will announce cart name and its type such as local or Studio cart.
 * Additional internal changes to make the add-on more compatible with upcoming 64-bit NVDA. In particular, resolved erroneous announcements when performing some SPL Assistant layer commands in local (original) Studio.
 * In local Studio, NVDA will be more successful when entering Cart Explorer (Alt+NVDA+3) in more cases.
