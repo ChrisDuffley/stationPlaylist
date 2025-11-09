@@ -93,8 +93,8 @@ class AppModule(splstudio.AppModule):
 				ui.message(obj.name)
 		# Monitor the end of track and song intro time and announce it.
 		elif obj.windowClassName == "TStaticText":
-			if obj.simplePrevious is not None:
-				if obj.simplePrevious.name == "Track Starts" and obj.parent.parent.firstChild.name == "Remaining":
+			if obj.simplePrevious and obj.simplePrevious.name == "Track Starts":
+				if obj.parent.parent.firstChild.name == "Remaining":
 					# End of track text.
 					if (
 						splconfig.SPLConfig["General"]["BrailleTimer"] in ("outro", "both")
@@ -109,7 +109,7 @@ class AppModule(splstudio.AppModule):
 						and splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"]
 					):
 						self.alarmAnnounce(obj.name, 440, 200)
-				elif obj.simplePrevious.name == "Track Starts" and obj.parent.parent.firstChild.name == "Song Ramp":
+				elif obj.parent.parent.firstChild.name == "Song Ramp":
 					# Song intro content.
 					if (
 						splconfig.SPLConfig["General"]["BrailleTimer"] in ("intro", "both")
