@@ -830,9 +830,13 @@ class AppModule(appModuleHandler.AppModule):
 					self.doExtraAction(obj.name)
 		# Monitor the end of track and song intro time and announce it.
 		elif obj.windowClassName == "TStaticText":
-			if obj.simplePrevious is not None:
-				if obj.simplePrevious.name == "Track Starts" and obj.parent.parent.firstChild.name == "Remaining":
-					# End of track text.
+			if obj.simplePrevious and obj.simplePrevious.name == "Track Starts":
+				remainingText = obj.parent.parent.firstChild
+				# When Remote Studio is connected, screen content child item indecies shift right.
+				if "Remote Studio" in remainingText.name:
+					remainingText = remainingText.simpleNext
+				# End of track text.
+				if remainingText.name == "Remaining":
 					if (
 						splconfig.SPLConfig["General"]["BrailleTimer"] in ("outro", "both")
 						and api.getForegroundObject().processID == self.processID
@@ -848,8 +852,8 @@ class AppModule(appModuleHandler.AppModule):
 						and splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"]
 					):
 						self.alarmAnnounce(obj.name, 440, 200)
-				elif obj.simplePrevious.name == "Track Starts" and obj.parent.parent.firstChild.name == "Song Ramp":
-					# Song intro content.
+				# Song intro content.
+				elif remainingText.name == "Song Ramp":
 					if (
 						splconfig.SPLConfig["General"]["BrailleTimer"] in ("intro", "both")
 						and api.getForegroundObject().processID == self.processID
