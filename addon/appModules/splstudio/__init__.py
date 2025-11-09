@@ -265,10 +265,22 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 		# 17.04: Even if vertical column commands are performed, build description pieces for consistency.
 		# 20.11: build name pieces, as SysListView32.ListItem class nullifies description.
 		# 19.06: have the column inclusion and order keys handy in order to avoid attribute lookup.
-		columnsToInclude = splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]
-		columnOrder = splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
+		# 25.11/25.06.9-LTS: create a copy of included columns and column order
+		# so "Time Scheduled" can become "Time" in local Studio 6.20.
+		columnsToInclude = set(splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"])
+		columnOrder = list(splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"])
+		if "Time" in self.screenColumnOrder:
+			if "Time Scheduled" in columnsToInclude:
+				columnsToInclude.discard("Time Scheduled")
+				columnsToInclude.add("Time")
+			if "Time Scheduled" in columnOrder:
+				timeIndex = columnOrder.index("Time Scheduled")
+				columnOrder[timeIndex] = "Time"
+				columnOrder = tuple(columnOrder)
+		# Catch an unusual case where screen order is off yet column order is same as screen order
+		# and NVDA is told to announce all columns.
 		if not splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] and (
-			columnOrder != splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+			columnOrder != self.screenColumnOrder
 			or len(columnsToInclude) != 17
 		):
 			trackNamePieces = []
