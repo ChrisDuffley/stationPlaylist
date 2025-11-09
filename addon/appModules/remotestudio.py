@@ -11,6 +11,7 @@ import ui
 import api
 import controlTypes
 import braille
+import scriptHandler
 from NVDAObjects import NVDAObject
 from . import splstudio
 from .splcommon import splconfig, splconsts
@@ -40,6 +41,22 @@ class RemoteStudioPlaylistViewerItem(splstudio.StudioPlaylistViewerItem):
 		except ValueError:
 			return None
 
+	# Tell NVDA to announce just the changed bits of the status bar.
+	@scriptHandler.script(gestures=[f"kb:{k}" for k in ["Enter", "A", "L", "M", "N", "S", "T", "U"]])
+	def script_remoteStudioActions(self, gesture):
+		match gesture.displayName:
+			case "enter" | "s" | "t" | "u":  # Play (Enter)/pause (U)/stop (S)/instant stop (T)
+				self.appModule._statusBarChangedPosition = 0
+			case "a":  # Automation
+				self.appModule._statusBarChangedPosition = 1
+			case "m" | "n":  # Microphone (M)/mic no fade (N)
+				self.appModule._statusBarChangedPosition = 2
+			case "l":  # Line-in
+				self.appModule._statusBarChangedPosition = 3
+			case _:  # Everything else
+				pass
+		gesture.send()
+
 
 class AppModule(splstudio.AppModule):
 	# Remote Studio does not require Studio API to function.
@@ -55,10 +72,25 @@ class AppModule(splstudio.AppModule):
 			clsList.insert(0, RemoteStudioPlaylistViewerItem)
 		super().chooseNVDAObjectOverlayClasses(obj, clsList)
 
+	# Status bar is one long text separated by vertical bars (|).
+	# Record which status bar portion was changed.
+	_statusBarChangedPosition: int | None = None
+
 	def event_nameChange(self, obj: NVDAObject, nextHandler: collections.abc.Callable[[], None]):
 		if obj.windowClassName == "TStatusBar":
-			# Announce connection status in Remote Studio.
-			ui.message(obj.name)
+			# Only announce the changed parts of the status bar.
+			if "|" in obj.name and self._statusBarChangedPosition is not None:
+				statusBarText = obj.name.split("  |  ")[self._statusBarChangedPosition]
+				self._statusBarChangedPosition = None
+				# Do play a beep when asked.
+				if statusBarText.endswith((" On", " Off")):
+					self._toggleMessage(statusBarText)
+				if splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]:
+					# Activate mic alarm or announce when cart explorer is active.
+					self.doExtraAction(statusBarText)
+			else:
+				# Announce connection status in Remote Studio.
+				ui.message(obj.name)
 		# Monitor the end of track and song intro time and announce it.
 		elif obj.windowClassName == "TStaticText":
 			if obj.simplePrevious is not None:
