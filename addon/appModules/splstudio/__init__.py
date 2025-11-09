@@ -2113,15 +2113,16 @@ class AppModule(appModuleHandler.AppModule):
 	# (row = info needed, column = version).
 	# As of 2025, the below table is based on Studio 6.0.
 	# #119: a list indicates iterative descent to locate the actual objects.
+	# Index is backwards (Remote Studio status is inserted in the beginning, displacing index by 1).
 	statusObjs = {
 		"6": {
 			SPLPlayStatus: [-1, -3],  # Play status, mic, control keys (Studio 6.10 and later), etc.
 			SPLSystemStatus: [-1, -2],  # The second status bar containing system status such as up time.
-			SPLNextTrackTitle: [-1, 1, 2, 0],  # Name and duration of the next track if any.
-			SPLNextPlayer: [-1, 1, 2, 1],  # Name and duration of the next track if any.
-			SPLCurrentTrackTitle: [-1, 1, 9],  # Name of the currently playing track.
-			SPLCurrentPlayer: [-1, 1, 9, 0],  # Name of the currently playing track.
-			SPLTemperature: [-1, 1, 3, -1],  # Temperature for the current city.
+			SPLNextTrackTitle: [-1, 1, -14, 0],  # Name and duration of the next track if any.
+			SPLNextPlayer: [-1, 1, -14, 1],  # Name and duration of the next track if any.
+			SPLCurrentTrackTitle: [-1, 1, -7],  # Name of the currently playing track.
+			SPLCurrentPlayer: [-1, 1, -7, 0],  # Name of the currently playing track.
+			SPLTemperature: [-1, 1, -13, -1],  # Temperature for the current city.
 		},
 	}
 
