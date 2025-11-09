@@ -322,9 +322,11 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	# #109 (19.08): now standardized around this function.
 	# #142 (20.09): do not ignore Status column (0) just because it is the name of the track as reported by MSAA.
 	def indexOf(self, columnHeader: str) -> int | None:
+		# Convert "Time Scheduled" to "Time" in Studio 6.20.
+		if self.appModule.productVersion >= "6.20" and columnHeader == "Time Scheduled":
+			columnHeader = "Time"
 		try:
-			columnHeaders = ["Status"] + splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
-			return columnHeaders.index(columnHeader)
+			return indexOf(self.appModule.productVersion).index(columnHeader)
 		except ValueError:
 			return None
 
