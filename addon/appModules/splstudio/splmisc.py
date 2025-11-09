@@ -749,7 +749,7 @@ def playlist2msaa(
 		filteredContent = []
 		# #148: work directly with column content and position rather than going through column pos index.
 		for column, content in enumerate(columnContents):
-			if content is not None:
+			if content:
 				filteredContent.append("{}: {}".format(columnHeaders[column], content))
 		playlistTranscripts.append("{0}{1}{2}".format(prefix, "; ".join(filteredContent), suffix))
 		obj = obj.next
