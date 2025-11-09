@@ -1046,8 +1046,14 @@ class AppModule(appModuleHandler.AppModule):
 		elif obj.windowClassName == "TStaticText":
 			if obj.simplePrevious is not None:
 				studio6layout = self.productVersion >= "6.0" and obj.simplePrevious.name == "Track Starts"
+				if studio6layout:
+					remainingText = obj.parent.parent.firstChild
+					# In Studio 6.20, when Remote Studio is connected,
+					# screen content child item indecies shift right.
+					if "Remote Studio" in remainingText.name:
+						remainingText = remainingText.simpleNext
 				if (self.productVersion < "6.0" and obj.simplePrevious.name == "Remaining Time") or (
-					studio6layout and obj.parent.parent.firstChild.name == "Remaining"
+					studio6layout and remainingText.name == "Remaining"
 				):
 					# End of track text.
 					if (
@@ -1066,7 +1072,7 @@ class AppModule(appModuleHandler.AppModule):
 					):
 						self.alarmAnnounce(obj.name, 440, 200)
 				elif (self.productVersion < "6.0" and obj.simplePrevious.name == "Remaining Song Ramp") or (
-					studio6layout and obj.parent.parent.firstChild.name == "Song Ramp"
+					studio6layout and remainingText.name == "Song Ramp"
 				):
 					# Song intro content.
 					if (
