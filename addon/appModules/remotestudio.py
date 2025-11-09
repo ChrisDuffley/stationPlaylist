@@ -22,7 +22,7 @@ from .splstudio import splmisc, splconfig
 def indexOf(rsVersion: str) -> tuple[str, ...]:
 	# Remote Studio 6.20 defines Studio 6.11 column headers.
 	# Therefore, the version parameter is not needed.
-	return tuple(["Status"] + splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])
+	return tuple(["Status"] + splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])
 
 
 class RemoteStudioPlaylistViewerItem(splstudio.StudioPlaylistViewerItem):

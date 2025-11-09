@@ -135,10 +135,10 @@ browseableMessageButtons = {"closeButton": True} if buildVersion.version_year >=
 # Studio 6.1x and 6.20 track items have different column headers.
 def indexOf(studioVersion: str) -> tuple[str, ...]:
 	if studioVersion < "6.20":
-		columnHeaders = ["Status"] + splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+		columnHeaders = ["Status"] + splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 	else:
 		# Studio 6.20 renamed "Time Scheduled" to "Time" and moved it to the left.
-		columnHeaders = ["Status", "Time"] + splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"][:-1]
+		columnHeaders = ["Status", "Time"] + splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"][:-1]
 	return tuple(columnHeaders)
 
 
