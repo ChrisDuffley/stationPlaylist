@@ -28,7 +28,11 @@ class RemoteStudioPlaylistViewerItem(splstudio.StudioPlaylistViewerItem):
 	"""Track items found in Remote Studio.
 	Columns are based on Studio 6.11 and earlier.
 	"""
-	pass
+
+	@property
+	def screenColumnOrder(self):
+		# Return the actual default column order based on Studio release.
+		return indexOf(self.appModule.productVersion)[1:]
 
 
 class AppModule(splstudio.AppModule):

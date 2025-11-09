@@ -129,6 +129,11 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 	It provides utility scripts when Playlist Viewer entries are focused,
 	such as location text and enhanced column navigation."""
 
+	@property
+	def screenColumnOrder(self):
+		# Return the actual default column order based on Studio release.
+		return indexOf(self.appModule.productVersion)[1:]
+
 	def _get_name(self):
 		# Build name pieces, as SysListView32.ListItem class nullifies description.
 		# 19.06: have the column inclusion and order keys handy in order to avoid attribute lookup.
