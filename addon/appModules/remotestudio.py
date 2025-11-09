@@ -34,6 +34,12 @@ class RemoteStudioPlaylistViewerItem(splstudio.StudioPlaylistViewerItem):
 		# Return the actual default column order based on Studio release.
 		return indexOf(self.appModule.productVersion)[1:]
 
+	def indexOf(self, columnHeader: str) -> int | None:
+		try:
+			return indexOf(self.appModule.productVersion).index(columnHeader)
+		except ValueError:
+			return None
+
 
 class AppModule(splstudio.AppModule):
 	# Remote Studio does not require Studio API to function.
