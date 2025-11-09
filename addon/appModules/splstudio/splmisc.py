@@ -634,6 +634,9 @@ def metadata_actionSettingsReset(factoryDefaults: bool = False) -> None:
 # Takes a snapshot of the active playlist (a 2-D array) and transforms it into various formats.
 # To account for expansions, let a master function call different formatters based on output format.
 SPLPlaylistTranscriptFormats = []
+# Local Studio 6.20 changes "Time Scheduled" to "Time".
+# Present the correct column title.
+_timeScheduled2Time: bool = False
 
 
 # Obtain column presentation order.
@@ -972,7 +975,8 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 		self.transcriptAction.SetSelection(0)
 
 	def onOk(self, evt):
-		global _plTranscriptsDialogOpened
+		global _plTranscriptsDialogOpened, _timeScheduled2Time
+		_timeScheduled2Time = "Time" in self.obj.screenColumnOrder
 		start = None
 		end = None
 		transcriptRange = self.transcriptRange.Selection
