@@ -131,6 +131,17 @@ _SPLCategoryTones = {
 browseableMessageButtons = {"closeButton": True} if buildVersion.version_year >= 2025 else {}
 
 
+# Return a tuple of column headers.
+# Studio 6.1x and 6.20 track items have different column headers.
+def indexOf(studioVersion: str) -> tuple[str, ...]:
+	if studioVersion < "6.20":
+		columnHeaders = ["Status"] + splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+	else:
+		# Studio 6.20 renamed "Time Scheduled" to "Time" and moved it to the left.
+		columnHeaders = ["Status", "Time"] + splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"][:-1]
+	return tuple(columnHeaders)
+
+
 # Routines for track items themselves (prepare for future work).
 # #65 (18.07): this base class represents trakc items
 # across StationPlaylist suites such as Studio, Creator and Track Tool.
