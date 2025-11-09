@@ -906,7 +906,7 @@ You can customize announcement and/or order of announcement for the following co
 * Rating
 * Tempo
 * BPM
-* Time scheduled
+* Time scheduled (Time in local Studio 6.20)
 
 Notice that these are the columns shown in Studio's playlist viewer.
 
@@ -984,6 +984,7 @@ Q. Which versions of Studio are supported by which add-on releases?
 * Studio 5.50: Add-on 20.11 to 25.06.9 (November 2020-November 2025).
 * Studio 6.0x: Add-on 21.11 to 25.11 (November 2021-November 2025).
 * Studio 6.1x: Add-on 24.03 to 25.11 (April 2024-November 2025).
+* Studio 6.20: Add-on 25.11 to 25.11 (November 2025-November 2025).
 
 Note: the schedule above is subject to change.
 
