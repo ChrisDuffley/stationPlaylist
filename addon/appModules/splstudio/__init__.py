@@ -952,14 +952,14 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when microphone was on for more than a specified time in microphone alarm dialog.
 			micAlarmMessage = _("Warning: Microphone active")
 			# Use a timer to play a tone when microphone was active for more than the specified amount.
-			if status == "Microphone On":
+			if status in ("Microphone On", "Mic On"):  # Local versus Remote Studio
 				micAlarmT = threading.Timer(micAlarm, micAlarmManager, args=[micAlarmWav, micAlarmMessage])
 				try:
 					micAlarmT.start()
 				except RuntimeError:
 					micAlarmT = threading.Timer(micAlarm, messageSound, args=[micAlarmWav, micAlarmMessage])
 					micAlarmT.start()
-			elif status == "Microphone Off":
+			elif status in ("Microphone Off", "Mic Off"):  # Local versus Remote Studio
 				if micAlarmT is not None:
 					micAlarmT.cancel()
 				micAlarmT = None
