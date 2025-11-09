@@ -36,14 +36,37 @@ cartKeys = (
 )
 
 # Studio status messages.
-# Studio allows fetching status bar info from anywhere via Studio API,
+# Local Studio allows fetching status bar info from anywhere via Studio API,
 # including playback and automation status.
 # For consistency reasons (because of the Studio status bar),
 # messages in this collection will remain in English.
-studioStatusMessages = (
+# Local Studio 6.11 and earlier and 6.20 have different messages.
+_studioStatusMessages = (
 	["Play status: Stopped", "Play status: Playing"],
 	["Automation Off", "Automation On"],
 	["Microphone Off", "Microphone On"],
 	["Line-In Off", "Line-In On"],
 	["Record to file Off", "Record to file On"],
 )
+
+_studio620StatusMessages = (
+	["Play status: Stopped", "Play status: Playing"],
+	["Automate Off", "Automate On"],
+	["Mic Off", "Mic On"],
+	["Line Off", "Line On"],
+	["Record to file Off", "Record to file On"],
+)
+
+# Customize attribute access (mostly for status messages).
+def __getattr__(attribute: str):
+	match attribute:
+		case "studioStatusMessages":  # Status bar messages
+			# Return the appropriate status messages based on local Studio version (lparam = 2).
+			# Base services is supposed to be a separate entity.
+			from . import splbase
+			if (studioVersion := splbase.studioAPI(0, 2)) is not None and studioVersion >= 620:
+				return _studio620StatusMessages
+			else:
+				return _studioStatusMessages
+		case _:
+			raise AttributeError(f"module {repr(__name__)} has no attribute {repr(attribute)}")
