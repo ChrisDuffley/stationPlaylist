@@ -4,6 +4,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 
 ## Version 25.12/25.06.11-LTS
 
+* 25.12: In Studio 6.0 and later, NVDA will announce track starts value correctly (SPL Assistant, S).
 * In local Studio 6.20, NVDA will no longer announce wrong column content when vertical column navigation is set to "Time Scheduled" (Time column).
 * When performing playlist transcripts in local Studio 6.20, NVDA will include the correct column title for time column instead of time scheduled.
 * NVDA will no longer include empty column content when generating playlist transcripts in plain text and HTML list formats.
