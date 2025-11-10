@@ -1663,7 +1663,7 @@ _splComponent: str | None = None
 
 # Main add-on settings screen.
 def onConfigDialog(evt):
-	wx.CallAfter(openAddonSettingsPanel, None)
+	openAddonSettingsPanel(None)
 
 
 # Open broadcast profiles dialog and its friends upon request.
