@@ -2231,13 +2231,9 @@ class AppModule(appModuleHandler.AppModule):
 				# #155: Studio API can return None if Studio dies.
 				if playlistTime is None:
 					return
-				trackStarts = divmod(playlistTime, 1000)
-				# For this method, all three components of time display (hour, minute, second) must be present.
-				# In case it is midnight (0.0 but sometimes shown as 86399.999 due to rounding error), just say "midnight".
-				if trackStarts in ((86399, 999), (0, 0)):
-					ui.message("00:00:00")
-				else:
-					self.announceTime(trackStarts[0] + 1 if trackStarts[1] == 999 else trackStarts[0], ms=False)
+				# Unlike other cases, track starts display rely on local time format.
+				# Therefore, screen traversal is better here.
+				ui.message(self.status(self.SPLTrackStarts).name)
 			case 4:  # Track starts in
 				# Announces length of time remaining until the selected track will play.
 				# Hour announcement should not be used to match what's displayed on screen.
