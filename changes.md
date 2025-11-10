@@ -8,6 +8,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 * In local Studio 6.20, NVDA will no longer announce wrong column content when vertical column navigation is set to "Time Scheduled" (Time column).
 * When performing playlist transcripts in local Studio 6.20, NVDA will include the correct column title for time column instead of time scheduled.
 * NVDA will no longer include empty column content when generating playlist transcripts in plain text and HTML list formats.
+* In Remote Studio, taking playlist snapshots (SPL Assistant, F8) shows more accurate results.
 
 ## Version 25.11/25.06.9-LTS
 
