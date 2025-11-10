@@ -2137,6 +2137,7 @@ class AppModule(appModuleHandler.AppModule):
 	SPLCurrentTrackTitle = 4
 	SPLCurrentPlayer = 5
 	SPLTemperature = 6
+	SPLTrackStarts = 7
 
 	# Table of child constants based on versions
 	# These are scattered throughout the screen, so one can use foreground.getChild(index) to fetch them
@@ -2156,6 +2157,7 @@ class AppModule(appModuleHandler.AppModule):
 			SPLCurrentTrackTitle: [-1, 1, -7],  # Name of the currently playing track.
 			SPLCurrentPlayer: [-1, 1, -7, 0],  # Name of the currently playing track.
 			SPLTemperature: [-1, 1, -13, -1],  # Temperature for the current city.
+			SPLTrackStarts: [-1, 1, -3, 0],  # Track starts (time since midnight)
 		},
 	}
 
