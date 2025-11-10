@@ -1555,22 +1555,35 @@ _configDialogOpened = False
 
 
 class SPLConfigDialog(gui.MultiCategorySettingsDialog):
-	# Translators: This is the label for the StationPlaylist add-on configuration dialog.
-	title = _("StationPlaylist Add-on Settings")
-	categoryClasses = [
-		GeneralSettingsPanel,
-		AlarmsPanel,
-		PlaylistSnapshotsPanel,
-		MetadataStreamingPanel,
-		ColumnAnnouncementsPanel,
-		ColumnsExplorerPanel,
-		PlaylistTranscriptsPanel,
-		SayStatusPanel,
-	]
-	# Security: only add the following panels if not in secure mode.
-	if not globalVars.appArgs.secure:
-		categoryClasses.append(AdvancedOptionsPanel)
-		categoryClasses.append(ResetSettingsPanel)
+
+	# Provide contextual title (Studio or Remote Studio)
+	@property
+	def title(self) -> str:
+		prevFocusedAppName = "Remote Studio" if _splComponent == "remotestudio" else "Studio"
+		# Translators: This is the label for the StationPlaylist add-on configuration dialog.
+		return _("StationPlaylist Add-on Settings ({appName})").format(appName=prevFocusedAppName)
+
+	@property
+	def categoryClasses(self) -> list[gui.settingsDialogs.SettingsPanel]:
+		actualCategoryClasses = [
+			GeneralSettingsPanel,
+			AlarmsPanel,
+			PlaylistSnapshotsPanel,
+			MetadataStreamingPanel,
+			ColumnAnnouncementsPanel,
+			ColumnsExplorerPanel,
+			PlaylistTranscriptsPanel,
+			SayStatusPanel,
+		]
+		# Remove metadata streaming and status announcements panels if opened from Remote Studio.
+		if _splComponent == "remotestudio":
+			actualCategoryClasses.remove(MetadataStreamingPanel)
+			actualCategoryClasses.remove(SayStatusPanel)
+		# Security: only add the following panels if not in secure mode.
+		if not globalVars.appArgs.secure:
+			actualCategoryClasses.append(AdvancedOptionsPanel)
+			actualCategoryClasses.append(ResetSettingsPanel)
+		return actualCategoryClasses
 
 	def makeSettings(self, settingsSizer):
 		super(SPLConfigDialog, self).makeSettings(settingsSizer)
