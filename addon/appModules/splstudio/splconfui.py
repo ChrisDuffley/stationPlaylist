@@ -1618,8 +1618,13 @@ def openAddonSettingsPanel(panel: gui.settingsDialogs.SettingsPanel):
 	if _configDialogOpened:
 		wx.CallAfter(configDialogOpenError)
 	else:
+		global _splComponent
+		_splComponent = (gui.mainFrame.prevFocus or api.getFocusObject()).appModule.appName
 		gui.mainFrame.popupSettingsDialog(SPLConfigDialog, panel)
 
+
+# Record which Studio component was responsible for opening the config dilaog.
+_splComponent: str | None = None
 
 # Main add-on settings screen.
 def onConfigDialog(evt):
