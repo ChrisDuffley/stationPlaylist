@@ -2135,9 +2135,12 @@ class AppModule(appModuleHandler.AppModule):
 			trackTitle = obj._getColumnContentRaw(title)
 			categories.append(obj._getColumnContentRaw(category))
 			# Don't record artist and genre information for an hour marker (reported by a broadcaster).
+			# In Remote Studio, hour marker sets "00:00" as duration, so don't add segue either.
 			if categories[-1] != "Hour Marker":
 				artists.append(obj._getColumnContentRaw(artist))
 				genres.append(obj._getColumnContentRaw(genre))
+			else:
+				segue = None
 			# 21.03/20.09.6-LTS: convert segue to an integer for ease of min/max comparison.
 			# NVDA 2020.4 returns an empty string instead of None in order to
 			# avoid errors with 64-bit SysListView32 controls.
