@@ -198,7 +198,7 @@ Pressing SPL Assistant, Shift+F8 will present a dialog to let you request playli
 
 ## Configuration dialog
 
-From studio window, you can press Alt+NVDA+0 to open the add-on configuration dialog. Alternatively, go to NVDA's preferences menu and select SPL Studio Settings item. Not all settings are available if NVDA is running in secure mode.
+From studio window, you can press Alt+NVDA+0 to open the add-on configuration dialog. Alternatively, go to NVDA's preferences menu and select SPL Studio Settings item. Not all settings are available if NVDA is running in secure mode and while using Remote Studio.
 
 ## Broadcast profiles dialog
 
@@ -210,6 +210,7 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 
 ## Version 25.06.11-LTS
 
+* Metadata streaming and status announcements settings panels will not be shown when opening add-on settings screen from Remote Studio.
 * In local Studio 6.20, NVDA will no longer announce wrong column content when vertical column navigation is set to "Time Scheduled" (Time column).
 * When performing playlist transcripts in local Studio 6.20, NVDA will include the correct column title for time column instead of time scheduled.
 * NVDA will no longer include empty column content when generating playlist transcripts in plain text and HTML list formats.
