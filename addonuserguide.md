@@ -545,6 +545,8 @@ One of the strengths of NVDA is that it contains gateways for configuring variou
 
 When add-on settings opens, a list of settings categories will be shown on the left, with settings for the selected category on the right. Select a category from list of categories, or to move between categories, press Control+Tab or Control+Shift+Tab. After configuring settings, select OK to save settings and close the dialog, or select Apply button to save settings and keep the dialog open. To discard changes, select Cancel.
 
+Note: not all settings will be available when opening add-on settings from Remote Studio.
+
 Most of the settings in this dialog were discussed throughout the add-on guide. Here is a complete list of available settings and their options (some settings are unavailable if NVDA is running in secure mode and some are not applicable to Remote Studio):
 
 * General add-on settings: home to a number of general options, including:
@@ -562,7 +564,7 @@ Most of the settings in this dialog were discussed throughout the add-on guide. 
 	* Track outro, intro alarms and notification toggle, microphone alarm and interval. See track and microphone alarms section for details.
 	* Alarm notification (beep by default): Selects alarm notification type. You can select from beep only, message only or both. See alarms section for more details.
 * Playlist snapshots: select this category to configure information to be gathered when you issue playlist snapshots command. See playlist snapshots section for details.
-* Metadata streaming (applicable to local Studio): includes options for metadata streaming such as:
+* Metadata streaming (unavailable in Remote Studio): includes options for metadata streaming such as:
 	* Metadata streaming notification and connection (off by default): controls when Studio will connect to and announce metadata streaming status. You can silence this (off), have Studio connect to streams and announce this when it starts, or whenever you switch to and from instant switch profiles.
 	* Metadata streams list: a list of five checkboxes used to toggle metadata streaming for DSP encoder and up to four additional streams. See metadata streaming section for details.
 * Column announcement (applicable to Studio's playlist viewer): handles column announcements such as column order. Settings in this category include:
@@ -570,7 +572,7 @@ Most of the settings in this dialog were discussed throughout the add-on guide. 
 	* Column inclusion and/or order: check or uncheck columns to be announced and/or customize the announcement order. See column announcements section for details.
 * Columns explorer: The four buttons in this category opens dialogs where you can configure columns explorer slots when you use Studio (playlist viewre), Track Tool, Creator (main tracks table), or playlist editor in Creator and Remote VT. See Columns Explorer section for details.
 * Playlist Transcripts: you can configure various settings related to Playlist Transcripts feature, including which columns to include and column order. See Playlist Transcripts section for details.
-* Status announcement (applicable to local Studio): this category contains four checkboxes to configure announcement of certain status information. These include announcing scheduled time for the selected track, listener count, name of the currently playing cart and position of the player used for playing the current and the next track.
+* Status announcements (unavailable in Remote Studio): this category contains four checkboxes to configure announcement of certain status information. These include announcing scheduled time for the selected track, listener count, name of the currently playing cart and position of the player used for playing the current and the next track.
 * Advanced (unavailable in secure mode): This category allows you to configure various advanced options. These include:
 	* Use SPl Controller to invoke SPL Assistant (enabled by default): If you check this box after assigning a command to invoke SPL Controller layer (see below), you can use SPl Controller command you assigned to invoke SPl Assistant layer. This is useful for people used to other screen readers where a single layer is used to access functions normally performed by both Controller and Assistant layers in NVDA.
 	* Assistant layer layout (NVDA by default): By default, NVDA will use the Assistant layer commands described throughout this user guide. You can choose between this default command set and JAWS for Windows, with layer commands used by these screen reader scripts replacing commands in the SPL Assistant layer. For example, with JAWS for Windows layout active, pressing SPL Assistant, R will announce playlist duration (default is SPL Assistant, D). See the list below for SPL Assistant command changes between layouts.
