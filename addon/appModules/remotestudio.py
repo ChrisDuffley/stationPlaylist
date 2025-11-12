@@ -11,7 +11,6 @@ import ui
 import api
 import controlTypes
 import braille
-import scriptHandler
 import queueHandler
 from NVDAObjects import NVDAObject
 from . import splstudio
@@ -41,22 +40,6 @@ class RemoteStudioPlaylistViewerItem(splstudio.StudioPlaylistViewerItem):
 			return indexOf(self.appModule.productVersion).index(columnHeader)
 		except ValueError:
 			return None
-
-	# Tell NVDA to announce just the changed bits of the status bar.
-	@scriptHandler.script(gestures=[f"kb:{k}" for k in ["Enter", "A", "L", "M", "N", "S", "T", "U"]])
-	def script_remoteStudioActions(self, gesture):
-		match gesture.displayName:
-			case "enter" | "s" | "t" | "u":  # Play (Enter)/pause (U)/stop (S)/instant stop (T)
-				self.appModule._statusBarChangedPosition = 0
-			case "a":  # Automation
-				self.appModule._statusBarChangedPosition = 1
-			case "m" | "n":  # Microphone (M)/mic no fade (N)
-				self.appModule._statusBarChangedPosition = 2
-			case "l":  # Line-in
-				self.appModule._statusBarChangedPosition = 3
-			case _:  # Everything else
-				pass
-		gesture.send()
 
 
 class AppModule(splstudio.AppModule):
