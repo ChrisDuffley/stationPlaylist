@@ -980,6 +980,10 @@ class AppModule(appModuleHandler.AppModule):
 			micAlarmMessage = _("Warning: Microphone active")
 			# Use a timer to play a tone when microphone was active for more than the specified amount.
 			if status in ("Microphone On", "Mic On"):  # Local versus Remote Studio
+				# Local and Remote Studio might be running on the same computer (not recommended).
+				# If so, there will be a lag when toggling mic status, causing many monitor threads to run.
+				if micAlarmT or micAlarmT2:
+					return
 				micAlarmT = threading.Timer(micAlarm, micAlarmManager, args=[micAlarmWav, micAlarmMessage])
 				try:
 					micAlarmT.start()
