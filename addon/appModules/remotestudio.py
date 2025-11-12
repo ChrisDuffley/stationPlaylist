@@ -12,6 +12,7 @@ import api
 import controlTypes
 import braille
 import scriptHandler
+import queueHandler
 from NVDAObjects import NVDAObject
 from . import splstudio
 from .splcommon import splconfig, splconsts
@@ -90,16 +91,18 @@ class AppModule(splstudio.AppModule):
 
 	def event_nameChange(self, obj: NVDAObject, nextHandler: collections.abc.Callable[[], None]):
 		if obj.windowClassName == "TStatusBar":
-			# Only announce the changed parts of the status bar.
-			if "|" in obj.name and self._statusBarChangedPosition is not None:
-				statusBarText = obj.name.split("  |  ")[self._statusBarChangedPosition]
-				self._statusBarChangedPosition = None
-				# Do play a beep when asked.
-				if statusBarText.endswith((" On", " Off")):
-					self._toggleMessage(statusBarText)
-				if splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]:
-					# Activate mic alarm or announce when cart explorer is active.
-					self.doExtraAction(statusBarText)
+			# Only announce the changed parts of the status bar except when connecting the first time.
+			if "|" in obj.name:
+				if self._pastStatusBarContent:
+					statusBarText = obj.name.split("  |  ")
+					oldStatusBarText = self._pastStatusBarContent.split("  |  ")
+					changedStatusBarContent = []
+					for pos in range(len(statusBarText)):
+						if statusBarText[pos] != oldStatusBarText[pos]:
+							changedStatusBarContent.append(statusBarText[pos])
+					for content in changedStatusBarContent:
+						queueHandler.queueFunction(queueHandler.eventQueue, self.doRemoteStudioExtraAction, content)
+				self._pastStatusBarContent = obj.name
 			else:
 				# Announce connection status in Remote Studio.
 				ui.message(obj.name)
@@ -137,6 +140,17 @@ class AppModule(splstudio.AppModule):
 					):
 						self.alarmAnnounce(obj.name, 512, 400, intro=True)
 		nextHandler()
+
+	def doRemoteStudioExtraAction(self, content: str) -> None:
+		# Do play a beep when asked.
+		if content.endswith((" On", " Off")):
+			self._toggleMessage(content)
+		else:
+			ui.message(content)
+		if splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]:
+			# Activate mic alarm or announce when cart explorer is active.
+			self.doExtraAction(content)
+
 
 	def _trackAlarmWithinThreshold(self, trackTime: str, threshold: int) -> bool:
 		trackTimeComponents = [int(component) for component in trackTime.split(":")]
