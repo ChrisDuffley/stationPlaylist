@@ -62,6 +62,11 @@ class AppModule(splstudio.AppModule):
 	# Remote Studio does not require Studio API to function.
 	_studioAPIRequired = False
 
+	def terminate(self):
+		super().terminate()
+		# Clear app module flags and attributes.
+		self._pastStatusBarContent = None
+	
 	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
 		# Same as local Studio but with different window style flags.
 		if (
@@ -73,8 +78,15 @@ class AppModule(splstudio.AppModule):
 		super().chooseNVDAObjectOverlayClasses(obj, clsList)
 
 	# Status bar is one long text separated by vertical bars (|).
-	# Record which status bar portion was changed.
-	_statusBarChangedPosition: int | None = None
+	# Record status bar contents when Remote Studio is connected to a local Studio instance.
+	_pastStatusBarContent: str | None = None
+
+	# Tell NVDA to announce just the changed bits of the status bar.
+	def event_foreground(self, obj: NVDAObject, nextHandler: collections.abc.Callable[[], None]):
+		# Record the current status bar text if the app module doesn't know about it.
+		if obj.windowClassName == "TStudioForm" and not self._pastStatusBarContent:
+			self._pastStatusBarContent = self.status(self.SPLRemoteStatus).displayText
+		nextHandler()
 
 	def event_nameChange(self, obj: NVDAObject, nextHandler: collections.abc.Callable[[], None]):
 		if obj.windowClassName == "TStatusBar":
