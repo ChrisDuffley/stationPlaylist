@@ -80,9 +80,9 @@ class AppModule(splstudio.AppModule):
 					statusBarText = obj.name.split("  |  ")
 					oldStatusBarText = self._pastStatusBarContent.split("  |  ")
 					changedStatusBarContent = []
-					for pos in range(len(statusBarText)):
-						if statusBarText[pos] != oldStatusBarText[pos]:
-							changedStatusBarContent.append(statusBarText[pos])
+					for newStatus, oldStatus in zip(statusBarText, oldStatusBarText):
+						if newStatus != oldStatus:
+							changedStatusBarContent.append(newStatus)
 					for content in changedStatusBarContent:
 						queueHandler.queueFunction(queueHandler.eventQueue, self.doRemoteStudioExtraAction, content)
 				self._pastStatusBarContent = obj.name
