@@ -220,7 +220,7 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 				colNumber = self.indexOf(verticalColumnAnnounce)
 			# Add track check status to column data if needed by using a customized move to column number method.
 			cell = self.getChild(colNumber)
-			if colNumber > 0 and self.firstChild.name:
+			if colNumber is not None and colNumber > 0 and self.firstChild.name:
 				cell.name = "{0} {1}".format(self.firstChild.name, cell.name)
 			self._moveToColumn(cell)
 		# Let the app module keep a reference to this track.
