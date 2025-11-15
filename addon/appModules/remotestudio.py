@@ -54,8 +54,8 @@ class RemoteStudioPlaylistViewerItem(splstudio.StudioPlaylistViewerItem):
 
 
 class AppModule(splstudio.AppModule):
-	# Remote Studio defines its own API.
-	_studioAPIRequired = True
+	# Remote Studio API is available for some features.
+	_SPLAPILevel = splbase.StudioAPIAvailability.REMOTEAPI
 
 	def terminate(self):
 		super().terminate()

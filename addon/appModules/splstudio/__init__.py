@@ -496,8 +496,8 @@ class AppModule(appModuleHandler.AppModule):
 	_focusedTrack = None
 	# Monitor Studio API routines.
 	_SPLStudioMonitor = None
-	# Does this SPL component rely on Studio API?
-	_studioAPIRequired = True  # Studio requires its API for full functionality
+	# Local Studio API can be used fully.
+	_SPLAPILevel = splbase.StudioAPIAvailability.LOCALAPI
 
 	# Prepare the settings dialog among other things.
 	def __init__(self, *args, **kwargs):
