@@ -2,7 +2,7 @@
 
 Author: Joseph Lee
 
-Based on StationPlaylist Add-on for NVDA 25.11
+Based on StationPlaylist Add-on for NVDA 25.12
 
 ## 2021 Preface and notes
 
@@ -180,11 +180,11 @@ A typical layer command execution is as follows:
 	* Removes the "current" gestures (main gestures and layer commands) and reassigns it to the main gestures map (this is dynamic binding removal).
 	* Performs additional actions depending on context (for example, if Cart Explorer was in use).
 
-### The importance of Studio window handle and Studio API (local Studio only)
+### The importance of Studio window handle and Studio API
 
 In order to use services offered by Studio, one has to use Studio API, which in turn requires one to keep an eye on window handle to Studio (in Windows API, a window handle (just called handle) is a reference to something, such as a window, a file, connection routines and so on). This is important if one wishes to perform Studio commands from other programs (Studio uses messages to communicate with the outside program in question via user32.dll's SendMessage function).
 
-Starting from add-on 7.0, one of the activities the app module performs at startup (besides announcing the version of Studio you are using) is to look for the handle to Studio's main window until it is found (this is done via a thread which calls user32.dll's FindWindowW (FindWindowA until late 2018 as explained below) function every second), and once found, the app module caches this information for later use. A similar check is performed by SPL Controller command, as without this, SPL Controller is useless (as noted earlier). Because of the prominence of the Studio API and the window handle, one of the first things I do whenever new versions of Studio is released is to ask for the latest Studio API and modify the app module and/or global plugin accordingly.
+Starting from add-on 7.0, one of the activities the app module performs at startup (besides announcing the version of Studio you are using) is to look for the handle to Studio's main window until it is found (this is done via a thread which calls user32.dll's FindWindowW (FindWindowA until late 2018 as explained below) function every second), and once found, the app module caches this information for later use. Starting from ad-on 25.12, this function was extended to Remote Studio as it also defines its own API. A similar check is performed by SPL Controller command, as without this, SPL Controller is useless (as noted earlier). Because of the prominence of the Studio API and the window handle, one of the first things I do whenever new versions of Studio is released is to ask for the latest Studio API and modify the app module and/or global plugin accordingly.
 
 #### FindWindowA versus FindWindowW
 
@@ -286,7 +286,7 @@ In app modules for Creator, Remote VT, and Track Tool, the constructor will call
 
 As noted above, Studio and Remote Studio share various components, including some features and commands. As a result, the base Studio app module covers parts of Remote Studio app module, with the latter customizing the base app module.
 
-The biggest change introduced in 25.11 is selective API initialization. Because Remote Studio does not use the same Studio API as original (local) Studio, Studio app module was edited to answer "yes" when asked about requiring Studio API ("no" for Remote Studio)). This means window handle finder for Studio API will not be run when NVDA notices Remote Studio is starting, and this behavior is defined in the original Studio app module, not Remote Studio app module.
+The biggest change introduced in 25.11 is selective API initialization. Because Remote Studio does not use the same Studio API as original (local) Studio (not all features from local Studio are supported), Studio app module was edited to answer "yes" when asked about requiring local Studio API ("no" for Remote Studio)). In 25.12, this was changed to record API support levels (0 for no API, 1 for local Studio, 2 for Remote Studio) with local Studio saying "yes" to requiring local Studio API level. This means parts of the window handle finder for Studio API such as metadata streaming will not be run from Remote Studio.
 
 ### Life of the app module: events, commands and output
 
@@ -377,9 +377,9 @@ One can then use Input Gestures dialog (part of NVDA screen reader) to change th
 
 Before going any further, it is important to mention a function that not only is used by the first two time routines, but also comes in handy in SPL Assistant and other methods. This function, called studioAPI (defined in splcommon.splbase module), sends messages to Studio window and retrieves the value returned. The signature is:
 
-	studioAPI(arg, command)
+	studioAPI(arg, command, splComponent)
 
-With the arguments being the message to be sent to studio window (arg and command). The return value is whatever Studio returns - an unsigned 32-bit integer is returned, which caused problems when working on 64-bit NVDA support. At first glance, it may seem similar to user32's SendMessage function (in fact, that's what the studioAPI function will call), but unlike a typical SendMessage function routine, the Studio handle and message type is automatically filled in, hence only argument (WParem) and command (LParem) are needed.
+With the arguments being the message to be sent to studio window (arg and command) for the specified SPL component (local or Remote Studio). The return value is whatever Studio returns - an unsigned 32-bit integer is returned, which caused problems when working on 64-bit NVDA support. At first glance, it may seem similar to user32's SendMessage function (in fact, that's what the studioAPI function will call), but unlike a typical SendMessage function routine, the Studio handle for the selected component and message type is automatically filled in, hence only argument (WParem) and command (LParem) are needed.
 
 In older versions of the add-on, studioAPI did more than return results. It called a callback with or without an offset, as well as not return anything. However, the only callback passed in was time announcer (next section), thus in 2018, studioAPI function has been relegated to a thin wrapper around SendMessage function with Studio window handle and message typed filled in.
 
