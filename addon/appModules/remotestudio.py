@@ -24,6 +24,9 @@ from NVDAObjects import NVDAObject
 from . import splstudio
 from .splcommon import splconfig, splconsts, splbase
 
+# Various SPL IPC tags.
+SPLStatusInfo = 39
+SPLTrackPlaybackStatus = 104
 
 # Return a tuple of column headers.
 # This is just a thinly disguised indexOf function from Studio's track item class.
@@ -235,18 +238,28 @@ class AppModule(splstudio.AppModule):
 			case _:
 				raise ValueError(f"Unrecognized track time announcement command: {trackTime}")
 
+	# Remote Studio status bar messages (distinct from local Studio).
+	# For playback, Remote Studio can also say "Paused".
+	_studioStatusMessages = (
+		["Stopped", "Playing", "Paused"],
+		["Automation Off", "Automation On"],
+		["Mic Off", "Mic On"],
+		["Line Off", "Line On"],
+	)
+
 	# Report status bar contents such as microphone status.
-	# Remote Studio: parse status bar text.
+	# Remote Studio: not all status flags are supported.
 	def sayStatus(self, index: int) -> None:
 		# No, status index must be an integer (compatibility with local Studio).
-		# Status bar is empty if not connected.
-		status = self.status(self.SPLRemoteStatus).displayText
-		if not status:
-			# Translators: presented when Remote Studio status cannot be obtained.
-			ui.message(_("No Remote Studio status Information"))
+		studioStatus = splbase.studioAPI(index, SPLStatusInfo)
+		if studioStatus is None:
 			return
-		# Status text is separated by vertical lines.
-		status = status.split("  |  ")[index]
+		# Special handling for playback (playing/stopped/paused)
+		if index == 0 and studioStatus == 1:  # Playing/paused
+			# Set status to 2 (paused) if the remote track is paused.
+			if splbase.studioAPI(0, SPLTrackPlaybackStatus) == 3:
+				studioStatus = 2
+		status = self._studioStatusMessages[index][studioStatus]
 		if splconfig.SPLConfig["General"]["MessageVerbosity"] == "advanced":
 			status = status.split()[-1]
 		ui.message(status)
