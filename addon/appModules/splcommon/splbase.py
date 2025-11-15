@@ -83,15 +83,18 @@ def setStudioWindowHandle(hwnd: int | None, splComponent: str = "splstudio") -> 
 # #92: SendMessage function returns something from anything (including from dead window handles),
 # so really make sure Studio window handle is alive.
 def studioAPI(arg: int, command: int, splComponent: str = "splstudio") -> int | None:
-	if not studioIsRunning(justChecking=True):
+	global _SPLWindowHandles
+	if not studioIsRunning(justChecking=True, splComponent=splComponent):
 		return None
 	# Global plugin can also call this function with no Studio window handle value defined.
-	global _SPLWin
-	if _SPLWin is None:
-		_SPLWin = user32.FindWindowW("SPLStudio", None)
+	# The global plugin can call API for any SPL component that supports API calls.
+	hwnd = _SPLWindowHandles.get(splComponent, None)
+	if hwnd is None:
+		hwnd = user32.FindWindowW(splComponent, None)
+		_SPLWindowHandles[splComponent] = hwnd
 	if (studioAPIDebug := "--spl-apidebug" in globalVars.unknownAppArgs):
 		log.debug(f"SPL: Studio API wParem is {arg}, lParem is {command}")
-	val = sendMessage(_SPLWin, 1024, arg, command)
+	val = sendMessage(hwnd, 1024, arg, command)
 	# 64-bit NVDA: Studio API results max out at 32 bits.
 	# Is the most significant bit set to 1 (signed integer but NVDA says unsigned)?
 	# This results in 32-bit overflow or erroneous messages when a negative integer is expected.
@@ -101,7 +104,7 @@ def studioAPI(arg: int, command: int, splComponent: str = "splstudio") -> int | 
 	if studioAPIDebug:
 		log.debug(f"SPL: Studio API result is {val}")
 	# SendMessage function might be stuck while Studio exits, resulting in NULL window handle.
-	if not user32.FindWindowW("SPLStudio", None):
+	if not user32.FindWindowW(splComponent, None):
 		val = None
 		log.debug("Studio window is gone, Studio API result is None")
 	return val
