@@ -7,14 +7,22 @@
 
 from typing import Any
 import collections
+import time
+import threading
 import ui
 import api
 import controlTypes
 import braille
 import queueHandler
+# From NVDA 2026.1 onwards, winBindings package should be used to look for Windows API dll's.
+try:
+	from winBindings.user32 import dll as user32
+except ModuleNotFoundError:
+	from winUser import user32
+from logHandler import log
 from NVDAObjects import NVDAObject
 from . import splstudio
-from .splcommon import splconfig, splconsts
+from .splcommon import splconfig, splconsts, splbase
 
 
 # Return a tuple of column headers.
@@ -50,7 +58,21 @@ class AppModule(splstudio.AppModule):
 		super().terminate()
 		# Clear app module flags and attributes.
 		self._pastStatusBarContent = None
-	
+
+	# Locate the handle for Remote Studio for caching purposes.
+	def _locateSPLHwnd(self) -> None:
+		while not (hwnd := user32.FindWindowW("RemoteStudio", None)):
+			time.sleep(1)
+			# If the demo copy expires and the app module begins, this loop will spin forever.
+			# Make sure this loop catches this case.
+			if self.noMoreHandle.is_set():
+				self.noMoreHandle.clear()
+				return
+		# Only this thread will have privilege of notifying Studio handle's existence.
+		with threading.Lock():
+			splbase.setStudioWindowHandle(hwnd)
+			log.debug(f"SPL: Remote Studio handle is {hwnd}")
+
 	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
 		# Same as local Studio but with different window style flags.
 		if (
