@@ -73,7 +73,7 @@ class AppModule(splstudio.AppModule):
 				return
 		# Only this thread will have privilege of notifying Studio handle's existence.
 		with threading.Lock():
-			splbase.setStudioWindowHandle(hwnd)
+			splbase.setStudioWindowHandle(hwnd, splComponent="remotestudio")
 			log.debug(f"SPL: Remote Studio handle is {hwnd}")
 
 	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
