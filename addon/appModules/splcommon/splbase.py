@@ -37,9 +37,6 @@ class StudioAPIAvailability(enum.IntEnum):
 # Record window handles for local and Remote Studio for use from API handlers.
 _SPLWindowHandles: dict[str, int | None] = {}
 
-# Cache the handle to main Studio window.
-_SPLWin: int | None = None
-
 # Various SPL IPC tags.
 SPLSelectTrack = 121
 
@@ -48,6 +45,7 @@ SPLSelectTrack = 121
 # and other app module gestures display appropriate error messages.
 # Some checks will need to omit message output.
 def studioIsRunning(justChecking: bool = False, splComponent: str = "splstudio") -> bool:
+	global _SPLWindowHandles
 	# Keep the boolean flag handy because of message output.
 	hwnd = _SPLWindowHandles.get(splComponent)
 	isStudioAlive = (hwnd is not None and hwnd == user32.FindWindowW(splComponent, None)) or (
@@ -66,13 +64,11 @@ def studioIsRunning(justChecking: bool = False, splComponent: str = "splstudio")
 
 # Set Studio window handle to the given value so the handle itself can remain private.
 def setStudioWindowHandle(hwnd: int | None, splComponent: str = "splstudio") -> None:
-	global _SPLWin, _SPLWindowHandles
+	global _SPLWindowHandles
 	if hwnd:
 		_SPLWindowHandles[splComponent] = hwnd
 	else:
 		del _SPLWindowHandles[splComponent]
-	if splComponent == "splstudio":
-		_SPLWin = hwnd
 
 
 # Use SPL Studio API to obtain needed values.
@@ -88,7 +84,7 @@ def studioAPI(arg: int, command: int, splComponent: str = "splstudio") -> int | 
 		return None
 	# Global plugin can also call this function with no Studio window handle value defined.
 	# The global plugin can call API for any SPL component that supports API calls.
-	hwnd = _SPLWindowHandles.get(splComponent, None)
+	hwnd = _SPLWindowHandles.get(splComponent)
 	if hwnd is None:
 		hwnd = user32.FindWindowW(splComponent, None)
 		_SPLWindowHandles[splComponent] = hwnd
