@@ -34,6 +34,9 @@ class StudioAPIAvailability(enum.IntEnum):
 	REMOTEAPI = 2  # Remote Studio
 
 
+# Record window handles for local and Remote Studio for use from API handlers.
+_SPLWindowHandles: dict[str, int | None] = {}
+
 # Cache the handle to main Studio window.
 _SPLWin: int | None = None
 
