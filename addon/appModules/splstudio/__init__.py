@@ -628,7 +628,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Don't forget to reset timestamps for cart files.
 		splmisc.cartEditTimestamps = []
 		# Just to make sure:
-		splbase.setStudioWindowHandle(None)
+		splbase.setStudioWindowHandle(None, splComponent=self.appName)
 
 	# Locate the handle for main window for caching purposes.
 	def _locateSPLHwnd(self) -> None:
