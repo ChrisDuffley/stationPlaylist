@@ -8,6 +8,7 @@
 import ctypes
 from functools import wraps
 from abc import abstractmethod
+import enum
 import ui
 import api
 import windowUtils
@@ -24,6 +25,14 @@ except ModuleNotFoundError:
 	from winUser import user32
 
 addonHandler.initTranslation()
+
+# The API handler requires Studio components to define their own API's.
+# This is the case for local (original) and Remote Studio.
+class StudioAPIAvailability(enum.IntEnum):
+	NOAPI = 0  # No API, screen traversal is required
+	LOCALAPI = 1  # Local (original) Studio
+	REMOTEAPI = 2  # Remote Studio
+
 
 # Cache the handle to main Studio window.
 _SPLWin: int | None = None
