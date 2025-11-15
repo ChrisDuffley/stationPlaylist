@@ -49,14 +49,15 @@ SPLSelectTrack = 121
 # Some checks will need to omit message output.
 def studioIsRunning(justChecking: bool = False, splComponent: str = "splstudio") -> bool:
 	# Keep the boolean flag handy because of message output.
-	isStudioAlive = (_SPLWin is not None and _SPLWin == user32.FindWindowW("SPLStudio", None)) or (
-		_SPLWin is None and user32.FindWindowW("SPLStudio", None) not in (
+	hwnd = _SPLWindowHandles.get(splComponent)
+	isStudioAlive = (hwnd is not None and hwnd == user32.FindWindowW(splComponent, None)) or (
+		hwnd is None and user32.FindWindowW(splComponent, None) not in (
 			0,  # NVDA 2025.3 and earlier (returns 0 if handle is not found)
 			None  # NVDA 2026.1 and later (returns None if handle is not found)
 		)
 	)
 	if not isStudioAlive:
-		log.debug("SPL: Studio is not alive")
+		log.debug(f"SPL: Studio ({splComponent}) is not alive")
 		if not justChecking:
 			# Translators: A message informing users that Studio is not running so certain commands will not work.
 			ui.message(_("Studio main window not found"))
