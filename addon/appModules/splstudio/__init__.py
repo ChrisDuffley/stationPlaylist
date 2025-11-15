@@ -567,8 +567,8 @@ class AppModule(appModuleHandler.AppModule):
 		self._initStudioWindowFocused = threading.Event()
 		# Let me know the Studio window handle.
 		# Do not allow this thread to run forever (seen when evaluation times out and the app module starts).
-		# Only do this if the app module says Studio API is required.
-		if self._studioAPIRequired:
+		# Only do this if the app module says Studio API can be used.
+		if self._SPLAPILevel != splbase.StudioAPIAvailability.NOAPI:
 			self.noMoreHandle = threading.Event()
 			# If this is started right away, foreground and focus objects will be NULL according to NVDA
 			# if NVDA restarts while Studio is running.
@@ -619,8 +619,8 @@ class AppModule(appModuleHandler.AppModule):
 		except (RuntimeError, AttributeError):
 			pass
 		# Tell the handle finder thread it's time to leave this world.
-		# Only set the event if Studio API is required.
-		if self._studioAPIRequired:
+		# Only set the event if Studio API can be used.
+		if self._SPLAPILevel != splbase.StudioAPIAvailability.LOCALAPI:
 			self.noMoreHandle.set()
 		# Manually clear the following dictionaries.
 		self.carts.clear()
