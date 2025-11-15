@@ -44,7 +44,7 @@ SPLSelectTrack = 121
 # This is to make sure custom commands for SPL Assistant commands
 # and other app module gestures display appropriate error messages.
 # Some checks will need to omit message output.
-def studioIsRunning(justChecking: bool = False) -> bool:
+def studioIsRunning(justChecking: bool = False, splComponent: str = "splstudio") -> bool:
 	# Keep the boolean flag handy because of message output.
 	isStudioAlive = (_SPLWin is not None and _SPLWin == user32.FindWindowW("SPLStudio", None)) or (
 		_SPLWin is None and user32.FindWindowW("SPLStudio", None) not in (
@@ -61,7 +61,7 @@ def studioIsRunning(justChecking: bool = False) -> bool:
 
 
 # Set Studio window handle to the given value so the handle itself can remain private.
-def setStudioWindowHandle(hwnd: int | None) -> None:
+def setStudioWindowHandle(hwnd: int | None, splComponent: str = "splstudio") -> None:
 	global _SPLWin
 	_SPLWin = hwnd
 
@@ -73,7 +73,7 @@ def setStudioWindowHandle(hwnd: int | None) -> None:
 # Strengthen this by checking for the handle once more.
 # #92: SendMessage function returns something from anything (including from dead window handles),
 # so really make sure Studio window handle is alive.
-def studioAPI(arg: int, command: int) -> int | None:
+def studioAPI(arg: int, command: int, splComponent: str = "splstudio") -> int | None:
 	if not studioIsRunning(justChecking=True):
 		return None
 	# Global plugin can also call this function with no Studio window handle value defined.
