@@ -159,7 +159,6 @@ class AppModule(splstudio.AppModule):
 			# Activate mic alarm or announce when cart explorer is active.
 			self.doExtraAction(content)
 
-
 	def _trackAlarmWithinThreshold(self, trackTime: str, threshold: int) -> bool:
 		trackTimeComponents = [int(component) for component in trackTime.split(":")]
 		# Assume hh:mm:ss.
@@ -251,13 +250,13 @@ class AppModule(splstudio.AppModule):
 	# Remote Studio: not all status flags are supported.
 	def sayStatus(self, index: int) -> None:
 		# No, status index must be an integer (compatibility with local Studio).
-		studioStatus = splbase.studioAPI(index, SPLStatusInfo)
+		studioStatus = splbase.studioAPI(index, SPLStatusInfo, splComponent="remotestudio")
 		if studioStatus is None:
 			return
 		# Special handling for playback (playing/stopped/paused)
 		if index == 0 and studioStatus == 1:  # Playing/paused
 			# Set status to 2 (paused) if the remote track is paused.
-			if splbase.studioAPI(0, SPLTrackPlaybackStatus) == 3:
+			if splbase.studioAPI(0, SPLTrackPlaybackStatus, splComponent="remotestudio") == 3:
 				studioStatus = 2
 		status = self._studioStatusMessages[index][studioStatus]
 		if splconfig.SPLConfig["General"]["MessageVerbosity"] == "advanced":
