@@ -244,7 +244,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 			_findDialogOpened = False
 			return
 		# Either look up filename/track duration or duration text depending on Studio API availability.
-		if obj.appModule._studioAPIRequired:  # Local Studio
+		if obj.appModule._localStudioAPIRequired:  # Local Studio
 			minDuration = ((minDuration[0] * 60) + minDuration[1]) * 1000
 			maxDuration = ((maxDuration[0] * 60) + maxDuration[1]) * 1000
 		else:  # Remote Studio
@@ -252,7 +252,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 			maxDuration = f"{maxDuration[0]:02d}:{maxDuration[1]:02d}"
 		# Manually locate tracks here.
 		while obj is not None:
-			if obj.appModule._studioAPIRequired:
+			if obj.appModule._localStudioAPIRequired:
 				filename = splbase.studioAPI(obj.IAccessibleChildID - 1, SPLTrackFilename)
 				duration = splbase.studioAPI(filename, SPLFileDuration)
 			else:
@@ -269,7 +269,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 			obj.setFocus()
 			# Select the desired track manually.
 			# Selecting tracks via splbase module requires Studio API (local Studio only).
-			if obj.appModule._studioAPIRequired:
+			if obj.appModule._localStudioAPIRequired:
 				splbase.selectTrack(obj.IAccessibleChildID - 1)
 		else:
 			wx.CallAfter(

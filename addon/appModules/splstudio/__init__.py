@@ -233,7 +233,7 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 		self.setFocus()
 		self.setFocus()
 		# Selecting tracks via splbase module requires Studio API (local Studio only).
-		if self.appModule._studioAPIRequired:
+		if self.appModule._localStudioAPIRequired:
 			splbase.selectTrack(self.IAccessibleChildID - 1)
 
 	# Obtain column contents for all columns for this track.
@@ -525,6 +525,8 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message("{} {}".format(self.productName, self.productVersion))
 		except Exception:
 			pass
+		# Does this SPL component rely on full (local) Studio API?
+		self._localStudioAPIRequired = self._SPLAPILevel == splbase.StudioAPIAvailability.LOCALAPI
 		# #40: react to profile switches.
 		# #94: also listen to profile reset action.
 		splactions.SPLActionProfileSwitched.register(self.actionProfileSwitched)
@@ -1148,7 +1150,7 @@ class AppModule(appModuleHandler.AppModule):
 		speakOnDemand=True,
 	)
 	def script_sayBroadcasterTime(self, gesture):
-		if self._studioAPIRequired and not splbase.studioIsRunning():
+		if self._localStudioAPIRequired and not splbase.studioIsRunning():
 			return
 		# Says things such as "25 minutes to 2" and "5 past 11".
 		# #29: Also announces top of hour timer (mm:ss), the clock next to broadcaster time.
@@ -1183,7 +1185,7 @@ class AppModule(appModuleHandler.AppModule):
 		speakOnDemand=True,
 	)
 	def script_sayCompleteTime(self, gesture):
-		if self._studioAPIRequired and not splbase.studioIsRunning():
+		if self._localStudioAPIRequired and not splbase.studioIsRunning():
 			return
 		# Says complete time in hours, minutes and seconds via kernel32's routines.
 		ui.message(winKernel.GetTimeFormatEx(winKernel.LOCALE_NAME_USER_DEFAULT, 0, None, None))
@@ -1315,7 +1317,7 @@ class AppModule(appModuleHandler.AppModule):
 	# But first, check if track finder can be invoked.
 	# Attempt level specifies which track finder to open (0 = Track Finder, 1 = Column Search, 2 = Time range).
 	def _trackFinderCheck(self, attemptLevel: int) -> bool:
-		if self._studioAPIRequired and not splbase.studioIsRunning():
+		if self._localStudioAPIRequired and not splbase.studioIsRunning():
 			return False
 		playlistErrors = self.canPerformPlaylistCommands(announceErrors=False)
 		if playlistErrors == self.SPLPlaylistNotFocused:
@@ -1462,7 +1464,7 @@ class AppModule(appModuleHandler.AppModule):
 		gesture="kb:alt+nvda+3",
 	)
 	def script_toggleCartExplorer(self, gesture):
-		if self._studioAPIRequired and not splbase.studioIsRunning():
+		if self._localStudioAPIRequired and not splbase.studioIsRunning():
 			return
 		if not self.cartExplorer:
 			# Prevent cart explorer from being engaged outside of playlist viewer.
@@ -1676,7 +1678,7 @@ class AppModule(appModuleHandler.AppModule):
 	)
 	def script_manageMetadataStreams(self, gesture):
 		# Do not even think about opening this dialog if handle to Studio isn't found (not fully running).
-		if self._studioAPIRequired and not splbase.studioIsRunning(justChecking=True):
+		if self._localStudioAPIRequired and not splbase.studioIsRunning(justChecking=True):
 			# Translators: Presented when streaming dialog cannot be shown.
 			ui.message(_("Cannot open metadata streaming dialog"))
 			return
@@ -1752,7 +1754,7 @@ class AppModule(appModuleHandler.AppModule):
 	# require main playlist viewer to be the foreground window.
 	# Track time analysis does require knowing the start and ending track, while others do not.
 	def _trackAnalysisAllowed(self, mustSelectTrack: bool = True) -> bool:
-		if self._studioAPIRequired and not splbase.studioIsRunning():
+		if self._localStudioAPIRequired and not splbase.studioIsRunning():
 			return False
 		# #81: just return the result of consulting playlist dispatch along with error messages if any.
 		match self.canPerformPlaylistCommands(mustSelectTrack=mustSelectTrack, announceErrors=False):
@@ -1851,7 +1853,7 @@ class AppModule(appModuleHandler.AppModule):
 			obj = obj.next
 		# #55: use total track count if it is an entire playlist, if not, resort to categories count.
 		# Also resort to categories count if Studio API cannot be used (in Remote Studio).
-		if completePlaylistSnapshot and self._studioAPIRequired:
+		if completePlaylistSnapshot and self._localStudioAPIRequired:
 			snapshot["PlaylistItemCount"] = splbase.studioAPI(0, SPLTrackCount)
 		else:
 			snapshot["PlaylistItemCount"] = len(categories)
@@ -2114,7 +2116,7 @@ class AppModule(appModuleHandler.AppModule):
 			self.script_finish()
 			return
 		# Don't bother if Studio main window handle isn't found (Studio is not fully running).
-		if self._studioAPIRequired and not splbase.studioIsRunning(justChecking=True):
+		if self._localStudioAPIRequired and not splbase.studioIsRunning(justChecking=True):
 			# Translators: Presented when SPL Assistant cannot be invoked.
 			ui.message(_("Failed to locate Studio main window, cannot enter SPL Assistant"))
 			return
@@ -2316,11 +2318,11 @@ class AppModule(appModuleHandler.AppModule):
 		speakOnDemand=True,
 	)
 	def script_sayNextTrackTitle(self, gesture):
-		if self._studioAPIRequired and not splbase.studioIsRunning():
+		if self._localStudioAPIRequired and not splbase.studioIsRunning():
 			self.script_finish()
 			return
 		try:
-			if self._studioAPIRequired and not splbase.studioAPI(0, SPLStatusInfo):
+			if self._localStudioAPIRequired and not splbase.studioAPI(0, SPLStatusInfo):
 				# Message comes from Foobar 2000 app module, part of NVDA Core.
 				nextTrack = translate("No track playing")
 			else:
@@ -2346,11 +2348,11 @@ class AppModule(appModuleHandler.AppModule):
 		speakOnDemand=True,
 	)
 	def script_sayCurrentTrackTitle(self, gesture):
-		if self._studioAPIRequired and not splbase.studioIsRunning():
+		if self._localStudioAPIRequired and not splbase.studioIsRunning():
 			self.script_finish()
 			return
 		try:
-			if self._studioAPIRequired and not splbase.studioAPI(0, SPLStatusInfo):
+			if self._localStudioAPIRequired and not splbase.studioAPI(0, SPLStatusInfo):
 				# Message comes from Foobar 2000 app module, part of NVDA Core.
 				currentTrack = translate("No track playing")
 			else:
@@ -2376,7 +2378,7 @@ class AppModule(appModuleHandler.AppModule):
 		speakOnDemand=True,
 	)
 	def script_sayTemperature(self, gesture):
-		if self._studioAPIRequired and not splbase.studioIsRunning():
+		if self._localStudioAPIRequired and not splbase.studioIsRunning():
 			self.script_finish()
 			return
 		try:
@@ -2493,7 +2495,7 @@ class AppModule(appModuleHandler.AppModule):
 		speakOnDemand=True,
 	)
 	def script_takePlaylistSnapshots(self, gesture):
-		if self._studioAPIRequired and not splbase.studioIsRunning():
+		if self._localStudioAPIRequired and not splbase.studioIsRunning():
 			self.script_finish()
 			return
 		if not self._trackAnalysisAllowed(mustSelectTrack=False):
@@ -2526,7 +2528,7 @@ class AppModule(appModuleHandler.AppModule):
 		self.script_finish()
 
 	def script_playlistTranscripts(self, gesture):
-		if self._studioAPIRequired and not splbase.studioIsRunning():
+		if self._localStudioAPIRequired and not splbase.studioIsRunning():
 			self.script_finish()
 			return
 		if not self._trackAnalysisAllowed(mustSelectTrack=False):
