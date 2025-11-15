@@ -65,8 +65,13 @@ def studioIsRunning(justChecking: bool = False, splComponent: str = "splstudio")
 
 # Set Studio window handle to the given value so the handle itself can remain private.
 def setStudioWindowHandle(hwnd: int | None, splComponent: str = "splstudio") -> None:
-	global _SPLWin
-	_SPLWin = hwnd
+	global _SPLWin, _SPLWindowHandles
+	if hwnd:
+		_SPLWindowHandles[splComponent] = hwnd
+	else:
+		del _SPLWindowHandles[splComponent]
+	if splComponent == "splstudio":
+		_SPLWin = hwnd
 
 
 # Use SPL Studio API to obtain needed values.
