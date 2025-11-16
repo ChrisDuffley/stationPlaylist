@@ -576,7 +576,7 @@ Most of the settings in this dialog were discussed throughout the add-on guide. 
 * Advanced (unavailable in secure mode): This category allows you to configure various advanced options. These include:
 	* Use SPl Controller to invoke SPL Assistant (enabled by default): If you check this box after assigning a command to invoke SPL Controller layer (see below), you can use SPl Controller command you assigned to invoke SPl Assistant layer. This is useful for people used to other screen readers where a single layer is used to access functions normally performed by both Controller and Assistant layers in NVDA.
 	* Assistant layer layout (NVDA by default): By default, NVDA will use the Assistant layer commands described throughout this user guide. You can choose between this default command set and JAWS for Windows, with layer commands used by these screen reader scripts replacing commands in the SPL Assistant layer. For example, with JAWS for Windows layout active, pressing SPL Assistant, R will announce playlist duration (default is SPL Assistant, D). See the list below for SPL Assistant command changes between layouts.
-	* SPL Controller coverage (local and Remote Studio by default): By default, SPL Controller layer will control both local and Remote Studio. You can limit the scope or coverage of SPL Controller to local Studio or Remote Studio.
+	* SPL Controller coverage (local and Remote Studio by default; Studio 6.20 and later): By default, SPL Controller layer will control both local and Remote Studio. You can limit the scope or coverage of SPL Controller to local Studio or Remote Studio. If using Studio versions earlier than 6.20, this option will not appear.
 
 After configuring the above settings, select OK from main settings dialog to save your changes, Cancel to discard them, or Apply to apply changes without closing the settings dialog.
 
@@ -697,7 +697,7 @@ Note: SPL Controller, E and Q can be assigned to a different command from Input 
 
 In addition to playing carts when focused on Studio and learning about their assignments (see Cart Explorer section for details), you can play cart keys after entering SPL Controller. To do this, as long as SPL Controller coverage setting is set to "local and Remote Studio" or "local Studio" and while local Studio is active, enter SPL Controller layer, then press the cart key.
 
-### SPL Controller coverage
+### SPL Controller coverage (Studio 6.20 and later)
 
 By default SPL Controller will control both local and Remote Studio. As long as one of either local Studio or Remote Studio is in use, NVDA will let you control Studio's functionality through SPL Controller. However, when both local and Remote Studio are in use on the same computer, SPL Controller will control local Studio. As an alternative, you can limit SPL Controller coverage or scope to either local Studio or Remote Studio. 
 
