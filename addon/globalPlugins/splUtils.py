@@ -28,6 +28,7 @@ addonHandler.initTranslation()
 # See NVDA source/appModules/winamp.py for more information.
 
 # Various SPL IPC tags.
+SPLVersion = 2
 SPLPlay = 12
 SPLStop = 13
 SPLPause = 15
@@ -202,6 +203,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Direct global plugin scripts to use the correct SPL component/scope.
 	# Priority: local Studio -> Remote Studio.
 	# Returns the configured scope and the first active component.
+	# Applies to local Studio 6.20.
 	def actualSPLConScope(self) -> list[str | None]:
 		# Forcefully open config database if not done so.
 		splConScope = None
@@ -217,6 +219,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		]
 		if not activeStudioComponents:
 			return [splConScope, None]
+		# Setting SPL Controller scope requires Studio 6.20, otherwise force local Studio only option.
+		if (
+			"splstudio" in activeStudioComponents
+			and (splVersion := splbase.studioAPI(0, SPLVersion)) is not None
+			and splVersion < 620
+		):
+			return [None, "splstudio"]
 		activeStudioComponent = None
 		if splConScope and splConScope in activeStudioComponents:  # Scope limited to Local or Remote Studio
 			activeStudioComponent = splConScope
