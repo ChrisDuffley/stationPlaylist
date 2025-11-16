@@ -1275,13 +1275,14 @@ As described in the add-on design section, SPL add-on comes with several app mod
 
 Previously, SPL Utilities was also the home of encoder support routines, introduced in fall 2014 with add-on 3.0. In 2020, encoder support module was moved into its own app module named SPL Engine (splengine package).
 
-The SPL Utilities global plugin is housed inside globalPlugins/splUtils/__init__.py. The module consists of global plugin class, SPL Controller driver and commands housed inside the class, and global constants used to communiocate with Studio. It also includes a routine to switch focus to Studio from anywhere.
+The SPL Utilities global plugin is housed inside globalPlugins/splUtils/__init__.py. The module consists of global plugin class, SPL Controller driver and commands housed inside the class, and global constants used to communicate with Studio. It also includes a routine to switch focus to Studio from anywhere.
 
 ### SPL Controller layer
 
 The SPL Controller layer (entry command unassigned, same reason as the Assistant layer entry command) is used to invoke Studio functions from anywhere. The entry routine is similar to the app module counterpart (SPL Assistant) except for the following:
 
-* NVDA will make sure Studio is running (if so, it'll cache the window handle value just as in the Studio app module), otherwise it cannot enter SPL Controller layer.
+* NVDA will make sure Studio (local and/or remote) is running, otherwise it cannot enter SPL Controller layer.
+* Starting with add-on 25.12 and with Studio 6.20 or later installed, SPl Controller layer can control local and/or remote Studio. Based on SPL Controller scope setting and the active Studio component, NVDA will record the actual Studio variant to be controlled.
 * All commands (except five) use Studio API (Studio API and use of user32.dll's SendMessage was described in a previous section).
 
 For mechanics of layer commands, see section on add-on design where layer commands were discussed.
@@ -1293,18 +1294,19 @@ The following commands utilize Studio API:
 * M/Shift+M/N: Microphone on/off/instant on/off toggle.
 * P: Play.
 * Q: Obtain various status information. Due to API changes, this command works better in studio 5.20 and later.)
-* Shift+R: Library scan progress and number of items scanned.
+* Shift+R (local Studio only): Library scan progress and number of items scanned.
 * S/T: Stop with fade/instant stop.
 * U: Play/pause.
+* Cart commands (local Studio only): Play assigned carts if defined (carts without borders).
 
 For readers familiar with Studio keyboard commands, you'll find yourself at home (they are indeed Studio commands except pressing Shift will turn a feature off and Shift+R will remind you of Control+Shift+R for library scan from Insert Tracks dialog). The letter "Q" stands for "query Studio status".
 
 Here are the five exceptions
 
-* C/N: current and next track (these, together with remaining time script, asks Studio app module to announce information).
-* E: NVDA will search for and announce connection status of encoders. This is done by locating top-level windows for various encoder windows and using EnumChildWindows to look for actual encoders list.
+* C/Shift+C: current and next track (these, together with remaining time script, asks Studio app module to announce information).
+* E (local Studio only): NVDA will search for and announce connection status of encoders. This is done by locating top-level windows for various encoder windows and using EnumChildWindows to look for actual encoders list.
 * R: Remaining time for the currently playing track (if any; prior to 25.07, remaining time was obtained via Studio API).
-* F1: Opens a browse mode document displaying Controller layer commands (does this sound familiar?).
+* H: Opens a browse mode document displaying Controller layer commands (does this sound familiar?).
 
 ### Focusing to Studio window from anywhere
 
