@@ -285,6 +285,9 @@ class ConfigHub(ChainMap):
 		# If vertical column announcement value is "None", transform this to NULL.
 		if conf["General"]["VerticalColumnAnnounce"] == "None":
 			conf["General"]["VerticalColumnAnnounce"] = None
+		# If SPL Controller scope value is "None", transform this to NULL.
+		if conf["Advanced"]["SPLConScope"] == "None":
+			conf["Advanced"]["SPLConScope"] = None
 
 	# Remove deprecated sections/keys.
 	def _removeDeprecatedSettings(self, profile: ConfigObj) -> None:
