@@ -9,7 +9,7 @@ import ui
 import scriptHandler
 import globalVars
 import appModuleHandler
-from appModules.splcommon import splbase, splconsts
+from appModules.splcommon import splbase, splconsts, splconfig
 import tones
 import windowUtils
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent
@@ -185,6 +185,31 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			ui.message(_("SPL Studio is not running."))
 		else:
 			splbase.focusToSPLWindow()
+
+	# Direct global plugin scripts to use the correct SPL component/scope.
+	# Priority: local Studio -> Remote Studio.
+	# Returns the configured scope and the first active component.
+	def actualSPLConScope(self) -> list[str | None]:
+		# Forcefully open config database if not done so.
+		splConScope = None
+		studioWindow = getNVDAObjectFromEvent(
+			user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0
+		)
+		if studioWindow:
+			splConScope = splconfig.SPLConfig["Advanced"]["SPLConScope"]
+		# Locate any active Studio components.
+		activeStudioComponents = [
+			component.lower() for component in ("SPLStudio", "RemoteStudio")
+			if user32.FindWindowW(component, None)
+		]
+		if not activeStudioComponents:
+			return [splConScope, None]
+		activeStudioComponent = None
+		if splConScope and splConScope in activeStudioComponents:  # Scope limited to Local or Remote Studio
+			activeStudioComponent = splConScope
+		elif not splConScope:  # Either local or Remote Studio
+			activeStudioComponent = activeStudioComponents[0]
+		return [splConScope, activeStudioComponent]
 
 	# The SPL Controller:
 	# This layer set allows the user to control various aspects of SPL Studio from anywhere.
