@@ -472,8 +472,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.script_finish()
 
 	def script_conHelp(self, gesture):
-		# Translators: The title for SPL Controller help screen.
-		ui.browseableMessage(SPLConHelp, title=_("SPL Controller help"), closeButton=True)
+		# Show different title based on which layer/scope is active.
+		if self.activeStudioComponent == "remotestudio":
+			# Translators: The title for SPL Controller help screen.
+			helpTitle = _("SPL Remote Controller help")
+		else:
+			# Translators: The title for SPL Controller help screen.
+			helpTitle = _("SPL Controller help")
+		ui.browseableMessage(SPLConHelp, title=helpTitle, closeButton=True)
 		self.script_finish()
 
 	__SPLControllerGestures = {
