@@ -109,7 +109,7 @@ You can use many of the native SPL Studio commands to control the program. In ad
 NVDA provides two layer command sets when using Studio to perform various tasks and announce status information:
 
 * SPL Assistant: this layer set, available from within SPL Studio, allows you to obtain various SPL status information such as whether a track is playing, automation status and so on.
-* SPL Controller: this command set, available everywhere except in Studio, allows you to control local Studio (not Remote Studio) from anywhere, including playing the next track and turning microphone on and off.
+* SPL Controller: this command set, available everywhere except in Studio, allows you to control local Studio and/or Remote Studio from anywhere, including playing the next track and turning microphone on and off.
 
 By default, while focused in Studio, performing SPL Controller layer command will invoke SPL Assistant layer. We'll meet these two layer command sets and how to use them throughout this guide (described separately for historical reasons).
 
@@ -576,6 +576,7 @@ Most of the settings in this dialog were discussed throughout the add-on guide. 
 * Advanced (unavailable in secure mode): This category allows you to configure various advanced options. These include:
 	* Use SPl Controller to invoke SPL Assistant (enabled by default): If you check this box after assigning a command to invoke SPL Controller layer (see below), you can use SPl Controller command you assigned to invoke SPl Assistant layer. This is useful for people used to other screen readers where a single layer is used to access functions normally performed by both Controller and Assistant layers in NVDA.
 	* Assistant layer layout (NVDA by default): By default, NVDA will use the Assistant layer commands described throughout this user guide. You can choose between this default command set and JAWS for Windows, with layer commands used by these screen reader scripts replacing commands in the SPL Assistant layer. For example, with JAWS for Windows layout active, pressing SPL Assistant, R will announce playlist duration (default is SPL Assistant, D). See the list below for SPL Assistant command changes between layouts.
+	* SPL Controller coverage (local and Remote Studio by default): By default, SPL Controller layer will control both local and Remote Studio. You can limit the scope or coverage of SPL Controller to local Studio or Remote Studio.
 
 After configuring the above settings, select OK from main settings dialog to save your changes, Cancel to discard them, or Apply to apply changes without closing the settings dialog.
 
@@ -652,13 +653,13 @@ The triggers dialog is used to configure profile switching settings. The followi
 
 Note: if you rename the switch profile, the switch profile setting will carry over to the just renamed profile. If you delete the selected profile, instant switching setting will become undefined.
 
-## SPL Controller (local Studio only)
+## SPL Controller
 
 Note: SPL Controller is disabled if NVDA is running in secure mode such as in secure screens.
 
-The SPL Controller is a set of commands used everywhere (except local Studio itself) to control various aspects of Studio's functionality. For example, you can use this to start playing the next track right after a Skype call, or disable automation for the time being while conducting a live interview or tweeting.
+The SPL Controller is a set of commands used everywhere (except Studio itself) to control various aspects of Studio's functionality. For example, you can use this to start playing the next track right after a Skype call, or disable automation for the time being while conducting a live interview or tweeting.
 
-To use these commands, enter SPL Controller layer. NVDA says, "SPL Controller." Then press the keys for the desired function from the list below.
+To use these commands, enter SPL Controller layer. NVDA says, "SPL Controller" or "SPL Remote Controller" depending on SPL Controller coverage setting and the currently active Studio variant (local or remote). Then press the keys for the desired function from the list below.
 
 ### SPL Controller commands
 
@@ -675,16 +676,16 @@ after entering SPL Controller, press one of the following commands:
 * U: Pause or continue playing.
 * S: Stop with fade out.
 * T: Instant stop.
-* Function keys and number row keys (with or without modifiers): play assigned carts (carts without borders).
+* Function keys and number row keys (with or without modifiers; unavailable in SPL Remote Controller): play assigned carts (carts without borders).
 
 Notice that the commands are same as SPL control commands available while SPL Studio is used. Also, the toggle commands by themselves enables a particular option, while pressing shift with the toggle key disables it (except when playing carts via SPL Controller).
 
 Additional SPL Controller commands include:
 
 * R: Announce remaining time for the currently playing track in seconds.
-* Shift+R: announce number of tracks in the library or library scan progress (if this is happening) along with number of items scanned.)
-* E: Announce connection status for active encoders if any.
-* I: Announce listener count.
+* Shift+R (unavailable in SPL Remote Controller): announce number of tracks in the library or library scan progress (if this is happening) along with number of items scanned.)
+* E (unavailable in SPL Remote Controller): Announce connection status for active encoders if any.
+* I (unavailable in SPL Remote Controller): Announce listener count.
 * Q: Announce various Studio status info. These include track playback status, automation, microphone, line-in, record to file, and cart edit/insert mode toggle.
 * C: Name and duration of the currently playing track (if any).
 * Shift+C: Name and duration of the upcoming track (if any).
@@ -692,9 +693,24 @@ Additional SPL Controller commands include:
 
 Note: SPL Controller, E and Q can be assigned to a different command from Input Gestures dialog.
 
-### Carts without borders
+### Carts without borders (local Studio only)
 
-In addition to playing carts when focused on Studio and learning about their assignments (see Cart Explorer section for details), you can play cart keys after entering SPL Controller. To do this, enter SPL Controller layer, then press the cart key.
+In addition to playing carts when focused on Studio and learning about their assignments (see Cart Explorer section for details), you can play cart keys after entering SPL Controller. To do this, as long as SPL Controller coverage setting is set to "local and Remote Studio" or "local Studio" and while local Studio is active, enter SPL Controller layer, then press the cart key.
+
+### SPL Controller coverage
+
+By default SPL Controller will control both local and Remote Studio. As long as one of either local Studio or Remote Studio is in use, NVDA will let you control Studio's functionality through SPL Controller. However, when both local and Remote Studio are in use on the same computer, SPL Controller will control local Studio. As an alternative, you can limit SPL Controller coverage or scope to either local Studio or Remote Studio. 
+
+To configure SPL Controller coverage, from add-on settings dialog, go to advanced settings, then select an option from "SPL Controller coverage" combo box. The options and the resulting behavior are:
+
+* Local and Remote Studio (default): As long as one of local or Remote Studio is in use on the broadcast computer, SPL Controller can control whichever Studio in use. However, when both are in use on the same computer, SPL Controller will control local Studio because Remote Studio offers a subset of local Studio features and commands.
+* Local Studio: SPl Controller will try to control local Studio. If only Remote Studio is running, SPL Controller will not be activated.
+* Remote Studio: SPl Controller will try to control Remote Studio. If only local Studio is running, SPL Controller will not be activated.
+
+Notes:
+
+* When a custom input gesture is assigned to encoder status command (SPL Controller, E), NVDA will report encoder status as long as local Studio is running regardless of SPL Controller coverage setting.
+* Status information command (SPL Controller, Q or a custom input gesture) will be based on the active Studio variant (local or remote) as defined in SPL Controller coverage setting.
 
 ## Quickly switch to SPL local Studio
 
