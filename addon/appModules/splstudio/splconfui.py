@@ -1424,10 +1424,30 @@ class AdvancedOptionsPanel(gui.settingsDialogs.SettingsPanel):
 		)
 		self.compatibilityList.SetSelection(selection)
 
+		self.splConScope = [
+			(None, "Local and Remote Studio"),
+			("splstudio", "Local Studio"),
+			("remotestudio", "Remote Studio")
+		]
+		# Translators: The label for a setting in SPL add-on settings
+		# to set keyboard layout for SPL Assistant.
+		splConScopeListLabel = _("SPL Controller c&overage:")
+		self.splConScopeList = advOptionsHelper.addLabeledControl(
+			splConScopeListLabel, wx.Choice, choices=[x[1] for x in self.splConScope]
+		)
+		splConScopeCurValue = splconfig.SPLConfig["Advanced"]["SPLConScope"]
+		selection = next(
+			(x for x, y in enumerate(self.splConScope) if y[0] == splConScopeCurValue)
+		)
+		self.splConScopeList.SetSelection(selection)
+
 	def onSave(self):
 		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthroughCheckbox.Value
 		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compatibilityLayouts[
 			self.compatibilityList.GetSelection()
+		][0]
+		splconfig.SPLConfig["Advanced"]["SPLConScope"] = self.splConScope[
+			self.splConScopeList.GetSelection()
 		][0]
 
 
