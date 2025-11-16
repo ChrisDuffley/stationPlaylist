@@ -389,6 +389,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_encoderStatus(self, gesture):
 		# Go through below procedure, as custom commands can be assigned for this script.
+		# Local Studio only
+		# Play an error tone if SPL Remote Controller layer is active.
+		if self.activeStudioComponent == "remotestudio" and self.SPLController:
+			self.script_error(gesture)
+			self.script_finish()
+			return
 		if not splbase.studioIsRunning(justChecking=True):
 			ui.message(_("SPL Studio is not running."))
 			self.script_finish()
