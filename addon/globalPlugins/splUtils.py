@@ -42,7 +42,7 @@ SPLTrackPlaybackStatus = 104
 SPLCurTrackPlaybackTime = 105
 
 # Translators: the text for SPL Controller help.
-SPLConHelp = _("""After entering SPL Controller, press:
+SPLConHelp = _("""After entering SPL Controller or Remote Controller, press:
 A: Turn automation on.
 Shift+A: Turn automation off.
 M: Turn microphone on.
@@ -56,12 +56,12 @@ S: Stop with fade.
 T: Instant stop.
 C: Announce name and duration of the currently playing track.
 Shift+C: Announce name and duration of the upcoming track.
-E: Announce connected encoders if any.
-I: Announce listener count.
+E (SPL Controller only): Announce connected encoders if any.
+I (SPL Controller only): Announce listener count.
 Q: Announce Studio status information.
 R: Remaining time for the playing track.
-Shift+R: Library scan progress.
-Function keys and number row keys with or without Shift, Alt, and Control keys: Play carts.""")
+Shift+R (SPL Controller only): Library scan progress.
+Function keys and number row keys with or without Shift, Alt, and Control keys (SPL Controller only): Play carts.""")
 
 
 # Announce connected encoders if any.
