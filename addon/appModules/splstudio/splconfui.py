@@ -1402,6 +1402,17 @@ class AdvancedOptionsPanel(gui.settingsDialogs.SettingsPanel):
 
 	def makeSettings(self, settingsSizer):
 		advOptionsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		# Only show SPL Controller coverage combo box if running Studio 6.20.
+		# Do show if the config dialog was opened from Remote Studio.
+		self.splConScopeAvailable = (
+			"remotestudio" in splconfig.SPLConfig.splComponents
+			or (
+				"splstudio" in splconfig.SPLConfig.splComponents
+				and splbase.studioIsRunning(justChecking=True)
+				and (splVersion := splbase.studioAPI(0, 2)) is not None
+				and splVersion >= 620
+			)
+		)
 
 		# Translators: The label for a checkbox in SPL add-on settings
 		# to toggle if SPL Controller command can be used to invoke Assistant layer.
@@ -1424,31 +1435,33 @@ class AdvancedOptionsPanel(gui.settingsDialogs.SettingsPanel):
 		)
 		self.compatibilityList.SetSelection(selection)
 
-		self.splConScope = [
-			(None, "Local and Remote Studio"),
-			("splstudio", "Local Studio"),
-			("remotestudio", "Remote Studio")
-		]
-		# Translators: The label for a setting in SPL add-on settings
-		# to set keyboard layout for SPL Assistant.
-		splConScopeListLabel = _("SPL Controller c&overage:")
-		self.splConScopeList = advOptionsHelper.addLabeledControl(
-			splConScopeListLabel, wx.Choice, choices=[x[1] for x in self.splConScope]
-		)
-		splConScopeCurValue = splconfig.SPLConfig["Advanced"]["SPLConScope"]
-		selection = next(
-			(x for x, y in enumerate(self.splConScope) if y[0] == splConScopeCurValue)
-		)
-		self.splConScopeList.SetSelection(selection)
+		if self.splConScopeAvailable:
+			self.splConScope = [
+				(None, "Local and Remote Studio"),
+				("splstudio", "Local Studio"),
+				("remotestudio", "Remote Studio")
+			]
+			# Translators: The label for a setting in SPL add-on settings
+			# to set keyboard layout for SPL Assistant.
+			splConScopeListLabel = _("SPL Controller c&overage:")
+			self.splConScopeList = advOptionsHelper.addLabeledControl(
+				splConScopeListLabel, wx.Choice, choices=[x[1] for x in self.splConScope]
+			)
+			splConScopeCurValue = splconfig.SPLConfig["Advanced"]["SPLConScope"]
+			selection = next(
+				(x for x, y in enumerate(self.splConScope) if y[0] == splConScopeCurValue)
+			)
+			self.splConScopeList.SetSelection(selection)
 
 	def onSave(self):
 		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthroughCheckbox.Value
 		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compatibilityLayouts[
 			self.compatibilityList.GetSelection()
 		][0]
-		splconfig.SPLConfig["Advanced"]["SPLConScope"] = self.splConScope[
-			self.splConScopeList.GetSelection()
-		][0]
+		if self.splConScopeAvailable:
+			splconfig.SPLConfig["Advanced"]["SPLConScope"] = self.splConScope[
+				self.splConScopeList.GetSelection()
+			][0]
 
 
 # A dialog to reset add-on config including encoder settings and others.
