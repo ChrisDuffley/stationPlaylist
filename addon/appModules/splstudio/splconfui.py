@@ -1656,7 +1656,7 @@ def openAddonSettingsPanel(panel: gui.settingsDialogs.SettingsPanel):
 		gui.mainFrame.popupSettingsDialog(SPLConfigDialog, panel)
 
 
-# Record which Studio component was responsible for opening the config dilaog.
+# Record which Studio component was responsible for opening the config dialog.
 _splComponent: str | None = None
 
 # Main add-on settings screen.
