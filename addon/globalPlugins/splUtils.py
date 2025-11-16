@@ -350,6 +350,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			splbase.studioAPI(1, SPLPause)
 		self.script_finish()
 
+	@localStudioOnly
 	def script_libraryScanProgress(self, gesture):
 		scanned = splbase.studioAPI(1, SPLLibraryScanCount)
 		if scanned is not None and scanned >= 0:
@@ -362,6 +363,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			))
 		self.script_finish()
 
+	@localStudioOnly
 	def script_listenerCount(self, gesture):
 		ui.message(
 			# Translators: Announces number of stream listeners.
@@ -433,6 +435,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		studioAppModuleCommand("script_sayNextTrackTitle", None)
 		self.script_finish()
 
+	@localStudioOnly
 	def script_cartsWithoutBorders(self, gesture):
 		try:
 			modifier, cart = gesture.displayName.split("+")
