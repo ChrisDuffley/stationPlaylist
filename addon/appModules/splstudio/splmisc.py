@@ -245,11 +245,11 @@ class SPLTimeRangeDialog(wx.Dialog):
 			return
 		# Either look up filename/track duration or duration text depending on Studio API availability.
 		if obj.appModule._localStudioAPIRequired:  # Local Studio
-			minDuration = ((minDuration[0] * 60) + minDuration[1]) * 1000
-			maxDuration = ((maxDuration[0] * 60) + maxDuration[1]) * 1000
+			minDuration: Any = ((minDuration[0] * 60) + minDuration[1]) * 1000
+			maxDuration: Any = ((maxDuration[0] * 60) + maxDuration[1]) * 1000
 		else:  # Remote Studio
-			minDuration = f"{minDuration[0]:02d}:{minDuration[1]:02d}"
-			maxDuration = f"{maxDuration[0]:02d}:{maxDuration[1]:02d}"
+			minDuration: Any = f"{minDuration[0]:02d}:{minDuration[1]:02d}"
+			maxDuration: Any = f"{maxDuration[0]:02d}:{maxDuration[1]:02d}"
 		# Manually locate tracks here.
 		while obj is not None:
 			if obj.appModule._localStudioAPIRequired:

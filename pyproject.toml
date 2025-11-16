@@ -148,7 +148,7 @@ reportIndexIssue = false  # ConfigObj is a mapping
 reportMissingImports = false  # wxPython and NVDA Core modules
 reportMissingParameterType = false  # Mostly wxPython and NVDA Core/gestures/classes
 reportMissingTypeArgument = false  # collections.ChainMap is a mapping
-reportOperatorIssue = false  # Track range finder str/int/None comparison
+reportOperatorIssue = true  # Track range finder str/int/None comparison
 reportOptionalMemberAccess = false  # Objects een as None when in fact they can be instantiated
 reportOptionalSubscript = false  # ConfigObj is seen as None when in fact it is not
 reportUndefinedVariable = false  # _ = gettext.gettext call
