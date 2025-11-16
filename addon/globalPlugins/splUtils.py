@@ -415,23 +415,37 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_statusInfo(self, gesture):
 		# Go through below procedure, as custom commands can be assigned for this script.
-		if not splbase.studioIsRunning(justChecking=True):
-			ui.message(_("SPL Studio is not running."))
+		splConScope, activeStudioComponent = self.actualSPLConScope()
+		if not activeStudioComponent:
+			if splConScope == "remotestudio":
+				# Translators: Presented when StationPlaylist Remote Studio is not running.
+				ui.message(_("SPL Remote Studio is not running."))
+			else:
+				# Translators: Presented when StationPlaylist Studio is not running.
+				ui.message(_("SPL Studio is not running."))
 			self.script_finish()
 			return
+		# Remote Studio does not support record to file and cart edit/insert modes.
 		statusInfo = [
-			splconsts.studioStatusMessages[status][splbase.studioAPI(status, SPLStatusInfo)]
-			for status in range(5)  # Playback/automation/mic/line-in/record to file
+			splconsts.studioStatusMessages[status][splbase.studioAPI(
+				status, SPLStatusInfo, splComponent=activeStudioComponent
+			)] for status in range(4)  # Playback/automation/mic/line-in across local and Remote Studio
 		]
-		# Special handling for cart edit/insert.
-		cartEdit = splbase.studioAPI(5, SPLStatusInfo)
-		cartInsert = splbase.studioAPI(6, SPLStatusInfo)
-		if cartEdit:
-			statusInfo.append("Cart Edit On")
-		elif not cartEdit and cartInsert:
-			statusInfo.append("Cart Insert On")
-		else:
-			statusInfo.append("Cart Edit Off")
+		if (
+			activeStudioComponent == "splstudio"
+			and splConScope in (None, "splstudio")
+		):
+			# Local Studio only: record to file
+			statusInfo.append(splconsts.studioStatusMessages[4][splbase.studioAPI(4, SPLStatusInfo)])
+			# Local Studio only: special handling for cart edit/insert.
+			cartEdit = splbase.studioAPI(5, SPLStatusInfo)
+			cartInsert = splbase.studioAPI(6, SPLStatusInfo)
+			if cartEdit:
+				statusInfo.append("Cart Edit On")
+			elif not cartEdit and cartInsert:
+				statusInfo.append("Cart Insert On")
+			else:
+				statusInfo.append("Cart Edit Off")
 		ui.message("; ".join(statusInfo))
 		self.script_finish()
 
