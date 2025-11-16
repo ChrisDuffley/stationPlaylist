@@ -5,7 +5,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 ## Version 25.12/25.06.11-LTS
 
 * 25.12: In Studio 6.0 and later, NVDA will announce track starts value correctly (SPL Assistant, S).
-* 25.12: SPL Controller can now be used to control Remote Studio. A new setting in add-on settings dialog under Advanced settings panel allows configuring SPL Controller coverage/scope between both local Studio and Remote Studio or one or the other.
+* 25.12: In Studio 6.20 and later, SPL Controller can be used to control local Studio and/or Remote Studio. A new setting in add-on settings dialog under Advanced settings panel allows configuring SPL Controller coverage/scope between both local Studio and Remote Studio or one or the other. In earlier Studio releases, SPL Controller layer will control local Studio.
 * Metadata streaming and status announcements settings panels will not be shown when opening add-on settings screen from Remote Studio.
 * In local Studio 6.20, NVDA will no longer announce wrong column content when vertical column navigation is set to "Time Scheduled" (Time column).
 * When performing playlist transcripts in local Studio 6.20, NVDA will include the correct column title for time column instead of time scheduled.
