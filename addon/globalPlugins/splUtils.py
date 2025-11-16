@@ -211,6 +211,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			activeStudioComponent = activeStudioComponents[0]
 		return [splConScope, activeStudioComponent]
 
+	# Record the active Studio component for use by Studio API clalers.
+	activeStudioComponent: str | None = None
+
 	# The SPL Controller:
 	# This layer set allows the user to control various aspects of SPL Studio from anywhere.
 	@scriptHandler.script(
