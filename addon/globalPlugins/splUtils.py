@@ -139,6 +139,18 @@ def disableInSecureMode(cls):
 	return globalPluginHandler.GlobalPlugin if globalVars.appArgs.secure else cls
 
 
+# Not all SPL Controller commands will work on Remote Studio.
+# This decorator wraps SPL Controller scripts to play a tone when invoked while Remote Studio is active.
+def localStudioOnly(func):
+	def remoteStudioCheck(self, gesture, *args, **kwargs):
+		if self.activeStudioComponent == "remotestudio":
+			self.script_error(gesture)
+			self.script_finish()
+		else:
+			func(self, gesture, *args, **kwargs)
+	return remoteStudioCheck
+
+
 @disableInSecureMode
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Translators: Script category for StationPlaylist commands in input gestures dialog.
