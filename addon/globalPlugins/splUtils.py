@@ -167,6 +167,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@scriptHandler.script(speakOnDemand=True)
 	def script_finish(self):
 		self.SPLController = False
+		self.activeStudioComponent = None
 		self.clearGestureBindings()
 
 	def script_error(self, gesture):
