@@ -216,7 +216,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	activeStudioComponent: str | None = None
 
 	# The SPL Controller:
-	# This layer set allows the user to control various aspects of SPL Studio from anywhere.
+	# This layer set allows the user to control various aspects of SPL local and Remote Studio from anywhere.
 	@scriptHandler.script(
 		# Translators: Input help mode message for a layer command in StationPlaylist add-on.
 		description=_("SPl Controller layer command. See add-on guide for available commands."),
@@ -240,34 +240,47 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			else:
 				foregroundAppMod.script_SPLAssistantToggle(gesture)
 				return
-		# Ask splbase module if Studio is active.
-		if not splbase.studioIsRunning(justChecking=True):
-			# Translators: Presented when StationPlaylist Studio is not running.
-			ui.message(_("SPL Studio is not running."))
+		# Locate SPL Controller scope and active Studio component if any.
+		splConScope, activeStudioComponent = self.actualSPLConScope()
+		if not activeStudioComponent:
+			if splConScope == "remotestudio":
+				# Translators: Presented when StationPlaylist Remote Studio is not running.
+				ui.message(_("SPL Remote Studio is not running."))
+			else:
+				# Translators: Presented when StationPlaylist Studio is not running.
+				ui.message(_("SPL Studio is not running."))
 			self.script_finish()
 			return
 		# No errors, so continue.
 		if not self.SPLController:
 			self.bindGestures(self.__SPLControllerGestures)
+			self.activeStudioComponent = activeStudioComponent
 			# Also bind cart keys.
 			# Exclude number row if Studio Standard is running.
 			# #147: truncate to function key carts if Studio Standard is in use
 			# as cart keys are now a single list.
-			if not getWindowText(user32.FindWindowW("TStudioForm", None)).startswith(
-				"StationPlaylist Studio Standard"
-			):
-				lastCart = 24
-			else:
-				lastCart = 12
-			for cart in splconsts.cartKeys[:lastCart]:
-				self.bindGesture(f"kb:{cart}", "cartsWithoutBorders")
-				self.bindGesture(f"kb:shift+{cart}", "cartsWithoutBorders")
-				self.bindGesture(f"kb:control+{cart}", "cartsWithoutBorders")
-				self.bindGesture(f"kb:alt+{cart}", "cartsWithoutBorders")
+			# Local Studio only
+			if self.activeStudioComponent == "splstudio":
+				if not getWindowText(
+					user32.FindWindowW("TStudioForm", None)
+				).startswith("StationPlaylist Studio Standard"):
+					lastCart = 24
+				else:
+					lastCart = 12
+				for cart in splconsts.cartKeys[:lastCart]:
+					self.bindGesture(f"kb:{cart}", "cartsWithoutBorders")
+					self.bindGesture(f"kb:shift+{cart}", "cartsWithoutBorders")
+					self.bindGesture(f"kb:control+{cart}", "cartsWithoutBorders")
+					self.bindGesture(f"kb:alt+{cart}", "cartsWithoutBorders")
 			self.SPLController = True
-			# Translators: The name of a layer command set for StationPlaylist add-on.
-			# Hint: it is better to translate it as "SPL Control Panel."
-			ui.message(_("SPL Controller"))
+			if self.activeStudioComponent == "remotestudio":
+				# Translators: The name of a layer command set for StationPlaylist add-on.
+				# Hint: it is better to translate it as "SPL Control Panel."
+				ui.message(_("SPL Remote Controller"))
+			else:
+				# Translators: The name of a layer command set for StationPlaylist add-on.
+				# Hint: it is better to translate it as "SPL Control Panel."
+				ui.message(_("SPL Controller"))
 		else:
 			self.script_error(gesture)
 			self.script_finish()
