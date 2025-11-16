@@ -131,11 +131,11 @@ The available commands are (most commands support speak on demand and some comma
 
 ## SPL Controller
 
-The SPL Controller is a set of layered commands you can use to control SPL local Studio anywhere. Press the SPL Controller layer command, and NVDA will say, "SPL Controller." Press another command to control various local Studio settings such as microphone on/off or play the next track. You can also configure NVDA to enter SPL Assistant layer (see above) by pressing SPL Controller layer command (passthrough mode, enabled by default).
+The SPL Controller is a set of layered commands you can use to control SPL (local) Studio and/or Remote Studio anywhere. Press the SPL Controller layer command, and NVDA will say, "SPL Controller" or "SPL Remote Controller" if Remote Studio is in use. Press another command to control various Studio settings such as microphone on/off or play the next track. You can also configure NVDA to enter SPL Assistant layer (see above) by pressing SPL Controller layer command (passthrough mode, enabled by default).
 
 Important: SPL Controller layer commands are disabled if NVDA is running in secure mode.
 
-Outside of Studio, the available SPL Controller commands are (some commands support speak on demand):
+Outside of Studio, the available SPL Controller commands are (some commands support speak on demand and some are only available with local Studio):
 
 * P: Play the next selected track.
 * U: Pause or unpause playback.
@@ -149,13 +149,13 @@ Outside of Studio, the available SPL Controller commands are (some commands supp
 * L: Turn on line-in input.
 * Shift+L: Turn off line-in input.
 * R: Remaining time for the currently playing track.
-* Shift+R: Library scan progress.
+* Shift+R (unavailable in Remote Studio): Library scan progress.
 * C: Title and duration of the currently playing track (supports speak on demand).
 * Shift+C: Title and duration of the upcoming track if any (supports speak on demand).
-* E: Encoder connection status (supports speak on demand).
-* I: Listener count (supports speak on demand).
+* E (unavailable in Remote Studio): Encoder connection status (supports speak on demand).
+* I (unavailable in Remote Studio): Listener count (supports speak on demand).
 * Q: Studio status information such as whether a track is playing, microphone is on and others (supports speak on demand).
-* Cart keys (F1, Control+1, for example): Play assigned carts from anywhere.
+* Cart keys (F1, Control+1, for example; unavailable in Remote Studio): Play assigned carts from anywhere.
 * H: Layer help.
 
 From inside Studio (local and Remote Studio), SPL Controller layer command will invoke SPL Assistant layer by default.
@@ -211,6 +211,7 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 ## Version 25.12/25.06.11-LTS
 
 * 25.12: In Studio 6.0 and later, NVDA will announce track starts value correctly (SPL Assistant, S).
+* 25.12: SPL Controller can now be used to control Remote Studio. A new setting in add-on settings dialog under Advanced settings panel allows configuring SPL Controller coverage/scope between both local Studio and Remote Studio or one or the other.
 * Metadata streaming and status announcements settings panels will not be shown when opening add-on settings screen from Remote Studio.
 * In local Studio 6.20, NVDA will no longer announce wrong column content when vertical column navigation is set to "Time Scheduled" (Time column).
 * When performing playlist transcripts in local Studio 6.20, NVDA will include the correct column title for time column instead of time scheduled.
