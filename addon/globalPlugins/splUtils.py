@@ -300,54 +300,54 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# The layer commands themselves. Calls user32.SendMessage method (via splbase.studioAPI) for each script.
 
 	def script_automateOn(self, gesture):
-		splbase.studioAPI(1, SPLAutomate)
+		splbase.studioAPI(1, SPLAutomate, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	def script_automateOff(self, gesture):
-		splbase.studioAPI(0, SPLAutomate)
+		splbase.studioAPI(0, SPLAutomate, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	def script_micOn(self, gesture):
-		splbase.studioAPI(1, SPLMic)
+		splbase.studioAPI(1, SPLMic, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	def script_micOff(self, gesture):
-		splbase.studioAPI(0, SPLMic)
+		splbase.studioAPI(0, SPLMic, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	def script_micNoFade(self, gesture):
-		splbase.studioAPI(2, SPLMic)
+		splbase.studioAPI(2, SPLMic, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	def script_lineInOn(self, gesture):
-		splbase.studioAPI(1, SPLLineIn)
+		splbase.studioAPI(1, SPLLineIn, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	def script_lineInOff(self, gesture):
-		splbase.studioAPI(0, SPLLineIn)
+		splbase.studioAPI(0, SPLLineIn, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	def script_stopFade(self, gesture):
-		splbase.studioAPI(0, SPLStop)
+		splbase.studioAPI(0, SPLStop, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	def script_stopInstant(self, gesture):
-		splbase.studioAPI(1, SPLStop)
+		splbase.studioAPI(1, SPLStop, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	def script_play(self, gesture):
-		splbase.studioAPI(0, SPLPlay)
+		splbase.studioAPI(0, SPLPlay, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	def script_pause(self, gesture):
-		playingNow = splbase.studioAPI(0, SPLTrackPlaybackStatus)
+		playingNow = splbase.studioAPI(0, SPLTrackPlaybackStatus, splComponent=self.activeStudioComponent)
 		if not playingNow:
 			# Translators: Presented when no track is playing in StationPlaylist Studio.
 			ui.message(_("There is no track playing. Try pausing while a track is playing."))
 		elif playingNow == 3:
-			splbase.studioAPI(0, SPLPause)
+			splbase.studioAPI(0, SPLPause, splComponent=self.activeStudioComponent)
 		else:
-			splbase.studioAPI(1, SPLPause)
+			splbase.studioAPI(1, SPLPause, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	@localStudioOnly
@@ -374,7 +374,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.script_finish()
 
 	def script_remainingTime(self, gesture):
-		remainingTime = splbase.studioAPI(3, SPLCurTrackPlaybackTime)
+		remainingTime = splbase.studioAPI(
+			3, SPLCurTrackPlaybackTime, splComponent=self.activeStudioComponent
+		)
 		if remainingTime is not None and remainingTime < 0:
 			# Translators: Presented when no track is playing in StationPlaylist Studio.
 			ui.message(_("There is no track playing."))
