@@ -26,12 +26,13 @@ addon_info = AddonInfo(
 	addon_version="25.11",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""* Initial support for StationPlaylist suite 6.20.
-* Initial support for StationPlaylist Remote Studio. Although the interface resembles local Studio, not all commands and features are available.
-* While in cart explorer from Remote Studio, NVDA will announce cart name and its type such as local or Studio cart.
-* Additional internal changes to make the add-on more compatible with upcoming 64-bit NVDA. In particular, resolved erroneous announcements when performing some SPL Assistant layer commands in local (original) Studio.
-* In local Studio, NVDA will be more successful when entering Cart Explorer (Alt+NVDA+3) in more cases.
-* In local Studio, resolved a potential security and privacy issue after switching users while Cart Explorer is active where the cart assignments from the previous user can be announced."""),
+	addon_changelog=_("""* In local Studio, NVDA will announce track starts value correctly (SPL Assistant, S).
+* In Studio 6.20 and later, SPL Controller can be used to control local Studio and/or Remote Studio. A new setting in add-on settings dialog under Advanced settings panel allows configuring SPL Controller coverage/scope between both local Studio and Remote Studio or one or the other. In earlier Studio releases, SPL Controller layer will control local Studio.
+* Metadata streaming and status announcements settings panels will not be shown when opening add-on settings screen from Remote Studio.
+* In local Studio 6.20, NVDA will no longer announce wrong column content when vertical column navigation is set to "Time Scheduled" (Time column).
+* When performing playlist transcripts in local Studio 6.20, NVDA will include the correct column title for time column instead of time scheduled.
+* NVDA will no longer include empty column content when generating playlist transcripts in plain text and HTML list formats.
+* In Remote Studio, taking playlist snapshots (SPL Assistant, F8) shows more accurate results."""),
 	# Author(s)
 	addon_author="Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)",
 	# URL for the add-on documentation support
