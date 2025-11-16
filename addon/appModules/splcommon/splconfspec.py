@@ -64,6 +64,7 @@ SayStudioPlayerPosition = boolean(default=false)
 [Advanced]
 SPLConPassthrough = boolean(default=true)
 CompatibilityLayer = option("off", "jfw", default="off")
+SPLConScope = option(None,"splstudio","remotestudio",default=None)
 [Startup]
 WelcomeDialog = boolean(default=true)
 """),
