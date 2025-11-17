@@ -7,7 +7,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 * Metadata streaming and status announcements settings panels will not be shown when opening add-on settings screen from Remote Studio.
 * In local Studio 6.20, NVDA will no longer announce wrong column content when vertical column navigation is set to "Time Scheduled" (Time column).
 * When performing playlist transcripts in local Studio 6.20, NVDA will include the correct column title for time column instead of time scheduled.
-* In local Studio 6.20, NVDA will no longer announce "Artist not found" when performing columns explorer commands (Control+NVDA+number row) to obtain artist information while focused on tracks in insert tracks search results list.
+* Resolved issues working with results from insert tracks dialog in local Studio 6.20, including NVDA saying "Artist not found" when performing columns explorer commands (Control+NVDA+number row) to obtain artist information, wrong column information announced in columns explorer, and top and bottom beeps being heard.
 * NVDA will no longer include empty column content when generating playlist transcripts in plain text and HTML list formats.
 * In Remote Studio, taking playlist snapshots (SPL Assistant, F8) shows more accurate results.
 
