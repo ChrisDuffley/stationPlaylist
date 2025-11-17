@@ -195,7 +195,9 @@ class SPLTrackItem(sysListView32.ListItem):
 		# Search for the correct column (child object) based on the header from explore columns list.
 		# Because of this, track items must expose individual columns as child objects.
 		if hasattr(self, "exploreColumns"):
-			columnHeaders = [child.columnHeaderText for child in self.children]
+			# Sometimes, odd Unicode characters such as up arrow (↑) are present.
+			# This is seen with local Studio 6.20's insert tracks list, specifically "Artist" column.
+			columnHeaders = [child.columnHeaderText.removeprefix("↑") for child in self.children]
 			header = self.exploreColumns[columnPos]
 			if header not in columnHeaders:
 				# Translators: Presented when a specific column header is not found.
