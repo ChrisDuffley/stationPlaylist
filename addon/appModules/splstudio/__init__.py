@@ -335,6 +335,13 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 		except ValueError:
 			return None
 
+	# Inform columns explorer about updated column headers on screen.
+	def updateColumnHeader(self, header: str) -> str:
+		# Convert "Time Scheduled" to "Time" in Studio 6.20.
+		if self.appModule.productVersion >= "6.20" and header == "Time Scheduled":
+			return "Time"
+		return header
+
 	def reportFocus(self):
 		if splconfig.SPLConfig["General"]["CategorySounds"]:
 			category = self._getColumnContentRaw(self.indexOf("Category"))
