@@ -1535,6 +1535,10 @@ class AppModule(appModuleHandler.AppModule):
 		gesture="kb:shift+nvda+r",
 	)
 	def script_setLibraryScanProgress(self, gesture):
+		# Library scan reporting toggle is handled by local Studio, not Remote Studio.
+		if self.appName != "splstudio":
+			ui.message(_("Unavailable in Remote Studio"))
+			return
 		libraryScanAnnounce = splconfig.SPLConfig["General"]["LibraryScanAnnounce"]
 		if libraryScanAnnounce == "off":
 			libraryScanAnnounce = "ending"
