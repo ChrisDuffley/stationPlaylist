@@ -554,16 +554,16 @@ Note: not all settings will be available when opening add-on settings from Remot
 Most of the settings in this dialog were discussed throughout the add-on guide. Here is a complete list of available settings and their options (some settings are unavailable if NVDA is running in secure mode and some are not applicable to Remote Studio):
 
 * General add-on settings: home to a number of general options, including:
-	* Beep for status announcements (unchecked by default, applicable to local Studio): See status announcement section. Status messages can be announced as beeps or words when this option is checked or unchecked, respectively.
-	* Message verbosity (beginner by default, applicable to local Studio): See message verbosity section for more details and an entry in frequently asked questions for a complete list of messages that'll be affected by this setting.
+	* Beep for status announcements (unchecked by default): See status announcement section. Status messages can be announced as beeps or words when this option is checked or unchecked, respectively.
+	* Message verbosity (beginner by default): See message verbosity section for more details and an entry in frequently asked questions for a complete list of messages that'll be affected by this setting.
 	* Braille timer (off by default): select the desired braille timer option from this combo box. See braille timer section for more details.
-	* Library scan announcement (off by default, applicable to local Studio): select the announcement option from this combo box. See library scan section for more details.
+	* Library scan announcement (off by default, unavailable in Remote Studio): select the announcement option from this combo box. See library scan section for more details.
 	* Announce hour values when announcing track or playlist duration (on by default): If duration of the track or a playlist exceeds one hour, NVDA will announce minutes and seconds or hours, minutes and seconds when this option is disabled or enabled, respectively.
 	* Vertical column navigation announcement (currently reviewing column by default): When you move through columns vertically, you can ask NVDA to keep you on the column you are currently reviewing or announce a specific column. Choose the option or the column you want from this combo box.
 	* Beep for different track categories (disabled by default): Enabling this option allows NVDA to play different beeps for different track categories when moving between tracks in playlist viewer. See playlist viewer section for details.
 	* Track comment announcement (off by default): Select how NVDA will notify you of track comments if it exists. You can choose from off, message, beep or both. See track comments section for details.
 	* Notify when located at top or bottom of playlist viewer (enabled by default): If this is turned on, a beep will be heard when you are at the top or bottom of the playlist.
-	* Play a sound when listener requests arrive (enabled by default, applicable to local Studio): if checked, NVDA will play a beep to indicate request arrival. See listener requests section for details.
+	* Play a sound when listener requests arrive (enabled by default, unavailable in Remote Studio): if checked, NVDA will play a beep to indicate request arrival. See listener requests section for details.
 * Alarms: This category allows you to configure various alarm options, including:
 	* Track outro, intro alarms and notification toggle, microphone alarm and interval. See track and microphone alarms section for details.
 	* Alarm notification (beep by default): Selects alarm notification type. You can select from beep only, message only or both. See alarms section for more details.
