@@ -438,8 +438,7 @@ E: Overall metadata streaming status.
 Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder and four additional URL's.
 Shift+E: Record to file.
 F: Track finder.
-H: Duration of trakcs in this hour slot.
-Shift+H: Duration of remaining trakcs in this hour slot.
+H: Duration of remaining trakcs in this hour slot.
 K: Move to place marker track.
 Control+K: Set place marker track.
 L: Listener count.
@@ -450,13 +449,14 @@ O: Playlist hour over/under by.
 P: Playback status.
 Shift+P: Pitch for the current track.
 R: Remaining time for the playlist.
-Shift+R: Monitor library scan.
 S: Scheduled time for the track.
 Shift+S: Time until the selected track will play.
-T: Cart edit/insert mode.
+T: Duration of trakcs in this hour slot.
+Alt+T: Monitor library scan.
 U: Studio up time.
 W: Weather and temperature.
 Y: Playlist modification.
+0: Cart edit/insert mode.
 F8: Take playlist snapshots such as track count, longest track and so on.
 Shift+F8: Obtain playlist transcripts in a variety of formats.
 F9: Mark current track as start of track time analysis.
@@ -2672,10 +2672,10 @@ class AppModule(appModuleHandler.AppModule):
 			"kb:m": "sayMicStatus",
 			"kb:shift+l": "sayLineInStatus",
 			"kb:shift+e": "sayRecToFileStatus",
-			"kb:t": "sayCartEditStatus",
+			"kb:0": "sayCartEditStatus",
 			"kb:control+d": "sayControlKeysStatus",
-			"kb:h": "sayHourTrackDuration",
-			"kb:shift+h": "sayHourRemaining",
+			"kb:t": "sayHourTrackDuration",
+			"kb:h": "sayHourRemaining",
 			"kb:r": "sayPlaylistRemainingDuration",
 			"kb:o": "sayHourOvertime",
 			"kb:y": "sayPlaylistModified",
@@ -2688,7 +2688,7 @@ class AppModule(appModuleHandler.AppModule):
 			"kb:s": "sayScheduledTime",
 			"kb:shift+s": "sayScheduledToPlay",
 			"kb:shift+p": "sayTrackPitch",
-			"kb:shift+r": "libraryScanMonitor",
+			"kb:alt+t": "libraryScanMonitor",
 			"kb:f8": "takePlaylistSnapshots",
 			"kb:shift+f8": "playlistTranscripts",
 			"kb:f9": "markTrackForAnalysis",
