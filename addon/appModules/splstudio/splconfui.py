@@ -495,24 +495,25 @@ class GeneralSettingsPanel(gui.settingsDialogs.SettingsPanel):
 		selection = next((x for x, y in enumerate(self.brailleTimerValues) if y[0] == brailleTimerCurValue))
 		self.brailleTimerList.SetSelection(selection)
 
-		self.libScanValues = [
-			("off", translate("Off")),
-			# Translators: One of the library scan announcement settings.
-			("ending", _("Start and end only")),
-			# Translators: One of the library scan announcement settings.
-			("progress", _("Scan progress")),
-			# Translators: One of the library scan announcement settings.
-			("numbers", _("Scan count")),
-		]
-		# Translators: The label for a setting in SPL add-on settings
-		# to control library scan announcement.
-		libScanListLabel = _("&Library scan announcement:")
-		self.libScanList = generalSettingsHelper.addLabeledControl(
-			libScanListLabel, wx.Choice, choices=[x[1] for x in self.libScanValues]
-		)
-		libScanCurValue = splconfig.SPLConfig["General"]["LibraryScanAnnounce"]
-		selection = next((x for x, y in enumerate(self.libScanValues) if y[0] == libScanCurValue))
-		self.libScanList.SetSelection(selection)
+		if _splComponent != "remotestudio":
+			self.libScanValues = [
+				("off", translate("Off")),
+				# Translators: One of the library scan announcement settings.
+				("ending", _("Start and end only")),
+				# Translators: One of the library scan announcement settings.
+				("progress", _("Scan progress")),
+				# Translators: One of the library scan announcement settings.
+				("numbers", _("Scan count")),
+			]
+			# Translators: The label for a setting in SPL add-on settings
+			# to control library scan announcement.
+			libScanListLabel = _("&Library scan announcement:")
+			self.libScanList = generalSettingsHelper.addLabeledControl(
+				libScanListLabel, wx.Choice, choices=[x[1] for x in self.libScanValues]
+			)
+			libScanCurValue = splconfig.SPLConfig["General"]["LibraryScanAnnounce"]
+			selection = next((x for x, y in enumerate(self.libScanValues) if y[0] == libScanCurValue))
+			self.libScanList.SetSelection(selection)
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to announce time including hours.
@@ -567,13 +568,14 @@ class GeneralSettingsPanel(gui.settingsDialogs.SettingsPanel):
 		self.topBottomCheckbox = generalSettingsHelper.addItem(wx.CheckBox(self, label=topBottomLabel))
 		self.topBottomCheckbox.SetValue(splconfig.SPLConfig["General"]["TopBottomAnnounce"])
 
-		# Translators: the label for a setting in SPL add-on settings
-		# to enable requests alert.
-		requestsAlertLabel = _("Play a sound when listener &requests arrive")
-		self.requestsAlertCheckbox = generalSettingsHelper.addItem(
-			wx.CheckBox(self, label=requestsAlertLabel)
-		)
-		self.requestsAlertCheckbox.SetValue(splconfig.SPLConfig["General"]["RequestsAlert"])
+		if _splComponent != "remotestudio":
+			# Translators: the label for a setting in SPL add-on settings
+			# to enable requests alert.
+			requestsAlertLabel = _("Play a sound when listener &requests arrive")
+			self.requestsAlertCheckbox = generalSettingsHelper.addItem(
+				wx.CheckBox(self, label=requestsAlertLabel)
+			)
+			self.requestsAlertCheckbox.SetValue(splconfig.SPLConfig["General"]["RequestsAlert"])
 
 	def onSave(self):
 		splconfig.SPLConfig["General"]["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
@@ -582,9 +584,6 @@ class GeneralSettingsPanel(gui.settingsDialogs.SettingsPanel):
 		][0]
 		splconfig.SPLConfig["General"]["BrailleTimer"] = self.brailleTimerValues[
 			self.brailleTimerList.GetSelection()
-		][0]
-		splconfig.SPLConfig["General"]["LibraryScanAnnounce"] = self.libScanValues[
-			self.libScanList.GetSelection()
 		][0]
 		splconfig.SPLConfig["General"]["TimeHourAnnounce"] = self.hourAnnounceCheckbox.Value
 		splconfig.SPLConfig["General"]["VerticalColumnAnnounce"] = (
@@ -597,7 +596,11 @@ class GeneralSettingsPanel(gui.settingsDialogs.SettingsPanel):
 			self.trackCommentList.GetSelection()
 		][0]
 		splconfig.SPLConfig["General"]["TopBottomAnnounce"] = self.topBottomCheckbox.Value
-		splconfig.SPLConfig["General"]["RequestsAlert"] = self.requestsAlertCheckbox.Value
+		if _splComponent != "remotestudio":
+			splconfig.SPLConfig["General"]["LibraryScanAnnounce"] = self.libScanValues[
+				self.libScanList.GetSelection()
+			][0]
+			splconfig.SPLConfig["General"]["RequestsAlert"] = self.requestsAlertCheckbox.Value
 
 
 # Various alarm settings (outro, intro, microphone).
