@@ -199,6 +199,9 @@ class SPLTrackItem(sysListView32.ListItem):
 			# This is seen with local Studio 6.20's insert tracks list, specifically "Artist" column.
 			columnHeaders = [child.columnHeaderText.removeprefix("↑") for child in self.children]
 			header = self.exploreColumns[columnPos]
+			# Consult more concrete track item classes about column header changes shown on screen.
+			if hasattr(self, "updateColumnHeader"):
+				header = self.updateColumnHeader(header)
 			if header not in columnHeaders:
 				# Translators: Presented when a specific column header is not found.
 				ui.message(_("{headerText} not found").format(headerText=header))
