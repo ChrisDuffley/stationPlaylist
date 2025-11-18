@@ -261,8 +261,12 @@ The SPL Assistant layer commands described throughout this guide are the default
 Following are SPL Assistant command assignments when JAWS for Windows layout is active:
 
 * C: Cart Explorer (you can toggle this by pressing Alt+NVDA+3).
+* H: Remaining track duration for the hour slot.
 * L (local Studio only): Listener count.
 * R: Playlist duration.
+* T: Hour duration.
+* Alt+T (local Studio only): Library scan results.
+* Number row 0 (zero; local Studio only): Cart edit mode status.
 
 Other SPL Assistant commands described in this guide are same across all layouts.
 
@@ -575,7 +579,7 @@ Most of the settings in this dialog were discussed throughout the add-on guide. 
 * Status announcements (unavailable in Remote Studio): this category contains four checkboxes to configure announcement of certain status information. These include announcing scheduled time for the selected track, listener count, name of the currently playing cart and position of the player used for playing the current and the next track.
 * Advanced (unavailable in secure mode): This category allows you to configure various advanced options. These include:
 	* Use SPl Controller to invoke SPL Assistant (enabled by default): If you check this box after assigning a command to invoke SPL Controller layer (see below), you can use SPl Controller command you assigned to invoke SPl Assistant layer. This is useful for people used to other screen readers where a single layer is used to access functions normally performed by both Controller and Assistant layers in NVDA.
-	* Assistant layer layout (NVDA by default): By default, NVDA will use the Assistant layer commands described throughout this user guide. You can choose between this default command set and JAWS for Windows, with layer commands used by these screen reader scripts replacing commands in the SPL Assistant layer. For example, with JAWS for Windows layout active, pressing SPL Assistant, R will announce playlist duration (default is SPL Assistant, D). See the list below for SPL Assistant command changes between layouts.
+	* Assistant layer layout (NVDA by default): By default, NVDA will use the Assistant layer commands described throughout this user guide. You can choose between this default command set and JAWS for Windows, with layer commands used by these screen reader scripts replacing commands in the SPL Assistant layer. For example, with JAWS for Windows layout active, pressing SPL Assistant, R will announce playlist duration (default is SPL Assistant, D). See the JAWS layout section for SPL Assistant command changes between layouts.
 	* SPL Controller coverage (local and Remote Studio by default; Studio 6.20 and later): By default, SPL Controller layer will control both local and Remote Studio. You can limit the scope or coverage of SPL Controller to local Studio or Remote Studio. If using Studio versions earlier than 6.20, this option will not appear.
 
 After configuring the above settings, select OK from main settings dialog to save your changes, Cancel to discard them, or Apply to apply changes without closing the settings dialog.
