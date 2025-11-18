@@ -41,6 +41,10 @@ class RemoteStudioPlaylistViewerItem(splstudio.StudioPlaylistViewerItem):
 		except ValueError:
 			return None
 
+	# Update column headers shown on screen (which does nothing in Remote Studio).
+	def updateColumnHeader(self, header: str) -> str:
+		return header
+
 
 class AppModule(splstudio.AppModule):
 	# Remote Studio does not require Studio API to function.
