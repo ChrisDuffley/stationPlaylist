@@ -5,6 +5,8 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 ## Version 25.06.11-LTS
 
 * Metadata streaming and status announcements settings panels will not be shown when opening add-on settings screen from Remote Studio.
+* Settings to report library scans and listener requests will not be shown in add-on settings when opened from Remote Studio.
+* Library scan announcement toggle command (NVDA+Shift+R) is now limited to local Studio.
 * Changed the following SPL Assistant JAWS layout commands: hour duration (H to T), hour remaining duration (Shift+H to H), library scan (Shift+R to Alt+T), cart edit/insert (T to number row 0).
 * In local Studio 6.20, NVDA will no longer announce wrong column content when vertical column navigation is set to "Time Scheduled" (Time column).
 * When performing playlist transcripts in local Studio 6.20, NVDA will include the correct column title for time column instead of time scheduled.

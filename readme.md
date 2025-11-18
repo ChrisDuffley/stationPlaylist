@@ -31,7 +31,7 @@ Most of these will work in Studio only unless otherwise specified. Unless noted 
 * Alt+NVDA+3 from Creator's Playlist Editor and Remote VT playlist editor: Announces when the selected track is scheduled to play.
 * Alt+NVDA+4 from Creator's Playlist Editor and Remote VT playlist editor: Announces rotation and category associated with the loaded playlist.
 * Control+NVDA+F from Studio window: Opens a dialog to find a track based on artist or song name. Press NVDA+F3 to find forward or NVDA+Shift+F3 to find backward (does not support speak on demand).
-* Shift+NVDA+R from Studio window: Steps through library scan announcement settings (does not support speak on demand).
+* Shift+NVDA+R from Studio window (local Studio only): Steps through library scan announcement settings (does not support speak on demand).
 * Control+Shift+X from Studio window: Steps through braille timer settings (does not support speak on demand).
 * Control+Alt+left/right arrow (while focused on a track in local and Remote Studio, Creator, Remote VT, and Track Tool): Move to previous/next track column (does not support speak on demand).
 * Control+Alt+up/down arrow (while focused on a track in local and Remote Studio, Creator, Remote VT, and Track Tool): Move to previous/next track and announce specific columns (does not support speak on demand).
@@ -211,6 +211,8 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 ## Version 25.06.11-LTS
 
 * Metadata streaming and status announcements settings panels will not be shown when opening add-on settings screen from Remote Studio.
+* Settings to report library scans and listener requests will not be shown in add-on settings when opened from Remote Studio.
+* Library scan announcement toggle command (NVDA+Shift+R) is now limited to local Studio.
 * Changed the following SPL Assistant JAWS layout commands: hour duration (H to T), hour remaining duration (Shift+H to H), library scan (Shift+R to Alt+T), cart edit/insert (T to number row 0).
 * In local Studio 6.20, NVDA will no longer announce wrong column content when vertical column navigation is set to "Time Scheduled" (Time column).
 * When performing playlist transcripts in local Studio 6.20, NVDA will include the correct column title for time column instead of time scheduled.
