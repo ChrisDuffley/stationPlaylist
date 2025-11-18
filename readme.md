@@ -96,15 +96,15 @@ This layer command set allows you to obtain various status on Studio, such as wh
 The available commands are (most commands support speak on demand and some commands are unavailable in Remote Studio):
 
 * A: Automation.
-* C (Shift+C  in JAWS layout): Title for the currently playing track.
+* C (Shift+C in JAWS layout): Title for the currently playing track.
 * C (JAWS layout): Toggle cart explorer (playlist viewer only, does not support speak on demand).
 * D (R in JAWS layout): Remaining duration for the playlist (if an error message is given, move to playlist viewer and then issue this command).
 * Control+D (Studio 6.10 and later, unavailable in Remote Studio): Control keys enabled/disabled.
 * E (unavailable in Remote Studio): Metadata streaming status.
 * Shift+1 through Shift+4, Shift+0 (unavailable in Remote Studio): Status for individual metadata streaming URL's (0 is for DSP encoder).
 * F: Find track (playlist viewer only, does not support speak on demand).
-* H: Duration of music for the current hour slot.
-* Shift+H: Remaining track duration for the hour slot.
+* H (T in JAWS layout): Duration of music for the current hour slot.
+* Shift+H (H in JAWS layout): Remaining track duration for the hour slot.
 * I (L in JAWS layout, unavailable in Remote Studio): Listener count.
 * K (unavailable in Remote Studio): Move to the marked track (playlist viewer only).
 * Control+K (unavailable in Remote Studio): Set the current track as the place marker track (playlist viewer only).
@@ -115,10 +115,10 @@ The available commands are (most commands support speak on demand and some comma
 * P: Playback status (playing or stopped).
 * Shift+P (unavailable in Remote Studio): Pitch of the current track.
 * R (Shift+E in JAWS layout, unavailable in Remote Studio): Record to file enabled/disabled.
-* Shift+R (unavailable in Remote Studio): Monitor library scan in progress.
+* Shift+R (Alt+T in JAWS layout; unavailable in Remote Studio): Monitor library scan in progress.
 * S: Track starts (scheduled).
 * Shift+S: Time until selected track will play (track starts in).
-* T (unavailable in Remote Studio): Cart edit/insert mode on/off.
+* T (number row 0 (zero) in JAWS layout; unavailable in Remote Studio): Cart edit/insert mode on/off.
 * U (unavailable in Remote Studio): Studio up time.
 * W: Weather and temperature if configured.
 * Y (unavailable in Remote Studio): Playlist modified status.
@@ -213,6 +213,7 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 * 25.12: In local Studio, NVDA will announce track starts value correctly (SPL Assistant, S).
 * 25.12: In Studio 6.20 and later, SPL Controller can be used to control local Studio and/or Remote Studio. A new setting in add-on settings dialog under Advanced settings panel allows configuring SPL Controller coverage/scope between both local Studio and Remote Studio or one or the other. In earlier Studio releases, SPL Controller layer will control local Studio.
 * Metadata streaming and status announcements settings panels will not be shown when opening add-on settings screen from Remote Studio.
+* Changed the following SPL Assistant JAWS layout commands: hour duration (H to T), hour remaining duration (Shift+H to H), library scan (Shift+R to Alt+T), cart edit/insert (T to number row 0).
 * In local Studio 6.20, NVDA will no longer announce wrong column content when vertical column navigation is set to "Time Scheduled" (Time column).
 * When performing playlist transcripts in local Studio 6.20, NVDA will include the correct column title for time column instead of time scheduled.
 * Resolved issues working with results from insert tracks dialog in local Studio 6.20, including NVDA saying "Artist not found" when performing columns explorer commands (Control+NVDA+number row) to obtain artist information, wrong column information announced in columns explorer, and top and bottom beeps being heard.
