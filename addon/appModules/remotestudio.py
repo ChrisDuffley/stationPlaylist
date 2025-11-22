@@ -202,12 +202,14 @@ class AppModule(splstudio.AppModule):
 	SPLTrackRemainingTime = 1
 	SPLTrackElapsedTime = 2
 	SPLNextTrackTitle = 3
-	SPLCurrentTrackTitle = 4
-	SPLTrackStarts = 5
-	SPLTrackStartsIn = 6
-	SPLPlaylistRemain = 7
-	SPLTotalForHour = 8
-	SPLTemperature = 9
+	SPLNextPlayer = 4
+	SPLCurrentTrackTitle = 5
+	SPLCurrentPlayer = 6
+	SPLTrackStarts = 7
+	SPLTrackStartsIn = 8
+	SPLPlaylistRemain = 9
+	SPLTotalForHour = 10
+	SPLTemperature = 11
 
 	# Table of child constants based on versions
 	# Same as local Studio: scattered around the screen, so use foreground.getChild(index) to fetch them
@@ -218,7 +220,9 @@ class AppModule(splstudio.AppModule):
 			SPLTrackRemainingTime: [2, 2, -2],
 			SPLTrackElapsedTime: [2, 2, -1],
 			SPLNextTrackTitle: [2, 2, 2, 0],
+			SPLNextPlayer: [2, 2, 2, 1],
 			SPLCurrentTrackTitle: [2, 2, 9],
+			SPLCurrentPlayer: [2, 2, 9, 0],
 			SPLTrackStarts: [2, 2, -3],
 			SPLTrackStartsIn: [2, 2, -6],
 			SPLPlaylistRemain: [2, 2, -5],
