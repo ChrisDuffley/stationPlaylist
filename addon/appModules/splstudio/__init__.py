@@ -2664,13 +2664,9 @@ class AppModule(appModuleHandler.AppModule):
 			self.script_finish()
 			return
 		try:
-			if self._studioAPIRequired and not splbase.studioAPI(0, SPLStatusInfo):
-				# Message comes from Foobar 2000 app module, part of NVDA Core.
-				nextTrack = translate("No track playing")
-			else:
-				obj = self.status(self.SPLNextTrackTitle)
-				# Translators: Presented when there is no information for the next track.
-				nextTrack = _("No next track scheduled") if obj.name is None else obj.name
+			obj = self.status(self.SPLNextTrackTitle)
+			# Translators: Presented when there is no information for the next track.
+			nextTrack = _("No next track scheduled") if obj.name is None else obj.name
 			# #34 (17.08): normally, player position (name of the internal player in Studio) would not be announced,
 			# but might be useful for some broadcasters with mixers.
 			if splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"]:
