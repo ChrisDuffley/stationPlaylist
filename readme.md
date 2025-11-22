@@ -210,6 +210,8 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 
 ## Version 25.06.11-LTS
 
+* Added a setting in add-on settings under status announcements to announce when a cart finishes playing (NVDA will say 'cart stopped').
+* In add-on settings/status announcements, cart name checkbox is now cart announcement check list box with the former setting becoming a checkable option.
 * Metadata streaming and status announcements settings panels will not be shown when opening add-on settings screen from Remote Studio.
 * Settings to report library scans and listener requests will not be shown in add-on settings when opened from Remote Studio.
 * Library scan announcement toggle command (NVDA+Shift+R) is now limited to local Studio.
