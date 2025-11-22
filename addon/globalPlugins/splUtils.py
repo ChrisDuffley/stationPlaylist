@@ -60,7 +60,7 @@ Shift+C: Announce name and duration of the upcoming track.
 E (SPL Controller only): Announce connected encoders if any.
 I (SPL Controller only): Announce listener count.
 Q: Announce Studio status information.
-R: Remaining time for the playing track.
+R: Remaining time for the playing track (including voice tracks and carts in local Studio).
 Shift+R (SPL Controller only): Library scan progress.
 Function keys and number row keys with or without Shift, Alt, and Control keys (SPL Controller only): Play carts.""")
 
@@ -383,14 +383,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.script_finish()
 
 	def script_remainingTime(self, gesture):
-		remainingTime = splbase.studioAPI(
-			3, SPLCurTrackPlaybackTime, splComponent=self.activeStudioComponent
-		)
-		if remainingTime is not None and remainingTime < 0:
+		# Perform Studio app command (including announcing voice track remaining time in local Studio)
+		# if there is a track playing.
+		if not splbase.studioAPI(0, SPLStatusInfo, splComponent=self.activeStudioComponent):
 			# Translators: Presented when no track is playing in StationPlaylist Studio.
 			ui.message(_("There is no track playing."))
 		else:
-			studioAppModuleCommand("announceTime", remainingTime, offset=1, includeHours=True)
+			studioAppModuleCommand("announceTrackTime", "remaining")
 		self.script_finish()
 
 	@scriptHandler.script(
