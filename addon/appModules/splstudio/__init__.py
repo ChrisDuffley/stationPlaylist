@@ -1146,7 +1146,19 @@ class AppModule(appModuleHandler.AppModule):
 				else:
 					self.announceTime(remainingTime, offset=1)
 			case "elapsed":
-				self.announceTime(splbase.studioAPI(0, SPLCurTrackPlaybackTime))
+				# Work with track/voice track/cart remaining times.
+				elapsedTime = splbase.studioAPI(0, SPLCurTrackPlaybackTime)
+				vtElapsedTime = splbase.studioAPI(0, SPLVoiceTrackPlaybackTime)
+				cartElapsedTime = splbase.studioAPI(0, SPLCartPlaybackTime)
+				# Cart -> voice track -> regular track (in this order)
+				# because carts can play on top of track/voice track.
+				# Regular track will not play while a voice track is playing.
+				if cartElapsedTime > 0:
+					ui.message("{} (cart)".format(self._ms2time(cartElapsedTime)))
+				elif vtElapsedTime > 0:
+					ui.message("{} (voice track)".format(self._ms2time(vtElapsedTime)))
+				else:
+					self.announceTime(elapsedTime)
 			case _:
 				raise ValueError(f"Unrecognized track time announcement command: {trackTime}")
 
