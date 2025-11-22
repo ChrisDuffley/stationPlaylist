@@ -2185,6 +2185,17 @@ class AppModule(appModuleHandler.AppModule):
 			SPLTemperature: [-1, 1, -13, -1],  # Temperature for the current city.
 			SPLTrackStarts: [-1, 1, -3, 0],  # Track starts (time since midnight)
 		},
+		# Local Studio only: use the below map if "view log" button is showing.
+		"6viewerrorlog": {
+			SPLPlayStatus: [-1, -3],  # Play status, mic, control keys (Studio 6.10 and later), etc.
+			SPLSystemStatus: [-1, -2],  # The second status bar containing system status such as up time.
+			SPLNextTrackTitle: [-1, 1, -15, 0],  # Name and duration of the next track if any.
+			SPLNextPlayer: [-1, 1, -15, 1],  # Name and duration of the next track if any.
+			SPLCurrentTrackTitle: [-1, 1, -8],  # Name of the currently playing track.
+			SPLCurrentPlayer: [-1, 1, -8, 0],  # Name of the currently playing track.
+			SPLTemperature: [-1, 1, -14, -1],  # Temperature for the current city.
+			SPLTrackStarts: [-1, 1, -3, 0],  # Track starts (time since midnight)
+		},
 	}
 
 	_cachedStatusObjs: dict[int, Any] = {}
