@@ -946,7 +946,7 @@ class MetadataStreamingPanel(gui.settingsDialogs.SettingsPanel):
 		selection = next((x for x, y in enumerate(self.metadataValues) if y[0] == metadataCurValue))
 		self.metadataList.SetSelection(selection)
 
-		# # Translators: the label for a setting in SPL add-on settings
+		# Translators: the label for a setting in SPL add-on settings
 		# to configure streaming status for metadata streams.
 		checkedStreamsLabel = _("&Select the URL for metadata streaming upon request:")
 		self.checkedStreams = metadataSizerHelper.addLabeledControl(
