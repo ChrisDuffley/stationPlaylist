@@ -403,7 +403,9 @@ To define a place marker track, press SPL Assistant, Control+K. NVDA will say, "
 
 Note: You cannot set a breaknote or hour marker as place marker track, and if you delete the place marker track, place marker will be gone. Place marker commands will not work outside of playlist viewer, and place marker track is unavailable in Remote Studio.
 
-#### Cart Explorer
+#### Carts management
+
+##### Cart Explorer
 
 Both local Studio and Remote Studio include dedicated cart banks or jingle machines. Local Studio allows you to assign up to 96 carts, whereas Remote Studio defines 12 cart slots. When the cart command is pressed, Studio (local and remote) plays the assigned jingle.
 
@@ -426,6 +428,10 @@ Note: Cart explorer will not operate properly if:
 
 1. Either you have custom names for your carts or saved your cart with a different name, or loaded other cart banks besides your own. Cart explorer will not pick up cart names for additional cart banks you insert into a cart bank (main, shift, control, alt). For example, if you have cart assignments for main cart bank and add cart entries from another user's main cart bank, cart explorer will not announce cart assignments from the added cart bank. For best results, do not load another cart bank apart from your own, or if you are the only user, do not add any other banks besides default user's cart banks.
 2. If one or more cart banks doesn't exist or your user name starts or ends with whitespace (" "). If this is the case, NVDA will report that some cart banks were not found and will not enter cart explorer.
+
+##### Reporting cart status
+
+By default, NVDA will report the name of the active (playing) cart. In addition, when a cart finishes, NVDA will say, "cart stopped". You can enable either or both announcements from add-on settings under status announcements.
 
 #### Music Library scan (local Studio only)
 
@@ -576,7 +582,7 @@ Most of the settings in this dialog were discussed throughout the add-on guide. 
 	* Column inclusion and/or order: check or uncheck columns to be announced and/or customize the announcement order. See column announcements section for details.
 * Columns explorer: The four buttons in this category opens dialogs where you can configure columns explorer slots when you use Studio (playlist viewre), Track Tool, Creator (main tracks table), or playlist editor in Creator and Remote VT. See Columns Explorer section for details.
 * Playlist Transcripts: you can configure various settings related to Playlist Transcripts feature, including which columns to include and column order. See Playlist Transcripts section for details.
-* Status announcements (unavailable in Remote Studio): this category contains four checkboxes to configure announcement of certain status information. These include announcing scheduled time for the selected track, listener count, name of the currently playing cart and position of the player used for playing the current and the next track.
+* Status announcements (unavailable in Remote Studio): this category contains three checkboxes and a checkable list to configure announcement of certain status information. These include announcing scheduled time for the selected track, listener count, cart name and/or ending (stopped) notification (checkable list), and position of the player used for playing the current and the next track.
 * Advanced (unavailable in secure mode): This category allows you to configure various advanced options. These include:
 	* Use SPl Controller to invoke SPL Assistant (enabled by default): If you check this box after assigning a command to invoke SPL Controller layer (see below), you can use SPl Controller command you assigned to invoke SPl Assistant layer. This is useful for people used to other screen readers where a single layer is used to access functions normally performed by both Controller and Assistant layers in NVDA.
 	* Assistant layer layout (NVDA by default): By default, NVDA will use the Assistant layer commands described throughout this user guide. You can choose between this default command set and JAWS for Windows, with layer commands used by these screen reader scripts replacing commands in the SPL Assistant layer. For example, with JAWS for Windows layout active, pressing SPL Assistant, R will announce playlist duration (default is SPL Assistant, D). See the JAWS layout section for SPL Assistant command changes between layouts.
