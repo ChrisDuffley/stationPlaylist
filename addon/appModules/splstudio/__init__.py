@@ -2214,6 +2214,12 @@ class AppModule(appModuleHandler.AppModule):
 				# (several SPL Controller commands will use this route).
 				fg = getNVDAObjectFromEvent(user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0)
 			studioVersion = self.productVersion.split(".")[0]
+			# In local Studio, error log button can displace object positions.
+			if (
+				self.appName == "splstudio"
+				and fg.getChild(-1).getChild(1).getChild(-6).role == controlTypes.Role.BUTTON
+			):
+				studioVersion += "viewerrorlog"
 			statusIndex = self.statusObjs[studioVersion][infoIndex]
 			# Sometimes (especially when first loaded), OBJID_CLIENT fails,
 			# so resort to retrieving focused object instead.
