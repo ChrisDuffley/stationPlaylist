@@ -2365,7 +2365,7 @@ class AppModule(appModuleHandler.AppModule):
 			self.script_finish()
 			return
 		try:
-			if self._localStudioAPIRequired and not splbase.studioAPI(0, SPLStatusInfo):
+			if not splbase.studioAPI(0, SPLStatusInfo, splComponent=self.appName):
 				# Message comes from Foobar 2000 app module, part of NVDA Core.
 				currentTrack = translate("No track playing")
 			else:
