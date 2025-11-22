@@ -969,7 +969,7 @@ class MetadataStreamingPanel(gui.settingsDialogs.SettingsPanel):
 		# Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
 		# Add checkboxes for each stream, beginning with the DSP encoder.
 		# #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
-		# # Translators: the label for a setting in SPL add-on settings
+		# Translators: the label for a setting in SPL add-on settings
 		# to configure streaming status for metadata streams.
 		checkedStreamsLabel = _("&Select the URL for metadata streaming upon request:")
 		self.checkedStreams = metadataSizerHelper.addLabeledControl(
