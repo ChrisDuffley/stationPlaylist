@@ -1407,11 +1407,24 @@ class SayStatusPanel(gui.settingsDialogs.SettingsPanel):
 		self.listenerCountCheckbox = sayStatusHelper.addItem(wx.CheckBox(self, label=listenerCountLabel))
 		self.listenerCountCheckbox.SetValue(splconfig.SPLConfig["SayStatus"]["SayListenerCount"])
 
+		cartAnnouncementOptions = (
+			# Translators: one of the cart announcement options.
+			_("cart name"),
+			# Translators: one of the cart announcement options.
+			_("cart ending"),
+		)
+		cartAnnouncementValues = ("SayPlayingCartName", "SayCartStopped")
 		# Translators: the label for a setting in SPL add-on settings
 		# to announce currently playing cart.
-		cartNameLabel = _("&Announce name of the currently playing cart")
-		self.cartNameCheckbox = sayStatusHelper.addItem(wx.CheckBox(self, label=cartNameLabel))
-		self.cartNameCheckbox.SetValue(splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"])
+		cartAnnouncementLabel = _("C&art announcement:")
+		self.checkedCartAnnouncements = sayStatusHelper.addLabeledControl(
+			cartAnnouncementLabel, CustomCheckListBox, choices=cartAnnouncementOptions
+		)
+		for pos, setting in enumerate(cartAnnouncementValues):
+			self.checkedCartAnnouncements.Check(
+				pos, check=splconfig.SPLConfig["SayStatus"][setting]
+			)
+		self.checkedCartAnnouncements.SetSelection(0)
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to announce player position for the current and next tracks.
@@ -1424,7 +1437,9 @@ class SayStatusPanel(gui.settingsDialogs.SettingsPanel):
 	def onSave(self):
 		splconfig.SPLConfig["SayStatus"]["SayScheduledFor"] = self.scheduledForCheckbox.Value
 		splconfig.SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCountCheckbox.Value
-		splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"] = self.cartNameCheckbox.Value
+		# Separate cart announcement options into separate config values.
+		splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"] = self.checkedCartAnnouncements.IsChecked(0)
+		splconfig.SPLConfig["SayStatus"]["SayCartStopped"] = self.checkedCartAnnouncements.IsChecked(1)
 		splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"] = self.playerPositionCheckbox.Value
 
 
