@@ -21,8 +21,8 @@ IMPORTANT NOTES:
 
 Most of these will work in Studio only unless otherwise specified. Unless noted otherwise, these commands support speak on demand mode.
 
-* Alt+Shift+T from Studio window: announce elapsed time for the currently playing track.
-* Control+Alt+T (two finger flick down in SPL touch mode) from Studio window: announce remaining time for the currently playing track.
+* Alt+Shift+T from Studio window: announce elapsed time for the currently playing track, voice track, or cart.
+* Control+Alt+T (two finger flick down in SPL touch mode) from Studio window: announce remaining time for the currently playing track, voice track, or cart.
 * NVDA+Shift+F12 (two finger flick up in SPL touch mode) from Studio window: announces broadcaster time such as 5 minutes to top of the hour. Pressing this command twice will announce minutes and seconds till top of the hour.
 * Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens alarms category in Studio add-on configuration dialog (does not support speak on demand).
 * Alt+NVDA+1 from Creator's Playlist Editor and Remote VT playlist editor: Announces scheduled time for the loaded playlist.
@@ -212,6 +212,7 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 
 * Added a setting in add-on settings under status announcements to announce when a cart finishes playing (NVDA will say 'cart stopped').
 * In add-on settings/status announcements, cart name checkbox is now cart announcement check list box with the former setting becoming a checkable option.
+* In local Studio, performing track elapsed (Alt+Shift+T) and remaining time (Control+Alt+T) commands will also announce elapsed and remaining time for the currently playing voice track and/or cart. In addition, pressing SPL Controller, R will announce remaining duration of the playing track, voice track, or cart for local Studio.
 * Metadata streaming and status announcements settings panels will not be shown when opening add-on settings screen from Remote Studio.
 * Settings to report library scans and listener requests will not be shown in add-on settings when opened from Remote Studio.
 * Library scan announcement toggle command (NVDA+Shift+R) is now limited to local Studio.

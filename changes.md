@@ -6,6 +6,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 
 * Added a setting in add-on settings under status announcements to announce when a cart finishes playing (NVDA will say 'cart stopped').
 * In add-on settings/status announcements, cart name checkbox is now cart announcement check list box with the former setting becoming a checkable option.
+* In local Studio, performing track elapsed (Alt+Shift+T) and remaining time (Control+Alt+T) commands will also announce elapsed and remaining time for the currently playing voice track and/or cart. In addition, pressing SPL Controller, R will announce remaining duration of the playing track, voice track, or cart for local Studio.
 * Metadata streaming and status announcements settings panels will not be shown when opening add-on settings screen from Remote Studio.
 * Settings to report library scans and listener requests will not be shown in add-on settings when opened from Remote Studio.
 * Library scan announcement toggle command (NVDA+Shift+R) is now limited to local Studio.
