@@ -87,7 +87,9 @@ libScanT: threading.Thread | None = None
 # Various SPL IPC tags.
 SPLPlaylistHourDuration = 27
 SPLLibraryScanCount = 32
+SPLCartPlaybackTime = 34
 SPLMetadataStreaming = 36
+SPLVoiceTrackPlaybackTime = 37
 SPLStatusInfo = 39
 SPLCurTrackPlaybackTime = 105
 SPLTrackCount = 124
@@ -1424,13 +1426,26 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Announce elapsed and remaining times differently across local and Remote Studio
 	# (local Studio = Studio API, Remote Studio = screen traversal).
+	# Local Studio: report voice track (VT) and cart duration when appropriate.
 	def announceTrackTime(self, trackTime: str) -> None:
 		if not splbase.studioIsRunning():
 			return
 		# Track time parameter can be either "remaining" or "elapsed".
 		match trackTime:
 			case "remaining":
-				self.announceTime(splbase.studioAPI(3, SPLCurTrackPlaybackTime), offset=1)
+				# Work with track/voice track/cart remaining times.
+				remainingTime = splbase.studioAPI(3, SPLCurTrackPlaybackTime)
+				vtRemainingTime = splbase.studioAPI(2, SPLVoiceTrackPlaybackTime)
+				cartRemainingTime = splbase.studioAPI(2, SPLCartPlaybackTime)
+				# Cart -> voice track -> regular track (in this order)
+				# because carts can play on top of track/voice track.
+				# Regular track will not play while a voice track is playing.
+				if cartRemainingTime > 0:
+					ui.message("{} (cart)".format(self._ms2time(cartRemainingTime, offset=1)))
+				elif vtRemainingTime > 0:
+					ui.message("{} (voice track)".format(self._ms2time(vtRemainingTime, offset=1)))
+				else:
+					self.announceTime(remainingTime, offset=1)
 			case "elapsed":
 				self.announceTime(splbase.studioAPI(0, SPLCurTrackPlaybackTime))
 			case _:
