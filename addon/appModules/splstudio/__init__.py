@@ -809,8 +809,17 @@ class AppModule(appModuleHandler.AppModule):
 			return splconfig.SPLConfig["SayStatus"]["SayScheduledFor"]
 		elif "Listener" in name:
 			return splconfig.SPLConfig["SayStatus"]["SayListenerCount"]
-		elif name.startswith("Cart") and obj.IAccessibleChildID == 3:
-			return splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"]
+		# Special handling for cart playback status.
+		elif obj.IAccessibleChildID == 3:
+			if name and name.startswith("Cart"):
+				return splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"]
+			# Announce "cart stopped" and no more (return False).
+			elif not obj.name:
+				# Announce "cart stopped" and no more (return False).
+				if splconfig.SPLConfig["SayStatus"]["SayCartStopped"]:
+					# Translators: presented when a cart jingle stops playing.
+					ui.message(_("Cart stopped"))
+				return False
 		# In insert tracks dialog, name change event is fired continuously until actual result is known.
 		# To prevent an event flood risk, say "no" if the same result text was cached.
 		elif "match" in name and api.getForegroundObject().windowClassName == "TTrackInsertForm":
