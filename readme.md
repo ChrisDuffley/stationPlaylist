@@ -210,10 +210,11 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 
 ## Version 25.12/25.06.11-LTS
 
-* 25.12: In local Studio, NVDA will announce track starts value correctly (SPL Assistant, S).
 * 25.12: In Studio 6.20 and later, SPL Controller can be used to control local Studio and/or Remote Studio. A new setting in add-on settings dialog under Advanced settings panel allows configuring SPL Controller coverage/scope between both local Studio and Remote Studio or one or the other. In earlier Studio releases, SPL Controller layer will control local Studio.
 * Metadata streaming and status announcements settings panels will not be shown when opening add-on settings screen from Remote Studio.
 * Settings to report library scans and listener requests will not be shown in add-on settings when opened from Remote Studio.
+* 25.12: In local Studio, NVDA will announce track starts value correctly (SPL Assistant, S).
+* 25.12: In local Studio, NVDA will no longer announce wrong information when locating various screen information such as weather data if error log button is shown on screen.
 * Library scan announcement toggle command (NVDA+Shift+R) is now limited to local Studio.
 * Changed the following SPL Assistant JAWS layout commands: hour duration (H to T), hour remaining duration (Shift+H to H), library scan (Shift+R to Alt+T), cart edit/insert (T to number row 0).
 * Resolved "Time Scheduled/Time" column announcement and usage in local Studio 6.20, including reporting of wrong column content when vertical column navigation is set to "Time Scheduled", NVDA reporting "Time Scheduled not found" when this column is configured as a columns explorer slot, and wrong column title shown in playlist transcripts.
