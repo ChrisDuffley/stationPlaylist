@@ -985,7 +985,16 @@ class AppModule(appModuleHandler.AppModule):
 			# The best way to detect Cart Edit off is consulting file modification time.
 			# Automatically reload cart information if this is the case.
 			if status in ("Cart Edit Off", "Cart Insert On"):
-				self.carts = splmisc.cartExplorerRefresh(api.getForegroundObject().name, self.carts)
+				studioTitle = api.getForegroundObject().name
+				# Studio 6 demo uses "Demo" as default user name, therefore remove user name.
+				if "Demo - Demo" in studioTitle:
+					studioTitle = "StationPlaylist Studio Demo"
+				# If default user is set for Standard and Pro, user name is not included in the title bar text.
+				# Therefore, just report the edition name after partitioning the title bar text.
+				studioTitlePartition = studioTitle.partition(" - ")
+				if not studioTitlePartition[2]:
+					studioTitle = studioTitlePartition[0]
+				self.carts = splmisc.cartExplorerRefresh(studioTitle, self.carts)
 			# Translators: Presented when cart modes are toggled while cart explorer is on.
 			ui.message(_("Cart explorer is active"))
 			return
