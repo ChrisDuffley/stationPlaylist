@@ -15,6 +15,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 * Resolved issues working with results from insert tracks dialog in local Studio 6.20, including NVDA saying "Artist not found" when performing columns explorer commands (Control+NVDA+number row) to obtain artist information, wrong column information announced in columns explorer, and top and bottom beeps being heard.
 * NVDA will no longer include empty column content when generating playlist transcripts in plain text and HTML list formats.
 * In local Studio, NVDA will no longer announce "no track playing" when announcing next track title when no tracks are playing but next track title is showing on screen.
+* In local Studio, NVDA will no longer appear to do nothing or play error tones when cart edit/insert mode is toggled while cart explorer is active.
 * In Remote Studio, taking playlist snapshots (SPL Assistant, F8) shows more accurate results.
 * In Remote Studio, NVDA will no longer do nothing or play error tones when announcing current and next track titles and is configured to announce track player information.
 
