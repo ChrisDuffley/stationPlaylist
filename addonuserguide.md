@@ -1,6 +1,6 @@
 # StationPlaylist Add-on User Guide
 
-Revision: December 2025 for StationPlaylist add-on 25.11/25.06.9-LTS
+Revision: December 2025 for StationPlaylist add-on 25.12/25.06.11-LTS
 
 Author: Christopher Duffley (formerly Joseph Lee)
 
