@@ -1011,10 +1011,10 @@ Q. Which versions of Studio are supported by which add-on releases?
 * Studio 5.20: Add-on 16.11 to 20.09.7 (November 2016-April 2021).
 * Studio 5.3x: Add-on 17.11 to 22.12 (November 2017-December 2022).
 * Studio 5.40: Add-on 19.11 to 25.05.4 (November 2019-May 2025).
-* Studio 5.50: Add-on 20.11 to 25.06.9 (November 2020-November 2025).
-* Studio 6.0x: Add-on 21.11 to 25.11 (November 2021-November 2025).
-* Studio 6.1x: Add-on 24.03 to 25.11 (April 2024-November 2025).
-* Studio 6.20: Add-on 25.11 to 25.11 (November 2025-November 2025).
+* Studio 5.50: Add-on 20.11 to 25.06.11 (November 2020-December 2025).
+* Studio 6.0x: Add-on 21.11 to 25.12 (November 2021-December 2025).
+* Studio 6.1x: Add-on 24.03 to 25.12 (April 2024-December 2025).
+* Studio 6.20: Add-on 25.11 to 25.12 (November 2025-December 2025).
 
 Note: the schedule above is subject to change.
 
