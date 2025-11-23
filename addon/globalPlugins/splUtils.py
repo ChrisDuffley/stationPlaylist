@@ -389,7 +389,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# The only exception is carts (playback status is "stopped" even though a cart is playing).
 		if (
 			(
-				self.activeStudioComponent == "splstudio" and splbase.studioAPI(2, SPLCartPlaybackTime) >= 0
+				self.activeStudioComponent == "splstudio"
+				and splbase.studioAPI(2, SPLCartPlaybackTime) not in (None, -1)
 			) or splbase.studioAPI(0, SPLStatusInfo, splComponent=self.activeStudioComponent)
 		):
 			studioAppModuleCommand("announceTrackTime", "remaining")
