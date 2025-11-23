@@ -56,6 +56,7 @@ SPLMic = 17
 SPLLineIn = 18
 SPLCartPlayer = 19
 SPLLibraryScanCount = 32
+SPLCartPlaybackTime = 34
 SPLListenerCount = 35
 SPLStatusInfo = 39
 SPLTrackPlaybackStatus = 104
@@ -404,10 +405,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_remainingTime(self, gesture):
 		# Perform Studio app command (including announcing voice track remaining time)
 		# if there is a track playing.
-		if not splbase.studioAPI(0, SPLStatusInfo):
-			# Translators: Presented when no track is playing in StationPlaylist Studio.
-			ui.message(_("There is no track playing."))
-		else:
+		# The only exception is carts (playback status is "stopped" even though a cart is playing).
+		if (
+			splbase.studioAPI(2, SPLCartPlaybackTime) >= 0
+			or splbase.studioAPI(0, SPLStatusInfo)
+		):
 			# 7.0: Present remaining time in hh:mm:ss format for enhanced experience (borrowed from Studio app module).
 			# 17.09 optimization: perform in-place string construction instead of
 			# using objects and building a list, results in fewer bytecode instructions.
@@ -415,6 +417,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# 19.11.1/18.09.13-LTS: use floor division due to division differences between Python 2 and 3.
 			# 25.07: just call the Studio app module's time announcer method.
 			studioAppModuleCommand("announceTrackTime", "remaining")
+		else:
+			# Translators: Presented when no track is playing in StationPlaylist Studio.
+			ui.message(_("There is no track playing."))
 		self.script_finish()
 
 	@scriptHandler.script(
