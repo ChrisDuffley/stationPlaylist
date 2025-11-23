@@ -1143,9 +1143,9 @@ class AppModule(appModuleHandler.AppModule):
 		match trackTime:
 			case "remaining":
 				# Work with track/voice track/cart remaining times.
-				remainingTime = splbase.studioAPI(3, SPLCurTrackPlaybackTime)
-				vtRemainingTime = splbase.studioAPI(2, SPLVoiceTrackPlaybackTime)
-				cartRemainingTime = splbase.studioAPI(2, SPLCartPlaybackTime)
+				remainingTime: Any = splbase.studioAPI(3, SPLCurTrackPlaybackTime)
+				vtRemainingTime: Any = splbase.studioAPI(2, SPLVoiceTrackPlaybackTime)
+				cartRemainingTime: Any = splbase.studioAPI(2, SPLCartPlaybackTime)
 				# Cart -> voice track -> regular track (in this order)
 				# because carts can play on top of track/voice track.
 				# Regular track will not play while a voice track is playing.
@@ -1157,9 +1157,9 @@ class AppModule(appModuleHandler.AppModule):
 					self.announceTime(remainingTime, offset=1)
 			case "elapsed":
 				# Work with track/voice track/cart remaining times.
-				elapsedTime = splbase.studioAPI(0, SPLCurTrackPlaybackTime)
-				vtElapsedTime = splbase.studioAPI(0, SPLVoiceTrackPlaybackTime)
-				cartElapsedTime = splbase.studioAPI(0, SPLCartPlaybackTime)
+				elapsedTime: Any = splbase.studioAPI(0, SPLCurTrackPlaybackTime)
+				vtElapsedTime: Any = splbase.studioAPI(0, SPLVoiceTrackPlaybackTime)
+				cartElapsedTime: Any = splbase.studioAPI(0, SPLCartPlaybackTime)
 				# Cart -> voice track -> regular track (in this order)
 				# because carts can play on top of track/voice track.
 				# Regular track will not play while a voice track is playing.
