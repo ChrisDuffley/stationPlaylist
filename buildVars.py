@@ -26,13 +26,22 @@ addon_info = AddonInfo(
 	addon_version="25.11",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""* In local Studio, NVDA will announce track starts value correctly (SPL Assistant, S).
+	addon_changelog=_("""* Added a setting in add-on settings under status announcements to announce when a cart finishes playing (NVDA will say 'cart stopped').
+* In add-on settings/status announcements, cart name checkbox is now cart announcement check list box with the former setting becoming a checkable option.
 * In Studio 6.20 and later, SPL Controller can be used to control local Studio and/or Remote Studio. A new setting in add-on settings dialog under Advanced settings panel allows configuring SPL Controller coverage/scope between both local Studio and Remote Studio or one or the other. In earlier Studio releases, SPL Controller layer will control local Studio.
+* In local Studio, performing track elapsed (Alt+Shift+T) and remaining time (Control+Alt+T) commands will also announce elapsed and remaining time for the currently playing voice track and/or cart. In addition, pressing SPL Controller, R will announce remaining duration of the playing track, voice track, or cart for local Studio.
 * Metadata streaming and status announcements settings panels will not be shown when opening add-on settings screen from Remote Studio.
-* In local Studio 6.20, NVDA will no longer announce wrong column content when vertical column navigation is set to "Time Scheduled" (Time column).
-* When performing playlist transcripts in local Studio 6.20, NVDA will include the correct column title for time column instead of time scheduled.
+* Settings to report library scans and listener requests will not be shown in add-on settings when opened from Remote Studio.
+* In local Studio, NVDA will announce track starts value correctly (SPL Assistant, S).
+* In local Studio, NVDA will no longer announce wrong information when locating various screen information such as weather data if error log button is shown on screen.
+* Library scan announcement toggle command (NVDA+Shift+R) is now limited to local Studio.
+* Changed the following SPL Assistant JAWS layout commands: hour duration (H to T), hour remaining duration (Shift+H to H), library scan (Shift+R to Alt+T), cart edit/insert (T to number row 0).
+* Resolved "Time Scheduled/Time" column announcement and usage in local Studio 6.20, including reporting of wrong column content when vertical column navigation is set to "Time Scheduled", NVDA reporting "Time Scheduled not found" when this column is configured as a columns explorer slot, and wrong column title shown in playlist transcripts.
+* Resolved issues working with results from insert tracks dialog in local Studio 6.20, including NVDA saying "Artist not found" when performing columns explorer commands (Control+NVDA+number row) to obtain artist information, wrong column information announced in columns explorer, and top and bottom beeps being heard.
 * NVDA will no longer include empty column content when generating playlist transcripts in plain text and HTML list formats.
-* In Remote Studio, taking playlist snapshots (SPL Assistant, F8) shows more accurate results."""),
+* In local Studio, NVDA will no longer announce "no track playing" when announcing next track title when no tracks are playing but next track title is showing on screen.
+* In Remote Studio, taking playlist snapshots (SPL Assistant, F8) shows more accurate results.
+* In Remote Studio, NVDA will no longer do nothing or play error tones when announcing current and next track titles and is configured to announce track player information."""),
 	# Author(s)
 	addon_author="Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)",
 	# URL for the add-on documentation support
