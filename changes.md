@@ -2,6 +2,10 @@
 
 This page lists the complete changelog for StationPlaylist add-on releases.
 
+## Version 26.01
+
+* NVDA 2025.3.2 or later is required.
+
 ## Version 25.12/25.06.11-LTS
 
 * Added a setting in add-on settings under status announcements to announce when a cart finishes playing (NVDA will say 'cart stopped').
