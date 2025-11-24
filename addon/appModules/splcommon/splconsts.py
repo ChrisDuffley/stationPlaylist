@@ -1,6 +1,6 @@
 # SPL Studio common constants
 # An app module and global plugin package for NVDA
-# Copyright 2015-2025 Joseph Lee, released under GPL.
+# Copyright 2015-2026 Joseph Lee, released under GPL.
 # Common constants across the add-on modules
 # Split from splmisc module in 2025.
 
