@@ -45,7 +45,7 @@ from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent, sysList
 from NVDAObjects.behaviors import Dialog
 import textInfos
 import tones
-from ..splcommon import splbase, splconsts, splactions, splconfig
+from ..splcommon import splbase, splconsts, splactions, splconfig, splcarts
 from . import splconfui
 from . import splmisc
 import addonHandler
@@ -637,7 +637,7 @@ class AppModule(appModuleHandler.AppModule):
 		self.carts.clear()
 		self._cachedStatusObjs.clear()
 		# Don't forget to reset timestamps for cart files.
-		splmisc.cartEditTimestamps = []
+		splcarts.cartEditTimestamps = []
 		# Just to make sure:
 		splbase.setStudioWindowHandle(None, splComponent=self.appName)
 
@@ -929,7 +929,7 @@ class AppModule(appModuleHandler.AppModule):
 		elif obj.windowClassName == "TStudioForm":
 			if self.cartExplorer:
 				self.carts.clear()
-				splmisc.cartEditTimestamps = []
+				splcarts.cartEditTimestamps = []
 				studioTitle = obj.name
 				# Studio 6 demo uses "Demo" as default user name, therefore remove user name.
 				if "Demo - Demo" in studioTitle:
@@ -939,7 +939,7 @@ class AppModule(appModuleHandler.AppModule):
 				studioTitlePartition = studioTitle.partition(" - ")
 				if not studioTitlePartition[2]:
 					studioTitle = studioTitlePartition[0]
-				self.carts = splmisc.cartExplorerInit(studioTitle, remoteStudio=self.appName=="remotestudio")
+				self.carts = splcarts.cartExplorerInit(studioTitle, remoteStudio=self.appName=="remotestudio")
 				if self.carts["faultyCarts"]:
 					# Translators: presented when cart explorer could not be switched on.
 					ui.message(_("Some or all carts could not be assigned, cannot enter cart explorer"))
@@ -994,7 +994,7 @@ class AppModule(appModuleHandler.AppModule):
 				studioTitlePartition = studioTitle.partition(" - ")
 				if not studioTitlePartition[2]:
 					studioTitle = studioTitlePartition[0]
-				self.carts = splmisc.cartExplorerRefresh(studioTitle, self.carts)
+				self.carts = splcarts.cartExplorerRefresh(studioTitle, self.carts)
 			# Translators: Presented when cart modes are toggled while cart explorer is on.
 			ui.message(_("Cart explorer is active"))
 			return
@@ -1541,7 +1541,7 @@ class AppModule(appModuleHandler.AppModule):
 			studioTitlePartition = studioTitle.partition(" - ")
 			if not studioTitlePartition[2]:
 				studioTitle = studioTitlePartition[0]
-			self.carts = splmisc.cartExplorerInit(studioTitle, remoteStudio=self.appName=="remotestudio")
+			self.carts = splcarts.cartExplorerInit(studioTitle, remoteStudio=self.appName=="remotestudio")
 			if self.carts["faultyCarts"]:
 				# Translators: presented when cart explorer could not be switched on.
 				ui.message(_("Some or all carts could not be assigned, cannot enter cart explorer"))
@@ -1555,7 +1555,7 @@ class AppModule(appModuleHandler.AppModule):
 			self.cartExplorer = False
 			self.cartsBuilder(build=False)
 			self.carts.clear()
-			splmisc.cartEditTimestamps = []
+			splcarts.cartEditTimestamps = []
 			# Translators: Presented when cart explorer is off.
 			ui.message(_("Exiting cart explorer"))
 
