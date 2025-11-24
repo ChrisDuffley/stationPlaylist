@@ -66,6 +66,8 @@ class AppModule(splstudio.AppModule):
 		super().terminate()
 		# Clear app module flags and attributes.
 		self._pastStatusBarContent = None
+		# Clear Remote Studio settings file timestamp (mostly for cart explorer).
+		splmisc.cartEditRemoteTimestamps = None
 
 	# Locate the handle for Remote Studio for caching purposes.
 	def _locateSPLHwnd(self) -> None:
