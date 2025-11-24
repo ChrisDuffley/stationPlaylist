@@ -8,7 +8,6 @@ from typing import Any
 import os
 from _csv import reader  # For cart explorer.
 from logHandler import log
-from . import splconsts
 
 # Manual definitions of cart keys.
 # For use in cart explorer (Studio app module) and carts without borders (global plugin)
@@ -73,7 +72,7 @@ def _populateCarts(
 			cartName = entry.split(",")[0]
 		else:
 			cartName = entry.split('"')[1]
-		cart = splconsts.cartKeys[pos] if not modifier else "+".join([modifier, splconsts.cartKeys[pos]])
+		cart = cartKeys[pos] if not modifier else "+".join([modifier, cartKeys[pos]])
 		if noEntry and refresh:
 			if cart in carts:
 				del carts[cart]
@@ -189,7 +188,7 @@ def _cartExplorerInitRemote(
 				remoteCartEntry = remoteCartEntry.partition("(")[-1][:-1]
 				bank, position = remoteCartEntry[:2], int(remoteCartEntry[2:]) - 1
 				# At least Studio cart position is known, so obtain it from cart keys.
-				position = splconsts.cartKeys[position]
+				position = cartKeys[position]
 				# Add appropriate modifiers (SF = Shift, CF = Control, AF = Alt, MF = none)
 				match bank:
 					case "SF":
@@ -205,7 +204,7 @@ def _cartExplorerInitRemote(
 				# Local cart (only include base file name without the extension)
 				remoteCartEntry = os.path.basename(remoteCartEntry).rpartition(".")[0]
 				remoteCartEntry = f"Local cart ({remoteCartEntry})"
-			carts[splconsts.cartKeys[pos]] = remoteCartEntry
+			carts[cartKeys[pos]] = remoteCartEntry
 	# For compatibility with local Studio (Studio Pro is required, so set standard license flag to false)
 	carts["standardLicense"] = False
 	log.debug(f"SPL: total carts processed: {(len(carts)-2)}")
