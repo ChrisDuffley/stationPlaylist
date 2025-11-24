@@ -187,6 +187,30 @@ class AppModule(splstudio.AppModule):
 	# The carts dictionary (key = cart gesture, item = cart name).
 	carts: dict[str, Any] = {}
 
+	# Toggle cart explorer (private method)
+	# Remote Studio: no need to check Studio title.
+	def _toggleCartExplorer(self) -> None:
+		if not self.cartExplorer:
+			# Prevent cart explorer from being engaged outside of playlist viewer.
+			fg = api.getForegroundObject()
+			if fg.windowClassName != "TStudioForm":
+				ui.message(_("You are not in playlist viewer, cannot enter cart explorer"))
+				return
+			self.carts = splcarts.cartExplorerInit(fg.name, remoteStudio=True)
+			if self.carts["faultyCarts"]:
+				ui.message(_("Some or all carts could not be assigned, cannot enter cart explorer"))
+				return
+			else:
+				self.cartExplorer = True
+				self.cartsBuilder()
+				ui.message(_("Entering cart explorer"))
+		else:
+			self.cartExplorer = False
+			self.cartsBuilder(build=False)
+			self.carts.clear()
+			splcarts.cartEditRemoteTimestamps = None
+			ui.message(_("Exiting cart explorer"))
+
 	# Assigning and building carts.
 
 	def cartsBuilder(self, build: bool = True) -> None:
