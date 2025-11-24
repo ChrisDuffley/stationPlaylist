@@ -707,14 +707,13 @@ class AlarmsPanel(gui.settingsDialogs.SettingsPanel):
 class PlaylistSnapshotsPanel(gui.settingsDialogs.SettingsPanel):
 	# Translators: title of a panel to configure playlist snapshot information.
 	title = _("Playlist snapshots")
+	# Translators: Help text for playlist snapshots panel.
+	panelDescription = _("""Select information to be included when obtaining playlist snapshots.
+Track count and total duration are always included.""")
 
 	def makeSettings(self, settingsSizer):
 		playlistSnapshotsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-
-		# Translators: Help text for playlist snapshots panel.
-		labelText = _("""Select information to be included when obtaining playlist snapshots.
-		Track count and total duration are always included.""")
-		playlistSnapshotsHelper.addItem(wx.StaticText(self, label=labelText))
+		playlistSnapshotsHelper.addItem(wx.StaticText(self, label=self.panelDescription))
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to include shortest and longest track duration in playlist snapshots window.
@@ -1067,6 +1066,11 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 	# Translators: title of a panel to configure column announcements
 	# (order and what columns should be announced).
 	title = _("Column announcements")
+	panelDescription = _(
+		# Translators: Help text explaining custom column order and inclusion controls.
+		"To apply custom column order and inclusion when announcing track columns in Studio's playlist viewer,\n"
+		"uncheck 'Announce columns in the order shown on screen' and configure column inclusion and order."
+	)
 
 	def makeSettings(self, settingsSizer):
 		colAnnouncementsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
@@ -1078,13 +1082,7 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 			"Title",
 		}
 		self.columnOrder = splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
-
-		labelText = _(
-			# Translators: Help text explaining custom column order and inclusion controls.
-			"To apply custom column order and inclusion when announcing track columns in Studio's playlist viewer, "
-			"uncheck 'Announce columns in the order shown on screen' and configure column inclusion and order."
-		)
-		colAnnouncementsHelper.addItem(wx.StaticText(self, label=labelText))
+		colAnnouncementsHelper.addItem(wx.StaticText(self, label=self.panelDescription))
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to toggle custom column announcement.
