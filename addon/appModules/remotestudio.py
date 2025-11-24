@@ -22,8 +22,7 @@ except ModuleNotFoundError:
 from logHandler import log
 from NVDAObjects import NVDAObject
 from . import splstudio
-from .splstudio import splmisc
-from .splcommon import splconfig, splconsts, splbase
+from .splcommon import splconfig, splconsts, splbase, splcarts
 
 # Various SPL IPC tags.
 SPLStatusInfo = 39
@@ -67,7 +66,7 @@ class AppModule(splstudio.AppModule):
 		# Clear app module flags and attributes.
 		self._pastStatusBarContent = None
 		# Clear Remote Studio settings file timestamp (mostly for cart explorer).
-		splmisc.cartEditRemoteTimestamps = None
+		splcarts.cartEditRemoteTimestamps = None
 
 	# Locate the handle for Remote Studio for caching purposes.
 	def _locateSPLHwnd(self) -> None:
@@ -105,7 +104,7 @@ class AppModule(splstudio.AppModule):
 				self._pastStatusBarContent = self.status(self.SPLRemoteStatus).displayText
 			# Refresh carts if cart explorer is active and Remote Studio settings have changed.
 			if self.cartExplorer:
-				self.carts = splmisc.cartExplorerRefresh(obj.name, self.carts, remoteStudio=True)
+				self.carts = splcarts.cartExplorerRefresh(obj.name, self.carts, remoteStudio=True)
 				if "refresh" in self.carts and self.carts["refresh"]:
 					del self.carts["refresh"]
 					queueHandler.queueFunction(
