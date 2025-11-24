@@ -336,6 +336,7 @@ def _populateCarts(
 
 # Cart file timestamps.
 cartEditTimestamps: list[float] = []
+cartEditRemoteTimestamps: float | None = None
 
 
 # Initialize local Studio carts.
@@ -404,12 +405,26 @@ def _cartExplorerInitLocal(
 
 
 # Initialize Remote Studio carts.
-def _cartExplorerInitRemote(cartsDataPath: str) -> dict[str, Any]:
-	carts = {"faultyCarts": False}
+def _cartExplorerInitRemote(
+	cartsDataPath: str,
+	refresh: bool = False,
+	carts: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+	global cartEditRemoteTimestamps
+	if carts is None:
+		carts = {"faultyCarts": False}
 	cartFile = os.path.join(cartsDataPath, "RemoteStudio.dat")
 	# Check for existence of Remote Studio data file.
 	if not os.path.isfile(cartFile):
 		return {"faultyCarts": True}
+	# The file stores Remote Studio settings in addition to cart assignments.
+	# This file is changed whenever Remote Studio's options screen is closed.
+	remoteStudioSettingsTimestamp = os.path.getmtime(cartFile)
+	# Cart data has not changed.
+	if refresh and cartEditRemoteTimestamps == remoteStudioSettingsTimestamp:
+		carts["refresh"] = False
+		return carts
+	cartEditRemoteTimestamps = remoteStudioSettingsTimestamp
 	# Parse remote Studio data file.
 	# Each cart entry is on its own line (starting at line 14 for Remote Studio 6.20).
 	# A local file or local Studio slot can be assigned (twelve slots, F1 through F12).
@@ -447,6 +462,9 @@ def _cartExplorerInitRemote(cartsDataPath: str) -> dict[str, Any]:
 	# For compatibility with local Studio (Studio Pro is required, so set standard license flag to false)
 	carts["standardLicense"] = False
 	log.debug(f"SPL: total carts processed: {(len(carts)-2)}")
+	# Set refresh flag to true so NVDA can notify users.
+	if refresh:
+		carts["refresh"] = True
 	return carts
 
 
