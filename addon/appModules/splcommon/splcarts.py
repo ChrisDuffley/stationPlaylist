@@ -10,6 +10,37 @@ from _csv import reader  # For cart explorer.
 from logHandler import log
 from . import splconsts
 
+# Manual definitions of cart keys.
+# For use in cart explorer (Studio app module) and carts without borders (global plugin)
+cartKeys = (
+	# Function key carts (Studio all editions)
+	"f1",
+	"f2",
+	"f3",
+	"f4",
+	"f5",
+	"f6",
+	"f7",
+	"f8",
+	"f9",
+	"f10",
+	"f11",
+	"f12",
+	# Number row (all editions except Standard)
+	"1",
+	"2",
+	"3",
+	"4",
+	"5",
+	"6",
+	"7",
+	"8",
+	"9",
+	"0",
+	"-",
+	"=",
+)
+
 # Cart Explorer helper for local and Remote Studio
 # Cart keys are defined in SPL constants module.
 # While mechanics are similar, local and Remote Studio store carts in different formats
