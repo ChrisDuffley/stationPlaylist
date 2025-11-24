@@ -69,11 +69,20 @@ class AppModule(splstudio.AppModule):
 	# Record status bar contents when Remote Studio is connected to a local Studio instance.
 	_pastStatusBarContent: str | None = None
 
-	# Tell NVDA to announce just the changed bits of the status bar.
 	def event_foreground(self, obj: NVDAObject, nextHandler: collections.abc.Callable[[], None]):
-		# Record the current status bar text if the app module doesn't know about it.
-		if obj.windowClassName == "TStudioForm" and not self._pastStatusBarContent:
-			self._pastStatusBarContent = self.status(self.SPLRemoteStatus).displayText
+		if obj.windowClassName == "TStudioForm":
+			# Tell NVDA to announce just the changed bits of the status bar.
+			# Record the current status bar text if the app module doesn't know about it.
+			if not self._pastStatusBarContent:
+				self._pastStatusBarContent = self.status(self.SPLRemoteStatus).displayText
+			# Refresh carts if cart explorer is active and Remote Studio settings have changed.
+			if self.cartExplorer:
+				self.carts = splmisc.cartExplorerRefresh(obj.name, self.carts, remoteStudio=True)
+				if "refresh" in self.carts and self.carts["refresh"]:
+					del self.carts["refresh"]
+					queueHandler.queueFunction(
+						queueHandler.eventQueue, ui.message, _("Cart explorer is active")
+					)
 		nextHandler()
 
 	def event_nameChange(self, obj: NVDAObject, nextHandler: collections.abc.Callable[[], None]):
