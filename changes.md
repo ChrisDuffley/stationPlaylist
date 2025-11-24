@@ -5,6 +5,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 ## Version 26.01
 
 * NVDA 2025.3.2 or later is required.
+* In Remote Studio, when closing options screen (Control+O) while cart explorer is active, it is no longer necessary to reenter Cart Explorer to view updated cart assignments.
 
 ## Version 25.12/25.06.11-LTS
 
