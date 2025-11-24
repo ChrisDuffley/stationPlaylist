@@ -54,7 +54,9 @@ class AppModule(splstudio.AppModule):
 		super().terminate()
 		# Clear app module flags and attributes.
 		self._pastStatusBarContent = None
-	
+		# Clear Remote Studio settings file timestamp (mostly for cart explorer).
+		splmisc.cartEditRemoteTimestamps = None
+
 	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
 		# Same as local Studio but with different window style flags.
 		if (
