@@ -9,7 +9,7 @@ import ui
 import scriptHandler
 import globalVars
 import appModuleHandler
-from appModules.splcommon import splbase, splconsts, splconfig
+from appModules.splcommon import splbase, splconsts, splconfig, splcarts
 import tones
 import windowUtils
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent
@@ -289,7 +289,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					lastCart = 24
 				else:
 					lastCart = 12
-				for cart in splconsts.cartKeys[:lastCart]:
+				for cart in splcarts.cartKeys[:lastCart]:
 					self.bindGesture(f"kb:{cart}", "cartsWithoutBorders")
 					self.bindGesture(f"kb:shift+{cart}", "cartsWithoutBorders")
 					self.bindGesture(f"kb:control+{cart}", "cartsWithoutBorders")
@@ -482,7 +482,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Multiply modifiers by 24 (1 (None), 25 (Shift), 49 (Control), 73 (Alt)).
 		modifier = (None, "shift", "ctrl", "alt").index(modifier) * 24
 		# Add 1 to cart index to comply with Studio API.
-		cart = splconsts.cartKeys.index(cart) + 1
+		cart = splcarts.cartKeys.index(cart) + 1
 		splbase.studioAPI(cart + modifier, SPLCartPlayer)
 		self.script_finish()
 
