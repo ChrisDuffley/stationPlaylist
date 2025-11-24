@@ -487,7 +487,7 @@ class GeneralSettingsPanel(gui.settingsDialogs.SettingsPanel):
 		]
 		# Translators: the label for a setting in SPL add-on settings
 		# to configure braille timer.
-		brailleTimerListLabel = _("&Braille timer:")
+		brailleTimerListLabel = _("B&raille timer:")
 		self.brailleTimerList = generalSettingsHelper.addLabeledControl(
 			brailleTimerListLabel, wx.Choice, choices=[x[1] for x in self.brailleTimerValues]
 		)
@@ -537,7 +537,7 @@ class GeneralSettingsPanel(gui.settingsDialogs.SettingsPanel):
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to toggle category sound announcement.
-		categorySoundsLabel = _("&Beep for different track categories")
+		categorySoundsLabel = _("Beep for different track &categories")
 		self.categorySoundsCheckbox = generalSettingsHelper.addItem(
 			wx.CheckBox(self, label=categorySoundsLabel)
 		)
@@ -554,7 +554,7 @@ class GeneralSettingsPanel(gui.settingsDialogs.SettingsPanel):
 		]
 		# Translators: the label for a setting in SPL add-on settings
 		# to set how track comments are announced.
-		trackCommentListLabel = _("&Track comment announcement:")
+		trackCommentListLabel = _("Track c&omment announcement:")
 		self.trackCommentList = generalSettingsHelper.addLabeledControl(
 			trackCommentListLabel, wx.Choice, choices=[x[1] for x in self.trackCommentValues]
 		)
@@ -571,7 +571,7 @@ class GeneralSettingsPanel(gui.settingsDialogs.SettingsPanel):
 		if _splComponent != "remotestudio":
 			# Translators: the label for a setting in SPL add-on settings
 			# to enable requests alert.
-			requestsAlertLabel = _("Play a sound when listener &requests arrive")
+			requestsAlertLabel = _("Play a sound when listener re&quests arrive")
 			self.requestsAlertCheckbox = generalSettingsHelper.addItem(
 				wx.CheckBox(self, label=requestsAlertLabel)
 			)
@@ -641,7 +641,7 @@ class AlarmsPanel(gui.settingsDialogs.SettingsPanel):
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to enable track intro alarm.
-		introToggleLabel = _("&Notify when end of introduction is approaching")
+		introToggleLabel = _("Notify when end of &introduction is approaching")
 		self.introToggleCheckBox = alarmsCenterHelper.addItem(wx.CheckBox(self, label=introToggleLabel))
 		self.introToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"])
 
@@ -658,7 +658,7 @@ class AlarmsPanel(gui.settingsDialogs.SettingsPanel):
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to set microphone active alarm interval in seconds.
-		micIntervalLabel = _("Microphone alarm &interval in seconds")
+		micIntervalLabel = _("Microphone alarm inter&val in seconds")
 		self.micIntervalEntry = alarmsCenterHelper.addLabeledControl(
 			micIntervalLabel,
 			gui.nvdaControls.SelectOnFocusSpinCtrl,
@@ -718,7 +718,7 @@ class PlaylistSnapshotsPanel(gui.settingsDialogs.SettingsPanel):
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to include shortest and longest track duration in playlist snapshots window.
-		durationMinMaxLabel = _("Shortest and longest tracks")
+		durationMinMaxLabel = _("&Shortest and longest tracks")
 		self.playlistDurationMinMaxCheckbox = playlistSnapshotsHelper.addItem(
 			wx.CheckBox(self, label=durationMinMaxLabel)
 		)
@@ -728,7 +728,7 @@ class PlaylistSnapshotsPanel(gui.settingsDialogs.SettingsPanel):
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to include average track duration in playlist snapshots window.
-		durationAverageLabel = _("Average track duration")
+		durationAverageLabel = _("Average track &duration")
 		self.playlistDurationAverageCheckbox = playlistSnapshotsHelper.addItem(
 			wx.CheckBox(self, label=durationAverageLabel)
 		)
@@ -738,7 +738,7 @@ class PlaylistSnapshotsPanel(gui.settingsDialogs.SettingsPanel):
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to include track artist count in playlist snapshots window.
-		artistCountLabel = _("Artist count")
+		artistCountLabel = _("&Artist count")
 		self.playlistArtistCountCheckbox = playlistSnapshotsHelper.addItem(
 			wx.CheckBox(self, label=artistCountLabel)
 		)
@@ -746,7 +746,7 @@ class PlaylistSnapshotsPanel(gui.settingsDialogs.SettingsPanel):
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to set top artist count limit in playlist snapshots window.
-		artistCountLimitLabel = _("Top artist count (0 displays all artists)")
+		artistCountLimitLabel = _("Top a&rtist count (0 displays all artists)")
 		self.playlistArtistCountLimit = playlistSnapshotsHelper.addLabeledControl(
 			artistCountLimitLabel,
 			gui.nvdaControls.SelectOnFocusSpinCtrl,
@@ -757,7 +757,7 @@ class PlaylistSnapshotsPanel(gui.settingsDialogs.SettingsPanel):
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to include track category count in playlist snapshots window.
-		categoryCountLabel = _("Category count")
+		categoryCountLabel = _("&Category count")
 		self.playlistCategoryCountCheckbox = playlistSnapshotsHelper.addItem(
 			wx.CheckBox(self, label=categoryCountLabel)
 		)
@@ -765,7 +765,7 @@ class PlaylistSnapshotsPanel(gui.settingsDialogs.SettingsPanel):
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to set top track category count limit in playlist snapshots window.
-		categoryCountLimitLabel = _("Top category count (0 displays all categories)")
+		categoryCountLimitLabel = _("Top categor&y count (0 displays all categories)")
 		self.playlistCategoryCountLimit = playlistSnapshotsHelper.addLabeledControl(
 			categoryCountLimitLabel,
 			gui.nvdaControls.SelectOnFocusSpinCtrl,
@@ -776,7 +776,7 @@ class PlaylistSnapshotsPanel(gui.settingsDialogs.SettingsPanel):
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to include track genre count in playlist snapshots window.
-		genreCountLabel = _("Genre count")
+		genreCountLabel = _("&Genre count")
 		self.playlistGenreCountCheckbox = playlistSnapshotsHelper.addItem(
 			wx.CheckBox(self, label=genreCountLabel)
 		)
@@ -784,7 +784,7 @@ class PlaylistSnapshotsPanel(gui.settingsDialogs.SettingsPanel):
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to set top track genre count limit in playlist snapshots window.
-		genreCountLimitLabel = _("Top genre count (0 displays all genres)")
+		genreCountLimitLabel = _("Top ge&nre count (0 displays all genres)")
 		self.playlistGenreCountLimit = playlistSnapshotsHelper.addLabeledControl(
 			genreCountLimitLabel,
 			gui.nvdaControls.SelectOnFocusSpinCtrl,
@@ -1461,7 +1461,7 @@ class AdvancedOptionsPanel(gui.settingsDialogs.SettingsPanel):
 			]
 			# Translators: The label for a setting in SPL add-on settings
 			# to set keyboard layout for SPL Assistant.
-			splConScopeListLabel = _("SPL Controller c&overage:")
+			splConScopeListLabel = _("SPL Controller co&verage:")
 			self.splConScopeList = advOptionsHelper.addLabeledControl(
 				splConScopeListLabel, wx.Choice, choices=[x[1] for x in self.splConScope]
 			)
