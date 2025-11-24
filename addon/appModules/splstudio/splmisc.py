@@ -484,15 +484,19 @@ def cartExplorerInit(
 	# Provided that Studio was installed using default path for 32-bit x86 programs.
 	cartsDataPath = os.path.join(os.environ["PROGRAMFILES(X86)"], "StationPlaylist", "Data")
 	if remoteStudio:
-		return _cartExplorerInitRemote(cartsDataPath)
+		return _cartExplorerInitRemote(cartsDataPath, refresh=refresh, carts=carts)
 	else:
 		return _cartExplorerInitLocal(cartsDataPath, StudioTitle, refresh=refresh, carts=carts)
 
 
 # Refresh carts upon request.
 # calls cart explorer init with special (internal) flags.
-def cartExplorerRefresh(studioTitle: str, currentCarts: dict[str, Any]) -> dict[str, Any]:
-	return cartExplorerInit(studioTitle, refresh=True, carts=currentCarts)
+def cartExplorerRefresh(
+	studioTitle: str,
+	currentCarts: dict[str, Any],
+	remoteStudio: bool = False
+) -> dict[str, Any]:
+	return cartExplorerInit(studioTitle, remoteStudio=remoteStudio, refresh=True, carts=currentCarts)
 
 
 # Metadata and encoders management, including connection, announcement and so on.
