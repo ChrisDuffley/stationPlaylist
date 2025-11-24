@@ -22,7 +22,7 @@ except ModuleNotFoundError:
 from logHandler import log
 from NVDAObjects import NVDAObject
 from . import splstudio
-from .splcommon import splconfig, splconsts, splbase, splcarts
+from .splcommon import splconfig, splbase, splcarts
 
 # Various SPL IPC tags.
 SPLStatusInfo = 39
@@ -193,7 +193,7 @@ class AppModule(splstudio.AppModule):
 		# A function to build and return cart commands.
 		# Remote Studio offers twelve carts (function keys only).
 		if build:
-			for cart in splconsts.cartKeys[:12]:
+			for cart in splcarts.cartKeys[:12]:
 				self.bindGesture(f"kb:{cart}", "cartExplorer")
 		else:
 			self.clearGestureBindings()
