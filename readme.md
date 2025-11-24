@@ -11,7 +11,7 @@ IMPORTANT NOTES:
 * This add-on requires StationPlaylist suite 6.0 or later.
 * Some add-on features will be disabled or limited if NVDA is running in secure mode such as in logon screen.
 * For best experience, disable audio ducking mode.
-* Starting from 2018, [changelogs for old add-on releases][2] will be found on GitHub. This add-on readme will list changes from version 25.01 (2025) onwards.
+* Starting from 2018, [changelogs for old add-on releases][2] will be found on GitHub. This add-on readme will list changes from version 26.01 (2026) onwards.
 * While Studio is running, you can save, reload saved settings, or reset add-on settings to defaults by pressing Control+NVDA+C, Control+NVDA+R once, or Control+NVDA+R three times, respectively. This is also applicable to encoder settings - you can save and reset (not reload) encoder settings if using encoders.
 * Many commands will provide speech output while NVDA is in speak on demand mode (NVDA 2024.1 and later).
 * When refering to Studio, both local (original) Studio and Remote Studio will be assumed. When something is specific to StationPlaylist Studio (original), the term "local Studio" will be used.
@@ -211,108 +211,6 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 ## Version 26.01
 
 * NVDA 2025.3.2 or later is required.
-
-## Version 25.12/25.06.11-LTS
-
-* Added a setting in add-on settings under status announcements to announce when a cart finishes playing (NVDA will say 'cart stopped').
-* In add-on settings/status announcements, cart name checkbox is now cart announcement check list box with the former setting becoming a checkable option.
-* 25.12: In Studio 6.20 and later, SPL Controller can be used to control local Studio and/or Remote Studio. A new setting in add-on settings dialog under Advanced settings panel allows configuring SPL Controller coverage/scope between both local Studio and Remote Studio or one or the other. In earlier Studio releases, SPL Controller layer will control local Studio.
-* In local Studio, performing track elapsed (Alt+Shift+T) and remaining time (Control+Alt+T) commands will also announce elapsed and remaining time for the currently playing voice track and/or cart. In addition, pressing SPL Controller, R will announce remaining duration of the playing track, voice track, or cart for local Studio.
-* Metadata streaming and status announcements settings panels will not be shown when opening add-on settings screen from Remote Studio.
-* Settings to report library scans and listener requests will not be shown in add-on settings when opened from Remote Studio.
-* 25.12: In local Studio, NVDA will announce track starts value correctly (SPL Assistant, S).
-* 25.12: In local Studio, NVDA will no longer announce wrong information when locating various screen information such as weather data if error log button is shown on screen.
-* Library scan announcement toggle command (NVDA+Shift+R) is now limited to local Studio.
-* Changed the following SPL Assistant JAWS layout commands: hour duration (H to T), hour remaining duration (Shift+H to H), library scan (Shift+R to Alt+T), cart edit/insert (T to number row 0).
-* Resolved "Time Scheduled/Time" column announcement and usage in local Studio 6.20, including reporting of wrong column content when vertical column navigation is set to "Time Scheduled", NVDA reporting "Time Scheduled not found" when this column is configured as a columns explorer slot, and wrong column title shown in playlist transcripts.
-* Resolved issues working with results from insert tracks dialog in local Studio 6.20, including NVDA saying "Artist not found" when performing columns explorer commands (Control+NVDA+number row) to obtain artist information, wrong column information announced in columns explorer, and top and bottom beeps being heard.
-* NVDA will no longer include empty column content when generating playlist transcripts in plain text and HTML list formats.
-* In local Studio, NVDA will no longer announce "no track playing" when announcing next track title when no tracks are playing but next track title is showing on screen.
-* In local Studio, NVDA will no longer appear to do nothing or play error tones when cart edit/insert mode is toggled while cart explorer is active.
-* In Remote Studio, taking playlist snapshots (SPL Assistant, F8) shows more accurate results.
-* In Remote Studio, NVDA will no longer do nothing or play error tones when announcing current and next track titles and is configured to announce track player information.
-
-## Version 25.11/25.06.9-LTS
-
-* Initial support for StationPlaylist suite 6.20.
-* Initial support for StationPlaylist Remote Studio. Although the interface resembles local Studio, not all commands and features are available.
-* While in cart explorer from Remote Studio, NVDA will announce cart name and its type such as local or Studio cart.
-* Additional internal changes to make the add-on more compatible with upcoming 64-bit NVDA. In particular, resolved erroneous announcements when performing some SPL Assistant layer commands in local (original) Studio.
-* In local Studio, NVDA will be more successful when entering Cart Explorer (Alt+NVDA+3) in more cases.
-* In local Studio, resolved a potential security and privacy issue after switching users while Cart Explorer is active where the cart assignments from the previous user can be announced.
-
-## Version 25.10/25.06.8-LTS
-
-* 25.10: with debug logging enabled, NVDA will no longer record Studio API specific debug messages. A new command-line option (--spl-apidebug) was added to include Studio API debug messages and should be used as directed by add-on developers.
-* In Studio, search history in track finder (Control+NVDA+F) is replaced with a search edit field to align with NVDA's own find dialog experience.
-* In Studio, when braille timer is enabled, NVDA will only announce remaining track/intro duration if the value displayed falls below end of track/song ramp alarm value instead of displaying track remaining time.
-
-## Version 25.09/25.06.6-LTS
-
-* 25.09: NVDA 2025.1.2 or later is required.
-* In Studio, search history in track finder (Control+NVDA+F) is deprecated and will be removed in a future release to align with NVDA's own find dialog experience.
-* In Studio, performing SPL Controller layer entry command will enter SPL Assistant layer, and the add-on setting to configure this option is checked by default for new installations.
-
-## Version 25.08/25.06.5-LTS
-
-* 25.08: removed unmaintained localizations (add-on messages and documentation).
-* In Studio, added two-finger flick left gesture in SPL touch mode to open SPL add-on settings.
-* Removed "Status" from vertical column navigation options.
-* In columns explorer (Studio, Track Tool, Creator, Remote VT), NVDA will no longer announce "blank" for empty column content (only column header will be announced).
-* In Studio, Track Tool, Creator, and Remote VT, NVDA will announce track position and count when location command is performed (NVDA+Numpad Delete (desktop)/NVDA+Delete (laptop) and adding Shift for review cursor version).
-
-## Version 25.07.2/25.06.4-LTS
-
-* Restored missing localized messages including track comment announcement in Studio's playlist viewer.
-* NVDA will present an error dialog when running Studio releases earlier than the version required for the add-on.
-* In Studio, pressing NVDA+Shift+F3 the first time without opening find dialog will cause NVDA to search backwards.
-* In Track Tool, NVDA will no longer play a beep when moving through tracks, especially for tracks without an intro set.
-
-## Version 25.07.1/25.06.3-LTS
-
-* In Studio's playlist viewer, NVDA will no longer appear to do nothing or play error tones when reporting column contents if vertical column navigation is set to values other than "whichever column I am reviewing".
-* Setting vertical column navigation to "Status" column is deprecated and will be removed in a future add-on release.
-
-## Version 25.07/25.06.2-LTS
-
-Version 25.07 supports SPL Studio 6.0 and later.
-
-* 25.07: code was refactored, including through use of Pyright (a Python static type checker). Some prominent code changes were also backported to 25.06.2-LTS.
-* Columns explorer (Control+NVDA+number row) is now configurable for Creator and Remote VT's playlist editor. A new button, "columns explorer for playlist editor" is available from columns explorer add-on settings screen.
-* In columns explorer add-on settings, renamed "columns explorer" to "columns explorer for SPL Studio".
-* Added JSON (JavaScript Object Notation) format as a playlist transcripts format.
-* In encoders, NVDA will remove encoder settings if pressing Control+F12 to remove settings for encoder 10 and above if more than ten encoders are present.
-
-## Version 25.06-LTS
-
-Version 25.06.x is the last release series to support Studio 5.x with future releases requiring Studio 6.x. Some new features will be backported to 25.06.x if needed.
-
-* Internal changes to make the add-on more compatible with upcoming 64-bit NVDA.
-* NVDA will no longer forget to transfer broadcast profiles while updating the add-on (fixing a regression introduced in 25.05).
-* Added a new command in SPL Assistant to announce playlist hour over/under by in minutes and seconds (O).
-* In Studio, the command to step through library scan announcement settings has changed from Alt+NVDA+R to Shift+NVDA+R as the former command toggles remote access feature in NVDA 2025.1.
-* NVDA will no longer play error tones or appear to do nothing when performing some SPL Assistant commands after resizing Studio window.
-* The user interface for confirmation dialog shown when deleting broadcast profiles now resembles NVDA's configuration profile deletion interface.
-* In add-on settings, NVDA will no longer move keyboard focus to OK button after closing columns explorer and reset dialogs.
-* NVDA will recognize track column changes introduced in Creator and Track Tool 6.11.
-* In columns explorer for Creator, "Date Restriction" column is now "Restrictions".
-* NVDA will no longer play wrong carts when playing them via SPL Controller layer.
-
-## Version 25.05
-
-* NVDA 2024.1 or later is required due to Python 3.11 upgrade.
-* Restored limited support for Windows 8.1.
-* Moved ad-on wiki documents such as add-on changelog to the main code repository.
-* Added close button to playlist snapshots, playlist transcripts, and SPL Assistant and Controller layer help screens (NVDA 2025.1 and later).
-* NVDA will no longer do nothing or play error tones when announcing weather and temperature information in Studio 6.1x (SPL Assistant, W).
-
-## Version 25.01
-
-* 64-bit Windows 10 21H2 (build 19044) or later is required.
-* Download links for add-on releases are no longer included in add-on documentation. You can download the add-on from NV Access add-on store.
-* Switched linting tool from Flake8 to Ruff and reformatted add-on modules to better align with NVDA coding standards.
-* Removed support for automatic add-on updates feature from Add-on Updater add-on.
-* In Studio 6.10 and later, added a new command in SPL Assistant to announce control keys enabled/disabled status (Control+D).
 
 ## Older releases
 
