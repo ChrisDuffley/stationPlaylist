@@ -1503,28 +1503,9 @@ class AppModule(appModuleHandler.AppModule):
 	# The carts dictionary (key = cart gesture, item = cart name).
 	carts: dict[str, Any] = {}
 
-	# Assigning and building carts.
-
-	def cartsBuilder(self, build: bool = True) -> None:
-		# A function to build and return cart commands.
-		if build:
-			for cart in splconsts.cartKeys:
-				self.bindGesture(f"kb:{cart}", "cartExplorer")
-				self.bindGesture(f"kb:shift+{cart}", "cartExplorer")
-				self.bindGesture(f"kb:control+{cart}", "cartExplorer")
-				self.bindGesture(f"kb:alt+{cart}", "cartExplorer")
-		else:
-			self.clearGestureBindings()
-			self.bindGestures(self.__gestures)
-
-	@scriptHandler.script(
-		# Translators: Input help mode message for a command in StationPlaylist add-on.
-		description=_("Toggles cart explorer to learn cart assignments."),
-		gesture="kb:alt+nvda+3",
-	)
-	def script_toggleCartExplorer(self, gesture):
-		if self._localStudioAPIRequired and not splbase.studioIsRunning():
-			return
+	# Toggle cart explorer (private method)
+	# Local Studio: check Studio title.
+	def _toggleCartExplorer(self) -> None:
 		if not self.cartExplorer:
 			# Prevent cart explorer from being engaged outside of playlist viewer.
 			fg = api.getForegroundObject()
@@ -1541,7 +1522,7 @@ class AppModule(appModuleHandler.AppModule):
 			studioTitlePartition = studioTitle.partition(" - ")
 			if not studioTitlePartition[2]:
 				studioTitle = studioTitlePartition[0]
-			self.carts = splcarts.cartExplorerInit(studioTitle, remoteStudio=self.appName=="remotestudio")
+			self.carts = splcarts.cartExplorerInit(studioTitle)
 			if self.carts["faultyCarts"]:
 				# Translators: presented when cart explorer could not be switched on.
 				ui.message(_("Some or all carts could not be assigned, cannot enter cart explorer"))
@@ -1558,6 +1539,31 @@ class AppModule(appModuleHandler.AppModule):
 			splcarts.cartEditTimestamps = []
 			# Translators: Presented when cart explorer is off.
 			ui.message(_("Exiting cart explorer"))
+
+	# Assigning and building carts.
+
+	def cartsBuilder(self, build: bool = True) -> None:
+		# A function to build and return cart commands.
+		if build:
+			for cart in splcarts.cartKeys:
+				self.bindGesture(f"kb:{cart}", "cartExplorer")
+				self.bindGesture(f"kb:shift+{cart}", "cartExplorer")
+				self.bindGesture(f"kb:control+{cart}", "cartExplorer")
+				self.bindGesture(f"kb:alt+{cart}", "cartExplorer")
+		else:
+			self.clearGestureBindings()
+			self.bindGestures(self.__gestures)
+
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Toggles cart explorer to learn cart assignments."),
+		gesture="kb:alt+nvda+3",
+	)
+	def script_toggleCartExplorer(self, gesture):
+		if self._localStudioAPIRequired and not splbase.studioIsRunning():
+			return
+		# Run private methods to toggle cart explorer (differs between local and Remote Studio).
+		self._toggleCartExplorer()
 
 	def script_cartExplorer(self, gesture):
 		if api.getForegroundObject().windowClassName != "TStudioForm":
