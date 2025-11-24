@@ -13,7 +13,7 @@ from . import splconsts
 # Manual definitions of cart keys.
 # For use in cart explorer (Studio app module) and carts without borders (global plugin)
 cartKeys = (
-	# Function key carts (Studio all editions)
+	# Function key carts (Studio all editions and Remote Studio without modifiers)
 	"f1",
 	"f2",
 	"f3",
@@ -42,7 +42,6 @@ cartKeys = (
 )
 
 # Cart Explorer helper for local and Remote Studio
-# Cart keys are defined in SPL constants module.
 # While mechanics are similar, local and Remote Studio store carts in different formats
 # (comma-separated values for local Studio, one cart per line in a dedicated data file for Remote Studio).
 # Therefore, some functions will be duplicated.
