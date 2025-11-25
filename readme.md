@@ -39,7 +39,7 @@ Most of these will work in Studio only unless otherwise specified. Unless noted 
 * Control+NVDA+- (hyphen while focused on a track in local and Remote Studio, Creator, Remote VT, and Track Tool): display data for all columns in a track on a browse mode window (does not support speak on demand).
 * NVDA+V while focused on a track (Studio's playlist viewer only): toggles track column announcement between screen order and custom order (does not support speak on demand).
 * Alt+NVDA+C while focused on a track (Studio's playlist viewer only): announces track comments if any.
-* Alt+NVDA+0 (two finger flick left in SPL mode) from Studio window: Opens the Studio add-on configuration dialog (does not support speak on demand).
+* Alt+NVDA+0 (two finger flick left in SPL mode) from local and Remote Studio, Creator, Remote VT, and Track Tool: Opens the Studio add-on configuration dialog (does not support speak on demand).
 * Alt+NVDA+P from Studio window: Opens the Studio broadcast profiles dialog (does not support speak on demand).
 * Alt+NVDA+F1: Open welcome dialog (does not support speak on demand).
 
@@ -211,6 +211,7 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 ## Version 26.01
 
 * NVDA 2025.3.2 or later is required.
+* Add-on settings screen is now available while using Creator, Remote VT, and Track Tool with different settings for each app.
 * In Remote Studio, when closing options screen (Control+O) while cart explorer is active, it is no longer necessary to reenter Cart Explorer to view updated cart assignments.
 
 ## Older releases
