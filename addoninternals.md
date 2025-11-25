@@ -2,7 +2,7 @@
 
 Author: Joseph Lee
 
-Based on StationPlaylist Add-on for NVDA 25.12
+Based on StationPlaylist Add-on for NVDA 26.01
 
 ## 2021 Preface and notes
 
@@ -131,9 +131,9 @@ In short, all components of StationPlaylist add-on emphasize studio app module -
 The source code consists of:
 
 * appModules: This folder contains the main splstudio (app module) package and the app modules for Track Tool, Creator, VT Recorder, Remote VT client, Remote Studio, and SPL DSP Engine app module package to support SPL Engine, Streamer, and encoders. The common services module is also stored in this folder.
-* The SPL Studio package consists of various modules, which include __init__ (main app module and track item classes), configuration user interfaces (splconfui) and miscellaneous services (splmisc) as well as support modules and various wave files used by the add-on.
+* The SPL Studio package consists of various modules, which include __init__ (main app module and track item classes) and miscellaneous services (splmisc) as well as support modules and various wave files used by the add-on.
 * The SPL Engine package consists of main Engine module and encoder support module.
-* The SPL common services package includes the add-on base services (splbase), configuration manager (splconfig), and constants collection (splconsts).
+* The SPL common services package includes the add-on base services (splbase), configuration manager (splconfig) and add-on settings interface (splconfui), carts handler (splcarts), and constants collection (splconsts).
 * The Studio main app module file is divided into sections. First, the overlay classes for track items are defined, then comes the app module, further divided into four sections: fundamental methods (constructor, events and others), time commands (end of track, broadcaster time, etc.), other commands (track Finder, cart explorer and others) and SPL Assistant layer. This allows me to identify where a bug is coming from and to add features in appropriate sections.
 * globalPlugins: This folder contains SPLUtils module, consisting of main global plugin code and SPL Controller layer.
 
@@ -1136,7 +1136,7 @@ What if settings had errors? As part of the startup routine (portions of main fu
 
 ### All about StationPlaylist add-on Configuration Manager
 
-Until recently, Studio app module handled all add-on configuration routines. With the advent of add-on 5.0 which introduced add-on settings dialog, configuration management routines were split into a dedicated Configuration Manager (splstudio.splconfig). The new module takes care of configuration routines, including validating the user configuration, presenting add-on settings dialog and other dialogs inside it, handling broadcast profiles and more. In add-on 7.0, routines pertaining to configuration dialog were split into splconfui module, with the main add-on settings listed under NVDA preferences menu.
+Until recently, Studio app module handled all add-on configuration routines. With the advent of add-on 5.0 which introduced add-on settings dialog, configuration management routines were split into a dedicated Configuration Manager (splstudio.splconfig). The new module takes care of configuration routines, including validating the user configuration, presenting add-on settings dialog and other dialogs inside it, handling broadcast profiles and more. In add-on 7.0, routines pertaining to configuration dialog were split into splconfui module, with the main add-on settings listed under NVDA preferences menu. In 2025, both the add-on configuration manager (splconfig) and the settings interface (splconfui) were transferred to SPL common services.
 
 ### How settings are loaded, used and saved
 
