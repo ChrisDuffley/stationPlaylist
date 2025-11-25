@@ -45,8 +45,7 @@ from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent, sysList
 from NVDAObjects.behaviors import Dialog
 import textInfos
 import tones
-from ..splcommon import splbase, splconsts, splactions, splconfig, splcarts
-from . import splconfui
+from ..splcommon import splbase, splconsts, splactions, splconfig, splconfui, splcarts
 from . import splmisc
 import addonHandler
 from ..skipTranslation import translate
