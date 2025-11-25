@@ -173,3 +173,12 @@ class AppModule(appModuleHandler.AppModule):
 				clsList.insert(0, TrackToolItem)
 			elif obj.role == controlTypes.Role.LIST:
 				clsList.insert(0, sysListView32.List)
+
+	@scriptHandler.script(
+		description=_("Opens SPL Studio add-on configuration dialog."),
+		gestures=["kb:alt+NVDA+0", "ts(SPL):2finger_flickLeft"],
+	)
+	def script_openConfigDialog(self, gesture):
+		# Rather than calling the config dialog open event,
+		# call the open dialog function directly to avoid indirection.
+		wx.CallAfter(splconfui.openAddonSettingsPanel, None)

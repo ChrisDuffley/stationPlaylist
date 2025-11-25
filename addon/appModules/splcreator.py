@@ -12,6 +12,7 @@ import globalVars
 import ui
 import api
 import controlTypes
+import wx
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32
 from NVDAObjects.behaviors import Dialog
@@ -188,6 +189,15 @@ class AppModule(appModuleHandler.AppModule):
 				clsList.insert(0, sysListView32.List)
 		elif obj.windowClassName in ("TDemoRegForm", "TAboutForm"):
 			clsList.insert(0, Dialog)
+
+	@scriptHandler.script(
+		description=_("Opens SPL Studio add-on configuration dialog."),
+		gestures=["kb:alt+NVDA+0", "ts(SPL):2finger_flickLeft"],
+	)
+	def script_openConfigDialog(self, gesture):
+		# Rather than calling the config dialog open event,
+		# call the open dialog function directly to avoid indirection.
+		wx.CallAfter(splconfui.openAddonSettingsPanel, None)
 
 	# The following scripts are designed to work while using Playlist Editor.
 
