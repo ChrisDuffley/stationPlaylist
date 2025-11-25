@@ -3,7 +3,7 @@
 # Copyright 2015-2026 Joseph Lee, released under GPL.
 # Provides the configuration management package for Studio and other app modules.
 # Transferred from Studio app module package to common services in 2025.
-# For UI surrounding this module, see splconfui module housed in Studio app module package.
+# For UI surrounding this module, see splconfui module.
 # For the add-on settings specification, see splconfspec module.
 
 from typing import Any
