@@ -11,9 +11,11 @@ import appModuleHandler
 import addonHandler
 import tones
 import controlTypes
+import scriptHandler
+import wx
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32
-from .splcommon import splconfig, splbase
+from .splcommon import splconfig, splconfui, splbase
 
 addonHandler.initTranslation()
 
@@ -158,10 +160,12 @@ class AppModule(appModuleHandler.AppModule):
 		super().__init__(*args, **kwargs)
 		# #64: load config database if not done already.
 		splconfig.openConfig(self.appName)
+		splconfui.initialize()
 
 	def terminate(self):
 		super().terminate()
 		splconfig.closeConfig(self.appName)
+		splconfui.terminate()
 
 	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
 		if obj.windowClassName == "TTntListView.UnicodeClass":

@@ -15,7 +15,7 @@ import controlTypes
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32
 from NVDAObjects.behaviors import Dialog
-from .splcommon import splconfig, splbase
+from .splcommon import splconfig, splconfui, splbase
 
 addonHandler.initTranslation()
 
@@ -167,10 +167,12 @@ class AppModule(appModuleHandler.AppModule):
 			pass
 		# #64: load config database if not done already.
 		splconfig.openConfig(self.appName)
+		splconfui.initialize()
 
 	def terminate(self):
 		super().terminate()
 		splconfig.closeConfig(self.appName)
+		splconfui.terminate()
 		# Clear Playlist Editor status cache,
 		# otherwise it will generate errors when Creator restarts without restarting NVDA.
 		self._playlistEditorStatusCache.clear()
