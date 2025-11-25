@@ -1664,8 +1664,8 @@ addonConfUI = None
 
 def initialize() -> None:
 	global addonConfUI
-	# Skip all this if more than one SPL component are active.
-	if len(splconfig.SPLConfig.splComponents) > 1:
+	# Skip all this if add-on settings is already present.
+	if addonConfUI:
 		return
 	try:
 		addonConfUI = gui.mainFrame.sysTrayIcon.preferencesMenu.Append(
