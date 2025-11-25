@@ -476,26 +476,29 @@ class GeneralSettingsPanel(gui.settingsDialogs.SettingsPanel):
 		selection = next((x for x, y in enumerate(self.verbosityLevels) if y[0] == currentVerbosity))
 		self.verbosityList.SetSelection(selection)
 
-		self.brailleTimerValues = [
-			("off", translate("Off")),
-			# Translators: One of the braille timer settings.
-			("outro", _("Track ending")),
-			# Translators: One of the braille timer settings.
-			("intro", _("Track intro")),
-			# Translators: One of the braille timer settings.
-			("both", _("Track intro and ending")),
-		]
-		# Translators: the label for a setting in SPL add-on settings
-		# to configure braille timer.
-		brailleTimerListLabel = _("B&raille timer:")
-		self.brailleTimerList = generalSettingsHelper.addLabeledControl(
-			brailleTimerListLabel, wx.Choice, choices=[x[1] for x in self.brailleTimerValues]
-		)
-		brailleTimerCurValue = splconfig.SPLConfig["General"]["BrailleTimer"]
-		selection = next((x for x, y in enumerate(self.brailleTimerValues) if y[0] == brailleTimerCurValue))
-		self.brailleTimerList.SetSelection(selection)
+		# Local and Remote Studio only
+		if _splComponent not in ("splcreator", "splremotevt", "tracktool"):
+			self.brailleTimerValues = [
+				("off", translate("Off")),
+				# Translators: One of the braille timer settings.
+				("outro", _("Track ending")),
+				# Translators: One of the braille timer settings.
+				("intro", _("Track intro")),
+				# Translators: One of the braille timer settings.
+				("both", _("Track intro and ending")),
+			]
+			# Translators: the label for a setting in SPL add-on settings
+			# to configure braille timer.
+			brailleTimerListLabel = _("B&raille timer:")
+			self.brailleTimerList = generalSettingsHelper.addLabeledControl(
+				brailleTimerListLabel, wx.Choice, choices=[x[1] for x in self.brailleTimerValues]
+			)
+			brailleTimerCurValue = splconfig.SPLConfig["General"]["BrailleTimer"]
+			selection = next((x for x, y in enumerate(self.brailleTimerValues) if y[0] == brailleTimerCurValue))
+			self.brailleTimerList.SetSelection(selection)
 
-		if _splComponent != "remotestudio":
+		# Local Studio only
+		if _splComponent not in ("remotestudio", "splcreator", "splremotevt", "tracktool"):
 			self.libScanValues = [
 				("off", translate("Off")),
 				# Translators: One of the library scan announcement settings.
@@ -521,46 +524,51 @@ class GeneralSettingsPanel(gui.settingsDialogs.SettingsPanel):
 		self.hourAnnounceCheckbox = generalSettingsHelper.addItem(wx.CheckBox(self, label=hourAnnounceLabel))
 		self.hourAnnounceCheckbox.SetValue(splconfig.SPLConfig["General"]["TimeHourAnnounce"])
 
-		# Translators: The label for a setting in SPL add-on dialog to set vertical column.
-		verticalColLabel = _("&Vertical column navigation announcement:")
-		verticalColChoices = [
-			# Translators: One of the options for vertical column navigation
-			# denoting NVDA will announce current column position (e.g. second column position from the left).
-			_("whichever column I am reviewing")
-		] + splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
-		self.verticalColumnsList = generalSettingsHelper.addLabeledControl(
-			verticalColLabel, wx.Choice, choices=verticalColChoices
-		)
-		verticalColumn = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
-		selection = self.verticalColumnsList.FindString(verticalColumn) if verticalColumn is not None else 0
-		self.verticalColumnsList.SetSelection(selection)
+		# Local and Remote Studio only
+		if _splComponent not in ("splcreator", "splremotevt", "tracktool"):
+			# Translators: The label for a setting in SPL add-on dialog to set vertical column.
+			verticalColLabel = _("&Vertical column navigation announcement:")
+			verticalColChoices = [
+				# Translators: One of the options for vertical column navigation
+				# denoting NVDA will announce current column position (e.g. second column position from the left).
+				_("whichever column I am reviewing")
+			] + splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+			self.verticalColumnsList = generalSettingsHelper.addLabeledControl(
+				verticalColLabel, wx.Choice, choices=verticalColChoices
+			)
+			verticalColumn = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
+			selection = self.verticalColumnsList.FindString(verticalColumn) if verticalColumn is not None else 0
+			self.verticalColumnsList.SetSelection(selection)
 
-		# Translators: the label for a setting in SPL add-on settings
-		# to toggle category sound announcement.
-		categorySoundsLabel = _("Beep for different track &categories")
-		self.categorySoundsCheckbox = generalSettingsHelper.addItem(
-			wx.CheckBox(self, label=categorySoundsLabel)
-		)
-		self.categorySoundsCheckbox.SetValue(splconfig.SPLConfig["General"]["CategorySounds"])
+		# Local and Remote Studio only
+		if _splComponent not in ("splcreator", "splremotevt", "tracktool"):
+			# Translators: the label for a setting in SPL add-on settings
+			# to toggle category sound announcement.
+			categorySoundsLabel = _("Beep for different track &categories")
+			self.categorySoundsCheckbox = generalSettingsHelper.addItem(
+				wx.CheckBox(self, label=categorySoundsLabel)
+			)
+			self.categorySoundsCheckbox.SetValue(splconfig.SPLConfig["General"]["CategorySounds"])
 
-		self.trackCommentValues = [
-			("off", translate("Off")),
-			# Translators: One of the track comment notification settings.
-			("message", _("Message")),
-			# Translators: One of the track comment notification settings.
-			("beep", _("Beep")),
-			# Translators: One of the track comment notification settings.
-			("both", _("Both")),
-		]
-		# Translators: the label for a setting in SPL add-on settings
-		# to set how track comments are announced.
-		trackCommentListLabel = _("Track c&omment announcement:")
-		self.trackCommentList = generalSettingsHelper.addLabeledControl(
-			trackCommentListLabel, wx.Choice, choices=[x[1] for x in self.trackCommentValues]
-		)
-		trackCommentCurValue = splconfig.SPLConfig["General"]["TrackCommentAnnounce"]
-		selection = next((x for x, y in enumerate(self.trackCommentValues) if y[0] == trackCommentCurValue))
-		self.trackCommentList.SetSelection(selection)
+			# Local and Remote Studio only
+			self.trackCommentValues = [
+				("off", translate("Off")),
+				# Translators: One of the track comment notification settings.
+				("message", _("Message")),
+				# Translators: One of the track comment notification settings.
+				("beep", _("Beep")),
+				# Translators: One of the track comment notification settings.
+				("both", _("Both")),
+			]
+			# Translators: the label for a setting in SPL add-on settings
+			# to set how track comments are announced.
+			trackCommentListLabel = _("Track c&omment announcement:")
+			self.trackCommentList = generalSettingsHelper.addLabeledControl(
+				trackCommentListLabel, wx.Choice, choices=[x[1] for x in self.trackCommentValues]
+			)
+			trackCommentCurValue = splconfig.SPLConfig["General"]["TrackCommentAnnounce"]
+			selection = next((x for x, y in enumerate(self.trackCommentValues) if y[0] == trackCommentCurValue))
+			self.trackCommentList.SetSelection(selection)
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to toggle top and bottom notification.
@@ -568,7 +576,8 @@ class GeneralSettingsPanel(gui.settingsDialogs.SettingsPanel):
 		self.topBottomCheckbox = generalSettingsHelper.addItem(wx.CheckBox(self, label=topBottomLabel))
 		self.topBottomCheckbox.SetValue(splconfig.SPLConfig["General"]["TopBottomAnnounce"])
 
-		if _splComponent != "remotestudio":
+		# Local Studio only
+		if _splComponent not in ("remotestudio", "splcreator", "splremotevt", "tracktool"):
 			# Translators: the label for a setting in SPL add-on settings
 			# to enable requests alert.
 			requestsAlertLabel = _("Play a sound when listener re&quests arrive")
@@ -582,24 +591,29 @@ class GeneralSettingsPanel(gui.settingsDialogs.SettingsPanel):
 		splconfig.SPLConfig["General"]["MessageVerbosity"] = self.verbosityLevels[
 			self.verbosityList.GetSelection()
 		][0]
-		splconfig.SPLConfig["General"]["BrailleTimer"] = self.brailleTimerValues[
-			self.brailleTimerList.GetSelection()
-		][0]
+		if hasattr(self, "brailleTimerList"):
+			splconfig.SPLConfig["General"]["BrailleTimer"] = self.brailleTimerValues[
+				self.brailleTimerList.GetSelection()
+			][0]
 		splconfig.SPLConfig["General"]["TimeHourAnnounce"] = self.hourAnnounceCheckbox.Value
-		splconfig.SPLConfig["General"]["VerticalColumnAnnounce"] = (
-			self.verticalColumnsList.GetStringSelection()
-			if self.verticalColumnsList.GetSelection() != 0
-			else None
-		)
-		splconfig.SPLConfig["General"]["CategorySounds"] = self.categorySoundsCheckbox.Value
-		splconfig.SPLConfig["General"]["TrackCommentAnnounce"] = self.trackCommentValues[
-			self.trackCommentList.GetSelection()
-		][0]
+		if hasattr(self, "verticalColumnsList"):
+			splconfig.SPLConfig["General"]["VerticalColumnAnnounce"] = (
+				self.verticalColumnsList.GetStringSelection()
+				if self.verticalColumnsList.GetSelection() != 0
+				else None
+			)
+		if hasattr(self, "categorySoundsCheckbox"):
+			splconfig.SPLConfig["General"]["CategorySounds"] = self.categorySoundsCheckbox.Value
+		if hasattr(self, "trackCommentList"):
+			splconfig.SPLConfig["General"]["TrackCommentAnnounce"] = self.trackCommentValues[
+				self.trackCommentList.GetSelection()
+			][0]
 		splconfig.SPLConfig["General"]["TopBottomAnnounce"] = self.topBottomCheckbox.Value
-		if _splComponent != "remotestudio":
+		if hasattr(self, "libScanList"):
 			splconfig.SPLConfig["General"]["LibraryScanAnnounce"] = self.libScanValues[
 				self.libScanList.GetSelection()
 			][0]
+		if hasattr(self, "requestsAlertCheckbox"):
 			splconfig.SPLConfig["General"]["RequestsAlert"] = self.requestsAlertCheckbox.Value
 
 
