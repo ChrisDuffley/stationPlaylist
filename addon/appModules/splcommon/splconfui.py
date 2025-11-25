@@ -1601,6 +1601,14 @@ class ResetSettingsPanel(gui.settingsDialogs.SettingsPanel):
 
 # Configuration dialog.
 _configDialogOpened = False
+# Add-on settings screen titles.
+addonSettingsTitles = {
+	"splstudio": "Studio",
+	"remotestudio": "Remote Studio",
+	"tracktool": "Track Tool",
+	"splcreator": "Creator",
+	"splremotevt": "Remote VT",
+}
 
 
 class SPLConfigDialog(gui.MultiCategorySettingsDialog):
@@ -1608,7 +1616,7 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 	# Provide contextual title (Studio or Remote Studio)
 	@property
 	def title(self) -> str:
-		prevFocusedAppName = "Remote Studio" if _splComponent == "remotestudio" else "Studio"
+		prevFocusedAppName = addonSettingsTitles.get(_splComponent, "Studio")
 		# Translators: This is the label for the StationPlaylist add-on configuration dialog.
 		return _("StationPlaylist Add-on Settings ({appName})").format(appName=prevFocusedAppName)
 
