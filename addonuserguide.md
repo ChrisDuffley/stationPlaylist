@@ -306,7 +306,7 @@ By default, the following playlist information will be shown:
 
 You can configure snapshot information from add-on settings via playlist snapshots category. This screen houses checkboxes and several number edit fields to specify what information will be gathered when taking a playlist snapshot.
 
-Note: For category, artist, genre and album count, you can ask NVDA to show you up to top ten results, or show all results by setting show count setting to zero (0). After reviewing snapshot information, press escape to close the snapshots window.
+Note: For category, artist, and genre count, you can ask NVDA to show you up to top ten results, or show all results by setting show count setting to zero (0). After reviewing snapshot information, press escape to close the snapshots window.
 
 ##### Playlist transcripts
 
