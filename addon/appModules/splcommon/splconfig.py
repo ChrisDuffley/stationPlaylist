@@ -682,6 +682,9 @@ def closeConfig(splComponent: str) -> None:
 	# This is subject to change based on NVDA Core changes.
 	for app in appModuleHandler.runningTable.values():
 		if app.appName == splComponent:
+			# Forcefully deactivate the config database if NVDA is reloading plugins.
+			if hasattr(app, "_helperPreventDisconnect"):
+				break
 			return
 	# There's no way this function will work without SPLConfig being alive.
 	if SPLConfig is None:
