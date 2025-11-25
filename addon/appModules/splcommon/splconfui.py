@@ -1622,23 +1622,23 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 
 	@property
 	def categoryClasses(self) -> list[gui.settingsDialogs.SettingsPanel]:
-		actualCategoryClasses = [
-			GeneralSettingsPanel,
-			AlarmsPanel,
-			PlaylistSnapshotsPanel,
-			MetadataStreamingPanel,
-			ColumnAnnouncementsPanel,
-			ColumnsExplorerPanel,
-			PlaylistTranscriptsPanel,
-			SayStatusPanel,
-		]
-		# Remove metadata streaming and status announcements panels if opened from Remote Studio.
-		if _splComponent == "remotestudio":
-			actualCategoryClasses.remove(MetadataStreamingPanel)
-			actualCategoryClasses.remove(SayStatusPanel)
+		# Start with panels available from all SPL components.
+		actualCategoryClasses = [GeneralSettingsPanel, ColumnsExplorerPanel]
+		# Local and Remote Studio only
+		if _splComponent not in ("splcreator", "splremotevt", "tracktool"):
+			actualCategoryClasses.append(AlarmsPanel)
+			actualCategoryClasses.append(ColumnAnnouncementsPanel)
+			actualCategoryClasses.append(PlaylistSnapshotsPanel)
+			actualCategoryClasses.append(PlaylistTranscriptsPanel)
+		# Local Studio only
+		if _splComponent not in ("remotestudio", "splcreator", "splremotevt", "tracktool"):
+			actualCategoryClasses.append(MetadataStreamingPanel)
+			actualCategoryClasses.append(SayStatusPanel)
 		# Security: only add the following panels if not in secure mode.
+		# Local and Remote Studio only for advanced options panel, no secure mode for reet panel
 		if not globalVars.appArgs.secure:
-			actualCategoryClasses.append(AdvancedOptionsPanel)
+			if _splComponent not in ("splcreator", "splremotevt", "tracktool"):
+				actualCategoryClasses.append(AdvancedOptionsPanel)
 			actualCategoryClasses.append(ResetSettingsPanel)
 		return actualCategoryClasses
 
