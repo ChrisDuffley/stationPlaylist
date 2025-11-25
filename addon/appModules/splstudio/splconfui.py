@@ -1658,6 +1658,42 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		self.onCancel(None)
 
 
+# Initialize and terminate config UI subsystem (including add-on settings screen).
+# Reference to add-on settings.
+addonConfUI = None
+
+def initialize() -> None:
+	global addonConfUI
+	# Skip all this if more than one SPL component are active.
+	if len(splconfig.SPLConfig.splComponents) > 1:
+		return
+	try:
+		addonConfUI = gui.mainFrame.sysTrayIcon.preferencesMenu.Append(
+			wx.ID_ANY,
+			# Translators: the label for a menu item in NVDA Preferences menu
+			# to open SPL Studio add-on settings.
+			_("SPL Studio Settings..."),
+			# Translators: tooltip for SPL Studio settings dialog.
+			_("SPL settings"),
+		)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, onConfigDialog, addonConfUI)
+	except AttributeError:
+		pass
+
+
+def terminate() -> None:
+	global addonConfUI
+	# SPL components are still active.
+	if splconfig.SPLConfig:
+		return
+	try:
+		gui.mainFrame.sysTrayIcon.preferencesMenu.Remove(addonConfUI)
+	except (RuntimeError, AttributeError):
+		pass
+	finally:
+		addonConfUI = None
+
+
 # Open various add-on settings dialogs.
 
 
