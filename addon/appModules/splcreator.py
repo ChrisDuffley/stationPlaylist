@@ -211,6 +211,9 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(gestures=[f"kb:alt+{i}" for i in splcarts.cartKeys[12:]])
 	def script_reportTrackColumnSort(self, gesture):
 		gesture.send()
+		# Limit this to Creator (Remote VT ap module derives from this module).
+		if self.appName != "splcreator":
+			return
 		fg = api.getForegroundObject()
 		if fg.windowClassName != "TMainForm":
 			return
