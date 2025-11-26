@@ -13,9 +13,11 @@ import tones
 import controlTypes
 import scriptHandler
 import wx
+import ui
+import api
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32
-from .splcommon import splconfig, splconfui, splbase
+from .splcommon import splconfig, splconfui, splbase, splcarts
 
 addonHandler.initTranslation()
 
@@ -182,3 +184,30 @@ class AppModule(appModuleHandler.AppModule):
 		# Rather than calling the config dialog open event,
 		# call the open dialog function directly to avoid indirection.
 		wx.CallAfter(splconfui.openAddonSettingsPanel, None)
+
+	# Handle native Track Tool commands.
+
+	# Announce track sort status (column, ascending/descending).
+	# Number row gestures come from cart keys list.
+	columnSortKeys = splcarts.cartKeys[12:]
+
+	@scriptHandler.script(gestures=[f"kb:alt+{i}" for i in splcarts.cartKeys[12:]])
+	def script_reportTrackColumnSort(self, gesture):
+		gesture.send()
+		fg = api.getForegroundObject()
+		if not fg.windowClassName.startswith("TIntroTiming"):
+			return
+		column = self.columnSortKeys.index(gesture.displayName.split("+")[-1])
+		# Get the last child included in list children, not last child as the former is column headers.
+		columnHeader = fg.getChild(-2).children[-1].getChild(column).name
+		# Up arrow (↑) = ascending, down arrow (↓) = descending
+		match columnHeader[0]:
+			case "↑":
+				direction = "ascending"
+			case "↓":
+				direction = "descending"
+			case _:
+				direction = ""
+		ui.message(_("Sort by {header} ({sortDirection})").format(
+			header=columnHeader.strip("↑↓"), sortDirection=direction
+		))
