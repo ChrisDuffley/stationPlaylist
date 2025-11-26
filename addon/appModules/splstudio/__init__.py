@@ -194,8 +194,8 @@ class SPLTrackItem(sysListView32.ListItem):
 		# Because of this, track items must expose individual columns as child objects.
 		if hasattr(self, "exploreColumns"):
 			# Sometimes, odd Unicode characters such as up arrow (↑) are present.
-			# This is seen with local Studio 6.20's insert tracks list, specifically "Artist" column.
-			columnHeaders = [child.columnHeaderText.removeprefix("↑") for child in self.children]
+			# This is seen when items are sorted by columns in ascending and descending order.
+			columnHeaders = [child.columnHeaderText.strip("↑↓") for child in self.children]
 			header = self.exploreColumns[columnPos]
 			# Consult more concrete track item classes about column header changes shown on screen.
 			if hasattr(self, "updateColumnHeader"):
