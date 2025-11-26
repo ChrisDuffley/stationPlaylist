@@ -2,6 +2,10 @@
 
 This page lists the complete changelog for StationPlaylist add-on releases.
 
+## Version 25.06.12-LTS
+
+* In Remote Studio, when closing options screen (Control+O) while cart explorer is active, it is no longer necessary to reenter Cart Explorer to view updated cart assignments.
+
 ## Version 25.06.11-LTS
 
 * Added a setting in add-on settings under status announcements to announce when a cart finishes playing (NVDA will say 'cart stopped').

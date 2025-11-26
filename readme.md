@@ -208,6 +208,10 @@ You can save settings for specific shows into broadcast profiles. These profiles
 
 If you are using Studio on a touchscreen computer with NVDA installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 25.06.12-LTS
+
+* In Remote Studio, when closing options screen (Control+O) while cart explorer is active, it is no longer necessary to reenter Cart Explorer to view updated cart assignments.
+
 ## Version 25.06.11-LTS
 
 * Added a setting in add-on settings under status announcements to announce when a cart finishes playing (NVDA will say 'cart stopped').
