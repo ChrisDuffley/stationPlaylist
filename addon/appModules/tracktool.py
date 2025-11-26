@@ -18,6 +18,7 @@ import api
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32
 from .splcommon import splconfig, splconfui, splbase, splcarts
+from .skipTranslation import translate
 
 addonHandler.initTranslation()
 
@@ -203,11 +204,10 @@ class AppModule(appModuleHandler.AppModule):
 		# Up arrow (↑) = ascending, down arrow (↓) = descending
 		match columnHeader[0]:
 			case "↑":
-				direction = "ascending"
+				direction = translate("ascending")
 			case "↓":
-				direction = "descending"
+				direction = translate("descending")
 			case _:
 				direction = ""
-		ui.message(_("Sort by {header} ({sortDirection})").format(
-			header=columnHeader.strip("↑↓"), sortDirection=direction
-		))
+		columnSortMessage = _("Sort by {header}").format(header=columnHeader.strip("↑↓"))
+		ui.message("{} ({})".format(columnSortMessage, direction) if direction else columnSortMessage)
