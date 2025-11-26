@@ -486,7 +486,7 @@ def _cartExplorerInitRemote(
 				remoteCartEntry = remoteCartEntry.partition("(")[-1][:-1]
 				bank, position = remoteCartEntry[:2], int(remoteCartEntry[2:]) - 1
 				# At least Studio cart position is known, so obtain it from cart keys.
-				position = splconsts.cartKeys[position]
+				position = cartKeys[position]
 				# Add appropriate modifiers (SF = Shift, CF = Control, AF = Alt, MF = none)
 				match bank:
 					case "SF":
