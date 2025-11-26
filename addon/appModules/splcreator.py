@@ -235,9 +235,9 @@ class AppModule(appModuleHandler.AppModule):
 		# Up arrow (↑) = ascending, down arrow (↓) = descending
 		match columnHeader[0]:
 			case "↑":
-				direction = "ascending"
+				direction = translate("ascending")
 			case "↓":
-				direction = "descending"
+				direction = translate("descending")
 			case _:
 				direction = ""
 		# Translators: shown when track list items are sorted by a column with new sort direction applied.
