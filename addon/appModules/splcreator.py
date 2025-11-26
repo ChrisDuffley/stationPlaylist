@@ -17,6 +17,7 @@ from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32
 from NVDAObjects.behaviors import Dialog
 from .splcommon import splconfig, splconfui, splbase, splcarts
+from .skipTranslation import translate
 
 addonHandler.initTranslation()
 
@@ -239,9 +240,9 @@ class AppModule(appModuleHandler.AppModule):
 				direction = "descending"
 			case _:
 				direction = ""
-		ui.message(_("Sort by {header} ({sortDirection})").format(
-			header=columnHeader.strip("↑↓"), sortDirection=direction
-		))
+		# Translators: shown when track list items are sorted by a column with new sort direction applied.
+		columnSortMessage = _("Sort by {header}").format(header=columnHeader.strip("↑↓"))
+		ui.message("{} ({})".format(columnSortMessage, direction) if direction else columnSortMessage)
 
 	# The following scripts are designed to work while using Playlist Editor.
 
