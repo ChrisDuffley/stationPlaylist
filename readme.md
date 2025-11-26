@@ -213,6 +213,7 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 * NVDA 2025.3.2 or later is required.
 * Add-on settings screen is now available while using Creator, Remote VT, and Track Tool with different settings for each app.
 * In Remote Studio, when closing options screen (Control+O) while cart explorer is active, it is no longer necessary to reenter Cart Explorer to view updated cart assignments.
+* In track list in Creator and Track Tool, pressing Alt+number row keys to change column sort order will cause NVDA to announce the new sort order based on the column selected.
 
 ## Older releases
 
