@@ -918,7 +918,7 @@ class AppModule(appModuleHandler.AppModule):
 				studioTitlePartition = studioTitle.partition(" - ")
 				if not studioTitlePartition[2]:
 					studioTitle = studioTitlePartition[0]
-				self.carts = splcarts.cartExplorerInit(studioTitle, remoteStudio=self.appName=="remotestudio")
+				self.carts = splcarts.cartExplorerInit(studioTitle)
 				if self.carts["faultyCarts"]:
 					# Translators: presented when cart explorer could not be switched on.
 					ui.message(_("Some or all carts could not be assigned, cannot enter cart explorer"))
