@@ -99,6 +99,15 @@ def _cartExplorerInitLocal(
 	# Since sstandard edition does not support number row carts, skip them if told to do so.
 	if carts is None:
 		carts = {"standardLicense": studioTitle.startswith("StationPlaylist Studio Standard")}
+	# Parse local Studio window title to deal with specific situations.
+	# Studio 6 demo uses "Demo" as default user name, therefore remove user name.
+	if "Demo - Demo" in studioTitle:
+		studioTitle = "StationPlaylist Studio Demo"
+	# If default user is set for Standard and Pro, user name is not included in the title bar text.
+	# Therefore, just report the edition name after partitioning the title bar text.
+	studioTitlePartition = studioTitle.partition(" - ")
+	if not studioTitlePartition[2]:
+		studioTitle = studioTitlePartition[0]
 	# See if multiple users are using SPl Studio.
 	userNameIndex = studioTitle.find("-")
 	# Read *.cart files and process the cart entries within
