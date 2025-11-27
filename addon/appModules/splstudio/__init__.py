@@ -729,25 +729,11 @@ class AppModule(appModuleHandler.AppModule):
 	# Some controls which needs special routines.
 	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
 		role = obj.role
-		try:
-			windowStyle = obj.windowStyle
-		except AttributeError:
-			windowStyle = 0
 		# Use structural pattern matching to detect overlay classes.
 		match obj.windowClassName:
 			case "TTntListView.UnicodeClass":
 				if role == controlTypes.Role.LISTITEM:
-					trackItemWindowStyle = 1443958849 if self.productVersion >= "6.20" else 1443991617
-					# In local Studio 6.20, insert tracks dialog's tracks list
-					# has same window style as playlist viewer.
-					# Ask simple grandparent object if this is STudio main window.
-					if (
-						obj.simpleParent.simpleParent.windowClassName == "TStudioForm"
-						and trackItemWindowStyle in (
-							1443991617,  # Studio 6.11 and earlier
-							1443958849  # Studio 6.20
-						) and abs(windowStyle - trackItemWindowStyle) % 0x100000 == 0
-					):
+					if obj.parent.simpleParent.windowClassName == "TStudioForm":
 						clsList.insert(0, StudioPlaylistViewerItem)
 					else:
 						clsList.insert(0, SPLStudioTrackItem)
