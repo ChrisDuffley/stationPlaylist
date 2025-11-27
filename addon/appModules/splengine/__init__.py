@@ -47,6 +47,19 @@ class AppModule(appModuleHandler.AppModule):
 		# For now, ignore this condition.
 		encoders.cleanup(appTerminating=True)
 
+	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
+		# Detect encoders.
+		if obj.windowClassName == "TListView":
+			# #87: add support for table navigation commands
+			# by coercing encoder list and entries into SysListView32 family.
+			if obj.role == controlTypes.Role.LISTITEM:
+				clsList.insert(0, encoders.SAMEncoder)
+			elif obj.role == controlTypes.Role.LIST:
+				clsList.insert(0, sysListView32.List)
+		elif obj.windowClassName == "SysListView32" and obj.role == controlTypes.Role.LISTITEM:
+			# #113: AltaCast encoder list has a name whereas SPL Encoder doesn't.
+			clsList.insert(0, encoders.AltaCastEncoder if obj.parent.name == "List1" else encoders.SPLEncoder)
+
 	def event_NVDAObject_init(self, obj: NVDAObject):
 		# ICQ field is incorrectly labeled as IRC.
 		# After labeling it, return early so others can be labeled correctly.
@@ -74,16 +87,3 @@ class AppModule(appModuleHandler.AppModule):
 				encoderSettingsLabel = encoderSettingsLabels.get(obj.windowControlID)
 				if encoderSettingsLabel:
 					obj.name = encoderSettingsLabel
-
-	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
-		# Detect encoders.
-		if obj.windowClassName == "TListView":
-			# #87: add support for table navigation commands
-			# by coercing encoder list and entries into SysListView32 family.
-			if obj.role == controlTypes.Role.LISTITEM:
-				clsList.insert(0, encoders.SAMEncoder)
-			elif obj.role == controlTypes.Role.LIST:
-				clsList.insert(0, sysListView32.List)
-		elif obj.windowClassName == "SysListView32" and obj.role == controlTypes.Role.LISTITEM:
-			# #113: AltaCast encoder list has a name whereas SPL Encoder doesn't.
-			clsList.insert(0, encoders.AltaCastEncoder if obj.parent.name == "List1" else encoders.SPLEncoder)
