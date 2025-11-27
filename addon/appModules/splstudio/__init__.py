@@ -683,17 +683,33 @@ class AppModule(appModuleHandler.AppModule):
 		):
 			self._analysisMarker = None
 
+	# Some controls which needs special routines.
+	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
+		role = obj.role
+		# Use structural pattern matching to detect overlay classes.
+		match obj.windowClassName:
+			case "TTntListView.UnicodeClass":
+				if role == controlTypes.Role.LISTITEM:
+					if obj.parent.simpleParent.windowClassName == "TStudioForm":
+						clsList.insert(0, StudioPlaylistViewerItem)
+					else:
+						clsList.insert(0, SPLStudioTrackItem)
+				# #69: allow actual list views to be treated as SysListView32.List
+				# so column count and other data can be retrieved easily.
+				elif role == controlTypes.Role.LIST:
+					clsList.insert(0, sysListView32.List)
+			# Recognize known dialogs.
+			case "TDemoRegForm" | "TOpenPlaylist" | "TAboutForm":
+				clsList.insert(0, Dialog)
+			# Temporary cue time picker and friends.
+			case "TDateTimePicker":
+				clsList.insert(0, SPLTimePicker)
+			case _:
+				pass
+
 	# Let the global plugin know if SPLController passthrough is allowed.
 	def SPLConPassthrough(self) -> bool:
 		return splconfig.SPLConfig["Advanced"]["SPLConPassthrough"]
-
-	# The only job of the below event is to notify others that Studio window has appeared for the first time.
-	# This is used to coordinate various status announcements.
-
-	def event_foreground(self, obj: NVDAObject, nextHandler: collections.abc.Callable[[], None]):
-		if not self._initStudioWindowFocused.is_set() and obj.windowClassName == "TStudioForm":
-			self._initStudioWindowFocused.set()
-		nextHandler()
 
 	def event_NVDAObject_init(self, obj: NVDAObject):
 		# Employ structural pattern matching to handle different window class names.
@@ -726,29 +742,13 @@ class AppModule(appModuleHandler.AppModule):
 			case _:
 				pass
 
-	# Some controls which needs special routines.
-	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
-		role = obj.role
-		# Use structural pattern matching to detect overlay classes.
-		match obj.windowClassName:
-			case "TTntListView.UnicodeClass":
-				if role == controlTypes.Role.LISTITEM:
-					if obj.parent.simpleParent.windowClassName == "TStudioForm":
-						clsList.insert(0, StudioPlaylistViewerItem)
-					else:
-						clsList.insert(0, SPLStudioTrackItem)
-				# #69: allow actual list views to be treated as SysListView32.List
-				# so column count and other data can be retrieved easily.
-				elif role == controlTypes.Role.LIST:
-					clsList.insert(0, sysListView32.List)
-			# Recognize known dialogs.
-			case "TDemoRegForm" | "TOpenPlaylist" | "TAboutForm":
-				clsList.insert(0, Dialog)
-			# Temporary cue time picker and friends.
-			case "TDateTimePicker":
-				clsList.insert(0, SPLTimePicker)
-			case _:
-				pass
+	# The only job of the below event is to notify others that Studio window has appeared for the first time.
+	# This is used to coordinate various status announcements.
+
+	def event_foreground(self, obj: NVDAObject, nextHandler: collections.abc.Callable[[], None]):
+		if not self._initStudioWindowFocused.is_set() and obj.windowClassName == "TStudioForm":
+			self._initStudioWindowFocused.set()
+		nextHandler()
 
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
