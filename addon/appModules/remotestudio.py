@@ -87,7 +87,7 @@ class AppModule(splstudio.AppModule):
 		if (
 			obj.windowClassName == "TTntListView.UnicodeClass"
 			and obj.role == controlTypes.Role.LISTITEM
-			and obj.windowStyle == 1443991621
+			and obj.parent.simpleParent.windowClassName == "TStudioForm"
 		):
 			clsList.insert(0, RemoteStudioPlaylistViewerItem)
 			return
