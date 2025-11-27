@@ -90,6 +90,7 @@ class AppModule(splstudio.AppModule):
 			and obj.windowStyle == 1443991621
 		):
 			clsList.insert(0, RemoteStudioPlaylistViewerItem)
+			return
 		super().chooseNVDAObjectOverlayClasses(obj, clsList)
 
 	# Status bar is one long text separated by vertical bars (|).
