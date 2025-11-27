@@ -909,16 +909,7 @@ class AppModule(appModuleHandler.AppModule):
 			if self.cartExplorer:
 				self.carts.clear()
 				splcarts.cartEditTimestamps = []
-				studioTitle = obj.name
-				# Studio 6 demo uses "Demo" as default user name, therefore remove user name.
-				if "Demo - Demo" in studioTitle:
-					studioTitle = "StationPlaylist Studio Demo"
-				# If default user is set for Standard and Pro, user name is not included in the title bar text.
-				# Therefore, just report the edition name after partitioning the title bar text.
-				studioTitlePartition = studioTitle.partition(" - ")
-				if not studioTitlePartition[2]:
-					studioTitle = studioTitlePartition[0]
-				self.carts = splcarts.cartExplorerInit(studioTitle)
+				self.carts = splcarts.cartExplorerInit(obj.name)
 				if self.carts["faultyCarts"]:
 					# Translators: presented when cart explorer could not be switched on.
 					ui.message(_("Some or all carts could not be assigned, cannot enter cart explorer"))
@@ -964,16 +955,7 @@ class AppModule(appModuleHandler.AppModule):
 			# The best way to detect Cart Edit off is consulting file modification time.
 			# Automatically reload cart information if this is the case.
 			if status in ("Cart Edit Off", "Cart Insert On"):
-				studioTitle = api.getForegroundObject().name
-				# Studio 6 demo uses "Demo" as default user name, therefore remove user name.
-				if "Demo - Demo" in studioTitle:
-					studioTitle = "StationPlaylist Studio Demo"
-				# If default user is set for Standard and Pro, user name is not included in the title bar text.
-				# Therefore, just report the edition name after partitioning the title bar text.
-				studioTitlePartition = studioTitle.partition(" - ")
-				if not studioTitlePartition[2]:
-					studioTitle = studioTitlePartition[0]
-				self.carts = splcarts.cartExplorerRefresh(studioTitle, self.carts)
+				self.carts = splcarts.cartExplorerRefresh(api.getForegroundObject().name, self.carts)
 			# Translators: Presented when cart modes are toggled while cart explorer is on.
 			ui.message(_("Cart explorer is active"))
 			return
@@ -1492,16 +1474,7 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when cart explorer cannot be entered.
 				ui.message(_("You are not in playlist viewer, cannot enter cart explorer"))
 				return
-			studioTitle = fg.name
-			# Studio 6 demo uses "Demo" as default user name, therefore remove user name.
-			if "Demo - Demo" in studioTitle:
-				studioTitle = "StationPlaylist Studio Demo"
-			# If default user is set for Standard and Pro, user name is not included in the title bar text.
-			# Therefore, just report the edition name after partitioning the title bar text.
-			studioTitlePartition = studioTitle.partition(" - ")
-			if not studioTitlePartition[2]:
-				studioTitle = studioTitlePartition[0]
-			self.carts = splcarts.cartExplorerInit(studioTitle)
+			self.carts = splcarts.cartExplorerInit(fg.name)
 			if self.carts["faultyCarts"]:
 				# Translators: presented when cart explorer could not be switched on.
 				ui.message(_("Some or all carts could not be assigned, cannot enter cart explorer"))
