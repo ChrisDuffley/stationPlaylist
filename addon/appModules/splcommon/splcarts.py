@@ -88,7 +88,7 @@ cartEditRemoteTimestamps: float | None = None
 # Initialize local Studio carts.
 def _cartExplorerInitLocal(
 	cartsDataPath: str,
-	StudioTitle: str,
+	studioTitle: str,
 	refresh: bool = False,
 	carts: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
@@ -98,14 +98,14 @@ def _cartExplorerInitLocal(
 	# Once the cart banks are located, use the routines in the populate method above to assign carts.
 	# Since sstandard edition does not support number row carts, skip them if told to do so.
 	if carts is None:
-		carts = {"standardLicense": StudioTitle.startswith("StationPlaylist Studio Standard")}
+		carts = {"standardLicense": studioTitle.startswith("StationPlaylist Studio Standard")}
 	# See if multiple users are using SPl Studio.
-	userNameIndex = StudioTitle.find("-")
+	userNameIndex = studioTitle.find("-")
 	# Read *.cart files and process the cart entries within
 	# (be careful when these cart file names change between SPL releases).
 	cartFiles = ["main carts.cart", "shift carts.cart", "ctrl carts.cart", "alt carts.cart"]
 	if userNameIndex >= 0:
-		cartFiles = [StudioTitle[userNameIndex + 2 :] + " " + cartFile for cartFile in cartFiles]
+		cartFiles = [studioTitle[userNameIndex + 2 :] + " " + cartFile for cartFile in cartFiles]
 	faultyCarts = False
 	if not refresh:
 		cartEditTimestamps = []
@@ -218,7 +218,7 @@ def _cartExplorerInitRemote(
 # if told to refresh, timestamps will be checked and updated banks will be reassigned.
 # Carts dictionary is used if and only if refresh is on, as it'll modify live carts.
 def cartExplorerInit(
-	StudioTitle: str,
+	studioTitle: str,
 	remoteStudio: bool = False,
 	refresh: bool = False,
 	carts: dict[str, Any] | None = None,
@@ -232,7 +232,7 @@ def cartExplorerInit(
 	if remoteStudio:
 		return _cartExplorerInitRemote(cartsDataPath, refresh=refresh, carts=carts)
 	else:
-		return _cartExplorerInitLocal(cartsDataPath, StudioTitle, refresh=refresh, carts=carts)
+		return _cartExplorerInitLocal(cartsDataPath, studioTitle, refresh=refresh, carts=carts)
 
 
 # Refresh carts upon request.
