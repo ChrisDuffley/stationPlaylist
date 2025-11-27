@@ -83,7 +83,6 @@ class AppModule(splstudio.AppModule):
 			log.debug(f"SPL: Remote Studio handle is {hwnd}")
 
 	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
-		# Same as local Studio but with different window style flags.
 		if (
 			obj.windowClassName == "TTntListView.UnicodeClass"
 			and obj.role == controlTypes.Role.LISTITEM
