@@ -714,13 +714,6 @@ class AppModule(appModuleHandler.AppModule):
 	def event_NVDAObject_init(self, obj: NVDAObject):
 		# Employ structural pattern matching to handle different window class names.
 		match obj.windowClassName:
-			case "TListView":
-				# From 0.01: previously focused item fires focus event when it shouldn't.
-				if (
-					obj.role in (controlTypes.Role.CHECKBOX, controlTypes.Role.LISTITEM)
-					and controlTypes.State.FOCUSED not in obj.states
-				):
-					obj.shouldAllowIAccessibleFocusEvent = False
 			case "TRadioGroup":
 				# Radio button group names are not recognized as grouping, so work around this.
 				obj.role = controlTypes.Role.GROUPING
