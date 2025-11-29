@@ -748,8 +748,6 @@ class AppModule(appModuleHandler.AppModule):
 	scanCount = 0
 	# Prevent NVDA from announcing scheduled time multiple times.
 	scheduledTimeCache = ""
-	# Prevent NVDA from announcing match results in Insert Tracks/search.
-	matchedResultsCache = ""
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
@@ -778,10 +776,6 @@ class AppModule(appModuleHandler.AppModule):
 					# Translators: presented when a cart jingle stops playing.
 					ui.message(_("Cart stopped"))
 				return False
-		# In insert tracks dialog, name change event is fired continuously until actual result is known.
-		# To prevent an event flood risk, say "no" if the same result text was cached.
-		elif "match" in name and api.getForegroundObject().windowClassName == "TTrackInsertForm":
-			return self.matchedResultsCache != name
 		return True
 
 	# Now the actual event.
