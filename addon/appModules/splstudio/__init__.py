@@ -819,6 +819,7 @@ class AppModule(appModuleHandler.AppModule):
 					):
 						if splconfig.SPLConfig["General"]["BeepAnnounce"]:
 							tones.beep(370, 100)
+							ui.message("{}".format(splbase.studioAPI(0, SPLLibraryScanCount)))
 						else:
 							# Translators: Presented when library scan is complete.
 							ui.message(
@@ -1615,6 +1616,7 @@ class AppModule(appModuleHandler.AppModule):
 		if splconfig.SPLConfig and splconfig.SPLConfig["General"]["LibraryScanAnnounce"] != "off":
 			if splconfig.SPLConfig["General"]["BeepAnnounce"]:
 				tones.beep(370, 100)
+				wx.CallAfter(ui.message, "{}".format(splbase.studioAPI(0, SPLLibraryScanCount)))
 			else:
 				# Translators: Presented after library scan is done.
 				ui.message(
