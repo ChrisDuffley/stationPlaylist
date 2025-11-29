@@ -802,7 +802,7 @@ class AppModule(appModuleHandler.AppModule):
 					if splconfig.SPLConfig["General"]["LibraryScanAnnounce"] not in ("off", "ending"):
 						# If library scan is in progress, announce its progress when told to do so.
 						self.scanCount += 1
-						if self.scanCount % 100 == 0:
+						if self.scanCount % 20 == 0:
 							self._libraryScanAnnouncer(
 								obj.name[1 : obj.name.find("]")],
 								splconfig.SPLConfig["General"]["LibraryScanAnnounce"],
