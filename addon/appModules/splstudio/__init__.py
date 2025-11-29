@@ -781,8 +781,8 @@ class AppModule(appModuleHandler.AppModule):
 	# Now the actual event.
 	def event_nameChange(self, obj: NVDAObject, nextHandler: collections.abc.Callable[[], None]):
 		# Do not let NVDA get name for None object when SPL window is maximized.
-		# Except for cart playback status.
-		if not obj.name and obj.IAccessibleChildID != 3:
+		# Except for cart playback status and temporary library scan in insert tracks screen.
+		if not obj.name and obj.IAccessibleChildID not in (2, 3):
 			return
 		# Only announce changes in status bar objects when told to do so.
 		if obj.windowClassName == "TStatusBar" and self._TStatusBarChanged(obj):
