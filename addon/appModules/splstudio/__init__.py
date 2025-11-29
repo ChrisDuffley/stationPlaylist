@@ -811,8 +811,8 @@ class AppModule(appModuleHandler.AppModule):
 							)
 					if not self.libraryScanning:
 						self.libraryScanning = True
-				elif not obj.name and splbase.studioAPI(1, SPLLibraryScanCount) <= 0:
-					# Make sure library scan is finished from local Studio (API) side.
+				elif not obj.name and splbase.studioAPI(1, SPLLibraryScanCount) in (None, -1):
+					# Make sure library scan is finished from local Studio (API) side (reports None or -1).
 					if (
 						splconfig.SPLConfig["General"]["LibraryScanAnnounce"] != "off"
 						and self.libraryScanning
