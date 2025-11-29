@@ -126,6 +126,10 @@ class AppModule(splstudio.AppModule):
 					for content in changedStatusBarContent:
 						queueHandler.queueFunction(queueHandler.eventQueue, self.doRemoteStudioExtraAction, content)
 				self._pastStatusBarContent = obj.name
+			elif "match" in obj.name:
+				# Announce search/match results from inesrt tracks dialog.
+				# Only announce match count as the whole thing is very verbose.
+				ui.message(" ".join(obj.name.split()[:2]))
 			else:
 				# Announce connection status in Remote Studio.
 				ui.message(obj.name)
