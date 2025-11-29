@@ -1618,8 +1618,7 @@ class AppModule(appModuleHandler.AppModule):
 				tones.beep(370, 100)
 				wx.CallAfter(ui.message, "{}".format(splbase.studioAPI(0, SPLLibraryScanCount)))
 			else:
-				# Translators: Presented after library scan is done.
-				ui.message(
+				wx.CallAfter(ui.message,
 					_("Scan complete with {itemCount} items").format(
 						itemCount=splbase.studioAPI(0, SPLLibraryScanCount)
 					)
