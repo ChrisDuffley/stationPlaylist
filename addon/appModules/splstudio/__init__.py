@@ -821,10 +821,10 @@ class AppModule(appModuleHandler.AppModule):
 							tones.beep(370, 100)
 							ui.message("{}".format(splbase.studioAPI(0, SPLLibraryScanCount)))
 						else:
-							# Translators: Presented when library scan is complete.
 							ui.message(
-								_("Scan complete with {scanCount} items").format(
-									scanCount=splbase.studioAPI(0, SPLLibraryScanCount)
+								# Translators: Presented when library scan is complete.
+								_("Scan complete with {itemCount} items").format(
+									itemCount=splbase.studioAPI(0, SPLLibraryScanCount)
 								)
 							)
 					if self.libraryScanning:
