@@ -209,10 +209,9 @@ class AppModule(appModuleHandler.AppModule):
 		# Up arrow (↑) = ascending, down arrow (↓) = descending
 		match columnHeader[0]:
 			case "↑":
-				direction = translate("ascending")
+				direction = translate("{column} (ascending)".format(column=columnHeader.strip("↑↓")))
 			case "↓":
-				direction = translate("descending")
+				direction = translate("{column} (descending)".format(column=columnHeader.strip("↑↓")))
 			case _:
-				direction = ""
-		columnSortMessage = _("Sort by {header}").format(header=columnHeader.strip("↑↓"))
-		ui.message("{} ({})".format(columnSortMessage, direction) if direction else columnSortMessage)
+				direction = columnHeader
+		ui.message(direction)
