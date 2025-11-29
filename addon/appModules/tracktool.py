@@ -177,6 +177,11 @@ class AppModule(appModuleHandler.AppModule):
 			elif obj.role == controlTypes.Role.LIST:
 				clsList.insert(0, sysListView32.List)
 
+	def event_NVDAObject_init(self, obj: NVDAObject):
+		if obj.windowClassName == "TStatusBar" and obj.name is None:
+			# Status bar labels are not found in Track Toolbut is written to the screen.
+			obj.name = obj.displayText
+
 	@scriptHandler.script(
 		description=_("Opens SPL Studio add-on configuration dialog."),
 		gestures=["kb:alt+NVDA+0", "ts(SPL):2finger_flickLeft"],
