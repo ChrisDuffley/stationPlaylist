@@ -793,11 +793,12 @@ class AppModule(appModuleHandler.AppModule):
 		# Only announce changes in status bar objects when told to do so.
 		if obj.windowClassName == "TStatusBar" and self._TStatusBarChanged(obj):
 			# Special handling for Play Status
-			if obj.IAccessibleChildID == 1:
-				if "Play status" in obj.name:
-					# Strip off "  Play status: " for brevity only in main playlist window.
-					ui.message(obj.name.split(":")[1][1:])
-				elif "Loading" in obj.name:
+			if obj.IAccessibleChildID == 1 and "Play status" in obj.name:
+				# Strip off "  Play status: " for brevity only in main playlist window.
+				ui.message(obj.name.split(":")[1][1:])
+			# Track insert form/library scan announcement.
+			elif obj.parent.simpleParent.windowClassName == "TTrackInsertForm":
+				if "Loading" in obj.name:
 					if splconfig.SPLConfig["General"]["LibraryScanAnnounce"] not in ("off", "ending"):
 						# If library scan is in progress, announce its progress when told to do so.
 						self.scanCount += 1
