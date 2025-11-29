@@ -1541,6 +1541,9 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(gesture="kb:control+shift+r")
 	def script_startScanFromInsertTracks(self, gesture):
 		gesture.send()
+		# The rest of this script is unavailable in Remote Studio.
+		if self.appName != "splstudio":
+			return
 		fg = api.getForegroundObject()
 		if fg.windowClassName == "TTrackInsertForm":
 			# Translators: Presented when library scan has started.
