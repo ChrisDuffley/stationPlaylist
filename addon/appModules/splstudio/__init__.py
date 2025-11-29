@@ -829,7 +829,7 @@ class AppModule(appModuleHandler.AppModule):
 							# Translators: Presented when library scan is complete.
 							ui.message(
 								_("Scan complete with {scanCount} items").format(
-									scanCount=obj.name.split()[3]
+									scanCount=splbase.studioAPI(0, SPLLibraryScanCount)
 								)
 							)
 					if self.libraryScanning:
