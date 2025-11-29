@@ -798,7 +798,15 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message(obj.name.split(":")[1][1:])
 			# Track insert form/library scan announcement.
 			elif obj.parent.simpleParent.windowClassName == "TTrackInsertForm":
-				if "Loading" in obj.name:
+				if "match" in obj.name:  # Status text 1
+					# Announce search/match results.
+					# This is distinct from library rescan text.
+					# Only announce match count as the whole thing is very verbose.
+					ui.message(" ".join(obj.name.split()[:2]))
+				elif "Loading" in obj.name:  # Status text 2
+					# Temporary scan text is shown when rescanning the library.
+					# Terminate library scan announcer when this text is gone (scan completed)
+					# and local Studio (API) also says library scan is not occurring.
 					if splconfig.SPLConfig["General"]["LibraryScanAnnounce"] not in ("off", "ending"):
 						# If library scan is in progress, announce its progress when told to do so.
 						self.scanCount += 1
