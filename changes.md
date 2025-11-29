@@ -6,6 +6,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 
 * NVDA 2025.3.2 or later is required.
 * Add-on settings screen is now available while using Creator, Remote VT, and Track Tool with different settings for each app.
+* In local Studio, NVDA will be less verbose when performing library rescan from insert tracks dialog (Control+Shift+R).
 * In Remote Studio, when closing options screen (Control+O) while cart explorer is active, it is no longer necessary to reenter Cart Explorer to view updated cart assignments.
 * In track list in Creator and Track Tool, pressing Alt+number row keys to change column sort order will cause NVDA to announce the new sort order based on the column selected.
 
