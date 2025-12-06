@@ -717,11 +717,22 @@ class AppModule(appModuleHandler.AppModule):
 			case "TRadioGroup":
 				# Radio button group names are not recognized as grouping, so work around this.
 				obj.role = controlTypes.Role.GROUPING
-			case "TEdit" | "TComboBox":
+			case "TEdit" | "TComboBox" | "TTntEdit.UnicodeClass" | "TTntComboBox.UnicodeClass":
 				# In certain edit fields and combo boxes, the field name is written to the screen,
 				# and there's no way to fetch the object for this text.
 				# Thus use review position text (first item in screen position function return tuple).
-				if not obj.name:
+				# In some cases, labels are next to objects but not exposed by MSAA.
+				# Fetch the label by specifying the screen location where the label might be found.
+				# Special handling for insert tracks dialog where search criteria is shown as a grid.
+				if api.getForegroundObject().windowClassName == "TTrackInsertForm":
+					# Use screen coordinates to obtain search criteria control label.
+					labelObj = api.getDesktopObject().objectFromPoint(
+						obj.location[0] - 8,  # To the left of the unlabeled control
+						obj.location[1] + 8  # Try to place the "cursor" inside the label object
+					)
+					if labelObj:
+						obj.name = labelObj.name
+				elif not obj.name:
 					fieldName = review.getScreenPosition(obj)[0]
 					fieldName.expand(textInfos.UNIT_LINE)
 					if obj.windowClassName == "TComboBox":
