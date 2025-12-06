@@ -473,16 +473,17 @@ F12: Switch to an instant switch profile."""),
 }
 
 
-# Temporary Cue time pickers does not expose the correct tree.
-# Thankfully, when up or down arrows are pressed, display text changes.
+# Time pickers (including temporary cue) does not expose the correct tree.
+# Thankfully, when up or down arrows are pressed, value change event is raised to change the window text.
 class SPLTimePicker(IAccessible):
-	@scriptHandler.script(gestures=["kb:upArrow", "kb:downArrow"])
-	def script_changeTimePickerValue(self, gesture):
-		# Slightly modified "read current line" script without complexities of tree interceptor and caret.
-		gesture.send()
-		info = api.getFocusObject().makeTextInfo(textInfos.POSITION_FIRST)
-		info.expand(textInfos.UNIT_LINE)
-		speech.speakTextInfo(info, unit=textInfos.UNIT_LINE, reason=controlTypes.OutputReason.CARET)
+	def _get_name(self):
+		# Time picker labels are to the left of the picker control.
+		labelObj = api.getDesktopObject().objectFromPoint(self.location[0] - 8, self.location[1] + 8)
+		if labelObj:
+			return labelObj.name
+
+	def _get_value(self):
+		return self.windowText
 
 
 # The local Studio app module is the basis for Remote Studio support.
