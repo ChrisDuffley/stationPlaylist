@@ -364,11 +364,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_libraryScanProgress(self, gesture):
 		scanned = splbase.studioAPI(1, SPLLibraryScanCount)
 		if scanned is not None and scanned >= 0:
-			# Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
-			ui.message(_("Scan in progress with {itemCount} items scanned").format(itemCount=scanned))
+			ui.message(_("{itemCount} items scanned").format(itemCount=scanned))
 		else:
-			# Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
-			ui.message(_("Scan complete with {itemCount} items scanned").format(
+			ui.message(_("Scan complete with {itemCount} items").format(
 				itemCount=splbase.studioAPI(0, SPLLibraryScanCount)
 			))
 		self.script_finish()
