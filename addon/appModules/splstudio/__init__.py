@@ -718,7 +718,7 @@ class AppModule(appModuleHandler.AppModule):
 			case "TRadioGroup":
 				# Radio button group names are not recognized as grouping, so work around this.
 				obj.role = controlTypes.Role.GROUPING
-			case "TEdit" | "TComboBox" | "TTntEdit.UnicodeClass" | "TTntComboBox.UnicodeClass":
+			case "TEdit" | "TComboBox" | "TTntEdit.UnicodeClass" | "TTntComboBox.UnicodeClass" | "TMemo":
 				# In certain edit fields and combo boxes, the field name is written to the screen,
 				# and there's no way to fetch the object for this text.
 				# Thus use review position text (first item in screen position function return tuple).
