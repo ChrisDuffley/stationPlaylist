@@ -724,8 +724,14 @@ class AppModule(appModuleHandler.AppModule):
 				# Thus use review position text (first item in screen position function return tuple).
 				# In some cases, labels are next to objects but not exposed by MSAA.
 				# Fetch the label by specifying the screen location where the label might be found.
-				# Special handling for insert tracks dialog where search criteria is shown as a grid.
-				if api.getForegroundObject().windowClassName == "TTrackInsertForm":
+				# Special handling for controls found in insert tracks, track properties,
+				# and local and Remote Studio options.
+				if api.getForegroundObject().windowClassName in (
+					"TTrackInsertForm",  # Insert tracks where search criteria is a grid
+					"TTagForm.UnicodeClass",  # Track properties
+					"TOptionsForm",  # Local Studio options
+					"TOptions"  # Remote Studio options
+				):
 					# Use screen coordinates to obtain search criteria control label.
 					labelObj = api.getDesktopObject().objectFromPoint(
 						obj.location[0] - 8,  # To the left of the unlabeled control
