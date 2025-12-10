@@ -181,6 +181,24 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.windowClassName == "TStatusBar" and obj.role == controlTypes.Role.STATICTEXT and not obj.name:
 			# Status bar labels are not found in Track Toolbut is written to the screen.
 			obj.name = obj.displayText
+		elif obj.windowClassName in [
+			"TEdit",
+			"TComboBox",
+			"TTntEdit.UnicodeClass",
+			"TTntComboBox.UnicodeClass",
+			"TMemo",
+			"TSpinEditMS"
+		] and api.getForegroundObject().windowClassName == "TTagForm.UnicodeClass":  # Track properties
+			# In certain edit fields and combo boxes, the field name is written to the screen,
+			# and there's no way to fetch the object for this text.
+			# In some cases, labels are next to objects but not exposed by MSAA.
+			# Fetch the label by specifying the screen location where the label might be found.
+			labelObj = api.getDesktopObject().objectFromPoint(
+				obj.location[0] - 8,  # To the left of the unlabeled control
+				obj.location[1] + 8  # Try to place the "cursor" inside the label object
+			)
+			if labelObj:
+				obj.name = labelObj.name
 
 	@scriptHandler.script(
 		description=_("Opens SPL Studio add-on configuration dialog."),
