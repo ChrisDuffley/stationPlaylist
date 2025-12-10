@@ -16,7 +16,7 @@ import wx
 import ui
 import api
 from NVDAObjects import NVDAObject
-from NVDAObjects.IAccessible import sysListView32
+from NVDAObjects.IAccessible import IAccessible, sysListView32
 from .splcommon import splconfig, splconfui, splbase, splcarts
 from .skipTranslation import translate
 
@@ -158,6 +158,19 @@ class TrackToolItem(splbase.SPLTrackItem):
 		return splconfig.SPLConfig["ExploreColumns"]["TrackTool"]
 
 
+# Time pickers (including track properties) does not expose the correct tree.
+# Thankfully, when up or down arrows are pressed, value change event is raised to change the window text.
+class SPLTimePicker(IAccessible):
+	def _get_name(self):
+		# Time picker labels are to the left of the picker control.
+		labelObj = api.getDesktopObject().objectFromPoint(self.location[0] - 8, self.location[1] + 8)
+		if labelObj:
+			return labelObj.name
+
+	def _get_value(self):
+		return self.windowText
+
+
 class AppModule(appModuleHandler.AppModule):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
@@ -176,6 +189,9 @@ class AppModule(appModuleHandler.AppModule):
 				clsList.insert(0, TrackToolItem)
 			elif obj.role == controlTypes.Role.LIST:
 				clsList.insert(0, sysListView32.List)
+		# Track properties time picker and friends.
+		elif obj.windowClassName == "TDateTimePicker":
+			clsList.insert(0, SPLTimePicker)
 
 	def event_NVDAObject_init(self, obj: NVDAObject):
 		if obj.windowClassName == "TStatusBar" and obj.role == controlTypes.Role.STATICTEXT and not obj.name:
