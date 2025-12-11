@@ -28,7 +28,7 @@ addon_info = AddonInfo(
 	# Translators: what's new content for the add-on version to be shown in the add-on store
 	addon_changelog=_("""* NVDA 2025.3.2 or later is required.
 * Add-on settings screen is now available while using Creator, Remote VT, and Track Tool with different settings for each app.
-* In local and Remote Studio, NVDA will announce labels for insert tracks dialog's search criteria controls, track properties, and Studio options dialog.
+* In Studio (local and remote) and Track Tool, NVDA will announce labels for track properties, insert tracks dialog's search criteria controls (Studio), and Studio options dialog.
 * In local Studio, NVDA will be less verbose when performing library rescan from insert tracks dialog (Control+Shift+R).
 * In local Studio, NVDA will report library scan count regardless of "beep for status announcements" setting from add-on settings.
 * In Remote Studio, when closing options screen (Control+O) while cart explorer is active, it is no longer necessary to reenter Cart Explorer to view updated cart assignments.
