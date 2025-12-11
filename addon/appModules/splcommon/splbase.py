@@ -256,3 +256,14 @@ def screenLabelForUnlabeledControl(obj: NVDAObject) -> str | None:
 		obj.location[1] + 8  # Try to place the "cursor" inside the label object
 	)
 	return labelObj.name if labelObj else None
+
+# There are unlabeled controls throughout the SPL suite.
+# Thankfully, labels for most of them are to the left of these controls.
+# Thus, the following overlay behavior class will add labels to controls via screen location lookup.
+class SPLUnlabeledControl(NVDAObject):
+	def _get_name(self):
+		return screenLabelForUnlabeledControl(self)
+
+	def _get_value(self):
+		# For time pickers, window text shows control value.
+		return self.windowText if self.windowClassName == "TDateTimePicker" else super().value
