@@ -257,6 +257,17 @@ def screenLabelForUnlabeledControl(obj: NVDAObject) -> str | None:
 	)
 	return labelObj.name if labelObj else None
 
+# List of window class names for unlabeled controls.
+unlabeledControlsWindowClassNames: list[str] = [
+	"TEdit",
+	"TComboBox",
+	"TTntEdit.UnicodeClass",
+	"TTntComboBox.UnicodeClass",
+	"TMemo",
+	"TSpinEditMS",
+	"TDateTimePicker"
+]
+
 # There are unlabeled controls throughout the SPL suite.
 # Thankfully, labels for most of them are to the left of these controls.
 # Thus, the following overlay behavior class will add labels to controls via screen location lookup.
