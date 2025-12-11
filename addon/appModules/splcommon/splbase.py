@@ -16,6 +16,7 @@ import scriptHandler
 import globalVars
 from winUser import sendMessage
 from logHandler import log
+from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32
 import addonHandler
 # From NVDA 2026.1 onwards, winBindings package should be used to look for Windows API dll's.
@@ -246,3 +247,12 @@ class SPLTrackItem(sysListView32.ListItem):
 		return _("Item {current} of {total}").format(
 			current=self.IAccessibleChildID, total=self.parent.rowCount
 		)
+
+# Use screen location to retrieve labels.
+# This is most effective when the object label is to the left of the unlabeled control.
+def screenLabelForUnlabeledControl(obj: NVDAObject) -> str | None:
+	labelObj = api.getDesktopObject().objectFromPoint(
+		obj.location[0] - 8,  # To the left of the unlabeled control
+		obj.location[1] + 8  # Try to place the "cursor" inside the label object
+	)
+	return labelObj.name if labelObj else None
