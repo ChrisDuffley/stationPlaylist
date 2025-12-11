@@ -687,6 +687,19 @@ class AppModule(appModuleHandler.AppModule):
 	# Some controls which needs special routines.
 	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
 		role = obj.role
+		# Detect unlabeled controls whose labels are next to them (written to the screen).
+		# Return right after detecting these.
+		if splbase.useScreenLabelForUnlabeledObject(
+			obj, [
+				"TTrackInsertForm",  # Insert tracks where search criteria is a grid
+				"TTagForm.UnicodeClass",  # Track properties
+				"TOptionsForm",  # Local Studio options
+				"TOptions",  # Remote Studio options
+				"TStartPos"  # Temporary cue
+			]
+		):
+			clsList.insert(0, splbase.SPLUnlabeledControl)
+			return
 		# Use structural pattern matching to detect overlay classes.
 		match obj.windowClassName:
 			case "TTntListView.UnicodeClass":
@@ -702,9 +715,6 @@ class AppModule(appModuleHandler.AppModule):
 			# Recognize known dialogs.
 			case "TDemoRegForm" | "TOpenPlaylist" | "TAboutForm":
 				clsList.insert(0, Dialog)
-			# Temporary cue time picker and friends.
-			case "TDateTimePicker":
-				clsList.insert(0, SPLTimePicker)
 			case _:
 				pass
 
