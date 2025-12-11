@@ -473,19 +473,6 @@ F12: Switch to an instant switch profile."""),
 }
 
 
-# Time pickers (including temporary cue) does not expose the correct tree.
-# Thankfully, when up or down arrows are pressed, value change event is raised to change the window text.
-class SPLTimePicker(IAccessible):
-	def _get_name(self):
-		# Time picker labels are to the left of the picker control.
-		labelObj = api.getDesktopObject().objectFromPoint(self.location[0] - 8, self.location[1] + 8)
-		if labelObj:
-			return labelObj.name
-
-	def _get_value(self):
-		return self.windowText
-
-
 # The local Studio app module is the basis for Remote Studio support.
 # This decorator wraps local Studio app module scripts to report a message when invoked from Remote Studio.
 # Note: not all features and commands will work on Remote Studio.
