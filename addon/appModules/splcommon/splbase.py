@@ -268,6 +268,17 @@ unlabeledControlsWindowClassNames: list[str] = [
 	"TDateTimePicker"
 ]
 
+# Detect and label controls based on foreground window class name passed in.
+# This is so that different SPL apps can specify the window classes they are interested in.
+def useScreenLabelForUnlabeledObject(
+	obj: NVDAObject,
+	foregroundWindowClassNames: list[str]
+) -> bool:
+	return (
+		obj.windowClassName in unlabeledControlsWindowClassNames
+		and api.getForegroundObject().windowClassName in foregroundWindowClassNames
+	)
+
 # There are unlabeled controls throughout the SPL suite.
 # Thankfully, labels for most of them are to the left of these controls.
 # Thus, the following overlay behavior class will add labels to controls via screen location lookup.
