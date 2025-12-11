@@ -728,28 +728,8 @@ class AppModule(appModuleHandler.AppModule):
 			case "TRadioGroup":
 				# Radio button group names are not recognized as grouping, so work around this.
 				obj.role = controlTypes.Role.GROUPING
-			case "TEdit" | "TComboBox" | "TTntEdit.UnicodeClass" | "TTntComboBox.UnicodeClass" | "TMemo" | "TSpinEditMS":
-				# In certain edit fields and combo boxes, the field name is written to the screen,
-				# and there's no way to fetch the object for this text.
-				# Thus use review position text (first item in screen position function return tuple).
-				# In some cases, labels are next to objects but not exposed by MSAA.
-				# Fetch the label by specifying the screen location where the label might be found.
-				# Special handling for controls found in insert tracks, track properties,
-				# and local and Remote Studio options.
-				if api.getForegroundObject().windowClassName in (
-					"TTrackInsertForm",  # Insert tracks where search criteria is a grid
-					"TTagForm.UnicodeClass",  # Track properties
-					"TOptionsForm",  # Local Studio options
-					"TOptions"  # Remote Studio options
-				):
-					# Use screen coordinates to obtain search criteria control label.
-					labelObj = api.getDesktopObject().objectFromPoint(
-						obj.location[0] - 8,  # To the left of the unlabeled control
-						obj.location[1] + 8  # Try to place the "cursor" inside the label object
-					)
-					if labelObj:
-						obj.name = labelObj.name
-				elif not obj.name:
+			case className if className in splbase.unlabeledControlsWindowClassNames:
+				if not obj.name:
 					fieldName = review.getScreenPosition(obj)[0]
 					fieldName.expand(textInfos.UNIT_LINE)
 					if obj.windowClassName == "TComboBox":
