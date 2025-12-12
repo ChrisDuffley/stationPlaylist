@@ -13,8 +13,10 @@ import ui
 import api
 import controlTypes
 import wx
+import windowUtils
+import winUser
 from NVDAObjects import NVDAObject
-from NVDAObjects.IAccessible import sysListView32
+from NVDAObjects.IAccessible import sysListView32, getNVDAObjectFromEvent
 from NVDAObjects.behaviors import Dialog
 from .splcommon import splconfig, splconfui, splbase, splcarts
 from .skipTranslation import translate
@@ -197,6 +199,27 @@ class AppModule(appModuleHandler.AppModule):
 				clsList.insert(0, sysListView32.List)
 		elif obj.windowClassName in ("TDemoRegForm", "TAboutForm"):
 			clsList.insert(0, Dialog)
+
+	# Cache status bar objects to improve status bar retrieval performance.
+	_statusBarObjs = {}
+
+	def _get_statusBar(self):
+		# Obtaining Creator status bar is slow.
+		# Therefore, cache the status bar object (based on foreground window class name).
+		if (fg := api.getForegroundObject()).windowClassName in self._statusBarObjs:
+			return self._statusBarObjs[fg.windowClassName]
+		try:
+			statusBar = getNVDAObjectFromEvent(
+				windowUtils.findDescendantWindow(fg.windowHandle, className="TTntStatusBar.UnicodeClass"),
+				winUser.OBJID_CLIENT, 0
+			)
+		except LookupError:
+			statusBar = None
+		if statusBar:
+			self._statusBarObjs[fg.windowClassName] = statusBar
+			return statusBar
+		# Force NVDA to locate bottommost control.
+		raise NotImplementedError
 
 	def event_NVDAObject_init(self, obj: NVDAObject):
 		if (
