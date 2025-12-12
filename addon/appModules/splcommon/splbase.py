@@ -275,10 +275,12 @@ def useScreenLabelForUnlabeledObject(
 	obj: NVDAObject,
 	foregroundWindowClassNames: list[str]
 ) -> bool:
-	return (
-		obj.windowClassName in unlabeledControlsWindowClassNames
-		and api.getForegroundObject().windowClassName in foregroundWindowClassNames
-	)
+	if obj.windowClassName not in unlabeledControlsWindowClassNames:
+		return False
+	# Traverse ancestors because fetching foreground object can be unreliable.
+	while obj and obj.windowClassName not in foregroundWindowClassNames:
+		obj = obj.parent
+	return obj is not None
 
 # There are unlabeled controls throughout the SPL suite.
 # Thankfully, labels for most of them are to the left of these controls.
