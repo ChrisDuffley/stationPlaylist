@@ -728,6 +728,9 @@ class AppModule(appModuleHandler.AppModule):
 				# Status bar labels are not found in Studio 6 but is written to the screen.
 				if obj.role == controlTypes.Role.STATICTEXT and not obj.name:
 					obj.name = obj.displayText
+			case "TTabSheet":
+				# Silence description text because it is very verbose.
+				obj.description = None
 			case _:
 				pass
 

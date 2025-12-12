@@ -192,6 +192,9 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.windowClassName == "TStatusBar" and obj.role == controlTypes.Role.STATICTEXT and not obj.name:
 			# Status bar labels are not found in Track Toolbut is written to the screen.
 			obj.name = obj.displayText
+		elif obj.windowClassName == "TTabSheet":
+			# Silence description text because it is very verbose.
+			obj.description = None
 
 	@scriptHandler.script(
 		description=_("Opens SPL Studio add-on configuration dialog."),
