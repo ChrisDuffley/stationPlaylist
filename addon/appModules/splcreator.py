@@ -184,6 +184,8 @@ class AppModule(appModuleHandler.AppModule):
 		self._playlistEditorStatusCache.clear()
 		# Clear cached column headers used to announce sorted column status.
 		self.trackColumnHeaders = None
+		# Clear status bar objects cache.
+		self._statusBarObjs.clear()
 
 	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
 		# Tracks list uses a different window class name other than "TListView".
