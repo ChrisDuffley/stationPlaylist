@@ -12,7 +12,7 @@
 
 # Minimum version: SPL 6.0, NVDA 2024.1.
 
-from typing import Any
+from typing import Any, NamedTuple
 import os
 import time
 import threading
@@ -2127,7 +2127,13 @@ class AppModule(appModuleHandler.AppModule):
 		# Choose the required compatibility layer.
 		compatibilityLayer = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
 		# Scripts will be bound to commands outlined in the gestures tuple.
-		SPLAssistantGestures = collections.namedtuple("SPLAssistantGestures", "script, off, jfw")
+		SPLAssistantGestures = NamedTuple(
+			"SPLAssistantGestures", [
+				("script", str),
+				("off", str),
+				("jfw", str)
+			]
+		)
 		for entry in self.__SPLAssistantGestures:
 			entry = SPLAssistantGestures(*entry)
 			# Some scripts will have "None" assigned as gesture (unavailable).
