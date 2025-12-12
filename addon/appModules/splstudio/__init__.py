@@ -716,14 +716,14 @@ class AppModule(appModuleHandler.AppModule):
 			case "TRadioGroup":
 				# Radio button group names are not recognized as grouping, so work around this.
 				obj.role = controlTypes.Role.GROUPING
-			case className if className in splbase.unlabeledControlsWindowClassNames:
-				if not obj.name:
-					fieldName = review.getScreenPosition(obj)[0]
-					fieldName.expand(textInfos.UNIT_LINE)
-					if obj.windowClassName == "TComboBox":
-						obj.name = fieldName.text.replace(obj.windowText, "")
-					else:
-						obj.name = fieldName.text
+			case className if className in splbase.unlabeledControlsWindowClassNames and not obj.name:
+				# Handle cases not covered by screen labeler overlay class.
+				fieldName = review.getScreenPosition(obj)[0]
+				fieldName.expand(textInfos.UNIT_LINE)
+				if obj.windowClassName == "TComboBox":
+					obj.name = fieldName.text.replace(obj.windowText, "")
+				else:
+					obj.name = fieldName.text
 			case "TStatusBar":
 				# Status bar labels are not found in Studio 6 but is written to the screen.
 				if obj.role == controlTypes.Role.STATICTEXT and not obj.name:
