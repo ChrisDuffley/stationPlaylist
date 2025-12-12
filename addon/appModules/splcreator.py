@@ -158,6 +158,8 @@ class SPLPlaylistEditorItem(splbase.SPLTrackItem):
 
 
 class AppModule(appModuleHandler.AppModule):
+	scriptCategory = _("StationPlaylist")
+
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		# Announce app version at startup unless minimal flag is set.
