@@ -190,7 +190,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def event_NVDAObject_init(self, obj: NVDAObject):
 		if obj.windowClassName == "TStatusBar" and obj.role == controlTypes.Role.STATICTEXT and not obj.name:
-			# Status bar labels are not found in Track Toolbut is written to the screen.
+			# Status bar labels are not found in Track Tool but is written to the screen.
 			obj.name = obj.displayText
 		elif obj.windowClassName == "TTabSheet":
 			# Silence description text because it is very verbose.
