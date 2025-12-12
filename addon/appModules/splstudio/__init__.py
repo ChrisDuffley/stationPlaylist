@@ -305,6 +305,7 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 		# Translators: Input help message for screen column order toggle command in SPL Studio.
 		description=_("Toggles track column announcement order between screen layout and custom order"),
 		gesture="kb:NVDA+V",
+		category=_("StationPlaylist"),
 	)
 	def script_toggleScreenColumnOrder(self, gesture):
 		if not splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"]:
