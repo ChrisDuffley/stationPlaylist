@@ -155,7 +155,6 @@ def localStudioOnly(func):
 
 @disableInSecureMode
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
-	# Translators: Script category for StationPlaylist commands in input gestures dialog.
 	scriptCategory = _("StationPlaylist")
 
 	def __init__(self):
