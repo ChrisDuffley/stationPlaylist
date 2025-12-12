@@ -198,6 +198,14 @@ class AppModule(appModuleHandler.AppModule):
 		elif obj.windowClassName in ("TDemoRegForm", "TAboutForm"):
 			clsList.insert(0, Dialog)
 
+	def event_NVDAObject_init(self, obj: NVDAObject):
+		if (
+			obj.windowClassName == "TTntStatusBar.UnicodeClass"
+			and obj.role == controlTypes.Role.STATICTEXT and not obj.name
+		):
+			# Status bar labels are not found in Creator and playlist editor but is written to the screen.
+			obj.name = obj.displayText
+
 	@scriptHandler.script(
 		description=_("Opens SPL Studio add-on configuration dialog."),
 		gestures=["kb:alt+NVDA+0", "ts(SPL):2finger_flickLeft"],
