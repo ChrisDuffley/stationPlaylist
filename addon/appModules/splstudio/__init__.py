@@ -2126,7 +2126,13 @@ class AppModule(appModuleHandler.AppModule):
 		self.clearGestureBindings()
 		# Choose the required compatibility layer.
 		compatibilityLayer = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
-		self.bindGestures(self.__SPLAssistantGestures[compatibilityLayer])
+		# Scripts will be bound to commands outlined in the gestures tuple.
+		SPLAssistantGestures = collections.namedtuple("SPLAssistantGestures", "script, off, jfw")
+		for entry in self.__SPLAssistantGestures:
+			entry = SPLAssistantGestures(*entry)
+			# Some scripts will have "None" assigned as gesture (unavailable).
+			if (gesture := getattr(entry, compatibilityLayer)):
+				self.bindGesture(gesture, entry.script)
 		for i in range(5):
 			self.bindGesture(f"kb:shift+{i}", "metadataEnabled")
 		self.SPLAssistant = True
