@@ -229,6 +229,7 @@ class SPLTrackItem(sysListView32.ListItem):
 		# Translators: input help mode message for columns viewer command.
 		description=_("Presents data for all columns in the currently selected track"),
 		gesture="kb:control+NVDA+-",
+		category=_("StationPlaylist"),
 	)
 	def script_trackColumnsViewer(self, gesture):
 		# Fetch column headers and texts from child columns,
