@@ -188,6 +188,16 @@ class AppModule(appModuleHandler.AppModule):
 		self._statusBarObjs.clear()
 
 	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
+		# Detect unlabeled controls whose labels are next to them (written to the screen).
+		# Return right after detecting these.
+		if splbase.useScreenLabelForUnlabeledObject(
+			obj, [
+				"TTagForm.UnicodeClass",  # Track properties
+				"TTrackInsertForm"  # Insert tracks
+			]
+		):
+			clsList.insert(0, splbase.SPLUnlabeledControl)
+			return
 		# Tracks list uses a different window class name other than "TListView".
 		# Resort to window style and other tricks if other lists with the class name below is found
 		# yet are not tracks list.
