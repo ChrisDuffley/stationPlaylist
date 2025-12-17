@@ -35,6 +35,7 @@ class AppModule(splcreator.AppModule):
 		# Unlike creator, there is no demo intro dialog in Remote VT.
 		elif obj.windowClassName == "TAboutForm":
 			clsList.insert(0, Dialog)
+		super().chooseNVDAObjectOverlayClasses(obj, clsList)
 
 	# Playlist editor is same as Creator except it responds a bit faster.
 	# Without keeping a copy of status cache, NVDA will announce wrong values
