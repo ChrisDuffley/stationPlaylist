@@ -200,7 +200,6 @@ class AppModule(appModuleHandler.AppModule):
 		):
 			clsList.insert(0, splbase.SPLUnlabeledControl)
 			return
-		# Tracks list uses a different window class name other than "TListView".
 		# Resort to window style and other tricks if other lists with the class name below is found
 		# yet are not tracks list.
 		if obj.windowClassName == "TTntListView.UnicodeClass":
