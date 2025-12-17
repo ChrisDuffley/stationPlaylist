@@ -32,6 +32,7 @@ class AppModule(splcreator.AppModule):
 				clsList.insert(0, SPLRemotePlaylistEditorItem)
 			elif obj.role == controlTypes.Role.LIST:
 				clsList.insert(0, sysListView32.List)
+			return
 		# Unlike creator, there is no demo intro dialog in Remote VT.
 		elif obj.windowClassName == "TAboutForm":
 			clsList.insert(0, Dialog)
