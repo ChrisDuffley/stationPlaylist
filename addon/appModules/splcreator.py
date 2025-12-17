@@ -205,7 +205,8 @@ class AppModule(appModuleHandler.AppModule):
 			if obj.role == controlTypes.Role.LISTITEM:
 				clsList.insert(0, SPLCreatorItem if obj.windowStyle in (
 					1443958857,  # Creator 6.0x
-					1443958849,  # Creator 6.10 and later
+					1443958849,  # Creator 6.1x
+					1446056001,  # Creator 6.20
 				) else SPLPlaylistEditorItem)
 			elif obj.role == controlTypes.Role.LIST:
 				clsList.insert(0, sysListView32.List)
