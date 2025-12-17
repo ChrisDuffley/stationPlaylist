@@ -213,6 +213,7 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 * NVDA 2025.3.2 or later is required.
 * Add-on settings screen is now available while using Creator, Remote VT, and Track Tool with different settings for each app.
 * NVDA will announce labels for SPL app screens, including track properties, insert tracks dialog's search criteria controls (Studio, Creator, Remote VT), and Studio options dialog.
+* In Studio (local and remote), Creator, and Remote VT, NVDA will play a beep when search is completed in insert tracks dialog when NVDA is configured to play beeps for status announcements from SPL add-on settings/general category.
 * In Studio (local and remote) and Track Tool, NVDA will no longer announce dialog property content (description) in places such as track properties and Studio options screen.
 * In local Studio, NVDA will be less verbose when performing library rescan from insert tracks dialog (Control+Shift+R).
 * In local Studio, NVDA will report library scan count regardless of "beep for status announcements" setting from add-on settings.
