@@ -127,7 +127,7 @@ class AppModule(splstudio.AppModule):
 						queueHandler.queueFunction(queueHandler.eventQueue, self.doRemoteStudioExtraAction, content)
 				self._pastStatusBarContent = obj.name
 			elif "match" in obj.name:
-				# Announce search/match results from inesrt tracks dialog.
+				# Announce search/match results from insert tracks dialog.
 				# Only announce match count as the whole thing is very verbose.
 				ui.message(" ".join(obj.name.split()[:2]))
 			else:
