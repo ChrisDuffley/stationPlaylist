@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nvdaaddons\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
-"POT-Creation-Date: 2025-11-24 03:22+0000\n"
-"PO-Revision-Date: 2025-12-01 01:10\n"
+"POT-Creation-Date: 2025-12-08 03:20+0000\n"
+"PO-Revision-Date: 2025-12-15 01:04\n"
 "Last-Translator: \n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
@@ -17,9 +17,46 @@ msgstr ""
 "X-Crowdin-File: stationPlaylist.pot\n"
 "X-Crowdin-File-ID: 218\n"
 
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+#: addon/appModules/tracktool.py:186 addon/appModules/splcreator.py:200
+#: addon/appModules/splstudio/__init__.py:1221
+msgid "Opens SPL Studio add-on configuration dialog."
+msgstr "SPL Studio eklenti yapılandırma iletişim kutusunu açar."
+
+#. Translators: Presented when cart modes are toggled while cart explorer is on.
+#: addon/appModules/remotestudio.py:111
+#: addon/appModules/splstudio/__init__.py:954
+msgid "Cart explorer is active"
+msgstr "Sepet gezgini etkin"
+
+#. Translators: Presented when cart explorer cannot be entered.
+#: addon/appModules/remotestudio.py:201
+#: addon/appModules/splstudio/__init__.py:1469
+msgid "You are not in playlist viewer, cannot enter cart explorer"
+msgstr "Çalma listesi görüntüleyicisinde değilsiniz, sepet kaşifine girilemiyor"
+
+#. Translators: presented when cart explorer could not be switched on.
+#: addon/appModules/remotestudio.py:205
+#: addon/appModules/splstudio/__init__.py:909
+#: addon/appModules/splstudio/__init__.py:1474
+msgid "Some or all carts could not be assigned, cannot enter cart explorer"
+msgstr "Sepetlerin bazıları veya tümü atanamadı, sepet gezginine girilemiyor"
+
+#. Translators: Presented when cart explorer is on.
+#: addon/appModules/remotestudio.py:210
+#: addon/appModules/splstudio/__init__.py:1480
+msgid "Entering cart explorer"
+msgstr "Sepet gezgini açılıyor"
+
+#. Translators: Presented when cart explorer is off.
+#: addon/appModules/remotestudio.py:216
+#: addon/appModules/splstudio/__init__.py:1487
+msgid "Exiting cart explorer"
+msgstr "Sepet gezgini kapanıyor"
+
 #. Translators: announced in SPL Creator and Remote VT
 #. when trying to perform playlist status commands while outside of playlist editor.
-#: addon/appModules/splcreator.py:196
+#: addon/appModules/splcreator.py:251
 msgid "You are not in playlist editor"
 msgstr "Çalma listesi düzenleyicisinde değilsiniz"
 
@@ -46,9 +83,9 @@ msgstr "etkin"
 
 #. Translators: A flag indicating the broadcast profile is an instant switch profile.
 #: addon/appModules/splcommon/splconfig.py:535
-#: addon/appModules/splstudio/splconfui.py:431
-#: addon/appModules/splstudio/splconfui.py:433
-#: addon/appModules/splstudio/splconfui.py:439
+#: addon/appModules/splcommon/splconfui.py:431
+#: addon/appModules/splcommon/splconfui.py:433
+#: addon/appModules/splcommon/splconfui.py:439
 msgid "instant switch"
 msgstr "anında geçiş"
 
@@ -70,24 +107,24 @@ msgid "Studio add-on Configuration error"
 msgstr "Stüdyo eklentisi Yapılandırma hatası"
 
 #. Translators: announced when only normal profile is in use.
-#: addon/appModules/splcommon/splconfig.py:717
+#: addon/appModules/splcommon/splconfig.py:720
 msgid "Only normal profile is in use"
 msgstr "Yalnızca normal profil kullanılıyor"
 
 #. Translators: Presented when trying to switch to an instant switch profile
 #. when the instant switch profile is not defined.
-#: addon/appModules/splcommon/splconfig.py:723
+#: addon/appModules/splcommon/splconfig.py:726
 msgid "No instant switch profile is defined"
 msgstr "Anında geçiş profili tanımlanmadı"
 
 #. Translators: Presented when trying to switch to an instant switch profile
 #. when one is already using the instant switch profile.
-#: addon/appModules/splcommon/splconfig.py:729
+#: addon/appModules/splcommon/splconfig.py:732
 msgid "You are already in the instant switch profile"
 msgstr "Zaten anlık geçiş profilindesiniz"
 
 #. Translators: A message giving basic information about the add-on.
-#: addon/appModules/splcommon/splconfig.py:746
+#: addon/appModules/splcommon/splconfig.py:749
 msgid "Welcome to StationPlaylist add-on for NVDA,\n"
 "your companion to broadcasting with SPL Studio using NVDA screen reader.\n\n"
 "Highlights of StationPlaylist add-on include:\n"
@@ -122,86 +159,86 @@ msgstr "NVDA için StationPlaylist eklentisine hoş geldiniz.\n"
 
 #. Translators: Title of a dialog displayed when the add-on starts presenting basic information,
 #. similar to NVDA's own welcome dialog.
-#: addon/appModules/splcommon/splconfig.py:784
+#: addon/appModules/splcommon/splconfig.py:787
 msgid "Welcome to StationPlaylist add-on"
 msgstr "StationPlaylist eklentisine hoş geldiniz"
 
-#: addon/appModules/splcommon/splconfig.py:794
+#: addon/appModules/splcommon/splconfig.py:797
 msgid "Show welcome dialog when I start Studio"
 msgstr "Studio'yu başlattığımda hoş geldiniz iletişim kutusunu göster"
 
 #. Translators: A setting in braille timer options.
-#: addon/appModules/splcommon/splconfig.py:838
+#: addon/appModules/splcommon/splconfig.py:841
 msgid "Braille timer off"
 msgstr "Braille zamanlayıcı kapalı"
 
 #. Translators: A setting in braille timer options.
-#: addon/appModules/splcommon/splconfig.py:843
+#: addon/appModules/splcommon/splconfig.py:846
 msgid "Braille track endings"
 msgstr "Braille parça sonları"
 
 #. Translators: A setting in braille timer options.
-#: addon/appModules/splcommon/splconfig.py:845
+#: addon/appModules/splcommon/splconfig.py:848
 msgid "Outro"
 msgstr "Diğer"
 
 #. Translators: A setting in braille timer options.
-#: addon/appModules/splcommon/splconfig.py:849
+#: addon/appModules/splcommon/splconfig.py:852
 msgid "Braille intro endings"
 msgstr "Braille intro sonları"
 
 #. Translators: A setting in braille timer options.
-#: addon/appModules/splcommon/splconfig.py:851
+#: addon/appModules/splcommon/splconfig.py:854
 msgid "Intro"
 msgstr "İntro"
 
 #. Translators: A setting in braille timer options.
-#: addon/appModules/splcommon/splconfig.py:855
+#: addon/appModules/splcommon/splconfig.py:858
 msgid "Braille intro and track endings"
 msgstr "Braille intro ve parça sonları"
 
 #. Translators: A setting in braille timer options.
 #. Translators: One of the track comment notification settings.
-#: addon/appModules/splcommon/splconfig.py:857
-#: addon/appModules/splstudio/splconfui.py:553
+#: addon/appModules/splcommon/splconfig.py:860
+#: addon/appModules/splcommon/splconfui.py:561
 msgid "Both"
 msgstr "İkisi"
 
 #. Translators: A setting in library scan announcement options.
-#: addon/appModules/splcommon/splconfig.py:863
+#: addon/appModules/splcommon/splconfig.py:866
 msgid "Do not announce library scans"
 msgstr "Kütüphane taramaları duyurulmaz"
 
 #. Translators: A setting in library scan announcement options.
-#: addon/appModules/splcommon/splconfig.py:868
+#: addon/appModules/splcommon/splconfig.py:871
 msgid "Announce start and end of a library scan"
 msgstr "Kütüphane taramasının başlangıcını ve sonunu duyurur"
 
 #. Translators: One of the library scan announcement settings.
-#: addon/appModules/splcommon/splconfig.py:869
-#: addon/appModules/splstudio/splconfui.py:502
+#: addon/appModules/splcommon/splconfig.py:872
+#: addon/appModules/splcommon/splconfui.py:505
 msgid "Start and end only"
 msgstr "Yalnızca başlangıç ​​ve bitiş"
 
 #. Translators: A setting in library scan announcement options.
-#: addon/appModules/splcommon/splconfig.py:873
+#: addon/appModules/splcommon/splconfig.py:876
 msgid "Announce the progress of a library scan"
 msgstr "Kütüphane tarama ilerlemesi duyurulur"
 
 #. Translators: One of the library scan announcement settings.
-#: addon/appModules/splcommon/splconfig.py:874
-#: addon/appModules/splstudio/splconfui.py:504
+#: addon/appModules/splcommon/splconfig.py:877
+#: addon/appModules/splcommon/splconfui.py:507
 msgid "Scan progress"
 msgstr "Tarama ilerlemesi"
 
 #. Translators: A setting in library scan announcement options.
-#: addon/appModules/splcommon/splconfig.py:878
+#: addon/appModules/splcommon/splconfig.py:881
 msgid "Announce progress and item count of a library scan"
 msgstr "Bir kitaplık taramasının ilerlemesini ve öğe sayısını duyurur"
 
 #. Translators: One of the library scan announcement settings.
-#: addon/appModules/splcommon/splconfig.py:879
-#: addon/appModules/splstudio/splconfui.py:506
+#: addon/appModules/splcommon/splconfig.py:882
+#: addon/appModules/splcommon/splconfui.py:509
 msgid "Scan count"
 msgstr "Tarama sayısı"
 
@@ -226,7 +263,7 @@ msgstr "Bir kez basıldığında parça sütununun verileri duyurulur, iki kez b
 #. Translators: Summary/title for this add-on
 #. to be shown on installation and add-on information found in add-on store
 #: addon/appModules/splcommon/splbase.py:179
-#: addon/appModules/splstudio/__init__.py:394
+#: addon/appModules/splstudio/__init__.py:393
 #: addon/appModules/splstudio/__init__.py:504
 #: addon/appModules/splengine/encoders.py:470
 #: addon/appModules/splengine/encoders.py:489
@@ -268,787 +305,800 @@ msgid "Item {current} of {total}"
 msgstr "{total} öğesinden {current} öğesi"
 
 #. Translators: title of a dialog to configure broadcast profiles.
-#: addon/appModules/splstudio/splconfui.py:43
-#: addon/appModules/splstudio/splconfui.py:1709
+#: addon/appModules/splcommon/splconfui.py:43
+#: addon/appModules/splcommon/splconfui.py:1761
 msgid "SPL Broadcast Profiles"
 msgstr "SPL Yayın Profilleri"
 
 #. Borrowed directly from NVDA Core (credit: NV Access)
 #. This allows Enter key to be pressed to activate the selected profile.
 #. Translators: label for a button to activate the selected broadcast profile.
-#: addon/appModules/splstudio/splconfui.py:71
+#: addon/appModules/splcommon/splconfui.py:71
 msgid "Activate"
 msgstr "Etkinleştir"
 
 #. Translators: The label of a button to copy a broadcast profile.
-#: addon/appModules/splstudio/splconfui.py:87
+#: addon/appModules/splcommon/splconfui.py:87
 msgid "Cop&y"
 msgstr "Kop&yala"
 
 #. Translators: Message reported when attempting to delete a profile in the midst of a broadcast.
-#: addon/appModules/splstudio/splconfui.py:202
+#: addon/appModules/splcommon/splconfui.py:202
 msgid "An instant switch profile might be active or you are in the midst of a broadcast. If so, please press SPL Assistant, F12 to switch back to a previously active profile before opening broadcast profiles dialog to delete a profile."
 msgstr "Bir anlık geçiş profili etkin olabilir veya bir yayının ortasındasınızdır. Eğer öyleyse, bir profili silmek üzere yayın profilleri iletişim kutusunu açmadan önce daha önce etkin olan bir profile geri dönmek için lütfen SPL yardımcısı, F12 tuşuna basın."
 
 #. Translators: Title of a dialog shown when profile cannot be deleted.
-#: addon/appModules/splstudio/splconfui.py:207
+#: addon/appModules/splcommon/splconfui.py:207
 msgid "Profile delete error"
 msgstr "Profil silme hatası"
 
-#: addon/appModules/splstudio/splconfui.py:220
+#: addon/appModules/splcommon/splconfui.py:220
 msgid "You are about to delete the currently active profile. Select yes if you wish to proceed."
 msgstr "Şu anda etkin olan profili silmek üzeresiniz. Devam etmek istiyorsanız evet'i seçin."
 
 #. Translators: The title of the confirmation dialog for deletion of a profile.
-#: addon/appModules/splstudio/splconfui.py:223
+#: addon/appModules/splcommon/splconfui.py:223
 msgid "Delete active profile"
 msgstr "Etkin profili sil"
 
 #. Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
 #. The placeholder {} is replaced with the name of the broadcast profile that will be deleted.
-#: addon/appModules/splstudio/splconfui.py:236
+#: addon/appModules/splcommon/splconfui.py:236
 msgid "The profile {} will be permanently deleted. This action cannot be undone."
 msgstr "{} Profili kalıcı olarak silinir. Bu eylem geri alınamaz."
 
 #. Translators: The title of the dialog to copy a broadcast profile.
-#: addon/appModules/splstudio/splconfui.py:323
+#: addon/appModules/splcommon/splconfui.py:323
 msgid "Copy Profile"
 msgstr "Profili Kopyala"
 
 #. Translators: The label for a setting in SPL add-on dialog
 #. to select a base  profile for copying.
-#: addon/appModules/splstudio/splconfui.py:335
+#: addon/appModules/splcommon/splconfui.py:335
 msgid "&Base profile:"
 msgstr "&Temel profil:"
 
 #. Translators: The title of the broadcast profile triggers dialog.
-#: addon/appModules/splstudio/splconfui.py:400
+#: addon/appModules/splcommon/splconfui.py:400
 #, python-brace-format
 msgid "Profile triggers for {profileName}"
 msgstr "{profileName} için profil tetikleyicileri"
 
 #. Translators: The label of a checkbox in SPL profile triggers dialog
 #. to toggle if selected profile is an instant switch profile.
-#: addon/appModules/splstudio/splconfui.py:409
+#: addon/appModules/splcommon/splconfui.py:409
 msgid "This is an &instant switch profile"
 msgstr "Bu b&ir anında geçiş profilidir"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to set status announcement between words and beeps.
-#: addon/appModules/splstudio/splconfui.py:459
+#: addon/appModules/splcommon/splconfui.py:459
 msgid "&Beep for status announcements"
 msgstr "Durum duyuruları için &bip sesi"
 
 #. Translators: One of the message verbosity levels.
-#: addon/appModules/splstudio/splconfui.py:465
+#: addon/appModules/splcommon/splconfui.py:465
 msgid "beginner"
 msgstr "yeni başlayan"
 
 #. Translators: One of the message verbosity levels.
-#: addon/appModules/splstudio/splconfui.py:467
+#: addon/appModules/splcommon/splconfui.py:467
 msgid "advanced"
 msgstr "gelişmiş"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to set message verbosity.
-#: addon/appModules/splstudio/splconfui.py:471
+#: addon/appModules/splcommon/splconfui.py:471
 msgid "Message &verbosity:"
 msgstr "&Mesaj ayrıntısı:"
 
 #. Translators: One of the braille timer settings.
-#: addon/appModules/splstudio/splconfui.py:482
+#: addon/appModules/splcommon/splconfui.py:484
 msgid "Track ending"
 msgstr "Parça bitişi"
 
 #. Translators: One of the braille timer settings.
-#: addon/appModules/splstudio/splconfui.py:484
+#: addon/appModules/splcommon/splconfui.py:486
 msgid "Track intro"
 msgstr "Parça girişi"
 
 #. Translators: One of the braille timer settings.
-#: addon/appModules/splstudio/splconfui.py:486
+#: addon/appModules/splcommon/splconfui.py:488
 msgid "Track intro and ending"
 msgstr "Parça giriş ve bitişi"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to configure braille timer.
-#: addon/appModules/splstudio/splconfui.py:490
-msgid "&Braille timer:"
-msgstr "&Braille zamanlayıcı:"
+#: addon/appModules/splcommon/splconfui.py:492
+msgid "B&raille timer:"
+msgstr "B&raille zamanlayıcı:"
 
 #. Translators: The label for a setting in SPL add-on settings
 #. to control library scan announcement.
-#: addon/appModules/splstudio/splconfui.py:510
+#: addon/appModules/splcommon/splconfui.py:513
 msgid "&Library scan announcement:"
 msgstr "&Kütüphane tarama duyurusu:"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to announce time including hours.
-#: addon/appModules/splstudio/splconfui.py:520
+#: addon/appModules/splcommon/splconfui.py:523
 msgid "Include &hours when announcing track or playlist duration"
 msgstr "Parça veya çalma listesi süresini duyururken saatleri da&hil et"
 
 #. Translators: The label for a setting in SPL add-on dialog to set vertical column.
-#: addon/appModules/splstudio/splconfui.py:525
+#: addon/appModules/splcommon/splconfui.py:530
 msgid "&Vertical column navigation announcement:"
 msgstr "&Dikey sütun dolaşım duyurusu:"
 
 #. Translators: One of the options for vertical column navigation
 #. denoting NVDA will announce current column position (e.g. second column position from the left).
-#: addon/appModules/splstudio/splconfui.py:529
+#: addon/appModules/splcommon/splconfui.py:534
 msgid "whichever column I am reviewing"
 msgstr "hangi sütunu inceliyorsam"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to toggle category sound announcement.
-#: addon/appModules/splstudio/splconfui.py:540
-msgid "&Beep for different track categories"
-msgstr "Farklı parça kategorileri için &bip sesi"
+#: addon/appModules/splcommon/splconfui.py:547
+msgid "Beep for different track &categories"
+msgstr "Farklı parça kategorileri i&çin bip sesi"
 
 #. Translators: One of the track comment notification settings.
-#: addon/appModules/splstudio/splconfui.py:549
+#: addon/appModules/splcommon/splconfui.py:557
 msgid "Message"
 msgstr "Mesaj"
 
 #. Translators: One of the track comment notification settings.
-#: addon/appModules/splstudio/splconfui.py:551
+#: addon/appModules/splcommon/splconfui.py:559
 msgid "Beep"
 msgstr "Bip"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to set how track comments are announced.
-#: addon/appModules/splstudio/splconfui.py:557
-msgid "&Track comment announcement:"
-msgstr "&Parça yorum anonsu:"
+#: addon/appModules/splcommon/splconfui.py:565
+msgid "Track c&omment announcement:"
+msgstr "Parça y&orumlarını duyur:"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to toggle top and bottom notification.
-#: addon/appModules/splstudio/splconfui.py:567
+#: addon/appModules/splcommon/splconfui.py:575
 msgid "Notify when located at &top or bottom of playlist viewer"
 msgstr "Çalma listesi görüntüleyicinin üs&tünde veya altında bulunduğunda bildirim gönder"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to enable requests alert.
-#: addon/appModules/splstudio/splconfui.py:574
-msgid "Play a sound when listener &requests arrive"
-msgstr "Dinleyici istekle&ri geldiğinde ses çal"
+#: addon/appModules/splcommon/splconfui.py:583
+msgid "Play a sound when listener re&quests arrive"
+msgstr "&Dinleyici istekleri geldiğinde ses çal"
 
 #. Translators: title of a panel to configure various alarms and related settings.
-#: addon/appModules/splstudio/splconfui.py:609
+#: addon/appModules/splcommon/splconfui.py:623
 msgid "Alarms"
 msgstr "Alarmlar"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. To set end of track alarm in seconds.
-#: addon/appModules/splstudio/splconfui.py:616
+#: addon/appModules/splcommon/splconfui.py:630
 msgid "&End of track alarm in seconds"
 msgstr "&Saniyeler içinde parça sonu alarmı"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to enable end of track alarm.
-#: addon/appModules/splstudio/splconfui.py:627
+#: addon/appModules/splcommon/splconfui.py:641
 msgid "&Notify when end of track is approaching"
 msgstr "&Parçanın sonuna yaklaşıldığında bildirim göster"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. To set trakc intro alarm in seconds.
-#: addon/appModules/splstudio/splconfui.py:633
+#: addon/appModules/splcommon/splconfui.py:647
 msgid "&Track intro alarm in seconds"
 msgstr "&Giriş alarmını saniyeler içinde takip edin"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to enable track intro alarm.
-#: addon/appModules/splstudio/splconfui.py:644
-msgid "&Notify when end of introduction is approaching"
-msgstr "Tanıtım so&nu yaklaştığında bildirim göster"
+#: addon/appModules/splcommon/splconfui.py:658
+msgid "Notify when end of &introduction is approaching"
+msgstr "Giriş kısmının sonu yaklaştığında b&ildirimde bulun"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to set microphone active alarm in seconds.
-#: addon/appModules/splstudio/splconfui.py:650
+#: addon/appModules/splcommon/splconfui.py:664
 msgid "&Microphone alarm in seconds (0 disables the alarm)"
 msgstr "Saniyeler içinde &mikrofon alarmı (0 alarmı devre dışı bırakır)"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to set microphone active alarm interval in seconds.
-#: addon/appModules/splstudio/splconfui.py:661
-msgid "Microphone alarm &interval in seconds"
-msgstr "San&iye cinsinden mikrofon alarm aralığı"
+#: addon/appModules/splcommon/splconfui.py:675
+msgid "Microphone alarm inter&val in seconds"
+msgstr "&Mikrofon alarm aralığı (saniye cinsinden)"
 
 #. Translators: One of the alarm notification options.
-#: addon/appModules/splstudio/splconfui.py:672
+#: addon/appModules/splcommon/splconfui.py:686
 msgid "beep"
 msgstr "bip"
 
 #. Translators: One of the alarm notification options.
-#: addon/appModules/splstudio/splconfui.py:674
+#: addon/appModules/splcommon/splconfui.py:688
 msgid "message"
 msgstr "mesaj"
 
 #. Translators: One of the alarm notification options.
-#: addon/appModules/splstudio/splconfui.py:676
+#: addon/appModules/splcommon/splconfui.py:690
 msgid "both beep and message"
 msgstr "hem bip hem mesaj"
 
 #. Translators: The label for a setting in SPL add-on settings
 #. to configure alarm announcement type.
-#: addon/appModules/splstudio/splconfui.py:680
+#: addon/appModules/splcommon/splconfui.py:694
 msgid "&Alarm notification:"
 msgstr "&Alarm bildirimi:"
 
 #. Translators: title of a panel to configure playlist snapshot information.
-#: addon/appModules/splstudio/splconfui.py:709
-#: addon/appModules/splstudio/__init__.py:2117
+#: addon/appModules/splcommon/splconfui.py:723
+#: addon/appModules/splstudio/__init__.py:2072
 msgid "Playlist snapshots"
 msgstr "Çalma listesi anlık görüntüleri"
 
 #. Translators: Help text for playlist snapshots panel.
-#: addon/appModules/splstudio/splconfui.py:715
+#: addon/appModules/splcommon/splconfui.py:725
 msgid "Select information to be included when obtaining playlist snapshots.\n"
-"\t\tTrack count and total duration are always included."
+"Track count and total duration are always included."
 msgstr "Çalma listesi anlık görüntüleri alınırken dahil edilecek bilgileri seçin.\n"
-"\t\tParça sayısı ve toplam süre her zaman dahil edilir."
+"Parça sayısı ve toplam süre her zaman dahil edilir."
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to include shortest and longest track duration in playlist snapshots window.
-#: addon/appModules/splstudio/splconfui.py:721
-msgid "Shortest and longest tracks"
-msgstr "En kısa ve en uzun parçalar"
+#: addon/appModules/splcommon/splconfui.py:734
+msgid "&Shortest and longest tracks"
+msgstr "En kı&sa ve en uzun parçalar"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to include average track duration in playlist snapshots window.
-#: addon/appModules/splstudio/splconfui.py:731
-msgid "Average track duration"
-msgstr "Ortalama parça süresi"
+#: addon/appModules/splcommon/splconfui.py:744
+msgid "Average track &duration"
+msgstr "Ortalama &parça süresi"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to include track artist count in playlist snapshots window.
-#: addon/appModules/splstudio/splconfui.py:741
-msgid "Artist count"
-msgstr "Sanatçı sayısı"
+#: addon/appModules/splcommon/splconfui.py:754
+msgid "&Artist count"
+msgstr "S&anatçı sayısı"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to set top artist count limit in playlist snapshots window.
-#: addon/appModules/splstudio/splconfui.py:749
-msgid "Top artist count (0 displays all artists)"
-msgstr "En iyi sanatçı sayısı (0, tüm sanatçıları görüntüler)"
+#: addon/appModules/splcommon/splconfui.py:762
+msgid "Top a&rtist count (0 displays all artists)"
+msgstr "En popüler sanatçı sayısı (0, tüm sanatçıla&rı görüntüler)"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to include track category count in playlist snapshots window.
-#: addon/appModules/splstudio/splconfui.py:760
-msgid "Category count"
-msgstr "Kategori sayısı"
+#: addon/appModules/splcommon/splconfui.py:773
+msgid "&Category count"
+msgstr "Kategori say&ısı"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to set top track category count limit in playlist snapshots window.
-#: addon/appModules/splstudio/splconfui.py:768
-msgid "Top category count (0 displays all categories)"
-msgstr "En üst kategori sayısı (0, tüm kategorileri görüntüler)"
+#: addon/appModules/splcommon/splconfui.py:781
+msgid "Top categor&y count (0 displays all categories)"
+msgstr "En popüler kategori sa&yısı (0, tüm kategorileri görüntüler)"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to include track genre count in playlist snapshots window.
-#: addon/appModules/splstudio/splconfui.py:779
-msgid "Genre count"
-msgstr "Tür sayısı"
+#: addon/appModules/splcommon/splconfui.py:792
+msgid "&Genre count"
+msgstr "&Tür sayısı"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to set top track genre count limit in playlist snapshots window.
-#: addon/appModules/splstudio/splconfui.py:787
-msgid "Top genre count (0 displays all genres)"
-msgstr "En iyi tür sayısı (0, tüm türleri görüntüler)"
+#: addon/appModules/splcommon/splconfui.py:800
+msgid "Top ge&nre count (0 displays all genres)"
+msgstr "E&n popüler tür sayısı (0 tüm türleri gösterir)"
 
-#: addon/appModules/splstudio/splconfui.py:799
+#: addon/appModules/splcommon/splconfui.py:812
 msgid "&Show results window when playlist snapshots command is performed once"
 msgstr "&Çalma listesi anlık görüntüleri komutu bir kez gerçekleştirildiğinde sonuç penceresini göster"
 
 #. Translators: Title of a dialog to configure metadata streaming status
 #. for DSP encoder and four additional URL's.
-#: addon/appModules/splstudio/splconfui.py:858
+#: addon/appModules/splcommon/splconfui.py:871
 msgid "Metadata streaming options"
 msgstr "Meta veri akışı seçenekleri"
 
 #. Translators: dialog description for metadata streaming options dialog.
-#: addon/appModules/splstudio/splconfui.py:864
+#: addon/appModules/splcommon/splconfui.py:877
 msgid "Check to enable metadata streaming, uncheck to disable."
 msgstr "Meta veri akışını etkinleştirmek için işaretleyin, devre dışı bırakmak için işareti kaldırın."
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to configure streaming status for metadata streams.
-#: addon/appModules/splstudio/splconfui.py:872
+#: addon/appModules/splcommon/splconfui.py:885
 msgid "&Stream:"
 msgstr "&Akış:"
 
 #. Translators: A checkbox to let metadata streaming status
 #. be applied to the currently active broadcast profile.
-#: addon/appModules/splstudio/splconfui.py:882
+#: addon/appModules/splcommon/splconfui.py:895
 msgid "&Apply streaming changes to the selected profile"
 msgstr "&Akış değişikliklerini seçilen profile uygula"
 
 #. Translators: title of a panel to configure metadata streaming status
 #. for DSP encoder and four additional URL's.
-#: addon/appModules/splstudio/splconfui.py:927
+#: addon/appModules/splcommon/splconfui.py:940
 msgid "Metadata streaming"
 msgstr "Meta veri akışı"
 
 #. Translators: One of the metadata notification settings.
-#: addon/appModules/splstudio/splconfui.py:935
+#: addon/appModules/splcommon/splconfui.py:948
 msgid "When Studio starts"
 msgstr "Stüdyo başladığında"
 
 #. Translators: One of the metadata notification settings.
-#: addon/appModules/splstudio/splconfui.py:937
+#: addon/appModules/splcommon/splconfui.py:950
 msgid "When instant switch profile is active"
 msgstr "Anında geçiş profili etkin olduğunda"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to be notified that metadata streaming is enabled.
-#: addon/appModules/splstudio/splconfui.py:941
+#: addon/appModules/splcommon/splconfui.py:954
 msgid "&Metadata streaming notification and connection"
 msgstr "&Meta veri akışı bildirimi ve bağlantısı"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to configure streaming status for metadata streams.
-#: addon/appModules/splstudio/splconfui.py:951
+#: addon/appModules/splcommon/splconfui.py:964
 msgid "&Select the URL for metadata streaming upon request:"
 msgstr "İ&stek üzerine meta veri akışı için URL'yi seçin:"
 
 #. Translators: The label for a group in SPL add-on settings
 #. to select column announcement order.
-#: addon/appModules/splstudio/splconfui.py:1008
+#: addon/appModules/splcommon/splconfui.py:1021
 msgid "Column order"
 msgstr "Sütun sırala"
 
 #. Translators: title of a panel to configure column announcements
 #. (order and what columns should be announced).
-#: addon/appModules/splstudio/splconfui.py:1069
+#: addon/appModules/splcommon/splconfui.py:1082
 msgid "Column announcements"
 msgstr "Sütun duyuruları"
 
 #. Translators: Help text explaining custom column order and inclusion controls.
-#: addon/appModules/splstudio/splconfui.py:1084
-msgid "To apply custom column order and inclusion when announcing track columns in Studio's playlist viewer, uncheck 'Announce columns in the order shown on screen' and configure column inclusion and order."
-msgstr "Studio'nun çalma listesi görüntüleyicisinde parça sütunlarını duyururken özel sütun sırası ve ekleme uygulamak için 'Sütunları ekranda gösterilen sırayla duyur' seçeneğinin işaretini kaldırın ve sütun ekleme ve sırasını yapılandırın."
+#: addon/appModules/splcommon/splconfui.py:1085
+msgid "To apply custom column order and inclusion when announcing track columns in Studio's playlist viewer,\n"
+"uncheck 'Announce columns in the order shown on screen' and configure column inclusion and order."
+msgstr "Studio'nun çalma listesi görüntüleyicisinde parça sütunlarını duyururken özel sütun sırası ve dahil etme uygulamak için,\n"
+"“Sütunları ekranda gösterilen sırayla duyur” seçeneğinin işaretini kaldırın ve sütunların dahil edilmesini ve sırasını yapılandırın."
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to toggle custom column announcement.
-#: addon/appModules/splstudio/splconfui.py:1091
+#: addon/appModules/splcommon/splconfui.py:1103
 msgid "Announce columns in the &order shown on screen"
 msgstr "S&ütunları ekranda gösterilen sıraya göre duyur"
 
 #. Translators: Help text to select columns to be announced.
-#: addon/appModules/splstudio/splconfui.py:1099
+#: addon/appModules/splcommon/splconfui.py:1111
 msgid "&Select columns to be announced\n"
 "(artist and title are announced by default):"
 msgstr "Duyurulacak &Sütunları seçin\n"
 "(sanatçı ve başlık varsayılan olarak duyurulur):"
 
 #. Translators: Title of a panel to configure playlist transcripts options.
-#: addon/appModules/splstudio/splconfui.py:1114
+#: addon/appModules/splcommon/splconfui.py:1126
 msgid "Playlist transcripts"
 msgstr "Çalma listesi transkriptleri"
 
 #. Translators: Help text to select columns to be announced.
-#: addon/appModules/splstudio/splconfui.py:1128
+#: addon/appModules/splcommon/splconfui.py:1140
 msgid "&Select columns to be included in playlist transcripts\n"
 "(artist and title are always included):"
 msgstr "&Çalma listesi transkriptlerine dahil edilecek sütunları seçin\n"
 "(sanatçı ve başlık her zaman dahildir):"
 
 #. Translators: title of a panel to configure columns explorer settings.
-#: addon/appModules/splstudio/splconfui.py:1146
+#: addon/appModules/splcommon/splconfui.py:1158
 msgid "Columns explorer"
 msgstr "Sütun gezgini"
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Studio.
-#: addon/appModules/splstudio/splconfui.py:1153
+#: addon/appModules/splcommon/splconfui.py:1165
 msgid "Columns E&xplorer for SPL Studio..."
 msgstr "&SPL Studio için Sütun Gezgini..."
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for Track Tool.
-#: addon/appModules/splstudio/splconfui.py:1159
+#: addon/appModules/splcommon/splconfui.py:1171
 msgid "Columns Explorer for &Track Tool..."
 msgstr "&Parça Aracı için Sütun Gezgini..."
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Creator.
-#: addon/appModules/splstudio/splconfui.py:1165
+#: addon/appModules/splcommon/splconfui.py:1177
 msgid "Columns Explorer for &SPL Creator..."
 msgstr "&SPL Oluşturucu için Sütun Gezgini..."
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for Creator and Remote VT playlist editor.
-#: addon/appModules/splstudio/splconfui.py:1171
+#: addon/appModules/splcommon/splconfui.py:1183
 msgid "Columns Explorer for &playlist editor..."
 msgstr "&Çalma listesi düzenleyicisi için Sütun Gezgini..."
 
 #. Track Tool
 #. Translators: The title of Columns Explorer configuration dialog.
-#: addon/appModules/splstudio/splconfui.py:1213
+#: addon/appModules/splcommon/splconfui.py:1225
 msgid "Columns Explorer for Track Tool"
 msgstr "Parça Aracı için Sütun Gezgini"
 
 #. Creator
 #. Translators: The title of Columns Explorer configuration dialog.
-#: addon/appModules/splstudio/splconfui.py:1234
+#: addon/appModules/splcommon/splconfui.py:1246
 msgid "Columns Explorer for SPL Creator"
 msgstr "SPL Oluşturucu için Sütun Gezgini"
 
 #. Playlist editor
 #. Translators: The title of Columns Explorer configuration dialog.
-#: addon/appModules/splstudio/splconfui.py:1266
+#: addon/appModules/splcommon/splconfui.py:1278
 msgid "Columns Explorer for playlist editor (Creator and Remote VT)"
 msgstr "Çalma listesi düzenleyicisi için Sütun Gezgini (Oluşturucu ve Uzak VT)"
 
 #. Studio
 #. Translators: The title of Columns Explorer configuration dialog.
-#: addon/appModules/splstudio/splconfui.py:1287
+#: addon/appModules/splcommon/splconfui.py:1299
 msgid "Columns Explorer for SPL Studio"
 msgstr "SPL Studio için Sütun Gezgini"
 
-#: addon/appModules/splstudio/splconfui.py:1303
-#: addon/appModules/splstudio/splconfui.py:1315
+#: addon/appModules/splcommon/splconfui.py:1315
+#: addon/appModules/splcommon/splconfui.py:1327
 #, python-brace-format
 msgid "Slot {position}"
 msgstr "Yuva {position}"
 
 #. Translators: title of a panel to configure various status announcements such as announcing listener count.
-#: addon/appModules/splstudio/splconfui.py:1362
+#: addon/appModules/splcommon/splconfui.py:1374
 msgid "Status announcements"
 msgstr "Durum duyuruları"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to announce scheduled time.
-#: addon/appModules/splstudio/splconfui.py:1369
+#: addon/appModules/splcommon/splconfui.py:1381
 msgid "Announce &scheduled time for the selected track"
 msgstr "&Seçilen parça için planlanan zamanı duyurur"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to announce listener count.
-#: addon/appModules/splstudio/splconfui.py:1375
+#: addon/appModules/splcommon/splconfui.py:1387
 msgid "Announce &listener count"
 msgstr "Din&leyici sayısını duyur"
 
 #. Translators: one of the cart announcement options.
-#: addon/appModules/splstudio/splconfui.py:1381
+#: addon/appModules/splcommon/splconfui.py:1393
 msgid "cart name"
 msgstr "sepet adı"
 
 #. Translators: one of the cart announcement options.
-#: addon/appModules/splstudio/splconfui.py:1383
+#: addon/appModules/splcommon/splconfui.py:1395
 msgid "cart ending"
 msgstr "sepet sonu"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to announce currently playing cart.
-#: addon/appModules/splstudio/splconfui.py:1388
+#: addon/appModules/splcommon/splconfui.py:1400
 msgid "C&art announcement:"
 msgstr "S&epet duyurusu:"
 
-#: addon/appModules/splstudio/splconfui.py:1401
+#: addon/appModules/splcommon/splconfui.py:1413
 msgid "Include track player &position when announcing current and next track information"
 msgstr "Geçerli ve sonraki parça bilgilerini duyururken &parça çalar konumunu dahil et"
 
 #. Translators: The label for a checkbox in SPL add-on settings
 #. to toggle if SPL Controller command can be used to invoke Assistant layer.
-#: addon/appModules/splstudio/splconfui.py:1437
+#: addon/appModules/splcommon/splconfui.py:1449
 msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
 msgstr "SPL Denetleyici k&omutunun SPL yardımcı katmanını çağırmasına izin ver"
 
 #. Translators: The label for a setting in SPL add-on settings
 #. to set keyboard layout for SPL Assistant.
-#: addon/appModules/splstudio/splconfui.py:1446
+#: addon/appModules/splcommon/splconfui.py:1458
 msgid "SPL Assistant command &layout:"
 msgstr "SP&L Yardımcısı komut düzeni:"
 
 #. Translators: The label for a setting in SPL add-on settings
 #. to set keyboard layout for SPL Assistant.
-#: addon/appModules/splstudio/splconfui.py:1464
-msgid "SPL Controller c&overage:"
-msgstr "SPL Denetleyici kapsam&ı:"
+#: addon/appModules/splcommon/splconfui.py:1476
+msgid "SPL Controller co&verage:"
+msgstr "S&PL Denetleyici kapsamı:"
 
 #. Translators: Title of the dialog to reset various add-on settings.
 #. Translators: title of a panel to reset add-on settings.
-#: addon/appModules/splstudio/splconfui.py:1489
-#: addon/appModules/splstudio/splconfui.py:1579
+#: addon/appModules/splcommon/splconfui.py:1501
+#: addon/appModules/splcommon/splconfui.py:1591
 msgid "Reset settings"
 msgstr "Ayarları sıfırla"
 
 #. Translators: the label for a checkbox in SPL add-on settings
 #. to reset instant switch profile.
-#: addon/appModules/splstudio/splconfui.py:1496
+#: addon/appModules/splcommon/splconfui.py:1508
 msgid "Reset instant switch profile"
 msgstr "Anında geçiş profilini sıfırla"
 
 #. Translators: the label for a checkbox in SPL add-on settings
 #. to reset encoder settings.
-#: addon/appModules/splstudio/splconfui.py:1503
+#: addon/appModules/splcommon/splconfui.py:1515
 msgid "Remove encoder settings"
 msgstr "Kodlayıcı ayarlarını kaldır"
 
 #. Translators: the label for a checkbox in SPL add-on settings
 #. to reset track comments.
-#: addon/appModules/splstudio/splconfui.py:1508
+#: addon/appModules/splcommon/splconfui.py:1520
 msgid "Erase track comments"
 msgstr "Parça yorumlarını sil"
 
 #. Translators: A message to warn about resetting SPL config settings to factory defaults.
-#: addon/appModules/splstudio/splconfui.py:1527
+#: addon/appModules/splcommon/splconfui.py:1539
 msgid "Are you sure you wish to reset SPL add-on settings to defaults?"
 msgstr "SPL eklenti ayarlarını varsayılanlara sıfırlamak istediğinizden emin misiniz?"
 
 #. Translators: The title of the warning dialog.
-#: addon/appModules/splstudio/splconfui.py:1529
+#: addon/appModules/splcommon/splconfui.py:1541
 msgid "Warning"
 msgstr "Uyarı"
 
-#: addon/appModules/splstudio/splconfui.py:1562
+#: addon/appModules/splcommon/splconfui.py:1574
 msgid "Successfully applied default add-on settings."
 msgstr "Varsayılan eklenti ayarları başarıyla uygulandı."
 
 #. Translators: Title of the reset config dialog.
-#: addon/appModules/splstudio/splconfui.py:1564
+#: addon/appModules/splcommon/splconfui.py:1576
 msgid "Reset configuration"
 msgstr "Yapılandırmayı sıfırla"
 
 #. Translators: Help text explaining what will happen when settings are reset.
-#: addon/appModules/splstudio/splconfui.py:1586
+#: addon/appModules/splcommon/splconfui.py:1598
 msgid "Warning! Selecting Reset button and choosing various reset options will reset add-on settings to defaults."
 msgstr "Uyarı! Sıfırla düğmesinin seçilmesi ve çeşitli sıfırlama seçeneklerinin seçilmesi eklenti ayarlarını varsayılanlara sıfırlayacaktır."
 
 #. Translators: The label of a button to open reset dialog.
-#: addon/appModules/splstudio/splconfui.py:1593
+#: addon/appModules/splcommon/splconfui.py:1605
 msgid "Reset settings..."
 msgstr "Ayarları Sıfırla..."
 
 #. Translators: This is the label for the StationPlaylist add-on configuration dialog.
-#: addon/appModules/splstudio/splconfui.py:1615
+#: addon/appModules/splcommon/splconfui.py:1635
 #, python-brace-format
 msgid "StationPlaylist Add-on Settings ({appName})"
 msgstr "StationPlaylist Eklenti Ayarları ({appName})"
 
-#: addon/appModules/splstudio/splconfui.py:1708
+#. Translators: the label for a menu item in NVDA Preferences menu
+#. to open SPL Studio add-on settings.
+#: addon/appModules/splcommon/splconfui.py:1697
+msgid "SPL Studio Settings..."
+msgstr "SPL Stüdyo Ayarları..."
+
+#. Translators: tooltip for SPL Studio settings dialog.
+#: addon/appModules/splcommon/splconfui.py:1699
+msgid "SPL settings"
+msgstr "SPL ayarları"
+
+#: addon/appModules/splcommon/splconfui.py:1760
 msgid "Normal profile is in use, cannot open broadcast profiles dialog."
 msgstr "Normal profil kullanımda, yayın profilleri iletişim kutusu açılamıyor."
 
 #. Translators: Presented when trying to switch to an instant switch profile
 #. when add-on settings dialog is active.
-#: addon/appModules/splstudio/splconfui.py:1724
+#: addon/appModules/splcommon/splconfui.py:1776
 msgid "Add-on settings dialog is open, cannot switch profiles"
 msgstr "Eklenti ayarları iletişim kutusu açık, profiller değiştirilemiyor"
 
 #. Translators: Text of the dialog when another find dialog is open.
-#: addon/appModules/splstudio/splmisc.py:46
+#: addon/appModules/splstudio/splmisc.py:44
 msgid "Another find dialog is open."
 msgstr "Başka bir bul iletişim kutusu açık."
 
 #. Translators: Text of the dialog when a generic error has occured.
-#: addon/appModules/splstudio/splmisc.py:53
+#: addon/appModules/splstudio/splmisc.py:51
 msgid "An unexpected error has occured when trying to open find dialog."
 msgstr "Bul iletişim kutusunu açmaya çalışırken beklenmeyen bir hata oluştu."
 
 #. Translators: the label for find prompt in track finder dialog.
-#: addon/appModules/splstudio/splmisc.py:90
+#: addon/appModules/splstudio/splmisc.py:88
 msgid "Enter or select the name or the artist of the track you wish to &search"
 msgstr "&Aramak istediğiniz parçanın adını veya sanatçısını girin veya seçin"
 
 #. Translators: the label for find prompt in column search dialog.
-#: addon/appModules/splstudio/splmisc.py:93
+#: addon/appModules/splstudio/splmisc.py:91
 msgid "Enter or select text to be &searched in a column"
 msgstr "Bir sütunda aranacak metni girin veya &seçin"
 
 #. Translators: The label in track finder to search columns.
-#: addon/appModules/splstudio/splmisc.py:101
+#: addon/appModules/splstudio/splmisc.py:99
 msgid "C&olumn to search:"
 msgstr "Aranacak &sütun:"
 
 #. Translators: The title of a dialog to find tracks with duration within a specified range.
-#: addon/appModules/splstudio/splmisc.py:171
+#: addon/appModules/splstudio/splmisc.py:169
 msgid "Time range finder"
 msgstr "Zaman aralığı bulucu"
 
-#: addon/appModules/splstudio/splmisc.py:181
+#: addon/appModules/splstudio/splmisc.py:179
 msgid "Minimum duration"
 msgstr "Minimum süre"
 
 #. Translators: the minute label in time range finder dialog.
-#: addon/appModules/splstudio/splmisc.py:186
-#: addon/appModules/splstudio/splmisc.py:208
+#: addon/appModules/splstudio/splmisc.py:184
+#: addon/appModules/splstudio/splmisc.py:206
 msgid "Minute"
 msgstr "Dakika"
 
 #. Translators: the second label in time range finder dialog.
-#: addon/appModules/splstudio/splmisc.py:194
-#: addon/appModules/splstudio/splmisc.py:211
+#: addon/appModules/splstudio/splmisc.py:192
+#: addon/appModules/splstudio/splmisc.py:209
 msgid "Second"
 msgstr "Saniye"
 
-#: addon/appModules/splstudio/splmisc.py:204
+#: addon/appModules/splstudio/splmisc.py:202
 msgid "Maximum duration"
 msgstr "Maksimum süre"
 
 #. Translators: Message to report wrong value for duration fields.
-#: addon/appModules/splstudio/splmisc.py:232
+#: addon/appModules/splstudio/splmisc.py:230
 msgid "Minimum duration is greater than the maximum duration."
 msgstr "Minimum süre maksimum süreden daha uzun."
 
-#: addon/appModules/splstudio/splmisc.py:279
+#: addon/appModules/splstudio/splmisc.py:277
 msgid "No track with duration between minimum and maximum duration."
 msgstr "Minimum ve maksimum süre arasında süreye sahip parça yok."
 
 #. Translators: Standard error title for find error (copy this from main nvda.po).
-#: addon/appModules/splstudio/splmisc.py:281
+#: addon/appModules/splstudio/splmisc.py:279
 msgid "Time range find error"
 msgstr "Zaman aralığı bulma hatası"
 
 #. Translators: presented when metadata streaming status cannot be obtained.
-#: addon/appModules/splstudio/splmisc.py:512
+#: addon/appModules/splstudio/splmisc.py:326
 msgid "Cannot obtain metadata streaming status information"
 msgstr "Meta veri akış durumu bilgileri alınamıyor"
 
 #. Translators: Status message for metadata streaming.
-#: addon/appModules/splstudio/splmisc.py:521
+#: addon/appModules/splstudio/splmisc.py:335
 msgid "No metadata streaming URL's defined"
 msgstr "Hiçbir meta veri akışı URL'si tanımlanmadı"
 
 #. Translators: Status message for metadata streaming.
-#: addon/appModules/splstudio/splmisc.py:524
+#: addon/appModules/splstudio/splmisc.py:338
 msgid "Metadata streaming configured for DSP encoder"
 msgstr "DSP kodlayıcı için yapılandırılmış meta veri akışı"
 
 #. Translators: Status message for metadata streaming.
-#: addon/appModules/splstudio/splmisc.py:530
+#: addon/appModules/splstudio/splmisc.py:344
 #, python-brace-format
 msgid "Metadata streaming configured for DSP encoder and URL {URL}"
 msgstr "DSP kodlayıcı ve URL {URL} için yapılandırılmış meta veri akışı"
 
 #. Translators: Status message for metadata streaming.
-#: addon/appModules/splstudio/splmisc.py:533
+#: addon/appModules/splstudio/splmisc.py:347
 #, python-brace-format
 msgid "Metadata streaming configured for URL {URL}"
 msgstr "{URL} URL'si için yapılandırılmış meta veri akışı"
 
 #. Translators: Status message for metadata streaming.
-#: addon/appModules/splstudio/splmisc.py:539
+#: addon/appModules/splstudio/splmisc.py:353
 #, python-brace-format
 msgid "Metadata streaming configured for DSP encoder and URL's {URL}"
 msgstr "DSP kodlayıcı ve URL'nin {URL}'si için yapılandırılmış meta veri akışı"
 
 #. Translators: Status message for metadata streaming.
-#: addon/appModules/splstudio/splmisc.py:542
+#: addon/appModules/splstudio/splmisc.py:356
 #, python-brace-format
 msgid "Metadata streaming configured for URL's {URL}"
 msgstr "URL'nin {URL} adresi için yapılandırılmış meta veri akışı"
 
 #. Translators: the Playlist transcripts dialog title.
-#: addon/appModules/splstudio/splmisc.py:667
-#: addon/appModules/splstudio/splmisc.py:906
+#: addon/appModules/splstudio/splmisc.py:481
+#: addon/appModules/splstudio/splmisc.py:720
 msgid "Playlist Transcripts"
 msgstr "Çalma Listesi Transkriptleri"
 
 #. Translators: presented when playlist transcript data was copied to the clipboard.
-#: addon/appModules/splstudio/splmisc.py:680
+#: addon/appModules/splstudio/splmisc.py:494
 msgid "Playlist data copied to clipboard"
 msgstr "Çalma listesi verileri panoya kopyalandı"
 
 #. Translators: Text of the dialog when another playlist transcripts dialog is open.
-#: addon/appModules/splstudio/splmisc.py:878
+#: addon/appModules/splstudio/splmisc.py:692
 msgid "Another playlist transcripts dialog is open."
 msgstr "Başka bir çalma listesi transkriptleri iletişim kutusu açık."
 
 #. Translators: one of the playlist transcripts range options.
-#: addon/appModules/splstudio/splmisc.py:915
+#: addon/appModules/splstudio/splmisc.py:729
 msgid "entire playlist"
 msgstr "tüm çalma listesi"
 
 #. Translators: one of the playlist transcripts range options.
-#: addon/appModules/splstudio/splmisc.py:917
+#: addon/appModules/splstudio/splmisc.py:731
 msgid "start to current item"
 msgstr "geçerli öğeye başla"
 
 #. Translators: one of the playlist transcripts range options.
-#: addon/appModules/splstudio/splmisc.py:919
+#: addon/appModules/splstudio/splmisc.py:733
 msgid "current item to the end"
 msgstr "geçerli öğeyi sonuna kadar"
 
 #. Translators: one of the playlist transcripts range options.
-#: addon/appModules/splstudio/splmisc.py:921
+#: addon/appModules/splstudio/splmisc.py:735
 msgid "current hour"
 msgstr "şu anki saat"
 
 #. Translators: The label in playlist transcripts dialog to select playlist transcript range.
-#: addon/appModules/splstudio/splmisc.py:925
+#: addon/appModules/splstudio/splmisc.py:739
 msgid "Transcript range:"
 msgstr "Transkript aralığı:"
 
 #. Translators: The label in playlist transcripts dialog to select transcript output format.
-#: addon/appModules/splstudio/splmisc.py:932
+#: addon/appModules/splstudio/splmisc.py:746
 msgid "Transcript format:"
 msgstr "Transkript biçimi:"
 
 #. Translators: one of the playlist transcript actions.
-#: addon/appModules/splstudio/splmisc.py:940
+#: addon/appModules/splstudio/splmisc.py:754
 msgid "view transcript"
 msgstr "transkripti görüntüle"
 
 #. Translators: one of the playlist transcript actions.
-#: addon/appModules/splstudio/splmisc.py:944
+#: addon/appModules/splstudio/splmisc.py:758
 msgid "copy to clipboard"
 msgstr "panoya kopyala"
 
 #. Translators: one of the playlist transcript actions.
-#: addon/appModules/splstudio/splmisc.py:946
+#: addon/appModules/splstudio/splmisc.py:760
 msgid "save to file"
 msgstr "dosyaya kaydet"
 
 #. Translators: The label in playlist transcripts dialog to select transcript action.
-#: addon/appModules/splstudio/splmisc.py:952
+#: addon/appModules/splstudio/splmisc.py:766
 msgid "Transcript action:"
 msgstr "Transkript eylemi:"
 
 #. Translators: Presented when microphone has been active for a while.
-#: addon/appModules/splstudio/__init__.py:87
+#: addon/appModules/splstudio/__init__.py:86
 msgid "Microphone active"
 msgstr "Mikrofon etkin"
 
 #. Translators: Input help message for screen column order toggle command in SPL Studio.
-#: addon/appModules/splstudio/__init__.py:307
+#: addon/appModules/splstudio/__init__.py:306
 msgid "Toggles track column announcement order between screen layout and custom order"
 msgstr "Ekran düzeni ile özel düzen arasında parça sütunu duyuru sırasını değiştirir"
 
 #. Translators: presented when NVDA will present track columns in screen order.
-#: addon/appModules/splstudio/__init__.py:314
+#: addon/appModules/splstudio/__init__.py:313
 msgid "Use screen order when announcing track columns"
 msgstr "Parça sütunlarını duyururken ekran sırasını kullan"
 
 #. Translators: presented when NVDA will present track columns in custom order set by a user.
-#: addon/appModules/splstudio/__init__.py:318
+#: addon/appModules/splstudio/__init__.py:317
 msgid "Use custom order when announcing track columns"
 msgstr "Parça sütunlarını duyururken özel sırayı kullan"
 
 #. Translators: Presented when track comment has been copied to clipboard.
-#: addon/appModules/splstudio/__init__.py:340
+#: addon/appModules/splstudio/__init__.py:339
 msgid "Track comment copied to clipboard"
 msgstr "Parça yorumu panoya kopyalandı"
 
 #. Translators: Presented when focused on a track other than an actual track (such as hour marker).
-#: addon/appModules/splstudio/__init__.py:353
+#: addon/appModules/splstudio/__init__.py:352
 msgid "Comments cannot be added to this kind of track"
 msgstr "Bu tür parçaya yorum eklenemez"
 
 #. Translators: The title of the track comments dialog.
-#: addon/appModules/splstudio/__init__.py:359
-#: addon/appModules/splstudio/__init__.py:361
+#: addon/appModules/splstudio/__init__.py:358
+#: addon/appModules/splstudio/__init__.py:360
 msgid "Track comment"
 msgstr "Parça yorumu"
 
 #. Translators: Input help message for track comment announcemnet command in SPL Studio.
-#: addon/appModules/splstudio/__init__.py:390
+#: addon/appModules/splstudio/__init__.py:389
 msgid "Announces track comment if any. Press twice to copy this information to the clipboard, and press three times to open a dialog to add, change or remove track comments"
 msgstr "Varsa parça yorumunu duyurur. Bu bilgiyi panoya kopyalamak için iki kez basın. Parça yorumlarını eklemek, değiştirmek veya kaldırmak üzere bir iletişim kutusu açmak için üç kez basın"
 
 #. Translators: The text of the help command in SPL Assistant layer.
-#: addon/appModules/splstudio/__init__.py:409
+#: addon/appModules/splstudio/__init__.py:408
 msgid "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
 "C: Announce name of the currently playing track.\n"
@@ -1113,7 +1163,7 @@ msgstr "SPL Yardımcısı'na girdikten sonra aşağıdakilere basın:\n"
 "F12: Anında geçiş profiline geçer."
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
-#: addon/appModules/splstudio/__init__.py:441
+#: addon/appModules/splstudio/__init__.py:440
 msgid "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
 "C: Toggle cart explorer.\n"
@@ -1183,8 +1233,8 @@ msgstr "SPL Assistant'a girdikten sonra şu tuşları kullanabilirsiniz:\n"
 
 #. Translators: messages shown when trying to perform Studio commands in Remote Studio.
 #: addon/appModules/splstudio/__init__.py:496
-#: addon/appModules/splstudio/__init__.py:1593
-#: addon/appModules/splstudio/__init__.py:1750
+#: addon/appModules/splstudio/__init__.py:1545
+#: addon/appModules/splstudio/__init__.py:1705
 msgid "Unavailable in Remote Studio"
 msgstr "Remote Studio'da kullanılamıyor"
 
@@ -1200,552 +1250,509 @@ msgstr "Desteklenmeyen bir {appName} sürümü kullanıyorsunuz. Bu eklenti {app
 msgid "Unsupported {appName} release"
 msgstr "Desteklenmeyen {appName} sürümü"
 
-#. Translators: the label for a menu item in NVDA Preferences menu
-#. to open SPL Studio add-on settings.
-#: addon/appModules/splstudio/__init__.py:568
-msgid "SPL Studio Settings..."
-msgstr "SPL Stüdyo Ayarları..."
-
-#. Translators: tooltip for SPL Studio settings dialog.
-#: addon/appModules/splstudio/__init__.py:570
-msgid "SPL settings"
-msgstr "SPL ayarları"
-
 #. Translators: presented when a cart jingle stops playing.
-#: addon/appModules/splstudio/__init__.py:821
+#: addon/appModules/splstudio/__init__.py:795
 msgid "Cart stopped"
 msgstr "Sepet durduruldu"
 
-#: addon/appModules/splstudio/__init__.py:871
+#. Translators: Presented when library scan is complete.
+#: addon/appModules/splstudio/__init__.py:844
+#: addon/appModules/splstudio/__init__.py:1643
+#: addon/globalPlugins/splUtils.py:369
 #, python-brace-format
-msgid "Scan complete with {scanCount} items"
-msgstr "{scanCount} öğeyle tarama tamamlandı"
-
-#. Translators: presented when cart explorer could not be switched on.
-#: addon/appModules/splstudio/__init__.py:945
-#: addon/appModules/splstudio/__init__.py:1547
-msgid "Some or all carts could not be assigned, cannot enter cart explorer"
-msgstr "Sepetlerin bazıları veya tümü atanamadı, sepet gezginine girilemiyor"
+msgid "Scan complete with {itemCount} items"
+msgstr "Tarama tamamlandı {itemCount} ögeyle"
 
 #. Translators: presented when cart banks have changed while cart explorer is active.
-#: addon/appModules/splstudio/__init__.py:948
+#: addon/appModules/splstudio/__init__.py:912
 msgid "Cart explorer is active, refreshing carts"
 msgstr "Sepet gezgini etkin, sepetler yenileniyor"
 
-#. Translators: Presented when cart modes are toggled while cart explorer is on.
-#: addon/appModules/splstudio/__init__.py:999
-msgid "Cart explorer is active"
-msgstr "Sepet gezgini etkin"
-
 #. Translators: Presented when microphone was on for more than a specified time in microphone alarm dialog.
-#: addon/appModules/splstudio/__init__.py:1016
+#: addon/appModules/splstudio/__init__.py:971
 msgid "Warning: Microphone active"
 msgstr "Uyarı: Mikrofon etkin"
 
-#: addon/appModules/splstudio/__init__.py:1068
+#: addon/appModules/splstudio/__init__.py:1023
 #, python-brace-format
 msgid "Warning: {seconds} sec left in track introduction"
 msgstr "Uyarı: Parça tanıtımında {seconds} saniye kaldı"
 
 #. Translators: Presented when end of track is approaching.
-#: addon/appModules/splstudio/__init__.py:1072
+#: addon/appModules/splstudio/__init__.py:1027
 #, python-brace-format
 msgid "Warning: {seconds} sec remaining"
 msgstr "Uyarı: {seconds} saniye kaldı"
 
 #. Add the human-readable representation also.
 #. Translators: the label for a dedicated touch mode for SPL Studio.
-#: addon/appModules/splstudio/__init__.py:1084
+#: addon/appModules/splstudio/__init__.py:1039
 msgid "SPL mode"
 msgstr "SPL modu"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#: addon/appModules/splstudio/__init__.py:1205
+#: addon/appModules/splstudio/__init__.py:1160
 msgid "Announces broadcaster time. If pressed twice, reports minutes and seconds left to top of the hour."
 msgstr "Yayıncı saatini duyurur. İki kez basıldığında saatin başına kalan dakika ve saniyeleri bildirir."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#: addon/appModules/splstudio/__init__.py:1243
+#: addon/appModules/splstudio/__init__.py:1198
 msgid "Announces time including seconds."
 msgstr "Süreyi saniyeyle birlikte duyurur."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#: addon/appModules/splstudio/__init__.py:1256
+#: addon/appModules/splstudio/__init__.py:1211
 msgid "Opens SPL Studio alarms settings."
 msgstr "SPL Studio alarm ayarlarını açar."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#: addon/appModules/splstudio/__init__.py:1266
-msgid "Opens SPL Studio add-on configuration dialog."
-msgstr "SPL Studio eklenti yapılandırma iletişim kutusunu açar."
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-#: addon/appModules/splstudio/__init__.py:1276
+#: addon/appModules/splstudio/__init__.py:1231
 msgid "Opens SPL add-on broadcast profiles dialog."
 msgstr "SPL eklenti yayın profilleri iletişim kutusunu açar."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#: addon/appModules/splstudio/__init__.py:1284
+#: addon/appModules/splstudio/__init__.py:1239
 msgid "Opens SPL Studio add-on welcome dialog."
 msgstr "SPL Studio eklentisine hoş geldiniz iletişim kutusunu açar."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#: addon/appModules/splstudio/__init__.py:1301
+#: addon/appModules/splstudio/__init__.py:1256
 msgid "Toggles between various braille timer settings."
 msgstr "Çeşitli Braille zamanlayıcı ayarları arasında geçiş yapar."
 
 #. Translators: Standard dialog message when an item one wishes to search is not found
 #. (copy this from main nvda.po).
-#: addon/appModules/splstudio/__init__.py:1347
+#: addon/appModules/splstudio/__init__.py:1302
 #, python-format
 msgid "text \"%s\" not found"
 msgstr "\"%s\" metni bulunamadı"
 
 #. Translators: Presented when a user attempts to find tracks but is not at the track list.
-#: addon/appModules/splstudio/__init__.py:1387
+#: addon/appModules/splstudio/__init__.py:1342
 msgid "Track finder is available only in track list."
 msgstr "Parça bulucu yalnızca parça listesinde geçerlidir."
 
 #. Translators: Presented when a user attempts to find tracks but is not at the track list.
-#: addon/appModules/splstudio/__init__.py:1390
+#: addon/appModules/splstudio/__init__.py:1345
 msgid "Column search is available only in track list."
 msgstr "Sütun araması yalnızca parça listesinde kullanılabilir."
 
 #. Translators: Presented when a user attempts to find tracks but is not at the track list.
-#: addon/appModules/splstudio/__init__.py:1393
+#: addon/appModules/splstudio/__init__.py:1348
 msgid "Time range finder is available only in track list."
 msgstr "Zaman aralığı bulucu yalnızca parça listesinde mevcuttur."
 
 #. Translators: Presented when a user wishes to find a track but didn't add any tracks.
-#: addon/appModules/splstudio/__init__.py:1400
+#: addon/appModules/splstudio/__init__.py:1355
 msgid "You need to add at least one track to find tracks."
 msgstr "Parça bulmak için en az bir parça eklemiş olmalısınız."
 
 #. Translators: Title for track finder dialog.
-#: addon/appModules/splstudio/__init__.py:1408
+#: addon/appModules/splstudio/__init__.py:1363
 msgid "Find track"
 msgstr "Parça bul"
 
 #. Translators: Title for column search dialog.
-#: addon/appModules/splstudio/__init__.py:1411
+#: addon/appModules/splstudio/__init__.py:1366
 msgid "Column search"
 msgstr "Sütun ara"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#: addon/appModules/splstudio/__init__.py:1453
+#: addon/appModules/splstudio/__init__.py:1408
 msgid "Finds a track in the track list."
 msgstr "Parça listesinde bir parça arar."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#: addon/appModules/splstudio/__init__.py:1461
+#: addon/appModules/splstudio/__init__.py:1416
 msgid "Finds text in columns."
 msgstr "Sütunlardaki metni bulur."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#: addon/appModules/splstudio/__init__.py:1468
+#: addon/appModules/splstudio/__init__.py:1423
 msgid "Finds the next occurrence of the track with the name in the track list."
 msgstr "Parça listesindeki adı ile parçanın bir sonraki geçtiği yeri bulur."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#: addon/appModules/splstudio/__init__.py:1476
+#: addon/appModules/splstudio/__init__.py:1431
 msgid "Finds previous occurrence of the track with the name in the track list."
 msgstr "Parça listesindeki adı ile parçanın bir önceki geçtiği yeri bulur."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#: addon/appModules/splstudio/__init__.py:1487
+#: addon/appModules/splstudio/__init__.py:1442
 msgid "Locates track with duration within a time range"
 msgstr "Belirli zaman aralığında süresi olan parçayı bulur"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#: addon/appModules/splstudio/__init__.py:1522
+#: addon/appModules/splstudio/__init__.py:1505
 msgid "Toggles cart explorer to learn cart assignments."
 msgstr "Sepet atamalarını öğrenmek için sepet gezginini kapatıp açar."
 
-#. Translators: Presented when cart explorer cannot be entered.
-#: addon/appModules/splstudio/__init__.py:1533
-msgid "You are not in playlist viewer, cannot enter cart explorer"
-msgstr "Çalma listesi görüntüleyicisinde değilsiniz, sepet kaşifine girilemiyor"
-
-#. Translators: Presented when cart explorer is on.
-#: addon/appModules/splstudio/__init__.py:1553
-msgid "Entering cart explorer"
-msgstr "Sepet gezgini açılıyor"
-
-#. Translators: Presented when cart explorer is off.
-#: addon/appModules/splstudio/__init__.py:1560
-msgid "Exiting cart explorer"
-msgstr "Sepet gezgini kapanıyor"
-
 #. Translators: Presented when cart command is unavailable.
-#: addon/appModules/splstudio/__init__.py:1575
+#: addon/appModules/splstudio/__init__.py:1527
 msgid "Cart command unavailable"
 msgstr "Sepet komutu mevcut değil"
 
 #. Translators: Presented when there is no cart assigned to a cart command.
-#: addon/appModules/splstudio/__init__.py:1578
+#: addon/appModules/splstudio/__init__.py:1530
 msgid "Cart unassigned"
 msgstr "Sepet atanmamış"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#: addon/appModules/splstudio/__init__.py:1587
+#: addon/appModules/splstudio/__init__.py:1539
 msgid "Toggles library scan progress settings."
 msgstr "Kütüphane tarama ilerleme ayarlarını değiştirir."
 
 #. Translators: Presented when library scan has started.
-#: addon/appModules/splstudio/__init__.py:1613
+#: addon/appModules/splstudio/__init__.py:1568
 msgid "Scan start"
 msgstr "Tarama başladı"
 
 #. Translators: Presented when library scanning is finished.
-#: addon/appModules/splstudio/__init__.py:1642
-#: addon/appModules/splstudio/__init__.py:2503
+#: addon/appModules/splstudio/__init__.py:1597
+#: addon/appModules/splstudio/__init__.py:2458
 #, python-brace-format
 msgid "{itemCount} items in the library"
 msgstr "{itemCount} kütüphanedeki ögeler"
 
-#: addon/appModules/splstudio/__init__.py:1688
-#, python-brace-format
-msgid "Scan complete with {itemCount} items"
-msgstr "Tarama tamamlandı {itemCount} ögeyle"
-
-#: addon/appModules/splstudio/__init__.py:1698
+#: addon/appModules/splstudio/__init__.py:1653
 msgid "Scanning"
 msgstr "Taranıyor"
 
 #. Translators: Presented when library scan is in progress.
-#: addon/appModules/splstudio/__init__.py:1707
+#: addon/appModules/splstudio/__init__.py:1662
+#: addon/globalPlugins/splUtils.py:367
 #, python-brace-format
 msgid "{itemCount} items scanned"
 msgstr "{itemCount} taranan öge"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#: addon/appModules/splstudio/__init__.py:1740
+#: addon/appModules/splstudio/__init__.py:1695
 msgid "Opens a dialog to quickly enable or disable metadata streaming."
 msgstr "Meta veri akışını hızla etkinleştirmek veya devre dışı bırakmak için bir iletişim kutusu açar."
 
 #. Translators: Presented when streaming dialog cannot be shown.
-#: addon/appModules/splstudio/__init__.py:1746
+#: addon/appModules/splstudio/__init__.py:1701
 msgid "Cannot open metadata streaming dialog"
 msgstr "Meta veri akışı iletişim kutusu açılamıyor"
 
 #. Translators: an error message presented when performing some playlist commands
 #. while focused on places other than Playlist Viewer.
-#: addon/appModules/splstudio/__init__.py:1794
+#: addon/appModules/splstudio/__init__.py:1749
 msgid "Please return to playlist viewer before invoking this command."
 msgstr "Bu komutu çağırmadan önce lütfen çalma listesi görüntüleyiciye dönün."
 
 #. Translators: an error message presented when performing some playlist commands
 #. while no playlist has been loaded.
-#: addon/appModules/splstudio/__init__.py:1800
+#: addon/appModules/splstudio/__init__.py:1755
 msgid "No playlist has been loaded."
 msgstr "Hiçbir çalma listesi yüklenmedi."
 
 #. Translators: an error message presented when performing some playlist commands
 #. while no tracks are selected/focused.
-#: addon/appModules/splstudio/__init__.py:1806
+#: addon/appModules/splstudio/__init__.py:1761
 msgid "Please select a track from playlist viewer before invoking this command."
 msgstr "Lütfen bu komutu çalıştırmadan önce çalma listesi görüntüleyicisinden bir parça seçin."
 
 #. Translators: Presented when playlist analyzer cannot be performed
 #. because user is not focused on playlist viewer.
-#: addon/appModules/splstudio/__init__.py:1827
+#: addon/appModules/splstudio/__init__.py:1782
 msgid "Not in playlist viewer, cannot perform playlist analysis."
 msgstr "Çalma listesi görüntüleyicide değil, çalma listesi analizi gerçekleştirilemiyor."
 
 #. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
-#: addon/appModules/splstudio/__init__.py:1831
+#: addon/appModules/splstudio/__init__.py:1786
 msgid "No playlist to analyze."
 msgstr "Analiz edilecek çalma listesi yok."
 
 #. Translators: Presented when playlist analysis cannot be activated.
-#: addon/appModules/splstudio/__init__.py:1835
+#: addon/appModules/splstudio/__init__.py:1790
 msgid "No tracks are selected, cannot perform playlist analysis."
 msgstr "Hiçbir parça seçili değil, çalma listesi analizi gerçekleştirilemiyor."
 
 #. Translators: one of the results for playlist snapshots feature
 #. for announcing total number of items in a playlist.
-#: addon/appModules/splstudio/__init__.py:1964
+#: addon/appModules/splstudio/__init__.py:1919
 #, python-brace-format
 msgid "Items: {playlistItemCount}"
 msgstr "Öğeler: {playlistItemCount}"
 
 #. Translators: one of the results for playlist snapshots feature
 #. for announcing total number of tracks in a playlist.
-#: addon/appModules/splstudio/__init__.py:1969
+#: addon/appModules/splstudio/__init__.py:1924
 #, python-brace-format
 msgid "Tracks: {playlistTrackCount}"
 msgstr "Parçalar: {playlistTrackCount}"
 
 #. Translators: one of the results for playlist snapshots feature
 #. for announcing total duration of a playlist.
-#: addon/appModules/splstudio/__init__.py:1974
+#: addon/appModules/splstudio/__init__.py:1929
 #, python-brace-format
 msgid "Duration: {playlistTotalDuration}"
 msgstr "Süre: {playlistTotalDuration}"
 
 #. Translators: one of the results for playlist snapshots feature
 #. for announcing shortest track name and duration of a playlist.
-#: addon/appModules/splstudio/__init__.py:1982
+#: addon/appModules/splstudio/__init__.py:1937
 #, python-brace-format
 msgid "Shortest: {playlistShortestTrack}"
 msgstr "En kısa: {playlistShortestTrack}"
 
 #. Translators: one of the results for playlist snapshots feature
 #. for announcing longest track name and duration of a playlist.
-#: addon/appModules/splstudio/__init__.py:1989
+#: addon/appModules/splstudio/__init__.py:1944
 #, python-brace-format
 msgid "Longest: {playlistLongestTrack}"
 msgstr "En uzun: {playlistLongestTrack}"
 
 #. Translators: one of the results for playlist snapshots feature
 #. for announcing average duration for tracks in a playlist.
-#: addon/appModules/splstudio/__init__.py:1997
+#: addon/appModules/splstudio/__init__.py:1952
 #, python-brace-format
 msgid "Average: {playlistAverageDuration}"
 msgstr "Ortalama: {playlistAverageDuration}"
 
 #. Translators: one of the results for playlist snapshots feature
 #. for announcing top artist in a playlist.
-#: addon/appModules/splstudio/__init__.py:2010
+#: addon/appModules/splstudio/__init__.py:1965
 msgid "Top artist: {} ({})"
 msgstr "En iyi sanatçı: {} ({})"
 
 #. Translators: one of the results for playlist snapshots feature
 #. when there is no top artist.
-#: addon/appModules/splstudio/__init__.py:2016
+#: addon/appModules/splstudio/__init__.py:1971
 msgid "Top artist: none"
 msgstr "En iyi sanatçı: yok"
 
 #. Translators: one of the results for playlist snapshots feature
 #. when there is no top artist (formatted for browse mode).
-#: addon/appModules/splstudio/__init__.py:2023
+#: addon/appModules/splstudio/__init__.py:1978
 msgid "Top artists: none"
 msgstr "En iyi sanatçılar: yok"
 
 #. Translators: one of the results for playlist snapshots feature,
 #. a heading for a group of items.
-#: addon/appModules/splstudio/__init__.py:2029
+#: addon/appModules/splstudio/__init__.py:1984
 msgid "Top artists:"
 msgstr "En iyi sanatçılar:"
 
 #. Translators: one of the results for playlist snapshots feature
 #. when there is no artist information.
-#: addon/appModules/splstudio/__init__.py:2035
+#: addon/appModules/splstudio/__init__.py:1990
 #, python-brace-format
 msgid "No artist information ({artistCount})"
 msgstr "Sanatçı bilgisi yok ({artistCount})"
 
 #. Translators: one of the results for playlist snapshots feature
 #. for artist count information.
-#: addon/appModules/splstudio/__init__.py:2039
+#: addon/appModules/splstudio/__init__.py:1994
 #, python-brace-format
 msgid "{artistName} ({artistCount})"
 msgstr "{artistName} ({artistCount})"
 
 #. Translators: one of the results for playlist snapshots feature
 #. for announcing top track category in a playlist.
-#: addon/appModules/splstudio/__init__.py:2053
+#: addon/appModules/splstudio/__init__.py:2008
 msgid "Top category: {} ({})"
 msgstr "Üst kategori: {} ({})"
 
 #. Translators: one of the results for playlist snapshots feature,
 #. a heading for a group of items.
-#: addon/appModules/splstudio/__init__.py:2059
+#: addon/appModules/splstudio/__init__.py:2014
 msgid "Categories:"
 msgstr "Kategoriler:"
 
 #. Translators: one of the results for playlist snapshots feature
 #. for category count information.
-#: addon/appModules/splstudio/__init__.py:2066
+#: addon/appModules/splstudio/__init__.py:2021
 #, python-brace-format
 msgid "{categoryName} ({categoryCount})"
 msgstr "{categoryName} ({categoryCount})"
 
 #. Translators: one of the results for playlist snapshots feature
 #. for announcing top genre in a playlist.
-#: addon/appModules/splstudio/__init__.py:2079
+#: addon/appModules/splstudio/__init__.py:2034
 msgid "Top genre: {} ({})"
 msgstr "En popüler tür: {} ({})"
 
 #. Translators: one of the results for playlist snapshots feature
 #. when there is no top genre.
-#: addon/appModules/splstudio/__init__.py:2085
+#: addon/appModules/splstudio/__init__.py:2040
 msgid "Top genre: none"
 msgstr "En popüler tür: yok"
 
 #. Translators: one of the results for playlist snapshots feature
 #. when there is no top genre (formatted for browse mode).
-#: addon/appModules/splstudio/__init__.py:2092
+#: addon/appModules/splstudio/__init__.py:2047
 msgid "Top genres: none"
 msgstr "En popüler türler: yok"
 
 #. Translators: one of the results for playlist snapshots feature,
 #. a heading for a group of items.
-#: addon/appModules/splstudio/__init__.py:2098
+#: addon/appModules/splstudio/__init__.py:2053
 msgid "Top genres:"
 msgstr "En iyi türler:"
 
 #. Translators: one of the results for playlist snapshots feature
 #. when there is no genre information for an item.
-#: addon/appModules/splstudio/__init__.py:2104
+#: addon/appModules/splstudio/__init__.py:2059
 #, python-brace-format
 msgid "No genre information ({genreCount})"
 msgstr "Tür bilgisi yok ({genreCount})"
 
 #. Translators: one of the results for playlist snapshots feature
 #. for genre count information.
-#: addon/appModules/splstudio/__init__.py:2108
+#: addon/appModules/splstudio/__init__.py:2063
 #, python-brace-format
 msgid "{genreName} ({genreCount})"
 msgstr "{genreName} ({genreCount})"
 
 #. Translators: Input help mode message for a layer command in StationPlaylist add-on.
-#: addon/appModules/splstudio/__init__.py:2171
+#: addon/appModules/splstudio/__init__.py:2126
 msgid "The SPL Assistant layer command. See the add-on guide for more information on available commands."
 msgstr "SPL Yardımcısı katmanlı komutları. Kullanılabilecek komutlar hakkında daha fazla bilgi için eklenti kılavuzuna bakın."
 
 #. Translators: Presented when SPL Assistant cannot be invoked.
-#: addon/appModules/splstudio/__init__.py:2184
+#: addon/appModules/splstudio/__init__.py:2139
 msgid "Failed to locate Studio main window, cannot enter SPL Assistant"
 msgstr "Studio ana penceresi bulunamadı, SPL yardımcısına girilemiyor"
 
 #. Translators: presented when playlist modification message isn't shown.
-#: addon/appModules/splstudio/__init__.py:2393
+#: addon/appModules/splstudio/__init__.py:2348
 msgid "Playlist modification not available"
 msgstr "Çalma listesi değişiklik mevcut değil"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#: addon/appModules/splstudio/__init__.py:2397
+#: addon/appModules/splstudio/__init__.py:2352
 msgid "Announces title of the next track if any"
 msgstr "Varsa bir sonraki parçanın adını duyurur"
 
 #. Translators: Presented when there is no information for the next track.
-#: addon/appModules/splstudio/__init__.py:2407
+#: addon/appModules/splstudio/__init__.py:2362
 msgid "No next track scheduled"
 msgstr "Sonraki parça planlanmadı"
 
 #. Translators: Presented when next track information is unavailable.
-#: addon/appModules/splstudio/__init__.py:2417
+#: addon/appModules/splstudio/__init__.py:2372
 msgid "Cannot find next track information"
 msgstr "Sonraki parça bilgisi bulunmuyor"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#: addon/appModules/splstudio/__init__.py:2423
+#: addon/appModules/splstudio/__init__.py:2378
 msgid "Announces title of the currently playing track"
 msgstr "O anda çalınan parçanın başlığını duyurur"
 
 #. Translators: Presented when current track information is unavailable.
-#: addon/appModules/splstudio/__init__.py:2447
+#: addon/appModules/splstudio/__init__.py:2402
 msgid "Cannot find current track information"
 msgstr "Mevcut parça bilgisi bulunmuyor"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#: addon/appModules/splstudio/__init__.py:2453
+#: addon/appModules/splstudio/__init__.py:2408
 msgid "Announces temperature and weather information"
 msgstr "Sıcaklık ve hava durumu bilgilerini duyurur"
 
 #. Translators: Presented when there is no weather or temperature information.
-#: addon/appModules/splstudio/__init__.py:2463
+#: addon/appModules/splstudio/__init__.py:2418
 msgid "Weather and temperature not configured"
 msgstr "Hava ve sıcaklık yapılandırılmamış"
 
 #. Translators: Presented when temperature information cannot be found.
-#: addon/appModules/splstudio/__init__.py:2466
+#: addon/appModules/splstudio/__init__.py:2421
 msgid "Weather information not found"
 msgstr "Hava durumu bilgisi bulunamadı"
 
 #. Translators: Presented when there is no listener count information.
-#: addon/appModules/splstudio/__init__.py:2485
+#: addon/appModules/splstudio/__init__.py:2440
 msgid "Listener count not found"
 msgstr "Dinleme sayısı bulunamadı"
 
 #. Translators: Presented when attempting to start library scan.
-#: addon/appModules/splstudio/__init__.py:2510
+#: addon/appModules/splstudio/__init__.py:2465
 msgid "Monitoring library scan"
 msgstr "Kütüphane tarama İzleme"
 
 #. Translators: Presented when library scan is already in progress.
-#: addon/appModules/splstudio/__init__.py:2516
+#: addon/appModules/splstudio/__init__.py:2471
 msgid "Scanning is in progress"
 msgstr "Tarama devam ediyor"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#: addon/appModules/splstudio/__init__.py:2520
+#: addon/appModules/splstudio/__init__.py:2475
 msgid "Marks focused track as start marker for various playlist analysis commands"
 msgstr "Çeşitli çalma listesi analiz komutları için odaklanılan parçayı başlangıç ​​işaretçisi olarak işaretler"
 
 #. Translators: Presented when track time analysis is turned on.
-#: addon/appModules/splstudio/__init__.py:2529
+#: addon/appModules/splstudio/__init__.py:2484
 msgid "Playlist analysis activated"
 msgstr "Çalma listesi analizi etkinleştirildi"
 
 #. Translators: Presented when track time analysis is turned off.
-#: addon/appModules/splstudio/__init__.py:2533
+#: addon/appModules/splstudio/__init__.py:2488
 msgid "Playlist analysis deactivated"
 msgstr "Çalma listesi analizi devre dışı bırakıldı"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#: addon/appModules/splstudio/__init__.py:2537
+#: addon/appModules/splstudio/__init__.py:2492
 msgid "Announces total length of tracks between analysis start marker and the current track"
 msgstr "Analiz başlangıç işaretçisi ile mevcut parça arasındaki toplam parça uzunluğunu duyurur"
 
 #. Translators: Presented when track time analysis cannot be used because start marker is not set.
-#: addon/appModules/splstudio/__init__.py:2545
+#: addon/appModules/splstudio/__init__.py:2500
 msgid "No track selected as start of analysis marker, cannot perform time analysis"
 msgstr "Analiz başlangıcı işaretçisi olarak hiçbir parça seçilmedi, zaman analizi gerçekleştirilemiyor"
 
 #. Translators: Presented when time analysis is done for a number of tracks
 #. (example output: Tracks: 3, totaling 5:00).
-#: addon/appModules/splstudio/__init__.py:2563
+#: addon/appModules/splstudio/__init__.py:2518
 #, python-brace-format
 msgid "Tracks: {numberOfSelectedTracks}, totaling {totalTime}"
 msgstr "Parçalar: {numberOfSelectedTracks}, toplam süre {totalTime}"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#: addon/appModules/splstudio/__init__.py:2570
+#: addon/appModules/splstudio/__init__.py:2525
 msgid "Presents playlist snapshot information such as number of tracks and top artists"
 msgstr "Parça sayısı ve en iyi sanatçılar gibi çalma listesi anlık görüntü bilgilerini sunar"
 
 #. Translators: Presented when place marker cannot be set.
-#: addon/appModules/splstudio/__init__.py:2637
+#: addon/appModules/splstudio/__init__.py:2592
 msgid "No tracks found, cannot set place marker"
 msgstr "Parça bulunamadı, yer işaretçisi ayarlanamıyor"
 
 #. Translators: Presented when place marker track is set.
-#: addon/appModules/splstudio/__init__.py:2643
+#: addon/appModules/splstudio/__init__.py:2598
 msgid "place marker set"
 msgstr "yer işaretleyici seti"
 
 #. Translators: Presented when attempting to place a place marker on an unsupported track.
-#: addon/appModules/splstudio/__init__.py:2646
+#: addon/appModules/splstudio/__init__.py:2601
 msgid "This track cannot be used as a place marker track"
 msgstr "Bu parça yer işaretleyici parça olarak kullanılamaz"
 
 #. Translators: Presented when no place marker is found.
-#: addon/appModules/splstudio/__init__.py:2663
-#: addon/appModules/splstudio/__init__.py:2668
+#: addon/appModules/splstudio/__init__.py:2618
+#: addon/appModules/splstudio/__init__.py:2623
 msgid "No place marker found"
 msgstr "Yer işaretçisi bulunamadı"
 
 #. Translators: Status message for metadata streaming.
-#: addon/appModules/splstudio/__init__.py:2683
+#: addon/appModules/splstudio/__init__.py:2638
 #, python-brace-format
 msgid "Metadata streaming on {URLPosition} enabled"
 msgstr "{URLPosition} üzerinde meta veri akışı etkinleştirildi"
 
 #. Translators: Status message for metadata streaming.
-#: addon/appModules/splstudio/__init__.py:2688
+#: addon/appModules/splstudio/__init__.py:2643
 #, python-brace-format
 msgid "Metadata streaming on {URLPosition} disabled"
 msgstr "{URLPosition} üzerinde meta veri akışı devre dışı bırakıldı"
 
 #. Translators: The title for SPL Assistant help screen.
-#: addon/appModules/splstudio/__init__.py:2694
+#: addon/appModules/splstudio/__init__.py:2649
 msgid "SPL Assistant help"
 msgstr "SPL Yardımcısı yardımı"
 
 #. Translators: The title for SPL Assistant help screen.
-#: addon/appModules/splstudio/__init__.py:2696
+#: addon/appModules/splstudio/__init__.py:2651
 msgid "SPL Assistant help for JAWS layout"
 msgstr "JAWS düzeni için SPL Yardımcısı yardımı"
 
@@ -1997,7 +2004,7 @@ msgstr "Diğer programlardan SPL Studio penceresine gider."
 
 #. Translators: Presented when StationPlaylist Studio is not running.
 #: addon/globalPlugins/splUtils.py:200 addon/globalPlugins/splUtils.py:273
-#: addon/globalPlugins/splUtils.py:416 addon/globalPlugins/splUtils.py:440
+#: addon/globalPlugins/splUtils.py:414 addon/globalPlugins/splUtils.py:438
 msgid "SPL Studio is not running."
 msgstr "SPL Studio açık değil."
 
@@ -2011,7 +2018,7 @@ msgid "You are already in SPL Studio window. For status commands, use SPL Assist
 msgstr "Zaten SPL Studio penceresindesiniz. Durum komutları için SPL Yardımcısı komutlarını kullanın."
 
 #. Translators: Presented when StationPlaylist Remote Studio is not running.
-#: addon/globalPlugins/splUtils.py:270 addon/globalPlugins/splUtils.py:437
+#: addon/globalPlugins/splUtils.py:270 addon/globalPlugins/splUtils.py:435
 msgid "SPL Remote Studio is not running."
 msgstr "SPL Remote Studio çalışmıyor."
 
@@ -2032,51 +2039,39 @@ msgstr "SPL Kontrolör"
 msgid "There is no track playing. Try pausing while a track is playing."
 msgstr "Çalan parça yok. Bir parça çalarken duraklatmayı deneyin."
 
-#. Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
-#: addon/globalPlugins/splUtils.py:368
-#, python-brace-format
-msgid "Scan in progress with {itemCount} items scanned"
-msgstr "Taranan {itemCount} öğeleriyle tarama devam ediyor"
-
-#. Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
-#: addon/globalPlugins/splUtils.py:371
-#, python-brace-format
-msgid "Scan complete with {itemCount} items scanned"
-msgstr "Taranan {itemCount} öğeleriyle tarama tamamlandı"
-
 #. Translators: Announces number of stream listeners.
-#: addon/globalPlugins/splUtils.py:380
+#: addon/globalPlugins/splUtils.py:378
 #, python-brace-format
 msgid "Listener count: {listenerCount}"
 msgstr "Dinleyici sayısı: {listenerCount}"
 
 #. Translators: Presented when no track is playing in StationPlaylist Studio.
-#: addon/globalPlugins/splUtils.py:399
+#: addon/globalPlugins/splUtils.py:397
 msgid "There is no track playing."
 msgstr "Çalan parça yok."
 
 #. Translators: Input help message for a SPL Controller command.
-#: addon/globalPlugins/splUtils.py:404
+#: addon/globalPlugins/splUtils.py:402
 msgid "Announces stream encoder status from other programs"
 msgstr "Diğer programlardan akış kodlayıcı durumunu duyurur"
 
 #. Translators: presented if encoder connection status cannot be obtained.
-#: addon/globalPlugins/splUtils.py:423
+#: addon/globalPlugins/splUtils.py:421
 msgid "Cannot obtain encoder connection status"
 msgstr "Kodlayıcı bağlantı durumu alınamıyor"
 
 #. Translators: Input help message for a SPL Controller command.
-#: addon/globalPlugins/splUtils.py:428
+#: addon/globalPlugins/splUtils.py:426
 msgid "Announces Studio status such as track playback status from other programs"
 msgstr "Diğer programlardan parça çalma durumu gibi Studio durumunu duyurur"
 
 #. Translators: The title for SPL Controller help screen.
-#: addon/globalPlugins/splUtils.py:493
+#: addon/globalPlugins/splUtils.py:491
 msgid "SPL Remote Controller help"
 msgstr "SPL Uzaktan Kumanda yardımı"
 
 #. Translators: The title for SPL Controller help screen.
-#: addon/globalPlugins/splUtils.py:496
+#: addon/globalPlugins/splUtils.py:494
 msgid "SPL Controller help"
 msgstr "SPL Kontrolör yardımı"
 
@@ -2089,36 +2084,22 @@ msgstr "StationPlaylist uygulamalarına yönelik desteği geliştirir. Ayrıca S
 #. Brief changelog for this version
 #. Translators: what's new content for the add-on version to be shown in the add-on store
 #: buildVars.py:29
-msgid "* Added a setting in add-on settings under status announcements to announce when a cart finishes playing (NVDA will say 'cart stopped').\n"
-"* In add-on settings/status announcements, cart name checkbox is now cart announcement check list box with the former setting becoming a checkable option.\n"
-"* In Studio 6.20 and later, SPL Controller can be used to control local Studio and/or Remote Studio. A new setting in add-on settings dialog under Advanced settings panel allows configuring SPL Controller coverage/scope between both local Studio and Remote Studio or one or the other. In earlier Studio releases, SPL Controller layer will control local Studio.\n"
-"* In local Studio, performing track elapsed (Alt+Shift+T) and remaining time (Control+Alt+T) commands will also announce elapsed and remaining time for the currently playing voice track and/or cart. In addition, pressing SPL Controller, R will announce remaining duration of the playing track, voice track, or cart for local Studio.\n"
-"* Metadata streaming and status announcements settings panels will not be shown when opening add-on settings screen from Remote Studio.\n"
-"* Settings to report library scans and listener requests will not be shown in add-on settings when opened from Remote Studio.\n"
-"* In local Studio, NVDA will announce track starts value correctly (SPL Assistant, S).\n"
-"* In local Studio, NVDA will no longer announce wrong information when locating various screen information such as weather data if error log button is shown on screen.\n"
-"* Library scan announcement toggle command (NVDA+Shift+R) is now limited to local Studio.\n"
-"* Changed the following SPL Assistant JAWS layout commands: hour duration (H to T), hour remaining duration (Shift+H to H), library scan (Shift+R to Alt+T), cart edit/insert (T to number row 0).\n"
-"* Resolved \"Time Scheduled/Time\" column announcement and usage in local Studio 6.20, including reporting of wrong column content when vertical column navigation is set to \"Time Scheduled\", NVDA reporting \"Time Scheduled not found\" when this column is configured as a columns explorer slot, and wrong column title shown in playlist transcripts.\n"
-"* Resolved issues working with results from insert tracks dialog in local Studio 6.20, including NVDA saying \"Artist not found\" when performing columns explorer commands (Control+NVDA+number row) to obtain artist information, wrong column information announced in columns explorer, and top and bottom beeps being heard.\n"
-"* NVDA will no longer include empty column content when generating playlist transcripts in plain text and HTML list formats.\n"
-"* In local Studio, NVDA will no longer announce \"no track playing\" when announcing next track title when no tracks are playing but next track title is showing on screen.\n"
-"* In Remote Studio, taking playlist snapshots (SPL Assistant, F8) shows more accurate results.\n"
-"* In Remote Studio, NVDA will no longer do nothing or play error tones when announcing current and next track titles and is configured to announce track player information."
-msgstr "* Durum duyuruları altındaki eklenti ayarlarına, sepetinn çalınması bittiğinde bunu duyurmak için bir ayar eklendi (NVDA, “sepet durdu” diye sesli uyarı verecektir).\n"
-"* Eklenti ayarlarında/durum duyurularında, sepet adı onay kutusu artık sepet duyurusu kontrol listesi kutusu haline geldi ve eski ayar kontrol edilebilir bir seçenek haline geldi.\n"
-"* Studio 6.20 ve sonraki sürümlerde, SPL Denetleyicisi yerel Studio'yu ve/veya Remote Studio'yu kontrol etmek için kullanılabilir. Gelişmiş ayarlar paneli altındaki eklenti ayarları iletişim kutusundaki yeni bir ayar, hem yerel Studio hem de Remote Studio veya biri veya diğeri arasında SPL Denetleyici kapsamının/kapsamının yapılandırılmasına olanak tanır. Önceki Studio sürümlerinde, SPL Denetleyici katmanı yerel Studio'yu kontrol edecektir.\n"
-"* Yerel Studio'da, geçen süre (Alt+Shift+T) ve kalan süre (Control+Alt+T) komutlarını uyguladığınızda, o anda çalınan ses parçası ve/veya sepet için geçen süre ve kalan süre de duyurulur. Ayrıca, SPL Denetleyici, R tuşuna basıldığında, yerel Studio için çalınan parçanın, ses parçasının veya sepetin kalan süresi duyurulur.\n"
-"* Remote Studio'dan eklenti ayarları ekranı açıldığında meta veri akışı ve durum duyuruları ayar panelleri gösterilmeyecektir.\n"
-"* Kitaplık taramalarını ve dinleyici isteklerini duyurmaya yönelik ayarlar, Remote Studio'dan açıldığında eklenti ayarlarında gösterilmeyecektir.\n"
-"* NVDA, yerel Studio'da parça başlangıç ​​değerini doğru şekilde duyuracaktır (SPL Assistant, S).\n"
-"* Yerel Stüdyoda, ekranda hata günlüğü düğmesi gösteriliyorsa, NVDA artık hava durumu verileri gibi çeşitli ekran bilgilerini bulurken yanlış bilgileri duyurmayacak.\n"
-"* Kitaplık tarama duyurusu geçiş komutu (NVDA+Shift+R) artık yerel Studio ile sınırlıdır.\n"
-"* Şu SPL Asistan JAWS düzeni komutları değiştirildi: saat süresi (H'den T'ye), kalan saat süresi (Shift+H'den H'ye), kitaplık taraması (Shift+R'den Alt+T'ye), sepet düzenleme/ekleme (T'den sayı satırı 0'a).\n"
-"* Yerel Studio 6.20'de \"Zaman Planlandı/Zaman\" sütunu duyurusu ve kullanımı çözüldü; dikey sütun navigasyonu \"Zaman Planlandı\" olarak ayarlandığında yanlış sütun içeriğinin raporlanması, bu sütun sütun gezgini yuvası olarak yapılandırıldığında NVDA'nın \"Zaman Planlandı bulunamadı\" bildirimi yapması ve oynatma listesi transkriptlerinde yanlış sütun başlığı gösterilmesi dahil.\n"
-"* Sanatçı bilgilerini almak için sütun gezgini komutlarını (Kontrol+NVDA+sayı satırı) gerçekleştirirken NVDA'nın \"Sanatçı bulunamadı\" demesi, sütun gezgininde yanlış sütun bilgilerinin duyurulması ve üst ve alt bip seslerinin duyulması dahil olmak üzere, yerel Studio 6.20'deki parça ekle iletişim kutusundaki sonuçlarla çalışmayla ilgili sorunlar çözüldü.\n"
-"* NVDA artık düz metin ve HTML liste formatlarında çalma listesi transkriptleri oluştururken boş sütun içeriğini içermeyecek.\n"
-"* Yerel Stüdyoda, NVDA artık hiçbir parça çalınmadığında ancak ekranda bir sonraki parça adı gösterildiğinde bir sonraki parça başlığını duyururken \"parça çalınmıyor\" uyarısını yapmayacak.\n"
-"* Remote Studio'da çalma listesi anlık görüntülerinin alınması (SPL Asistan, F8) daha doğru sonuçlar verir.\n"
-"* Remote Studio'da, NVDA artık mevcut ve sonraki parça başlıklarını duyururken hiçbir şey yapmayacak, hata tonları çalmayacak ve parça çalma bilgilerini duyuracak şekilde yapılandırılmıştır."
+msgid "* NVDA 2025.3.2 or later is required.\n"
+"* Add-on settings screen is now available while using Creator, Remote VT, and Track Tool with different settings for each app.\n"
+"* In local and Remote Studio, NVDA will announce labels for insert tracks dialog's search criteria controls, track properties, and Studio options dialog.\n"
+"* In local Studio, NVDA will be less verbose when performing library rescan from insert tracks dialog (Control+Shift+R).\n"
+"* In local Studio, NVDA will report library scan count regardless of \"beep for status announcements\" setting from add-on settings.\n"
+"* In Remote Studio, when closing options screen (Control+O) while cart explorer is active, it is no longer necessary to reenter Cart Explorer to view updated cart assignments.\n"
+"* Resolved several issues while using insert tracks dialog in Remote Studio, including NVDA saying \"scan start\" when pressing Control+Shift+R and verbose output for search results status.\n"
+"* In track list in Creator and Track Tool, pressing Alt+number row keys to change column sort order will cause NVDA to announce the new sort order based on the column selected.\n"
+"* In Track Tool, status bar content will be reported when performing read status bar command (NVDA+End/desktop layout, NVDA+Shift+End/laptop layout)."
+msgstr "* NVDA 2025.3.2 veya sonrası sürümler gereklidir.\n"
+"* Artık Yaratıcı, Remote VT ve Parça Aracı'nı her uygulama için farklı ayarlarla kullanırken eklenti ayarları ekranı kullanılabilir.\n"
+"* Yerel ve Remote Studio'da NVDA, parça ekle iletişim kutusunun arama kriterleri kontrolleri, parça özellikleri ve Stüdyo seçenekleri iletişim kutusu için etiketleri duyuracaktır.\n"
+"* Yerel Studio'da, parça ekleme iletişim kutusundan (Control+Shift+R) kitaplığı yeniden tarama işlemi gerçekleştirilirken NVDA daha az ayrıntılı olacaktır.\n"
+"* Yerel Studio'da NVDA, eklenti ayarlarından \"durum duyuruları için bip sesi\" ayarından bağımsız olarak kütüphane tarama sayısını duyuracaktır.\n"
+"* Remote Studio'da, sepet gezgini etkinken seçenekler ekranını (Control+O) kapatırken, güncellenmiş sepet atamalarını görüntülemek için artık Sepet Gezgini'ne yeniden girmenize gerek yoktur.\n"
+"* Remote Studio'da parça ekle iletişim kutusunu kullanırken, Control+Shift+R tuşlarına basıldığında NVDA'nın \"tarama başlat\" demesi ve arama sonuçları durumu için ayrıntılı çıktı dahil olmak üzere çeşitli sorunlar çözüldü.\n"
+"* Yaratıcı ve Parça Aracı'ndaki parça listesinde, sütun sıralama düzenini değiştirmek için Alt+sayı satır tuşlarına basmak, NVDA'nın seçilen sütuna göre yeni sıralama düzenini duyurmasına neden olacaktır.\n"
+"* Parça Aracı'nda, durum çubuğu okuma komutu gerçekleştirilirken durum çubuğu içeriği duyurulacaktır (NVDA+End/masaüstü düzeni, NVDA+Shift+End/dizüstü bilgisayar düzeni)."
 
