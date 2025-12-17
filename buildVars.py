@@ -28,13 +28,16 @@ addon_info = AddonInfo(
 	# Translators: what's new content for the add-on version to be shown in the add-on store
 	addon_changelog=_("""* NVDA 2025.3.2 or later is required.
 * Add-on settings screen is now available while using Creator, Remote VT, and Track Tool with different settings for each app.
-* In Studio (local and remote) and Track Tool, NVDA will announce labels for track properties, insert tracks dialog's search criteria controls (Studio), and Studio options dialog.
+* NVDA will announce labels for SPL app screens, including track properties, insert tracks dialog's search criteria controls (Studio, Creator, Remote VT), and Studio options dialog.
+* In Studio (local and remote), Creator, and Remote VT, NVDA will play a beep when search is completed in insert tracks dialog when NVDA is configured to play beeps for status announcements from SPL add-on settings/general category.
+* In Studio (local and remote) and Track Tool, NVDA will no longer announce dialog property content (description) in places such as track properties and Studio options screen.
 * In local Studio, NVDA will be less verbose when performing library rescan from insert tracks dialog (Control+Shift+R).
 * In local Studio, NVDA will report library scan count regardless of "beep for status announcements" setting from add-on settings.
 * In Remote Studio, when closing options screen (Control+O) while cart explorer is active, it is no longer necessary to reenter Cart Explorer to view updated cart assignments.
 * Resolved several issues while using insert tracks dialog in Remote Studio, including NVDA saying "scan start" when pressing Control+Shift+R and verbose output for search results status.
 * In track list in Creator and Track Tool, pressing Alt+number row keys to change column sort order will cause NVDA to announce the new sort order based on the column selected.
-* In Creator, Remote VT, and Track Tool, status bar content will be reported when performing read status bar command (NVDA+End/desktop layout, NVDA+Shift+End/laptop layout)."""),
+* In Creator, Remote VT, and Track Tool, status bar content will be reported when performing read status bar command (NVDA+End/desktop layout, NVDA+Shift+End/laptop layout).
+* In Creator and Remote VT, NVDA will announce search results count when searching for trakcs in insert tracks dialog."""),
 	# Author(s)
 	addon_author="Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)",
 	# URL for the add-on documentation support
