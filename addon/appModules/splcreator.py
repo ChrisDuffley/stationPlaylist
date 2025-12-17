@@ -211,8 +211,10 @@ class AppModule(appModuleHandler.AppModule):
 					1443958857,  # Creator 6.0x
 					1443958849,  # Creator 6.1x
 					1446056001,  # Creator 6.20
-				):
+				) and obj.parent.simpleParent.windowClassName == "TTabSheet":  # Creator main window
 					clsList.insert(0, SPLCreatorItem)
+				else:
+					clsList.insert(0, splbase.SPLTrackItem)
 			elif obj.role == controlTypes.Role.LIST:
 				clsList.insert(0, sysListView32.List)
 		elif obj.windowClassName in ("TDemoRegForm", "TAboutForm"):
