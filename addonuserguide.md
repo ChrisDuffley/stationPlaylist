@@ -341,6 +341,8 @@ Sometimes, you might find that NVDA might be too verbose when announcing status 
 
 To change this (which will become permanent), open SPL add-on settings, go to General Add-on Settings dialog, then select Beep for status announcements checkbox. When you change status announcements to beeps, NVDA will play beeps to indicate events such as toggling microphone, end of track announcements and so on. These settings will also work if you are using SPL Controller to toggle Studio options (see below).
 
+Note: checking the checkbox also enables playing a beep when track search is complete in insert tracks dialog in Studio (local and remote), Creator, and Remote VT.
+
 #### Message verbosity
 
 When status such as automation changes, you may not wish to hear the complete announcement. If you would like to hear just enough information, you can change message verbosity from add-on settings dialog under General Add-on Settings.
