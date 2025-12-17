@@ -11,6 +11,7 @@ import addonHandler
 import scriptHandler
 import globalVars
 import ui
+import tones
 import api
 import controlTypes
 import wx
@@ -253,6 +254,8 @@ class AppModule(appModuleHandler.AppModule):
 			if "match" in obj.name:
 				# Announce search/match results from insert tracks dialog.
 				# Unlike Studio (local and remote), everything must be announced.
+				if splconfig.SPLConfig["General"]["BeepAnnounce"]:
+					tones.beep(370, 40)
 				ui.message(obj.name)
 		nextHandler()
 

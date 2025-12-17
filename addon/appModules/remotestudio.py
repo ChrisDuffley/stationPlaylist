@@ -10,6 +10,7 @@ import collections
 import time
 import threading
 import ui
+import tones
 import api
 import controlTypes
 import braille
@@ -129,6 +130,8 @@ class AppModule(splstudio.AppModule):
 			elif "match" in obj.name:
 				# Announce search/match results from insert tracks dialog.
 				# Only announce match count as the whole thing is very verbose.
+				if splconfig.SPLConfig["General"]["BeepAnnounce"]:
+					tones.beep(370, 40)
 				ui.message(" ".join(obj.name.split()[:2]))
 			else:
 				# Announce connection status in Remote Studio.

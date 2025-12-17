@@ -795,6 +795,8 @@ class AppModule(appModuleHandler.AppModule):
 					# Announce search/match results.
 					# This is distinct from library rescan text.
 					# Only announce match count as the whole thing is very verbose.
+					if splconfig.SPLConfig["General"]["BeepAnnounce"]:
+						tones.beep(370, 40)
 					ui.message(" ".join(obj.name.split()[:2]))
 				elif "Loading" in obj.name:  # Status text 2
 					# Temporary scan text is shown when rescanning the library.
