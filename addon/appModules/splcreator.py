@@ -5,6 +5,7 @@
 # Basic support for StationPlaylist Creator.
 
 from typing import Any
+import collections
 import appModuleHandler
 import addonHandler
 import scriptHandler
@@ -244,6 +245,16 @@ class AppModule(appModuleHandler.AppModule):
 		):
 			# Status bar labels are not found in Creator and playlist editor but is written to the screen.
 			obj.name = obj.displayText
+
+	def event_nameChange(self, obj: NVDAObject, nextHandler: collections.abc.Callable[[], None]):
+		if not obj.name:
+			return
+		if obj.windowClassName == "TTntStatusBar.UnicodeClass":
+			if "match" in obj.name:
+				# Announce search/match results from insert tracks dialog.
+				# Unlike Studio (local and remote), everything must be announced.
+				ui.message(obj.name)
+		nextHandler()
 
 	@scriptHandler.script(
 		description=_("Opens SPL Studio add-on configuration dialog."),
