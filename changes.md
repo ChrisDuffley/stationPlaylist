@@ -6,7 +6,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 
 * NVDA 2025.3.2 or later is required.
 * Add-on settings screen is now available while using Creator, Remote VT, and Track Tool with different settings for each app.
-* In Studio (local and remote) and Track Tool, NVDA will announce labels for track properties, insert tracks dialog's search criteria controls (Studio), and Studio options dialog.
+* NVDA will announce labels for SPL app screens, including track properties, insert tracks dialog's search criteria controls (Studio, Creator, Remote VT), and Studio options dialog.
 * In Studio (local and remote) and Track Tool, NVDA will no longer announce dialog property content (description) in places such as track properties and Studio options screen.
 * In local Studio, NVDA will be less verbose when performing library rescan from insert tracks dialog (Control+Shift+R).
 * In local Studio, NVDA will report library scan count regardless of "beep for status announcements" setting from add-on settings.
@@ -14,6 +14,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 * Resolved several issues while using insert tracks dialog in Remote Studio, including NVDA saying "scan start" when pressing Control+Shift+R and verbose output for search results status.
 * In track list in Creator and Track Tool, pressing Alt+number row keys to change column sort order will cause NVDA to announce the new sort order based on the column selected.
 * In Creator, Remote VT, and Track Tool, status bar content will be reported when performing read status bar command (NVDA+End/desktop layout, NVDA+Shift+End/laptop layout).
+* In Creator and Remote VT, NVDA will announce search results count when searching for trakcs in insert tracks dialog.
 
 ## Version 25.12/25.06.11-LTS
 
