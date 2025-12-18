@@ -15,7 +15,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 * Resolved several issues while using insert tracks dialog in Remote Studio, including NVDA saying "scan start" when pressing Control+Shift+R and verbose output for search results status.
 * In track list in Creator and Track Tool, pressing Alt+number row keys to change column sort order will cause NVDA to announce the new sort order based on the column selected.
 * In Creator, Remote VT, and Track Tool, status bar content will be reported when performing read status bar command (NVDA+End/desktop layout, NVDA+Shift+End/laptop layout).
-* In Creator and Remote VT, NVDA will announce search results count when searching for trakcs in insert tracks dialog.
+* In Creator and Remote VT, NVDA will announce search results count when searching for tracks in insert tracks dialog.
 
 ## Version 25.12/25.06.11-LTS
 
