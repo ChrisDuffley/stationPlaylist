@@ -794,11 +794,15 @@ Here is a list of frequently asked questions when using NVDA with SPL suite of a
 
 Q. Is Studio accessible without using the add-on?
 
-Yes. The benefits of using the add-on are for announcing status information and to make broadcasting more efficient through status messages, alarms and so forth.
+Yes. The benefits of using the add-on are for announcing status information and to make broadcasting more efficient through status messages, alarms and so forth. The add-on also allows NVDA to announce labels for unlabeled controls in places including insert tracks, track properties, and Studio options.
+
+Q. NVDA says odd labels for some Studio controls.
+
+This is one of the limitations of the screen location based control labeling functionality offered by the SPL add-on.
 
 Q. When I try to perform SPL Controller or Assistant layer commands, NVDA says, "SPL Studio is not running."
 
-You need to run SPL Studio in order for these commands to work.
+You need to run SPL Studio (local and/or remote) in order for these commands to work.
 
 Q. Some add-on commands do not have keyboard shortcuts.
 
@@ -847,6 +851,17 @@ Q. Can I set it so one layer command can invoke both layer command sets?
 
 Yes. If SPL Controller command is not assigned or want to make sure there is a command associated with SPL Controller entry command, open input gestures (NVDA menu/Preferences/Input gestures), expand StationPlaylist category, look for SPL Controller, then press Alt+A to add a new command. Unless you want your command to work in specific layouts, select "all layouts" from the list of gesture availability choices, then select OK button. Then, while focused in Studio, open add-on settings (NVDA+Alt+0), go to "advanced" category, and check "Use SPl Controller to invoke SPL Assistant" checkbox (checked by default for new installations of 25.09/25.06.6-LTS or later) and press Enter (OK button). 
 
+Q. Why are some SPL Assistant layer commands unavailable from Remote Studio?
+
+Remote Studio is a limited version of local Studio intended for remote live broadcasts. Remote Studio does not support the following local Studio features and thus the associated SPL Assistant layer commands are unavailable:
+
+* Library scan
+* Record to file
+* Encoders management (no SPL Assistant layer commands for encoders management)
+* Metadata streaming
+* Cart edit/insert mode from playlist viewer
+* Control keys toggle
+
 Q. How can I tell NVDA to use a different sound card from the card used for streaming radio shows?
 
 To change sound cards for NVDA, open NVDA menu, go to Preferences, Settings, then select audio settings category (you can also open this window directly by pressing Control+NVDA+U). Go to output device combo box, select the desired sound card for NVDA, then press ENTER. To switch back to the original sound card, repeat these steps, then choose the original sound card from output device combo box.
@@ -872,14 +887,14 @@ The following toggle announcements are affected by verbosity levels, particularl
 * Automation.
 * Microphone.
 * Line-in.
-* Record to file.
+* Record to file. (local Studio)
 * cart edit/insert (prior to December 2016).)
 
-Q. How can I monitor a lengthy library scan?
+Q. How can I monitor a lengthy library scan in local Studio?
 
 Open Insert Tracks dialog (Control+I). If you've selected progress announcement from library scan announcement options (see above), NVDA will announce the progress of a scan. Don't move away from this window until the scan is complete. Alternativley, you can monitor a lengthy scan from anywhere by using the SPL Assistant method described above.
 
-Q. During a library scan, NVDA repeats current scan count.
+Q. While performing a library scan from local Studio, NVDA repeats current scan count.
 
 This is expected if it takes a long time to perform library scans, particularly if scanning an entire drive. Don't worry if you hear repeats.
 
@@ -918,7 +933,7 @@ Q. Are there times when I should not press Control+NVDA+R three times to reset S
 
 You should not reset Studio add-on settings (and in some cases, NVDA settings to defaults along with add-on settings when pressing Control+NVDA+R three times quickly) while broadcasting.
 
-Q. When announcing tracks, which columns can NVDA suppress and reorder?
+Q. When announcing tracks in local or Remote Studio playlist viewer, which columns can NVDA suppress and reorder?
 
 You can customize announcement and/or order of announcement for the following columns:
 
@@ -1003,7 +1018,7 @@ LTS stands for long-term support. This is a special version of a software that w
 
 Usually a version of the StationPlaylist add-on for NVDA receives support until the next version is released (typically several weeks to months). However, because there are broadcasters who would like to use a stable version of the add-on for a long time (either because they have to or they cannot upgrade to the latest version of Studio), a long-term support version of the add-on is released every few years to give people time to upgrade to a future stable version of Studio. In addition to longer support period (up to a year or more), a LTS version of the add-on is the last version to support the oldest stable Studio version, or in some cases, provides compatibility with old NVDA and/or Windows releases. Due to special nature of LTS releases, releases in a LTS series must be instaled manually i.e. they will not be made available on the add-on store.
 
-As of 2025, add-on versions 3.x (September 2014-June 2015), 7.x/15.x (April 2016-April 2018; 15.x since October 2016),, 18.09.x (September 2018-December 2019), and 20.09.x (September 2020-April 2021) were designated as LTS releases, supporting Studio 4.33, 5.01, 5.1x, and 5.20, respectively. Version 25.06.x, the latest LTS release, is the last LTS series to support Studio 5.x.
+As of 2026, add-on versions 3.x (September 2014-June 2015), 7.x/15.x (April 2016-April 2018; 15.x since October 2016),, 18.09.x (September 2018-December 2019), and 20.09.x (September 2020-April 2021) were designated as LTS releases, supporting Studio 4.33, 5.01, 5.1x, and 5.20, respectively. Version 25.06.x, the latest LTS release, was the last LTS series to support Studio 5.x.
 
 Q. Which versions of Studio are supported by which add-on releases?
 
@@ -1013,7 +1028,7 @@ Q. Which versions of Studio are supported by which add-on releases?
 * Studio 5.20: Add-on 16.11 to 20.09.7 (November 2016-April 2021).
 * Studio 5.3x: Add-on 17.11 to 22.12 (November 2017-December 2022).
 * Studio 5.40: Add-on 19.11 to 25.05.4 (November 2019-May 2025).
-* Studio 5.50: Add-on 20.11 to 25.06.11 (November 2020-December 2025).
+* Studio 5.50: Add-on 20.11 to 25.06.12 (November 2020-December 2025).
 * Studio 6.0x: Add-on 21.11 to 25.12 (November 2021-December 2025).
 * Studio 6.1x: Add-on 24.03 to 25.12 (April 2024-December 2025).
 * Studio 6.20: Add-on 25.11 to 25.12 (November 2025-December 2025).
@@ -1031,6 +1046,10 @@ Windows 7 and 8.x are out of support from Microsoft from January 2023. You can u
 Q. Will the add-on work with 64-bit NVDA?
 
 Yes for the most part. NV Access and contributors are working on 64-bit NVDA, and testing shows parts of the SPL ad-on will work on it.
+
+Q. 64-bit NVDA is not reading SPL app menu items.
+
+This is a known issue. You can resolve this (temporarily) by changing display scaling to 100%.
 
 Q. What are update channels?
 
