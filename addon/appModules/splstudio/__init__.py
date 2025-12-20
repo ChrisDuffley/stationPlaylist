@@ -853,7 +853,7 @@ class AppModule(appModuleHandler.AppModule):
 						splconfig.SPLConfig["General"]["BrailleTimer"] in ("outro", "both")
 						and api.getForegroundObject().processID == self.processID
 						# #165: only braille if end of track text is within track outro alarm threshold.
-						and splbase.studioAPI(3, SPLCurTrackPlaybackTime) < (
+						and splbase.studioAPI(3, SPLCurTrackPlaybackTime, splComponent=self.appName) < (
 							splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] * 1000  # Milliseconds
 						)
 					):
@@ -870,7 +870,7 @@ class AppModule(appModuleHandler.AppModule):
 						splconfig.SPLConfig["General"]["BrailleTimer"] in ("intro", "both")
 						and api.getForegroundObject().processID == self.processID
 						# #165: only braille if track ramp text is within track intro alarm threshold.
-						and splbase.studioAPI(4, SPLCurTrackPlaybackTime) < (
+						and splbase.studioAPI(4, SPLCurTrackPlaybackTime, splComponent=self.appName) < (
 							splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"] * 1000  # Milliseconds
 						)
 					):
