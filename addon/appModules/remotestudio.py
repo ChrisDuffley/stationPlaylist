@@ -222,9 +222,6 @@ class AppModule(splstudio.AppModule):
 	SPLCurrentTrackTitle = 3
 	SPLCurrentPlayer = 4
 	SPLTrackStarts = 5
-	SPLTrackStartsIn = 6
-	SPLPlaylistRemain = 7
-	SPLTotalForHour = 8
 	SPLTemperature = 9
 
 	# Table of child constants based on versions
@@ -238,9 +235,6 @@ class AppModule(splstudio.AppModule):
 			SPLCurrentTrackTitle: [2, 2, 9],
 			SPLCurrentPlayer: [2, 2, 9, 0],
 			SPLTrackStarts: [2, 2, -3],
-			SPLTrackStartsIn: [2, 2, -6],
-			SPLPlaylistRemain: [2, 2, -5],
-			SPLTotalForHour: [2, 2, -4],
 			SPLTemperature: [2, 2, 3, 1],  # Temperature for the current city.
 		},
 	}
