@@ -28,6 +28,7 @@ from .splcommon import splconfig, splbase, splcarts
 # Various SPL IPC tags.
 SPLStatusInfo = 39
 SPLTrackPlaybackStatus = 104
+SPLCurTrackPlaybackTime = 105
 
 # Return a tuple of column headers.
 # This is just a thinly disguised indexOf function from Studio's track item class.
@@ -276,14 +277,17 @@ class AppModule(splstudio.AppModule):
 	_cachedStatusObjs: dict[int, Any] = {}
 
 	# Announce elapsed and remaining times differently across local and Remote Studio
-	# (local Studio = Studio API, Remote Studio = screen traversal).
+	# (API can be used in local and remote Studio).
+	# Remote Studio: only track elapsed/remaining time will be announced.
 	def announceTrackTime(self, trackTime: str) -> None:
 		# Track time parameter can be either "remaining" or "elapsed".
 		match trackTime:
 			case "remaining":
-				ui.message(self.status(self.SPLTrackRemainingTime).name)
+				remainingTime = splbase.studioAPI(3, SPLCurTrackPlaybackTime, splComponent="remotestudio")
+				self.announceTime(remainingTime)
 			case "elapsed":
-				ui.message(self.status(self.SPLTrackElapsedTime).name)
+				elapsedTime = splbase.studioAPI(0, SPLCurTrackPlaybackTime, splComponent="remotestudio")
+				self.announceTime(elapsedTime)
 			case _:
 				raise ValueError(f"Unrecognized track time announcement command: {trackTime}")
 

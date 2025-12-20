@@ -1081,7 +1081,7 @@ class AppModule(appModuleHandler.AppModule):
 				return f"{mm:02d}:{ss:02d}"
 
 	# Announce elapsed and remaining times differently across local and Remote Studio
-	# (local Studio = Studio API, Remote Studio = screen traversal).
+	# (API can be used in local and remote Studio).
 	# Local Studio: report voice track (VT) and cart duration when appropriate.
 	def announceTrackTime(self, trackTime: str) -> None:
 		if not splbase.studioIsRunning():
