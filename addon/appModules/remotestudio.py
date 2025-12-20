@@ -239,20 +239,18 @@ class AppModule(splstudio.AppModule):
 		return bool(getattr(focus, "rowCount", 0))
 
 	# Status table keys
-	# Unlike local Studio, Remote Studio may not have an API, so screen traversal must be done.
+	# Unlike local Studio, Remote Studio API is limited, so screen traversal must be done for some elements.
 	# This is applicable to SPL Assistant commands and other scripts.
 	SPLRemoteStatus = 0
-	SPLTrackRemainingTime = 1
-	SPLTrackElapsedTime = 2
-	SPLNextTrackTitle = 3
-	SPLNextPlayer = 4
-	SPLCurrentTrackTitle = 5
-	SPLCurrentPlayer = 6
-	SPLTrackStarts = 7
-	SPLTrackStartsIn = 8
-	SPLPlaylistRemain = 9
-	SPLTotalForHour = 10
-	SPLTemperature = 11
+	SPLNextTrackTitle = 1
+	SPLNextPlayer = 2
+	SPLCurrentTrackTitle = 3
+	SPLCurrentPlayer = 4
+	SPLTrackStarts = 5
+	SPLTrackStartsIn = 6
+	SPLPlaylistRemain = 7
+	SPLTotalForHour = 8
+	SPLTemperature = 9
 
 	# Table of child constants based on versions
 	# Same as local Studio: scattered around the screen, so use foreground.getChild(index) to fetch them
@@ -260,8 +258,6 @@ class AppModule(splstudio.AppModule):
 	statusObjs = {
 		"6": {
 			SPLRemoteStatus: [2, 0],  # Remote Studio status bar
-			SPLTrackRemainingTime: [2, 2, -2],
-			SPLTrackElapsedTime: [2, 2, -1],
 			SPLNextTrackTitle: [2, 2, 2, 0],
 			SPLNextPlayer: [2, 2, 2, 1],
 			SPLCurrentTrackTitle: [2, 2, 9],
