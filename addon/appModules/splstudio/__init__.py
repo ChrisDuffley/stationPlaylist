@@ -2248,10 +2248,10 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(status)
 
 	# Announce playlist times
-	# Local Studio only: Studio API canbe used.
+	# API can be used in local and remote Studio.
 	def announcePlaylistTimes(self, index: int) -> None:
 		# Playlist times index is an integer.
-		playlistTime = splbase.studioAPI(index, SPLPlaylistHourDuration)
+		playlistTime = splbase.studioAPI(index, SPLPlaylistHourDuration, splComponent=self.appName)
 		match index:
 			case 0 | 1:  # 0 = hour duration, 1 = hour remaining
 				self.announceTime(playlistTime)
