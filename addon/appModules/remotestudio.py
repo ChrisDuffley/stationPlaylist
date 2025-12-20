@@ -13,7 +13,6 @@ import ui
 import tones
 import api
 import controlTypes
-import braille
 import queueHandler
 # From NVDA 2026.1 onwards, winBindings package should be used to look for Windows API dll's.
 try:
