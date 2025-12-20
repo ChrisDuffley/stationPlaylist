@@ -137,40 +137,9 @@ class AppModule(splstudio.AppModule):
 			else:
 				# Announce connection status in Remote Studio.
 				ui.message(obj.name)
-		# Monitor the end of track and song intro time and announce it.
-		elif obj.windowClassName == "TStaticText":
-			if obj.simplePrevious and obj.simplePrevious.name == "Track Starts":
-				if obj.parent.parent.firstChild.name == "Remaining":
-					# End of track text.
-					if (
-						splconfig.SPLConfig["General"]["BrailleTimer"] in ("outro", "both")
-						and api.getForegroundObject().processID == self.processID
-						# Only braille if end of track text is within track outro alarm threshold.
-						and self._trackAlarmWithinThreshold(obj.name, splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"])
-					):
-						braille.handler.message(obj.name)
-					if (
-						obj.name
-						== "00:{0:02d}".format(splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"])
-						and splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"]
-					):
-						self.alarmAnnounce(obj.name, 440, 200)
-				elif obj.parent.parent.firstChild.name == "Song Ramp":
-					# Song intro content.
-					if (
-						splconfig.SPLConfig["General"]["BrailleTimer"] in ("intro", "both")
-						and api.getForegroundObject().processID == self.processID
-						# Only braille if track ramp text is within track intro alarm threshold.
-						and self._trackAlarmWithinThreshold(obj.name, splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"])
-					):
-						braille.handler.message(obj.name)
-					if (
-						obj.name
-						== "00:{0:02d}".format(splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"])
-						and splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"]
-					):
-						self.alarmAnnounce(obj.name, 512, 400, intro=True)
-		nextHandler()
+			return nextHandler()
+		# Track remaining/elapsed time changes are handled from the local Studio app module.
+		super().event_nameChange(obj, nextHandler)
 
 	def doRemoteStudioExtraAction(self, content: str) -> None:
 		# Do play a beep when asked.
