@@ -133,8 +133,16 @@ def indexOfPlaylistEditor(editorVersion: str) -> tuple[str, ...]:
 		)
 
 
+# SPL Playlist item (SPL add-on base object) is defined in splcommon.splbase module.
+# Classes pertaining to Creator app module will be defined here.
 class SPLCreatorItem(splbase.SPLTrackItem):
-	"""An entry in SPL Creator (mostly tracks)."""
+	"""A representative class of Creator list (including track) items outside of track list."""
+
+	pass
+
+
+class CreatorTrackListItem(splbase.SPLTrackItem):
+	"""An entry in SPL Creator (mostly tracks in track list tab)."""
 
 	def indexOf(self, columnHeader: str) -> int | None:
 		try:
@@ -211,9 +219,9 @@ class AppModule(appModuleHandler.AppModule):
 					1443958849,  # Creator 6.1x
 					1446056001,  # Creator 6.20
 				) and obj.parent.simpleParent.windowClassName == "TTabSheet":  # Creator main window
-					clsList.insert(0, SPLCreatorItem)
+					clsList.insert(0, CreatorTrackListItem)
 				else:
-					clsList.insert(0, splbase.SPLTrackItem)
+					clsList.insert(0, SPLCreatorItem)
 			elif obj.role == controlTypes.Role.LIST:
 				clsList.insert(0, sysListView32.List)
 		elif obj.windowClassName in ("TDemoRegForm", "TAboutForm"):
