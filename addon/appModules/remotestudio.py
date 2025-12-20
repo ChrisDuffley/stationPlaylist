@@ -222,7 +222,7 @@ class AppModule(splstudio.AppModule):
 	SPLCurrentTrackTitle = 3
 	SPLCurrentPlayer = 4
 	SPLTrackStarts = 5
-	SPLTemperature = 9
+	SPLTemperature = 6
 
 	# Table of child constants based on versions
 	# Same as local Studio: scattered around the screen, so use foreground.getChild(index) to fetch them
