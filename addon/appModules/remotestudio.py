@@ -234,7 +234,7 @@ class AppModule(splstudio.AppModule):
 			SPLNextPlayer: [2, 2, 2, 1],
 			SPLCurrentTrackTitle: [2, 2, 9],
 			SPLCurrentPlayer: [2, 2, 9, 0],
-			SPLTrackStarts: [2, 2, -3],
+			SPLTrackStarts: [2, 2, -3, 0],
 			SPLTemperature: [2, 2, 3, 1],  # Temperature for the current city.
 		},
 	}
