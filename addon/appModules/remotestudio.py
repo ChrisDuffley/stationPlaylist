@@ -151,6 +151,21 @@ class AppModule(splstudio.AppModule):
 			# Activate mic alarm or announce when cart explorer is active.
 			self.doExtraAction(content)
 
+	# Announce elapsed and remaining times differently across local and Remote Studio
+	# (API can be used in local and remote Studio).
+	# Remote Studio: only track elapsed/remaining time will be announced.
+	def announceTrackTime(self, trackTime: str) -> None:
+		# Track time parameter can be either "remaining" or "elapsed".
+		match trackTime:
+			case "remaining":
+				remainingTime = splbase.studioAPI(3, SPLCurTrackPlaybackTime, splComponent="remotestudio")
+				self.announceTime(remainingTime)
+			case "elapsed":
+				elapsedTime = splbase.studioAPI(0, SPLCurTrackPlaybackTime, splComponent="remotestudio")
+				self.announceTime(elapsedTime)
+			case _:
+				raise ValueError(f"Unrecognized track time announcement command: {trackTime}")
+
 	# Cart explorer (Remote Studio)
 	cartExplorer = False
 	# The carts dictionary (key = cart gesture, item = cart name).
@@ -232,21 +247,6 @@ class AppModule(splstudio.AppModule):
 	}
 
 	_cachedStatusObjs: dict[int, Any] = {}
-
-	# Announce elapsed and remaining times differently across local and Remote Studio
-	# (API can be used in local and remote Studio).
-	# Remote Studio: only track elapsed/remaining time will be announced.
-	def announceTrackTime(self, trackTime: str) -> None:
-		# Track time parameter can be either "remaining" or "elapsed".
-		match trackTime:
-			case "remaining":
-				remainingTime = splbase.studioAPI(3, SPLCurTrackPlaybackTime, splComponent="remotestudio")
-				self.announceTime(remainingTime)
-			case "elapsed":
-				elapsedTime = splbase.studioAPI(0, SPLCurTrackPlaybackTime, splComponent="remotestudio")
-				self.announceTime(elapsedTime)
-			case _:
-				raise ValueError(f"Unrecognized track time announcement command: {trackTime}")
 
 	# Remote Studio status bar messages (distinct from local Studio).
 	# For playback, Remote Studio can also say "Paused".
