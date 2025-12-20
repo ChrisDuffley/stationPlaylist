@@ -272,24 +272,3 @@ class AppModule(splstudio.AppModule):
 		if splconfig.SPLConfig["General"]["MessageVerbosity"] == "advanced":
 			status = status.split()[-1]
 		ui.message(status)
-
-	# Announce playlist times
-	# Remote Studio: use screen traversal.
-	def announcePlaylistTimes(self, index: int) -> None:
-		# Playlist times index is an integer (Remote Studio: for compatibility with local Studio/API).
-		match index:
-			case 0:  # Hour duration
-				ui.message(self.status(self.SPLTotalForHour).lastChild.name)
-			case 1:  # Hour remaining
-				ui.message(self.status(self.SPLPlaylistRemain).getChild(1).name)
-			case 2:  # Overtime
-				ui.message(self.status(self.SPLPlaylistRemain).firstChild.name)
-			case 3:  # Scheduled/track starts
-				# Scheduled is the time originally specified in Studio,
-				# scheduled to play is broadcast time based on current time.
-				ui.message(self.status(self.SPLTrackStarts).firstChild.name)
-			case 4:  # Track starts in
-				# Announces length of time remaining until the selected track will play.
-				ui.message(self.status(self.SPLTrackStartsIn).firstChild.name)
-			case _:
-				raise ValueError(f"Unrecognized playlist time announcement command: {index}")
