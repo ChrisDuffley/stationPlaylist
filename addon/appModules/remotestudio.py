@@ -151,14 +151,6 @@ class AppModule(splstudio.AppModule):
 			# Activate mic alarm or announce when cart explorer is active.
 			self.doExtraAction(content)
 
-	def _trackAlarmWithinThreshold(self, trackTime: str, threshold: int) -> bool:
-		trackTimeComponents = [int(component) for component in trackTime.split(":")]
-		# Assume hh:mm:ss.
-		if len(trackTimeComponents) == 2:
-			trackTimeComponents.insert(0, 0)
-		trackTimeSeconds = (trackTimeComponents[0] * 3600) + (trackTimeComponents[1] * 60) + trackTimeComponents[2]
-		return trackTimeSeconds <= threshold
-
 	# Cart explorer (Remote Studio)
 	cartExplorer = False
 	# The carts dictionary (key = cart gesture, item = cart name).
