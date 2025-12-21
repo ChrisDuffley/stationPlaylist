@@ -237,17 +237,18 @@ class AppModule(appModuleHandler.AppModule):
 			return self._statusBarObjs[fg.windowClassName]
 		# Look up different window class names depending on Creator version.
 		# TStatusBar should be used if this is playlist editor 6.0x.
-		statusBarClassName = "TStatusBar" if (
-			fg.windowClassName == "TEditMain"
-			and self.productVersion < "6.10"
-		) else "TTntStatusBar.UnicodeClass"
-		try:
-			statusBar = getNVDAObjectFromEvent(
-				windowUtils.findDescendantWindow(fg.windowHandle, className=statusBarClassName),
-				winUser.OBJID_CLIENT, 0
-			)
-		except LookupError:
-			statusBar = None
+		for statusBarClassName in (
+			"TStatusBar",  # Creator 6.0x
+			"TTntStatusBar.UnicodeClass"  # Creator 6.10 and later
+		):
+			try:
+				statusBar = getNVDAObjectFromEvent(
+					windowUtils.findDescendantWindow(fg.windowHandle, className=statusBarClassName),
+					winUser.OBJID_CLIENT, 0
+				)
+				break
+			except LookupError:
+				statusBar = None
 		if statusBar:
 			self._statusBarObjs[fg.windowClassName] = statusBar
 			return statusBar
