@@ -298,12 +298,16 @@ class AppModule(appModuleHandler.AppModule):
 		if "Track List" not in fg.firstChild.name:
 			return
 		column = self.columnSortKeys.index(gesture.displayName.split("+")[-1])
+		columnHeader = None
 		if not self.trackColumnHeaders:
 			trackListPropertySheet = fg.getChild(-2).firstChild.simpleFirstChild
-			trackList = trackListPropertySheet.simpleLastChild.previous
+			trackList = trackListPropertySheet.lastChild.firstChild
+			# Column headers can be None, so ask SysListView32 for column headers for redundancy.
+			columnHeader = trackList.firstChild._getColumnHeaderRaw(column)
 			self.trackColumnHeaders = trackList.children[-1]
-		# Get the last child included in list children, not last child as the former is column headers.
-		columnHeader = self.trackColumnHeaders.getChild(column).name
+		if not columnHeader:
+			# Get the last child included in list children, not last child as the former is column headers.
+			columnHeader = self.trackColumnHeaders.getChild(column).name
 		# Up arrow (↑) = ascending, down arrow (↓) = descending
 		match columnHeader[0]:
 			case "↑":
