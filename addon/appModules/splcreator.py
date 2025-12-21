@@ -255,6 +255,10 @@ class AppModule(appModuleHandler.AppModule):
 		# Force NVDA to locate bottommost control.
 		raise NotImplementedError
 
+	def getStatusBarText(self, obj):
+		# Report the display text once the status bar is known.
+		return self.statusBar.displayText
+
 	def event_NVDAObject_init(self, obj: NVDAObject):
 		if (
 			obj.windowClassName in (
