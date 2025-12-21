@@ -235,9 +235,15 @@ class AppModule(appModuleHandler.AppModule):
 		# Therefore, cache the status bar object (based on foreground window class name).
 		if (fg := api.getForegroundObject()).windowClassName in self._statusBarObjs:
 			return self._statusBarObjs[fg.windowClassName]
+		# Look up different window class names depending on Creator version.
+		# TStatusBar should be used if this is playlist editor 6.0x.
+		statusBarClassName = "TStatusBar" if (
+			fg.windowClassName == "TEditMain"
+			and self.productVersion < "6.10"
+		) else "TTntStatusBar.UnicodeClass"
 		try:
 			statusBar = getNVDAObjectFromEvent(
-				windowUtils.findDescendantWindow(fg.windowHandle, className="TTntStatusBar.UnicodeClass"),
+				windowUtils.findDescendantWindow(fg.windowHandle, className=statusBarClassName),
 				winUser.OBJID_CLIENT, 0
 			)
 		except LookupError:
@@ -250,7 +256,10 @@ class AppModule(appModuleHandler.AppModule):
 
 	def event_NVDAObject_init(self, obj: NVDAObject):
 		if (
-			obj.windowClassName == "TTntStatusBar.UnicodeClass"
+			obj.windowClassName in (
+				"TStatusBar",  # Creator 6.0x
+				"TTntStatusBar.UnicodeClass"  # Creator 6.10 and later
+			)
 			and obj.role == controlTypes.Role.STATICTEXT and not obj.name
 		):
 			# Status bar labels are not found in Creator and playlist editor but is written to the screen.
@@ -259,7 +268,10 @@ class AppModule(appModuleHandler.AppModule):
 	def event_nameChange(self, obj: NVDAObject, nextHandler: collections.abc.Callable[[], None]):
 		if not obj.name:
 			return
-		if obj.windowClassName == "TTntStatusBar.UnicodeClass":
+		if obj.windowClassName in (
+			"TStatusBar",  # Creator 6.0x
+			"TTntStatusBar.UnicodeClass"  # Creator 6.10 and later
+		):
 			if "match" in obj.name:
 				# Announce search/match results from insert tracks dialog.
 				# Unlike Studio (local and remote), everything must be announced.
