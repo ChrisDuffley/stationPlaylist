@@ -376,7 +376,7 @@ class AppModule(appModuleHandler.AppModule):
 			try:
 				statusBar = self._playlistEditorStatusCache[self.SPLEditorStatusBar]
 			except KeyError:
-				statusBar = api.getForegroundObject().firstChild.firstChild
+				statusBar = self.statusBar
 				self._playlistEditorStatusCache[self.SPLEditorStatusBar] = statusBar
 			ui.message(statusBar.getChild(2).displayText)
 
@@ -386,6 +386,6 @@ class AppModule(appModuleHandler.AppModule):
 			try:
 				statusBar = self._playlistEditorStatusCache[self.SPLEditorStatusBar]
 			except KeyError:
-				statusBar = api.getForegroundObject().firstChild.firstChild
+				statusBar = self.statusBar
 				self._playlistEditorStatusCache[self.SPLEditorStatusBar] = statusBar
 			ui.message(statusBar.getChild(3).displayText)
