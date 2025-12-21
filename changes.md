@@ -16,6 +16,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 * In track list in Creator and Track Tool, pressing Alt+number row keys to change column sort order will cause NVDA to announce the new sort order based on the column selected.
 * In Creator, Remote VT, and Track Tool, status bar content will be reported when performing read status bar command (NVDA+End/desktop layout, NVDA+Shift+End/laptop layout).
 * In Creator and Remote VT, NVDA will announce search results count when searching for tracks in insert tracks dialog.
+* In Creator and Remote VT, NVDA will no longer appear to do nothing or play error tones when reporting playlist information from playlist editor such as playlist hour and day, scheduled, and rotation.
 
 ## Version 25.12/25.06.11-LTS
 
