@@ -788,6 +788,17 @@ The encoder settings dialog is used to bring together various commands used to c
 
 These settings will be saved across sessions.
 
+#### Archiver encoder stream(s)
+
+Sometimes it is helpful to archive a show's recording using encoders. To designate an encoder as an archiver encoder, configure the encoder settings as follows:
+
+* Stream label: it should be memorable that allows you to identify it as an archiver encoder.
+* Focus to Studio when connected: no
+* Play first track when connected: no
+* Monitor connection status in the background: no
+* Play connection tone: no
+* Announce connection status until connected: no
+
 ## Frequently asked questions
 
 Here is a list of frequently asked questions when using NVDA with SPL suite of applications:
@@ -980,17 +991,6 @@ Yes. You can press F9 or Control+F9 from an encoder window to connect to a strea
 Q. How can I monitor all encoders when connecting all of them at once by pressing Control+F9 from SAM encoder window?
 
 Press Control+F9 to connect all encoders. Note that one of the streams should be set so Studio can start playback once connected.
-
-Q. I wish to designate an encoder as an archive encoder. What encoder settings should I use?
-
-For best experience, configure archiver encoder from NVDA side (via encoder settings dialog or Alt+NVDA+number row 0) as follows:
-
-* Stream label: it should be memorable that allows you to identify it as an archive encoder.
-* Focus to Studio when connected: no
-* Play first track when connected: no
-* Monitor connection status in the background: no
-* Play connection tone: no
-* Announce connection status until connected: no
 
 Q. Playback volume is lowered in Studio whenever NVDA speaks.
 
