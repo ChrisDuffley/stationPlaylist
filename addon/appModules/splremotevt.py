@@ -38,6 +38,9 @@ class AppModule(splcreator.AppModule):
 			clsList.insert(0, Dialog)
 		super().chooseNVDAObjectOverlayClasses(obj, clsList)
 
+	# Cache status bar objects to improve status bar retrieval performance.
+	# This is a separate cache from Creator.
+	_statusBarObjs = {}
 	# Playlist editor is same as Creator except it responds a bit faster.
 	# Without keeping a copy of status cache, NVDA will announce wrong values
 	# as Creator app module's cache will be used.
