@@ -358,7 +358,10 @@ class AppModule(appModuleHandler.AppModule):
 				playlistHour = playlistDateTime.simpleNext
 				playlistDay = playlistHour.simpleNext.simpleNext
 				self._playlistEditorStatusCache[self.SPLEditorDateTime] = [playlistHour, playlistDay]
-			ui.message(" ".join([playlistDay.value, playlistHour.value]))
+			try:
+				ui.message(" ".join([playlistDay.value, playlistHour.value]))
+			except Exception:
+				ui.message("")
 
 	@scriptHandler.script(gesture="kb:alt+NVDA+2", speakOnDemand=True)
 	def script_playlistDuration(self, gesture):
