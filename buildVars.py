@@ -35,8 +35,8 @@ addon_info = AddonInfo(
 * In local Studio, NVDA will report library scan count regardless of "beep for status announcements" setting from add-on settings.
 * In Remote Studio, when closing options screen (Control+O) while cart explorer is active, it is no longer necessary to reenter Cart Explorer to view updated cart assignments.
 * Resolved several issues while using insert tracks dialog in Remote Studio, including NVDA saying "scan start" when pressing Control+Shift+R and verbose output for search results status.
-* In track list in Creator and Track Tool, pressing Alt+number row keys to change column sort order will cause NVDA to announce the new sort order based on the column selected.
-* In Creator, Remote VT, and Track Tool, status bar content will be reported when performing read status bar command (NVDA+End/desktop layout, NVDA+Shift+End/laptop layout).
+* In track list in Creator and Track Tool, pressing Alt+number row keys to change column sort order will cause NVDA to announce the new sort order based on the column selected. There will be a delay when performing these commands in Creator.
+* In Creator, Remote VT, and Track Tool, status bar content will be reported when performing read status bar command (NVDA+End/desktop layout, NVDA+Shift+End/laptop layout). In particular, improved status bar content announcement performance in Creator.
 * In Creator and Remote VT, NVDA will announce search results count when searching for tracks in insert tracks dialog.
 * In Creator and Remote VT, NVDA will no longer appear to do nothing or play error tones when reporting playlist information from playlist editor such as playlist hour and day, scheduled, and rotation."""),
 	# Author(s)
