@@ -690,7 +690,7 @@ class AppModule(appModuleHandler.AppModule):
 			return
 		# Use structural pattern matching to detect overlay classes.
 		match obj.windowClassName:
-			case "TTntListView.UnicodeClass":
+			case "TTntListView.UnicodeClass" | "TListView":
 				if role == controlTypes.Role.LISTITEM:
 					if obj.parent.simpleParent.windowClassName == "TStudioForm":
 						clsList.insert(0, StudioPlaylistViewerItem)
