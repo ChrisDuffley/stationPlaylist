@@ -2,7 +2,7 @@
 
 This page lists the complete changelog for StationPlaylist add-on releases.
 
-## Version Preview
+## Version 26.03
 
 * Initial support for StationPlaylist Recorder (not to be confused with VT Recorder).
 * NVDA will announce labels for SPL Recorder configurationnnnnnn screen controls.
