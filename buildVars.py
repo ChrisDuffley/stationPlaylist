@@ -26,7 +26,9 @@ addon_info = AddonInfo(
 	addon_version="26.01",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""* Most if not all multicolumn lists now have column explorer and column navigation support. Mainly tested in local Studio's Listener Stats window and the same list in Options > Listener Stats."""),
+	addon_changelog=_("""* Initial support for StationPlaylist Recorder (not to be confused with VT Recorder).
+* NVDA will announce labels for SPL Recorder configurationnnnnnn screen controls.
+* Most if not all multicolumn lists now have column explorer and column navigation support. Mainly tested in local Studio's Listener Stats window and the same list in Options > Listener Stats."""),
 	# Author(s)
 	addon_author="Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)",
 	# URL for the add-on documentation support
