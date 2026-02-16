@@ -2,7 +2,7 @@
 
 * Authors: Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)
 
-This add-on package provides improved usage of StationPlaylist Studio and other StationPlaylist apps, as well as providing utilities to control Studio from anywhere. Supported apps include Studio, Remote Studio, Creator, Track Tool, VT Recorder, and Streamer, as well as SAM, SPL, and AltaCast encoders.
+This add-on package provides improved usage of StationPlaylist Studio and other StationPlaylist apps, as well as providing utilities to control Studio from anywhere. Supported apps include Studio, Remote Studio, Creator, Track Tool, Recorder (SPL and VT), and Streamer, as well as SAM, SPL, and AltaCast encoders.
 
 For more information about the add-on, read the [add-on guide][1].
 
@@ -210,6 +210,8 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 
 ## Version Preview
 
+* Initial support for StationPlaylist Recorder (not to be confused with VT Recorder).
+* NVDA will announce labels for SPL Recorder configurationnnnnnn screen controls.
 * Most if not all multicolumn lists now have column explorer and column navigation support. Mainly tested in local Studio's Listener Stats window and the same list in Options > Listener Stats.
 
 ## Version 26.01

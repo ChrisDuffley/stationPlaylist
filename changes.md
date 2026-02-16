@@ -4,6 +4,8 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 
 ## Version Preview
 
+* Initial support for StationPlaylist Recorder (not to be confused with VT Recorder).
+* NVDA will announce labels for SPL Recorder configurationnnnnnn screen controls.
 * Most if not all multicolumn lists now have column explorer and column navigation support. Mainly tested in local Studio's Listener Stats window and the same list in Options > Listener Stats.
 
 ## Version 26.01
