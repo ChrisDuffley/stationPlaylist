@@ -51,6 +51,7 @@ And so much more.
 In addition to StationPlaylist Studio, this add-on comes with support for the following:
 
 * StationPlaylist Remote Studio
+* StationPlaylist Recorder
 * StationPlaylist Creator (including Playlist Editor)
 * Track Tool
 * Remote VT client (mostly playlist editor)
