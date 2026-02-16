@@ -266,7 +266,8 @@ unlabeledControlsWindowClassNames: list[str] = [
 	"TTntComboBox.UnicodeClass",
 	"TMemo",
 	"TSpinEditMS",
-	"TDateTimePicker"
+	"TDateTimePicker",
+	"TTrackBar"
 ]
 
 # Detect and label controls based on foreground window class name passed in.
