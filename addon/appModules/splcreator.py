@@ -237,6 +237,7 @@ class AppModule(appModuleHandler.AppModule):
 			return self._statusBarObjs[fg.windowClassName]
 		# Look up different window class names depending on Creator version.
 		# TStatusBar should be used if this is playlist editor 6.0x.
+		statusBar = None
 		for statusBarClassName in (
 			"TStatusBar",  # Creator 6.0x
 			"TTntStatusBar.UnicodeClass"  # Creator 6.10 and later
@@ -248,7 +249,7 @@ class AppModule(appModuleHandler.AppModule):
 				)
 				break
 			except LookupError:
-				statusBar = None
+				pass
 		if statusBar:
 			self._statusBarObjs[fg.windowClassName] = statusBar
 			return statusBar
