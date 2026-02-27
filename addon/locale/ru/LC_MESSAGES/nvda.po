@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nvdaaddons\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
-"POT-Creation-Date: 2025-12-29 03:34+0000\n"
-"PO-Revision-Date: 2026-01-26 00:34\n"
+"POT-Creation-Date: 2026-02-16 04:04+0000\n"
+"PO-Revision-Date: 2026-02-23 00:39\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
@@ -16,32 +16,6 @@ msgstr ""
 "X-Crowdin-Language: ru\n"
 "X-Crowdin-File: stationPlaylist.pot\n"
 "X-Crowdin-File-ID: 218\n"
-
-#. Translators: Script category for StationPlaylist add-on commands in input gestures dialog.
-#. Add-on summary/title, usually the user visible name of the add-on
-#. Translators: Summary/title for this add-on
-#. to be shown on installation and add-on information found in add-on store
-#: addon/appModules/tracktool.py:162 addon/appModules/splcreator.py:173
-#: addon/appModules/splcommon/splbase.py:180
-#: addon/appModules/splcommon/splbase.py:232
-#: addon/appModules/splstudio/__init__.py:308
-#: addon/appModules/splstudio/__init__.py:394
-#: addon/appModules/splstudio/__init__.py:492
-#: addon/appModules/splengine/encoders.py:470
-#: addon/appModules/splengine/encoders.py:489
-#: addon/appModules/splengine/encoders.py:506
-#: addon/appModules/splengine/encoders.py:541
-#: addon/appModules/splengine/encoders.py:568
-#: addon/appModules/splengine/encoders.py:594
-#: addon/globalPlugins/splUtils.py:158 buildVars.py:21
-msgid "StationPlaylist"
-msgstr "StationPlaylist"
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-#: addon/appModules/tracktool.py:200 addon/appModules/splcreator.py:289
-#: addon/appModules/splstudio/__init__.py:1204
-msgid "Opens SPL Studio add-on configuration dialog."
-msgstr "Открывает диалог настройки дополнения SPL Studio."
 
 #. Translators: Presented when cart modes are toggled while cart explorer is on.
 #: addon/appModules/remotestudio.py:112
@@ -74,238 +48,37 @@ msgstr "Вход в обозреватель корзин"
 msgid "Exiting cart explorer"
 msgstr "Выход из обозревателя корзин"
 
+#. Translators: Script category for StationPlaylist add-on commands in input gestures dialog.
+#. Add-on summary/title, usually the user visible name of the add-on
+#. Translators: Summary/title for this add-on
+#. to be shown on installation and add-on information found in add-on store
+#: addon/appModules/splcreator.py:173 addon/appModules/tracktool.py:162
+#: addon/appModules/splcommon/splbase.py:180
+#: addon/appModules/splcommon/splbase.py:232
+#: addon/appModules/splstudio/__init__.py:308
+#: addon/appModules/splstudio/__init__.py:394
+#: addon/appModules/splstudio/__init__.py:492
+#: addon/appModules/splengine/encoders.py:470
+#: addon/appModules/splengine/encoders.py:489
+#: addon/appModules/splengine/encoders.py:506
+#: addon/appModules/splengine/encoders.py:541
+#: addon/appModules/splengine/encoders.py:568
+#: addon/appModules/splengine/encoders.py:594
+#: addon/globalPlugins/splUtils.py:158 buildVars.py:21
+msgid "StationPlaylist"
+msgstr "StationPlaylist"
+
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+#: addon/appModules/splcreator.py:289 addon/appModules/tracktool.py:200
+#: addon/appModules/splstudio/__init__.py:1204
+msgid "Opens SPL Studio add-on configuration dialog."
+msgstr "Открывает диалог настройки дополнения SPL Studio."
+
 #. Translators: announced in SPL Creator and Remote VT
 #. when trying to perform playlist status commands while outside of playlist editor.
 #: addon/appModules/splcreator.py:344
 msgid "You are not in playlist editor"
 msgstr "Вы сейчас не в редакторе списков воспроизведения"
-
-#. Translators: The name of the default (normal) profile.
-#: addon/appModules/splcommon/splconfig.py:37
-msgid "Normal profile"
-msgstr "Обычный профиль"
-
-#. Translators: Message displayed when attempting to reset Studio add-on settings
-#. while an instant switch profile is active.
-#: addon/appModules/splcommon/splconfig.py:434
-msgid "An instant switch profile is active. Resetting Studio add-on settings means normal profile will become active and switch profile settings will be left in unpredictable state. Are you sure you wish to reset Studio add-on settings to factory defaults?"
-msgstr "Активен профиль мгновенного переключения. Сброс настроек дополнения Studio означает, что активируется обычный профиль, а настройки профиля переключения останутся в непредсказуемом состоянии. Вы действительно хотите восстановить заводские настройки дополнения Studio по умолчанию?"
-
-#. Translators: The title of the confirmation dialog for Studio add-on settings reset.
-#: addon/appModules/splcommon/splconfig.py:440
-msgid "SPL Studio add-on reset"
-msgstr "Сброс настроек дополнения SPL Studio"
-
-#. Translators: A flag indicating the currently active broadcast profile.
-#: addon/appModules/splcommon/splconfig.py:532
-msgid "active"
-msgstr "активен"
-
-#. Translators: A flag indicating the broadcast profile is an instant switch profile.
-#: addon/appModules/splcommon/splconfig.py:535
-#: addon/appModules/splcommon/splconfui.py:431
-#: addon/appModules/splcommon/splconfui.py:433
-#: addon/appModules/splcommon/splconfui.py:439
-msgid "instant switch"
-msgstr "мгновенное переключение"
-
-#. Translators: Presented when switch to instant switch profile was successful.
-#: addon/appModules/splcommon/splconfig.py:561
-#, python-brace-format
-msgid "Switching to {newProfileName}"
-msgstr "Переключение на {newProfileName}"
-
-#. Translators: Presented when switching from instant switch profile to a previous profile.
-#: addon/appModules/splcommon/splconfig.py:565
-#, python-brace-format
-msgid "Returning to {previousProfile}"
-msgstr "Возврат к {previousProfile}"
-
-#. Translators: Standard error title for configuration error.
-#: addon/appModules/splcommon/splconfig.py:670
-msgid "Studio add-on Configuration error"
-msgstr "Ошибка конфигурации дополнения Studio"
-
-#. Translators: announced when only normal profile is in use.
-#: addon/appModules/splcommon/splconfig.py:720
-msgid "Only normal profile is in use"
-msgstr "Используется только обычный профиль"
-
-#. Translators: Presented when trying to switch to an instant switch profile
-#. when the instant switch profile is not defined.
-#: addon/appModules/splcommon/splconfig.py:726
-msgid "No instant switch profile is defined"
-msgstr "Профиль мгновенного переключения не определён"
-
-#. Translators: Presented when trying to switch to an instant switch profile
-#. when one is already using the instant switch profile.
-#: addon/appModules/splcommon/splconfig.py:732
-msgid "You are already in the instant switch profile"
-msgstr "Вы уже зарегистрированы в профиле мгновенного переключения"
-
-#. Translators: A message giving basic information about the add-on.
-#: addon/appModules/splcommon/splconfig.py:749
-msgid "Welcome to StationPlaylist add-on for NVDA,\n"
-"your companion to broadcasting with SPL Studio using NVDA screen reader.\n\n"
-"Highlights of StationPlaylist add-on include:\n"
-"* Layer commands for obtaining status information\n"
-"* Various ways to examine track columns\n"
-"* Various ways to find tracks\n"
-"* Tools to analyze the loaded playlist\n"
-"* Cart Explorer to learn cart assignments\n"
-"* Comprehensive settings and documentation\n"
-"* Completely free, open-source and community-driven\n"
-"* And much more\n\n"
-"Visit www.stationplaylist.com for details on StationPlaylist suite of applications.\n"
-"Visit StationPlaylist add-on GitHub page (https://github.com/ChrisDuffley/stationPlaylist)\n"
-"for add-on details and to read the documentation.\n"
-"Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to return to this dialog.\n\n"
-"Thank you."
-msgstr "Добро пожаловать в дополнение StationPlaylist для NVDA,\n"
-"которое станет вашим помощником в трансляции с SPL Studio с помощью программы чтения с экрана NVDA.\n\n"
-"Основные возможности дополнения StationPlaylist включают в себя:\n"
-"* Уровневые команды для получения информации о состоянии\n"
-"* Различные способы просмотра столбцов дорожек\n"
-"* Различные способы поиска дорожек\n"
-"* Инструменты для анализа загруженного списка воспроизведения\n"
-"* Обозреватель корзин для изучения назначений в корзинах\n"
-"* Подробные настройки и документация\n"
-"* Полностью бесплатное, с открытым исходным кодом и поддерживаемое сообществом\n"
-"* И многое другое\n\n"
-"Посетите www.stationplaylist.com для получения подробной информации о пакете приложений StationPlaylist.\n"
-"Посетите запись StationPlaylist на странице дополнения в github(https://github.com/ChrisDuffley/stationPlaylist)\n"
-"для более подробной информации о дополнении и ознакомления с документацией.\n"
-"Хотите ещё раз увидеть это диалог? Просто нажмите Alt+NVDA+F1 во время использования Studio, чтобы вернуться к нему.\n\n"
-"Спасибо."
-
-#. Translators: Title of a dialog displayed when the add-on starts presenting basic information,
-#. similar to NVDA's own welcome dialog.
-#: addon/appModules/splcommon/splconfig.py:787
-msgid "Welcome to StationPlaylist add-on"
-msgstr "Добро пожаловать в дополнение StationPlaylist"
-
-#: addon/appModules/splcommon/splconfig.py:797
-msgid "Show welcome dialog when I start Studio"
-msgstr "Показывать диалог приветствия при запуске Studio"
-
-#. Translators: A setting in braille timer options.
-#: addon/appModules/splcommon/splconfig.py:841
-msgid "Braille timer off"
-msgstr "Брайлевский таймер отключён"
-
-#. Translators: A setting in braille timer options.
-#: addon/appModules/splcommon/splconfig.py:846
-msgid "Braille track endings"
-msgstr "Окончания дорожек по брайлю"
-
-#. Translators: A setting in braille timer options.
-#: addon/appModules/splcommon/splconfig.py:848
-msgid "Outro"
-msgstr "Окончание"
-
-#. Translators: A setting in braille timer options.
-#: addon/appModules/splcommon/splconfig.py:852
-msgid "Braille intro endings"
-msgstr "Вступления и окончание по Брайлю"
-
-#. Translators: A setting in braille timer options.
-#: addon/appModules/splcommon/splconfig.py:854
-msgid "Intro"
-msgstr "Вступление"
-
-#. Translators: A setting in braille timer options.
-#: addon/appModules/splcommon/splconfig.py:858
-msgid "Braille intro and track endings"
-msgstr "Вступление и окончания дорожек по брайлю"
-
-#. Translators: A setting in braille timer options.
-#. Translators: One of the track comment notification settings.
-#: addon/appModules/splcommon/splconfig.py:860
-#: addon/appModules/splcommon/splconfui.py:561
-msgid "Both"
-msgstr "Оба"
-
-#. Translators: A setting in library scan announcement options.
-#: addon/appModules/splcommon/splconfig.py:866
-msgid "Do not announce library scans"
-msgstr "Не объявлять о сканировании библиотеки"
-
-#. Translators: A setting in library scan announcement options.
-#: addon/appModules/splcommon/splconfig.py:871
-msgid "Announce start and end of a library scan"
-msgstr "Объявлять о начале и завершении сканирования библиотеки"
-
-#. Translators: One of the library scan announcement settings.
-#: addon/appModules/splcommon/splconfig.py:872
-#: addon/appModules/splcommon/splconfui.py:505
-msgid "Start and end only"
-msgstr "Только начало и конец"
-
-#. Translators: A setting in library scan announcement options.
-#: addon/appModules/splcommon/splconfig.py:876
-msgid "Announce the progress of a library scan"
-msgstr "Объявлять о ходе проверки библиотеки"
-
-#. Translators: One of the library scan announcement settings.
-#: addon/appModules/splcommon/splconfig.py:877
-#: addon/appModules/splcommon/splconfui.py:507
-msgid "Scan progress"
-msgstr "Ход сканирования"
-
-#. Translators: A setting in library scan announcement options.
-#: addon/appModules/splcommon/splconfig.py:881
-msgid "Announce progress and item count of a library scan"
-msgstr "Объявлять о ходе сканирования и количестве элементов библиотеки"
-
-#. Translators: One of the library scan announcement settings.
-#: addon/appModules/splcommon/splconfig.py:882
-#: addon/appModules/splcommon/splconfui.py:509
-msgid "Scan count"
-msgstr "Число сканирований"
-
-#. Translators: A message informing users that Studio is not running so certain commands will not work.
-#: addon/appModules/splcommon/splbase.py:62
-msgid "Studio main window not found"
-msgstr "Не найдено главное окно Studio"
-
-#. Translators: presented when SPL Studio window is minimized.
-#: addon/appModules/splcommon/splbase.py:130
-msgid "SPL Studio is minimized to system tray."
-msgstr "SPL Studio свёрнута в системный лоток."
-
-#. Translators: input help mode message for column explorer commands.
-#: addon/appModules/splcommon/splbase.py:175
-msgid "Pressing once announces data for a track column, pressing twice will present column data in a browse mode window"
-msgstr "При однократном нажатии отображаются данные для столбца дорожки, при двукратном нажатии данные столбца отображаются в окне режима обзора"
-
-#. Translators: Presented when column is out of range.
-#: addon/appModules/splcommon/splbase.py:192
-#, python-brace-format
-msgid "Column {columnPosition} not found"
-msgstr "Столбец {columnPosition} не найден"
-
-#. Translators: Presented when a specific column header is not found.
-#: addon/appModules/splcommon/splbase.py:208
-#, python-brace-format
-msgid "{headerText} not found"
-msgstr "{headerText} не найден"
-
-#. Translators: Title of the column data window.
-#: addon/appModules/splcommon/splbase.py:226
-#: addon/appModules/splcommon/splbase.py:243
-msgid "Track data"
-msgstr "Данные дорожки"
-
-#. Translators: input help mode message for columns viewer command.
-#: addon/appModules/splcommon/splbase.py:230
-msgid "Presents data for all columns in the currently selected track"
-msgstr "Предоставляет данные по всем столбцам текущей выбранной дорожки"
-
-#. Translators: location text for a playlist item (example: item 1 of 10).
-#: addon/appModules/splcommon/splbase.py:248
-#, python-brace-format
-msgid "Item {current} of {total}"
-msgstr "Элемент {current} из {total}"
 
 #. Translators: title of a dialog to configure broadcast profiles.
 #: addon/appModules/splcommon/splconfui.py:43
@@ -373,6 +146,14 @@ msgstr "Привязки профиля для {profileName}"
 msgid "This is an &instant switch profile"
 msgstr "Это профиль &мгновенного переключения"
 
+#. Translators: A flag indicating the broadcast profile is an instant switch profile.
+#: addon/appModules/splcommon/splconfui.py:431
+#: addon/appModules/splcommon/splconfui.py:433
+#: addon/appModules/splcommon/splconfui.py:439
+#: addon/appModules/splcommon/splconfig.py:535
+msgid "instant switch"
+msgstr "мгновенное переключение"
+
 #. Translators: the label for a setting in SPL add-on settings
 #. to set status announcement between words and beeps.
 #: addon/appModules/splcommon/splconfui.py:459
@@ -416,6 +197,24 @@ msgstr "Вступление и окончание дорожки"
 msgid "B&raille timer:"
 msgstr "Б&райлевский таймер:"
 
+#. Translators: One of the library scan announcement settings.
+#: addon/appModules/splcommon/splconfui.py:505
+#: addon/appModules/splcommon/splconfig.py:872
+msgid "Start and end only"
+msgstr "Только начало и конец"
+
+#. Translators: One of the library scan announcement settings.
+#: addon/appModules/splcommon/splconfui.py:507
+#: addon/appModules/splcommon/splconfig.py:877
+msgid "Scan progress"
+msgstr "Ход сканирования"
+
+#. Translators: One of the library scan announcement settings.
+#: addon/appModules/splcommon/splconfui.py:509
+#: addon/appModules/splcommon/splconfig.py:882
+msgid "Scan count"
+msgstr "Число сканирований"
+
 #. Translators: The label for a setting in SPL add-on settings
 #. to control library scan announcement.
 #: addon/appModules/splcommon/splconfui.py:513
@@ -454,6 +253,13 @@ msgstr "Сообщение"
 #: addon/appModules/splcommon/splconfui.py:559
 msgid "Beep"
 msgstr "Сигнал"
+
+#. Translators: One of the track comment notification settings.
+#. Translators: A setting in braille timer options.
+#: addon/appModules/splcommon/splconfui.py:561
+#: addon/appModules/splcommon/splconfig.py:860
+msgid "Both"
+msgstr "Оба"
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to set how track comments are announced.
@@ -890,174 +696,199 @@ msgstr "Используется обычный профиль, не возмо�
 msgid "Add-on settings dialog is open, cannot switch profiles"
 msgstr "Открыт диалог настроек дополнения, переключение профилей невозможно"
 
-#. Translators: Text of the dialog when another find dialog is open.
-#: addon/appModules/splstudio/splmisc.py:44
-msgid "Another find dialog is open."
-msgstr "Открыт ещё один диалог поиска."
+#. Translators: A message informing users that Studio is not running so certain commands will not work.
+#: addon/appModules/splcommon/splbase.py:62
+msgid "Studio main window not found"
+msgstr "Не найдено главное окно Studio"
 
-#. Translators: Text of the dialog when a generic error has occured.
-#: addon/appModules/splstudio/splmisc.py:51
-msgid "An unexpected error has occured when trying to open find dialog."
-msgstr "При попытке открыть диалог поиска произошла непредвиденная ошибка."
+#. Translators: presented when SPL Studio window is minimized.
+#: addon/appModules/splcommon/splbase.py:130
+msgid "SPL Studio is minimized to system tray."
+msgstr "SPL Studio свёрнута в системный лоток."
 
-#. Translators: the label for find prompt in track finder dialog.
-#: addon/appModules/splstudio/splmisc.py:88
-msgid "Enter or select the name or the artist of the track you wish to &search"
-msgstr "Введите или выберите название или исполнителя дорожки, которую вы хотите &найти"
+#. Translators: input help mode message for column explorer commands.
+#: addon/appModules/splcommon/splbase.py:175
+msgid "Pressing once announces data for a track column, pressing twice will present column data in a browse mode window"
+msgstr "При однократном нажатии отображаются данные для столбца дорожки, при двукратном нажатии данные столбца отображаются в окне режима обзора"
 
-#. Translators: the label for find prompt in column search dialog.
-#: addon/appModules/splstudio/splmisc.py:91
-msgid "Enter or select text to be &searched in a column"
-msgstr "Введите или выберите текст для &поиска в столбце"
-
-#. Translators: The label in track finder to search columns.
-#: addon/appModules/splstudio/splmisc.py:99
-msgid "C&olumn to search:"
-msgstr "Столбец&для поиска:"
-
-#. Translators: The title of a dialog to find tracks with duration within a specified range.
-#: addon/appModules/splstudio/splmisc.py:169
-msgid "Time range finder"
-msgstr "Поиск диапазона времени"
-
-#: addon/appModules/splstudio/splmisc.py:179
-msgid "Minimum duration"
-msgstr "Минимальная продолжительность"
-
-#. Translators: the minute label in time range finder dialog.
-#: addon/appModules/splstudio/splmisc.py:184
-#: addon/appModules/splstudio/splmisc.py:206
-msgid "Minute"
-msgstr "Минута"
-
-#. Translators: the second label in time range finder dialog.
-#: addon/appModules/splstudio/splmisc.py:192
-#: addon/appModules/splstudio/splmisc.py:209
-msgid "Second"
-msgstr "Секунда"
-
-#: addon/appModules/splstudio/splmisc.py:202
-msgid "Maximum duration"
-msgstr "Максимальная продолжительность"
-
-#. Translators: Message to report wrong value for duration fields.
-#: addon/appModules/splstudio/splmisc.py:230
-msgid "Minimum duration is greater than the maximum duration."
-msgstr "Минимальная продолжительность больше максимальной."
-
-#: addon/appModules/splstudio/splmisc.py:277
-msgid "No track with duration between minimum and maximum duration."
-msgstr "Нет дорожки с длительностью от минимальной до максимальной."
-
-#. Translators: Standard error title for find error (copy this from main nvda.po).
-#: addon/appModules/splstudio/splmisc.py:279
-msgid "Time range find error"
-msgstr "Ошибка поиска временного диапазона"
-
-#. Translators: presented when metadata streaming status cannot be obtained.
-#: addon/appModules/splstudio/splmisc.py:326
-msgid "Cannot obtain metadata streaming status information"
-msgstr "Не удалось получить информацию о состоянии потоковой передачи метаданных"
-
-#. Translators: Status message for metadata streaming.
-#: addon/appModules/splstudio/splmisc.py:335
-msgid "No metadata streaming URL's defined"
-msgstr "Не назначен URL-адрес потоковой передачи метаданных"
-
-#. Translators: Status message for metadata streaming.
-#: addon/appModules/splstudio/splmisc.py:338
-msgid "Metadata streaming configured for DSP encoder"
-msgstr "Потоковая передача метаданных настроена для кодера DSP"
-
-#. Translators: Status message for metadata streaming.
-#: addon/appModules/splstudio/splmisc.py:344
+#. Translators: Presented when column is out of range.
+#: addon/appModules/splcommon/splbase.py:192
 #, python-brace-format
-msgid "Metadata streaming configured for DSP encoder and URL {URL}"
-msgstr "Потоковая передача метаданных настроена для кодера DSP и URL {URL}"
+msgid "Column {columnPosition} not found"
+msgstr "Столбец {columnPosition} не найден"
 
-#. Translators: Status message for metadata streaming.
-#: addon/appModules/splstudio/splmisc.py:347
+#. Translators: Presented when a specific column header is not found.
+#: addon/appModules/splcommon/splbase.py:208
 #, python-brace-format
-msgid "Metadata streaming configured for URL {URL}"
-msgstr "Потоковая передача метаданных настроена для URL {URL}"
+msgid "{headerText} not found"
+msgstr "{headerText} не найден"
 
-#. Translators: Status message for metadata streaming.
-#: addon/appModules/splstudio/splmisc.py:353
+#. Translators: Title of the column data window.
+#: addon/appModules/splcommon/splbase.py:226
+#: addon/appModules/splcommon/splbase.py:243
+msgid "Track data"
+msgstr "Данные дорожки"
+
+#. Translators: input help mode message for columns viewer command.
+#: addon/appModules/splcommon/splbase.py:230
+msgid "Presents data for all columns in the currently selected track"
+msgstr "Предоставляет данные по всем столбцам текущей выбранной дорожки"
+
+#. Translators: location text for a playlist item (example: item 1 of 10).
+#: addon/appModules/splcommon/splbase.py:248
 #, python-brace-format
-msgid "Metadata streaming configured for DSP encoder and URL's {URL}"
-msgstr "Потоковая передача метаданных настроена для кодера DSP и URL {URL}"
+msgid "Item {current} of {total}"
+msgstr "Элемент {current} из {total}"
 
-#. Translators: Status message for metadata streaming.
-#: addon/appModules/splstudio/splmisc.py:356
+#. Translators: The name of the default (normal) profile.
+#: addon/appModules/splcommon/splconfig.py:37
+msgid "Normal profile"
+msgstr "Обычный профиль"
+
+#. Translators: Message displayed when attempting to reset Studio add-on settings
+#. while an instant switch profile is active.
+#: addon/appModules/splcommon/splconfig.py:434
+msgid "An instant switch profile is active. Resetting Studio add-on settings means normal profile will become active and switch profile settings will be left in unpredictable state. Are you sure you wish to reset Studio add-on settings to factory defaults?"
+msgstr "Активен профиль мгновенного переключения. Сброс настроек дополнения Studio означает, что активируется обычный профиль, а настройки профиля переключения останутся в непредсказуемом состоянии. Вы действительно хотите восстановить заводские настройки дополнения Studio по умолчанию?"
+
+#. Translators: The title of the confirmation dialog for Studio add-on settings reset.
+#: addon/appModules/splcommon/splconfig.py:440
+msgid "SPL Studio add-on reset"
+msgstr "Сброс настроек дополнения SPL Studio"
+
+#. Translators: A flag indicating the currently active broadcast profile.
+#: addon/appModules/splcommon/splconfig.py:532
+msgid "active"
+msgstr "активен"
+
+#. Translators: Presented when switch to instant switch profile was successful.
+#: addon/appModules/splcommon/splconfig.py:561
 #, python-brace-format
-msgid "Metadata streaming configured for URL's {URL}"
-msgstr "Потоковая передача метаданных настроена для URL {URL}"
+msgid "Switching to {newProfileName}"
+msgstr "Переключение на {newProfileName}"
 
-#. Translators: the Playlist transcripts dialog title.
-#: addon/appModules/splstudio/splmisc.py:481
-#: addon/appModules/splstudio/splmisc.py:720
-msgid "Playlist Transcripts"
-msgstr "Расшифровки списка воспроизведения"
+#. Translators: Presented when switching from instant switch profile to a previous profile.
+#: addon/appModules/splcommon/splconfig.py:565
+#, python-brace-format
+msgid "Returning to {previousProfile}"
+msgstr "Возврат к {previousProfile}"
 
-#. Translators: presented when playlist transcript data was copied to the clipboard.
-#: addon/appModules/splstudio/splmisc.py:494
-msgid "Playlist data copied to clipboard"
-msgstr "Данные списка воспроизведения скопированы в буфер обмена"
+#. Translators: Standard error title for configuration error.
+#: addon/appModules/splcommon/splconfig.py:670
+msgid "Studio add-on Configuration error"
+msgstr "Ошибка конфигурации дополнения Studio"
 
-#. Translators: Text of the dialog when another playlist transcripts dialog is open.
-#: addon/appModules/splstudio/splmisc.py:692
-msgid "Another playlist transcripts dialog is open."
-msgstr "Открыт другой диалог расшифровки списка воспроизведения."
+#. Translators: announced when only normal profile is in use.
+#: addon/appModules/splcommon/splconfig.py:720
+msgid "Only normal profile is in use"
+msgstr "Используется только обычный профиль"
 
-#. Translators: one of the playlist transcripts range options.
-#: addon/appModules/splstudio/splmisc.py:729
-msgid "entire playlist"
-msgstr "весь список воспроизведения"
+#. Translators: Presented when trying to switch to an instant switch profile
+#. when the instant switch profile is not defined.
+#: addon/appModules/splcommon/splconfig.py:726
+msgid "No instant switch profile is defined"
+msgstr "Профиль мгновенного переключения не определён"
 
-#. Translators: one of the playlist transcripts range options.
-#: addon/appModules/splstudio/splmisc.py:731
-msgid "start to current item"
-msgstr "начать с текущего элемента"
+#. Translators: Presented when trying to switch to an instant switch profile
+#. when one is already using the instant switch profile.
+#: addon/appModules/splcommon/splconfig.py:732
+msgid "You are already in the instant switch profile"
+msgstr "Вы уже зарегистрированы в профиле мгновенного переключения"
 
-#. Translators: one of the playlist transcripts range options.
-#: addon/appModules/splstudio/splmisc.py:733
-msgid "current item to the end"
-msgstr "текущий элемент до конца"
+#. Translators: A message giving basic information about the add-on.
+#: addon/appModules/splcommon/splconfig.py:749
+msgid "Welcome to StationPlaylist add-on for NVDA,\n"
+"your companion to broadcasting with SPL Studio using NVDA screen reader.\n\n"
+"Highlights of StationPlaylist add-on include:\n"
+"* Layer commands for obtaining status information\n"
+"* Various ways to examine track columns\n"
+"* Various ways to find tracks\n"
+"* Tools to analyze the loaded playlist\n"
+"* Cart Explorer to learn cart assignments\n"
+"* Comprehensive settings and documentation\n"
+"* Completely free, open-source and community-driven\n"
+"* And much more\n\n"
+"Visit www.stationplaylist.com for details on StationPlaylist suite of applications.\n"
+"Visit StationPlaylist add-on GitHub page (https://github.com/ChrisDuffley/stationPlaylist)\n"
+"for add-on details and to read the documentation.\n"
+"Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to return to this dialog.\n\n"
+"Thank you."
+msgstr "Добро пожаловать в дополнение StationPlaylist для NVDA,\n"
+"которое станет вашим помощником в трансляции с SPL Studio с помощью программы чтения с экрана NVDA.\n\n"
+"Основные возможности дополнения StationPlaylist включают в себя:\n"
+"* Уровневые команды для получения информации о состоянии\n"
+"* Различные способы просмотра столбцов дорожек\n"
+"* Различные способы поиска дорожек\n"
+"* Инструменты для анализа загруженного списка воспроизведения\n"
+"* Обозреватель корзин для изучения назначений в корзинах\n"
+"* Подробные настройки и документация\n"
+"* Полностью бесплатное, с открытым исходным кодом и поддерживаемое сообществом\n"
+"* И многое другое\n\n"
+"Посетите www.stationplaylist.com для получения подробной информации о пакете приложений StationPlaylist.\n"
+"Посетите запись StationPlaylist на странице дополнения в github(https://github.com/ChrisDuffley/stationPlaylist)\n"
+"для более подробной информации о дополнении и ознакомления с документацией.\n"
+"Хотите ещё раз увидеть это диалог? Просто нажмите Alt+NVDA+F1 во время использования Studio, чтобы вернуться к нему.\n\n"
+"Спасибо."
 
-#. Translators: one of the playlist transcripts range options.
-#: addon/appModules/splstudio/splmisc.py:735
-msgid "current hour"
-msgstr "текущий час"
+#. Translators: Title of a dialog displayed when the add-on starts presenting basic information,
+#. similar to NVDA's own welcome dialog.
+#: addon/appModules/splcommon/splconfig.py:787
+msgid "Welcome to StationPlaylist add-on"
+msgstr "Добро пожаловать в дополнение StationPlaylist"
 
-#. Translators: The label in playlist transcripts dialog to select playlist transcript range.
-#: addon/appModules/splstudio/splmisc.py:739
-msgid "Transcript range:"
-msgstr "Диапазон расшифровки:"
+#: addon/appModules/splcommon/splconfig.py:797
+msgid "Show welcome dialog when I start Studio"
+msgstr "Показывать диалог приветствия при запуске Studio"
 
-#. Translators: The label in playlist transcripts dialog to select transcript output format.
-#: addon/appModules/splstudio/splmisc.py:746
-msgid "Transcript format:"
-msgstr "Формат расшифровки:"
+#. Translators: A setting in braille timer options.
+#: addon/appModules/splcommon/splconfig.py:841
+msgid "Braille timer off"
+msgstr "Брайлевский таймер отключён"
 
-#. Translators: one of the playlist transcript actions.
-#: addon/appModules/splstudio/splmisc.py:754
-msgid "view transcript"
-msgstr "просмотр расшифровки"
+#. Translators: A setting in braille timer options.
+#: addon/appModules/splcommon/splconfig.py:846
+msgid "Braille track endings"
+msgstr "Окончания дорожек по брайлю"
 
-#. Translators: one of the playlist transcript actions.
-#: addon/appModules/splstudio/splmisc.py:758
-msgid "copy to clipboard"
-msgstr "копировать в буфер обмена"
+#. Translators: A setting in braille timer options.
+#: addon/appModules/splcommon/splconfig.py:848
+msgid "Outro"
+msgstr "Окончание"
 
-#. Translators: one of the playlist transcript actions.
-#: addon/appModules/splstudio/splmisc.py:760
-msgid "save to file"
-msgstr "сохранить в файл"
+#. Translators: A setting in braille timer options.
+#: addon/appModules/splcommon/splconfig.py:852
+msgid "Braille intro endings"
+msgstr "Вступления и окончание по Брайлю"
 
-#. Translators: The label in playlist transcripts dialog to select transcript action.
-#: addon/appModules/splstudio/splmisc.py:766
-msgid "Transcript action:"
-msgstr "Действие расшифровки:"
+#. Translators: A setting in braille timer options.
+#: addon/appModules/splcommon/splconfig.py:854
+msgid "Intro"
+msgstr "Вступление"
+
+#. Translators: A setting in braille timer options.
+#: addon/appModules/splcommon/splconfig.py:858
+msgid "Braille intro and track endings"
+msgstr "Вступление и окончания дорожек по брайлю"
+
+#. Translators: A setting in library scan announcement options.
+#: addon/appModules/splcommon/splconfig.py:866
+msgid "Do not announce library scans"
+msgstr "Не объявлять о сканировании библиотеки"
+
+#. Translators: A setting in library scan announcement options.
+#: addon/appModules/splcommon/splconfig.py:871
+msgid "Announce start and end of a library scan"
+msgstr "Объявлять о начале и завершении сканирования библиотеки"
+
+#. Translators: A setting in library scan announcement options.
+#: addon/appModules/splcommon/splconfig.py:876
+msgid "Announce the progress of a library scan"
+msgstr "Объявлять о ходе проверки библиотеки"
+
+#. Translators: A setting in library scan announcement options.
+#: addon/appModules/splcommon/splconfig.py:881
+msgid "Announce progress and item count of a library scan"
+msgstr "Объявлять о ходе сканирования и количестве элементов библиотеки"
 
 #. Translators: Presented when microphone has been active for a while.
 #: addon/appModules/splstudio/__init__.py:86
@@ -1758,6 +1589,175 @@ msgstr "Справка по Помощнику SPL"
 #: addon/appModules/splstudio/__init__.py:2646
 msgid "SPL Assistant help for JAWS layout"
 msgstr "Справка по Помощнику SPL для раскладки JAWS"
+
+#. Translators: Text of the dialog when another find dialog is open.
+#: addon/appModules/splstudio/splmisc.py:44
+msgid "Another find dialog is open."
+msgstr "Открыт ещё один диалог поиска."
+
+#. Translators: Text of the dialog when a generic error has occured.
+#: addon/appModules/splstudio/splmisc.py:51
+msgid "An unexpected error has occured when trying to open find dialog."
+msgstr "При попытке открыть диалог поиска произошла непредвиденная ошибка."
+
+#. Translators: the label for find prompt in track finder dialog.
+#: addon/appModules/splstudio/splmisc.py:88
+msgid "Enter or select the name or the artist of the track you wish to &search"
+msgstr "Введите или выберите название или исполнителя дорожки, которую вы хотите &найти"
+
+#. Translators: the label for find prompt in column search dialog.
+#: addon/appModules/splstudio/splmisc.py:91
+msgid "Enter or select text to be &searched in a column"
+msgstr "Введите или выберите текст для &поиска в столбце"
+
+#. Translators: The label in track finder to search columns.
+#: addon/appModules/splstudio/splmisc.py:99
+msgid "C&olumn to search:"
+msgstr "Столбец&для поиска:"
+
+#. Translators: The title of a dialog to find tracks with duration within a specified range.
+#: addon/appModules/splstudio/splmisc.py:169
+msgid "Time range finder"
+msgstr "Поиск диапазона времени"
+
+#: addon/appModules/splstudio/splmisc.py:179
+msgid "Minimum duration"
+msgstr "Минимальная продолжительность"
+
+#. Translators: the minute label in time range finder dialog.
+#: addon/appModules/splstudio/splmisc.py:184
+#: addon/appModules/splstudio/splmisc.py:206
+msgid "Minute"
+msgstr "Минута"
+
+#. Translators: the second label in time range finder dialog.
+#: addon/appModules/splstudio/splmisc.py:192
+#: addon/appModules/splstudio/splmisc.py:209
+msgid "Second"
+msgstr "Секунда"
+
+#: addon/appModules/splstudio/splmisc.py:202
+msgid "Maximum duration"
+msgstr "Максимальная продолжительность"
+
+#. Translators: Message to report wrong value for duration fields.
+#: addon/appModules/splstudio/splmisc.py:230
+msgid "Minimum duration is greater than the maximum duration."
+msgstr "Минимальная продолжительность больше максимальной."
+
+#: addon/appModules/splstudio/splmisc.py:277
+msgid "No track with duration between minimum and maximum duration."
+msgstr "Нет дорожки с длительностью от минимальной до максимальной."
+
+#. Translators: Standard error title for find error (copy this from main nvda.po).
+#: addon/appModules/splstudio/splmisc.py:279
+msgid "Time range find error"
+msgstr "Ошибка поиска временного диапазона"
+
+#. Translators: presented when metadata streaming status cannot be obtained.
+#: addon/appModules/splstudio/splmisc.py:326
+msgid "Cannot obtain metadata streaming status information"
+msgstr "Не удалось получить информацию о состоянии потоковой передачи метаданных"
+
+#. Translators: Status message for metadata streaming.
+#: addon/appModules/splstudio/splmisc.py:335
+msgid "No metadata streaming URL's defined"
+msgstr "Не назначен URL-адрес потоковой передачи метаданных"
+
+#. Translators: Status message for metadata streaming.
+#: addon/appModules/splstudio/splmisc.py:338
+msgid "Metadata streaming configured for DSP encoder"
+msgstr "Потоковая передача метаданных настроена для кодера DSP"
+
+#. Translators: Status message for metadata streaming.
+#: addon/appModules/splstudio/splmisc.py:344
+#, python-brace-format
+msgid "Metadata streaming configured for DSP encoder and URL {URL}"
+msgstr "Потоковая передача метаданных настроена для кодера DSP и URL {URL}"
+
+#. Translators: Status message for metadata streaming.
+#: addon/appModules/splstudio/splmisc.py:347
+#, python-brace-format
+msgid "Metadata streaming configured for URL {URL}"
+msgstr "Потоковая передача метаданных настроена для URL {URL}"
+
+#. Translators: Status message for metadata streaming.
+#: addon/appModules/splstudio/splmisc.py:353
+#, python-brace-format
+msgid "Metadata streaming configured for DSP encoder and URL's {URL}"
+msgstr "Потоковая передача метаданных настроена для кодера DSP и URL {URL}"
+
+#. Translators: Status message for metadata streaming.
+#: addon/appModules/splstudio/splmisc.py:356
+#, python-brace-format
+msgid "Metadata streaming configured for URL's {URL}"
+msgstr "Потоковая передача метаданных настроена для URL {URL}"
+
+#. Translators: the Playlist transcripts dialog title.
+#: addon/appModules/splstudio/splmisc.py:481
+#: addon/appModules/splstudio/splmisc.py:720
+msgid "Playlist Transcripts"
+msgstr "Расшифровки списка воспроизведения"
+
+#. Translators: presented when playlist transcript data was copied to the clipboard.
+#: addon/appModules/splstudio/splmisc.py:494
+msgid "Playlist data copied to clipboard"
+msgstr "Данные списка воспроизведения скопированы в буфер обмена"
+
+#. Translators: Text of the dialog when another playlist transcripts dialog is open.
+#: addon/appModules/splstudio/splmisc.py:692
+msgid "Another playlist transcripts dialog is open."
+msgstr "Открыт другой диалог расшифровки списка воспроизведения."
+
+#. Translators: one of the playlist transcripts range options.
+#: addon/appModules/splstudio/splmisc.py:729
+msgid "entire playlist"
+msgstr "весь список воспроизведения"
+
+#. Translators: one of the playlist transcripts range options.
+#: addon/appModules/splstudio/splmisc.py:731
+msgid "start to current item"
+msgstr "начать с текущего элемента"
+
+#. Translators: one of the playlist transcripts range options.
+#: addon/appModules/splstudio/splmisc.py:733
+msgid "current item to the end"
+msgstr "текущий элемент до конца"
+
+#. Translators: one of the playlist transcripts range options.
+#: addon/appModules/splstudio/splmisc.py:735
+msgid "current hour"
+msgstr "текущий час"
+
+#. Translators: The label in playlist transcripts dialog to select playlist transcript range.
+#: addon/appModules/splstudio/splmisc.py:739
+msgid "Transcript range:"
+msgstr "Диапазон расшифровки:"
+
+#. Translators: The label in playlist transcripts dialog to select transcript output format.
+#: addon/appModules/splstudio/splmisc.py:746
+msgid "Transcript format:"
+msgstr "Формат расшифровки:"
+
+#. Translators: one of the playlist transcript actions.
+#: addon/appModules/splstudio/splmisc.py:754
+msgid "view transcript"
+msgstr "просмотр расшифровки"
+
+#. Translators: one of the playlist transcript actions.
+#: addon/appModules/splstudio/splmisc.py:758
+msgid "copy to clipboard"
+msgstr "копировать в буфер обмена"
+
+#. Translators: one of the playlist transcript actions.
+#: addon/appModules/splstudio/splmisc.py:760
+msgid "save to file"
+msgstr "сохранить в файл"
+
+#. Translators: The label in playlist transcripts dialog to select transcript action.
+#: addon/appModules/splstudio/splmisc.py:766
+msgid "Transcript action:"
+msgstr "Действие расшифровки:"
 
 #: addon/appModules/splengine/encoders.py:69
 msgid "Your encoder settings had errors and were reset to defaults."
