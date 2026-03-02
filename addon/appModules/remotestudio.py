@@ -226,7 +226,7 @@ class AppModule(splstudio.AppModule):
 
 	# Table of child constants based on versions
 	# Same as local Studio: scattered around the screen, so use foreground.getChild(index) to fetch them
-	# As of 2025, the below table is based on local Studio 6.10 interface.
+	# As of 2026, the below table is based on local Studio 6.11 interface.
 	statusObjs = {
 		"6": {
 			SPLRemoteStatus: [2, 0],  # Remote Studio status bar

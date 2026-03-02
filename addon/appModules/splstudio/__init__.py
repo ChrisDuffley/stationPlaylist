@@ -2164,10 +2164,10 @@ class AppModule(appModuleHandler.AppModule):
 	# Table of child constants based on versions
 	# These are scattered throughout the screen, so one can use foreground.getChild(index) to fetch them
 	# (getChild tip from Jamie Teh (NV Access/Mozilla)).
-	# Because 6.x an possible future releases may use different screen layouts,
+	# Because 6.x and possible future releases may use different screen layouts,
 	# look up the needed constant from the table below
 	# (row = info needed, column = version).
-	# As of 2025, the below table is based on Studio 6.0.
+	# As of 2026, the below table is based on Studio 6.0.
 	# #119: a list indicates iterative descent to locate the actual objects.
 	# Index is backwards (Remote Studio status is inserted in the beginning, displacing index by 1).
 	statusObjs = {
