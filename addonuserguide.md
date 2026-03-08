@@ -900,7 +900,7 @@ The following toggle announcements are affected by verbosity levels, particularl
 * Microphone.
 * Line-in.
 * Record to file. (local Studio)
-* cart edit/insert (prior to December 2016).)
+* Cart edit/insert (prior to December 2016).)
 
 Q. How can I monitor a lengthy library scan in local Studio?
 
@@ -1046,11 +1046,11 @@ Windows 7 and 8.x are out of support from Microsoft from January 2023. You can u
 
 Q. Will the add-on work with 64-bit NVDA?
 
-Yes for the most part. NV Access and contributors are working on 64-bit NVDA, and testing shows parts of the SPL ad-on will work on it.
+Yes.
 
 Q. 64-bit NVDA is not reading SPL app menu items.
 
-This is a known issue. You can resolve this (temporarily) by changing display scaling to 100%.
+This is a known issue. You can resolve this (temporarily) by changing display scaling to 100% (not recommended for high-resolution monitor setups).
 
 Q. What are update channels?
 
@@ -1087,14 +1087,14 @@ NVDA can be configured to run in secure screens, and if this is the case, NVDA r
 * You cannot switch to Studio from other programs.
 * You cannot obtain Studio and/or encoder status.
 
-In addition, it is possible to run NVDA with secure screen like restrictions while not in secure screens (not recommended). If this happens, the following restrictions will be in place when interacting with SPL suite of applications:
+In addition, it is possible to run NVDA in secure mode with secure screen like restrictions while not in secure screens (not recommended). If this happens, the following restrictions will be in place when interacting with SPL suite of applications:
 
 * You cannot create, copy, rename, delete, or configure triggers for broadcast profiles.
 * You cannot save add-on settings, including encoder settings for the add-on.
 * You cannot copy playlist transcripts to the clipboard or save them to a file.
 * You cannot configure advanced add-on settings or reset add-on settings to defaults as these settings categories will be unavailable in add-on settings dialog.
 
-Because of these restrictions, you should not copy StationPlaylist add-on to secure screens, nor run NVDA in secure mode while not in secure screens.
+Because of these restrictions, you should not copy StationPlaylist add-on to secure screens, nor run NVDA in secure mode while not in secure screens unless required.
 
 ## Credits and contact information
 
