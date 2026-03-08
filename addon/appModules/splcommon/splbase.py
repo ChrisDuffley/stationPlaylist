@@ -50,10 +50,7 @@ def studioIsRunning(justChecking: bool = False, splComponent: str = "splstudio")
 	# Keep the boolean flag handy because of message output.
 	hwnd = _SPLWindowHandles.get(splComponent)
 	isStudioAlive = (hwnd is not None and hwnd == user32.FindWindowW(splComponent, None)) or (
-		hwnd is None and user32.FindWindowW(splComponent, None) not in (
-			0,  # NVDA 2025.3 and earlier (returns 0 if handle is not found)
-			None  # NVDA 2026.1 and later (returns None if handle is not found)
-		)
+		hwnd is None and user32.FindWindowW(splComponent, None) != 0
 	)
 	if not isStudioAlive:
 		log.debug(f"SPL: Studio ({splComponent}) is not alive")
