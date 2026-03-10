@@ -27,6 +27,7 @@ addon_info = AddonInfo(
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
 	addon_changelog=_("""* Initial support for StationPlaylist Recorder (not to be confused with VT Recorder).
+* Security: Track comments for local and Remote Studio are now stored in json format instead of pickle format to improve security. As a result, installing an older version of this add-on after installing this version is unsupported and will cause unpredictable behavior.
 * NVDA will announce labels for SPL Recorder configurationnnnnnn screen controls.
 * Most if not all multicolumn lists now have column explorer and column navigation support. Mainly tested in local Studio's Listener Stats window and the same list in Options > Listener Stats."""),
 	# Author(s)
