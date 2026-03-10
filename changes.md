@@ -2,6 +2,10 @@
 
 This page lists the complete changelog for StationPlaylist add-on releases.
 
+## Version 26.03.1
+
+* Security: Track comments for local and Remote Studio are now stored in json format instead of pickle format to improve security. As a result, installing an older version of this add-on after installing this version is unsupported and will cause unpredictable behavior.
+
 ## Version 26.03
 
 * Initial support for StationPlaylist Recorder (not to be confused with VT Recorder).
