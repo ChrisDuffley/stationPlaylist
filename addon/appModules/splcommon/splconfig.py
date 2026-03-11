@@ -642,17 +642,16 @@ def initStudioExtraSteps() -> None:
 		_configLoadStatus[SPLConfig.activeProfile] = "noInstantProfile"
 		SPLConfig.instantSwitch = None
 	# Load track comments if they exist.
-	# This must be a separate file (a json and/or pickle file).
+	# This must be a separate (json) file.
 	try:
 		with open(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.json"), "rb") as f:
 			trackComments = json.load(f)
 	except (IOError, EOFError, FileNotFoundError, json.JSONDecodeError):
 		pass
-	# 26.03.1 (security): pickle is insecure.
+	# 26.04 (security): remove insecure pickle version of track comments.
 	try:
-		with open(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "rb") as f:
-			trackComments = pickle.load(f)
-	except (IOError, EOFError, FileNotFoundError, pickle.UnpicklingError):
+		os.remove(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"))
+	except WindowsError:
 		pass
 	if len(_configLoadStatus):
 		messages = []
