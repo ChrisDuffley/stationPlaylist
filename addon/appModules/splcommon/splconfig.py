@@ -712,9 +712,6 @@ def terminateStudioExtraSteps() -> None:
 	if not globalVars.appArgs.secure:
 		with open(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.json"), "w") as f:
 			json.dump(trackComments, f)
-		# 26.03.1 (security/compatibility_: save a pickle copy to be discarded in future add-on releases.
-		with open(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "wb") as f:
-			pickle.dump(trackComments, f, protocol=4)
 	trackComments.clear()
 	trackComments = {}
 
