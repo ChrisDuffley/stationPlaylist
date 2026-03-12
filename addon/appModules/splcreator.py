@@ -272,12 +272,12 @@ class AppModule(appModuleHandler.AppModule):
 			obj.name = obj.displayText
 
 	def event_nameChange(self, obj: NVDAObject, nextHandler: collections.abc.Callable[[], None]):
+		# Announce search/match results from insert tracks dialog.
 		if obj.windowClassName in (
 			"TStatusBar",  # Creator 6.0x
 			"TTntStatusBar.UnicodeClass"  # Creator 6.10 and later
-		):
+		) and obj.name:
 			if "match" in obj.name:
-				# Announce search/match results from insert tracks dialog.
 				# Unlike Studio (local and remote), everything must be announced.
 				if splconfig.SPLConfig["General"]["BeepAnnounce"]:
 					tones.beep(370, 40)
