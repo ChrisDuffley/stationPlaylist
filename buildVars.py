@@ -26,10 +26,7 @@ addon_info = AddonInfo(
 	addon_version="26.03",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""* Initial support for StationPlaylist Recorder (not to be confused with VT Recorder).
-* Security: Track comments for local and Remote Studio are now stored in json format instead of pickle format to improve security. As a result, installing an older version of this add-on after installing this version is unsupported and will cause unpredictable behavior.
-* NVDA will announce labels for SPL Recorder configurationnnnnnn screen controls.
-* Most if not all multicolumn lists now have column explorer and column navigation support. Mainly tested in local Studio's Listener Stats window and the same list in Options > Listener Stats."""),
+	addon_changelog=_("""* In Creator's playlist editor, resolved a regression from add-on version 26.01 where NVDA was sluggish when moving through date and hour combo boxes for multi-day playlists."""),
 	# Author(s)
 	addon_author="Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)",
 	# URL for the add-on documentation support
