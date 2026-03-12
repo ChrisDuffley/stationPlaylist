@@ -272,8 +272,6 @@ class AppModule(appModuleHandler.AppModule):
 			obj.name = obj.displayText
 
 	def event_nameChange(self, obj: NVDAObject, nextHandler: collections.abc.Callable[[], None]):
-		if not obj.name:
-			return
 		if obj.windowClassName in (
 			"TStatusBar",  # Creator 6.0x
 			"TTntStatusBar.UnicodeClass"  # Creator 6.10 and later
