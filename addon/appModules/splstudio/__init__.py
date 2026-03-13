@@ -2177,7 +2177,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Index is backwards (Remote Studio status is inserted in the beginning, displacing index by 1).
 	statusObjs = {
 		"6": {
-			SPLPlayStatus: [-1, -3],  # Play status, mic, control keys (Studio 6.10 and later), etc.
+			SPLPlayStatus: [-1, -3],  # Play status, mic, control keys, etc.
 			SPLSystemStatus: [-1, -2],  # The second status bar containing system status such as up time.
 			SPLNextTrackTitle: [-1, 1, -14, 0],  # Name and duration of the next track if any.
 			SPLNextPlayer: [-1, 1, -14, 1],  # Name and duration of the next track if any.
@@ -2188,7 +2188,7 @@ class AppModule(appModuleHandler.AppModule):
 		},
 		# Local Studio only: use the below map if "view log" button is showing.
 		"6viewerrorlog": {
-			SPLPlayStatus: [-1, -3],  # Play status, mic, control keys (Studio 6.10 and later), etc.
+			SPLPlayStatus: [-1, -3],  # Play status, mic, control keys, etc.
 			SPLSystemStatus: [-1, -2],  # The second status bar containing system status such as up time.
 			SPLNextTrackTitle: [-1, 1, -15, 0],  # Name and duration of the next track if any.
 			SPLNextPlayer: [-1, 1, -15, 1],  # Name and duration of the next track if any.
@@ -2318,10 +2318,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	@localStudioOnly
 	def script_sayControlKeysStatus(self, gesture):
-		# Properly shown in Studio 6.10 and later.
-		if self.productVersion < "6.10":
-			self.script_error(None)
-			return
 		obj = self.status(self.SPLPlayStatus).getChild(7)
 		ui.message(obj.name)
 
