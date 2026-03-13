@@ -8,7 +8,7 @@ For more information about the add-on, read the [add-on guide][1].
 
 IMPORTANT NOTES:
 
-* This add-on requires StationPlaylist suite 6.0 or later.
+* This add-on requires StationPlaylist suite 6.10 or later.
 * Some add-on features will be disabled or limited if NVDA is running in secure mode such as in logon screen.
 * For best experience, disable audio ducking mode.
 * Starting from 2018, [changelogs for old add-on releases][2] will be found on GitHub. This add-on readme will list changes from version 26.01 (2026) onwards.
@@ -99,7 +99,7 @@ The available commands are (most commands support speak on demand and some comma
 * C (Shift+C in JAWS layout): Title for the currently playing track.
 * C (JAWS layout): Toggle cart explorer (playlist viewer only, does not support speak on demand).
 * D (R in JAWS layout): Remaining duration for the playlist (if an error message is given, move to playlist viewer and then issue this command).
-* Control+D (Studio 6.10 and later, unavailable in Remote Studio): Control keys enabled/disabled.
+* Control+D (unavailable in Remote Studio): Control keys enabled/disabled.
 * E (unavailable in Remote Studio): Metadata streaming status.
 * Shift+1 through Shift+4, Shift+0 (unavailable in Remote Studio): Status for individual metadata streaming URL's (0 is for DSP encoder).
 * F: Find track (playlist viewer only, does not support speak on demand).
