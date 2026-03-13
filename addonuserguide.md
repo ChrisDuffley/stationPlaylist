@@ -68,8 +68,8 @@ Unless otherwise noted, this add-on guide will focus primarily on StationPlaylis
 
 StationPlaylist add-on requires the following:
 
-* An evaluation or a registered copy of StationPlaylist Studio 6.0 or later installed on a computer running Windows 10 or later.
-* Optional: an evaluation or registered copy of StationPlaylist Creator and/or StationPlaylist Streamer, version 6.0 or later.
+* An evaluation or a registered copy of StationPlaylist Studio 6.10 or later installed on a computer running Windows 10 or later.
+* Optional: an evaluation or registered copy of StationPlaylist Creator and/or StationPlaylist Streamer, version 6.10 or later.
 * Optional: an evaluation or registered copy of StationPlaylist Remote Studio
 * Optional: Remote VT client
 * Optional: an evaluation or registered copy of SAM Encoders.
@@ -232,7 +232,7 @@ Besides track and time information, NVDA allows you to use native Studio command
 * N: Microphone on/off without fade.
 * R (local Studio only): Enable or disable record to file.
 * Control+T (local Studio only): Cart edit/insert mode on or off. If status message is set to beeps and if cart insert mode is active, you will hear "insert" when you press this command and status changes to cart insert mode on.
-* Control+D (local Studio only): Control keys enable/disable (Studio 6.10 and later).
+* Control+D (local Studio only): Control keys enable/disable.
 
 To announce current values for these options, enter SPL Assistant layer, then press the corresponding native command from the list above (except where noted). For example, to hear if automation is enabled, enter SPL Assistant then press A.
 
