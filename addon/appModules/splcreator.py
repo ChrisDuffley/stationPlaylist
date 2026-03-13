@@ -185,20 +185,14 @@ class AppModule(appModuleHandler.AppModule):
 		if (fg := api.getForegroundObject()).windowClassName in self._statusBarObjs:
 			return self._statusBarObjs[fg.windowClassName]
 		# Look up different window class names depending on Creator version.
-		# TStatusBar should be used if this is playlist editor 6.0x.
 		statusBar = None
-		for statusBarClassName in (
-			"TStatusBar",  # Creator 6.0x
-			"TTntStatusBar.UnicodeClass"  # Creator 6.10 and later
-		):
-			try:
-				statusBar = getNVDAObjectFromEvent(
-					windowUtils.findDescendantWindow(fg.windowHandle, className=statusBarClassName),
-					winUser.OBJID_CLIENT, 0
-				)
-				break
-			except LookupError:
-				pass
+		try:
+			statusBar = getNVDAObjectFromEvent(
+				windowUtils.findDescendantWindow(fg.windowHandle, className="TTntStatusBar.UnicodeClass"),
+				winUser.OBJID_CLIENT, 0
+			)
+		except LookupError:
+			pass
 		if statusBar:
 			self._statusBarObjs[fg.windowClassName] = statusBar
 			return statusBar
@@ -211,10 +205,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def event_NVDAObject_init(self, obj: NVDAObject):
 		if (
-			obj.windowClassName in (
-				"TStatusBar",  # Creator 6.0x
-				"TTntStatusBar.UnicodeClass"  # Creator 6.10 and later
-			)
+			obj.windowClassName == "TTntStatusBar.UnicodeClass"
 			and obj.role == controlTypes.Role.STATICTEXT and not obj.name
 		):
 			# Status bar labels are not found in Creator and playlist editor but is written to the screen.
@@ -222,10 +213,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def event_nameChange(self, obj: NVDAObject, nextHandler: collections.abc.Callable[[], None]):
 		# Announce search/match results from insert tracks dialog.
-		if obj.windowClassName in (
-			"TStatusBar",  # Creator 6.0x
-			"TTntStatusBar.UnicodeClass"  # Creator 6.10 and later
-		) and obj.name:
+		if obj.windowClassName == "TTntStatusBar.UnicodeClass" and obj.name:
 			if "match" in obj.name:
 				# Unlike Studio (local and remote), everything must be announced.
 				if splconfig.SPLConfig["General"]["BeepAnnounce"]:
