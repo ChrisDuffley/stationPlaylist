@@ -69,8 +69,8 @@ Unless otherwise noted, this add-on guide will focus primarily on StationPlaylis
 
 StationPlaylist add-on requires the following:
 
-* An evaluation or a registered copy of StationPlaylist Studio 6.0 or later installed on a computer running Windows 10 or 11
-* Optional: an evaluation or registered copy of StationPlaylist Creator and/or StationPlaylist Streamer, version 6.0 or later
+* An evaluation or a registered copy of StationPlaylist Studio 6.10 or later installed on a computer running Windows 10 or 11
+* Optional: an evaluation or registered copy of StationPlaylist Creator and/or StationPlaylist Streamer, version 6.10 or later
 * Optional: an evaluation or registered copy of StationPlaylist Remote Studio
 * Optional: Remote VT client
 * Optional: an evaluation or registered copy of SAM Encoders
@@ -144,7 +144,7 @@ Visually, Playlist Viewer entries are organized as a table. Each row corresponds
 
 You can use NVDA's table navigation commands to move between columns such as artist, duration, category and so on (termed Column Navigator). That is, you can press Control+Alt+left or right arrows to move through columns, and Control+Alt+up or down arrows to move vertically (next or previous row while staying at the column of your choosing, either the column you are reviewing or a specific column). You can also press Control+Alt+Home or End to review leftmost or rightmost column. NVDA will announce "edge of table" when you reach the edge of the track item row or the first or last track on the playlist viewer (the latter if you enabled top and bottom notifications).
 
-Note: in local Studio 6.10 and later, pressing Control+Alt+End will play the last parts of the selected track. However, with the add-on running, pressing this keyboard combination may announce last column for the selected track instead. By default, StationPlaylist command will be performed, but you can set keyboard command priority to NVDA to announce last column all the time and/or pass the command directly to Studio when pressed repeatedly.
+Note: in local Studio, pressing Control+Alt+End will play the last parts of the selected track. However, with the add-on running, pressing this keyboard combination may announce last column for the selected track instead. By default, StationPlaylist command will be performed, but you can set keyboard command priority to NVDA to announce last column all the time and/or pass the command directly to Studio when pressed repeatedly.
 
 #### Columns Explorer
 
@@ -234,7 +234,7 @@ Besides track and time information, NVDA allows you to use native Studio command
 * N: Microphone on/off without fade
 * R (local Studio only): Enable or disable record to file
 * Control+T (local Studio only): Cart edit/insert mode on or off (if status message is set to beeps and if cart insert mode is active, you will hear "insert" when you press this command and status changes to cart insert mode on)
-* Control+D (local Studio only): Control keys enable/disable (Studio 6.10 and later)
+* Control+D (local Studio only): Control keys enable/disable
 
 To announce current values for these options, enter SPL Assistant layer, then press the corresponding native command from the list above (except where noted). For example, to hear if automation is enabled, enter SPL Assistant then press A.
 
@@ -536,7 +536,7 @@ Following are track information shown in Creator's Playlist Editor and Remote VT
 9. Genre
 10. Mood
 
-In addition, version 6.10 and later displays scheduled time as the leftmost column.
+In addition, scheduled time is displayed as the leftmost column.
 
 Playlist Editor in creator and Remote VT client includes the following additional commands:
 
@@ -583,7 +583,7 @@ Most of the settings in this dialog were discussed throughout the add-on guide. 
 	* Use SPl Controller to invoke SPL Assistant (enabled by default): If you check this box after assigning a command to invoke SPL Controller layer (see below), you can use SPl Controller command you assigned to invoke SPl Assistant layer. This is useful for people used to other screen readers where a single layer is used to access functions normally performed by both Controller and Assistant layers in NVDA.
 	* Assistant layer layout (NVDA by default): By default, NVDA will use the Assistant layer commands described throughout this user guide. You can choose between this default command set and JAWS for Windows, with layer commands used by these screen reader scripts replacing commands in the SPL Assistant layer. For example, with JAWS for Windows layout active, pressing SPL Assistant, R will announce playlist duration (default is SPL Assistant, D). See the JAWS layout section for SPL Assistant command changes between layouts.
 	* SPL Controller coverage (local and Remote Studio by default; Studio 6.20 and later): By default, SPL Controller layer will control either local or Remote Studio, whichever is in use. Alternatively, you can limit the scope or coverage of SPL Controller to local Studio or Remote Studio only. If local and Remote Studio are running on the same computer and the default option is used, SPL Controller will control local Studio. If using Studio versions earlier than 6.20, this setting will not appear.
-	* Keyboard command priority (StationPlaylist by default): Some add-on commands conflict with Studio commands, notably Control+Alt+End where NVDA will announce last table column versus playing ends of tracks in local Studio 6.10 and later. You can configure NVDA to give command priority to itself, pass the command to StationPlaylist, or perform NVDA Command on first press then let Studio handle it when pressed repeatedly.
+	* Keyboard command priority (StationPlaylist by default): Some add-on commands conflict with Studio commands, notably Control+Alt+End where NVDA will announce last table column versus playing ends of tracks in local Studio. You can configure NVDA to give command priority to itself, pass the command to StationPlaylist, or perform NVDA Command on first press then let Studio handle it when pressed repeatedly.
 
 After configuring the above settings, select OK from main settings dialog to save your changes, Cancel to discard them, or Apply to apply changes without closing the settings dialog.
 
