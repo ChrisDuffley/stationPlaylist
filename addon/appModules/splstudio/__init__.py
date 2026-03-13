@@ -10,8 +10,6 @@
 # For SPL Studio Controller, focus movement and other utilities,
 # see the global plugin version of this app module.
 
-# Minimum version: SPL 6.0, NVDA 2024.1.
-
 from typing import Any, NamedTuple
 import os
 import time
