@@ -75,7 +75,7 @@ StationPlaylist add-on requires the following:
 * Optional: Remote VT client
 * Optional: an evaluation or registered copy of SAM Encoders
 * Optional: AltaCast Winamp plugin (one must copy AltaCast Winamp plugin DLL to Studio's plugins folder for Studio to recognize AltaCast)
-* NVDA 2025.3.3 (32-bit) or later (some features will require later versions of NVDA)
+* NVDA 2026.1 (64-bit) or later (some features will require later versions of NVDA)
 
 ## Installing and updating the add-on
 
@@ -1040,11 +1040,7 @@ Q. From 2023, can I use the add-on on Windows versions prior to Windows 10?
 
 Windows 7 and 8.x are out of support from Microsoft from January 2023. You can use the add-on on these Windows releases but note that support will not be provided. Add-on 23.01 and later will not install on unsupported Windows releases, and version 25.05 no longer supports Windows 7 and 8.
 
-Q. Will the add-on work with 64-bit NVDA?
-
-Yes.
-
-Q. 64-bit NVDA is not reading SPL app menu items.
+Q. NVDA is not reading SPL app menu items.
 
 This is a known issue. You can resolve this (temporarily) by changing display scaling to 100% (not recommended for high-resolution monitor setups).
 
