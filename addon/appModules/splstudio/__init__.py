@@ -52,7 +52,7 @@ addonHandler.initTranslation()
 
 
 # Make sure the broadcaster is running a compatible version.
-SPLMinVersion = "6.0"
+SPLMinVersion = "6.10"
 
 # Threads pool.
 micAlarmT: threading.Timer | None = None
