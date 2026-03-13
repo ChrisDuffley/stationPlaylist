@@ -164,7 +164,6 @@ class AppModule(appModuleHandler.AppModule):
 				if obj.parent.simpleParent.windowClassName == "TEditMain":
 					clsList.insert(0, SPLPlaylistEditorItem)
 				elif obj.windowStyle in (
-					1443958857,  # Creator 6.0x
 					1443958849,  # Creator 6.1x
 					1446056001,  # Creator 6.20
 				) and obj.parent.simpleParent.windowClassName == "TTabSheet":  # Creator main window
