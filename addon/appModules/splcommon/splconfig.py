@@ -647,11 +647,6 @@ def initStudioExtraSteps() -> None:
 			trackComments = json.load(f)
 	except (IOError, EOFError, FileNotFoundError, json.JSONDecodeError):
 		pass
-	# 26.04 (security): remove insecure pickle version of track comments.
-	try:
-		os.remove(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"))
-	except WindowsError:
-		pass
 	if len(_configLoadStatus):
 		messages = []
 		# Display just the error message if the only corrupt profile is the normal profile.
