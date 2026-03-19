@@ -587,7 +587,7 @@ This is the last stable version to support Windows XP, Vista and 7 without Servi
 ## Version 17.09
 
 * If a user enters advanced options dialog under add-on settings while the update channel and interval was set to Test Drive Fast and/or zero days, NVDA will no longer present the channel and/or interval warning message when exitting this dialog.
-* Playlist remainder and trakc time analysis commands will now require that a playlist be loaded, and a more accurate error message will be presented otherwise.
+* Playlist remainder and track time analysis commands will now require that a playlist be loaded, and a more accurate error message will be presented otherwise.
 
 ## Version 17.08.1
 
