@@ -8,7 +8,7 @@ Based on StationPlaylist Add-on for NVDA 26.01
 
 This guide has gone through many revisions, style changes, and updated to include features in latest add-on releases. When first published in 2015, it was done as a series of blog posts. Now in 2021, edits were made to remove traces of old style and update this guide to reflect add-on features as of 2021 and beyond.
 
-In 2018, the scope of the add-on has expanded to cover StationPlaylist Creator and Track Tool. For the most part, this guide will still cover StationPlaylist Studio alone, but there are important changes made in recent releases that'll ask us to consider other programs in StationPlaylist suite. In particular, trakc item class inheritance hierarchy has changed so many column navigation commands are available when dealing with tracks across SPL apps. As a result, the add-on itself was renamed in 2019 to just "StationPlaylist".
+In 2018, the scope of the add-on has expanded to cover StationPlaylist Creator and Track Tool. For the most part, this guide will still cover StationPlaylist Studio alone, but there are important changes made in recent releases that'll ask us to consider other programs in StationPlaylist suite. In particular, track item class inheritance hierarchy has changed so many column navigation commands are available when dealing with tracks across SPL apps. As a result, the add-on itself was renamed in 2019 to just "StationPlaylist".
 
 Later in 2018, add-on update feature was removed in favor of Add-on Updater add-on. Although the source code for this feature is gone, information pertaining to it will be documented here for sake of completeness (after all, Add-on Updater's update checking mechanism can trace its roots to Studio add-on).
 
@@ -48,7 +48,7 @@ Note: throughout this guide, unless specified otherwise, the terms "StationPlayl
 
 [StationPlaylist suite](www.stationplaylist.com) is a collection of programs to help broadcasters plan, run, and do related activities around broadcasting. The apps consist of Studio, Creator, Track Tool, Streamer, Remote Studio (introduced in 2025), and others.
 
-StationPlaylist Studio is a broadcast automation software that helps broadcasters schedule trakcs, play jingles and more. It includes support for break notes, hourly playlist, track tagging and comes with tools to manage track playback such as setting track intros. In studio 5.00 and later, it includes its own stream encoder.
+StationPlaylist Studio is a broadcast automation software that helps broadcasters schedule tracks, play jingles and more. It includes support for break notes, hourly playlist, track tagging and comes with tools to manage track playback such as setting track intros. In studio 5.00 and later, it includes its own stream encoder.
 
 A version for broadcasters on the move, named StationPlaylist Remote Studio, made its debut in late 2025. Remote Studio is designed to work closely with a version of local Studio installed remotely, with the user interface largely deriving from Studio. However, due to its purpose as a remote broadcasting assistant, Remote Studio does not have all the features of local Studio.
 
@@ -698,7 +698,7 @@ It is also possible to suppress announcement of column headers. Until 2020, add-
 
 ##### Track name versus description?
 
-Until 2020, because Studio's track item class relied mostly on default IAccessible implementation, track description recorded trakc properties. For this reason, whenever custom column order or inclusion were defined, reportFocus method would construct a custom track description text based on the custom column order. This changed in add-on 20.11 when SysListView32 routines took a greater role in defining track items, and since NVDA builds custom text for item names based on column information, Studio's track item class will also construct custom item name based on custom column order and inclusion if defined. Because of this, from late 2020, column builder was split into a different method, namely a custom item name getter which is the method used by NVDA to retrieve name text for a control.
+Until 2020, because Studio's track item class relied mostly on default IAccessible implementation, track description recorded track properties. For this reason, whenever custom column order or inclusion were defined, reportFocus method would construct a custom track description text based on the custom column order. This changed in add-on 20.11 when SysListView32 routines took a greater role in defining track items, and since NVDA builds custom text for item names based on column information, Studio's track item class will also construct custom item name based on custom column order and inclusion if defined. Because of this, from late 2020, column builder was split into a different method, namely a custom item name getter which is the method used by NVDA to retrieve name text for a control.
 
 #### Track Columns Explorer: Retrieve information from specific columns
 
