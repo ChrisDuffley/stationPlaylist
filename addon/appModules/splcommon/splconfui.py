@@ -643,7 +643,7 @@ class AlarmsPanel(gui.settingsDialogs.SettingsPanel):
 		self.outroToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
 
 		# Translators: the label for a setting in SPL add-on settings
-		# To set trakc intro alarm in seconds.
+		# To set track intro alarm in seconds.
 		introAlarmLabel = _("&Track intro alarm in seconds")
 		self.introAlarmEntry = alarmsCenterHelper.addLabeledControl(
 			introAlarmLabel,

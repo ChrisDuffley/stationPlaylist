@@ -145,7 +145,7 @@ def finally_(func, final):
 
 
 # SPL Playlist item (SPL add-on base object)
-# #65: this base class represents trakc items
+# #65: this base class represents track items
 # across StationPlaylist suites such as Studio, Creator and Track Tool.
 class SPLTrackItem(sysListView32.ListItem):
 	"""An abstract class representing track items across SPL suite of applications
