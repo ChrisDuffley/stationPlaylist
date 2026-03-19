@@ -142,7 +142,7 @@ From Studio window, to see if a track is playing, press the SPL Assistant comman
 
 Visually, Playlist Viewer entries are organized as a table. Each row corresponds to track entries and various information about a track (called tags) is spread across 18 columns. On the far left is a check mark that denotes whether the track is selected for playback, and one can use the mouse to reorder other columns.
 
-You can use NVDA's table navigation commands to move between columns such as artist, duration, category and so on (termed Column Navigator). That is, you can press Control+Alt+left or right arrows to move through columns, and Control+Alt+up or down arrows to move vertically (next or previous row while staying at the column of your choosing, either the column you are reviewing or a specific column). You can also press Control+Alt+Home or End to review leftmost or rightmost column. NVDA will announce "edge of table" when you reach the edge of the track item row or the first or last trakc on the playlist viewer (the latter if you enabled top and bottom notifications).
+You can use NVDA's table navigation commands to move between columns such as artist, duration, category and so on (termed Column Navigator). That is, you can press Control+Alt+left or right arrows to move through columns, and Control+Alt+up or down arrows to move vertically (next or previous row while staying at the column of your choosing, either the column you are reviewing or a specific column). You can also press Control+Alt+Home or End to review leftmost or rightmost column. NVDA will announce "edge of table" when you reach the edge of the track item row or the first or last track on the playlist viewer (the latter if you enabled top and bottom notifications).
 
 #### Columns Explorer
 
@@ -202,7 +202,7 @@ Note: in order to use this, StationPlaylist must be set to pop up requests windo
 
 As you work with SPL Studio, the following commands are available to obtain various information about current playlist and the currently playing track:
 
-* Alt+Shift+T: announces elapsed time for the currently playing trakc. In local Studio, this command can also announce elapsed time for the currently playing voice track and/or cart.
+* Alt+Shift+T: announces elapsed time for the currently playing track. In local Studio, this command can also announce elapsed time for the currently playing voice track and/or cart.
 * Control+Alt+T: Announces the remaining time for the currently playing track. In local Studio, this command can also announce remaining time for the currently playing voice track and/or cart.
 * NVDA+Shift+F12: Announces broadcaster time (time as reported by Studio such as 5 minutes to 2). Pressing this command twice will announce minutes and secondsl eft until top of the next hour.
 * SPL Assistant, H: Announces the duration of the playlist for the hour slot.
