@@ -411,8 +411,8 @@ D: Remaining time for the playlist.
 Control+D: Control keys toggle (Studio 6.10 and later).
 E: Overall metadata streaming status.
 Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder and four additional URL's.
-H: Duration of trakcs in this hour slot.
-Shift+H: Duration of remaining trakcs in this hour slot.
+H: Duration of tracks in this hour slot.
+Shift+H: Duration of remaining tracks in this hour slot.
 I: Listener count.
 K: Move to place marker track.
 Control+K: Set place marker track.
@@ -445,7 +445,7 @@ E: Overall metadata streaming status.
 Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder and four additional URL's.
 Shift+E: Record to file.
 F: Track finder.
-H: Duration of remaining trakcs in this hour slot.
+H: Duration of remaining tracks in this hour slot.
 K: Move to place marker track.
 Control+K: Set place marker track.
 L: Listener count.
@@ -458,7 +458,7 @@ Shift+P: Pitch for the current track.
 R: Remaining time for the playlist.
 S: Scheduled time for the track.
 Shift+S: Time until the selected track will play.
-T: Duration of trakcs in this hour slot.
+T: Duration of tracks in this hour slot.
 Alt+T: Monitor library scan.
 U: Studio up time.
 W: Weather and temperature.
@@ -1749,7 +1749,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Also gather various data about the playlist.
 	_analysisMarker: int | None = None
 
-	# Trakc time analysis and playlist snapshots, and to some extent, some parts of playlist transcripts
+	# Track time analysis and playlist snapshots, and to some extent, some parts of playlist transcripts
 	# require main playlist viewer to be the foreground window.
 	# Track time analysis does require knowing the start and ending track, while others do not.
 	def _trackAnalysisAllowed(self, mustSelectTrack: bool = True) -> bool:
