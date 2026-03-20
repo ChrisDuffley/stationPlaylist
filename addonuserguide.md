@@ -29,20 +29,20 @@ StationPlaylist Studio (oftened shortened to SPL or just Studio) is a radio broa
 
 StationPlaylist add-on for NVDA contains following features to support Studio and related applications:
 
-* Announcing toggle states of various controls such as automation.
-* Ability to obtain playback and other status information from within SPL Studio.
-* Ability to configure status announcement verbosity.
-* announcing playback time such as remaining time for the current track.
-* Managing SPL Studio functions from other programs.
-* Announcement of when the end of track and song intros are approaching.
-* A dedicated mode to learn cart machine assignments and play carts from anywhere.
-* A handy alarm to let you know your microphone has been turned on for a while.
-* Playlist summarization and analysis features including viewing statistics about a loaded playlist and saving a transcript of the playlist in a variety of formats.
-* A central configuration dialog to configure various add-on settings.
-* Customize NVDA's behavior on a per show basis via broadcast profiles.
-* Switch between broadcast profiles instantly.
-* Ability to switch to SPL Studio from any program.
-* Assisting with broadcasting via support for Spatial Audio's SAM encoder and StationPlaylist's own SPL encoder and others.
+* Announcing toggle states of various controls such as automation
+* Ability to obtain playback and other status information from within SPL Studio
+* Ability to configure status announcement verbosity
+* announcing playback time such as remaining time for the current track
+* Managing SPL Studio functions from other programs
+* Announcement of when the end of track and song intros are approaching
+* A dedicated mode to learn cart machine assignments and play carts from anywhere
+* A handy alarm to let you know your microphone has been turned on for a while
+* Playlist summarization and analysis features including viewing statistics about a loaded playlist and saving a transcript of the playlist in a variety of formats
+* A central configuration dialog to configure various add-on settings
+* Customize NVDA's behavior on a per show basis via broadcast profiles
+* Switch between broadcast profiles instantly
+* Ability to switch to SPL Studio from any program
+* Assisting with broadcasting via support for Spatial Audio's SAM encoder and StationPlaylist's own SPL encoder and others
 
 And so much more.
 
@@ -68,13 +68,13 @@ Unless otherwise noted, this add-on guide will focus primarily on StationPlaylis
 
 StationPlaylist add-on requires the following:
 
-* An evaluation or a registered copy of StationPlaylist Studio 6.0 or later installed on a computer running Windows 10 or later.
-* Optional: an evaluation or registered copy of StationPlaylist Creator and/or StationPlaylist Streamer, version 6.0 or later.
+* An evaluation or a registered copy of StationPlaylist Studio 6.0 or later installed on a computer running Windows 10 or later
+* Optional: an evaluation or registered copy of StationPlaylist Creator and/or StationPlaylist Streamer, version 6.0 or later
 * Optional: an evaluation or registered copy of StationPlaylist Remote Studio
 * Optional: Remote VT client
-* Optional: an evaluation or registered copy of SAM Encoders.
-* Optional: AltaCast Winamp plugin (one must copy AltaCast Winamp plugin DLL to Studio's plugins folder for Studio to recognize AltaCast).
-* NVDA 2025.3.2 or later. Certain features will require later versions of NVDA.
+* Optional: an evaluation or registered copy of SAM Encoders
+* Optional: AltaCast Winamp plugin (one must copy AltaCast Winamp plugin DLL to Studio's plugins folder for Studio to recognize AltaCast)
+* NVDA 2025.3.2 or later (some features will require later versions of NVDA)
 
 ## Installing and updating the add-on
 
@@ -130,11 +130,11 @@ Note: if using local Studio, for best experience, tell Studio to use accessibili
 
 You can use native SPL Studio commands to control track playback. Here is a list of the commands:
 
-* ENTER or P: play the selected track.
-* U: Pause or continue playing the track.
-* S: Stop track with fade out.
-* T: Instant stop.
-* Alt+Down arrow: Skip to next track.
+* ENTER or P: play the selected track
+* U: Pause or continue playing the track
+* S: Stop track with fade out
+* T: Instant stop
+* Alt+Down arrow: Skip to next track
 
 From Studio window, to see if a track is playing, press the SPL Assistant command. NVDA will play a beep. Then press P, and NVDA will announce if the track is playing or stopped.
 
@@ -226,30 +226,30 @@ Note: for current and next track commands, you can ask NVDA to announce internal
 
 Besides track and time information, NVDA allows you to use native Studio commands to change various options such as microphone on or off, automation and so on. As you change these options, NVDA will announce new values either as words or beeps. To change these options, use the Studio commands as follows:
 
-* A: Toggle automation.
-* L: Line-in.
-* M: Microphone on/off.
-* N: Microphone on/off without fade.
-* R (local Studio only): Enable or disable record to file.
-* Control+T (local Studio only): Cart edit/insert mode on or off. If status message is set to beeps and if cart insert mode is active, you will hear "insert" when you press this command and status changes to cart insert mode on.
-* Control+D (local Studio only): Control keys enable/disable (Studio 6.10 and later).
+* A: Toggle automation
+* L: Line-in
+* M: Microphone on/off
+* N: Microphone on/off without fade
+* R (local Studio only): Enable or disable record to file
+* Control+T (local Studio only): Cart edit/insert mode on or off (if status message is set to beeps and if cart insert mode is active, you will hear "insert" when you press this command and status changes to cart insert mode on)
+* Control+D (local Studio only): Control keys enable/disable (Studio 6.10 and later)
 
 To announce current values for these options, enter SPL Assistant layer, then press the corresponding native command from the list above (except where noted). For example, to hear if automation is enabled, enter SPL Assistant then press A.
 
 Additional commands and exceptions for SPL Assistant layer include (most commands are unavailable in Remote Studio):
 
-* U (local Studio only): Studio up time.
-* T (local Studio only): Cart edit mode status. To change cart edit mode status, press Control+T (Control+T is a Studio command).
-* I (local Studio only): Listener count (I as in "Internet listeners").
-* Control+K (local Studio only): Drop a place marker on the selected track.
-* K (local Studio only): Move to a predefined marker track. See place marker section for more details.
-* Shift+P (local Studio only): Pitch for the current track.
-* Shift+R (local Studio only): Report library scan results (number of items scanned) or track current library scan in the background.
-* W: Weather and temperature (see below).
-* F1: Shows a dialog listing available layer commands.
-* F9: Mark the start of track time analysis.
-* F10: Performs track time analysis. See track time analysis section for more details.
-* F12: Switches between current and an instant switch profile. See instant switch profile section for more details.
+* U (local Studio only): Studio up time
+* T (local Studio only): Cart edit mode status (to change cart edit mode status, press Control+T (Control+T is a Studio command))
+* I (local Studio only): Listener count (I as in "Internet listeners")
+* Control+K (local Studio only): Drop a place marker on the selected track
+* K (local Studio only): Move to a predefined marker track (see place marker section for more details)
+* Shift+P (local Studio only): Pitch for the current track
+* Shift+R (local Studio only): Report library scan results (number of items scanned) or track current library scan in the background
+* W: Weather and temperature (see below)
+* F1: Shows a dialog listing available layer commands
+* F9: Mark the start of track time analysis
+* F10: Performs track time analysis (see track time analysis section for more details)
+* F12: Switches between current and an instant switch profile (see instant switch profile section for more details)
 
 Note: When the microphone is turned on with or without fade, pressing M from SPL Assistant will tell you the current microphone status.
 
@@ -261,13 +261,13 @@ The SPL Assistant layer commands described throughout this guide are the default
 
 Following are SPL Assistant command assignments when JAWS for Windows layout is active:
 
-* C: Cart Explorer (you can toggle this by pressing Alt+NVDA+3).
-* H: Remaining track duration for the hour slot.
-* L (local Studio only): Listener count.
-* R: Playlist duration.
-* T: Hour duration.
-* Alt+T (local Studio only): Library scan results.
-* Number row 0 (zero; local Studio only): Cart edit mode status.
+* C: Cart Explorer (you can toggle this by pressing Alt+NVDA+3)
+* H: Remaining track duration for the hour slot
+* L (local Studio only): Listener count
+* R: Playlist duration
+* T: Hour duration
+* Alt+T (local Studio only): Library scan results
+* Number row 0 (zero; local Studio only): Cart edit mode status
 
 Other SPL Assistant commands described in this guide are same across all layouts.
 
@@ -297,13 +297,13 @@ NVDA can do this task when you tell it to do so. Pressing SPL Assistant, F8 whil
 
 By default, the following playlist information will be shown:
 
-* Number of items (including tracks, hour markers, break notes and so on) in the playlist.
-* Total duration of the playlist.
-* Name and duration of the longest and shortest tracks.
-* Average duration of all tracks in the playlist.
-* Top categories.
-* Top artists by track count.
-* Music genres represented.)
+* Number of items (including tracks, hour markers, break notes and so on) in the playlist
+* Total duration of the playlist
+* Name and duration of the longest and shortest tracks
+* Average duration of all tracks in the playlist
+* Top categories
+* Top artists by track count
+* Music genres represented
 
 You can configure snapshot information from add-on settings via playlist snapshots category. This screen houses checkboxes and several number edit fields to specify what information will be gathered when taking a playlist snapshot.
 
@@ -317,9 +317,9 @@ To request a playlist transcript, press SPL Assistant, Shift+F8. NVDA will then 
 
 The available transcript ranges include:
 
-* Entire playlist.
-* To and from current track: from start of the playlist to the current track, or from current track to the end.
-* Current hour.
+* Entire playlist
+* To and from current track (from start of the playlist to the current track, or from current track to the end)
+* Current hour
 
 The available transcript formats include:
 
@@ -479,10 +479,10 @@ If you have NVDA installed on a touchscreen computer, you can use touchscreen ge
 
 The commands in SPL mode are as follows:
 
-* Two finger flick right: open alarms settings.
-* Two finger flick left: open add-on settings.
-* Two finger flick up: announces broadcaster time.
-* Two finger flick down: announces remaining time for the currently playing track.
+* Two finger flick right: open alarms settings
+* Two finger flick left: open add-on settings
+* Two finger flick up: announces broadcaster time
+* Two finger flick down: announces remaining time for the currently playing track
 
 Note: When you switch away from Studio, you'll be placed in object touch mode.
 
@@ -496,52 +496,52 @@ To use Track Tool, highlight a track from within Studio's track list, then press
 
 From within Track Tool, press Control+NVDA+number to hear various information about the selected track. For example, press Control+NVDA+3 to obtain track duration. Alternatively, use table navigation commands to review column information (Control+Alt+left/right to move between columns, for example).
 
-Following are the information you can query regarding a track in Track Tool:
+Following are the information you can query regarding a track in Track Tool and their default number row assignments (tenth position is 0 (zero) key):
 
-* Control+NVDA+1: Artist.
-* Control+NVDA+2: Track title.
-* Control+NVDA+3: Duration of the selected track.
-* Control+NVDA+4: Cue time.
-* Control+NVDA+5: Overlap duration.
-* Control+NVDA+6: Length of the intro.
-* Control+NVDA+7: Segue.
-* Control+NVDA+8: Path to the file.
-* Control+NVDA+9: Album
-* Control+NVDA+0: CD code for this track.
+1. Artist
+2. Track title
+3. Duration of the selected track
+4. Cue time
+5. Overlap duration
+6. Length of the intro
+7. Segue
+8. Path to the file
+9. Album
+10. CD code for this track
 
 #### StationPlaylist Creator
 
 Similar to Track Tool, after loading a playlist or tracks with a given category, you can use table navigation commands (Control+Alt+left arrow/right arrow/up arrow/down arrow/Home/End keys) to review items in a track, or use Columns Explorer to review data from a specific column.
 
-Following are the information you can query regarding a track in SPL Creator:
+Following are the information you can query regarding a track in SPL Creator and their default number row assignments:
 
-* Control+NVDA+1: Artist.
-* Control+NVDA+2: Track title.
-* Control+NVDA+3: Track position.
-* Control+NVDA+4: Cue time.
-* Control+NVDA+5: Length of the intro.
-* Control+NVDA+6: Length of the outro.
-* Control+NVDA+7: Segue.
-* Control+NVDA+8: Duration of the selected track.
-* Control+NVDA+9: Last scheduled date and time.
-* Control+NVDA+0: How many times the track was played in the last 7 days.
+1. Artist
+2. Track title
+3. Track position
+4. Cue time
+5. Length of the intro
+6. Length of the outro
+7. Segue
+8. Duration of the selected track
+9. Last scheduled date and time
+10. How many times the track was played in the last 7 days
 
 #### Creator Playlist Editor and Remote VT client
 
 Both Creator's playlist editor and Remote VT client lets you manage playlists for a station. The differences are where the station is hosted (local for Creator, remote for VT client), along with ability to record voice tracks for a remote playlist in Remote VT client which affects the length of a playlist.
 
-Following are track information shown in Creator's Playlist Editor and Remote VT client once a remote playlist is loaded:
+Following are track information shown in Creator's Playlist Editor and Remote VT client once a remote playlist is loaded (and their default number row assignments):
 
-* Control+NVDA+1: Artist.
-* Control+NVDA+2: Track title.
-* Control+NVDA+3: Duration of the selected track.
-* Control+NVDA+4: Length of the intro.
-* Control+NVDA+5: Length of the outro.
-* Control+NVDA+6: Category.
-* Control+NVDA+7: Year.
-* Control+NVDA+8: Album.
-* Control+NVDA+9: Genre.
-* Control+NVDA+0: Mood.
+1. Artist
+2. Track title
+3. Duration of the selected track
+4. Length of the intro
+5. Length of the outro
+6. Category
+7. Year
+8. Album
+9. Genre
+10. Mood
 
 In addition, version 6.10 and later displays scheduled time as the leftmost column.
 
@@ -554,7 +554,7 @@ Playlist Editor in creator and Remote VT client includes the following additiona
 
 ## Studio add-on preferences
 
-One of the strengths of NVDA is that it contains gateways for configuring various settings, such as voice, browse mode and so on, all housed in the multi-page Settings screen located in preferences menu. Just like any other settings, SPL add-on comes with its own settings dialog. As long as you are running at least one SPL app i.e. Studio (local and remote), Creator, Remote VT, and Track Tool, you can open this dialog by going to NVDA's preferences menu and selecting "SPL add-on settings" item or pressing Alt+NVDA+0 (zero) from SPL app window.
+NVDA includes a multi-page settings dialog accessible from NVDA's preferences menu to configure a variety of options, including voice, browse mode and so on. SPL add-on comes with its own multi-page settings dialog. As long as you are running at least one SPL app i.e. Studio (local and remote), Creator, Remote VT, and Track Tool, you can open this dialog by going to NVDA's preferences menu and selecting "SPL add-on settings" item or pressing Alt+NVDA+0 (zero) from SPL app window.
 
 When add-on settings opens, a list of settings categories will be shown on the left, with settings for the selected category on the right. Select a category from list of categories, or to move between categories, press Control+Tab or Control+Shift+Tab. After configuring settings, select OK to save settings and close the dialog, or select Apply button to save settings and keep the dialog open. To discard changes, select Cancel.
 
@@ -608,7 +608,7 @@ StationPlaylist add-on takes this one step further. If you host multiple shows, 
 
 So far, we've dealt with only one profile: normal profile. By default, NVDA uses default broadcast profile when adjusting settings. You can then use this profile to create new profiles based on this profile, or create a new profile with default settings applied.
 
-As of add-on 21.04, the following settings can be stored in profiles:
+The following add-on settings can be stored in profiles:
 
 * End of track notification toggle.
 * End of track alarm.
@@ -678,31 +678,31 @@ To use these commands, enter SPL Controller layer. NVDA says, "SPL Controller" o
 
 after entering SPL Controller, press one of the following commands:
 
-* A: Turn automation on.
-* Shift+A: Turn automation off.
-* M: Turn on microphone.
-* Shift+M: Turn off microphone.
-* N: Turn on microphone without fade.
-* L: Turn on line-in.
-* Shift+L: Turn off line-in.
-* P: Play the next track.
-* U: Pause or continue playing.
-* S: Stop with fade out.
-* T: Instant stop.
-* Function keys and number row keys (with or without modifiers; unavailable in SPL Remote Controller): play assigned carts (carts without borders).
+* A: Turn automation on
+* Shift+A: Turn automation off
+* M: Turn on microphone
+* Shift+M: Turn off microphone
+* N: Turn on microphone without fade
+* L: Turn on line-in
+* Shift+L: Turn off line-in
+* P: Play the next track
+* U: Pause or continue playing
+* S: Stop with fade out
+* T: Instant stop
+* Function keys and number row keys (with or without modifiers; unavailable in SPL Remote Controller): play assigned carts (carts without borders)
 
 Notice that the commands are same as SPL control commands available while SPL Studio is used. Also, the toggle commands by themselves enables a particular option, while pressing shift with the toggle key disables it (except when playing carts via SPL Controller).
 
 Additional SPL Controller commands include:
 
-* R: Announce remaining time for the currently playing track (local Studio: regular track/voice track/cart) in seconds.
-* Shift+R (unavailable in SPL Remote Controller): announce number of tracks in the library or library scan progress (if this is happening) along with number of items scanned.)
-* E (unavailable in SPL Remote Controller): Announce connection status for active encoders if any.
-* I (unavailable in SPL Remote Controller): Announce listener count.
-* Q: Announce various Studio status info. These include track playback status, automation, microphone, line-in, record to file, and cart edit/insert mode toggle.
-* C: Name and duration of the currently playing track (if any).
-* Shift+C: Name and duration of the upcoming track (if any).
-* H: Shows a dialog listing available Controller commands.
+* R: Announce remaining time for the currently playing track (local Studio: regular track/voice track/cart) in seconds
+* Shift+R (unavailable in SPL Remote Controller): Announce number of tracks in the library or library scan progress (if this is happening) along with number of items scanned)
+* E (unavailable in SPL Remote Controller): Announce connection status for active encoders if any
+* I (unavailable in SPL Remote Controller): Announce listener count
+* Q: Announce various Studio status info (track playback status, automation, microphone, line-in, record to file, cart edit/insert mode toggle)
+* C: Name and duration of the currently playing track (if any)
+* Shift+C: Name and duration of the upcoming track (if any)
+* H: Shows a dialog listing available Controller commands
 
 Note: SPL Controller, E and Q can be assigned to a different command from Input Gestures dialog.
 
@@ -712,7 +712,7 @@ In addition to playing carts when focused on Studio and learning about their ass
 
 ### SPL Controller coverage (Studio 6.20 and later)
 
-By default SPL Controller will control both local and Remote Studio. As long as one of either local Studio or Remote Studio is in use, NVDA will let you control Studio's functionality through SPL Controller. However, when both local and Remote Studio are in use on the same computer, SPL Controller will control local Studio. As an alternative, you can limit SPL Controller coverage or scope to either local Studio or Remote Studio. 
+By default SPL Controller will control both local and Remote Studio. As long as one of either local Studio or Remote Studio is in use, NVDA will let you control Studio's functionality through SPL Controller. However, when both local and Remote Studio are in use on the same computer (not recommended), SPL Controller will control local Studio. As an alternative, you can limit SPL Controller coverage or scope to either local Studio or Remote Studio. 
 
 To configure SPL Controller coverage, from add-on settings dialog, go to advanced settings, then select an option from "SPL Controller coverage" combo box. The options and the resulting behavior are:
 
@@ -820,36 +820,36 @@ Q. Some add-on commands do not have keyboard shortcuts.
 
 You can assign your own commands to the following commands from Input Gestures dialog (see NVDA User Guide for details on Input Gestures dialog):
 
-* Entering SPL Controller layer.
-* Entering SPL Assistant layer.
-* Switching to SPL Studio from any program.
-* Obtaining Studio status information from any program.
-* Announcing time in hours, minutes and seconds.
-* Column Search.
-* Time range finder.
-* Announcing weather and temperature information.
-* Announcing title and duration of the next track if any.
-* Announcing title and length of the currently playing track.
-* Announcing metadata streaming status.
-* Opening a dialog to quickly toggle metadata streaming.
-* Obtaining playlist snapshots.
+* Entering SPL Controller layer
+* Entering SPL Assistant layer
+* Switching to SPL Studio from any program
+* Obtaining Studio status information from any program
+* Announcing time in hours, minutes and seconds
+* Column Search
+* Time range finder
+* Announcing weather and temperature information
+* Announcing title and duration of the next track if any
+* Announcing title and length of the currently playing track
+* Announcing metadata streaming status
+* Opening a dialog to quickly toggle metadata streaming
+* Obtaining playlist snapshots
 
 Q. Does the add-on support speech on demand mode?
 
 Speech on demand mode allows NVDA to speak selected commands such as informational messages while staying silent. The following add-on commands support speech on demand mode:
 
-* Entering SPL Controller layer.
-* Entering SPL Assistant layer.
-* Obtaining Studio and/or encoder status information from any program.
-* Elapsed and remaining time for a currently playing track.
-* Announcing time in hours, minutes and seconds.
-* Announcing broadcaster time.
-* Announcing weather and temperature information.
-* Announcing title and duration of the next track if any.
-* Announcing title and length of the currently playing track.
-* Obtaining playlist snapshots and playlist duration analysis.
-* Announcing columns and comments for the selected track in Studio.
-* Announcing information on the selected encoder such as encoder label.
+* Entering SPL Controller layer
+* Entering SPL Assistant layer
+* Obtaining Studio and/or encoder status information from any program
+* Elapsed and remaining time for a currently playing track
+* Announcing time in hours, minutes and seconds
+* Announcing broadcaster time
+* Announcing weather and temperature information
+* Announcing title and duration of the next track if any
+* Announcing title and length of the currently playing track
+* Obtaining playlist snapshots and playlist duration analysis
+* Announcing columns and comments for the selected track in Studio
+* Announcing information on the selected encoder such as encoder label
 
 Q. Can I use SPL Assistant commands from Studio windows other than playlist viewer?
 
@@ -861,7 +861,7 @@ This is to separate Studio specific functions from global commands to control St
 
 Q. Can I set it so one layer command can invoke both layer command sets?
 
-Yes. If SPL Controller command is not assigned or want to make sure there is a command associated with SPL Controller entry command, open input gestures (NVDA menu/Preferences/Input gestures), expand StationPlaylist category, look for SPL Controller, then press Alt+A to add a new command. Unless you want your command to work in specific layouts, select "all layouts" from the list of gesture availability choices, then select OK button. Then, while focused in Studio, open add-on settings (NVDA+Alt+0), go to "advanced" category, and check "Use SPl Controller to invoke SPL Assistant" checkbox (checked by default for new installations of 25.09/25.06.6-LTS or later) and press Enter (OK button). 
+Yes. If SPL Controller command is not assigned or want to make sure there is a command associated with SPL Controller entry command, open input gestures (NVDA menu/Preferences/Input gestures), expand StationPlaylist category, look for SPL Controller, then press Alt+A to add a new command. Unless you want your command to work in specific layouts, select "all layouts" from the list of gesture availability choices, then select OK button. Then, while focused in Studio, open add-on settings (NVDA+Alt+0), go to "advanced" category, and check "Use SPl Controller to invoke SPL Assistant" checkbox (checked by default) and press Enter (OK button). 
 
 Q. Why are some SPL Assistant layer commands unavailable from Remote Studio?
 
@@ -896,11 +896,11 @@ Q. Which status announcements are affected by different verbosity levels?
 
 The following toggle announcements are affected by verbosity levels, particularly advanced level where either a shortened text or a short beep will be heard:
 
-* Automation.
-* Microphone.
-* Line-in.
-* Record to file. (local Studio)
-* Cart edit/insert (prior to December 2016).)
+* Automation
+* Microphone
+* Line-in
+* Record to file (local Studio)
+* Cart edit/insert (local Studio)
 
 Q. How can I monitor a lengthy library scan in local Studio?
 
@@ -1023,16 +1023,16 @@ As of 2026, add-on versions 3.x (September 2014-June 2015), 7.x/15.x (April 2016
 
 Q. Which versions of Studio are supported by which add-on releases?
 
-* Studio versions prior to 5.x: add-on 1.0 to 3.9 (January 2014-June 2015).
-* Studio 5.0x: Add-on 1.0 to 7.5, 15.0 to 15.14 (January 2014-April 2018).
-* Studio 5.1x: Add-on 3.2 to 18.09.13 (November 2014-December 2019).
-* Studio 5.20: Add-on 16.11 to 20.09.7 (November 2016-April 2021).
-* Studio 5.3x: Add-on 17.11 to 22.12 (November 2017-December 2022).
-* Studio 5.40: Add-on 19.11 to 25.05.4 (November 2019-May 2025).
-* Studio 5.50: Add-on 20.11 to 25.06.12 (November 2020-December 2025).
-* Studio 6.0x: Add-on 21.11 to 26.03.1 (November 2021-March 2026).
-* Studio 6.1x: Add-on 24.03 to 26.03.1 (April 2024-March 2026).
-* Studio 6.20: Add-on 25.11 to 26.03.1 (November 2025-March 2026).
+* Studio versions prior to 5.x: add-on 1.0 to 3.9 (January 2014-June 2015)
+* Studio 5.0x: Add-on 1.0 to 7.5, 15.0 to 15.14 (January 2014-April 2018)
+* Studio 5.1x: Add-on 3.2 to 18.09.13 (November 2014-December 2019)
+* Studio 5.20: Add-on 16.11 to 20.09.7 (November 2016-April 2021)
+* Studio 5.3x: Add-on 17.11 to 22.12 (November 2017-December 2022)
+* Studio 5.40: Add-on 19.11 to 25.05.4 (November 2019-May 2025)
+* Studio 5.50: Add-on 20.11 to 25.06.12 (November 2020-December 2025)
+* Studio 6.0x: Add-on 21.11 to 26.03.1 (November 2021-March 2026)
+* Studio 6.1x: Add-on 24.03 to 26.03.1 (April 2024-March 2026)
+* Studio 6.20: Add-on 25.11 to 26.03.1 (November 2025-March 2026)
 
 Note: the schedule above is subject to change.
 
@@ -1083,16 +1083,16 @@ Q. What is NVDA in secure mode?
 
 NVDA can be configured to run in secure screens, and if this is the case, NVDA restricts users from saving settings, installing add-ons, and viewing the log. In addition to not allowing you from interacting with StationPlaylist suite of applications, the following limitations are present in secure screens:
 
-* SPL Controller layer commands cannot be performed.
-* You cannot switch to Studio from other programs.
-* You cannot obtain Studio and/or encoder status.
+* SPL Controller layer commands cannot be performed
+* You cannot switch to Studio from other programs
+* You cannot obtain Studio and/or encoder status
 
 In addition, it is possible to run NVDA in secure mode with secure screen like restrictions while not in secure screens (not recommended). If this happens, the following restrictions will be in place when interacting with SPL suite of applications:
 
-* You cannot create, copy, rename, delete, or configure triggers for broadcast profiles.
-* You cannot save add-on settings, including encoder settings for the add-on.
-* You cannot copy playlist transcripts to the clipboard or save them to a file.
-* You cannot configure advanced add-on settings or reset add-on settings to defaults as these settings categories will be unavailable in add-on settings dialog.
+* You cannot create, copy, rename, delete, or configure triggers for broadcast profiles
+* You cannot save add-on settings, including encoder settings for the add-on
+* You cannot copy playlist transcripts to the clipboard or save them to a file
+* You cannot configure advanced add-on settings or reset add-on settings to defaults as these settings categories will be unavailable in add-on settings dialog
 
 Because of these restrictions, you should not copy StationPlaylist add-on to secure screens, nor run NVDA in secure mode while not in secure screens unless required.
 
