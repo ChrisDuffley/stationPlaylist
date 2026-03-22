@@ -128,6 +128,13 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 	It provides utility scripts when Playlist Viewer entries are focused,
 	such as location text and enhanced column navigation."""
 
+	@scriptHandler.script(gesture="kb:control+alt+end")
+	def script_ctrlAltEnd(self, gesture):
+		if self.appModule.appName == "splstudio":
+			gesture.send()
+		else:
+			self.script_moveToLastColumn(gesture)
+
 	@property
 	def screenColumnOrder(self):
 		# Return the actual default column order based on Studio release.
