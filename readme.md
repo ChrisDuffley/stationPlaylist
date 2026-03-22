@@ -16,6 +16,7 @@ IMPORTANT NOTES:
 * Many commands will provide speech output while NVDA is in speak on demand mode (NVDA 2024.1 and later).
 * When refering to Studio, both local (original) Studio and Remote Studio will be assumed. When something is specific to StationPlaylist Studio (original), the term "local Studio" will be used.
 * Installing both Studio (local/original) and Remote Studio on the same computer is not recommended.
+* Some add-on keyboard commands will conflict with Studio commands (for example: Control+Alt+End to announce last column (add-on) versus preview ends of tracks (Studio 6.10 and later)).
 
 ## Shortcut keys
 
@@ -182,7 +183,7 @@ To obtain length to play selected tracks, mark current track for start of track 
 
 ## Columns Explorer
 
-By pressing Control+NVDA+1 through 0, you can obtain contents of specific columns. By default, these are first ten columns for a track item (in Studio: artist, title, duration, intro, outro, category, year, album, genre, mood). In Studio, Creator's main track list and playlist editor, Track Tool, and Remote VT, column slots are preset regardless of column order on screen and can be configured from add-on settings dialog under columns explorer category.
+By pressing Control+NVDA+1 through 0, you can obtain contents of specific columns. By default, these are first ten columns for a track item (in Studio: artist, title, duration, intro, outro, category, year, album, genre, mood). In Studio (local and Remote), Creator's main track list and playlist editor, Track Tool, and Remote VT, column slots are preset regardless of column order on screen and can be configured from add-on settings dialog under columns explorer category.
 
 ## Track column announcement
 
