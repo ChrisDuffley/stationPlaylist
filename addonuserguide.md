@@ -1,6 +1,6 @@
 # StationPlaylist Add-on User Guide
 
-Revision: April 2026 for StationPlaylist add-on 26.04
+Revision: April 2026 for StationPlaylist add-on 26.04.2
 
 Author: Christopher Duffley (formerly Joseph Lee)
 
@@ -143,6 +143,8 @@ From Studio window, to see if a track is playing, press the SPL Assistant comman
 Visually, Playlist Viewer entries are organized as a table. Each row corresponds to track entries and various information about a track (called tags) is spread across 18 columns. On the far left is a check mark that denotes whether the track is selected for playback, and one can use the mouse to reorder other columns.
 
 You can use NVDA's table navigation commands to move between columns such as artist, duration, category and so on (termed Column Navigator). That is, you can press Control+Alt+left or right arrows to move through columns, and Control+Alt+up or down arrows to move vertically (next or previous row while staying at the column of your choosing, either the column you are reviewing or a specific column). You can also press Control+Alt+Home or End to review leftmost or rightmost column. NVDA will announce "edge of table" when you reach the edge of the track item row or the first or last track on the playlist viewer (the latter if you enabled top and bottom notifications).
+
+Note: in local Studio 6.10 and later, pressing Control+Alt+End will play the last parts of a track. However, with the add-on running, pressing this keyboard combination will announce last column for the selected track instead. As a workaround, add-on 26.04.x will pass this key combination to Studio.
 
 #### Columns Explorer
 
@@ -1030,9 +1032,9 @@ Q. Which versions of Studio are supported by which add-on releases?
 * Studio 5.3x: Add-on 17.11 to 22.12 (November 2017-December 2022)
 * Studio 5.40: Add-on 19.11 to 25.05.4 (November 2019-May 2025)
 * Studio 5.50: Add-on 20.11 to 25.06.12 (November 2020-December 2025)
-* Studio 6.0x: Add-on 21.11 to 26.04 (November 2021-April 2026)
-* Studio 6.1x: Add-on 24.03 to 26.04 (April 2024-April 2026)
-* Studio 6.20: Add-on 25.11 to 26.04 (November 2025-April 2026)
+* Studio 6.0x: Add-on 21.11 to 26.04.2 (November 2021-April 2026)
+* Studio 6.1x: Add-on 24.03 to 26.04.2 (April 2024-April 2026)
+* Studio 6.20: Add-on 25.11 to 26.04.2 (November 2025-April 2026)
 
 Note: the schedule above is subject to change.
 
