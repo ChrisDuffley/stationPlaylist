@@ -5,6 +5,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 ## Version 26.04
 
 * In Creator's playlist editor, resolved a regression from add-on version 26.01 where NVDA was sluggish when moving through date and hour combo boxes for multi-day playlists.
+* In local Studio 6.10 and later, pressing Control+Alt+End will perform Studio command (play last parts of the focused track) instead of announcing the last column.
 
 ## Version 26.03.1
 

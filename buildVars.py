@@ -26,7 +26,8 @@ addon_info = AddonInfo(
 	addon_version="26.04",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""* In Creator's playlist editor, resolved a regression from add-on version 26.01 where NVDA was sluggish when moving through date and hour combo boxes for multi-day playlists."""),
+	addon_changelog=_("""* In Creator's playlist editor, resolved a regression from add-on version 26.01 where NVDA was sluggish when moving through date and hour combo boxes for multi-day playlists.
+* In local Studio 6.10 and later, pressing Control+Alt+End will perform Studio command (play last parts of the focused track) instead of announcing the last column."""),
 	# Author(s)
 	addon_author="Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)",
 	# URL for the add-on documentation support
