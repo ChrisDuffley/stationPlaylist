@@ -144,7 +144,7 @@ Visually, Playlist Viewer entries are organized as a table. Each row corresponds
 
 You can use NVDA's table navigation commands to move between columns such as artist, duration, category and so on (termed Column Navigator). That is, you can press Control+Alt+left or right arrows to move through columns, and Control+Alt+up or down arrows to move vertically (next or previous row while staying at the column of your choosing, either the column you are reviewing or a specific column). You can also press Control+Alt+Home or End to review leftmost or rightmost column. NVDA will announce "edge of table" when you reach the edge of the track item row or the first or last track on the playlist viewer (the latter if you enabled top and bottom notifications).
 
-Note: in local Studio 6.10 and later, pressing Control+Alt+End will play the last parts of a track. However, with the add-on running, pressing this keyboard combination will announce last column for the selected track instead. As a workaround, add-on 26.04.x will pass this key combination to Studio.
+Note: in local Studio 6.10 and later, pressing Control+Alt+End will play the last parts of the selected track. However, with the add-on running, pressing this keyboard combination will announce last column for the selected track instead. As a workaround, add-on 26.04.x will pass this key combination to Studio.
 
 #### Columns Explorer
 
