@@ -125,15 +125,9 @@ class SPLStudioTrackItem(splbase.SPLTrackItem):
 
 class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 	"""A class representing items found in Playlist Viewer (main window).
-	It provides utility scripts when Playlist Viewer entries are focused,
+	Both local and Remote Studio playlist viewer item basics are defined in this class.
+	This class provides utility scripts when Playlist Viewer entries are focused,
 	such as location text and enhanced column navigation."""
-
-	@scriptHandler.script(gesture="kb:control+alt+end")
-	def script_ctrlAltEnd(self, gesture):
-		if self.appModule.appName == "splstudio":
-			gesture.send()
-		else:
-			self.script_moveToLastColumn(gesture)
 
 	@property
 	def screenColumnOrder(self):
@@ -407,6 +401,19 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 			scriptRepeatCount = 0
 		if scriptRepeatCount <= 2:
 			self.announceTrackComment(scriptRepeatCount + 1)
+
+
+class LocalStudioPlaylistViewerItem(StudioPlaylistViewerItem):
+	"""Track items found in local Studio.
+	This is identical to the base playlist viewer item class apart from handling command conflicts.
+	"""
+
+	@scriptHandler.script(gesture="kb:control+alt+end")
+	def script_ctrlAltEnd(self, gesture):
+		if self.appModule.appName == "splstudio":
+			gesture.send()
+		else:
+			self.script_moveToLastColumn(gesture)
 
 
 SPLAssistantHelp = {
