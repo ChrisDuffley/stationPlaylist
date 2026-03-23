@@ -408,12 +408,15 @@ class LocalStudioPlaylistViewerItem(StudioPlaylistViewerItem):
 	This is identical to the base playlist viewer item class apart from handling command conflicts.
 	"""
 
+	# #172: keyboard command conflicts between the add-on and Studio.
+	# The following commands have differing behavior depending on add-on running state.
+	# Notably, some commands were assigned to add-on functions but Studio defined its own behavior later.
+	# Give priority to Studio behavior.
+
 	@scriptHandler.script(gesture="kb:control+alt+end")
 	def script_ctrlAltEnd(self, gesture):
-		if self.appModule.appName == "splstudio":
-			gesture.send()
-		else:
-			self.script_moveToLastColumn(gesture)
+		# Report last column (add-on) versus last bits of the selected track (local Studio 6.10 and later).
+		gesture.send()
 
 
 SPLAssistantHelp = {
