@@ -705,7 +705,7 @@ class AppModule(appModuleHandler.AppModule):
 			case "TTntListView.UnicodeClass" | "TListView":
 				if role == controlTypes.Role.LISTITEM:
 					if obj.parent.simpleParent.windowClassName == "TStudioForm":
-						clsList.insert(0, StudioPlaylistViewerItem)
+						clsList.insert(0, LocalStudioPlaylistViewerItem)
 					else:
 						clsList.insert(0, SPLStudioTrackItem)
 				# #69: allow actual list views to be treated as SysListView32.List
