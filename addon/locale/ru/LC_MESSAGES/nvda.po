@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nvdaaddons\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
-"POT-Creation-Date: 2026-03-02 03:56+0000\n"
-"PO-Revision-Date: 2026-03-09 00:39\n"
+"POT-Creation-Date: 2026-03-09 04:00+0000\n"
+"PO-Revision-Date: 2026-03-16 00:44\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
@@ -53,8 +53,8 @@ msgstr "Выход из обозревателя корзин"
 #. Translators: Summary/title for this add-on
 #. to be shown on installation and add-on information found in add-on store
 #: addon/appModules/splcreator.py:173 addon/appModules/tracktool.py:162
-#: addon/appModules/splcommon/splbase.py:180
-#: addon/appModules/splcommon/splbase.py:232
+#: addon/appModules/splcommon/splbase.py:177
+#: addon/appModules/splcommon/splbase.py:229
 #: addon/appModules/splstudio/__init__.py:308
 #: addon/appModules/splstudio/__init__.py:394
 #: addon/appModules/splstudio/__init__.py:492
@@ -697,45 +697,45 @@ msgid "Add-on settings dialog is open, cannot switch profiles"
 msgstr "Открыт диалог настроек дополнения, переключение профилей невозможно"
 
 #. Translators: A message informing users that Studio is not running so certain commands will not work.
-#: addon/appModules/splcommon/splbase.py:62
+#: addon/appModules/splcommon/splbase.py:59
 msgid "Studio main window not found"
 msgstr "Не найдено главное окно Studio"
 
 #. Translators: presented when SPL Studio window is minimized.
-#: addon/appModules/splcommon/splbase.py:130
+#: addon/appModules/splcommon/splbase.py:127
 msgid "SPL Studio is minimized to system tray."
 msgstr "SPL Studio свёрнута в системный лоток."
 
 #. Translators: input help mode message for column explorer commands.
-#: addon/appModules/splcommon/splbase.py:175
+#: addon/appModules/splcommon/splbase.py:172
 msgid "Pressing once announces data for a track column, pressing twice will present column data in a browse mode window"
 msgstr "При однократном нажатии отображаются данные для столбца дорожки, при двукратном нажатии данные столбца отображаются в окне режима обзора"
 
 #. Translators: Presented when column is out of range.
-#: addon/appModules/splcommon/splbase.py:192
+#: addon/appModules/splcommon/splbase.py:189
 #, python-brace-format
 msgid "Column {columnPosition} not found"
 msgstr "Столбец {columnPosition} не найден"
 
 #. Translators: Presented when a specific column header is not found.
-#: addon/appModules/splcommon/splbase.py:208
+#: addon/appModules/splcommon/splbase.py:205
 #, python-brace-format
 msgid "{headerText} not found"
 msgstr "{headerText} не найден"
 
 #. Translators: Title of the column data window.
-#: addon/appModules/splcommon/splbase.py:226
-#: addon/appModules/splcommon/splbase.py:243
+#: addon/appModules/splcommon/splbase.py:223
+#: addon/appModules/splcommon/splbase.py:240
 msgid "Track data"
 msgstr "Данные дорожки"
 
 #. Translators: input help mode message for columns viewer command.
-#: addon/appModules/splcommon/splbase.py:230
+#: addon/appModules/splcommon/splbase.py:227
 msgid "Presents data for all columns in the currently selected track"
 msgstr "Предоставляет данные по всем столбцам текущей выбранной дорожки"
 
 #. Translators: location text for a playlist item (example: item 1 of 10).
-#: addon/appModules/splcommon/splbase.py:248
+#: addon/appModules/splcommon/splbase.py:245
 #, python-brace-format
 msgid "Item {current} of {total}"
 msgstr "Элемент {current} из {total}"
