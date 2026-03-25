@@ -32,7 +32,8 @@ StationPlaylist add-on for NVDA contains following features to support Studio an
 * Announcing toggle states of various controls such as automation
 * Ability to obtain playback and other status information from within SPL Studio
 * Ability to configure status announcement verbosity
-* announcing playback time such as remaining time for the current track
+* Announcing playback time such as remaining time for the current track
+* Features to review track metadata such as commands to move through and report properties such as artist, title, genre, album, and filename
 * Managing SPL Studio functions from other programs
 * Announcement of when the end of track and song intros are approaching
 * A dedicated mode to learn cart machine assignments and play carts from anywhere
@@ -68,7 +69,7 @@ Unless otherwise noted, this add-on guide will focus primarily on StationPlaylis
 
 StationPlaylist add-on requires the following:
 
-* An evaluation or a registered copy of StationPlaylist Studio 6.0 or later installed on a computer running Windows 10 or later
+* An evaluation or a registered copy of StationPlaylist Studio 6.0 or later installed on a computer running Windows 10 or 11
 * Optional: an evaluation or registered copy of StationPlaylist Creator and/or StationPlaylist Streamer, version 6.0 or later
 * Optional: an evaluation or registered copy of StationPlaylist Remote Studio
 * Optional: Remote VT client
