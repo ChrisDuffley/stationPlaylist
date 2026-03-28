@@ -66,6 +66,7 @@ SayStudioPlayerPosition = boolean(default=false)
 SPLConPassthrough = boolean(default=true)
 CompatibilityLayer = option("off", "jfw", default="off")
 SPLConScope = option(None,"splstudio","remotestudio",default=None)
+CommandProcessingPriority = option("NVDA", "SPL", "NVDAThenSPL", default="SPL")
 [Startup]
 WelcomeDialog = boolean(default=true)
 """),
