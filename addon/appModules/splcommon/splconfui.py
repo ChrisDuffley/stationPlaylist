@@ -1483,6 +1483,23 @@ class AdvancedOptionsPanel(gui.settingsDialogs.SettingsPanel):
 			)
 			self.splConScopeList.SetSelection(selection)
 
+		self.commandProcessingPriority = [
+			("NVDA", "NVDA"),
+			("SPL", "StationPlaylist"),
+			("NVDAThenSPL", "NVDA then StationPlaylist commands when pressed repeatedly")
+		]
+		# Translators: The label for a setting in SPL add-on settings
+		# to configure priority for keyboard command processing between the add-on and Studio.
+		commandProcessingPriorityListLabel = _("Keyboard command &priority:")
+		self.commandProcessingPriorityList= advOptionsHelper.addLabeledControl(
+			commandProcessingPriorityListLabel, wx.Choice, choices=[x[1] for x in self.commandProcessingPriority]
+		)
+		commandProcessingPriorityCurValue = splconfig.SPLConfig["Advanced"]["CommandProcessingPriority"]
+		selection = next(
+			(x for x, y in enumerate(self.commandProcessingPriority) if y[0] == commandProcessingPriorityCurValue)
+		)
+		self.commandProcessingPriorityList.SetSelection(selection)
+
 	def onSave(self):
 		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthroughCheckbox.Value
 		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compatibilityLayouts[
@@ -1492,6 +1509,9 @@ class AdvancedOptionsPanel(gui.settingsDialogs.SettingsPanel):
 			splconfig.SPLConfig["Advanced"]["SPLConScope"] = self.splConScope[
 				self.splConScopeList.GetSelection()
 			][0]
+		splconfig.SPLConfig["Advanced"]["CommandProcessingPriority"] = self.commandProcessingPriority[
+			self.commandProcessingPriorityList.GetSelection()
+		][0]
 
 
 # A dialog to reset add-on config including encoder settings and others.
