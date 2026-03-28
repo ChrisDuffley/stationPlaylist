@@ -209,6 +209,11 @@ You can save settings for specific shows into broadcast profiles. These profiles
 
 If you are using Studio on a touchscreen computer with NVDA installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 26.05
+
+* Added a setting in add-on settings under Advanced settings panel to configure which ap should receive priority when command conflicts occur. Options include NVDA (perform add-on commands), StationPlaylist (pass the conflicting keyboard shortcut to the active SPL ap and is the default setting), or NVDA then StationPlaylist (first press will perform add-on command, subsequent presses will perform SPL command). This option is applicable to local Studio 6.10 and later where Control+Alt+End keyboard shortcut to report last track column conflicts with Studio command to play ends of tracks.
+* In local Studio 6.0x, pressing Control+Alt+End will no longer announce last track column to make the behavior consistent with later Studio releases. You can set command priority setting to "NVDA" or "NVDA then StationPlaylist" to restore previous behavior.
+
 ## Version 26.04
 
 * In Creator's playlist editor, resolved a regression from add-on version 26.01 where NVDA was sluggish when moving through date and hour combo boxes for multi-day playlists.
