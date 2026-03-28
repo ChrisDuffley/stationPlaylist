@@ -26,8 +26,8 @@ addon_info = AddonInfo(
 	addon_version="26.04",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""* In Creator's playlist editor, resolved a regression from add-on version 26.01 where NVDA was sluggish when moving through date and hour combo boxes for multi-day playlists.
-* In local Studio 6.10 and later, pressing Control+Alt+End will perform Studio command (play last parts of the focused track) instead of announcing the last column."""),
+	addon_changelog=_("""* Added a setting in add-on settings under Advanced settings panel to configure which ap should receive priority when command conflicts occur. Options include NVDA (perform add-on commands), StationPlaylist (pass the conflicting keyboard shortcut to the active SPL ap and is the default setting), or NVDA then StationPlaylist (first press will perform add-on command, subsequent presses will perform SPL command). This option is applicable to local Studio 6.10 and later where Control+Alt+End keyboard shortcut to report last track column conflicts with Studio command to play ends of tracks.
+* In local Studio 6.0x, pressing Control+Alt+End will no longer announce last track column to make the behavior consistent with later Studio releases. You can set command priority setting to "NVDA" or "NVDA then StationPlaylist" to restore previous behavior."""),
 	# Author(s)
 	addon_author="Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)",
 	# URL for the add-on documentation support
