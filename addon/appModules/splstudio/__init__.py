@@ -411,12 +411,20 @@ class LocalStudioPlaylistViewerItem(StudioPlaylistViewerItem):
 	# #172: keyboard command conflicts between the add-on and Studio.
 	# The following commands have differing behavior depending on add-on running state.
 	# Notably, some commands were assigned to add-on functions but Studio defined its own behavior later.
-	# Give priority to Studio behavior.
+	# Based on add-on keyboard command processing priority setting, handle it from the add-on, pass it to Studio,
+	# or perform add-on and/or NVDA  behavior until pressed several times.
 
 	@scriptHandler.script(gesture="kb:control+alt+end")
 	def script_ctrlAltEnd(self, gesture):
 		# Report last column (add-on) versus last bits of the selected track (local Studio 6.10 and later).
-		gesture.send()
+		commandProcessingPriority = splconfig.SPLConfig["Advanced"]["CommandProcessingPriority"]
+		scriptRepeatCount = scriptHandler.getLastScriptRepeatCount()
+		if commandProcessingPriority == "SPL" or (
+			commandProcessingPriority == "NVDAThenSPL" and scriptRepeatCount > 0
+		):
+			gesture.send()
+		else:
+			self.script_moveToLastColumn(gesture)
 
 
 SPLAssistantHelp = {
