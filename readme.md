@@ -138,7 +138,8 @@ Important: SPL Controller layer commands are disabled if NVDA is running in secu
 
 Outside of Studio, the available SPL Controller commands are (some commands support speak on demand and some are only available with local Studio):
 
-* P: Play the next selected track.
+* P or Enter: Play the selected track.
+* Control+down arrow: Play the next track with crossfade.
 * U: Pause or unpause playback.
 * S: Stop the track with fade out.
 * T: Instant stop.
@@ -213,6 +214,8 @@ If you are using Studio on a touchscreen computer with NVDA installed, you can p
 
 * Added a setting in add-on settings under Advanced settings panel to configure which ap should receive priority when command conflicts occur. Options include NVDA (perform add-on commands), StationPlaylist (pass the conflicting keyboard shortcut to the active SPL ap and is the default setting), or NVDA then StationPlaylist (first press will perform add-on command, subsequent presses will perform SPL command). This option is applicable to local Studio 6.10 and later where Control+Alt+End keyboard shortcut to report last track column conflicts with Studio command to play ends of tracks.
 * In local Studio 6.0x, pressing Control+Alt+End will no longer announce last track column to make the behavior consistent with later Studio releases. You can set command priority setting to "NVDA" or "NVDA then StationPlaylist" to restore previous behavior.
+* Added a new command in SPL Controller layer to play the next selected track with crossfade (Control+down arrow).
+* Pressing Enter after entering SPL Controller layer will play the selected track from anywhere.
 
 ## Version 26.04
 
