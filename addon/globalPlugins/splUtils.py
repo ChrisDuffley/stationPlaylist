@@ -53,7 +53,7 @@ Shift+M: Turn microphone off.
 N: Turn microphone on without fade.
 L: Turn line in on.
 Shift+L: Turn line in off.
-P: Play.
+P or Enter: Play.
 Control+down arrow: Play next track with crossfade.
 U: Pause.
 S: Stop with fade.
@@ -502,6 +502,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	__SPLControllerGestures = {
 		"kb:p": "play",
+		"kb:enter": "play",
 		"kb:control+downArrow": "nextTrack",
 		"kb:a": "automateOn",
 		"kb:shift+a": "automateOff",
