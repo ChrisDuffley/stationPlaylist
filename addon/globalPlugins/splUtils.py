@@ -31,6 +31,7 @@ addonHandler.initTranslation()
 SPLVersion = 2
 SPLPlay = 12
 SPLStop = 13
+SPLNextTrack = 14
 SPLPause = 15
 SPLAutomate = 16
 SPLMic = 17
@@ -53,6 +54,7 @@ N: Turn microphone on without fade.
 L: Turn line in on.
 Shift+L: Turn line in off.
 P: Play.
+Control+down arrow: Play next track with crossfade.
 U: Pause.
 S: Stop with fade.
 T: Instant stop.
@@ -348,6 +350,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		splbase.studioAPI(0, SPLPlay, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
+	def script_nextTrack(self, gesture):
+		splbase.studioAPI(0, SPLNextTrack, splComponent=self.activeStudioComponent)
+		self.script_finish()
+
 	def script_pause(self, gesture):
 		playingNow = splbase.studioAPI(0, SPLTrackPlaybackStatus, splComponent=self.activeStudioComponent)
 		if not playingNow:
@@ -496,6 +502,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	__SPLControllerGestures = {
 		"kb:p": "play",
+		"kb:control+downArrow": "nextTrack",
 		"kb:a": "automateOn",
 		"kb:shift+a": "automateOff",
 		"kb:m": "micOn",
