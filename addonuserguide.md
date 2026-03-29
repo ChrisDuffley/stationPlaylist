@@ -689,7 +689,8 @@ after entering SPL Controller, press one of the following commands:
 * N: Turn on microphone without fade
 * L: Turn on line-in
 * Shift+L: Turn off line-in
-* P: Play the next track
+* P or Enter: Play the selected track
+* Control+down arrow: Play the next selected track with crossfade
 * U: Pause or continue playing
 * S: Stop with fade out
 * T: Instant stop
