@@ -2,7 +2,7 @@
 
 * Yazarlar: Christopher Duffley <nvda@chrisduffley.com> (eski adıyla Joseph Lee <joseph.lee22590@gmail.com>, aslen Geoff Shang ve diğer katkıda bulunanlar tarafından yapılmıştır)
 
-Bu eklenti paketi, StationPlaylist Studio ve diğer StationPlaylist uygulamalarının gelişmiş kullanımını sağlamanın yanı sıra Studio'yu her yerden kontrol etmek için yardımcı programlar sağlar. Desteklenen uygulamalar arasında Studio, Remote Studio, Creator, Track Tool, VT Recorder ve Streamer'ın yanı sıra SAM, SPL ve AltaCast kodlayıcılar bulunur.
+Bu eklenti paketi, StationPlaylist Studio ve diğer StationPlaylist uygulamalarının gelişmiş kullanımını sağlamanın yanı sıra Studio'yu her yerden kontrol etmek için yardımcı programlar sağlar. Desteklenen uygulamalar arasında Studio, Remote Studio, Creator, Track Tool, Recorder (SPL ve VT) ve Streamer'ın yanı sıra SAM, SPL ve AltaCast kodlayıcılar bulunur.
 
 Eklenti hakkında daha fazla bilgi için [eklenti kılavuzunu][1] okuyun.
 
@@ -16,6 +16,7 @@ Eklenti hakkında daha fazla bilgi için [eklenti kılavuzunu][1] okuyun.
 * NVDA isteğe bağlı konuşma modundayken birçok komut konuşma çıkışı sağlayacaktır (NVDA 2024.1 ve sonrası).
 * Studio'ya başvurulduğunda hem yerel (orijinal) Studio hem de Remote Studio varsayılacaktır. StationPlaylist Studio'ya (orijinal) özel bir şey olduğunda "local Studio" terimi kullanılacaktır.
 * Hem Studio'nun (yerel/orijinal) hem de Remote Studio'nun aynı bilgisayara kurulması önerilmez.
+* Bazı eklenti klavye komutları Studio komutlarıyla çakışacaktır (örneğin: son sütunu (eklenti) duyurmak için Control+Alt+End ve parçaların önizleme sonlarını duyurmak için (Studio 6.10 ve üzeri)).
 
 ## Kısayol tuşları
 
@@ -182,7 +183,7 @@ Seçilen parçaları çalmak için uzunluk elde etmek üzere, parça süresi ana
 
 ## Sütun Gezgini
 
-Kontrol+NVDA+1'den 0'a kadar basarak belirli sütunların içeriğini elde edebilirsiniz. Varsayılan olarak, bunlar bir parça öğesi için ilk on sütundur (Studio'da: sanatçı, başlık, süre, giriş, çıkış, kategori, yıl, albüm, tür, ruh hali). Studio'da, Oluşturucu'nun ana parça listesi ve çalma listesi düzenleyicisinde, Parça Araçları'nda ve Remote VT'de, sütun yuvaları ekrandaki sütun sırasından bağımsız olarak önceden ayarlanmıştır ve sütun gezgini kategorisi altındaki eklenti ayarları iletişim kutusundan yapılandırılabilir.
+Control+NVDA+1'den 0'a kadar tuşlara basarak belirli sütunların içeriklerini elde edebilirsiniz. Varsayılan olarak bunlar bir parça öğesinin ilk on sütunudur (Studio'da: sanatçı, başlık, süre, giriş, çıkış, kategori, yıl, albüm, tür, ruh hali). Creator'ın ana parça listesi ve çalma listesi düzenleyicisi olan Studio (yerel ve Uzak), İzleme Aracı ve Remote VT'de sütun yuvaları, ekrandaki sütun sırasına bakılmaksızın önceden ayarlanır ve sütun gezgini kategorisi altındaki eklenti ayarları iletişim kutusundan yapılandırılabilir.
 
 ## Parça sütunu anonsu
 
@@ -208,17 +209,36 @@ Belirli programların ayarlarını yayın profillerine kaydedebilirsiniz. Bu pro
 
 Studio'yu NVDA kurulu dokunmatik ekranlı bir bilgisayarda kullanıyorsanız, bazı Studio komutlarını dokunmatik ekrandan gerçekleştirebilirsiniz. Önce SPL moduna geçmek için üç parmakla dokunmayı kullanın, ardından komutları gerçekleştirmek için yukarıda listelenen dokunma komutlarını kullanın.
 
+## Sürüm 26.04
+
+* Creator'ın çalma listesi düzenleyicisinde, NVDA'nın çok günlü çalma listeleri için tarih ve saat birleşik giriş kutuları arasında geçiş yaparken yavaşladığı eklenti sürümü 26.01'den kaynaklanan bir gerileme çözüldü.
+* Yerel Studio 6.10 ve üzeri sürümlerde, Control+Alt+End tuşlarına basmak, son sütunu duyurmak yerine Studio komutunu (odaklanan parçanın son bölümlerini oynat) gerçekleştirir.
+
+## Sürüm 26.03.1
+
+* Güvenlik: Yerel ve Remote Studio için parça yorumları artık güvenliği artırmak amacıyla turşu formatı yerine json formatında saklanıyor. Sonuç olarak, bu eklentinin daha eski bir sürümünün, bu sürümü yükledikten sonra yüklenmesi desteklenmez ve öngörülemeyen davranışlara neden olur.
+
+## Sürüm 26.03
+
+* StationPlaylist Recorder için başlangıç ​​desteği (VT Recorder ile karıştırılmamalıdır).
+* NVDA, SPL Kaydedici yapılandırmasınnnnnn ekran kontrolleri için etiketleri açıklayacak.
+* Hepsi olmasa da çoğu çok sütunlu liste artık sütun gezgini ve sütun gezinme desteğine sahiptir. Temel olarak yerel Studio'nun Dinleyici İstatistikleri penceresinde ve aynı listede Seçenekler > Dinleyici İstatistikleri'nde test edilmiştir.
+
 ## Sürüm 26.01
 
 * NVDA 2025.3.2 veya sonrası gereklidir.
 * Eklenti ayarları ekranı artık Creator, Remote VT ve Track Tool kullanılırken her uygulama için farklı ayarlarla kullanılabilir.
-* Yerel ve Remote Studio'da NVDA, parça ekle iletişim kutusunun arama kriterleri kontrolleri, parça özellikleri ve Stüdyo seçenekleri iletişim kutusu için etiketleri duyuracaktır.
+* NVDA, parça özellikleri, parça ekleme iletişim kutusunun arama kriterleri kontrolleri (Studio, Creator, Remote VT) ve Studio seçenekleri iletişim kutusu dahil olmak üzere SPL uygulaması ekranları için etiketleri duyuracak.
+* Studio (yerel ve uzak), Creator ve Remote VT'de, NVDA, SPL eklenti ayarlarından/genel kategoriden durum duyuruları için bip sesi çalacak şekilde yapılandırıldığında, parça ekleme iletişim kutusunda arama tamamlandığında NVDA bir bip sesi çalacaktır.
+* NVDA, Studio (yerel ve uzak) ve İzleme Aracı'nda artık izleme özellikleri ve Stüdyo seçenekleri ekranı gibi yerlerde diyalog özelliği içeriğini (açıklama) duyurmayacak.
 * Yerel Studio'da, NVDA, parça ekleme iletişim kutusundan (Kontrol+Shift+R) kitaplığı yeniden tararken daha az ayrıntılı bilgi verecektir.
 * Yerel Studio'da NVDA, eklenti ayarlarından "durum duyuruları için bip sesi" ayarından bağımsız olarak kütüphane tarama sayısını duyuracaktır.
 * Remote Studio'da, sepet gezgini etkinken seçenekler ekranını (Control+O) kapatırken, güncellenmiş sepet atamalarını görüntülemek için artık Sepet Gezgini'ne yeniden girmenize gerek yoktur.
 * Remote Studio'da parça ekle iletişim kutusunu kullanırken, Control+Shift+R tuşlarına basıldığında NVDA'nın "tarama başlat" demesi ve arama sonuçları durumu için ayrıntılı çıktı dahil olmak üzere çeşitli sorunlar çözüldü.
-* Yaratıcı ve Parça Aracı'ndaki parça listesinde, sütun sıralama düzenini değiştirmek için Alt+sayı satırı tuşlarına basıldığında, NVDA seçilen sütuna göre yeni sıralama düzenini duyurur.
-* Parça Aracı'nda, durum çubuğu komutunu okurken (NVDA+End/masaüstü düzeni, NVDA+Shift+End/dizüstü bilgisayar düzeni) durum çubuğunun içeriği duyurulacaktır.
+* Creator ve Track Tool'daki parça listesinde, sütun sıralama düzenini değiştirmek için Alt+sayı satır tuşlarına basmak, NVDA'nın seçilen sütuna göre yeni sıralama düzenini duyurmasına neden olacaktır. Bu komutları Creator'da gerçekleştirirken bir gecikme olacaktır.
+* Creator, Remote VT ve Track Tool'da, durum çubuğu okuma komutu gerçekleştirilirken durum çubuğu içeriği raporlanacaktır (NVDA+End/masaüstü düzeni, NVDA+Shift+End/dizüstü bilgisayar düzeni). Özellikle Creator'da durum çubuğu içeriği duyuru performansı iyileştirildi.
+* Creator ve Remote VT'de NVDA, parça ekle iletişim kutusunda parça ararken arama sonuçlarının sayısını duyuracaktır.
+* Creator ve Remote VT'de, NVDA artık hiçbir şey yapmıyor gibi görünmeyecek veya çalma listesi düzenleyicisinden çalma listesi saati ve günü, planlanan ve rotasyon gibi çalma listesi bilgilerini bildirirken hata tonları çalmayacak.
 
 ## Eski sürümler
 
