@@ -308,7 +308,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.script_error(gesture)
 			self.script_finish()
 
-	# The layer commands themselves. Calls user32.SendMessage method (via splbase.studioAPI) for each script.
+	# The layer commands themselves.
+	# Calls user32.SendMessage method (via splbase.studioAPI) for each script.
 
 	def script_play(self, gesture):
 		splbase.studioAPI(0, SPLPlay, splComponent=self.activeStudioComponent)
