@@ -1032,9 +1032,12 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when end of track is approaching.
 				ui.message(_("Warning: {seconds} sec remaining").format(seconds=str(alarmTime)))
 
-	# Add or remove SPL-specific touch commands.
+	# 26.05 (deprecation): Add or remove SPL-specific touch commands.
 	# Code comes from Enhanced Touch Gestures add-on from the same author.
 	# This may change if NVDA core decides to abandon touch mode concept.
+	# Touch mode representation internals have changed in NVDA 2026.2,
+	# breaking custom touch mode support from this add-on.
+	# Therefore, touch support via a custom touch mode will be removed in a future add-on release.
 
 	def event_appModule_gainFocus(self):
 		if touchHandler.handler:
