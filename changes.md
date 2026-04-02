@@ -72,7 +72,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 
 ## Version 25.10/25.06.8-LTS
 
-* 25.10: with debug logging enabled, NVDA will no longer record Studio API specific debug messages. A new command-line option (--spl-apidebug) was added to include Studio API debug messages and should be used as directed by add-on developers.
+* 25.10: With debug logging enabled, NVDA will no longer record Studio API specific debug messages. A new command-line option (--spl-apidebug) was added to include Studio API debug messages and should be used as directed by add-on developers.
 * In Studio, search history in track finder (Control+NVDA+F) is replaced with a search edit field to align with NVDA's own find dialog experience.
 * In Studio, when braille timer is enabled, NVDA will only announce remaining track/intro duration if the value displayed falls below end of track/song ramp alarm value instead of displaying track remaining time.
 
@@ -84,7 +84,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 
 ## Version 25.08/25.06.5-LTS
 
-* 25.08: removed unmaintained localizations (add-on messages and documentation).
+* 25.08: Removed unmaintained localizations (add-on messages and documentation).
 * In Studio, added two-finger flick left gesture in SPL touch mode to open SPL add-on settings.
 * Removed "Status" from vertical column navigation options.
 * In columns explorer (Studio, Track Tool, Creator, Remote VT), NVDA will no longer announce "blank" for empty column content (only column header will be announced).
@@ -106,7 +106,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 
 Version 25.07 supports SPL Studio 6.0 and later.
 
-* 25.07: code was refactored, including through use of Pyright (a Python static type checker). Some prominent code changes were also backported to 25.06.2-LTS.
+* 25.07: Code was refactored, including through use of Pyright (a Python static type checker). Some prominent code changes were also backported to 25.06.2-LTS.
 * Columns explorer (Control+NVDA+number row) is now configurable for Creator and Remote VT's playlist editor. A new button, "columns explorer for playlist editor" is available from columns explorer add-on settings screen.
 * In columns explorer add-on settings, renamed "columns explorer" to "columns explorer for SPL Studio".
 * Added JSON (JavaScript Object Notation) format as a playlist transcripts format.
@@ -215,8 +215,8 @@ This is the last stable version to support Studio 5.30 as wel as Windows 7 Servi
 
 * Minimum Windows release requirement is now tied to NVDA releases.
 * Removed feedback email command (Alt+NVDA+Hyphen). Please send feedback to add-on developers using the contact information provided from Add-ons Manager.
-* 21.03: parts of the add-on source code now include type annotations.
-* 21.03: made the add-on code more robust with help from Mypy (a Python static type checker). In particular, fixed several long-standing bugs such as NVDA not being able to reset add-on settings to defaults under some circumstances and attempting to save encoder settings when not loaded. Some prominent bug fixes were also backported to 20.09.6-LTS.
+* 21.03: Parts of the add-on source code now include type annotations.
+* 21.03: Made the add-on code more robust with help from Mypy (a Python static type checker). In particular, fixed several long-standing bugs such as NVDA not being able to reset add-on settings to defaults under some circumstances and attempting to save encoder settings when not loaded. Some prominent bug fixes were also backported to 20.09.6-LTS.
 * Fixed numerous bugs with add-on welcome dialog (Alt+NVDA+F1 from Studio window), including multiple welcome dialogs being shown and NVDA appearing to do nothing or playing error tones when welcome dialog remains open after Studio exits.
 * Fixed numerous bugs with track comments dialog (Alt+NVDA+C three times from a track in Studio), including an error tone heard when trying to save comments and many track comment dialogs appearing if Alt+NVDA+C is pressed many times. If track comments dialog is still shown after Studio is closed, comments will not be saved.
 * Various column commands such as columns explorer (Control+NVDA+number row) in Studio tracks and encoder status announcements no longer gives erroneous results when performed after NVDA is restarted while focused on tracks or encoders. This affects NVDA 2020.4 or later.
@@ -229,7 +229,7 @@ This is the last stable version to support Studio 5.30 as wel as Windows 7 Servi
 Version 21.01 supports SPL Studio 5.30 and later.
 
 * 21.01: NVDA 2020.3 or later is required.
-* 21.01: column header inclusion setting from add-on settings has been removed. NVDA's own table column header setting will control column header announcements across SPL suite and encoders.
+* 21.01: Column header inclusion setting from add-on settings has been removed. NVDA's own table column header setting will control column header announcements across SPL suite and encoders.
 * Added a command to toggle screen versus custom column inclusion and order setting (NVDA+V). Note that this command is available only when focused on a track in Studio's playlist viewer.
 * SPL Assistant and Controller layer help will be presented as a browse mode document instead of a dialog.
 * NVDA will no longer stop announcing library scan progress if configured to announce scan progress while using a braille display.
@@ -248,7 +248,7 @@ Version 21.01 supports SPL Studio 5.30 and later.
 * 20.11: NVDA will now announce column information for tracks throughout SPL suite regardless of "report object description" setting in NVDA's object presentation settings panel. For best experience, leave this setting on.
 * 20.11: In Studio's playlist viewer, custom column order and inclusion setting will affect how track columns are presented when using object navigation to move between tracks, including current navigator object announcement.
 * If vertical column announcement is set to a value other than "whichever column I'm reviewing", NVDA will no longer announce wrong column data after changing column position on screen via mouse.
-* improved playlist transcripts (SPL Assistant, Shift+F8) presentation when viewing the transcript in HTML table or list format.
+* Improved playlist transcripts (SPL Assistant, Shift+F8) presentation when viewing the transcript in HTML table or list format.
 * 20.11: In encoders, encoder labels will be announced when performing object navigation commands in addition to pressing up or down arrow keys to move between encoders.
 * In encoders, in addition to Alt+NVDA+number row 0, pressing F12 will also open encoder settings dialog for the selected encoder.
 
@@ -257,7 +257,7 @@ Version 21.01 supports SPL Studio 5.30 and later.
 * Due to changes to encoder settings file format, installing an older version of this add-on after installing this version will cause unpredictable behavior.
 * It is no longer necessary to restart NVDA with debug logging mode to read debug messages from log viewer. You can view debug messages if log level is set to "debug" from NVDA's general settings panel.
 * In Studio's playlist viewer, NVDA will not include column headers if this setting is disabled from add-on settings and custom column order or inclusion settings are not defined.
-* 20.10: column header inclusion setting from add-on settings is deprecated and will be removed in a future release. In the future NVDA's own table column header setting will control column header announcements across SPL suite and encoders.
+* 20.10: Column header inclusion setting from add-on settings is deprecated and will be removed in a future release. In the future NVDA's own table column header setting will control column header announcements across SPL suite and encoders.
 * When SPL Studio is minimized to the system tray (notification area), NVDA will announce this fact when trying to switch to Studio from other programs either through a dedicated command or as a result of an encoder connecting.
 
 ## Version 20.09-LTS
@@ -354,7 +354,7 @@ Version 20.09.x is the last release series to support Studio 5.20 and based on o
 
 * Shortened the version announcement message for Studio when it starts.
 * Version information for Creator will be announced when it starts.
-* 19.10: custom command can be assigned for encoder status command from SPL Controller (E) so it can be used from everywhere.
+* 19.10: Custom command can be assigned for encoder status command from SPL Controller (E) so it can be used from everywhere.
 * Initial support for AltaCast encoder (Winamp plugin and must be recognized by Studio). Commands are same as SPL Encoder.
 
 ## Version 19.08.1
@@ -389,14 +389,14 @@ Version 19.06 supports SPL Studio 5.20 and later.
 ## Version 19.04/18.09.8-LTS
 
 * Various global commands such as entering SPL Controller and switching to Studio window will be turned off if NVDA is running in secure mode or as a Windows Store application.
-* 19.04: in column announcements and playlist transcripts panels (add-on settings), custom column inclusion/order controls will be visible up front instead of having to select a button to open a dialog to configure these settings.
+* 19.04: In column announcements and playlist transcripts panels (add-on settings), custom column inclusion/order controls will be visible up front instead of having to select a button to open a dialog to configure these settings.
 * In Creator, NVDA will no longer play error tones or appear to do nothing when focused on certain lists.
 
 ## Version 19.03/18.09.7-LTS
 
 * Pressing Control+NVDA+R to reload saved settings will now also reload Studio add-on settings, and pressing this command three times will also reset Studio add-on settings to defaults along with NVDA settings.
 * Renamed Studio add-on settings dialog's "Advanced options" panel to "Advanced".
-* 19.03 experimental: in column announcements and playlist transcripts panels (add-on settings), custom column inclusion/order controls will be visible up front instead of having to select a button to open a dialog to configure these settings.
+* 19.03 experimental: In column announcements and playlist transcripts panels (add-on settings), custom column inclusion/order controls will be visible up front instead of having to select a button to open a dialog to configure these settings.
 
 ## Version 19.02
 
@@ -413,8 +413,8 @@ Version 19.06 supports SPL Studio 5.20 and later.
 
 * NVDA 2018.4 or later is required.
 * More code changes to make the add-on compatible with Python 3.
-* 19.01: some message translations from this add-on will resemble NVDA messages.
-* 19.01: add-on update check feature from this add-on is no more. An error message will be presented when trying to use SPL Assistant, Control+Shift+U to check for updates. For future updates, please use Add-on Updater add-on.
+* 19.01: Some message translations from this add-on will resemble NVDA messages.
+* 19.01: Add-on update check feature from this add-on is no more. An error message will be presented when trying to use SPL Assistant, Control+Shift+U to check for updates. For future updates, please use Add-on Updater add-on.
 * Slight performance improvements when using NVDA with apps other than Studio while Voice Track Recorder is active. NVDA will still show performance issues when using Studio itself with Voice Track Recorder active.
 * In encoders, if an encoder settings dialog is open (Alt+NVDA+0), NVDA will present an error message if trying to open another encoder settings dialog.
 
