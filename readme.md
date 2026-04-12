@@ -1,4 +1,4 @@
-# StationPlaylist #
+# StationPlaylist
 
 * Authors: Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)
 
