@@ -1,4 +1,4 @@
-# Station Playlist #
+# Station Playlist
 
 * Yazarlar: Christopher Duffley <nvda@chrisduffley.com> (eski adıyla Joseph Lee <joseph.lee22590@gmail.com>, aslen Geoff Shang ve diğer katkıda bulunanlar tarafından yapılmıştır)
 

@@ -1,4 +1,4 @@
-# StationPlaylist #
+# StationPlaylist
 
 * Авторы: Christopher Duffley <nvda@chrisduffley.com> (прежде Joseph Lee <joseph.lee22590@gmail.com>, первоначально автор Geoff Shang и другие участники)
 
