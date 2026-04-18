@@ -198,7 +198,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	@scriptHandler.script(
 		description=_("Opens SPL Studio add-on configuration dialog."),
-		gestures=["kb:alt+NVDA+0", "ts(SPL):2finger_flickLeft"],
+		gesture="kb:alt+NVDA+0",
 	)
 	def script_openConfigDialog(self, gesture):
 		# Rather than calling the config dialog open event,
