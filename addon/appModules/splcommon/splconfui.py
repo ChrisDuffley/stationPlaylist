@@ -1432,8 +1432,7 @@ class AdvancedOptionsPanel(gui.settingsDialogs.SettingsPanel):
 
 	def makeSettings(self, settingsSizer):
 		advOptionsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-		# Only show SPL Controller coverage combo box if running Studio 6.20.
-		# Do show if the config dialog was opened from Remote Studio.
+		# Only show SPL Controller coverage combo box when opened from Studio 6.20 or Remote Studio.
 		self.splConScopeAvailable = (
 			"remotestudio" in splconfig.SPLConfig.splComponents
 			or (
@@ -1669,7 +1668,7 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 			actualCategoryClasses.append(MetadataStreamingPanel)
 			actualCategoryClasses.append(SayStatusPanel)
 		# Security: only add the following panels if not in secure mode.
-		# Local and Remote Studio only for advanced options panel, no secure mode for reet panel
+		# Local and Remote Studio only for advanced options panel, no secure mode for reset panel
 		if not globalVars.appArgs.secure:
 			if _splComponent not in ("splcreator", "splremotevt", "tracktool"):
 				actualCategoryClasses.append(AdvancedOptionsPanel)
