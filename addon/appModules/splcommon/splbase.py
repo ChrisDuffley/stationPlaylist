@@ -233,7 +233,8 @@ class SPLTrackItem(sysListView32.ListItem):
 		# meaning columns viewer will reflect visual display order.
 		columnContents = [
 			"{}: {}".format(
-				column.columnHeaderText, column.name if column.name is not None else ""
+				# Strip arrow characters from column header text if columns are sorted.
+				column.columnHeaderText.strip("↑↓"), column.name if column.name is not None else ""
 			) for column in self.children
 		]
 		# Translators: Title of the column data window.
