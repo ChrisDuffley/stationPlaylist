@@ -605,6 +605,8 @@ class AppModule(appModuleHandler.AppModule):
 		micAlarmT2 = None
 		splconfig.terminateStudioExtraSteps()
 		splconfig.closeConfig(self.appName)
+		# Remove add-on settings menu item.
+		splconfui.terminate()
 		# Delete focused track reference.
 		self._focusedTrack = None
 		# #86: track time analysis marker should be gone, too.
@@ -613,8 +615,6 @@ class AppModule(appModuleHandler.AppModule):
 		if self._SPLStudioMonitor is not None:
 			self._SPLStudioMonitor.Stop()
 			self._SPLStudioMonitor = None
-		# Remove add-on settings menu item.
-		splconfui.terminate()
 		# Tell the handle finder thread it's time to leave this world.
 		# Only set the event if Studio API can be used.
 		if self._SPLAPILevel != splbase.StudioAPIAvailability.LOCALAPI:
