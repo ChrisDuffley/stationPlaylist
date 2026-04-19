@@ -553,6 +553,8 @@ class AppModule(appModuleHandler.AppModule):
 		# Load config database if not done already.
 		splconfig.openConfig(self.appName)
 		splconfig.initStudioExtraSteps()
+		# Prepare add-on settings interface.
+		splconfui.initialize()
 		# Announce status changes while using other programs.
 		eventHandler.requestEvents(
 			eventName="nameChange", processId=self.processID, windowClassName="TStatusBar"
@@ -562,8 +564,6 @@ class AppModule(appModuleHandler.AppModule):
 		)
 		# Also for requests window.
 		eventHandler.requestEvents(eventName="show", processId=self.processID, windowClassName="TRequests")
-		# Prepare add-on settings interface.
-		splconfui.initialize()
 		# #82: notify others when Studio window gets focused the first time
 		# in order to synchronize announcement order.
 		self._initStudioWindowFocused = threading.Event()
