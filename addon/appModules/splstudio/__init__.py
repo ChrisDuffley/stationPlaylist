@@ -521,11 +521,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Prepare the settings dialog among other things.
 	def __init__(self, *args, **kwargs):
-		# #110: assertion thrown when attempting to locate Studio window handle
-		# because the locator thread is queued from main thread when NVDA is gone.
-		# This is seen when restarting NVDA while studio add-on settings screen was active.
-		if wx.GetApp() is None:
-			return
 		super().__init__(*args, **kwargs)
 		if self.productVersion < SPLMinVersion:
 			wx.CallAfter(gui.messageBox,
