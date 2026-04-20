@@ -20,7 +20,7 @@ import winUser
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32, getNVDAObjectFromEvent
 from NVDAObjects.behaviors import Dialog
-from .splcommon import splconfig, splconfui, splbase, splcarts
+from .splcommon import splconfig, splconfui, splbase, splcarts, splactions
 from .skipTranslation import translate
 
 addonHandler.initTranslation()
@@ -187,6 +187,9 @@ class AppModule(appModuleHandler.AppModule):
 
 	def terminate(self):
 		super().terminate()
+		# Perform app module termination work via action handlers.
+		# Among other tasks, close any opened SPL add-on dialogs.
+		splactions.SPLActionAppTerminating.notify()
 		splconfig.closeConfig(self.appName)
 		splconfui.terminate()
 		# Clear Playlist Editor status cache,

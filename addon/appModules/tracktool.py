@@ -17,7 +17,7 @@ import ui
 import api
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32
-from .splcommon import splconfig, splconfui, splbase, splcarts
+from .splcommon import splconfig, splconfui, splbase, splcarts, splactions
 from .skipTranslation import translate
 
 addonHandler.initTranslation()
@@ -169,6 +169,9 @@ class AppModule(appModuleHandler.AppModule):
 
 	def terminate(self):
 		super().terminate()
+		# Perform app module termination work via action handlers.
+		# Among other tasks, close any opened SPL add-on dialogs.
+		splactions.SPLActionAppTerminating.notify()
 		splconfig.closeConfig(self.appName)
 		splconfui.terminate()
 
