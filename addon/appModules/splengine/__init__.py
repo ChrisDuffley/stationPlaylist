@@ -8,6 +8,7 @@ import appModuleHandler
 import controlTypes
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32
+from ..splcommon import splactions
 from . import encoders
 
 # For SPL encoder config screen at least, control iD's are different,
@@ -35,6 +36,9 @@ encoderSettingsLabels = {
 class AppModule(appModuleHandler.AppModule):
 	def terminate(self):
 		super().terminate()
+		# Perform app module termination work via action handlers.
+		# Among other tasks, close any opened SPL add-on dialogs (specifically encoder config dialog).
+		splactions.SPLActionAppTerminating.notify()
 		# Memory leak results if encoder flag sets and other encoder support maps aren't cleaned up.
 		# This also could have allowed a hacker to modify the flags set (highly unlikely)
 		# so NVDA could get confused next time Studio loads.
