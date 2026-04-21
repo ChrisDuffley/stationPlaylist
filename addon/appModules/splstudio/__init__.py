@@ -1143,7 +1143,7 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Message comes from Foobar 2000 app module, part of NVDA Core.
 		description=translate("Reports the remaining time of the currently playing track, if any"),
-		gestures=["kb:control+alt+t", "ts(SPL):2finger_flickDown"],
+		gesture="kb:control+alt+t",
 		speakOnDemand=True,
 	)
 	def script_sayRemainingTime(self, gesture):
@@ -1164,7 +1164,7 @@ class AppModule(appModuleHandler.AppModule):
 			"Announces broadcaster time. "
 			"If pressed twice, reports minutes and seconds left to top of the hour."
 		),
-		gestures=["kb:shift+nvda+f12", "ts(SPL):2finger_flickUp"],
+		gesture="kb:shift+nvda+f12",
 		speakOnDemand=True,
 	)
 	def script_sayBroadcasterTime(self, gesture):
@@ -1213,7 +1213,7 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Opens SPL Studio alarms settings."),
-		gestures=["kb:alt+nvda+1", "ts(SPL):2finger_flickRight"],
+		gesture="kb:alt+nvda+1",
 	)
 	def script_openAlarmsSettings(self, gesture):
 		wx.CallAfter(splconfui.openAddonSettingsPanel, splconfui.AlarmsPanel)
@@ -1223,7 +1223,7 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Opens SPL Studio add-on configuration dialog."),
-		gestures=["kb:alt+NVDA+0", "ts(SPL):2finger_flickLeft"],
+		gesture="kb:alt+NVDA+0",
 	)
 	def script_openConfigDialog(self, gesture):
 		# Rather than calling the config dialog open event,
