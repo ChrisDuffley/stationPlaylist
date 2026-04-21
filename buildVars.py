@@ -26,14 +26,7 @@ addon_info = AddonInfo(
 	addon_version="26.05",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""* NVDA 2025.3.3 or later is required.
-* Added a setting in add-on settings under Advanced settings panel to configure which ap should receive priority when command conflicts occur. Options include NVDA (perform add-on commands), StationPlaylist (pass the conflicting keyboard shortcut to the active SPL application and is the default setting), or NVDA then StationPlaylist (first press will perform add-on command, subsequent presses will perform SPL command). This option is applicable to local Studio 6.10 and later where Control+Alt+End keyboard shortcut to report last track column conflicts with Studio command to play ends of tracks.
-* In local Studio 6.0x, pressing Control+Alt+End will no longer announce last track column to make the behavior consistent with later Studio releases. You can set command priority setting to "NVDA" or "NVDA then StationPlaylist" to restore previous behavior.
-* SPL touch mode commands are deprecated and will be removed in a future add-on release caused by backwards incompatible internal changes to touch mode handling in NVDA 2026.2.
-* In Creator and Track Tool, removed column sort direction arrow characters from column headers when reviewing column data for a track (Control+NVDA+hyphen).
-* Add-on settings dialog will be closed automatically when closing Creator, Track Tool, and encoder windows.
-* Added a new command in SPL Controller layer to play the next selected track with crossfade (Control+down arrow).
-* Pressing Enter after entering SPL Controller layer will play the selected track from anywhere."""),
+	addon_changelog=_("""* Removed SPL touch mode commands."""),
 	# Author(s)
 	addon_author="Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)",
 	# URL for the add-on documentation support
