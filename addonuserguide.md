@@ -601,6 +601,7 @@ Notes:
 
 * You can use this dialog to reset add-on settings and other data to default values (applied to all profiles). To do this, ggo to Reset category, select Reset settings button, check the checkboxes for various data items (instant switch flag, encoder settings and track comments), then answer yes when prompted. If no checkboxes are checked, only add-on settings will be returned to defaults. The add-on configuration dialog will close automatically once default settings are applied. Reset category is unavailable if NVDA is running in secure mode.
 * If you attempt to reset settings while an instant switch profile is active, you'll be asked to confirm once more. If you say "no", settings won't return to defaults.
+* Settings dialog will be closed automatically when you exit an SPL application.
 
 ## Broadcast profiles
 
