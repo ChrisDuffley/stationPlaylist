@@ -2,6 +2,10 @@
 
 This page lists the complete changelog for StationPlaylist add-on releases.
 
+## Version 26.06
+
+* Removed SPL touch mode commands.
+
 ## Version 26.05
 
 * NVDA 2025.3.3 or later is required.

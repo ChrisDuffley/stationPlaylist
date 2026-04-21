@@ -206,6 +206,10 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 You can save settings for specific shows into broadcast profiles. These profiles can be managed via SPL broadcast profiles dialog which can be accessed by pressing Alt+NVDA+P from Studio window.
 
+## Version 26.06
+
+* Removed SPL touch mode commands.
+
 ## Version 26.05
 
 * NVDA 2025.3.3 or later is required.
