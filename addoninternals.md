@@ -523,11 +523,9 @@ The structure of event_nameChange function defined in the Studio app module is s
 
 ### Other events defined in the Studio app module
 
-There are five more events defined in the Studio app module. They are:
+There are three more events defined in the Studio app module. They are:
 
 * Gain focus: performs focus-related routines such as checking if you are in Insert Tracks dialog in order to turn off background library scanning (more on background library scan in a future installment).
-* App module gain focus: Used to handle touchscreens (yes, Studio app module has a dedicated SPL touch mode) such as assigning additional commands.
-* App module lose focus: opposite of the event above.
 * Show: this event is specifically designed to respond to listener requests, discussed below.
 * Foreground: this is used to coordinate status bar content announcement when Studio starts.
 
