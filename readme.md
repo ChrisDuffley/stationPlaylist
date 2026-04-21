@@ -23,8 +23,8 @@ IMPORTANT NOTES:
 Most of these will work in Studio only unless otherwise specified. Unless noted otherwise, these commands support speak on demand mode.
 
 * Alt+Shift+T from Studio window: announce elapsed time for the currently playing track, voice track, or cart.
-* Control+Alt+T (two finger flick down in SPL touch mode) from Studio window: announce remaining time for the currently playing track, voice track, or cart.
-* NVDA+Shift+F12 (two finger flick up in SPL touch mode) from Studio window: announces broadcaster time such as 5 minutes to top of the hour. Pressing this command twice will announce minutes and seconds till top of the hour.
+* Control+Alt+T from Studio window: announce remaining time for the currently playing track, voice track, or cart.
+* NVDA+Shift+F12 from Studio window: announces broadcaster time such as 5 minutes to top of the hour. Pressing this command twice will announce minutes and seconds till top of the hour.
 * Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens alarms category in Studio add-on configuration dialog (does not support speak on demand).
 * Alt+NVDA+1 from Creator's Playlist Editor and Remote VT playlist editor: Announces scheduled time for the loaded playlist.
 * Alt+NVDA+2 from Creator's Playlist Editor and Remote VT playlist editor: Announces total playlist duration.
@@ -205,10 +205,6 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 ## Broadcast profiles dialog
 
 You can save settings for specific shows into broadcast profiles. These profiles can be managed via SPL broadcast profiles dialog which can be accessed by pressing Alt+NVDA+P from Studio window.
-
-## SPL touch mode
-
-If you are using Studio on a touchscreen computer with NVDA installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
 ## Version 26.05
 
