@@ -20,9 +20,9 @@ NOTES IMPORTANTES :
 La plupart d'entre eux fonctionneront dans Studio uniquement sauf indication contraire. Sauf indication contraire, ces commandes prennent en charge le mode parole à la demande.
 
 * Alt+Maj+T depuis la fenêtre de Studio : annonce le temps écoulé pour la piste en cours de lecture.
-* Contrôle+Alt+T (glissement à deux doigts vers le bas en mode tactile SPL) depuis la fenêtre de Studio : annoncer le temps restant pour la piste en cours de lecture.
-* NVDA+Maj+F12 (glissement à deux doigts vers le haut en mode tactile SPL) depuis la fenêtre de Studio: annonce le temps de diffusion tel que 5 minutes en haut de l'heure. Appuyez deux fois sur cette commande pour annoncer les minutes et les secondes jusqu'au début de l'heure.
-* Alt+NVDA+1 (faire glisser deux doigts vers la droite en mode SPL) à partir de la fenêtre Studio : ouvre la catégorie des alarmes dans le dialogue de configuration de l'extension de Studio (ne prend pas en charge la parole à la demande).
+* Contrôle+Alt+T depuis la fenêtre de Studio : annoncer le temps restant pour la piste en cours de lecture.
+* NVDA+Maj+F12 depuis la fenêtre de Studio: annonce le temps de diffusion tel que 5 minutes en haut de l'heure. Appuyez deux fois sur cette commande pour annoncer les minutes et les secondes jusqu'au début de l'heure.
+* Alt+NVDA+1 à partir de la fenêtre Studio : ouvre la catégorie des alarmes dans le dialogue de configuration de l'extension de Studio (ne prend pas en charge la parole à la demande).
 * Alt+NVDA+1 à partir de l'éditeur de liste de lecture de Creator et de l'éditeur de liste de lecture Remote VT : annonce l'heure programmée pour la liste de lecture chargée.
 * Alt+NVDA+2 à partir de l'éditeur de liste de lecture de Creator et de l'éditeur de liste de lecture Remote VT : annonce la durée totale de la liste de lecture.
 * Alt+NVDA+3 depuis la fenêtre de Studio : Basculer l'explorateur de panier pour apprendre les assignations de panier (ne prend pas en charge la parole à la demande).
@@ -37,7 +37,7 @@ La plupart d'entre eux fonctionneront dans Studio uniquement sauf indication con
 * Contrôle+NVDA+- (trait d'union si une piste est en focus dans Studio, Creator, Remote VT et Track Tool) : affiche les données de toutes les colonnes d'une piste dans une fenêtre en mode navigation (ne prend pas en charge la parole à la demande).
 * NVDA+V si une piste est en focus (visualiseur de playlist de Studio uniquement) : bascule l'annonce de la colonne de piste entre l'ordre de l'écran et l'ordre personnalisé (ne prend pas en charge la parole à la demande).
 * Alt+NVDA+C si une piste est en focus (Studio uniquement): annonce les commentaires de piste le cas échéant.
-* Alt+NVDA+0 (faire glisser deux doigts vers la gauche en mode SPL) à partir de la fenêtre Studio : ouvre le dialogue de configuration de l'extension Studio (ne prend pas en charge la parole à la demande).
+* Alt+NVDA+0 à partir de la fenêtre Studio : ouvre le dialogue de configuration de l'extension Studio (ne prend pas en charge la parole à la demande).
 * Alt+NVDA+P à partir de la fenêtre Studio : ouvre le dialogue des profils de diffusion Studio (ne prend pas en charge la parole à la demande).
 * Alt+NVDA+F1: Ouvre le dialogue de bienvenue (ne prend pas en charge la parole à la demande).
 
@@ -199,10 +199,6 @@ Depuis la fenêtre studio, vous pouvez appuyer sur Alt+NVDA+0 pour ouvrir la bo�
 ## Dialogue profils de diffusion
 
 Vous pouvez sauvegarder les paramètres pour des émissions spécifiques dans des profils de diffusion. Ces profils peuvent être gérés  via le dialogue des profils de diffusion de SPL which can be accessible en pressant Alt+NVDA+P depuis la fenêtre Studio.
-
-## Mode tactile SPL
-
-Si vous utilisez Studio sur un ordinateur possédant un écran tactile avec NVDA installé, vous pouvez exécuter certaines commandes Studio depuis un écran tactile. Tout d'abord utiliser une tape à trois doigts pour basculer en mode SPL, puis utilisez les commandes tactile énumérées ci-dessus pour exécuter des commandes.
 
 ## Version 25.08/25.06.5-LTS
 

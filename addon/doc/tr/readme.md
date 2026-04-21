@@ -23,9 +23,9 @@ Eklenti hakkında daha fazla bilgi için [eklenti kılavuzunu][1] okuyun.
 Bunların çoğu, aksi belirtilmedikçe yalnızca Studio'da çalışır. Aksi belirtilmedikçe, bu komutlar isteğe bağlı konuşma modunu destekler.
 
 * Studio penceresinde Alt+Shift+T: Oynatılan parça, ses parçası veya sepet için geçen süreyi duyurur.
-* Studio penceresinde Control+Alt+T (SPL dokunmatik modunda iki parmağınızı aşağı doğru kaydırın): şu anda çalınan parça, ses parçası veya kart için kalan süreyi duyurun.
-* Stüdyo penceresinde NVDA+Shift+F12 (SPL dokunmatik modunda iki parmakla yukarı kaydırma): yayıncının saatin başına 5 dakika kala zamanını duyurur. Bu komuta iki kez basıldığında saatin başına kadar dakika ve saniyeler duyurulacaktır.
-* Stüdyo penceresinde Alt+NVDA+1 (SPL modunda iki parmakla sağa kaydırma): Studio eklenti yapılandırma iletişim kutusunda alarmlar kategorisini açar (talep üzerine konuşmayı desteklemez).
+* Studio penceresinde Control+Alt+T: şu anda çalınan parça, ses parçası veya kart için kalan süreyi duyurun.
+* Stüdyo penceresinde NVDA+Shift+F12: yayıncının saatin başına 5 dakika kala zamanını duyurur. Bu komuta iki kez basıldığında saatin başına kadar dakika ve saniyeler duyurulacaktır.
+* Stüdyo penceresinde Alt+NVDA+1: Studio eklenti yapılandırma iletişim kutusunda alarmlar kategorisini açar (talep üzerine konuşmayı desteklemez).
 * Oluşturucu Çalma Listesi Düzenleyicisinde ve Uzaktan VT çalma listesi düzenleyicisinde Alt+NVDA+1: Yüklenen çalma listesi için planlanan zamanı duyurur.
 * Oluşturucunun Çalma Listesi Düzenleyicisinde ve Remote VT çalma listesi düzenleyicisinde Alt+NVDA+2: Toplam çalma listesi süresini duyurur.
 * Stüdyo penceresinde Alt+NVDA+3: Sepet atamalarını öğrenmek için sepet gezginine geçiş yapar (talep üzerine konuşmayı desteklemez).
@@ -40,7 +40,7 @@ Bunların çoğu, aksi belirtilmedikçe yalnızca Studio'da çalışır. Aksi be
 * Kontrol+NVDA+- (Studio, Oluşturucu, Remote VT ve Parça Araçlarında bir parçaya odaklanıldığında kısa çizgi): bir göz atma modu penceresinde bir parçadaki tüm sütunlara ait verileri görüntüler (talep üzerine konuşmayı desteklemez).
 * NVDA+V bir parçaya odaklanmışken (yalnızca Studio'nun çalma listesi görüntüleyicisi): Parça sütunu duyurusunu ekran sırası ve özel sıralama arasında değiştirir (talep üzerine konuşmayı desteklemez).
 * Bir parçaya odaklanıldığında Alt+NVDA+C (yalnızca Studio'nun çalma listesi görüntüleyicisi): varsa parça yorumlarını duyurur.
-* Yerel ve Uzaktan Stüdyo, Yaratıcı, Uzaktan VT ve Parça Aracı'ndan Alt+NVDA+0 (SPL modunda iki parmakla sola kaydırma): Stüdyo eklenti yapılandırma iletişim kutusunu açar (isteğe bağlı konuşma özelliğini desteklemez).
+* Yerel ve Uzaktan Stüdyo, Yaratıcı, Uzaktan VT ve Parça Aracı'ndan Alt+NVDA+0: Stüdyo eklenti yapılandırma iletişim kutusunu açar (isteğe bağlı konuşma özelliğini desteklemez).
 * Stüdyo penceresinde Alt+NVDA+P: Studio yayın profilleri iletişim kutusunu açar (talep üzerine konuşmayı desteklemez).
 * Alt+NVDA+F1: Karşılama iletişim kutusunu açar (talep üzerine konuşmayı desteklemez).
 
@@ -204,10 +204,6 @@ Eklenti yapılandırma iletişim kutusunu açmak için stüdyo penceresinde Alt+
 ## Yayın profilleri iletişim kutusu
 
 Belirli programların ayarlarını yayın profillerine kaydedebilirsiniz. Bu profiller, Studio penceresinden Alt+NVDA+P tuşlarına basılarak erişilebilen SPL yayın profilleri iletişim kutusu aracılığıyla yönetilebilir.
-
-## SPL dokunma modu
-
-Studio'yu NVDA kurulu dokunmatik ekranlı bir bilgisayarda kullanıyorsanız, bazı Studio komutlarını dokunmatik ekrandan gerçekleştirebilirsiniz. Önce SPL moduna geçmek için üç parmakla dokunmayı kullanın, ardından komutları gerçekleştirmek için yukarıda listelenen dokunma komutlarını kullanın.
 
 ## Sürüm 26.04
 

@@ -20,9 +20,9 @@ VAŽNE NAPOMENE:
 Most of these will work in Studio only unless otherwise specified. Unless noted otherwise, these commands support speak on demand mode.
 
 * Alt+Shift+T from Studio window: announce elapsed time for the currently playing track.
-* Control+Alt+T (two finger flick down in SPL touch mode) from Studio window: announce remaining time for the currently playing track.
-* NVDA+Šift+F12 (klizanje s dva prsta prema gore u dodirnom modusu SPL-a) u prozoru Studija: najavljuje vrijeme emitiranja kao što je 5 minuta do punog sata. Dvostrukim pritiskom ove naredbe objavit će se minute i sekunde do punog sata.
-* Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens alarms category in Studio add-on configuration dialog (does not support speak on demand).
+* Control+Alt+T from Studio window: announce remaining time for the currently playing track.
+* NVDA+Šift+F12 u prozoru Studija: najavljuje vrijeme emitiranja kao što je 5 minuta do punog sata. Dvostrukim pritiskom ove naredbe objavit će se minute i sekunde do punog sata.
+* Alt+NVDA+1 from Studio window: Opens alarms category in Studio add-on configuration dialog (does not support speak on demand).
 * Alt+NVDA+1 u prozoru Playlist Editora Creatora i Remote VT editoru popisa snimaka: najavljuje planirano vrijeme za učitani popisa snimaka.
 * Alt+NVDA+2 u prozoru Playlist Editora Creatora i Remote VT editoru popisa snimaka: najavljuje ukupno trajanje popisa snimaka.
 * Alt+NVDA+3 from Studio window: Toggles cart explorer to learn cart assignments (does not support speak on demand).
@@ -37,7 +37,7 @@ Most of these will work in Studio only unless otherwise specified. Unless noted 
 * Control+NVDA+- (hyphen while focused on a track in Studio, Creator, Remote VT, and Track Tool): display data for all columns in a track on a browse mode window (does not support speak on demand).
 * NVDA+V while focused on a track (Studio's playlist viewer only): toggles track column announcement between screen order and custom order (does not support speak on demand).
 * Alt+NVDA+C tijekom fokusiranja na snimku (samo u prikazu popisa snimaka programa Studio): najavljuje komentare snimke, ukoliko ih ima.
-* Alt+NVDA+0 (two finger flick left in SPL mode) from Studio window: Opens the Studio add-on configuration dialog (does not support speak on demand).
+* Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog (does not support speak on demand).
 * Alt+NVDA+P from Studio window: Opens the Studio broadcast profiles dialog (does not support speak on demand).
 * Alt+NVDA+F1: Open welcome dialog (does not support speak on demand).
 
@@ -199,10 +199,6 @@ U prozoru programa Studio možeš pritisnuti Alt+NVDA+0 za otvaranje dijaloškog
 ## Dijaloški okvir profila emitiranja
 
 Postavke za određene emisije mogu se spremiti u profile emitiranja. Tim se profilima može upravljati putem SPL-ovog dijaloškog okvira profila emitiranja, kojem se može pristupiti pritiskom na Alt+NVDA+P u prozoru programa Studio.
-
-## Dodirni modus za SPL
-
-Ako koristiš Studio na računalu s ekranom osjetljivim na dodir i instaliranim NVDA čitačem, neke Studio naredbe možeš izvršiti na ekranu osjetljivim na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri prsta. Zatim koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
 ## Version 25.08/25.06.5-LTS
 

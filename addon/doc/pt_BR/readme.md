@@ -20,9 +20,9 @@ NOTAS IMPORTANTES:
 A maioria deles funcionará somente no Studio, a menos que especificado de outra forma. Salvo indicação em contrário, esses comandos suportam o modo de fala sob demanda.
 
 * Alt+Shift+T na janela do Studio: anuncia o tempo decorrido para a faixa atualmente em reprodução.Alt+Shift+T na janela do Studio: anuncia o tempo decorrido para a faixa atualmente em reprodução.
-* Control+Alt+T (toque com dois dedos para baixo no modo SPL touch) na janela Studio: anuncia o tempo restante da faixa atualmente em reprodução.
-* NVDA+Shift+F12 (deslizar com dois dedos para cima no modo tátil SPL) na janela do Studio: anuncia o tempo da emissora como 5 minutos para o início da hora. Pressionar este comando duas vezes anunciará os minutos e segundos até o início da hora.
-* Alt+NVDA+1 (movimento de dois dedos para a direita no modo SPL) na janela do Studio: Abre a categoria de alarmes na caixa de diálogo de configuração do complemento do Studio (não suporta falar sob demanda).
+* Control+Alt+T na janela Studio: anuncia o tempo restante da faixa atualmente em reprodução.
+* NVDA+Shift+F12 na janela do Studio: anuncia o tempo da emissora como 5 minutos para o início da hora. Pressionar este comando duas vezes anunciará os minutos e segundos até o início da hora.
+* Alt+NVDA+1 na janela do Studio: Abre a categoria de alarmes na caixa de diálogo de configuração do complemento do Studio (não suporta falar sob demanda).
 * Alt+NVDA+1 no Editor de Lista de Reprodução do Creador e no editor de lista de reprodução Remote VT: Anuncia a hora programada para a lista de reprodução — playlist — carregada.
 * Alt+NVDA+2 no Editor de Lista de Reprodução do Criador e editor de lista de reprodução Remote VT: Anuncia a duração total da lista de reprodução.
 * Alt+NVDA+3 na janela do Studio: Alterna o explorador de carrinhos para aprender as atribuições de carrinhos (não suporta falar sob demanda).
@@ -37,7 +37,7 @@ A maioria deles funcionará somente no Studio, a menos que especificado de outra
 * Control+NVDA+- (hífen enquanto estiver focado em uma faixa no Studio, Criador, Remote VT e Track Tool): exibe dados de todas as colunas em uma faixa em uma janela de modo de navegação (não suporta falar sob demanda).
 * NVDA+V enquanto estiver focado em uma faixa (somente no visualizador de listas de reprodução do Studio): alterna o anúncio da coluna da faixa entre a ordem da tela e a ordem personalizada (não suporta falar sob demanda).
 * Alt+NVDA+C enquanto focalizado numa faixa (somente visualizador da lista de reprodução do Studio): anuncia os comentários da faixa, se houver.
-* Alt+NVDA+0 (deslizar dois dedos para a esquerda no modo SPL) na janela do Studio: abre a caixa de diálogo de configuração do complemento do Studio (não suporta fala sob demanda).
+* Alt+NVDA+0 na janela do Studio: abre a caixa de diálogo de configuração do complemento do Studio (não suporta fala sob demanda).
 * Alt+NVDA+P na janela do Studio: Abre a caixa de diálogo de perfis de transmissão do Studio (não suporta falar sob demanda).
 * Alt+NVDA+F1: Abre a caixa de diálogo de boas-vindas (não oferece suporte para falar sob demanda).
 
@@ -199,10 +199,6 @@ Na janela do estúdio, você pode pressionar Alt+NVDA+0 para abrir a caixa de di
 ## Diálogo de perfis de transmissão
 
 Você pode salvar as configurações de programas específicos em perfis de transmissão — broadcast. Esses perfis podem ser gerenciados por meio do diálogo de perfis de transmissão SPL, que pode ser acessado pressionando Alt+NVDA+P na janela do Studio.
-
-## Modo tátil SPL
-
-Se você estiver usando o Studio em um computador com tela sensível ao toque e com o NVDA instalado, pode executar alguns comandos do Studio a partir da tela sensível ao toque. Primeiro, use o toque de três dedos para alternar para o modo SPL e, em seguida, use os comandos de toque listados acima para executar os comandos.
 
 ## Versão 25.08/25.06.5-LTS
 

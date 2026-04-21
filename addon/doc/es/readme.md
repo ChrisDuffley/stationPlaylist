@@ -20,9 +20,9 @@ NOTAS IMPORTANTES:
 La mayoría de estos funcionará sólo en Studio a menos que se indique lo contrario. A menos que se diga lo contrario, estas órdenes soportan el modo de voz a petición.
 
 * Alt+Shift+T desde la ventana de Studio: anuncia el tiempo transcurrido para la pista actual en reproducción.
-* Control+Alt+T (deslizar  con dos dedos hacia abajo en modo táctil para SPL) desde la ventana de Studio: anuncia el tiempo restante para la pista que se esté reproduciendo.
-* NVDA+Shift+F12 (deslizar  con dos dedos hacia arriba en modo táctil para SPL) desde la ventana Studio: anuncia el tiempo de emisión tal como 5 minutos para el principio de la hora. Pulsando esta orden dos veces anunciará los minutos y segundos hasta la hora.
-* Alt+NVDA+1 (deslizamiento hacia la derecha con dos dedos en el modo SPL) desde la ventana de Studio: abre la categoría Alarmas en el diálogo de configuración del complemento de Studio (no soporta el modo de voz a petición).
+* Control+Alt+T desde la ventana de Studio: anuncia el tiempo restante para la pista que se esté reproduciendo.
+* NVDA+Shift+F12 desde la ventana Studio: anuncia el tiempo de emisión tal como 5 minutos para el principio de la hora. Pulsando esta orden dos veces anunciará los minutos y segundos hasta la hora.
+* Alt+NVDA+1 desde la ventana de Studio: abre la categoría Alarmas en el diálogo de configuración del complemento de Studio (no soporta el modo de voz a petición).
 * Alt+NVDA+1 desde la ventana del editor de listas de reproducción de Creator o de Remote VT: anuncia la hora programada de la lista de reproducción cargada.
 * Alt+NVDA+2 desde la ventana del editor de listas de reproducción de Creator y de Remote VT: anuncia la duración total de la lista de reproducción.
 * Alt+NVDA+3 desde la ventana de Studio: activa o desactiva el explorador de cart para aprender las asignaciones de cart (no soporta el modo de voz a petición).
@@ -37,7 +37,7 @@ La mayoría de estos funcionará sólo en Studio a menos que se indique lo contr
 * Control+NVDA+- (guión cuando una pista tiene el foco en Studio, Creator, Remote VT o herramienta de pista): mostrar datos de todas las columnas de una pista en una ventana en modo exploración (no soporta el modo de voz a petición).
 * NVDA+v cuando una pista tenga el foco (sólo en el visualizador de listas de reproducción de Studio): conmuta el anuncio de columnas de pista entre orden en pantalla y orden personalizado (no soporta el modo de voz a petición).
 * Alt+NVDA+C mientras se enfoca una pista (sólo en el visor de listas de reproducción de Studio): anuncia los comentarios de pista si los hay.
-* Alt+NVDA+0 (deslizamiento hacia la izquierda con dos dedos en el modo SPL) desde la ventana de Studio: abre el diálogo de configuración del complemento de Studio (no soporta el modo de voz a petición).
+* Alt+NVDA+0 desde la ventana de Studio: abre el diálogo de configuración del complemento de Studio (no soporta el modo de voz a petición).
 * Alt+NVDA+p desde la ventana de Studio: abre el diálogo de perfiles de emisión de Studio (no soporta el modo de voz a petición).
 * Alt+NVDA+F1: abre el diálogo de bienvenida (no soporta el modo de voz a petición).
 
@@ -199,10 +199,6 @@ Desde la ventana de studio, puedes pulsar Alt+NVDA+0 para abrir el diálogo de c
 ## El diálogo de perfiles de emisión
 
 Se pueden guardar configuraciones específicas para programas concretos en perfiles de emisión. Estos perfiles se pueden gestionar desde el diálogo de perfiles de emisión de SPL, al que se puede acceder pulsando alt+NVDA+p desde la ventana de Studio.
-
-## Modo táctil de SPL
-
-Si estás utilizando Studio en un ordenador con pantalla táctil y NVDA instalado, puedes realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza un toque con tres dedos para cambiar a modo SPL, entonces utiliza las órdenes táctiles listadas arriba para llevar a cabo tareas.
 
 ## Versión 25.08/25.06.5-LTS
 

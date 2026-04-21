@@ -20,9 +20,9 @@ NOTAS IMPORTANTES:
 Most of these will work in Studio only unless otherwise specified. Unless noted otherwise, these commands support speak on demand mode.
 
 * Alt+Shift+T from Studio window: announce elapsed time for the currently playing track.
-* Control+Alt+T (two finger flick down in SPL touch mode) from Studio window: announce remaining time for the currently playing track.
-* NVDA+Shift+F12 (deslizamento con dous dedos cara arriba no modo tactil SPL) dende a ventá Studio: anuncia o tempo de emisión como 5 minutos para o comezo da hora.Premendo dúas veces esta orde anunciará os minutos e segundos ata a hora.
-* Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens alarms category in Studio add-on configuration dialog (does not support speak on demand).
+* Control+Alt+T from Studio window: announce remaining time for the currently playing track.
+* NVDA+Shift+F12 dende a ventá Studio: anuncia o tempo de emisión como 5 minutos para o comezo da hora.Premendo dúas veces esta orde anunciará os minutos e segundos ata a hora.
+* Alt+NVDA+1 from Studio window: Opens alarms category in Studio add-on configuration dialog (does not support speak on demand).
 * Alt+NVDA+1 dende a ventá do Editor de Listas de Reprodución de Creator e o editor de listas de reprodución de Remote VT: anuncia o tempo programado para a lista cargada.
 * Alt+NVDA+2 dende a ventá de Editor de Listas de Reprodución de Creator ou o editor de listas de reprodución de Remote VT: Anuncia a duración de toda a lista.
 * Alt+NVDA+3 from Studio window: Toggles cart explorer to learn cart assignments (does not support speak on demand).
@@ -37,7 +37,7 @@ Most of these will work in Studio only unless otherwise specified. Unless noted 
 * Control+NVDA+- (hyphen while focused on a track in Studio, Creator, Remote VT, and Track Tool): display data for all columns in a track on a browse mode window (does not support speak on demand).
 * NVDA+V while focused on a track (Studio's playlist viewer only): toggles track column announcement between screen order and custom order (does not support speak on demand).
 * Alt+NVDA+C mentres se enfoca unha pista (só visualizador de listas de reprodución de Studio): anuncia os comentarios da pista se os hai.
-* Alt+NVDA+0 (two finger flick left in SPL mode) from Studio window: Opens the Studio add-on configuration dialog (does not support speak on demand).
+* Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog (does not support speak on demand).
 * Alt+NVDA+P from Studio window: Opens the Studio broadcast profiles dialog (does not support speak on demand).
 * Alt+NVDA+F1: Open welcome dialog (does not support speak on demand).
 
@@ -199,10 +199,6 @@ Dende a ventá do studio, podes premer Alt+NVDA+0 para abrir o diálogo de confi
 ## Diálogo de perfiles de transmisión
 
 Podes gardar as opcións para shows específicos en perfiles de emisión. Estes perfiles pódense administrar dende o diálogo de perfiles de transmisión, ao que se pode acceder premendo NVDA+Alt+P dende a ventá de Studio.
-
-## Modo Táctil do SPL
-
-Se estás a usar o Studio nunha computadora con pantalla tactil con NVDA instalado, podes realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un toque con tres dedos para cambiar a modo SPL, logo usa as ordes tactiles listadas arriba para realizar ordes.
 
 ## Version 25.08/25.06.5-LTS
 
