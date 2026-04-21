@@ -86,9 +86,8 @@ Notes:
 1. Installing the add-on on a computer running an unsupported version of Studio is not supported.
 2. Installing local Studio and Remote Studio on the same computer is not recommended.
 3. You need to disable audio ducking (NVDA+Shift+D), otherwise volume of audio from Studio will be lowered each time NVDA speaks.
-4. This add-on includes touchscreen commands. To use touchscreen commands, you need a touch capable computer with at least five touch points and NVDA must be installed as portable version does not support touch commands.
-5. Certain commands will be limited or disabled completely if NVDA is running in secure mode such as in secure screens. For best results, do not copy this add-on to secure screens.
-6. Some add-on commands support speech on demand mode to announce information via speech while keeping other announcements silent.
+4. Certain commands will be limited or disabled completely if NVDA is running in secure mode such as in secure screens. For best results, do not copy this add-on to secure screens.
+5. Some add-on commands support speech on demand mode to announce information via speech while keeping other announcements silent.
 
 ### Welcome dialog
 
@@ -104,7 +103,7 @@ Note: most add-on features for StationPlaylist local Studio will work for Remote
 
 #### About add-on commands
 
-You can use many of the native SPL Studio commands to control the program. In addition, NVDA provides additional commands (including layer commands) to read status information and to control SPL Studio from anywhere. In addition, a dedicated touchscreen mode for Studio called "SPL mode" is available on touchscreen computers to perform touch gestures.
+You can use many of the native SPL Studio commands to control the program. In addition, NVDA provides additional commands (including layer commands) to read status information and to control SPL Studio from anywhere.
 
 #### The layer commands
 
@@ -475,19 +474,6 @@ To configure which streams should be enabled, go to manage metadata streaming, t
 To quickly enable or disable metadata streaming on the fly, press the command you assigned to open metadata streaming options dialog. Check the stream box to enable or uncheck to disable metadata streaming and click OK.
 
 Note: When toggling metadata streaming on the fly, you can check "Apply to selected profile" checkbox to let NVDA store toggle values to the selected profile to be used next time Studio starts. This checkbox is disabled if NVDA is running in secure mode.
-
-#### Using touchscreen commands
-
-If you have NVDA installed on a touchscreen computer, you can use touchscreen gestures to perform some add-on commands. These commands are grouped under a touch mode called "SPL mode". While Studio is focused, perform three finger single tap until you switch to SPL mode.
-
-The commands in SPL mode are as follows:
-
-* Two finger flick right: open alarms settings
-* Two finger flick left: open add-on settings
-* Two finger flick up: announces broadcaster time
-* Two finger flick down: announces remaining time for the currently playing track
-
-Note: When you switch away from Studio, you'll be placed in object touch mode.
 
 ### Other programs in SPL suite
 
