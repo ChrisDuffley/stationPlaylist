@@ -13,7 +13,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 * In local Studio 6.0x, pressing Control+Alt+End will no longer announce last track column to make the behavior consistent with later Studio releases. You can set command priority setting to "NVDA" or "NVDA then StationPlaylist" to restore previous behavior.
 * SPL touch mode commands are deprecated and will be removed in a future add-on release caused by backwards incompatible internal changes to touch mode handling in NVDA 2026.2.
 * In Creator and Track Tool, removed column sort direction arrow characters from column headers when reviewing column data for a track (Control+NVDA+hyphen).
-* Add-on settings dialog will be closed automatically when closing Creator, Track Tool, and encoder windows.
+* Add-on settings dialog will be closed automatically when closing Creator, Remote VT, Track Tool, and encoder windows.
 * Added a new command in SPL Controller layer to play the next selected track with crossfade (Control+down arrow).
 * Pressing Enter after entering SPL Controller layer will play the selected track from anywhere.
 
