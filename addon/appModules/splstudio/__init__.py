@@ -16,7 +16,6 @@ import time
 import threading
 import collections
 import controlTypes
-import appModuleHandler
 import api
 import config
 import globalVars
@@ -42,7 +41,7 @@ from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent, sysList
 from NVDAObjects.behaviors import Dialog
 import textInfos
 import tones
-from ..splcommon import splbase, splconsts, splactions, splconfig, splconfui, splcarts
+from ..splcommon import splbase, splconsts, splactions, splconfig, splconfui, splcarts, splappmod
 from . import splmisc
 import addonHandler
 from ..skipTranslation import translate
@@ -509,7 +508,7 @@ def localStudioOnly(func):
 	return remoteStudioCheck
 
 
-class AppModule(appModuleHandler.AppModule):
+class AppModule(splappmod.AppModule):
 	# Translators: Script category for StationPlaylist add-on commands in input gestures dialog.
 	scriptCategory = _("StationPlaylist")
 	_focusedTrack = None

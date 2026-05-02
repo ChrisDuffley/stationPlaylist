@@ -7,7 +7,6 @@
 # Each track is a list item with descriptions such as title, file name, intro time and so forth.
 # One can press TAB to move along the controls for Track Tool.
 
-import appModuleHandler
 import addonHandler
 import tones
 import controlTypes
@@ -17,7 +16,7 @@ import ui
 import api
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32
-from .splcommon import splconfig, splconfui, splbase, splcarts, splactions
+from .splcommon import splconfig, splconfui, splbase, splcarts, splactions, splappmod
 from .skipTranslation import translate
 
 addonHandler.initTranslation()
@@ -158,7 +157,7 @@ class TrackToolItem(splbase.SPLTrackItem):
 		return splconfig.SPLConfig["ExploreColumns"]["TrackTool"]
 
 
-class AppModule(appModuleHandler.AppModule):
+class AppModule(splappmod.AppModule):
 	scriptCategory = _("StationPlaylist")
 
 	def __init__(self, *args, **kwargs):

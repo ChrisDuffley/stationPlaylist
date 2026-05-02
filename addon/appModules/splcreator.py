@@ -6,7 +6,6 @@
 
 from typing import Any
 import collections
-import appModuleHandler
 import addonHandler
 import scriptHandler
 import globalVars
@@ -20,7 +19,7 @@ import winUser
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32, getNVDAObjectFromEvent
 from NVDAObjects.behaviors import Dialog
-from .splcommon import splconfig, splconfui, splbase, splcarts, splactions
+from .splcommon import splconfig, splconfui, splbase, splcarts, splactions, splappmod
 from .skipTranslation import translate
 
 addonHandler.initTranslation()
@@ -169,7 +168,7 @@ class SPLPlaylistEditorItem(splbase.SPLTrackItem):
 		return splconfig.SPLConfig["ExploreColumns"]["PlaylistEditor"]
 
 
-class AppModule(appModuleHandler.AppModule):
+class AppModule(splappmod.AppModule):
 	scriptCategory = _("StationPlaylist")
 
 	def __init__(self, *args, **kwargs):
