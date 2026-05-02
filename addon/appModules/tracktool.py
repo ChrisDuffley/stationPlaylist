@@ -157,8 +157,6 @@ class TrackToolItem(splbase.SPLTrackItem):
 
 
 class AppModule(splappmod.AppModule):
-	scriptCategory = _("StationPlaylist")
-
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		# #64: load config database if not done already.

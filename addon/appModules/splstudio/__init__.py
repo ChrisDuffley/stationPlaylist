@@ -509,8 +509,6 @@ def localStudioOnly(func):
 
 
 class AppModule(splappmod.AppModule):
-	# Translators: Script category for StationPlaylist add-on commands in input gestures dialog.
-	scriptCategory = _("StationPlaylist")
 	_focusedTrack = None
 	# Monitor Studio API routines.
 	_SPLStudioMonitor = None
