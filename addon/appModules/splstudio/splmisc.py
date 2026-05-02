@@ -155,23 +155,23 @@ def timeRangeFinder(
 		return
 	# Either look up filename/track duration or duration text depending on Studio API availability.
 	if obj.appModule._localStudioAPIRequired:  # Local Studio
-		minDuration: Any = ((minDuration[0] * 60) + minDuration[1]) * 1000
-		maxDuration: Any = ((maxDuration[0] * 60) + maxDuration[1]) * 1000
+		minTrackDuration: Any = ((minDuration[0] * 60) + minDuration[1]) * 1000
+		maxTrackDuration: Any = ((maxDuration[0] * 60) + maxDuration[1]) * 1000
 	else:  # Remote Studio
-		minDuration: Any = f"{minDuration[0]:02d}:{minDuration[1]:02d}"
-		maxDuration: Any = f"{maxDuration[0]:02d}:{maxDuration[1]:02d}"
+		minTrackDuration: Any = f"{minDuration[0]:02d}:{minDuration[1]:02d}"
+		maxTrackDuration: Any = f"{maxDuration[0]:02d}:{maxDuration[1]:02d}"
 	# Manually locate tracks.
 	while obj is not None:
 		if obj.appModule._localStudioAPIRequired:
 			filename = splbase.studioAPI(obj.IAccessibleChildID - 1, SPLTrackFilename)
-			duration = splbase.studioAPI(filename, SPLFileDuration)
+			trackDuration = splbase.studioAPI(filename, SPLFileDuration)
 		else:
-			duration = obj._getColumnContentRaw(obj.indexOf("Duration"))
+			trackDuration = obj._getColumnContentRaw(obj.indexOf("Duration"))
 			# Python says "01:00:00" < "59:59" thanks to string value comparison.
 			# Therefore, if there are two or more colons, convert this to an hour long track ("60:00").
-			if duration.count(":") > 1:
-				duration = "60:00"
-		if minDuration <= duration <= maxDuration:
+			if trackDuration.count(":") > 1:
+				trackDuration = "60:00"
+		if minTrackDuration <= trackDuration <= maxTrackDuration:
 			break
 		obj = obj.next
 	if obj is not None:
@@ -269,8 +269,8 @@ class SPLTimeRangeDialog(wx.Dialog):
 		_findDialogOpened = True
 
 	def onOk(self, evt):
-		minDuration = (self.minMinEntry.GetValue(), self.minSecEntry.GetValue())
-		maxDuration = (self.maxMinEntry.GetValue(), self.maxSecEntry.GetValue())
+		minDuration: tuple[int, int] = (self.minMinEntry.GetValue(), self.minSecEntry.GetValue())
+		maxDuration: tuple[int, int] = (self.maxMinEntry.GetValue(), self.maxSecEntry.GetValue())
 		# What if minimum is greater than maximum (subtle oversight)?
 		if minDuration >= maxDuration:
 			gui.messageBox(
