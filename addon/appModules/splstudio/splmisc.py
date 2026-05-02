@@ -144,6 +144,54 @@ class SPLFindDialog(wx.Dialog):
 
 # Time range finder: a variation on track finder.
 # Similar to track finder, locate tracks with duration that falls between min and max.
+
+def timeRangeFinder(
+	obj: NVDAObject | None,
+	minDuration: tuple[int, int],
+	maxDuration: tuple[int, int]
+) -> None:
+	# Exit early if Studio (local and remote) app module is gone.
+	if obj is None:
+		return
+	# Either look up filename/track duration or duration text depending on Studio API availability.
+	if obj.appModule._localStudioAPIRequired:  # Local Studio
+		minDuration: Any = ((minDuration[0] * 60) + minDuration[1]) * 1000
+		maxDuration: Any = ((maxDuration[0] * 60) + maxDuration[1]) * 1000
+	else:  # Remote Studio
+		minDuration: Any = f"{minDuration[0]:02d}:{minDuration[1]:02d}"
+		maxDuration: Any = f"{maxDuration[0]:02d}:{maxDuration[1]:02d}"
+	# Manually locate tracks.
+	while obj is not None:
+		if obj.appModule._localStudioAPIRequired:
+			filename = splbase.studioAPI(obj.IAccessibleChildID - 1, SPLTrackFilename)
+			duration = splbase.studioAPI(filename, SPLFileDuration)
+		else:
+			duration = obj._getColumnContentRaw(obj.indexOf("Duration"))
+			# Python says "01:00:00" < "59:59" thanks to string value comparison.
+			# Therefore, if there are two or more colons, convert this to an hour long track ("60:00").
+			if duration.count(":") > 1:
+				duration = "60:00"
+		if minDuration <= duration <= maxDuration:
+			break
+		obj = obj.next
+	if obj is not None:
+		# Set focus only once, as do action method on tracks will set focus twice.
+		obj.setFocus()
+		# Select the desired track manually.
+		# Selecting tracks via splbase module requires Studio API (local Studio only).
+		if obj.appModule._localStudioAPIRequired:
+			splbase.selectTrack(obj.IAccessibleChildID - 1)
+	else:
+		wx.CallAfter(
+			# Translators: Presented when a track with a duration
+			# between minimum and maximum duration is not found.
+			gui.messageBox,
+			_("No track with duration between minimum and maximum duration."),
+			# Translators: Standard error title for find error (copy this from main nvda.po).
+			_("Time range find error"),
+			wx.OK | wx.ICON_ERROR,
+		)
+
 class SPLTimeRangeDialog(wx.Dialog):
 	@classmethod
 	def _instance(cls):
