@@ -1188,16 +1188,7 @@ class AppModule(splappmod.AppModule):
 		wx.CallAfter(splconfui.openAddonSettingsPanel, splconfui.AlarmsPanel)
 
 	# SPL Config management among others.
-
-	@scriptHandler.script(
-		# Translators: Input help mode message for a command in StationPlaylist add-on.
-		description=_("Opens SPL Studio add-on configuration dialog."),
-		gesture="kb:alt+NVDA+0",
-	)
-	def script_openConfigDialog(self, gesture):
-		# Rather than calling the config dialog open event,
-		# call the open dialog function directly to avoid indirection.
-		wx.CallAfter(splconfui.openAddonSettingsPanel, None)
+	# Config dialog opener script is defined in base SPL suite app module.
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.

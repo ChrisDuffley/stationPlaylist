@@ -198,15 +198,6 @@ class AppModule(splappmod.AppModule):
 			# Silence description text because it is very verbose.
 			obj.description = None
 
-	@scriptHandler.script(
-		description=_("Opens SPL Studio add-on configuration dialog."),
-		gesture="kb:alt+NVDA+0",
-	)
-	def script_openConfigDialog(self, gesture):
-		# Rather than calling the config dialog open event,
-		# call the open dialog function directly to avoid indirection.
-		wx.CallAfter(splconfui.openAddonSettingsPanel, None)
-
 	# Handle native Track Tool commands.
 
 	# Announce track sort status (column, ascending/descending).
