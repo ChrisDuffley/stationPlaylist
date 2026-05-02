@@ -13,7 +13,6 @@ import ui
 import tones
 import api
 import controlTypes
-import wx
 import windowUtils
 import winUser
 from NVDAObjects import NVDAObject

@@ -11,7 +11,6 @@ import addonHandler
 import tones
 import controlTypes
 import scriptHandler
-import wx
 import ui
 import api
 from NVDAObjects import NVDAObject
