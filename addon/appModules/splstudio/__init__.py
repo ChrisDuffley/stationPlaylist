@@ -2061,8 +2061,8 @@ class AppModule(splappmod.AppModule):
 	# Set up the layer script environment.
 	def getScript(self, gesture):
 		if not self.SPLAssistant:
-			return appModuleHandler.AppModule.getScript(self, gesture)
-		script = appModuleHandler.AppModule.getScript(self, gesture)
+			return splappmod.AppModule.getScript(self, gesture)
+		script = splappmod.AppModule.getScript(self, gesture)
 		if not script:
 			script = self.script_error
 		return splbase.finally_(script, self.script_finish)
