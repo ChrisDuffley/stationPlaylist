@@ -1,6 +1,6 @@
 # StationPlaylist Add-on User Guide
 
-Revision: May 2026 for StationPlaylist add-on 26.05
+Revision: May 2026 for StationPlaylist add-on 26.06
 
 Author: Christopher Duffley (formerly Joseph Lee)
 
@@ -387,7 +387,11 @@ If you are focused on the track list and wish to find a track (by artist name or
 
 If you have searched for a track before, press NVDA+F3 to find forward or NVDA+Shift+F3 to find backward. You can also choose to search a previously entered term from Track Finder dialog's text entry combo box.
 
-Note: Track search terms are case-sensitive.
+Notes:
+
+1. Track search terms are case-sensitive.
+2. If you have used NVDA's browse mode find dialog prior to opening SPL track finder, the search term from NVDA's find dialog will be filled in.
+3. Searching for tracks using track finder will update NVDA's browse mode find dialog entry.
 
 #### Column Search
 
