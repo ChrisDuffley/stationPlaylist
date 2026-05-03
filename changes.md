@@ -5,6 +5,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 ## Version 26.06
 
 * Removed SPL touch mode commands.
+* NVDA's browse mode find dialog (Control+NVDA+F) search terms will also be made available when invoking track finder (Control+NVDA+F) from local and Remote Studio. Consequently, search terms from Studio's track finder will also be made available in NVDA find dialog.
 
 ## Version 26.05
 

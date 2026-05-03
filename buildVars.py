@@ -26,7 +26,8 @@ addon_info = AddonInfo(
 	addon_version="26.05",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""* Removed SPL touch mode commands."""),
+	addon_changelog=_("""* Removed SPL touch mode commands.
+* NVDA's browse mode find dialog (Control+NVDA+F) search terms will also be made available when invoking track finder (Control+NVDA+F) from local and Remote Studio. Consequently, search terms from Studio's track finder will also be made available in NVDA find dialog."""),
 	# Author(s)
 	addon_author="Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)",
 	# URL for the add-on documentation support
