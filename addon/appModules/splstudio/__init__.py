@@ -21,6 +21,7 @@ import config
 import globalVars
 import scriptHandler
 import eventHandler
+import cursorManager
 import review
 import ui
 import nvwave
@@ -1235,6 +1236,7 @@ class AppModule(splappmod.AppModule):
 	# Perform a linear search to locate the track name and/or description which matches the entered value.
 	# Also, find column content for a specific column if requested.
 	# The below routines are also used in place marker track locator.
+	# Find text is based on NVDA cursor manager find text.
 	findText: str | None = None
 
 	def trackFinder(
@@ -1245,13 +1247,13 @@ class AppModule(splappmod.AppModule):
 			return
 		speech.cancelSpeech()
 		# Start from next/previous track if this text was searched before.
-		if text == self.findText:
+		if text == cursorManager.CursorManager._lastFindText:
 			obj = obj.next if directionForward else obj.previous
 		if obj is not None and not column:
 			column = [obj.indexOf("Artist"), obj.indexOf("Title")]
 		track = self._trackLocator(text, obj=obj, directionForward=directionForward, columns=column)
 		# #32: Update search text even if the track with the search term in columns does not exist.
-		self.findText = text
+		cursorManager.CursorManager._lastFindText = text
 		if track:
 			# We need to fire set focus event twice and exit this routine.
 			# (done via doAction method).
@@ -1335,7 +1337,7 @@ class AppModule(splappmod.AppModule):
 			d = splmisc.SPLFindDialog(
 				gui.mainFrame,
 				startObj,
-				self.findText if self.findText is not None else "",
+				cursorManager.CursorManager._lastFindText,
 				title,
 				directionForward=directionForward,
 				columnSearch=columnSearch,
@@ -1354,7 +1356,7 @@ class AppModule(splappmod.AppModule):
 	) -> None:
 		if not self._trackFinderCheck(1 if columnSearch else 0):
 			return
-		if self.findText is None or not incrementalFind:
+		if not cursorManager.CursorManager._lastFindText or not incrementalFind:
 			self.trackFinderGUI(directionForward=directionForward, columnSearch=columnSearch)
 		else:
 			startObj = api.getFocusObject()
@@ -1363,7 +1365,11 @@ class AppModule(splappmod.AppModule):
 				and startObj.role == controlTypes.Role.LIST
 			):
 				startObj = startObj.firstChild if directionForward else startObj.lastChild
-			self.trackFinder(self.findText, startObj, directionForward=directionForward)
+			self.trackFinder(
+				cursorManager.CursorManager._lastFindText,
+				startObj,
+				directionForward=directionForward
+			)
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
