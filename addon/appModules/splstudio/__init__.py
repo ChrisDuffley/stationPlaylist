@@ -1237,7 +1237,6 @@ class AppModule(splappmod.AppModule):
 	# Also, find column content for a specific column if requested.
 	# The below routines are also used in place marker track locator.
 	# Find text is based on NVDA cursor manager find text.
-	findText: str | None = None
 
 	def trackFinder(
 		self, text: str, obj: NVDAObject, directionForward: bool = True, column: list[int] | None = None
