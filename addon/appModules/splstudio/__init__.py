@@ -43,7 +43,7 @@ from NVDAObjects.behaviors import Dialog
 import textInfos
 import tones
 from ..splcommon import splbase, splconsts, splactions, splconfig, splconfui, splcarts, splappmod
-from . import splmisc
+from . import splmisc, splfind
 import addonHandler
 from ..skipTranslation import translate
 
@@ -1333,7 +1333,7 @@ class AppModule(splappmod.AppModule):
 				and startObj.role == controlTypes.Role.LIST
 			):
 				startObj = startObj.firstChild
-			d = splmisc.SPLFindDialog(
+			d = splfind.SPLFindDialog(
 				gui.mainFrame,
 				startObj,
 				cursorManager.CursorManager._lastFindText,
@@ -1346,7 +1346,7 @@ class AppModule(splappmod.AppModule):
 			d.Show()
 			gui.mainFrame.postPopup()
 		except RuntimeError:
-			wx.CallAfter(splmisc.finderError)
+			wx.CallAfter(splfind.finderError)
 
 	# Perform actions as directed by below scripts
 	# (open track finder dialog variants, search forward or backward, full find or find next/previous).
@@ -1412,13 +1412,13 @@ class AppModule(splappmod.AppModule):
 		if not self._trackFinderCheck(2):
 			return
 		try:
-			d = splmisc.SPLTimeRangeDialog(gui.mainFrame, api.getFocusObject())
+			d = splfind.SPLTimeRangeDialog(gui.mainFrame, api.getFocusObject())
 			gui.mainFrame.prePopup()
 			d.Raise()
 			d.Show()
 			gui.mainFrame.postPopup()
 		except RuntimeError:
-			wx.CallAfter(splmisc.finderError)
+			wx.CallAfter(splfind.finderError)
 
 	# Cart explorer
 	cartExplorer = False
