@@ -1364,7 +1364,7 @@ class AppModule(splappmod.AppModule):
 				and startObj.role == controlTypes.Role.LIST
 			):
 				startObj = startObj.firstChild if directionForward else startObj.lastChild
-			self.trackFinder(
+			splfind.trackFinder(
 				cursorManager.CursorManager._lastFindText,
 				startObj,
 				directionForward=directionForward
