@@ -163,14 +163,13 @@ class SPLFindDialog(wx.Dialog):
 	def onOk(self, evt):
 		global _findDialogOpened
 		text = self.findEntry.Value
-		appMod = self.obj.appModule
 		# Search columns should not be None - list of integers expected.
 		column = [self.columnHeaders.Selection + 1] if self.columnSearch else []
 		startObj = self.obj
 		# If this is called right away, we land on an invisible window.
 		core.callLater(
 			100,
-			appMod.trackFinder,
+			trackFinder,
 			text,
 			startObj,
 			directionForward=self.directionForward,
