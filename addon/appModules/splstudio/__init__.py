@@ -43,7 +43,7 @@ from NVDAObjects.behaviors import Dialog
 import textInfos
 import tones
 from ..splcommon import splbase, splconsts, splactions, splconfig, splconfui, splcarts, splappmod
-from . import splmisc, splfind
+from . import splmisc, splfind, splpls
 import addonHandler
 from ..skipTranslation import translate
 
@@ -2548,13 +2548,13 @@ class AppModule(splappmod.AppModule):
 		if obj.role == controlTypes.Role.LIST:
 			obj = obj.firstChild
 		try:
-			d = splmisc.SPLPlaylistTranscriptsDialog(gui.mainFrame, obj)
+			d = splpls.SPLPlaylistTranscriptsDialog(gui.mainFrame, obj)
 			gui.mainFrame.prePopup()
 			d.Raise()
 			d.Show()
 			gui.mainFrame.postPopup()
 		except RuntimeError:
-			wx.CallAfter(splmisc.plTranscriptsDialogError)
+			wx.CallAfter(splpls.plTranscriptsDialogError)
 		self.script_finish()
 
 	def script_switchProfiles(self, gesture):
