@@ -2587,7 +2587,7 @@ class AppModule(splappmod.AppModule):
 			# #155: an extra check to make sure it is indeed a string.
 			if self.placeMarker is not None and self.placeMarker != "":
 				obj = api.getFocusObject().parent.firstChild
-				track = self._trackLocator(self.placeMarker, obj=obj, columns=[obj.indexOf("Filename")])
+				track = splfind.trackLocator(self.placeMarker, obj=obj, columns=[obj.indexOf("Filename")])
 				# Only do the following if a track is found.
 				if track:
 					track.doAction()
