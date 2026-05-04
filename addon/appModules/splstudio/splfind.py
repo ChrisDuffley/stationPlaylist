@@ -9,6 +9,8 @@ import weakref
 import gui
 import wx
 import core
+import speech
+import cursorManager
 import addonHandler
 from NVDAObjects import NVDAObject
 from ..splcommon import splbase, splactions
@@ -20,9 +22,65 @@ addonHandler.initTranslation()
 SPLFileDuration = 30
 SPLTrackFilename = 211
 
+# The track finder utility for find track script and other functions
+# Perform a linear search to locate the track name and/or description which matches the entered value.
+# Also, find column content for a specific column if requested.
+# The below routines are also used in place marker track locator.
+# Find text is based on NVDA cursor manager find text.
+
+def trackFinder(
+	text: str, obj: NVDAObject, directionForward: bool = True, column: list[int] | None = None
+) -> None:
+	# Optimization/alignment with NVDA Core: do nothing if text is empty.
+	if not text:
+		return
+	speech.cancelSpeech()
+	# Start from next/previous track if this text was searched before.
+	if text == cursorManager.CursorManager._lastFindText:
+		obj = obj.next if directionForward else obj.previous
+	if obj is not None and not column:
+		column = [obj.indexOf("Artist"), obj.indexOf("Title")]
+	track = _trackLocator(text, obj=obj, directionForward=directionForward, columns=column)
+	# #32: Update search text even if the track with the search term in columns does not exist.
+	cursorManager.CursorManager._lastFindText = text
+	if track:
+		# We need to fire set focus event twice and exit this routine.
+		# (done via doAction method).
+		track.doAction()
+	else:
+		wx.CallAfter(
+			gui.messageBox,
+			# Translators: Standard dialog message when an item one wishes to search is not found
+			# (copy this from main nvda.po).
+			_('text "%s" not found') % text,
+			translate("0 matches"),
+			wx.OK | wx.ICON_INFORMATION,
+		)
+
+# Split from track finder in 2015.
+# Return a track with the given search criteria.
+# Column is a list of columns to be searched.
+def _trackLocator(
+	text: str,
+	obj: NVDAObject | None = None,
+	directionForward: bool = True,
+	columns: list[int] | None = None,
+) -> NVDAObject | None:
+	# It doesn't make sense to search for tracks if text and/or columns are not specified.
+	# It is also an optimization because the below loop will not be run if any of the following are true.
+	if not text or not columns:
+		return None
+	nextTrack = "next" if directionForward else "previous"
+	while obj is not None:
+		for column in columns:
+			columnText = obj._getColumnContentRaw(column)
+			if columnText and text in columnText:
+				return obj
+		obj = getattr(obj, nextTrack)
+	return None
+
 # A common dialog for Track Finder
 _findDialogOpened = False
-
 
 # Track Finder error dialog.
 def finderError() -> None:
