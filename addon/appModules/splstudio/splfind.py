@@ -40,7 +40,7 @@ def trackFinder(
 		obj = obj.next if directionForward else obj.previous
 	if obj is not None and not column:
 		column = [obj.indexOf("Artist"), obj.indexOf("Title")]
-	track = _trackLocator(text, obj=obj, directionForward=directionForward, columns=column)
+	track = trackLocator(text, obj=obj, directionForward=directionForward, columns=column)
 	# #32: Update search text even if the track with the search term in columns does not exist.
 	cursorManager.CursorManager._lastFindText = text
 	if track:
@@ -60,7 +60,7 @@ def trackFinder(
 # Split from track finder in 2015.
 # Return a track with the given search criteria.
 # Column is a list of columns to be searched.
-def _trackLocator(
+def trackLocator(
 	text: str,
 	obj: NVDAObject | None = None,
 	directionForward: bool = True,
