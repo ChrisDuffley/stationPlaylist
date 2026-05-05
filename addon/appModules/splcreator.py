@@ -18,7 +18,7 @@ import winUser
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32, getNVDAObjectFromEvent
 from NVDAObjects.behaviors import Dialog
-from .splcommon import splconfig, splconfui, splbase, splcarts, splactions, splappmod
+from .splcommon import splconfig, splbase, splcarts, splappmod
 from .skipTranslation import translate
 
 addonHandler.initTranslation()
@@ -177,17 +177,13 @@ class AppModule(splappmod.AppModule):
 				ui.message("{} {}".format(self.productName, self.productVersion))
 		except Exception:
 			pass
-		# #64: load config database if not done already.
-		splconfig.openConfig(self.appName)
-		splconfui.initialize()
+		# Load config database and user interface.
+		self.onAppModuleInit()
 
 	def terminate(self):
 		super().terminate()
-		# Perform app module termination work via action handlers.
-		# Among other tasks, close any opened SPL add-on dialogs.
-		splactions.SPLActionAppTerminating.notify()
-		splconfig.closeConfig(self.appName)
-		splconfui.terminate()
+		# Close app module subsystems, config, and the user interface.
+		self.onAppModuleTerminate()
 		# Clear Playlist Editor status cache,
 		# otherwise it will generate errors when Creator restarts without restarting NVDA.
 		self._playlistEditorStatusCache.clear()
