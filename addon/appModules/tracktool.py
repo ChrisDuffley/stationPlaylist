@@ -15,7 +15,7 @@ import ui
 import api
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32
-from .splcommon import splconfig, splconfui, splbase, splcarts, splactions, splappmod
+from .splcommon import splconfig, splbase, splcarts, splappmod
 from .skipTranslation import translate
 
 addonHandler.initTranslation()
@@ -159,17 +159,13 @@ class TrackToolItem(splbase.SPLTrackItem):
 class AppModule(splappmod.AppModule):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
-		# #64: load config database if not done already.
-		splconfig.openConfig(self.appName)
-		splconfui.initialize()
+		# Load config database and user interface.
+		self.onAppModuleInit()
 
 	def terminate(self):
 		super().terminate()
-		# Perform app module termination work via action handlers.
-		# Among other tasks, close any opened SPL add-on dialogs.
-		splactions.SPLActionAppTerminating.notify()
-		splconfig.closeConfig(self.appName)
-		splconfui.terminate()
+		# Close app module subsystems, config, and the user interface.
+		self.onAppModuleTerminate()
 
 	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
 		# Detect unlabeled controls whose labels are next to them (written to the screen).
