@@ -589,9 +589,6 @@ class AppModule(splappmod.AppModule):
 		# Don't forget about metadata connection announcement handlers.
 		splactions.SPLActionProfileSwitched.unregister(splmisc.metadata_actionProfileSwitched)
 		splactions.SPLActionSettingsReset.unregister(splmisc.metadata_actionSettingsReset)
-		# Perform app module termination work via action handlers.
-		# Among other tasks, close any opened SPL add-on dialogs.
-		splactions.SPLActionAppTerminating.notify()
 		# #39: terminate microphone alarm/interval threads, otherwise errors are seen.
 		global micAlarmT, micAlarmT2
 		if micAlarmT is not None:
@@ -600,9 +597,12 @@ class AppModule(splappmod.AppModule):
 		if micAlarmT2 is not None:
 			micAlarmT2.Stop()
 		micAlarmT2 = None
+		# Terminate Studio specific config subsystems (notably track comments).
 		splconfig.terminateStudioExtraSteps()
+		# Perform app module termination work via action handlers.
+		# Among other tasks, close any opened SPL add-on dialogs.
+		splactions.SPLActionAppTerminating.notify()
 		splconfig.closeConfig(self.appName)
-		# Remove add-on settings menu item.
 		splconfui.terminate()
 		# Delete focused track reference.
 		self._focusedTrack = None
