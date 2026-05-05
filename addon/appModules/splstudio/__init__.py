@@ -547,9 +547,8 @@ class AppModule(splappmod.AppModule):
 		# not when splmisc module is being imported.
 		splactions.SPLActionProfileSwitched.register(splmisc.metadata_actionProfileSwitched)
 		splactions.SPLActionSettingsReset.register(splmisc.metadata_actionSettingsReset)
-		# Load config database if not done already.
-		splconfig.openConfig(self.appName)
-		splconfui.initialize()
+		# Load base config database and user interface.
+		self.onAppModuleInit()
 		# Load Studio specific config subsystems (notably track comments).
 		splconfig.initStudioExtraSteps()
 		# Announce status changes while using other programs.
@@ -599,11 +598,8 @@ class AppModule(splappmod.AppModule):
 		micAlarmT2 = None
 		# Terminate Studio specific config subsystems (notably track comments).
 		splconfig.terminateStudioExtraSteps()
-		# Perform app module termination work via action handlers.
-		# Among other tasks, close any opened SPL add-on dialogs.
-		splactions.SPLActionAppTerminating.notify()
-		splconfig.closeConfig(self.appName)
-		splconfui.terminate()
+		# Close base app module subsystems, config, and the user interface.
+		self.onAppModuleTerminate()
 		# Delete focused track reference.
 		self._focusedTrack = None
 		# #86: track time analysis marker should be gone, too.
