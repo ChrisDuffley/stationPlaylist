@@ -549,9 +549,9 @@ class AppModule(splappmod.AppModule):
 		splactions.SPLActionSettingsReset.register(splmisc.metadata_actionSettingsReset)
 		# Load config database if not done already.
 		splconfig.openConfig(self.appName)
-		splconfig.initStudioExtraSteps()
-		# Prepare add-on settings interface.
 		splconfui.initialize()
+		# Load Studio specific config subsystems (notably track comments).
+		splconfig.initStudioExtraSteps()
 		# Announce status changes while using other programs.
 		eventHandler.requestEvents(
 			eventName="nameChange", processId=self.processID, windowClassName="TStatusBar"
