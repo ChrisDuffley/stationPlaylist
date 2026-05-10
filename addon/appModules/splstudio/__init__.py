@@ -435,6 +435,7 @@ D: Remaining time for the playlist.
 Control+D: Control keys toggle (Studio 6.10 and later).
 E: Overall metadata streaming status.
 Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder and four additional URL's.
+F: Track finder.
 H: Duration of tracks in this hour slot.
 Shift+H: Duration of remaining tracks in this hour slot.
 I: Listener count.
