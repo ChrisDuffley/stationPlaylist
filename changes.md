@@ -2,6 +2,10 @@
 
 This page lists the complete changelog for StationPlaylist add-on releases.
 
+## Version 26.07-LTS
+
+Version 26.07.x is the last release series to support Studio 6.0x and NVDA 2025.3.3 (last 32-bit NVDA release), with future releases supporting Studio 6.10 and 64-bit NVDA(2026.x). Some new features will be backported to 26.07.x if needed.
+
 ## Version 26.06
 
 * Removed SPL touch mode commands.
