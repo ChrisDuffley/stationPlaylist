@@ -1,6 +1,6 @@
 # StationPlaylist Add-on User Guide
 
-Revision: June 2026 for StationPlaylist add-on 26.06
+Revision: June 2026 for StationPlaylist add-on 26.07
 
 Author: Christopher Duffley (formerly Joseph Lee)
 
@@ -1013,9 +1013,18 @@ Q. I keep hearing about LTS releases. What are they?
 
 LTS stands for long-term support. This is a special version of a software that will be supported for a very long time for stability reasons.
 
-Usually a version of the StationPlaylist add-on for NVDA receives support until the next version is released (typically several weeks to months). However, because there are broadcasters who would like to use a stable version of the add-on for a long time (either because they have to or they cannot upgrade to the latest version of Studio), a long-term support version of the add-on is released every few years to give people time to upgrade to a future stable version of Studio. In addition to longer support period (up to a year or more), a LTS version of the add-on is the last version to support the oldest stable Studio version, or in some cases, provides compatibility with old NVDA and/or Windows releases. Due to special nature of LTS releases, releases in a LTS series must be instaled manually i.e. they will not be made available on the add-on store.
+Usually a version of the StationPlaylist add-on for NVDA receives support until the next version is released (typically several weeks to months). However, because there are broadcasters who would like to use a stable version of the add-on for a long time (either because they have to or they cannot upgrade to the latest version of Studio), a long-term support version of the add-on is released every few years to give people time to upgrade to a future stable version of Studio. In addition to longer support period (up to a year or more), a LTS version of the add-on is the last version to support the oldest stable Studio version, or in some cases, provides compatibility with old NVDA and/or Windows releases.
 
-As of 2026, add-on versions 3.x (September 2014-June 2015), 7.x/15.x (April 2016-April 2018; 15.x since October 2016),, 18.09.x (September 2018-December 2019), and 20.09.x (September 2020-April 2021) were designated as LTS releases, supporting Studio 4.33, 5.01, 5.1x, and 5.20, respectively. Version 25.06.x, the latest LTS release, was the last LTS series to support Studio 5.x.
+Prior to 2026, LTS releases were unavailable from NV Access add-on store. This has changed in 2026 so LTS series can be installed from the add-on store as LTS releases are tied to NVDA versions.
+
+As of 2026, the following long-term support versions were released to support the oldest Studio release available:
+
+* 3.x (September 2014-June 2015): Studio 4.33 and earlier
+* 7.x/15.x (April 2016-April 2018; 15.x since October 2016),: Studio 5.0x
+* 18.09.x (September 2018-December 2019): Studio 5.1x
+* 20.09.x (September 2020-April 2021): Studio 5.20
+* 25.06.x: Studio 5.50 and earlier
+* 26.07.x (July 2026-present): Studio 6.0x and 32-bit NVDA
 
 Q. Which versions of Studio are supported by which add-on releases?
 
