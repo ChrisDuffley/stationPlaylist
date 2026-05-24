@@ -205,41 +205,6 @@ Eklenti yapılandırma iletişim kutusunu açmak için stüdyo penceresinde Alt+
 
 Belirli programların ayarlarını yayın profillerine kaydedebilirsiniz. Bu profiller, Studio penceresinden Alt+NVDA+P tuşlarına basılarak erişilebilen SPL yayın profilleri iletişim kutusu aracılığıyla yönetilebilir.
 
-## Sürüm 26.04
-
-* Creator'ın çalma listesi düzenleyicisinde, NVDA'nın çok günlü çalma listeleri için tarih ve saat birleşik giriş kutuları arasında geçiş yaparken yavaşladığı eklenti sürümü 26.01'den kaynaklanan bir gerileme çözüldü.
-* Yerel Studio 6.10 ve üzeri sürümlerde, Control+Alt+End tuşlarına basmak, son sütunu duyurmak yerine Studio komutunu (odaklanan parçanın son bölümlerini oynat) gerçekleştirir.
-
-## Sürüm 26.03.1
-
-* Güvenlik: Yerel ve Remote Studio için parça yorumları artık güvenliği artırmak amacıyla turşu formatı yerine json formatında saklanıyor. Sonuç olarak, bu eklentinin daha eski bir sürümünün, bu sürümü yükledikten sonra yüklenmesi desteklenmez ve öngörülemeyen davranışlara neden olur.
-
-## Sürüm 26.03
-
-* StationPlaylist Recorder için başlangıç ​​desteği (VT Recorder ile karıştırılmamalıdır).
-* NVDA, SPL Kaydedici yapılandırmasınnnnnn ekran kontrolleri için etiketleri açıklayacak.
-* Hepsi olmasa da çoğu çok sütunlu liste artık sütun gezgini ve sütun gezinme desteğine sahiptir. Temel olarak yerel Studio'nun Dinleyici İstatistikleri penceresinde ve aynı listede Seçenekler > Dinleyici İstatistikleri'nde test edilmiştir.
-
-## Sürüm 26.01
-
-* NVDA 2025.3.2 veya sonrası gereklidir.
-* Eklenti ayarları ekranı artık Creator, Remote VT ve Track Tool kullanılırken her uygulama için farklı ayarlarla kullanılabilir.
-* NVDA, parça özellikleri, parça ekleme iletişim kutusunun arama kriterleri kontrolleri (Studio, Creator, Remote VT) ve Studio seçenekleri iletişim kutusu dahil olmak üzere SPL uygulaması ekranları için etiketleri duyuracak.
-* Studio (yerel ve uzak), Creator ve Remote VT'de, NVDA, SPL eklenti ayarlarından/genel kategoriden durum duyuruları için bip sesi çalacak şekilde yapılandırıldığında, parça ekleme iletişim kutusunda arama tamamlandığında NVDA bir bip sesi çalacaktır.
-* NVDA, Studio (yerel ve uzak) ve İzleme Aracı'nda artık izleme özellikleri ve Stüdyo seçenekleri ekranı gibi yerlerde diyalog özelliği içeriğini (açıklama) duyurmayacak.
-* Yerel Studio'da, NVDA, parça ekleme iletişim kutusundan (Kontrol+Shift+R) kitaplığı yeniden tararken daha az ayrıntılı bilgi verecektir.
-* Yerel Studio'da NVDA, eklenti ayarlarından "durum duyuruları için bip sesi" ayarından bağımsız olarak kütüphane tarama sayısını duyuracaktır.
-* Remote Studio'da, sepet gezgini etkinken seçenekler ekranını (Control+O) kapatırken, güncellenmiş sepet atamalarını görüntülemek için artık Sepet Gezgini'ne yeniden girmenize gerek yoktur.
-* Remote Studio'da parça ekle iletişim kutusunu kullanırken, Control+Shift+R tuşlarına basıldığında NVDA'nın "tarama başlat" demesi ve arama sonuçları durumu için ayrıntılı çıktı dahil olmak üzere çeşitli sorunlar çözüldü.
-* Creator ve Track Tool'daki parça listesinde, sütun sıralama düzenini değiştirmek için Alt+sayı satır tuşlarına basmak, NVDA'nın seçilen sütuna göre yeni sıralama düzenini duyurmasına neden olacaktır. Bu komutları Creator'da gerçekleştirirken bir gecikme olacaktır.
-* Creator, Remote VT ve Track Tool'da, durum çubuğu okuma komutu gerçekleştirilirken durum çubuğu içeriği raporlanacaktır (NVDA+End/masaüstü düzeni, NVDA+Shift+End/dizüstü bilgisayar düzeni). Özellikle Creator'da durum çubuğu içeriği duyuru performansı iyileştirildi.
-* Creator ve Remote VT'de NVDA, parça ekle iletişim kutusunda parça ararken arama sonuçlarının sayısını duyuracaktır.
-* Creator ve Remote VT'de, NVDA artık hiçbir şey yapmıyor gibi görünmeyecek veya çalma listesi düzenleyicisinden çalma listesi saati ve günü, planlanan ve rotasyon gibi çalma listesi bilgilerini bildirirken hata tonları çalmayacak.
-
-## Eski sürümler
-
-Eski eklenti sürümlerine ilişkin sürüm notları için lütfen [değişiklik günlüğüne][2] bakın.
-
 [1]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/addonuserguide.md
 
 [2]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/changes.md
