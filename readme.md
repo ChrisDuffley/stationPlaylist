@@ -4,14 +4,13 @@
 
 This add-on package provides improved usage of StationPlaylist Studio and other StationPlaylist apps, as well as providing utilities to control Studio from anywhere. Supported apps include Studio, Remote Studio, Creator, Track Tool, Recorder (SPL and VT), and Streamer, as well as SAM, SPL, and AltaCast encoders.
 
-For more information about the add-on, read the [add-on guide][1].
+For more information about the add-on, read the [add-on guide][1]. For a list of changes, see [changelogs for add-on releases on GitHub][2].
 
 IMPORTANT NOTES:
 
 * This add-on requires StationPlaylist suite 6.0 or later.
 * Some add-on features will be disabled or limited if NVDA is running in secure mode such as in logon screen.
 * For best experience, disable audio ducking mode.
-* Starting from 2018, [changelogs for old add-on releases][2] will be found on GitHub. This add-on readme will list changes from version 26.01 (2026) onwards.
 * While Studio is running, you can save, reload saved settings, or reset add-on settings to defaults by pressing Control+NVDA+C, Control+NVDA+R once, or Control+NVDA+R three times, respectively. This is also applicable to encoder settings - you can save and reset (not reload) encoder settings if using encoders.
 * Many commands will provide speech output while NVDA is in speak on demand mode (NVDA 2024.1 and later).
 * When refering to Studio, both local (original) Studio and Remote Studio will be assumed. When something is specific to StationPlaylist Studio (original), the term "local Studio" will be used.
@@ -205,57 +204,6 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 ## Broadcast profiles dialog
 
 You can save settings for specific shows into broadcast profiles. These profiles can be managed via SPL broadcast profiles dialog which can be accessed by pressing Alt+NVDA+P from Studio window.
-
-## Version 26.06
-
-* Removed SPL touch mode commands.
-* NVDA's browse mode find dialog (Control+NVDA+F) search terms will also be made available when invoking track finder (Control+NVDA+F) from local and Remote Studio. Consequently, search terms from Studio's track finder will also be made available in NVDA find dialog.
-
-## Version 26.05
-
-* NVDA 2025.3.3 or later is required.
-* Added a setting in add-on settings under Advanced settings panel to configure which ap should receive priority when command conflicts occur. Options include NVDA (perform add-on commands), StationPlaylist (pass the conflicting keyboard shortcut to the active SPL application and is the default setting), or NVDA then StationPlaylist (first press will perform add-on command, subsequent presses will perform SPL command). This option is applicable to local Studio 6.10 and later where Control+Alt+End keyboard shortcut to report last track column conflicts with Studio command to play ends of tracks.
-* In local Studio 6.0x, pressing Control+Alt+End will no longer announce last track column to make the behavior consistent with later Studio releases. You can set command priority setting to "NVDA" or "NVDA then StationPlaylist" to restore previous behavior.
-* SPL touch mode commands are deprecated and will be removed in a future add-on release caused by backwards incompatible internal changes to touch mode handling in NVDA 2026.2.
-* In Creator and Track Tool, removed column sort direction arrow characters from column headers when reviewing column data for a track (Control+NVDA+hyphen).
-* Add-on settings dialog will be closed automatically when closing Creator, Remote VT, Track Tool, and encoder windows.
-* Added a new command in SPL Controller layer to play the next selected track with crossfade (Control+down arrow).
-* Pressing Enter after entering SPL Controller layer will play the selected track from anywhere.
-
-## Version 26.04
-
-* In Creator's playlist editor, resolved a regression from add-on version 26.01 where NVDA was sluggish when moving through date and hour combo boxes for multi-day playlists.
-* In local Studio 6.10 and later, pressing Control+Alt+End will perform Studio command (play last parts of the focused track) instead of announcing the last column.
-
-## Version 26.03.1
-
-* Security: Track comments for local and Remote Studio are now stored in json format instead of pickle format to improve security. As a result, installing an older version of this add-on after installing this version is unsupported and will cause unpredictable behavior.
-
-## Version 26.03
-
-* Initial support for StationPlaylist Recorder (not to be confused with VT Recorder).
-* NVDA will announce labels for SPL Recorder configurationnnnnnn screen controls.
-* Most if not all multicolumn lists now have column explorer and column navigation support. Mainly tested in local Studio's Listener Stats window and the same list in Options > Listener Stats.
-
-## Version 26.01
-
-* NVDA 2025.3.2 or later is required.
-* Add-on settings screen is now available while using Creator, Remote VT, and Track Tool with different settings for each app.
-* NVDA will announce labels for SPL app screens, including track properties, insert tracks dialog's search criteria controls (Studio, Creator, Remote VT), and Studio options dialog.
-* In Studio (local and remote), Creator, and Remote VT, NVDA will play a beep when search is completed in insert tracks dialog when NVDA is configured to play beeps for status announcements from SPL add-on settings/general category.
-* In Studio (local and remote) and Track Tool, NVDA will no longer announce dialog property content (description) in places such as track properties and Studio options screen.
-* In local Studio, NVDA will be less verbose when performing library rescan from insert tracks dialog (Control+Shift+R).
-* In local Studio, NVDA will report library scan count regardless of "beep for status announcements" setting from add-on settings.
-* In Remote Studio, when closing options screen (Control+O) while cart explorer is active, it is no longer necessary to reenter Cart Explorer to view updated cart assignments.
-* Resolved several issues while using insert tracks dialog in Remote Studio, including NVDA saying "scan start" when pressing Control+Shift+R and verbose output for search results status.
-* In track list in Creator and Track Tool, pressing Alt+number row keys to change column sort order will cause NVDA to announce the new sort order based on the column selected. There will be a delay when performing these commands in Creator.
-* In Creator, Remote VT, and Track Tool, status bar content will be reported when performing read status bar command (NVDA+End/desktop layout, NVDA+Shift+End/laptop layout). In particular, improved status bar content announcement performance in Creator.
-* In Creator and Remote VT, NVDA will announce search results count when searching for tracks in insert tracks dialog.
-* In Creator and Remote VT, NVDA will no longer appear to do nothing or play error tones when reporting playlist information from playlist editor such as playlist hour and day, scheduled, and rotation.
-
-## Older releases
-
-Please see the [changelog][2] for release notes for old add-on releases.
 
 [1]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/addonuserguide.md
 
