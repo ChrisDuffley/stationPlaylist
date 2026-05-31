@@ -161,13 +161,6 @@ class SPLTrackItem(sysListView32.ListItem):
 	StudioPlaylistViewerItem for tracks found in Studio's Playlist Viewer (main window).
 	"""
 
-	# #103: provide an abstract index of function.
-	# Deprecated: as an abstract class, this method only returns None (placeholder)
-	# with app modules working directly with concrete track item classes.
-	@abstractmethod
-	def indexOf(self, columnHeader: str) -> int | None:
-		return None
-
 	@scriptHandler.script(
 		description=_(
 			# Translators: input help mode message for column explorer commands.
