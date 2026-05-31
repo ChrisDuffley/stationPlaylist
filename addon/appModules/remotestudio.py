@@ -5,7 +5,7 @@
 # Basic support for StationPlaylist Remote Studio.
 # Borrows heavily from Studio as the user interface is quite similar with changes specific to Remote Studio.
 
-from typing import Any
+from typing import Any, override
 import collections.abc
 import time
 import threading
@@ -39,11 +39,13 @@ class RemoteStudioPlaylistViewerItem(splstudio.StudioPlaylistViewerItem):
 	Columns are based on Studio 6.11 and earlier.
 	"""
 
+	@override
 	@property
 	def screenColumnOrder(self):
 		# Return the actual default column order based on Studio release.
 		return indexOf(self.appModule.productVersion)[1:]
 
+	@override
 	def indexOf(self, columnHeader: str) -> int | None:
 		try:
 			return indexOf(self.appModule.productVersion).index(columnHeader)
@@ -51,6 +53,7 @@ class RemoteStudioPlaylistViewerItem(splstudio.StudioPlaylistViewerItem):
 			return None
 
 	# Update column headers shown on screen (which does nothing in Remote Studio).
+	@override
 	def updateColumnHeader(self, header: str) -> str:
 		return header
 
@@ -59,6 +62,7 @@ class AppModule(splstudio.AppModule):
 	# Remote Studio API is available for some features.
 	_SPLAPILevel = splbase.StudioAPIAvailability.REMOTEAPI
 
+	@override
 	def terminate(self):
 		super().terminate()
 		# Clear app module flags and attributes.
@@ -67,6 +71,7 @@ class AppModule(splstudio.AppModule):
 		splcarts.cartEditRemoteTimestamps = None
 
 	# Locate the handle for Remote Studio for caching purposes.
+	@override
 	def _locateSPLHwnd(self) -> None:
 		while not (hwnd := user32.FindWindowW("RemoteStudio", None)):
 			time.sleep(1)
@@ -80,6 +85,7 @@ class AppModule(splstudio.AppModule):
 			splbase.setStudioWindowHandle(hwnd, splComponent="remotestudio")
 			log.debug(f"SPL: Remote Studio handle is {hwnd}")
 
+	@override
 	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
 		if (
 			obj.windowClassName == "TTntListView.UnicodeClass"
@@ -94,6 +100,7 @@ class AppModule(splstudio.AppModule):
 	# Record status bar contents when Remote Studio is connected to a local Studio instance.
 	_pastStatusBarContent: str | None = None
 
+	@override
 	def event_foreground(self, obj: NVDAObject, nextHandler: collections.abc.Callable[[], None]):
 		if obj.windowClassName == "TStudioForm":
 			# Tell NVDA to announce just the changed bits of the status bar.
@@ -110,6 +117,7 @@ class AppModule(splstudio.AppModule):
 					)
 		nextHandler()
 
+	@override
 	def event_nameChange(self, obj: NVDAObject, nextHandler: collections.abc.Callable[[], None]):
 		if obj.windowClassName == "TStatusBar":
 			# Only announce the changed parts of the status bar except when connecting the first time.
@@ -150,6 +158,7 @@ class AppModule(splstudio.AppModule):
 	# Announce elapsed and remaining times differently across local and Remote Studio
 	# (API can be used in local and remote Studio).
 	# Remote Studio: only track elapsed/remaining time will be announced.
+	@override
 	def announceTrackTime(self, trackTime: str) -> None:
 		# Track time parameter can be either "remaining" or "elapsed".
 		match trackTime:
@@ -169,6 +178,7 @@ class AppModule(splstudio.AppModule):
 
 	# Toggle cart explorer (private method)
 	# Remote Studio: no need to check Studio title.
+	@override
 	def _toggleCartExplorer(self) -> None:
 		if not self.cartExplorer:
 			# Prevent cart explorer from being engaged outside of playlist viewer.
@@ -193,6 +203,7 @@ class AppModule(splstudio.AppModule):
 
 	# Assigning and building carts.
 
+	@override
 	def cartsBuilder(self, build: bool = True) -> None:
 		# A function to build and return cart commands.
 		# Remote Studio offers twelve carts (function keys only).
@@ -204,6 +215,7 @@ class AppModule(splstudio.AppModule):
 			self.bindGestures(self.__gestures)
 
 	# Check to make sure a playlist is indeed loaded by checking track count.
+	@override
 	def playlistLoaded(self) -> bool:
 		focus = api.getFocusObject()
 		if isinstance(focus, RemoteStudioPlaylistViewerItem):
@@ -249,6 +261,7 @@ class AppModule(splstudio.AppModule):
 
 	# Report status bar contents such as microphone status.
 	# Remote Studio: not all status flags are supported.
+	@override
 	def sayStatus(self, index: int) -> None:
 		# No, status index must be an integer (compatibility with local Studio).
 		studioStatus = splbase.studioAPI(index, SPLStatusInfo, splComponent="remotestudio")
