@@ -6,7 +6,7 @@
 # For UI surrounding this module, see splconfui module.
 # For the add-on settings specification, see splconfspec module.
 
-from typing import Any
+from typing import Any, override
 import os
 import json
 from collections import ChainMap
@@ -347,6 +347,7 @@ class ConfigHub(ChainMap[Any, Any]):
 		del self.profiles[configPos]
 		del self.profileNames[profilePos]
 
+	@override
 	def __delitem__(self, key: Any):
 		# Consult profile-specific key first before deleting anything.
 		pos = (
