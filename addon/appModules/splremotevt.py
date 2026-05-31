@@ -5,7 +5,7 @@
 # Basic support for StationPlaylist Remote VT Client.
 # Borrows heavily from creator as the user interface is quite similar with changes specific to VT Client.
 
-from typing import Any
+from typing import Any, override
 import addonHandler
 import controlTypes
 from NVDAObjects import NVDAObject
@@ -23,6 +23,7 @@ class SPLRemotePlaylistEditorItem(splcreator.SPLPlaylistEditorItem):
 
 
 class AppModule(splcreator.AppModule):
+	@override
 	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
 		# Tracks list uses a different window class name other than "TListView".
 		# Resort to window style and other tricks if other lists with the class name below is found
