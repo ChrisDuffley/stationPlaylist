@@ -162,6 +162,8 @@ class SPLTrackItem(sysListView32.ListItem):
 	"""
 
 	# #103: provide an abstract index of function.
+	# Deprecated: as an abstract class, this method only returns None (placeholder)
+	# with app modules working directly with concrete track item classes.
 	@abstractmethod
 	def indexOf(self, columnHeader: str) -> int | None:
 		return None
