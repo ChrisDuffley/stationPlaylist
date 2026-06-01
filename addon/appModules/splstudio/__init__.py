@@ -2483,7 +2483,7 @@ class AppModule(splappmod.AppModule):
 			wx.CallAfter(splpls.plTranscriptsDialogError)
 		self.script_finish()
 
-	# Miscellaneous (library scan, place marker track, switching profiles, metadata streaming, layer help)
+	# Miscellaneous (library scan, place marker track, metadata streaming, switching profiles, layer help)
 
 	@localStudioOnly
 	def script_libraryScanMonitor(self, gesture: inputCore.InputGesture):
@@ -2508,10 +2508,6 @@ class AppModule(splappmod.AppModule):
 		else:
 			# Translators: Presented when library scan is already in progress.
 			ui.message(_("Scanning is in progress"))
-
-	def script_switchProfiles(self, gesture: inputCore.InputGesture):
-		# #118: do not allow profile switching while add-on settings screen is shown.
-		splconfui.instantProfileSwitchConfigUICheck()
 
 	@localStudioOnly
 	def script_setPlaceMarker(self, gesture: inputCore.InputGesture):
@@ -2573,6 +2569,10 @@ class AppModule(splappmod.AppModule):
 				# Translators: Status message for metadata streaming.
 				_("Metadata streaming on {URLPosition} disabled").format(URLPosition=metadataStreams[url])
 			)
+
+	def script_switchProfiles(self, gesture: inputCore.InputGesture):
+		# #118: do not allow profile switching while add-on settings screen is shown.
+		splconfui.instantProfileSwitchConfigUICheck()
 
 	def script_layerHelp(self, gesture: inputCore.InputGesture):
 		layerHelpTitle = {
