@@ -20,6 +20,7 @@ import api
 import config
 import globalVars
 import scriptHandler
+import inputCore
 import eventHandler
 import cursorManager
 import review
@@ -182,7 +183,7 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 			pass
 
 	@scriptHandler.script(gesture="kb:space")
-	def script_select(self, gesture):
+	def script_select(self, gesture: inputCore.InputGesture):
 		gesture.send()
 		speech.speakMessage(self.firstChild.name)
 		braille.handler.handleUpdate(self)
@@ -264,7 +265,7 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 	# Detects top/bottom of a playlist if told to do so.
 
 	@scriptHandler.script(gesture="kb:downArrow")
-	def script_nextTrack(self, gesture):
+	def script_nextTrack(self, gesture: inputCore.InputGesture):
 		gesture.send()
 		if (
 			self.IAccessibleChildID == self.parent.childCount - 1
@@ -273,7 +274,7 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 			tones.beep(2000, 100)
 
 	@scriptHandler.script(gesture="kb:upArrow")
-	def script_prevTrack(self, gesture):
+	def script_prevTrack(self, gesture: inputCore.InputGesture):
 		gesture.send()
 		if self.IAccessibleChildID == 1 and splconfig.SPLConfig["General"]["TopBottomAnnounce"]:
 			tones.beep(2000, 100)
@@ -305,7 +306,7 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 		gesture="kb:NVDA+V",
 		category=_("StationPlaylist"),
 	)
-	def script_toggleScreenColumnOrder(self, gesture):
+	def script_toggleScreenColumnOrder(self, gesture: inputCore.InputGesture):
 		if not splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"]:
 			splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = True
 			# Translators: presented when NVDA will present track columns in screen order.
@@ -392,7 +393,7 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 		category=_("StationPlaylist"),
 		speakOnDemand=True,
 	)
-	def script_announceTrackComment(self, gesture):
+	def script_announceTrackComment(self, gesture: inputCore.InputGesture):
 		scriptRepeatCount = scriptHandler.getLastScriptRepeatCount()
 		# Do not allow many track comment dialog instances from appearing.
 		# Security: do not allow comments to be copied or changed in secure mode.
@@ -414,7 +415,7 @@ class LocalStudioPlaylistViewerItem(StudioPlaylistViewerItem):
 	# or perform add-on and/or NVDA  behavior until pressed several times.
 
 	@scriptHandler.script(gesture="kb:control+alt+end")
-	def script_ctrlAltEnd(self, gesture):
+	def script_ctrlAltEnd(self, gesture: inputCore.InputGesture):
 		# Report last column (add-on) versus last bits of the selected track (local Studio 6.10 and later).
 		commandProcessingPriority = splconfig.SPLConfig["Advanced"]["CommandProcessingPriority"]
 		scriptRepeatCount = scriptHandler.getLastScriptRepeatCount()
@@ -501,7 +502,7 @@ F12: Switch to an instant switch profile."""),
 # This decorator wraps local Studio app module scripts to report a message when invoked from Remote Studio.
 # Note: not all features and commands will work on Remote Studio.
 def localStudioOnly(func):
-	def remoteStudioCheck(self, gesture, *args, **kwargs):
+	def remoteStudioCheck(self, gesture: inputCore.InputGesture, *args, **kwargs):
 		if self.appName != "splstudio":
 			# Translators: messages shown when trying to perform Studio commands in Remote Studio.
 			ui.message(_("Unavailable in Remote Studio"))
@@ -1111,7 +1112,7 @@ class AppModule(splappmod.AppModule):
 		gesture="kb:control+alt+t",
 		speakOnDemand=True,
 	)
-	def script_sayRemainingTime(self, gesture):
+	def script_sayRemainingTime(self, gesture: inputCore.InputGesture):
 		self.announceTrackTime("remaining")
 
 	@scriptHandler.script(
@@ -1120,7 +1121,7 @@ class AppModule(splappmod.AppModule):
 		gesture="kb:alt+shift+t",
 		speakOnDemand=True,
 	)
-	def script_sayElapsedTime(self, gesture):
+	def script_sayElapsedTime(self, gesture: inputCore.InputGesture):
 		self.announceTrackTime("elapsed")
 
 	@scriptHandler.script(
@@ -1132,7 +1133,7 @@ class AppModule(splappmod.AppModule):
 		gesture="kb:shift+nvda+f12",
 		speakOnDemand=True,
 	)
-	def script_sayBroadcasterTime(self, gesture):
+	def script_sayBroadcasterTime(self, gesture: inputCore.InputGesture):
 		if self._localStudioAPIRequired and not splbase.studioIsRunning():
 			return
 		# Says things such as "25 minutes to 2" and "5 past 11".
@@ -1167,7 +1168,7 @@ class AppModule(splappmod.AppModule):
 		description=_("Announces time including seconds."),
 		speakOnDemand=True,
 	)
-	def script_sayCompleteTime(self, gesture):
+	def script_sayCompleteTime(self, gesture: inputCore.InputGesture):
 		if self._localStudioAPIRequired and not splbase.studioIsRunning():
 			return
 		# Says complete time in hours, minutes and seconds via kernel32's routines.
@@ -1180,7 +1181,7 @@ class AppModule(splappmod.AppModule):
 		description=_("Opens SPL Studio alarms settings."),
 		gesture="kb:alt+nvda+1",
 	)
-	def script_openAlarmsSettings(self, gesture):
+	def script_openAlarmsSettings(self, gesture: inputCore.InputGesture):
 		wx.CallAfter(splconfui.openAddonSettingsPanel, splconfui.AlarmsPanel)
 
 	# SPL Config management among others.
@@ -1191,7 +1192,7 @@ class AppModule(splappmod.AppModule):
 		description=_("Opens SPL add-on broadcast profiles dialog."),
 		gesture="kb:alt+NVDA+p",
 	)
-	def script_openBroadcastProfilesDialog(self, gesture):
+	def script_openBroadcastProfilesDialog(self, gesture: inputCore.InputGesture):
 		wx.CallAfter(splconfui.onBroadcastProfilesDialog, None)
 
 	@scriptHandler.script(
@@ -1199,7 +1200,7 @@ class AppModule(splappmod.AppModule):
 		description=_("Opens SPL Studio add-on welcome dialog."),
 		gesture="kb:alt+NVDA+f1",
 	)
-	def script_openWelcomeDialog(self, gesture):
+	def script_openWelcomeDialog(self, gesture: inputCore.InputGesture):
 		gui.mainFrame.prePopup()
 		d = splconfig.WelcomeDialog(gui.mainFrame)
 		d.Raise()
@@ -1216,7 +1217,7 @@ class AppModule(splappmod.AppModule):
 		description=_("Toggles between various braille timer settings."),
 		gesture="kb:control+shift+x",
 	)
-	def script_setBrailleTimer(self, gesture):
+	def script_setBrailleTimer(self, gesture: inputCore.InputGesture):
 		brailleTimer = splconfig.SPLConfig["General"]["BrailleTimer"]
 		if brailleTimer == "off":
 			brailleTimer = "outro"
@@ -1318,14 +1319,14 @@ class AppModule(splappmod.AppModule):
 		description=_("Finds a track in the track list."),
 		gesture="kb:control+nvda+f",
 	)
-	def script_findTrack(self, gesture):
+	def script_findTrack(self, gesture: inputCore.InputGesture):
 		self.findTrackDispatch()
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Finds text in columns.")
 	)
-	def script_columnSearch(self, gesture):
+	def script_columnSearch(self, gesture: inputCore.InputGesture):
 		self.findTrackDispatch(columnSearch=True)
 
 	@scriptHandler.script(
@@ -1333,7 +1334,7 @@ class AppModule(splappmod.AppModule):
 		description=_("Finds the next occurrence of the track with the name in the track list."),
 		gesture="kb:nvda+f3",
 	)
-	def script_findTrackNext(self, gesture):
+	def script_findTrackNext(self, gesture: inputCore.InputGesture):
 		self.findTrackDispatch(incrementalFind=True)
 
 	@scriptHandler.script(
@@ -1341,7 +1342,7 @@ class AppModule(splappmod.AppModule):
 		description=_("Finds previous occurrence of the track with the name in the track list."),
 		gesture="kb:shift+nvda+f3",
 	)
-	def script_findTrackPrevious(self, gesture):
+	def script_findTrackPrevious(self, gesture: inputCore.InputGesture):
 		self.findTrackDispatch(directionForward=False, incrementalFind=True)
 
 	# Time range finder.
@@ -1351,7 +1352,7 @@ class AppModule(splappmod.AppModule):
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Locates track with duration within a time range")
 	)
-	def script_timeRangeFinder(self, gesture):
+	def script_timeRangeFinder(self, gesture: inputCore.InputGesture):
 		if not self._trackFinderCheck(2):
 			return
 		try:
@@ -1415,13 +1416,13 @@ class AppModule(splappmod.AppModule):
 		description=_("Toggles cart explorer to learn cart assignments."),
 		gesture="kb:alt+nvda+3",
 	)
-	def script_toggleCartExplorer(self, gesture):
+	def script_toggleCartExplorer(self, gesture: inputCore.InputGesture):
 		if self._localStudioAPIRequired and not splbase.studioIsRunning():
 			return
 		# Run private methods to toggle cart explorer (differs between local and Remote Studio).
 		self._toggleCartExplorer()
 
-	def script_cartExplorer(self, gesture):
+	def script_cartExplorer(self, gesture: inputCore.InputGesture):
 		if api.getForegroundObject().windowClassName != "TStudioForm":
 			gesture.send()
 			return
@@ -1449,7 +1450,7 @@ class AppModule(splappmod.AppModule):
 		description=_("Toggles library scan progress settings."),
 		gesture="kb:shift+nvda+r",
 	)
-	def script_setLibraryScanProgress(self, gesture):
+	def script_setLibraryScanProgress(self, gesture: inputCore.InputGesture):
 		# Library scan reporting toggle is handled by local Studio, not Remote Studio.
 		if self.appName != "splstudio":
 			ui.message(_("Unavailable in Remote Studio"))
@@ -1467,7 +1468,7 @@ class AppModule(splappmod.AppModule):
 		splconfig.message("LibraryScanAnnounce", libraryScanAnnounce)
 
 	@scriptHandler.script(gesture="kb:control+shift+r")
-	def script_startScanFromInsertTracks(self, gesture):
+	def script_startScanFromInsertTracks(self, gesture: inputCore.InputGesture):
 		gesture.send()
 		# The rest of this script is unavailable in Remote Studio.
 		if self.appName != "splstudio":
@@ -1604,7 +1605,7 @@ class AppModule(splappmod.AppModule):
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Opens a dialog to quickly enable or disable metadata streaming.")
 	)
-	def script_manageMetadataStreams(self, gesture):
+	def script_manageMetadataStreams(self, gesture: inputCore.InputGesture):
 		# Do not even think about opening this dialog if handle to Studio isn't found (not fully running).
 		if self._localStudioAPIRequired and not splbase.studioIsRunning(justChecking=True):
 			# Translators: Presented when streaming dialog cannot be shown.
@@ -1987,13 +1988,13 @@ class AppModule(splappmod.AppModule):
 	# Some handlers for native commands.
 
 	@scriptHandler.script(gestures=["kb:Shift+delete", "kb:Shift+numpadDelete"])
-	def script_deleteTrack(self, gesture):
+	def script_deleteTrack(self, gesture: inputCore.InputGesture):
 		self.preTrackRemoval()
 		gesture.send()
 
 	# When Escape is pressed, activate background library scan if conditions are right.
 	@scriptHandler.script(gesture="kb:escape")
-	def script_escape(self, gesture):
+	def script_escape(self, gesture: inputCore.InputGesture):
 		gesture.send()
 		if self.libraryScanning:
 			if not libScanT or (libScanT and not libScanT.is_alive()):
@@ -2005,7 +2006,7 @@ class AppModule(splappmod.AppModule):
 	# Remote Studio requires performing screen traversal whereas local Studio offers its own API.
 
 	# Set up the layer script environment.
-	def getScript(self, gesture):
+	def getScript(self, gesture: inputCore.InputGesture):
 		if not self.SPLAssistant:
 			return splappmod.AppModule.getScript(self, gesture)
 		script = splappmod.AppModule.getScript(self, gesture)
@@ -2021,7 +2022,7 @@ class AppModule(splappmod.AppModule):
 		if self.cartExplorer:
 			self.cartsBuilder()
 
-	def script_error(self, gesture):
+	def script_error(self, gesture: inputCore.InputGesture):
 		tones.beep(120, 100)
 		self.script_finish()
 
@@ -2038,7 +2039,7 @@ class AppModule(splappmod.AppModule):
 		),
 		speakOnDemand=True,
 	)
-	def script_SPLAssistantToggle(self, gesture):
+	def script_SPLAssistantToggle(self, gesture: inputCore.InputGesture):
 		if scriptHandler.getLastScriptRepeatCount() > 0:
 			gesture.send()
 			self.script_finish()
@@ -2210,24 +2211,24 @@ class AppModule(splappmod.AppModule):
 	# The layer commands themselves.
 	# Not all commands are available while using Remote Studio.
 
-	def script_sayPlayStatus(self, gesture):
+	def script_sayPlayStatus(self, gesture: inputCore.InputGesture):
 		self.sayStatus(0)
 
-	def script_sayAutomationStatus(self, gesture):
+	def script_sayAutomationStatus(self, gesture: inputCore.InputGesture):
 		self.sayStatus(1)
 
-	def script_sayMicStatus(self, gesture):
+	def script_sayMicStatus(self, gesture: inputCore.InputGesture):
 		self.sayStatus(2)
 
-	def script_sayLineInStatus(self, gesture):
+	def script_sayLineInStatus(self, gesture: inputCore.InputGesture):
 		self.sayStatus(3)
 
 	@localStudioOnly
-	def script_sayRecToFileStatus(self, gesture):
+	def script_sayRecToFileStatus(self, gesture: inputCore.InputGesture):
 		self.sayStatus(4)
 
 	@localStudioOnly
-	def script_sayCartEditStatus(self, gesture):
+	def script_sayCartEditStatus(self, gesture: inputCore.InputGesture):
 		# Because cart edit status also shows cart insert status, verbosity control will not apply.
 		cartEdit = splbase.studioAPI(5, SPLStatusInfo)
 		cartInsert = splbase.studioAPI(6, SPLStatusInfo)
@@ -2239,7 +2240,7 @@ class AppModule(splappmod.AppModule):
 			ui.message("Cart Edit Off")
 
 	@localStudioOnly
-	def script_sayControlKeysStatus(self, gesture):
+	def script_sayControlKeysStatus(self, gesture: inputCore.InputGesture):
 		# Properly shown in Studio 6.10 and later.
 		if self.productVersion < "6.10":
 			self.script_error(None)
@@ -2247,24 +2248,24 @@ class AppModule(splappmod.AppModule):
 		obj = self.status(self.SPLPlayStatus).getChild(7)
 		ui.message(obj.name)
 
-	def script_sayHourTrackDuration(self, gesture):
+	def script_sayHourTrackDuration(self, gesture: inputCore.InputGesture):
 		self.announcePlaylistTimes(0)
 
-	def script_sayHourRemaining(self, gesture):
+	def script_sayHourRemaining(self, gesture: inputCore.InputGesture):
 		self.announcePlaylistTimes(1)
 
-	def script_sayPlaylistRemainingDuration(self, gesture):
+	def script_sayPlaylistRemainingDuration(self, gesture: inputCore.InputGesture):
 		if self.canPerformPlaylistCommands() == self.SPLPlaylistNoErrors:
 			obj = api.getFocusObject()
 			if obj.role == controlTypes.Role.LIST:
 				obj = obj.firstChild
 			self.announceTime(self.playlistDuration(start=obj), ms=False)
 
-	def script_sayHourOvertime(self, gesture):
+	def script_sayHourOvertime(self, gesture: inputCore.InputGesture):
 		self.announcePlaylistTimes(2)
 
 	@localStudioOnly
-	def script_sayPlaylistModified(self, gesture):
+	def script_sayPlaylistModified(self, gesture: inputCore.InputGesture):
 		obj = self.status(self.SPLSystemStatus).getChild(5)
 		# Translators: presented when playlist modification message isn't shown.
 		ui.message(obj.name if obj.name else _("Playlist modification not available"))
@@ -2274,7 +2275,7 @@ class AppModule(splappmod.AppModule):
 		description=_("Announces title of the next track if any"),
 		speakOnDemand=True,
 	)
-	def script_sayNextTrackTitle(self, gesture):
+	def script_sayNextTrackTitle(self, gesture: inputCore.InputGesture):
 		if self._localStudioAPIRequired and not splbase.studioIsRunning():
 			self.script_finish()
 			return
@@ -2300,7 +2301,7 @@ class AppModule(splappmod.AppModule):
 		description=_("Announces title of the currently playing track"),
 		speakOnDemand=True,
 	)
-	def script_sayCurrentTrackTitle(self, gesture):
+	def script_sayCurrentTrackTitle(self, gesture: inputCore.InputGesture):
 		if self._localStudioAPIRequired and not splbase.studioIsRunning():
 			self.script_finish()
 			return
@@ -2330,7 +2331,7 @@ class AppModule(splappmod.AppModule):
 		description=_("Announces temperature and weather information"),
 		speakOnDemand=True,
 	)
-	def script_sayTemperature(self, gesture):
+	def script_sayTemperature(self, gesture: inputCore.InputGesture):
 		if self._localStudioAPIRequired and not splbase.studioIsRunning():
 			self.script_finish()
 			return
@@ -2345,31 +2346,31 @@ class AppModule(splappmod.AppModule):
 			self.script_finish()
 
 	@localStudioOnly
-	def script_sayUpTime(self, gesture):
+	def script_sayUpTime(self, gesture: inputCore.InputGesture):
 		obj = self.status(self.SPLSystemStatus).firstChild
 		ui.message(obj.name)
 
-	def script_sayScheduledTime(self, gesture):
+	def script_sayScheduledTime(self, gesture: inputCore.InputGesture):
 		self.announcePlaylistTimes(3)
 
-	def script_sayScheduledToPlay(self, gesture):
+	def script_sayScheduledToPlay(self, gesture: inputCore.InputGesture):
 		self.announcePlaylistTimes(4)
 
 	@localStudioOnly
-	def script_sayListenerCount(self, gesture):
+	def script_sayListenerCount(self, gesture: inputCore.InputGesture):
 		obj = self.status(self.SPLSystemStatus).getChild(3)
 		# Translators: Presented when there is no listener count information.
 		ui.message(obj.name if obj.name else _("Listener count not found"))
 
 	@localStudioOnly
-	def script_sayTrackPitch(self, gesture):
+	def script_sayTrackPitch(self, gesture: inputCore.InputGesture):
 		obj = self.status(self.SPLSystemStatus).getChild(4)
 		ui.message(obj.name)
 
 	# Few toggle/misc scripts that may be excluded from the layer later.
 
 	@localStudioOnly
-	def script_libraryScanMonitor(self, gesture):
+	def script_libraryScanMonitor(self, gesture: inputCore.InputGesture):
 		if not self.libraryScanning:
 			# #155: if library scan count is None, then final scan count would also be None.
 			libScanCount = splbase.studioAPI(1, SPLLibraryScanCount)
@@ -2396,7 +2397,7 @@ class AppModule(splappmod.AppModule):
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Marks focused track as start marker for various playlist analysis commands")
 	)
-	def script_markTrackForAnalysis(self, gesture):
+	def script_markTrackForAnalysis(self, gesture: inputCore.InputGesture):
 		self.script_finish()
 		if self._trackAnalysisAllowed():
 			focus = api.getFocusObject()
@@ -2414,7 +2415,7 @@ class AppModule(splappmod.AppModule):
 		description=_("Announces total length of tracks between analysis start marker and the current track"),
 		speakOnDemand=True,
 	)
-	def script_trackTimeAnalysis(self, gesture):
+	def script_trackTimeAnalysis(self, gesture: inputCore.InputGesture):
 		self.script_finish()
 		if self._trackAnalysisAllowed():
 			if self._analysisMarker is None:
@@ -2447,7 +2448,7 @@ class AppModule(splappmod.AppModule):
 		description=_("Presents playlist snapshot information such as number of tracks and top artists"),
 		speakOnDemand=True,
 	)
-	def script_takePlaylistSnapshots(self, gesture):
+	def script_takePlaylistSnapshots(self, gesture: inputCore.InputGesture):
 		if self._localStudioAPIRequired and not splbase.studioIsRunning():
 			self.script_finish()
 			return
@@ -2480,7 +2481,7 @@ class AppModule(splappmod.AppModule):
 		self.playlistSnapshotOutput(self.playlistSnapshots(start, end), scriptCount)
 		self.script_finish()
 
-	def script_playlistTranscripts(self, gesture):
+	def script_playlistTranscripts(self, gesture: inputCore.InputGesture):
 		if self._localStudioAPIRequired and not splbase.studioIsRunning():
 			self.script_finish()
 			return
@@ -2500,12 +2501,12 @@ class AppModule(splappmod.AppModule):
 			wx.CallAfter(splpls.plTranscriptsDialogError)
 		self.script_finish()
 
-	def script_switchProfiles(self, gesture):
+	def script_switchProfiles(self, gesture: inputCore.InputGesture):
 		# #118: do not allow profile switching while add-on settings screen is shown.
 		splconfui.instantProfileSwitchConfigUICheck()
 
 	@localStudioOnly
-	def script_setPlaceMarker(self, gesture):
+	def script_setPlaceMarker(self, gesture: inputCore.InputGesture):
 		obj = api.getFocusObject()
 		try:
 			index = obj.indexOf("Filename")
@@ -2523,7 +2524,7 @@ class AppModule(splappmod.AppModule):
 			ui.message(_("This track cannot be used as a place marker track"))
 
 	@localStudioOnly
-	def script_findPlaceMarker(self, gesture):
+	def script_findPlaceMarker(self, gesture: inputCore.InputGesture):
 		# Place marker command will be restricted to playlist viewer in order to prevent focus bouncing.
 		if self.canPerformPlaylistCommands() == self.SPLPlaylistNoErrors:
 			# Guard against place marker filename becoming nothing.
@@ -2545,12 +2546,12 @@ class AppModule(splappmod.AppModule):
 				ui.message(_("No place marker found"))
 
 	@localStudioOnly
-	def script_metadataStreamingAnnouncer(self, gesture):
+	def script_metadataStreamingAnnouncer(self, gesture: inputCore.InputGesture):
 		ui.message(splmisc.metadataStatus())
 
 	# Gesture(s) for the following script cannot be changed by users.
 	@localStudioOnly
-	def script_metadataEnabled(self, gesture):
+	def script_metadataEnabled(self, gesture: inputCore.InputGesture):
 		# 0 is DSP encoder status, others are servers.
 		metadataStreams = ("DSP encoder", "URL 1", "URL 2", "URL 3", "URL 4")
 		url = int(gesture.displayName[-1])
@@ -2565,7 +2566,7 @@ class AppModule(splappmod.AppModule):
 				_("Metadata streaming on {URLPosition} disabled").format(URLPosition=metadataStreams[url])
 			)
 
-	def script_layerHelp(self, gesture):
+	def script_layerHelp(self, gesture: inputCore.InputGesture):
 		layerHelpTitle = {
 			# Translators: The title for SPL Assistant help screen.
 			"off": _("SPL Assistant help"),
