@@ -7,6 +7,7 @@ import globalPluginHandler
 import api
 import ui
 import scriptHandler
+import inputCore
 import globalVars
 import appModuleHandler
 from appModules.splcommon import splbase, splconsts, splconfig, splcarts
@@ -146,7 +147,7 @@ def disableInSecureMode(cls):
 # Not all SPL Controller commands will work on Remote Studio.
 # This decorator wraps SPL Controller scripts to play a tone when invoked while Remote Studio is active.
 def localStudioOnly(func):
-	def remoteStudioCheck(self, gesture, *args, **kwargs):
+	def remoteStudioCheck(self, gesture: inputCore.InputGesture, *args, **kwargs):
 		if self.activeStudioComponent == "remotestudio":
 			self.script_error(gesture)
 			self.script_finish()
@@ -171,7 +172,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Control Studio from anywhere.
 	SPLController = False
 
-	def getScript(self, gesture):
+	def getScript(self, gesture: inputCore.InputGesture):
 		if not self.SPLController:
 			return globalPluginHandler.GlobalPlugin.getScript(self, gesture)
 		script = globalPluginHandler.GlobalPlugin.getScript(self, gesture)
@@ -185,7 +186,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.activeStudioComponent = None
 		self.clearGestureBindings()
 
-	def script_error(self, gesture):
+	def script_error(self, gesture: inputCore.InputGesture):
 		tones.beep(120, 100)
 
 	# Switch focus to SPL Studio window from anywhere.
@@ -193,7 +194,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
 		description=_("Moves to SPL Studio window from other programs.")
 	)
-	def script_focusToSPLWindow(self, gesture):
+	def script_focusToSPLWindow(self, gesture: inputCore.InputGesture):
 		# Don't do anything if we're already focus on SPL Studio.
 		if "splstudio" in api.getForegroundObject().appModule.appName:
 			return
@@ -245,7 +246,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		description=_("SPl Controller layer command. See add-on guide for available commands."),
 		speakOnDemand=True,
 	)
-	def script_SPLControllerPrefix(self, gesture):
+	def script_SPLControllerPrefix(self, gesture: inputCore.InputGesture):
 		# Error checks:
 		# 1. If SPL Studio is not running, print an error message.
 		# 2. If we're already  in Studio, ask Studio app module if SPL Assistant can be invoked with this command.
@@ -311,11 +312,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# The layer commands themselves.
 	# Calls user32.SendMessage method (via splbase.studioAPI) for each script.
 
-	def script_play(self, gesture):
+	def script_play(self, gesture: inputCore.InputGesture):
 		splbase.studioAPI(0, SPLPlay, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
-	def script_pause(self, gesture):
+	def script_pause(self, gesture: inputCore.InputGesture):
 		playingNow = splbase.studioAPI(0, SPLTrackPlaybackStatus, splComponent=self.activeStudioComponent)
 		if not playingNow:
 			# Translators: Presented when no track is playing in StationPlaylist Studio.
@@ -326,48 +327,48 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			splbase.studioAPI(1, SPLPause, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
-	def script_stopFade(self, gesture):
+	def script_stopFade(self, gesture: inputCore.InputGesture):
 		splbase.studioAPI(0, SPLStop, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
-	def script_stopInstant(self, gesture):
+	def script_stopInstant(self, gesture: inputCore.InputGesture):
 		splbase.studioAPI(1, SPLStop, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
-	def script_nextTrack(self, gesture):
+	def script_nextTrack(self, gesture: inputCore.InputGesture):
 		splbase.studioAPI(0, SPLNextTrack, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
-	def script_automateOn(self, gesture):
+	def script_automateOn(self, gesture: inputCore.InputGesture):
 		splbase.studioAPI(1, SPLAutomate, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
-	def script_automateOff(self, gesture):
+	def script_automateOff(self, gesture: inputCore.InputGesture):
 		splbase.studioAPI(0, SPLAutomate, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
-	def script_micOn(self, gesture):
+	def script_micOn(self, gesture: inputCore.InputGesture):
 		splbase.studioAPI(1, SPLMic, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
-	def script_micOff(self, gesture):
+	def script_micOff(self, gesture: inputCore.InputGesture):
 		splbase.studioAPI(0, SPLMic, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
-	def script_micNoFade(self, gesture):
+	def script_micNoFade(self, gesture: inputCore.InputGesture):
 		splbase.studioAPI(2, SPLMic, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
-	def script_lineInOn(self, gesture):
+	def script_lineInOn(self, gesture: inputCore.InputGesture):
 		splbase.studioAPI(1, SPLLineIn, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
-	def script_lineInOff(self, gesture):
+	def script_lineInOff(self, gesture: inputCore.InputGesture):
 		splbase.studioAPI(0, SPLLineIn, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	@localStudioOnly
-	def script_libraryScanProgress(self, gesture):
+	def script_libraryScanProgress(self, gesture: inputCore.InputGesture):
 		scanned = splbase.studioAPI(1, SPLLibraryScanCount)
 		if scanned is not None and scanned >= 0:
 			ui.message(_("{itemCount} items scanned").format(itemCount=scanned))
@@ -378,7 +379,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.script_finish()
 
 	@localStudioOnly
-	def script_listenerCount(self, gesture):
+	def script_listenerCount(self, gesture: inputCore.InputGesture):
 		ui.message(
 			# Translators: Announces number of stream listeners.
 			_("Listener count: {listenerCount}").format(
@@ -387,7 +388,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		)
 		self.script_finish()
 
-	def script_remainingTime(self, gesture):
+	def script_remainingTime(self, gesture: inputCore.InputGesture):
 		# Perform Studio app command (including announcing voice track remaining time in local Studio)
 		# if there is a track playing.
 		# The only exception is carts (playback status is "stopped" even though a cart is playing).
@@ -408,7 +409,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		description=_("Announces stream encoder status from other programs"),
 		speakOnDemand=True,
 	)
-	def script_encoderStatus(self, gesture):
+	def script_encoderStatus(self, gesture: inputCore.InputGesture):
 		# Go through below procedure, as custom commands can be assigned for this script.
 		# Local Studio only
 		# Play an error tone if SPL Remote Controller layer is active.
@@ -432,7 +433,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		description=_("Announces Studio status such as track playback status from other programs"),
 		speakOnDemand=True,
 	)
-	def script_statusInfo(self, gesture):
+	def script_statusInfo(self, gesture: inputCore.InputGesture):
 		# Go through below procedure, as custom commands can be assigned for this script.
 		splConScope, activeStudioComponent = self.actualSPLConScope()
 		if not activeStudioComponent:
@@ -468,16 +469,16 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		ui.message("; ".join(statusInfo))
 		self.script_finish()
 
-	def script_currentTrackTitle(self, gesture):
+	def script_currentTrackTitle(self, gesture: inputCore.InputGesture):
 		studioAppModuleCommand("script_sayCurrentTrackTitle", None)
 		self.script_finish()
 
-	def script_nextTrackTitle(self, gesture):
+	def script_nextTrackTitle(self, gesture: inputCore.InputGesture):
 		studioAppModuleCommand("script_sayNextTrackTitle", None)
 		self.script_finish()
 
 	@localStudioOnly
-	def script_cartsWithoutBorders(self, gesture):
+	def script_cartsWithoutBorders(self, gesture: inputCore.InputGesture):
 		try:
 			modifier, cart = gesture.displayName.split("+")
 		except ValueError:
@@ -490,7 +491,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		splbase.studioAPI(cart + modifier, SPLCartPlayer)
 		self.script_finish()
 
-	def script_conHelp(self, gesture):
+	def script_conHelp(self, gesture: inputCore.InputGesture):
 		# Show different title based on which layer/scope is active.
 		if self.activeStudioComponent == "remotestudio":
 			# Translators: The title for SPL Controller help screen.
