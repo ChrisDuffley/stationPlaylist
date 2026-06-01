@@ -9,6 +9,7 @@
 import appModuleHandler
 import addonHandler
 import scriptHandler
+import inputCore
 import wx
 from . import splconfig, splconfui, splactions
 
@@ -40,7 +41,7 @@ class AppModule(appModuleHandler.AppModule):
 		description=_("Opens SPL Studio add-on configuration dialog."),
 		gesture="kb:alt+NVDA+0",
 	)
-	def script_openConfigDialog(self, gesture):
+	def script_openConfigDialog(self, gesture: inputCore.InputGesture):
 		# Rather than calling the config dialog open event,
 		# call the open dialog function directly to avoid indirection.
 		wx.CallAfter(splconfui.openAddonSettingsPanel, None)
