@@ -2505,6 +2505,32 @@ class AppModule(splappmod.AppModule):
 			wx.CallAfter(splpls.plTranscriptsDialogError)
 		self.script_finish()
 
+	# Miscellaneous (library scan, place marker track, switching profiles, metadata streaming, layer help)
+
+	@localStudioOnly
+	def script_libraryScanMonitor(self, gesture: inputCore.InputGesture):
+		if not self.libraryScanning:
+			# #155: if library scan count is None, then final scan count would also be None.
+			libScanCount = splbase.studioAPI(1, SPLLibraryScanCount)
+			# Do nothing if library scan count is indeed None.
+			if libScanCount is None:
+				return
+			if libScanCount < 0:
+				ui.message(_("{itemCount} items in the library").format(
+					itemCount=splbase.studioAPI(0, SPLLibraryScanCount)
+				))
+				return
+			self.libraryScanning = True
+			if not splconfig.SPLConfig["General"]["BeepAnnounce"]:
+				# Translators: Presented when attempting to start library scan.
+				ui.message(_("Monitoring library scan"))
+			else:
+				tones.beep(740, 100)
+			self.monitorLibraryScan()
+		else:
+			# Translators: Presented when library scan is already in progress.
+			ui.message(_("Scanning is in progress"))
+
 	def script_switchProfiles(self, gesture: inputCore.InputGesture):
 		# #118: do not allow profile switching while add-on settings screen is shown.
 		splconfui.instantProfileSwitchConfigUICheck()
