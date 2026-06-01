@@ -11,6 +11,7 @@ import addonHandler
 import tones
 import controlTypes
 import scriptHandler
+import inputCore
 import ui
 import api
 from NVDAObjects import NVDAObject
@@ -198,7 +199,7 @@ class AppModule(splappmod.AppModule):
 	columnSortKeys = splcarts.cartKeys[12:]
 
 	@scriptHandler.script(gestures=[f"kb:alt+{i}" for i in splcarts.cartKeys[12:]])
-	def script_reportTrackColumnSort(self, gesture):
+	def script_reportTrackColumnSort(self, gesture: inputCore.InputGesture):
 		gesture.send()
 		fg = api.getForegroundObject()
 		if not fg.windowClassName.startswith("TIntroTiming"):
