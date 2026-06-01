@@ -2365,37 +2365,7 @@ class AppModule(splappmod.AppModule):
 		finally:
 			self.script_finish()
 
-	def script_sayScheduledTime(self, gesture: inputCore.InputGesture):
-		self.announcePlaylistTimes(3)
-
-	def script_sayScheduledToPlay(self, gesture: inputCore.InputGesture):
-		self.announcePlaylistTimes(4)
-
-	# Few toggle/misc scripts that may be excluded from the layer later.
-
-	@localStudioOnly
-	def script_libraryScanMonitor(self, gesture: inputCore.InputGesture):
-		if not self.libraryScanning:
-			# #155: if library scan count is None, then final scan count would also be None.
-			libScanCount = splbase.studioAPI(1, SPLLibraryScanCount)
-			# Do nothing if library scan count is indeed None.
-			if libScanCount is None:
-				return
-			if libScanCount < 0:
-				ui.message(_("{itemCount} items in the library").format(
-					itemCount=splbase.studioAPI(0, SPLLibraryScanCount)
-				))
-				return
-			self.libraryScanning = True
-			if not splconfig.SPLConfig["General"]["BeepAnnounce"]:
-				# Translators: Presented when attempting to start library scan.
-				ui.message(_("Monitoring library scan"))
-			else:
-				tones.beep(740, 100)
-			self.monitorLibraryScan()
-		else:
-			# Translators: Presented when library scan is already in progress.
-			ui.message(_("Scanning is in progress"))
+	# Playlist analyzer (time analysis, snapshots, transcripts)
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
