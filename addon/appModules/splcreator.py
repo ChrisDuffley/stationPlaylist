@@ -8,6 +8,7 @@ from typing import Any
 import collections
 import addonHandler
 import scriptHandler
+import inputCore
 import globalVars
 import ui
 import tones
@@ -288,7 +289,7 @@ class AppModule(splappmod.AppModule):
 	trackColumnHeaders = None
 
 	@scriptHandler.script(gestures=[f"kb:alt+{i}" for i in splcarts.cartKeys[12:]])
-	def script_reportTrackColumnSort(self, gesture):
+	def script_reportTrackColumnSort(self, gesture: inputCore.InputGesture):
 		gesture.send()
 		# Limit this to Creator (Remote VT ap module derives from this module).
 		if self.appName != "splcreator":
@@ -338,7 +339,7 @@ class AppModule(splappmod.AppModule):
 	_playlistEditorStatusCache: dict[int, Any] = {}
 
 	@scriptHandler.script(gesture="kb:alt+NVDA+1", speakOnDemand=True)
-	def script_playlistDateTime(self, gesture):
+	def script_playlistDateTime(self, gesture: inputCore.InputGesture):
 		if self.isPlaylistEditor():
 			try:
 				playlistHour = self._playlistEditorStatusCache[self.SPLEditorDateTime][0]
@@ -354,7 +355,7 @@ class AppModule(splappmod.AppModule):
 				ui.message("")
 
 	@scriptHandler.script(gesture="kb:alt+NVDA+2", speakOnDemand=True)
-	def script_playlistDuration(self, gesture):
+	def script_playlistDuration(self, gesture: inputCore.InputGesture):
 		if self.isPlaylistEditor():
 			try:
 				playlistDuration = self._playlistEditorStatusCache[self.SPLEditorDuration]
@@ -364,7 +365,7 @@ class AppModule(splappmod.AppModule):
 			ui.message(playlistDuration.name)
 
 	@scriptHandler.script(gesture="kb:alt+NVDA+3", speakOnDemand=True)
-	def script_playlistScheduled(self, gesture):
+	def script_playlistScheduled(self, gesture: inputCore.InputGesture):
 		if self.isPlaylistEditor():
 			try:
 				statusBar = self._playlistEditorStatusCache[self.SPLEditorStatusBar]
@@ -374,7 +375,7 @@ class AppModule(splappmod.AppModule):
 			ui.message(statusBar.getChild(2).displayText)
 
 	@scriptHandler.script(gesture="kb:alt+NVDA+4", speakOnDemand=True)
-	def script_playlistRotation(self, gesture):
+	def script_playlistRotation(self, gesture: inputCore.InputGesture):
 		if self.isPlaylistEditor():
 			try:
 				statusBar = self._playlistEditorStatusCache[self.SPLEditorStatusBar]
