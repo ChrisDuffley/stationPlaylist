@@ -15,6 +15,7 @@ import globalVars
 import ui
 import keyboardHandler
 import scriptHandler
+import inputCore
 import winKernel
 from NVDAObjects.IAccessible import IAccessible, sysListView32
 import tones
@@ -470,7 +471,7 @@ class Encoder(IAccessible):
 		category=_("StationPlaylist"),
 		gesture="kb:control+shift+f11",
 	)
-	def script_toggleFocusToStudio(self, gesture):
+	def script_toggleFocusToStudio(self, gesture: inputCore.InputGesture):
 		if not self.focusToStudio:
 			# Translators: Presented when toggling the setting
 			# to switch to Studio when connected to a streaming server.
@@ -489,7 +490,7 @@ class Encoder(IAccessible):
 		category=_("StationPlaylist"),
 		gesture="kb:shift+f11",
 	)
-	def script_togglePlay(self, gesture):
+	def script_togglePlay(self, gesture: inputCore.InputGesture):
 		if not self.playAfterConnecting:
 			# Translators: Presented when toggling the setting
 			# to play the selected track in Studio when connected to a streaming server.
@@ -506,7 +507,7 @@ class Encoder(IAccessible):
 		category=_("StationPlaylist"),
 		gesture="kb:control+f11",
 	)
-	def script_toggleBackgroundEncoderMonitor(self, gesture):
+	def script_toggleBackgroundEncoderMonitor(self, gesture: inputCore.InputGesture):
 		if scriptHandler.getLastScriptRepeatCount() == 0:
 			if not self.backgroundMonitor:
 				# Translators: Presented when toggling the setting
@@ -541,7 +542,7 @@ class Encoder(IAccessible):
 		category=_("StationPlaylist"),
 		gesture="kb:control+f12",
 	)
-	def script_encoderLabelsSettingsEraser(self, gesture):
+	def script_encoderLabelsSettingsEraser(self, gesture: inputCore.InputGesture):
 		dlg = wx.SingleChoiceDialog(
 			gui.mainFrame,
 			# Translators: The text of the stream configuration eraser dialog.
@@ -567,7 +568,7 @@ class Encoder(IAccessible):
 		gestures=["kb:alt+NVDA+0", "kb:f12"],
 		category=_("StationPlaylist"),
 	)
-	def script_openEncoderConfigDialog(self, gesture):
+	def script_openEncoderConfigDialog(self, gesture: inputCore.InputGesture):
 		try:
 			d = EncoderConfigDialog(gui.mainFrame, self)
 			gui.mainFrame.prePopup()
@@ -594,7 +595,7 @@ class Encoder(IAccessible):
 		category=_("StationPlaylist"),
 		speakOnDemand=True,
 	)
-	def script_encoderDateTime(self, gesture):
+	def script_encoderDateTime(self, gesture: inputCore.InputGesture):
 		if scriptHandler.getLastScriptRepeatCount() == 0:
 			text = winKernel.GetTimeFormatEx(winKernel.LOCALE_NAME_USER_DEFAULT, 0, None, None)
 		else:
@@ -606,12 +607,12 @@ class Encoder(IAccessible):
 	# Various column announcement scripts.
 	# This base class implements encoder position and labels.
 	@scriptHandler.script(gesture="kb:control+NVDA+1", speakOnDemand=True)
-	def script_announceEncoderPosition(self, gesture):
+	def script_announceEncoderPosition(self, gesture: inputCore.InputGesture):
 		# Translators: describes the current encoder position.
 		ui.message(_("Position: {pos}").format(pos=self.IAccessibleChildID))
 
 	@scriptHandler.script(gesture="kb:control+NVDA+2", speakOnDemand=True)
-	def script_announceEncoderLabel(self, gesture):
+	def script_announceEncoderLabel(self, gesture: inputCore.InputGesture):
 		try:
 			encoderLabel = self.encoderLabel
 		except TypeError:
@@ -729,7 +730,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 					attemptTime = currentTime
 
 	@scriptHandler.script(gesture="kb:f9")
-	def script_connect(self, gesture):
+	def script_connect(self, gesture: inputCore.InputGesture):
 		gesture.send()
 		# Translators: Presented when an Encoder is trying to connect to a streaming server.
 		ui.message(_("Connecting..."))
@@ -738,7 +739,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 			self.connectStart(manualConnect=True)
 
 	@scriptHandler.script(gesture="kb:f10")
-	def script_disconnect(self, gesture):
+	def script_disconnect(self, gesture: inputCore.InputGesture):
 		gesture.send()
 		# Translators: Presented when an Encoder is disconnecting from a streaming server.
 		ui.message(_("Disconnecting..."))
@@ -756,7 +757,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		keyboardHandler.KeyboardInputGesture.fromName("enter").send()
 
 	@scriptHandler.script(gesture="kb:control+f9")
-	def script_connectAll(self, gesture):
+	def script_connectAll(self, gesture: inputCore.InputGesture):
 		ui.message(_("Connecting..."))
 		self._samContextMenu(6)
 		# Oi, status thread, can you keep an eye on the connection status for me?
@@ -764,21 +765,21 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 			self.connectStart(manualConnect=True)
 
 	@scriptHandler.script(gesture="kb:control+f10")
-	def script_disconnectAll(self, gesture):
+	def script_disconnectAll(self, gesture: inputCore.InputGesture):
 		ui.message(_("Disconnecting..."))
 		self._samContextMenu(7)
 
 	# Announce SAM columns: encoder name/type, status and description.
 	@scriptHandler.script(gesture="kb:control+NVDA+3", speakOnDemand=True)
-	def script_announceEncoderFormat(self, gesture):
+	def script_announceEncoderFormat(self, gesture: inputCore.InputGesture):
 		self.announceEncoderData(1)
 
 	@scriptHandler.script(gesture="kb:control+NVDA+4", speakOnDemand=True)
-	def script_announceEncoderStatus(self, gesture):
+	def script_announceEncoderStatus(self, gesture: inputCore.InputGesture):
 		self.announceEncoderData(2)
 
 	@scriptHandler.script(gesture="kb:control+NVDA+5", speakOnDemand=True)
-	def script_announceEncoderStatusDesc(self, gesture):
+	def script_announceEncoderStatusDesc(self, gesture: inputCore.InputGesture):
 		self.announceEncoderData(3)
 
 
@@ -862,7 +863,7 @@ class SPLEncoder(Encoder):
 		description=_("Connects the selected encoder."),
 		gesture="kb:f9",
 	)
-	def script_connect(self, gesture):
+	def script_connect(self, gesture: inputCore.InputGesture):
 		if self.getChild(1).name not in ("Disconnected", "AutoConnect stopped."):
 			return
 		ui.message(_("Connecting..."))
@@ -877,7 +878,7 @@ class SPLEncoder(Encoder):
 		description=_("Connects all encoders."),
 		gesture="kb:control+f9",
 	)
-	def script_connectAll(self, gesture):
+	def script_connectAll(self, gesture: inputCore.InputGesture):
 		connectButton = api.getForegroundObject().getChild(2)
 		if connectButton.name == "Disconnect":
 			return
@@ -890,11 +891,11 @@ class SPLEncoder(Encoder):
 
 	# Announce SPL Encoder columns: encoder settings and transfer rate.
 	@scriptHandler.script(gesture="kb:control+NVDA+3", speakOnDemand=True)
-	def script_announceEncoderSettings(self, gesture):
+	def script_announceEncoderSettings(self, gesture: inputCore.InputGesture):
 		self.announceEncoderData(0)
 
 	@scriptHandler.script(gesture="kb:control+NVDA+4", speakOnDemand=True)
-	def script_announceEncoderTransfer(self, gesture):
+	def script_announceEncoderTransfer(self, gesture: inputCore.InputGesture):
 		self.announceEncoderData(1)
 
 
