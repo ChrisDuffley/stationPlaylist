@@ -13,6 +13,7 @@ import ui
 import api
 import windowUtils
 import scriptHandler
+import inputCore
 import globalVars
 from winUser import sendMessage
 from logHandler import log
@@ -179,7 +180,7 @@ class SPLTrackItem(sysListView32.ListItem):
 		category=_("StationPlaylist"),
 		speakOnDemand=True,
 	)
-	def script_columnExplorer(self, gesture):
+	def script_columnExplorer(self, gesture: inputCore.InputGesture):
 		# Due to the below formula, columns explorer will be restricted to number commands.
 		columnPos = int(gesture.displayName.split("+")[-1])
 		if columnPos == 0:
@@ -230,7 +231,7 @@ class SPLTrackItem(sysListView32.ListItem):
 		gesture="kb:control+NVDA+-",
 		category=_("StationPlaylist"),
 	)
-	def script_trackColumnsViewer(self, gesture):
+	def script_trackColumnsViewer(self, gesture: inputCore.InputGesture):
 		# Fetch column headers and texts from child columns,
 		# meaning columns viewer will reflect visual display order.
 		columnContents = [
