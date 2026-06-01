@@ -2211,6 +2211,8 @@ class AppModule(splappmod.AppModule):
 	# The layer commands themselves.
 	# Not all commands are available while using Remote Studio.
 
+	# First status bar (playback, automation, microphone, etc.)
+
 	def script_sayPlayStatus(self, gesture: inputCore.InputGesture):
 		self.sayStatus(0)
 
