@@ -18,6 +18,7 @@ import scriptHandler
 import inputCore
 import winKernel
 from NVDAObjects.IAccessible import IAccessible, sysListView32
+from NVDAObjects import NVDAObject
 import tones
 import gui
 import wx
@@ -221,7 +222,7 @@ class EncoderConfigDialog(wx.Dialog):
 			return super(EncoderConfigDialog, cls).__new__(cls, *args, **kwargs)
 		return instance
 
-	def __init__(self, parent, obj):
+	def __init__(self, parent, obj: NVDAObject):
 		if EncoderConfigDialog._instance() is not None:
 			return
 		# Use a weakref so the instance can die.
