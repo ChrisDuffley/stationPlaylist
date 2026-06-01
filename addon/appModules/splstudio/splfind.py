@@ -115,7 +115,7 @@ class SPLFindDialog(wx.Dialog):
 			return super(SPLFindDialog, cls).__new__(cls, *args, **kwargs)
 		return instance
 
-	def __init__(self, parent, obj, text, title, directionForward=True, columnSearch=False):
+	def __init__(self, parent, obj: NVDAObject, text, title, directionForward=True, columnSearch=False):
 		global _findDialogOpened
 		if SPLFindDialog._instance() is not None:
 			return
@@ -252,7 +252,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 			return super(SPLTimeRangeDialog, cls).__new__(cls, *args, **kwargs)
 		return instance
 
-	def __init__(self, parent, obj):
+	def __init__(self, parent, obj: NVDAObject):
 		global _findDialogOpened
 		if SPLTimeRangeDialog._instance() is not None:
 			return
