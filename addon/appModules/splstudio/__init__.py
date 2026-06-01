@@ -2274,6 +2274,8 @@ class AppModule(splappmod.AppModule):
 		# Translators: presented when playlist modification message isn't shown.
 		ui.message(obj.name if obj.name else _("Playlist modification not available"))
 
+	# Playlist, track title, weather reporting (using a combination of Studio API and object traversal)
+
 	def script_sayHourTrackDuration(self, gesture: inputCore.InputGesture):
 		self.announcePlaylistTimes(0)
 
@@ -2289,6 +2291,12 @@ class AppModule(splappmod.AppModule):
 
 	def script_sayHourOvertime(self, gesture: inputCore.InputGesture):
 		self.announcePlaylistTimes(2)
+
+	def script_sayScheduledTime(self, gesture: inputCore.InputGesture):
+		self.announcePlaylistTimes(3)
+
+	def script_sayScheduledToPlay(self, gesture: inputCore.InputGesture):
+		self.announcePlaylistTimes(4)
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
