@@ -252,7 +252,7 @@ class AppModule(splappmod.AppModule):
 		# Force NVDA to locate bottommost control.
 		raise NotImplementedError
 
-	def getStatusBarText(self, obj):
+	def getStatusBarText(self, obj: NVDAObject) -> str:
 		# Report the display text once the status bar is known.
 		return self.statusBar.displayText
 
