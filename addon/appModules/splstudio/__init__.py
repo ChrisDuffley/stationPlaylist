@@ -2250,6 +2250,30 @@ class AppModule(splappmod.AppModule):
 		obj = self.status(self.SPLPlayStatus).getChild(7)
 		ui.message(obj.name)
 
+	# Second status bar (uptime, listener count, playlist modified, etc.), local Studio only
+
+	@localStudioOnly
+	def script_sayUpTime(self, gesture: inputCore.InputGesture):
+		obj = self.status(self.SPLSystemStatus).firstChild
+		ui.message(obj.name)
+
+	@localStudioOnly
+	def script_sayListenerCount(self, gesture: inputCore.InputGesture):
+		obj = self.status(self.SPLSystemStatus).getChild(3)
+		# Translators: Presented when there is no listener count information.
+		ui.message(obj.name if obj.name else _("Listener count not found"))
+
+	@localStudioOnly
+	def script_sayTrackPitch(self, gesture: inputCore.InputGesture):
+		obj = self.status(self.SPLSystemStatus).getChild(4)
+		ui.message(obj.name)
+
+	@localStudioOnly
+	def script_sayPlaylistModified(self, gesture: inputCore.InputGesture):
+		obj = self.status(self.SPLSystemStatus).getChild(5)
+		# Translators: presented when playlist modification message isn't shown.
+		ui.message(obj.name if obj.name else _("Playlist modification not available"))
+
 	def script_sayHourTrackDuration(self, gesture: inputCore.InputGesture):
 		self.announcePlaylistTimes(0)
 
@@ -2265,12 +2289,6 @@ class AppModule(splappmod.AppModule):
 
 	def script_sayHourOvertime(self, gesture: inputCore.InputGesture):
 		self.announcePlaylistTimes(2)
-
-	@localStudioOnly
-	def script_sayPlaylistModified(self, gesture: inputCore.InputGesture):
-		obj = self.status(self.SPLSystemStatus).getChild(5)
-		# Translators: presented when playlist modification message isn't shown.
-		ui.message(obj.name if obj.name else _("Playlist modification not available"))
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
@@ -2347,27 +2365,11 @@ class AppModule(splappmod.AppModule):
 		finally:
 			self.script_finish()
 
-	@localStudioOnly
-	def script_sayUpTime(self, gesture: inputCore.InputGesture):
-		obj = self.status(self.SPLSystemStatus).firstChild
-		ui.message(obj.name)
-
 	def script_sayScheduledTime(self, gesture: inputCore.InputGesture):
 		self.announcePlaylistTimes(3)
 
 	def script_sayScheduledToPlay(self, gesture: inputCore.InputGesture):
 		self.announcePlaylistTimes(4)
-
-	@localStudioOnly
-	def script_sayListenerCount(self, gesture: inputCore.InputGesture):
-		obj = self.status(self.SPLSystemStatus).getChild(3)
-		# Translators: Presented when there is no listener count information.
-		ui.message(obj.name if obj.name else _("Listener count not found"))
-
-	@localStudioOnly
-	def script_sayTrackPitch(self, gesture: inputCore.InputGesture):
-		obj = self.status(self.SPLSystemStatus).getChild(4)
-		ui.message(obj.name)
 
 	# Few toggle/misc scripts that may be excluded from the layer later.
 
