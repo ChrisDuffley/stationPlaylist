@@ -4,7 +4,7 @@
 
 This add-on package provides improved usage of StationPlaylist Studio and other StationPlaylist apps, as well as providing utilities to control Studio from anywhere. Supported apps include Studio, Remote Studio, Creator, Track Tool, Recorder (SPL and VT), and Streamer, as well as SAM, SPL, and AltaCast encoders.
 
-For more information about the add-on, read the [add-on guide][1]. For a list of changes, see [changelogs for add-on releases on GitHub][2].
+For more information about the add-on, read the [add-on guide][1]. For a list of changes made between each add-on releases, refer to [changelogs for add-on releases][2] document.
 
 IMPORTANT NOTES:
 
