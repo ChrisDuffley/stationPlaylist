@@ -158,8 +158,8 @@ class TrackToolItem(splbase.SPLTrackItem):
 
 
 class AppModule(splappmod.AppModule):
-	def __init__(self, *args, **kwargs):
-		super().__init__(*args, **kwargs)
+	def __init__(self, processID: int, appName: str | None=None):
+		super().__init__(processID, appName)
 		# Load config database and user interface.
 		self.onAppModuleInit()
 

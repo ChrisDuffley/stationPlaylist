@@ -169,8 +169,8 @@ class SPLPlaylistEditorItem(splbase.SPLTrackItem):
 
 
 class AppModule(splappmod.AppModule):
-	def __init__(self, *args, **kwargs):
-		super().__init__(*args, **kwargs)
+	def __init__(self, processID: int, appName: str | None=None):
+		super().__init__(processID, appName)
 		# Announce app version at startup unless minimal flag is set.
 		try:
 			if not globalVars.appArgs.minimal:

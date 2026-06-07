@@ -519,8 +519,8 @@ class AppModule(splappmod.AppModule):
 	_SPLAPILevel = splbase.StudioAPIAvailability.LOCALAPI
 
 	# Prepare the settings dialog among other things.
-	def __init__(self, *args, **kwargs):
-		super().__init__(*args, **kwargs)
+	def __init__(self, processID: int, appName: str | None=None):
+		super().__init__(processID, appName)
 		if self.productVersion < SPLMinVersion:
 			wx.CallAfter(gui.messageBox,
 			# Translators: error dialog shown when a broadcaster is running an unsupported STduio release.

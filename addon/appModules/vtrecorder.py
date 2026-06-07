@@ -11,8 +11,8 @@ from .splcommon import splbase
 
 
 class AppModule(appModuleHandler.AppModule):
-	def __init__(self, *args, **kwargs):
-		super().__init__(*args, **kwargs)
+	def __init__(self, processID: int, appName: str | None=None):
+		super().__init__(processID, appName)
 		if splbase.studioIsRunning(justChecking=True):
 			log.debug("SPL: VT Recorder is online, disabling background event tracking for Studio")
 			for appMod in appModuleHandler.runningTable.values():
