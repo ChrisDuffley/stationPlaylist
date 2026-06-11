@@ -145,7 +145,7 @@ class ConfigHub(ChainMap[Any, Any]):
 		self._switchProfileFlags: int = 0
 		# Switch history is a stack of previously activated profile(s), replacing prev profile flag from 7.x days.
 		# Initially normal profile will sit in here.
-		self.switchHistory: list[str] = [self.activeProfile]
+		self.switchHistory: list[str | None] = [self.activeProfile]
 		# #73: listen to config save/reset actions from NVDA Core.
 		config.post_configSave.register(self.save)
 		config.post_configReset.register(self.handlePostConfigReset)
