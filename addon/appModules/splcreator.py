@@ -5,7 +5,7 @@
 # Basic support for StationPlaylist Creator.
 
 from typing import Any
-import collections
+import collections.abc
 import addonHandler
 import scriptHandler
 import inputCore

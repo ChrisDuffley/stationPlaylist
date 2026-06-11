@@ -6,7 +6,7 @@
 # Borrows heavily from Studio as the user interface is quite similar with changes specific to Remote Studio.
 
 from typing import Any
-import collections
+import collections.abc
 import time
 import threading
 import ui
