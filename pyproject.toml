@@ -78,6 +78,7 @@ reportAbstractUsage = true
 reportAssertAlwaysTrue = true
 reportAssertTypeFailure = true
 reportAssignmentType = true
+reportAttributeAccessIssue = true
 reportCallInDefaultInitializer = true
 reportConstantRedefinition = true
 reportDeprecated = true
@@ -142,7 +143,6 @@ reportMissingTypeStubs = false
 # Bad rules
 # These are sorted alphabetically and should be enabled and moved to compliant rules section when resolved.
 reportArgumentType = false  # Unexpected argument types
-reportAttributeAccessIssue = false  # ConfigObj attribute access
 reportCallIssue = false  # Mostly ConfigObj getitem/setitem
 reportImplicitOverride = false  # Some methods override abstract or base class methods, resolved with typing.override decorator (Python 3.12 and later)
 reportImplicitStringConcatenation = false  # Long text split into multiple lines to keep them under line length limit
