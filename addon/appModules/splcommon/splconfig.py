@@ -360,7 +360,8 @@ class ConfigHub(ChainMap[Any, Any]):
 			raise KeyError(f"Key not found: {key!r}")
 
 	# Perform some extra work before writing the config file.
-	def _preSave(self, profile: ConfigObj) -> None:
+	# ConfigObj will be treatedtyped as "Any" to satisfy type checkers.
+	def _preSave(self, profile: Any) -> None:
 		# Perform global setting processing only for the normal profile.
 		if profile.filename == SPLIni:
 			SPLSwitchProfile = self.instantSwitch
