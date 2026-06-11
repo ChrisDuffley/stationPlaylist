@@ -85,7 +85,8 @@ class ConfigHub(ChainMap):
 		# Super method is called to acknowledge the fact that this is powered by ChainMap.
 		super().__init__()
 		# #155: re-initialize maps to be a list of config objects to satisfy Mypy and friends.
-		self.maps: list[ConfigObj] = [{}]
+		# ConfigObj type is unknown, therefore "Any" type will be assigned.
+		self.maps: list[Any] = [{}]
 		# #64: keep an eye on which SPL component opened this map.
 		self.splComponents: set[str] = set()
 		self.splComponents.add(splComponent)
