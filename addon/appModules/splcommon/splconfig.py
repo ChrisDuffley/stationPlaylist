@@ -64,7 +64,8 @@ _configLoadStatus: dict[str, str] = {}  # Key = filename, value is pass or no pa
 # as all that is needed is moving the active map flag around.
 # Finally, because this is a class, additional methods and properties are used, which frees the config map
 # from the burden of carrying global flags such as the name of the instant switch profile and others.
-class ConfigHub(ChainMap):
+# Note that ChainMap is a generic class.
+class ConfigHub(ChainMap[Any, Any]):
 	"""A hub of broadcast profiles, a subclass of ChainMap.
 	Apart from giving favorable treatments to the active map and adding custom methods and properties,
 	this structure is identical to chain map structure.
