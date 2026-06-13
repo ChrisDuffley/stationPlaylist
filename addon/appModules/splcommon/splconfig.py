@@ -780,7 +780,7 @@ Thank you.""")
 			return super(WelcomeDialog, cls).__new__(cls, *args, **kwargs)
 		return instance
 
-	def __init__(self, parent):
+	def __init__(self, parent: gui.MainFrame):
 		if WelcomeDialog._instance() is not None:
 			return
 		# Use a weakref so the instance can die.
