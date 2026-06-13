@@ -989,7 +989,7 @@ class MetadataStreamingPanel(gui.settingsDialogs.SettingsPanel):
 # Select which track columns should be announced and in which order.
 # Also serves as a base panel for Playlist Transcripts/column selector setting.
 class ColumnAnnouncementsBasePanel(gui.settingsDialogs.SettingsPanel):
-	def _onMakeSettingsBase(self, sHelper, includedColumnsLabel):
+	def _onMakeSettingsBase(self, sHelper: gui.guiHelper.BoxSizerHelper, includedColumnsLabel: str):
 		# Provides common user interface elements for column inclusion/order controls across settings panels
 		# (leave it as a private method).
 
