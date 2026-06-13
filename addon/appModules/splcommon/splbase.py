@@ -5,6 +5,7 @@
 # Base services for Studio app module and support modules
 # These include Studio API handler, layer commands manager, and base track item class.
 
+from typing import Any
 import ctypes
 from functools import wraps
 from abc import abstractmethod
@@ -129,10 +130,11 @@ def focusToSPLWindow(studioWindowChecked: bool = False) -> None:
 
 
 # The finally function for status announcement scripts in this module (source: Tyler Spivey's code).
-def finally_(func, final):
+# Type hinted as "Any" because arguments are methods (including the inner wrapped function).
+def finally_(func: Any, final: Any):
 	"""Calls final after func, even if it fails."""
 
-	def wrap(f):
+	def wrap(f: Any):
 		@wraps(f)
 		def new(*args, **kwargs):
 			try:
