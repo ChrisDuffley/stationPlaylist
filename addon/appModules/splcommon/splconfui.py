@@ -451,7 +451,7 @@ class GeneralSettingsPanel(gui.settingsDialogs.SettingsPanel):
 	# Message comes from NVDA Core.
 	title = translate("General")
 
-	def makeSettings(self, settingsSizer):
+	def makeSettings(self, settingsSizer: wx.BoxSizer):
 		generalSettingsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
 		# Translators: the label for a setting in SPL add-on settings
@@ -622,7 +622,7 @@ class AlarmsPanel(gui.settingsDialogs.SettingsPanel):
 	# Translators: title of a panel to configure various alarms and related settings.
 	title = _("Alarms")
 
-	def makeSettings(self, settingsSizer):
+	def makeSettings(self, settingsSizer: wx.BoxSizer):
 		alarmsCenterHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
 		# Translators: the label for a setting in SPL add-on settings
@@ -725,7 +725,7 @@ class PlaylistSnapshotsPanel(gui.settingsDialogs.SettingsPanel):
 	panelDescription = _("""Select information to be included when obtaining playlist snapshots.
 Track count and total duration are always included.""")
 
-	def makeSettings(self, settingsSizer):
+	def makeSettings(self, settingsSizer: wx.BoxSizer):
 		playlistSnapshotsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		playlistSnapshotsHelper.addItem(wx.StaticText(self, label=self.panelDescription))
 
@@ -939,7 +939,7 @@ class MetadataStreamingPanel(gui.settingsDialogs.SettingsPanel):
 	# for DSP encoder and four additional URL's.
 	title = _("Metadata streaming")
 
-	def makeSettings(self, settingsSizer):
+	def makeSettings(self, settingsSizer: wx.BoxSizer):
 		metadataSizerHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
 		self.metadataValues = [
@@ -1086,7 +1086,7 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		"uncheck 'Announce columns in the order shown on screen' and configure column inclusion and order."
 	)
 
-	def makeSettings(self, settingsSizer):
+	def makeSettings(self, settingsSizer: wx.BoxSizer):
 		colAnnouncementsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		# Without manual conversion below, it produces a rare bug
 		# where clicking cancel after changing column inclusion causes new set to be retained.
@@ -1125,7 +1125,7 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 	# Translators: Title of a panel to configure playlist transcripts options.
 	title = _("Playlist transcripts")
 
-	def makeSettings(self, settingsSizer):
+	def makeSettings(self, settingsSizer: wx.BoxSizer):
 		playlistTranscriptsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
 		# Again manually create a new set minus artist and title.
@@ -1157,7 +1157,7 @@ class ColumnsExplorerPanel(gui.settingsDialogs.SettingsPanel):
 	# Translators: title of a panel to configure columns explorer settings.
 	title = _("Columns explorer")
 
-	def makeSettings(self, settingsSizer):
+	def makeSettings(self, settingsSizer: wx.BoxSizer):
 		colExplorerHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
 		# Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
@@ -1373,7 +1373,7 @@ class SayStatusPanel(gui.settingsDialogs.SettingsPanel):
 	# Translators: title of a panel to configure various status announcements such as announcing listener count.
 	title = _("Status announcements")
 
-	def makeSettings(self, settingsSizer):
+	def makeSettings(self, settingsSizer: wx.BoxSizer):
 		sayStatusHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
 		# Translators: the label for a setting in SPL add-on settings
@@ -1430,7 +1430,7 @@ class AdvancedOptionsPanel(gui.settingsDialogs.SettingsPanel):
 	# Message comes from NVDA Core.
 	title = translate("Advanced")
 
-	def makeSettings(self, settingsSizer):
+	def makeSettings(self, settingsSizer: wx.BoxSizer):
 		advOptionsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		# Only show SPL Controller coverage combo box when opened from Studio 6.20 or Remote Studio.
 		self.splConScopeAvailable = (
@@ -1609,7 +1609,7 @@ class ResetSettingsPanel(gui.settingsDialogs.SettingsPanel):
 	# Translators: title of a panel to reset add-on settings.
 	title = _("Reset settings")
 
-	def makeSettings(self, settingsSizer):
+	def makeSettings(self, settingsSizer: wx.BoxSizer):
 		resetHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
 		labelText = _(
@@ -1675,7 +1675,7 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 			actualCategoryClasses.append(ResetSettingsPanel)
 		return actualCategoryClasses
 
-	def makeSettings(self, settingsSizer):
+	def makeSettings(self, settingsSizer: wx.BoxSizer):
 		super(SPLConfigDialog, self).makeSettings(settingsSizer)
 		global _configDialogOpened
 		# #40: respond to app terminate notification by closing this dialog.
