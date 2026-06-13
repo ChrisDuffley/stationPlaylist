@@ -222,7 +222,7 @@ class EncoderConfigDialog(wx.Dialog):
 			return super(EncoderConfigDialog, cls).__new__(cls, *args, **kwargs)
 		return instance
 
-	def __init__(self, parent, obj: NVDAObject):
+	def __init__(self, parent: gui.MainFrame, obj: NVDAObject):
 		if EncoderConfigDialog._instance() is not None:
 			return
 		# Use a weakref so the instance can die.
