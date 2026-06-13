@@ -286,7 +286,7 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 			return super(SPLPlaylistTranscriptsDialog, cls).__new__(cls, *args, **kwargs)
 		return instance
 
-	def __init__(self, parent, obj: NVDAObject):
+	def __init__(self, parent: gui.MainFrame, obj: NVDAObject):
 		global _plTranscriptsDialogOpened
 		if SPLPlaylistTranscriptsDialog._instance() is not None:
 			return
