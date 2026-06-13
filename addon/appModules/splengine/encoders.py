@@ -289,7 +289,7 @@ class EncoderConfigDialog(wx.Dialog):
 		self.CenterOnScreen()
 		self.encoderLabel.SetFocus()
 
-	def onOk(self, evt):
+	def onOk(self, evt: wx.CommandEvent):
 		self.obj.focusToStudio = self.focusToStudio.Value
 		self.obj.playAfterConnecting = self.playAfterConnecting.Value
 		self.obj.backgroundMonitor = self.backgroundMonitor.Value
@@ -303,7 +303,7 @@ class EncoderConfigDialog(wx.Dialog):
 		global _configDialogOpened
 		_configDialogOpened = False
 
-	def onCancel(self, evt):
+	def onCancel(self, evt: wx.CommandEvent):
 		self.Destroy()
 		global _configDialogOpened
 		_configDialogOpened = False
