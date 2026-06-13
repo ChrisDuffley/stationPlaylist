@@ -313,7 +313,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 
 # New broadcast profile dialog: Modification of new config profile dialog from NVDA Core.
 class NewProfileDialog(wx.Dialog):
-	def __init__(self, parent, copy=False):
+	def __init__(self, parent: wx.Dialog, copy: bool = False):
 		self.copy = copy
 		if not self.copy:
 			# Message comes from NVDA Core.
