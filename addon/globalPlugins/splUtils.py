@@ -2,6 +2,7 @@
 # Copyright 2013-2026 Joseph Lee, released under GPL.
 # Adds a few utility features such as switching focus to the SPL Studio window and some global scripts.
 
+from typing import Any
 import sys
 import globalPluginHandler
 import api
@@ -146,7 +147,7 @@ def disableInSecureMode(cls):
 
 # Not all SPL Controller commands will work on Remote Studio.
 # This decorator wraps SPL Controller scripts to play a tone when invoked while Remote Studio is active.
-def localStudioOnly(func):
+def localStudioOnly(func: Any):
 	def remoteStudioCheck(self, gesture: inputCore.InputGesture, *args, **kwargs):
 		if self.activeStudioComponent == "remotestudio":
 			self.script_error(gesture)

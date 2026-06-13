@@ -502,7 +502,7 @@ F12: Switch to an instant switch profile."""),
 # The local Studio app module is the basis for Remote Studio support.
 # This decorator wraps local Studio app module scripts to report a message when invoked from Remote Studio.
 # Note: not all features and commands will work on Remote Studio.
-def localStudioOnly(func):
+def localStudioOnly(func: Any):
 	def remoteStudioCheck(self, gesture: inputCore.InputGesture, *args, **kwargs):
 		if self.appName != "splstudio":
 			# Translators: messages shown when trying to perform Studio commands in Remote Studio.
