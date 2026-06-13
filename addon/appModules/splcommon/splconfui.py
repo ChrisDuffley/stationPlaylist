@@ -1515,7 +1515,7 @@ class AdvancedOptionsPanel(gui.settingsDialogs.SettingsPanel):
 
 # A dialog to reset add-on config including encoder settings and others.
 class ResetDialog(wx.Dialog):
-	def __init__(self, parent):
+	def __init__(self, parent: gui.settingsDialogs.SettingsPanel):
 		# Translators: Title of the dialog to reset various add-on settings.
 		super().__init__(parent, title=_("Reset settings"))
 
