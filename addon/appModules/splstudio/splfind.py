@@ -160,7 +160,7 @@ class SPLFindDialog(wx.Dialog):
 		self.findEntry.SetFocus()
 		_findDialogOpened = True
 
-	def onOk(self, evt):
+	def onOk(self, evt: wx.CommandEvent):
 		global _findDialogOpened
 		text = self.findEntry.Value
 		# Search columns should not be None - list of integers expected.
@@ -178,7 +178,7 @@ class SPLFindDialog(wx.Dialog):
 		self.Destroy()
 		_findDialogOpened = False
 
-	def onCancel(self, evt):
+	def onCancel(self, evt: wx.CommandEvent):
 		self.Destroy()
 		global _findDialogOpened
 		_findDialogOpened = False
@@ -314,7 +314,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 		self.minMinEntry.SetFocus()
 		_findDialogOpened = True
 
-	def onOk(self, evt):
+	def onOk(self, evt: wx.CommandEvent):
 		minDuration: tuple[int, int] = (self.minMinEntry.GetValue(), self.minSecEntry.GetValue())
 		maxDuration: tuple[int, int] = (self.maxMinEntry.GetValue(), self.maxSecEntry.GetValue())
 		# What if minimum is greater than maximum (subtle oversight)?
@@ -340,7 +340,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 		self.Destroy()
 		_findDialogOpened = False
 
-	def onCancel(self, evt):
+	def onCancel(self, evt: wx.CommandEvent):
 		self.Destroy()
 		global _findDialogOpened
 		_findDialogOpened = False
