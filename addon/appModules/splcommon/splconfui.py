@@ -395,7 +395,7 @@ class NewProfileDialog(wx.Dialog):
 # and allows one to configure when to trigger this profile.
 # As of 2020, the only trigger flag is instant switch profile.
 class TriggersDialog(wx.Dialog):
-	def __init__(self, parent, profile):
+	def __init__(self, parent: wx.Dialog, profile: str):
 		# Translators: The title of the broadcast profile triggers dialog.
 		title = _("Profile triggers for {profileName}").format(profileName=profile)
 		super().__init__(parent, title=title)
