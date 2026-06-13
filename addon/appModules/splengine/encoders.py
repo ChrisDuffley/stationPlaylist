@@ -650,7 +650,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 
 	encoderType = "SAM"
 
-	def _moveToRow(self, row):
+	def _moveToRow(self, row: NVDAObject | None):
 		# In addition to moving to the next or previous encoder entry, set focus on the new encoder entry once more.
 		super(SAMEncoder, self)._moveToRow(row)
 		if row is not None:

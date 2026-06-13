@@ -283,7 +283,7 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 	# Vertical column navigation.
 	# The following move to row method was customized for Studio track item.
 
-	def _moveToRow(self, row):
+	def _moveToRow(self, row: NVDAObject | None):
 		if not row:
 			return self._moveToColumn(None) if splconfig.SPLConfig["General"]["TopBottomAnnounce"] else None
 		nav = api.getNavigatorObject()
