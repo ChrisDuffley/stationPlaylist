@@ -554,7 +554,7 @@ class Encoder(IAccessible):
 		)
 		dlg.SetSelection(self.IAccessibleChildID - 1)
 
-		def callback(result):
+		def callback(result: int):
 			if result == wx.ID_OK:
 				_removeEncoderID(self.encoderType, dlg.GetStringSelection())
 

@@ -362,7 +362,7 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 			value=comment,
 		)
 
-		def callback(result):
+		def callback(result: int):
 			if result == wx.ID_OK:
 				newComment = dlg.GetValue()
 				# No need to deal with track comments if Studio is gone and/or value is empty.
