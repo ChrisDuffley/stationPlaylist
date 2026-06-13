@@ -38,7 +38,7 @@ addonHandler.initTranslation()
 class BroadcastProfilesDialog(wx.Dialog):
 	shouldSuspendConfigProfileTriggers = True
 
-	def __init__(self, parent):
+	def __init__(self, parent: gui.MainFrame):
 		# Translators: title of a dialog to configure broadcast profiles.
 		super().__init__(parent, title=_("SPL Broadcast Profiles"))
 		global _configDialogOpened
@@ -859,7 +859,7 @@ class MetadataStreamingDialog(wx.Dialog):
 			return super(MetadataStreamingDialog, cls).__new__(cls, *args, **kwargs)
 		return instance
 
-	def __init__(self, parent):
+	def __init__(self, parent: gui.MainFrame):
 		global _configDialogOpened
 		if MetadataStreamingDialog._instance() is not None:
 			return
