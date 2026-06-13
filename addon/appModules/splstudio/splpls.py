@@ -356,7 +356,7 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 		self.transcriptRange.SetFocus()
 		_plTranscriptsDialogOpened = True
 
-	def onTranscriptFormatSelection(self, evt):
+	def onTranscriptFormatSelection(self, evt: wx.CommandEvent):
 		# Security: disable options other than viewing the transcript in secure mode.
 		if globalVars.appArgs.secure:
 			return
@@ -370,7 +370,7 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 			self.transcriptAction.SetItems(["view transcript", "save to file"])
 		self.transcriptAction.SetSelection(0)
 
-	def onOk(self, evt):
+	def onOk(self, evt: wx.CommandEvent):
 		global _plTranscriptsDialogOpened, _timeScheduled2Time
 		_timeScheduled2Time = "Time" in self.obj.screenColumnOrder
 		start = None
@@ -405,7 +405,7 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 		self.Destroy()
 		_plTranscriptsDialogOpened = False
 
-	def onCancel(self, evt):
+	def onCancel(self, evt: wx.CommandEvent):
 		self.Destroy()
 		global _plTranscriptsDialogOpened
 		_plTranscriptsDialogOpened = False
