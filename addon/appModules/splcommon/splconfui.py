@@ -120,7 +120,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 		self.CentreOnScreen()
 
 	# Load settings from profiles.
-	def onProfileSelection(self, evt):
+	def onProfileSelection(self, evt: wx.CommandEvent):
 		# Don't rely on SPLConfig here, as we don't want to interupt the show.
 		selection = self.profiles.GetSelection()
 		# No need to look at the profile flag.
@@ -143,15 +143,15 @@ class BroadcastProfilesDialog(wx.Dialog):
 
 	# Profile controls.
 	# Rename and delete events come from GUI/config profiles dialog from NVDA core.
-	def onNew(self, evt):
+	def onNew(self, evt: wx.CommandEvent):
 		self.Disable()
 		NewProfileDialog(self).Show()
 
-	def onCopy(self, evt):
+	def onCopy(self, evt: wx.CommandEvent):
 		self.Disable()
 		NewProfileDialog(self, copy=True).Show()
 
-	def onRename(self, evt):
+	def onRename(self, evt: wx.CommandEvent):
 		oldDisplayName = self.profiles.GetStringSelection()
 		state = oldDisplayName.split(" <")
 		oldName = state[0]
@@ -191,7 +191,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 		self.profiles.Selection = index
 		self.profiles.SetFocus()
 
-	def onDelete(self, evt):
+	def onDelete(self, evt: wx.CommandEvent):
 		# Prevent profile deletion while in the midst of a broadcast i.e. instant switch profile is active,
 		# otherwise flags such as instant switch profile become inconsistent.
 		# This was seen after deleting a profile one position before the previously active profile.
@@ -263,7 +263,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 		self.onProfileSelection(None)
 		self.profiles.SetFocus()
 
-	def onTriggers(self, evt):
+	def onTriggers(self, evt: wx.CommandEvent):
 		self.Disable()
 		TriggersDialog(self, self.profileNames[self.profiles.Selection]).Show()
 
@@ -289,7 +289,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 			index, profile if not len(flags) else "{0} <{1}>".format(profile, ", ".join(flags))
 		)
 
-	def onChangeState(self, evt):
+	def onChangeState(self, evt: wx.CommandEvent):
 		selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
 		if splconfig.SPLConfig.activeProfile != selectedProfile:
 			splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
@@ -300,7 +300,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 		splactions.SPLActionProfileSwitched.notify(configDialogActive=True)
 		self.Close()
 
-	def onClose(self, evt):
+	def onClose(self, evt: wx.CommandEvent):
 		if self.switchProfileRenamed or self.switchProfileDeleted:
 			splconfig.SPLConfig.instantSwitch = self.switchProfile
 		self.Destroy()
@@ -348,7 +348,7 @@ class NewProfileDialog(wx.Dialog):
 		self.profileName.SetFocus()
 		self.CenterOnScreen()
 
-	def onOk(self, evt):
+	def onOk(self, evt: wx.CommandEvent):
 		parent = self.Parent
 		name = api.filterFileName(self.profileName.Value)
 		if not name:
@@ -385,7 +385,7 @@ class NewProfileDialog(wx.Dialog):
 		parent.Enable()
 		self.Destroy()
 
-	def onCancel(self, evt):
+	def onCancel(self, evt: wx.CommandEvent):
 		self.Parent.Enable()
 		self.Destroy()
 
@@ -421,7 +421,7 @@ class TriggersDialog(wx.Dialog):
 		self.CenterOnScreen()
 		self.instantSwitchCheckbox.SetFocus()
 
-	def onOk(self, evt):
+	def onOk(self, evt: wx.CommandEvent):
 		parent = self.Parent
 		# Handle instant switch checkbox.
 		if self.instantSwitchCheckbox.Value:
@@ -441,7 +441,7 @@ class TriggersDialog(wx.Dialog):
 		parent.Enable()
 		self.Destroy()
 
-	def onCancel(self, evt):
+	def onCancel(self, evt: wx.CommandEvent):
 		self.Parent.Enable()
 		self.Destroy()
 
@@ -910,7 +910,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		self.CenterOnScreen()
 		_configDialogOpened = True
 
-	def onOk(self, evt):
+	def onOk(self, evt: wx.CommandEvent):
 		global _configDialogOpened
 		# Prepare checkbox values first for various reasons.
 		# #76: traverse check list box and build boolean list accordingly.
@@ -925,7 +925,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		self.Destroy()
 		_configDialogOpened = False
 
-	def onCancel(self, evt):
+	def onCancel(self, evt: wx.CommandEvent):
 		global _configDialogOpened
 		self.Destroy()
 		_configDialogOpened = False
@@ -1042,7 +1042,7 @@ class ColumnAnnouncementsBasePanel(gui.settingsDialogs.SettingsPanel):
 		sizer.sizer.AddMany((self.upButton, self.dnButton))
 		columnOrderGroup.addItem(sizer.sizer)
 
-	def onColumnSelection(self, evt):
+	def onColumnSelection(self, evt: wx.CommandEvent):
 		selIndex = self.trackColumns.GetSelection()
 		self.upButton.Disable() if selIndex == 0 else self.upButton.Enable()
 		if selIndex == self.trackColumns.GetCount() - 1:
@@ -1050,7 +1050,7 @@ class ColumnAnnouncementsBasePanel(gui.settingsDialogs.SettingsPanel):
 		else:
 			self.dnButton.Enable()
 
-	def onMoveUp(self, evt):
+	def onMoveUp(self, evt: wx.CommandEvent):
 		tones.beep(1000, 200)
 		selIndex = self.trackColumns.GetSelection()
 		if selIndex > 0:
@@ -1060,7 +1060,7 @@ class ColumnAnnouncementsBasePanel(gui.settingsDialogs.SettingsPanel):
 			self.trackColumns.Select(selIndex - 1)
 			self.onColumnSelection(None)
 
-	def onMoveDown(self, evt):
+	def onMoveDown(self, evt: wx.CommandEvent):
 		tones.beep(500, 200)
 		selIndex = self.trackColumns.GetSelection()
 		if selIndex < self.trackColumns.GetCount() - 1:
@@ -1199,19 +1199,19 @@ class ColumnsExplorerPanel(gui.settingsDialogs.SettingsPanel):
 		splconfig.SPLConfig["ExploreColumns"]["PlaylistEditor"] = self.exploreColumnsPlsEditor
 
 	# Columns Explorer configuration.
-	def onColumnsExplorer(self, evt):
+	def onColumnsExplorer(self, evt: wx.CommandEvent):
 		ColumnsExplorerDialog(self).ShowModal()
 
 	# Track Tool Columns Explorer configuration.
-	def onColumnsExplorerTT(self, evt):
+	def onColumnsExplorerTT(self, evt: wx.CommandEvent):
 		ColumnsExplorerDialog(self, level=1).ShowModal()
 
 	# SPL Creator Columns Explorer configuration.
-	def onColumnsExplorerCreator(self, evt):
+	def onColumnsExplorerCreator(self, evt: wx.CommandEvent):
 		ColumnsExplorerDialog(self, level=2).ShowModal()
 
 	# Playlist editor Columns Explorer configuration.
-	def onColumnsExplorerPlsEditor(self, evt):
+	def onColumnsExplorerPlsEditor(self, evt: wx.CommandEvent):
 		ColumnsExplorerDialog(self, level=3).ShowModal()
 
 
@@ -1342,7 +1342,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		self.columnSlots[0].SetFocus()
 		self.CenterOnScreen()
 
-	def onOk(self, evt):
+	def onOk(self, evt: wx.CommandEvent):
 		parent = self.Parent
 		# #62: manually build a list so changes won't be retained
 		# when Cancel button is clicked from main settings, caused by reference problem.
@@ -1362,7 +1362,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		parent.Enable()
 		self.Destroy()
 
-	def onCancel(self, evt):
+	def onCancel(self, evt: wx.CommandEvent):
 		self.Parent.Enable()
 		self.Destroy()
 
@@ -1550,7 +1550,7 @@ class ResetDialog(wx.Dialog):
 		self.resetInstantProfileCheckbox.SetFocus()
 		self.CenterOnScreen()
 
-	def onOk(self, evt):
+	def onOk(self, evt: wx.CommandEvent):
 		parent = self.Parent
 		if (
 			gui.messageBox(
@@ -1599,7 +1599,7 @@ class ResetDialog(wx.Dialog):
 		# #6: because the parent isn't add-on settings but the categories/panel sizer, fetch its ancestor.
 		parent.Parent.Parent.Destroy()
 
-	def onCancel(self, evt):
+	def onCancel(self, evt: wx.CommandEvent):
 		self.Parent.Enable()
 		self.Destroy()
 
@@ -1628,7 +1628,7 @@ class ResetSettingsPanel(gui.settingsDialogs.SettingsPanel):
 		# Without this, not implemented error is raised by the superclass.
 		pass
 
-	def onResetConfig(self, evt):
+	def onResetConfig(self, evt: wx.CommandEvent):
 		ResetDialog(self).ShowModal()
 
 
@@ -1684,12 +1684,12 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		# Let everyone know add-on settings is opened.
 		_configDialogOpened = True
 
-	def onOk(self, evt):
+	def onOk(self, evt: wx.CommandEvent):
 		super(SPLConfigDialog, self).onOk(evt)
 		global _configDialogOpened
 		_configDialogOpened = False
 
-	def onCancel(self, evt):
+	def onCancel(self, evt: wx.CommandEvent):
 		super(SPLConfigDialog, self).onCancel(evt)
 		global _configDialogOpened
 		_configDialogOpened = False
@@ -1762,12 +1762,12 @@ def openAddonSettingsPanel(panel: gui.settingsDialogs.SettingsPanel):
 _splComponent: str | None = None
 
 # Main add-on settings screen.
-def onConfigDialog(evt):
+def onConfigDialog(evt: wx.CommandEvent):
 	openAddonSettingsPanel(None)
 
 
 # Open broadcast profiles dialog and its friends upon request.
-def onBroadcastProfilesDialog(evt):
+def onBroadcastProfilesDialog(evt: wx.CommandEvent):
 	if _configDialogOpened:
 		wx.CallAfter(configDialogOpenError)
 		return
