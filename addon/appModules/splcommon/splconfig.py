@@ -347,7 +347,7 @@ class ConfigHub(ChainMap[Any, Any]):
 		del self.profiles[configPos]
 		del self.profileNames[profilePos]
 
-	def __delitem__(self, key):
+	def __delitem__(self, key: Any):
 		# Consult profile-specific key first before deleting anything.
 		pos = (
 			0
