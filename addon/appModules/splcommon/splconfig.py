@@ -809,7 +809,7 @@ Thank you.""")
 		self.showWelcomeDialog.SetFocus()
 		self.CenterOnScreen()
 
-	def onOk(self, evt):
+	def onOk(self, evt: wx.CommandEvent):
 		global SPLConfig
 		SPLConfig["Startup"]["WelcomeDialog"] = self.showWelcomeDialog.Value
 		self.Destroy()
