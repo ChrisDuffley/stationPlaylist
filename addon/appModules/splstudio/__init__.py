@@ -237,7 +237,7 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 		self.__class__._savedColumnNumber = None
 
 	# #12: select and set focus to this track.
-	def doAction(self, index=None):
+	def doAction(self, index: int | None = None):
 		self.setFocus()
 		self.setFocus()
 		# Selecting tracks via splbase module requires Studio API (local Studio only).
