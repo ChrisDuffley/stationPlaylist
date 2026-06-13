@@ -260,7 +260,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 			return super(SPLTimeRangeDialog, cls).__new__(cls, *args, **kwargs)
 		return instance
 
-	def __init__(self, parent, obj: NVDAObject):
+	def __init__(self, parent: gui.MainFrame, obj: NVDAObject):
 		global _findDialogOpened
 		if SPLTimeRangeDialog._instance() is not None:
 			return
