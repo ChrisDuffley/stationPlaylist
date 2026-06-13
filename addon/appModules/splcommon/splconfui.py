@@ -1216,7 +1216,7 @@ class ColumnsExplorerPanel(gui.settingsDialogs.SettingsPanel):
 
 
 class ColumnsExplorerDialog(wx.Dialog):
-	def __init__(self, parent, level=0):
+	def __init__(self, parent: gui.settingsDialogs.SettingsPanel, level: int = 0):
 		self.level = level
 		# Counterintuitive, but start with level 1 (fallback will be level 0/Studio).
 		match level:
