@@ -115,7 +115,15 @@ class SPLFindDialog(wx.Dialog):
 			return super(SPLFindDialog, cls).__new__(cls, *args, **kwargs)
 		return instance
 
-	def __init__(self, parent, obj: NVDAObject, text, title, directionForward=True, columnSearch=False):
+	def __init__(
+		self,
+		parent: gui.MainFrame,
+		obj: NVDAObject,
+		text: str,
+		title: str,
+		directionForward: bool = True,
+		columnSearch: bool = False
+	):
 		global _findDialogOpened
 		if SPLFindDialog._instance() is not None:
 			return
