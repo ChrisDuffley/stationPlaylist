@@ -7,6 +7,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 Version 26.07.x is the last release series to support Studio 6.0x and NVDA 2025.3.3 (last 32-bit NVDA release), with future releases supporting Studio 6.10 and 64-bit NVDA(2026.x). Some new features will be backported to 26.07.x if needed.
 
 * Removed add-on changelog from add-on help (readme) file.
+* In local and Remote Studio, NVDA will show "SPL Assistant" message in braille when entering SPL Assistant layer commands.
 
 ## Version 26.06
 
