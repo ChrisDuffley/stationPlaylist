@@ -2074,8 +2074,14 @@ class AppModule(splappmod.AppModule):
 			self.bindGesture(f"kb:shift+{i}", "metadataEnabled")
 		self.SPLAssistant = True
 		tones.beep(512, 50)
+		# Report SPL Assistant entry in braille only if compatibility layer is NVDA (default),
+		# otherwise report the layer entry message (compatibility layer included) in speech and braille.
 		if compatibilityLayer == "jfw":
-			ui.message("JAWS")
+			# Translators: shown in braille when SPL Assistant layer is entered.
+			ui.message("JAWS", brailleText=_("SPL Assistant (JAWS)"))
+			return
+		# Translators: shown in braille when SPL Assistant layer is entered.
+		braille.handler.message(_("SPL Assistant"))
 
 	# SPL Assistant layer helpers
 	# Includes screen traversal routes and playlist duration helpers.
