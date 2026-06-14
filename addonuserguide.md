@@ -136,7 +136,7 @@ You can use native SPL Studio commands to control track playback. Here is a list
 * T: Instant stop
 * Alt+Down arrow: Skip to next track
 
-From Studio window, to see if a track is playing, press the SPL Assistant command. NVDA will play a beep. Then press P, and NVDA will announce if the track is playing or stopped.
+From Studio window, to see if a track is playing, press the SPL Assistant command. NVDA will play a beep and/or show "SPL Assistant" on a braille display. Then press P, and NVDA will announce if the track is playing or stopped.
 
 #### Reviewing information about a track
 
