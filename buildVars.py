@@ -26,8 +26,10 @@ addon_info = AddonInfo(
 	addon_version="26.06",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""* Removed SPL touch mode commands.
-* NVDA's browse mode find dialog (Control+NVDA+F) search terms will also be made available when invoking track finder (Control+NVDA+F) from local and Remote Studio. Consequently, search terms from Studio's track finder will also be made available in NVDA find dialog."""),
+	addon_changelog=_("""Version 26.07.x is the last release series to support Studio 6.0x and NVDA 2025.3.3 (last 32-bit NVDA release), with future releases supporting Studio 6.10 and 64-bit NVDA(2026.x). Also, 26.07.x is the last release series to include localizations as there is no known localizations for StationPlaylist suite of applications themselves. Some new features will be backported to 26.07.x if needed.
+
+* Removed add-on changelog from add-on help (readme) file.
+* In local and Remote Studio, NVDA will show "SPL Assistant" message in braille when entering SPL Assistant layer commands."""),
 	# Author(s)
 	addon_author="Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)",
 	# URL for the add-on documentation support
