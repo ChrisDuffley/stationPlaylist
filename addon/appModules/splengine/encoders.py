@@ -2,6 +2,7 @@
 # Copyright 2015-2026 Joseph Lee, released under GPL.
 # Split from main global plugin in 2015, transferred to SPL Engine app module in 2020.
 
+from typing import override
 import threading
 import time
 import os
@@ -664,6 +665,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 	def connected(self) -> bool:
 		return self.getChild(2).name == "Encoding"
 
+	@override
 	def reportConnectionStatus(self, manualConnect: bool = False) -> None:
 		# A fake child object holds crucial information about connection status.
 		# In order to not block NVDA commands, this will be done using a different thread.
@@ -798,6 +800,7 @@ class SPLEncoder(Encoder):
 		status = self.getChild(1).name
 		return "Kbps" in status or "Connected" in status
 
+	@override
 	def reportConnectionStatus(self, manualConnect: bool = False) -> None:
 		# Same routine as SAM encoder: use a thread to prevent blocking NVDA commands.
 		attemptTime = time.time()
