@@ -85,6 +85,7 @@ reportDeprecated = true
 reportDuplicateImport = true
 reportFunctionMemberAccess = true
 reportGeneralTypeIssues = true
+reportImplicitOverride = true
 reportImportCycles = true
 reportIncompatibleMethodOverride = true
 reportIncompatibleVariableOverride = true
@@ -144,7 +145,6 @@ reportMissingTypeStubs = false
 # These are sorted alphabetically and should be enabled and moved to compliant rules section when resolved.
 reportArgumentType = false  # Unexpected argument types
 reportCallIssue = false  # Mostly ConfigObj getitem/setitem
-reportImplicitOverride = false  # Some methods override abstract or base class methods, resolved with typing.override decorator (Python 3.12 and later)
 reportImplicitStringConcatenation = false  # Long text split into multiple lines to keep them under line length limit
 reportIndexIssue = false  # ConfigObj is a mapping
 reportMissingImports = false  # wxPython and NVDA Core modules
