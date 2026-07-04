@@ -200,6 +200,6 @@ Desde la ventana de studio, puedes pulsar Alt+NVDA+0 para abrir el diálogo de c
 
 Se pueden guardar configuraciones específicas para programas concretos en perfiles de emisión. Estos perfiles se pueden gestionar desde el diálogo de perfiles de emisión de SPL, al que se puede acceder pulsando alt+NVDA+p desde la ventana de Studio.
 
-[1]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/addonuserguide.md
+[1]: https://github.com/ChrisDuffley/stationPlaylist/blob/26.07.x/addonuserguide.md
 
-[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/changes.md
+[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/26.07.x/changes.md

@@ -200,6 +200,6 @@ Depuis la fenêtre studio, vous pouvez appuyer sur Alt+NVDA+0 pour ouvrir la bo�
 
 Vous pouvez sauvegarder les paramètres pour des émissions spécifiques dans des profils de diffusion. Ces profils peuvent être gérés  via le dialogue des profils de diffusion de SPL which can be accessible en pressant Alt+NVDA+P depuis la fenêtre Studio.
 
-[1]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/addonuserguide.md
+[1]: https://github.com/ChrisDuffley/stationPlaylist/blob/26.07.x/addonuserguide.md
 
-[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/changes.md
+[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/26.07.x/changes.md

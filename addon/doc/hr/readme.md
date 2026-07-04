@@ -200,6 +200,6 @@ U prozoru programa Studio možeš pritisnuti Alt+NVDA+0 za otvaranje dijaloškog
 
 Postavke za određene emisije mogu se spremiti u profile emitiranja. Tim se profilima može upravljati putem SPL-ovog dijaloškog okvira profila emitiranja, kojem se može pristupiti pritiskom na Alt+NVDA+P u prozoru programa Studio.
 
-[1]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/addonuserguide.md
+[1]: https://github.com/ChrisDuffley/stationPlaylist/blob/26.07.x/addonuserguide.md
 
-[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/changes.md
+[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/26.07.x/changes.md

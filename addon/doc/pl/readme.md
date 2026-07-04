@@ -200,6 +200,6 @@ W oknie studio możesz nacisnąć Alt + NVDA + 0, aby otworzyć okno dialogowe k
 
 Ustawienia określonych programów można zapisywać w profilach emisji. Profile te można zarządzać za pomocą okna dialogowego profili emisji SPL, do którego można uzyskać dostęp, naciskając Alt + NVDA + P w oknie Studio.
 
-[1]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/addonuserguide.md
+[1]: https://github.com/ChrisDuffley/stationPlaylist/blob/26.07.x/addonuserguide.md
 
-[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/changes.md
+[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/26.07.x/changes.md

@@ -200,6 +200,6 @@ Im Studio-Fenster können Sie Alt+NVDA+0 drücken, um das Dialogfeld für die Ko
 
 Sie können Einstellungen für bestimmte Sendungen in Sendeprofilen speichern. Diese Profile können über das Dialogfeld SPL-Sendeprofile verwaltet werden, auf das durch Drücken von Alt+NVDA+P im Studio-Fenster zugegriffen werden kann.
 
-[1]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/addonuserguide.md
+[1]: https://github.com/ChrisDuffley/stationPlaylist/blob/26.07.x/addonuserguide.md
 
-[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/changes.md
+[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/26.07.x/changes.md

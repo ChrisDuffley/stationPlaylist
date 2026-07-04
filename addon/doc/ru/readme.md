@@ -204,6 +204,6 @@
 
 Вы можете сохранить настройки для определённых шоу в профилях вещания. Этими профилями можно управлять с помощью диалога профилей широковещательной передачи SPL, доступ к которому можно получить, нажав Alt+NVDA+P в окне Studio.
 
-[1]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/addonuserguide.md
+[1]: https://github.com/ChrisDuffley/stationPlaylist/blob/26.07.x/addonuserguide.md
 
-[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/changes.md
+[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/26.07.x/changes.md

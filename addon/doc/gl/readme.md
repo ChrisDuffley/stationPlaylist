@@ -200,6 +200,6 @@ Dende a ventá do studio, podes premer Alt+NVDA+0 para abrir o diálogo de confi
 
 Podes gardar as opcións para shows específicos en perfiles de emisión. Estes perfiles pódense administrar dende o diálogo de perfiles de transmisión, ao que se pode acceder premendo NVDA+Alt+P dende a ventá de Studio.
 
-[1]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/addonuserguide.md
+[1]: https://github.com/ChrisDuffley/stationPlaylist/blob/26.07.x/addonuserguide.md
 
-[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/changes.md
+[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/26.07.x/changes.md

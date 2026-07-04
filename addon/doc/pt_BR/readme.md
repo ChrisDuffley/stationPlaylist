@@ -200,6 +200,6 @@ Na janela do estúdio, você pode pressionar Alt+NVDA+0 para abrir a caixa de di
 
 Você pode salvar as configurações de programas específicos em perfis de transmissão — broadcast. Esses perfis podem ser gerenciados por meio do diálogo de perfis de transmissão SPL, que pode ser acessado pressionando Alt+NVDA+P na janela do Studio.
 
-[1]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/addonuserguide.md
+[1]: https://github.com/ChrisDuffley/stationPlaylist/blob/26.07.x/addonuserguide.md
 
-[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/changes.md
+[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/26.07.x/changes.md

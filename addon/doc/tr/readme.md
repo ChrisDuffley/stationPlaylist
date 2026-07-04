@@ -205,6 +205,6 @@ Eklenti yapılandırma iletişim kutusunu açmak için stüdyo penceresinde Alt+
 
 Belirli programların ayarlarını yayın profillerine kaydedebilirsiniz. Bu profiller, Studio penceresinden Alt+NVDA+P tuşlarına basılarak erişilebilen SPL yayın profilleri iletişim kutusu aracılığıyla yönetilebilir.
 
-[1]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/addonuserguide.md
+[1]: https://github.com/ChrisDuffley/stationPlaylist/blob/26.07.x/addonuserguide.md
 
-[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/changes.md
+[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/26.07.x/changes.md
