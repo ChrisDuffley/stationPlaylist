@@ -205,6 +205,6 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 You can save settings for specific shows into broadcast profiles. These profiles can be managed via SPL broadcast profiles dialog which can be accessed by pressing Alt+NVDA+P from Studio window.
 
-[1]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/addonuserguide.md
+[1]: https://github.com/ChrisDuffley/stationPlaylist/blob/26.07.x/addonuserguide.md
 
-[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/main/changes.md
+[2]: https://github.com/ChrisDuffley/stationPlaylist/blob/26.07.x/changes.md
