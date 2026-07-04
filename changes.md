@@ -5,6 +5,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 ## Version 26.08
 
 * 26.08: NVDA 2026.1.1 (64-bit) or later is required.
+* 26.08: Removed add-on documentation and interface localizations (SPL suite itself is not localized).
 
 ## Version 26.07-LTS
 
