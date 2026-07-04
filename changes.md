@@ -2,6 +2,11 @@
 
 This page lists the complete changelog for StationPlaylist add-on releases.
 
+## Version 26.07.1-LTS
+
+* Initial version for 2026 long-term support release.
+* Changelog and add-on user guide will reflect 26.07.x content (26.07.x releases only).
+
 ## Version 26.07-LTS
 
 Version 26.07.x is the last release series to support Studio 6.0x and NVDA 2025.3.3 (last 32-bit NVDA release), with future releases supporting Studio 6.10 and 64-bit NVDA(2026.x). Also, 26.07.x is the last release series to include localizations as there is no known localizations for StationPlaylist suite of applications themselves. Some new features will be backported to 26.07.x if needed.
