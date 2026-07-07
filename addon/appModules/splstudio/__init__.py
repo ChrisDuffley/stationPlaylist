@@ -2025,6 +2025,8 @@ class AppModule(splappmod.AppModule):
 
 	def script_error(self, gesture: inputCore.InputGesture):
 		tones.beep(120, 100)
+		# Translators: shown when a non-SPL Assistant layer command is performed.
+		braille.handler.message(_("Not an SPL Assistant layer command"))
 		self.script_finish()
 
 	# SPL Assistant flag.
