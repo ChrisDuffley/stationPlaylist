@@ -7,6 +7,7 @@ import sys
 import globalPluginHandler
 import api
 import ui
+import braille
 import scriptHandler
 import inputCore
 import globalVars
@@ -189,6 +190,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_error(self, gesture: inputCore.InputGesture):
 		tones.beep(120, 100)
+		# Translators: shown when a non-SPL Controller layer command is performed.
+		braille.handler.message(_("Not an SPL Controler layer command"))
 
 	# Switch focus to SPL Studio window from anywhere.
 	@scriptHandler.script(
