@@ -422,7 +422,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.script_finish()
 			return
 		if not splbase.studioIsRunning(justChecking=True):
-			ui.message(_("SPL Studio is not running."))
+			if (activeStudioComponent := self.actualSPLConScope()[1]) == "remotestudio":
+				# Translators: shown when trying to perform a command for local Studio when only Remote Studio is active.
+				ui.message(_("Remote Studio active."))
+			else:
+				ui.message(_("SPL Studio is not running."))
 			self.script_finish()
 			return
 		try:
