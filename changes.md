@@ -6,6 +6,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 
 * 26.08: NVDA 2026.1.1 (64-bit) or later is required.
 * 26.08: Removed add-on documentation and interface localizations (SPL suite itself is not localized).
+* NVDA will announce an error message in braille when performing a command that is not part of SPL Assistant and SPL Controler layers.
 
 ## Version 26.07-LTS
 
