@@ -2,7 +2,7 @@
 
 Author: Joseph Lee
 
-Based on StationPlaylist Add-on for NVDA 26.06
+Based on StationPlaylist Add-on for NVDA 26.07
 
 ## 2021 Preface and notes
 
@@ -94,34 +94,35 @@ Highlights of past major releases and subsequent maintenance releases include:
 
 * 1.x: Initial release, added end of track alarm and other features.
 * 2.x: Track Finder and better routines to recognize Studio versions.
-* 3.x: first long-term support (LTS) release, Cart Explorer, support for SAM Encoder and no need to stay on the encoder window during connection attempts. This was the last version to support Studio 4.33.
+* 3.x: First long-term support (LTS) release, Cart Explorer, support for SAM Encoder and no need to stay on the encoder window during connection attempts. This was the last version to support Studio 4.33.
 * 4.x: Library scan, support for SPL encoder and studio 5.10.
 * 5.x: Track Dial, dedicated configuration dialog.
 * 6.x: Broadcast profiles, metadata streaming, column search and announcement reordering.
-* 7.x: second LTS release, add-on updates, time-based profile switching, Track Columns Explorer and others. This is the last version to support Studio 5.01. Renamed to 15.x in late 2016.
+* 7.x: Second LTS release, add-on updates, time-based profile switching, Track Columns Explorer and others. This was the last version to support Studio 5.01. Renamed to 15.x in late 2016.
 * 16.10 (formerly 8.0): Columns explorer for Track Tool, selective data resets.
-* 17.04 (formerly 9.0: vertical column navigation, playlist snapshots, support for Studio 5.20.
-* 17.08 (10.0: listener request notification, column header announcement suppression. This is the last major version, with subsequent versions using continuous delivery.
-* 17.12: end of support for old Windows releases, add-on settings reorganization, extension points.
-* 18.06: responding to recent NVDA features, playlist transcripts, wxPython 4 support, partial playlist snapshots, expanding the scope of the add-on.
-* 18.09: third LTS release, add-on settings panels, checkable list, wxPython 4.
-* 19.01: add-on update feature removed, compatibility flags with future NVDA releases.
-* 19.07: renaming the add-on, settings reload/reset.
+* 17.04 (formerly 9.0): Vertical column navigation, playlist snapshots, support for Studio 5.20.
+* 17.08 (10.0): Listener request notification, column header announcement suppression. This is the last major version, with subsequent versions using continuous delivery.
+* 17.12: End of support for old Windows releases, add-on settings reorganization, extension points.
+* 18.06: Responding to recent NVDA features, playlist transcripts, wxPython 4 support, partial playlist snapshots, expanding the scope of the add-on.
+* 18.09: Third LTS release, add-on settings panels, checkable list, wxPython 4. This was the last version to support Studio 5.11.
+* 19.01: Add-on update feature removed, compatibility flags with future NVDA releases.
+* 19.07: Renaming the add-on, settings reload/reset.
 * 20.02: Python 3, restructured encoders support and new encoders, Creator's Playlist Editor support.
-* 20.06: removed Window-Eyes support, time-based broadcast profiles facility removed, support for Remote VT client.
-* 20.09: fourth LTS release, pilot features removed, connecting to individual encoders in SPL encoders, background encoder monitor registry.
-* 21.01: track property announcement changes, more lint fixes.
-* 21.06: compatibility with newer NVDA releases, type annotations and more robust source code. This is the last version with planned new features and bug fixes from me.
-* 22.01: control types refactor, internal refinements to configuration management, remove profile caching mechanism as SSD technology has matured. This was the last planned release from me for some time.
-* 22.03: feature changes and removals to improve add-on security.
-* 23.02: dropped support for Windows 7, 8, 8.1, and unsupported Windows 10 releases. This was the last version actively developed by me (Joseph Lee).
-* 23.05: new maintainer (Chris Duffley).
-* 24.03: initial support for speech on demand mode, encoder support enhancements.
-* 25.01: dropped 32-bit Windows releases support, linter updates, Add-on Updater support removed with the introduction of NV Access add-on store.
-* 25.06: fifth LTS release, restored partial support for Windows 8.1 and older Windows 10 releases, code refactoring including Python 3.11 syntax.
-* 25.07: major code restructuring with the introduction of SPL common services module (housed along with app modules).
+* 20.06: Removed Window-Eyes support, time-based broadcast profiles facility removed, support for Remote VT client.
+* 20.09: Fourth LTS release, pilot features removed, connecting to individual encoders in SPL encoders, background encoder monitor registry. This was the last version to support Studio 5.20 and 5.31.
+* 21.01: Track property announcement changes, more lint fixes.
+* 21.06: Compatibility with newer NVDA releases, type annotations and more robust source code. This is the last version with planned new features and bug fixes from me.
+* 22.01: Control types refactor, internal refinements to configuration management, remove profile caching mechanism as SSD technology has matured. This was the last planned release from me for some time.
+* 22.03: Feature changes and removals to improve add-on security.
+* 23.02: Dropped support for Windows 7, 8, 8.1, and unsupported Windows 10 releases. This was the last version actively developed by me (Joseph Lee).
+* 23.05: New maintainer (Chris Duffley).
+* 24.03: Initial support for speech on demand mode, encoder support enhancements.
+* 25.01: Dropped 32-bit Windows releases support, linter updates, Add-on Updater support removed with the introduction of NV Access add-on store.
+* 25.06: Fifth LTS release, restored partial support for Windows 8.1 and older Windows 10 releases, code refactoring including Python 3.11 syntax. This was the last version to support Studio 5.40 and 5.50.
+* 25.07: Major code restructuring with the introduction of SPL common services module (housed along with app modules).
 * 25.11: Remote Studio, 64-bit NVDA compatibility.
-* 26.01: refactored unlabeled control labeler.
+* 26.01: Refactored unlabeled control labeler.
+* 26.07: Sixth LTS release, command priority for conflicting commands between NVDA and Studio, removed SPL touch mode, StationPlaylist Recorder support. This is the last version to support Studio 6.01 and 32-bit NVDA (2025.3.3 and earlier).
 
 Throughout this document, you'll get a chance to see how the add-on works, design philosophy and how the add-on is being developed, with glimpses into the past and future. My hope is that this add-on internals document would be a valuable reference for users and developers - for users to see the inner workings of this add-on, and for developers to use this add-on as an example of how an add-on is planned, implemented, tested, released and maintained.
 
@@ -1558,9 +1559,9 @@ A LTS version is a major version or a major periodic release of the SPL add-on w
 * Support duration: A LTS version is supported for at least six months.
 * Features: A LTS version may contain some features from later add-on releases provided that they can be safely backported.
 * Studio version supported: A LTS version is the last version to support the oldest supported Studio version. This is designed to give people plenty of time to upgrade to newer Studio releases.
-* Last version with old NVDA technology in use: in some cases, LTS releases are made to support users of old NVDA releases. After the LTS release is created, add-on source code will shift to using newer code from NVDA. This criteria was first applied in 18.09 as a result of NVDA's end of support for Windows XP, Vista and 7 without Service Pack 1, as well as transition to Python 3.
+* Last version with old NVDA technology in use: in some cases, LTS releases are made to support users of old NVDA releases. After the LTS release is created, add-on source code will shift to using newer code from NVDA. This criteria was first applied in 18.09 as a result of NVDA's end of support for Windows XP, Vista and 7 without Service Pack 1, as well as transition to Python 3. In 2026, 26.07.x was designated as LTS release to offer support for 32-bit NVDA with future add-on releases moving to requiring 64-bit NVDA.
 
-As of June 2025, the most recent LTS version is add-on 25.06.x (June 2025 to December 2025). Previous LTS releases have included 20.09.x (September 2020 to April 2021), 18.09.x (September 2018 to December 2019), 15.x (formerly 7.x until October 2016; October 2016 to April 2018) and 3.x (September 2014 to June 2015). For example, add-on 3.x was maintained thus:
+As of July 2026, the most recent LTS version is add-on 26.07.x (July 2026 to December 2026). Previous LTS releases have included 25.06.x (June 2025 to December 2025), 20.09.x (September 2020 to April 2021), 18.09.x (September 2018 to December 2019), 15.x (formerly 7.x until October 2016; October 2016 to April 2018) and 3.x (September 2014 to June 2015). For example, add-on 3.x was maintained thus:
 
 1. Add-on 3.0 was released in September 2014.
 2. Add-on 3.5 (December 2014) could have been the last maintenance version for add-on 3.x if it was not a LTS version.
