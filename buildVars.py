@@ -26,7 +26,7 @@ addon_info = AddonInfo(
 	addon_version="26.07",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""* NVDA 2026.1.1 (64-bit) or later is required.
+	addon_changelog=_("""* NVDA 2026.1 (64-bit) or later is required.
 * Removed add-on documentation and interface localizations (SPL suite itself is not localized).
 * NVDA will announce an error message in braille when performing a command that is not part of SPL Assistant and SPL Controler layers."""),
 	# Author(s)
