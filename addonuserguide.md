@@ -75,7 +75,7 @@ StationPlaylist add-on requires the following:
 * Optional: Remote VT client
 * Optional: an evaluation or registered copy of SAM Encoders
 * Optional: AltaCast Winamp plugin (one must copy AltaCast Winamp plugin DLL to Studio's plugins folder for Studio to recognize AltaCast)
-* NVDA 2026.1.1 (64-bit) or later (some features will require later versions of NVDA)
+* NVDA 2026.1 (64-bit) or later (some features will require later versions of NVDA)
 
 ## Installing and updating the add-on
 
