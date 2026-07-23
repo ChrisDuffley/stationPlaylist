@@ -23,7 +23,7 @@ addon_info = AddonInfo(
 	# Translators: Long description to be shown for this add-on on add-on information from add-on store
 	addon_description=_("Enhances support for StationPlaylist apps. In addition, adds global commands for the Studio application from everywhere."),
 	# version
-	addon_version="26.07.1",
+	addon_version="26.07.2",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
 	addon_changelog=_("""Version 26.07.x is the last release series to support Studio 6.0x and NVDA 2025.3.3 (last 32-bit NVDA release), with future releases supporting Studio 6.10 and 64-bit NVDA (2026.x). Also, 26.07.x is the last release series to include localizations as there is no known localizations for StationPlaylist suite of applications themselves. Some new features will be backported to 26.07.x if needed.
