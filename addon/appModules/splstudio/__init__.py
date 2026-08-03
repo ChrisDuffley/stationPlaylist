@@ -32,7 +32,6 @@ import braille
 import gui
 import wx
 import winKernel
-# From NVDA 2026.1 onwards, winBindings package should be used to look for Windows API dll's.
 from winBindings.user32 import dll as user32
 from winUser import OBJID_CLIENT
 from logHandler import log

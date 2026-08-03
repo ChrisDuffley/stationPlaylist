@@ -14,7 +14,6 @@ import tones
 import api
 import controlTypes
 import queueHandler
-# From NVDA 2026.1 onwards, winBindings package should be used to look for Windows API dll's.
 from winBindings.user32 import dll as user32
 from logHandler import log
 from NVDAObjects import NVDAObject

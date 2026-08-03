@@ -20,7 +20,6 @@ from logHandler import log
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32
 import addonHandler
-# From NVDA 2026.1 onwards, winBindings package should be used to look for Windows API dll's.
 from winBindings.user32 import dll as user32
 
 addonHandler.initTranslation()

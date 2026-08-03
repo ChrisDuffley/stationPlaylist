@@ -18,7 +18,6 @@ import windowUtils
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 from winUser import OBJID_CLIENT, getWindowText
 import addonHandler
-# From NVDA 2026.1 onwards, winBindings package should be used to look for Windows API dll's.
 from winBindings.user32 import dll as user32
 
 addonHandler.initTranslation()
