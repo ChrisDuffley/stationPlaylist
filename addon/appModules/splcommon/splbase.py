@@ -125,7 +125,7 @@ def focusToSPLWindow(studioWindowChecked: bool = False) -> None:
 		ui.message(_("SPL Studio is minimized to system tray."))
 
 
-# The finally function for status announcement scripts in this module (source: Tyler Spivey's code).
+# Layer commands manager, including the wrapped "finally" function (source: Tyler Spivey's code).
 # Type hinted as "Any" because arguments are methods (including the inner wrapped function).
 def finally_(func: Any, final: Any):
 	"""Calls final after func, even if it fails."""
