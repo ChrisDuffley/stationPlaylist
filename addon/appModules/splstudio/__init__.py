@@ -1277,7 +1277,7 @@ class AppModule(splappmod.AppModule):
 			d = splfind.SPLFindDialog(
 				gui.mainFrame,
 				startObj,
-				cursorManager.CursorManager._lastFindText,
+				splfind.findText,
 				title,
 				directionForward=directionForward,
 				columnSearch=columnSearch,
@@ -1296,7 +1296,7 @@ class AppModule(splappmod.AppModule):
 	) -> None:
 		if not self._trackFinderCheck(1 if columnSearch else 0):
 			return
-		if not cursorManager.CursorManager._lastFindText or not incrementalFind:
+		if not splfind.findText or not incrementalFind:
 			self.trackFinderGUI(directionForward=directionForward, columnSearch=columnSearch)
 		else:
 			startObj = api.getFocusObject()
@@ -1306,7 +1306,7 @@ class AppModule(splappmod.AppModule):
 			):
 				startObj = startObj.firstChild if directionForward else startObj.lastChild
 			splfind.trackFinder(
-				cursorManager.CursorManager._lastFindText,
+				splfind.findText,
 				startObj,
 				directionForward=directionForward
 			)
