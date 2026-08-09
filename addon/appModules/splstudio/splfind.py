@@ -10,7 +10,6 @@ import gui
 import wx
 import core
 import speech
-import cursorManager
 import addonHandler
 from NVDAObjects import NVDAObject
 from ..splcommon import splbase, splactions
