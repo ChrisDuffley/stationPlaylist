@@ -23,7 +23,6 @@ import globalVars
 import scriptHandler
 import inputCore
 import eventHandler
-import cursorManager
 import review
 import ui
 import nvwave
