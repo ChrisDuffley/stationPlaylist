@@ -2,6 +2,10 @@
 
 This page lists the complete changelog for StationPlaylist add-on releases.
 
+## Version 26.09/26.07.4-LTS
+
+* NVDA's browse mode find dialog (Control+NVDA+F) search terms will no longer be made available when invoking track finder (Control+NVDA+F) from local and Remote Studio to improve compatibility with future NVDA releases.
+
 ## Version 26.08/26.07.2-LTS
 
 Version 26.08 supports SPL Studio 6.10 and later.
