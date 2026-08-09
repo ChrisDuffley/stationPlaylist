@@ -22,27 +22,30 @@ addonHandler.initTranslation()
 SPLFileDuration = 30
 SPLTrackFilename = 211
 
+# SPL add-on's own find text for track finder
+findText: str = ""
+
 # The track finder utility for find track script and other functions
 # Perform a linear search to locate the track name and/or description which matches the entered value.
 # Also, find column content for a specific column if requested.
 # The below routines are also used in place marker track locator.
-# Find text is based on NVDA cursor manager find text.
 
 def trackFinder(
 	text: str, obj: NVDAObject, directionForward: bool = True, column: list[int] | None = None
 ) -> None:
+	global findText
 	# Optimization/alignment with NVDA Core: do nothing if text is empty.
 	if not text:
 		return
 	speech.cancelSpeech()
 	# Start from next/previous track if this text was searched before.
-	if text == cursorManager.CursorManager._lastFindText:
+	if text == findText:
 		obj = obj.next if directionForward else obj.previous
 	if obj is not None and not column:
 		column = [obj.indexOf("Artist"), obj.indexOf("Title")]
 	track = trackLocator(text, obj=obj, directionForward=directionForward, columns=column)
 	# #32: Update search text even if the track with the search term in columns does not exist.
-	cursorManager.CursorManager._lastFindText = text
+	findText = text
 	if track:
 		# We need to fire set focus event twice and exit this routine.
 		# (done via doAction method).
