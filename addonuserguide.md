@@ -383,15 +383,14 @@ If you need to fill an hour slot with a track, you can find one by using time ra
 
 #### Track finder
 
-If you are focused on the track list and wish to find a track (by artist name or by song title), you can use track finder to locate the desired track. To find tracks, press Control+NVDA+F (or SPL Assistant, F), then type the part of the name of the track into the editable combo box that appears. NVDA will locate the track with the given name, or if it cannot find it, will alert you that it cannot do so.
+If you are focused on the track list and wish to find a track (by artist name or by song title), you can use track finder to locate the desired track. To find tracks, press Control+NVDA+F (or SPL Assistant, F), then type the part of the name of the track into the input control (edit field or a combo box) that appears. NVDA will locate the track with the given name, or if it cannot find it, will alert you that it cannot do so.
 
-If you have searched for a track before, press NVDA+F3 to find forward or NVDA+Shift+F3 to find backward. You can also choose to search a previously entered term from Track Finder dialog's text entry combo box.
+If you have searched for a track before, press NVDA+F3 to find forward or NVDA+Shift+F3 to find backward. You can also choose to search a previously entered term from Track Finder dialog's text entry combo box if search history is enabled.
 
 Notes:
 
 1. Track search terms are case-sensitive.
-2. If you have used NVDA's browse mode find dialog prior to opening SPL track finder, the search term from NVDA's find dialog will be filled in.
-3. Searching for tracks using track finder will update NVDA's browse mode find dialog entry.
+2. The find track input field can be either an edit field or a search history combo box. The search history combo box will be used if you are using NVDA 2026.3 or later and "keep search history" option is enabled from NVDA's browse mode settings panel.
 
 #### Column Search
 
