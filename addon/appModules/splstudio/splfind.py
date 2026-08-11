@@ -34,7 +34,7 @@ searchEntries: list[str] | None = []
 def trackFinder(
 	text: str, obj: NVDAObject, directionForward: bool = True, column: list[int] | None = None
 ) -> None:
-	global findText
+	global findText, searchEntries
 	# Optimization/alignment with NVDA Core: do nothing if text is empty.
 	if not text:
 		return
@@ -60,6 +60,14 @@ def trackFinder(
 			translate("0 matches"),
 			wx.OK | wx.ICON_INFORMATION,
 		)
+	# Update search history (source: NVDA Core, credit: Leonard de Ruijter)
+	if config.conf["virtualBuffers"]["findHistory"]:
+		foldedText = text.casefold()
+		for index, entry in enumerate(searchEntries):
+			if entry.casefold() == foldedText:
+				del searchEntries[index]
+				break
+		searchEntries.insert(0, text)
 
 # Split from track finder in 2015.
 # Return a track with the given search criteria.
