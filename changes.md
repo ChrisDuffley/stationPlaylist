@@ -4,6 +4,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 
 ## Version 26.07.4-LTS
 
+* Reintroduced find track search history with up to 20 search history entries if running NVDA 2026.3 or later. In NVDA 2026.2 or if "keep search history" is disabled from browse mode settings in NVDA 2026.3 or later, find track dialog will use the search text field.
 * NVDA's browse mode find dialog (Control+NVDA+F) search terms will no longer be made available when invoking track finder (Control+NVDA+F) from local and Remote Studio to improve compatibility with future NVDA releases.
 
 ## Version 26.07.2-LTS
