@@ -11,6 +11,7 @@ import wx
 import core
 import speech
 import addonHandler
+import config
 from NVDAObjects import NVDAObject
 from ..splcommon import splbase, splactions
 from ..skipTranslation import translate
@@ -127,7 +128,7 @@ class SPLFindDialog(wx.Dialog):
 		directionForward: bool = True,
 		columnSearch: bool = False
 	):
-		global _findDialogOpened
+		global _findDialogOpened, searchEntries
 		if SPLFindDialog._instance() is not None:
 			return
 		# Use a weakref so the instance can die.
@@ -147,7 +148,19 @@ class SPLFindDialog(wx.Dialog):
 		else:
 			# Translators: the label for find prompt in column search dialog.
 			findPrompt = _("Enter or select text to be &searched in a column")
-		self.findEntry = findSizerHelper.addLabeledControl(findPrompt, wx.TextCtrl, value=text)
+		# Find entry (text field/history combo box) presentation depends on browse mode/search history setting
+		# (NVDA 2026.3 and later).
+		if config.conf["virtualBuffers"].get("findHistory", False):
+			print(searchEntries)
+			self.findEntry = findSizerHelper.addLabeledControl(
+				findPrompt,
+				wx.ComboBox,
+				choices=searchEntries or [],
+				value=text,
+				style=wx.CB_DROPDOWN,
+			)
+		else:
+			self.findEntry = findSizerHelper.addLabeledControl(findPrompt, wx.TextCtrl, value=text)
 
 		if columnSearch:
 			# Use default screen column order when searching column content.
