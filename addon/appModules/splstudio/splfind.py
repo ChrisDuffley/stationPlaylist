@@ -25,6 +25,8 @@ SPLTrackFilename = 211
 # SPL add-on's own find text for track finder
 findText: str = ""
 searchEntries: list[str] | None = []
+# The maximum number of entries kept in the in-memory track search history.
+MAX_SEARCH_HISTORY_ENTRIES = 20
 
 # The track finder utility for find track script and other functions
 # Perform a linear search to locate the track name and/or description which matches the entered value.
@@ -68,6 +70,7 @@ def trackFinder(
 				del searchEntries[index]
 				break
 		searchEntries.insert(0, text)
+		del searchEntries[MAX_SEARCH_HISTORY_ENTRIES:]
 
 # Split from track finder in 2015.
 # Return a track with the given search criteria.
