@@ -23,6 +23,7 @@ SPLTrackFilename = 211
 
 # SPL add-on's own find text for track finder
 findText: str = ""
+searchEntries: list[str] | None = []
 
 # The track finder utility for find track script and other functions
 # Perform a linear search to locate the track name and/or description which matches the entered value.
