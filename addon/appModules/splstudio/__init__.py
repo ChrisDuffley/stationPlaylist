@@ -1729,8 +1729,6 @@ class AppModule(splappmod.AppModule):
 	def playlistSnapshots(
 		self, obj: NVDAObject, end: NVDAObject | None, snapshotFlags: list[str] | None = None
 	) -> dict[str, Any]:
-		# #55: is this a complete snapshot?
-		completePlaylistSnapshot = obj.IAccessibleChildID == 1 and end is None
 		# Track count and total duration are always included.
 		# #155: annotate snapshot map to avoid type annotation issues when assigning key/value pairs.
 		snapshot: dict[str, Any] = {}
@@ -1776,12 +1774,8 @@ class AppModule(splappmod.AppModule):
 				totalDuration += segue
 				trackLengths.append((segue, trackTitle))
 			obj = obj.next
-		# #55: use total track count if it is an entire playlist, if not, resort to categories count.
-		# Also resort to categories count if Studio API cannot be used (in Remote Studio).
-		if completePlaylistSnapshot and self._localStudioAPIRequired:
-			snapshot["PlaylistItemCount"] = splbase.studioAPI(0, SPLTrackCount)
-		else:
-			snapshot["PlaylistItemCount"] = len(categories)
+		# Count track categories (for a complete playlist snapshot, categories count equals item count).
+		snapshot["PlaylistItemCount"] = len(categories)
 		snapshot["PlaylistTrackCount"] = len(artists)
 		snapshot["PlaylistDurationTotal"] = self._ms2time(totalDuration, ms=False)
 		# Shortest and longest tracks.
