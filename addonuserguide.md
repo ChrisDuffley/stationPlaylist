@@ -1052,10 +1052,6 @@ Q. Will the add-on work with 64-bit NVDA?
 
 Yes.
 
-Q. 64-bit NVDA is not reading SPL app menu items.
-
-This is a known issue. You can resolve this (temporarily) by changing display scaling to 100% (not recommended for high-resolution monitor setups).
-
 Q. What are update channels?
 
 With the introduction of Test Drive Program (see above), it became possible for you to choose the frequency of updates and where to get updates from. As of 2025, there are three regular and two limited time channels:
