@@ -88,6 +88,7 @@ reportAssignmentType = true
 reportAttributeAccessIssue = true
 reportCallInDefaultInitializer = true
 reportConstantRedefinition = true
+reportDeprecated = true
 reportDuplicateImport = true
 reportFunctionMemberAccess = true
 reportGeneralTypeIssues = true
@@ -151,7 +152,6 @@ reportMissingTypeStubs = false
 # These are sorted alphabetically and should be enabled and moved to compliant rules section when resolved.
 reportArgumentType = false  # Unexpected argument types
 reportCallIssue = false  # Mostly ConfigObj getitem/setitem
-reportDeprecated = false  # Temporary/SPL menu item workaround/contextlib/iterator return
 reportImplicitStringConcatenation = false  # Long text split into multiple lines to keep them under line length limit
 reportIndexIssue = false  # ConfigObj is a mapping
 reportMissingImports = false  # wxPython and NVDA Core modules
