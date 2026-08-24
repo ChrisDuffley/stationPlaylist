@@ -714,6 +714,7 @@ class AppModule(splappmod.AppModule):
 				clsList.insert(0, Dialog)
 			case _:
 				pass
+		super().chooseNVDAObjectOverlayClasses(obj, clsList)
 
 	# Let the global plugin know if SPLController passthrough is allowed.
 	def SPLConPassthrough(self) -> bool:

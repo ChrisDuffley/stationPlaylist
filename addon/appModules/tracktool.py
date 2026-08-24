@@ -147,6 +147,7 @@ class AppModule(splappmod.AppModule):
 				clsList.insert(0, TrackToolItem)
 			elif obj.role == controlTypes.Role.LIST:
 				clsList.insert(0, sysListView32.List)
+		super().chooseNVDAObjectOverlayClasses(obj, clsList)
 
 	def event_NVDAObject_init(self, obj: NVDAObject):
 		if obj.windowClassName == "TStatusBar" and obj.role == controlTypes.Role.STATICTEXT and not obj.name:

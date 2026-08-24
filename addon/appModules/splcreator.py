@@ -170,6 +170,7 @@ class AppModule(splappmod.AppModule):
 				clsList.insert(0, sysListView32.List)
 		elif obj.windowClassName in ("TDemoRegForm", "TAboutForm"):
 			clsList.insert(0, Dialog)
+		super().chooseNVDAObjectOverlayClasses(obj, clsList)
 
 	# Cache status bar objects to improve status bar retrieval performance.
 	_statusBarObjs = {}
