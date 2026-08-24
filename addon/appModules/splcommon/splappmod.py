@@ -37,7 +37,7 @@ class AppModule(appModuleHandler.AppModule):
 		splconfui.terminate()
 
 	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
-		# Temporary workaround: use location workaround for menu items (NVDA 2026.1.x and 2025.2).
+		# Temporary workaround: use location workaround for menu items (NVDA 2026.1.x and 2026.2).
 		if obj.role == controlTypes.Role.MENUITEM:
 			clsList.insert(0, splmenuitemworkaround.SPLWorkaroundMenuItem)
 
