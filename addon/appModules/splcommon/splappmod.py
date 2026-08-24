@@ -12,6 +12,7 @@ import controlTypes
 import scriptHandler
 import inputCore
 import wx
+import buildVersion
 from NVDAObjects import NVDAObject
 from . import splconfig, splconfui, splactions, splmenuitemworkaround
 
@@ -38,7 +39,10 @@ class AppModule(appModuleHandler.AppModule):
 
 	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
 		# Temporary workaround: use location workaround for menu items (NVDA 2026.1.x and 2026.2).
-		if obj.role == controlTypes.Role.MENUITEM:
+		if (
+			obj.role == controlTypes.Role.MENUITEM
+			and (buildVersion.version_year, buildVersion.version_major) < (2026, 3)
+		):
 			clsList.insert(0, splmenuitemworkaround.SPLWorkaroundMenuItem)
 
 	# SPL Config management among others.
