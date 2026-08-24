@@ -7,7 +7,6 @@
 # Each track is a list item with descriptions such as title, file name, intro time and so forth.
 # One can press TAB to move along the controls for Track Tool.
 
-from typing import override
 import addonHandler
 import tones
 import controlTypes
@@ -133,7 +132,6 @@ class AppModule(splappmod.AppModule):
 		# Close app module subsystems, config, and the user interface.
 		self.onAppModuleTerminate()
 
-	@override
 	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
 		# Detect unlabeled controls whose labels are next to them (written to the screen).
 		# Return right after detecting these.
