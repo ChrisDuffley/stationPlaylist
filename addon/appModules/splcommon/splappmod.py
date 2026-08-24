@@ -8,10 +8,12 @@
 
 import appModuleHandler
 import addonHandler
+import controlTypes
 import scriptHandler
 import inputCore
 import wx
-from . import splconfig, splconfui, splactions
+from NVDAObjects import NVDAObject
+from . import splconfig, splconfui, splactions, splmenuitemworkaround
 
 addonHandler.initTranslation()
 
@@ -33,6 +35,11 @@ class AppModule(appModuleHandler.AppModule):
 		splactions.SPLActionAppTerminating.notify()
 		splconfig.closeConfig(self.appName)
 		splconfui.terminate()
+
+	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
+		# Temporary workaround: use location workaround for menu items (NVDA 2026.1.x and 2025.2).
+		if obj.role == controlTypes.Role.MENUITEM:
+			clsList.insert(0, splmenuitemworkaround.SPLWorkaroundMenuItem)
 
 	# SPL Config management among others.
 
