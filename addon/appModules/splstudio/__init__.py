@@ -10,7 +10,7 @@
 # For SPL Studio Controller, focus movement and other utilities,
 # see the global plugin version of this app module.
 
-from typing import Any, NamedTuple, override, ClassVar
+from typing import Any, NamedTuple, ClassVar
 import os
 import time
 import threading
@@ -661,7 +661,6 @@ class AppModule(splappmod.AppModule):
 			self._analysisMarker = None
 
 	# Some controls which needs special routines.
-	@override
 	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
 		role = obj.role
 		# Detect unlabeled controls whose labels are next to them (written to the screen).

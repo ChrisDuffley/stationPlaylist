@@ -4,7 +4,7 @@
 
 # Basic support for StationPlaylist Creator.
 
-from typing import Any, override, ClassVar
+from typing import Any, ClassVar
 import collections.abc
 import addonHandler
 import scriptHandler
@@ -137,7 +137,6 @@ class AppModule(splappmod.AppModule):
 		# Clear status bar objects cache.
 		self._statusBarObjs.clear()
 
-	@override
 	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
 		# Detect unlabeled controls whose labels are next to them (written to the screen).
 		# Return right after detecting these.
