@@ -26,9 +26,7 @@ addon_info = AddonInfo(
 	addon_version="26.07.3",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""Version 26.07.x is the last release series to support Studio 6.0x and NVDA 2025.3.3 (last 32-bit NVDA release), with future releases supporting Studio 6.10 and 64-bit NVDA (2026.x). Also, 26.07.x is the last release series to include localizations as there is no known localizations for StationPlaylist suite of applications themselves. Some new features will be backported to 26.07.x if needed.
-
-* Reintroduced find track search history with up to 20 search history entries if running NVDA 2026.3 or later. Search history is kept as long as NVDA is running. In NVDA 2026.2 and earlier or if "keep search history" is disabled from browse mode settings in NVDA 2026.3 or later, find track dialog will use the search text field.
+	addon_changelog=_("""* Reintroduced find track search history with up to 20 search history entries if running NVDA 2026.3 or later. Search history is kept as long as NVDA is running. In NVDA 2026.2 and earlier or if "keep search history" is disabled from browse mode settings in NVDA 2026.3 or later, find track dialog will use the search text field.
 * NVDA's browse mode find dialog (Control+NVDA+F) search terms will no longer be made available when invoking track finder (Control+NVDA+F) from local and Remote Studio to improve compatibility with future NVDA releases."""),
 	# Author(s)
 	addon_author="Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)",
