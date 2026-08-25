@@ -391,6 +391,7 @@ Notes:
 
 1. Track search terms are case-sensitive.
 2. The find track input field can be either an edit field or a search history combo box. The search history combo box will be used if you are using NVDA 2026.3 or later and "keep search history" option is enabled from NVDA's browse mode settings panel.
+3. Search history is kept as long as NVDA is running.
 
 #### Column Search
 
