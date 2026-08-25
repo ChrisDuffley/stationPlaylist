@@ -23,7 +23,7 @@ addon_info = AddonInfo(
 	# Translators: Long description to be shown for this add-on on add-on information from add-on store
 	addon_description=_("Enhances support for StationPlaylist apps. In addition, adds global commands for the Studio application from everywhere."),
 	# version
-	addon_version="26.08",
+	addon_version="26.09",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
 	addon_changelog=_("""* NVDA will once again report menu item labels in local and Remote Studio, Track Tool, and Creator. This is a temporary backport of the same fix from NVDA 2026.3 to earlier 2026.x releases.
