@@ -156,8 +156,7 @@ class SPLFindDialog(wx.Dialog):
 		else:
 			# Translators: the label for find prompt in column search dialog.
 			findPrompt = _("Enter or select text to be &searched in a column")
-		# Find entry (text field/history combo box) presentation depends on browse mode/search history setting
-		# (NVDA 2026.3 and later).
+		# Find entry (text field/history combo box) presentation depends on browse mode/search history setting.
 		if config.conf["virtualBuffers"].get("findHistory", False):
 			self.findEntry = findSizerHelper.addLabeledControl(
 				findPrompt,
