@@ -23,7 +23,7 @@ addon_info = AddonInfo(
 	# Translators: Long description to be shown for this add-on on add-on information from add-on store
 	addon_description=_("Enhances support for StationPlaylist apps. In addition, adds global commands for the Studio application from everywhere."),
 	# version
-	addon_version="26.07.3",
+	addon_version="26.07.4",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
 	addon_changelog=_("""* Reintroduced find track search history with up to 20 search history entries if running NVDA 2026.3 or later. Search history is kept as long as NVDA is running. In NVDA 2026.2 and earlier or if "keep search history" is disabled from browse mode settings in NVDA 2026.3 or later, find track dialog will use the search text field.
