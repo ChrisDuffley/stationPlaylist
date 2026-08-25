@@ -137,9 +137,10 @@ class SPLFindDialog(wx.Dialog):
 		text: str,
 		title: str,
 		directionForward: bool = True,
-		columnSearch: bool = False
+		columnSearch: bool = False,
+		searchEntries: list[str] | None = None
 	):
-		global _findDialogOpened, searchEntries
+		global _findDialogOpened
 		if SPLFindDialog._instance() is not None:
 			return
 		# Use a weakref so the instance can die.
