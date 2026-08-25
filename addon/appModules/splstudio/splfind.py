@@ -23,6 +23,7 @@ SPLFileDuration = 30
 SPLTrackFilename = 211
 
 # SPL add-on's own find text for track finder
+# Search text and history entries are kept as long as NVDA is running.
 findText: str = ""
 searchEntries: list[str] | None = []
 # The maximum number of entries kept in the in-memory track search history.
