@@ -75,7 +75,7 @@ StationPlaylist add-on requires the following:
 * Optional: Remote VT client
 * Optional: an evaluation or registered copy of SAM Encoders
 * Optional: AltaCast Winamp plugin (one must copy AltaCast Winamp plugin DLL to Studio's plugins folder for Studio to recognize AltaCast)
-* NVDA 2026.1 (64-bit; 2025.3.3 (32-bit) for 26.07.x) or later (some features will require later versions of NVDA)
+* NVDA 2026.3 (64-bit; 2025.3.3 (32-bit) for 26.07.x) or later (some features will require later versions of NVDA)
 
 ## Installing and updating the add-on
 
@@ -390,7 +390,7 @@ If you have searched for a track before, press NVDA+F3 to find forward or NVDA+S
 Notes:
 
 1. Track search terms are case-sensitive.
-2. The find track input field can be either an edit field or a search history combo box. The search history combo box will be used if you are using NVDA 2026.3 or later and "keep search history" option is enabled from NVDA's browse mode settings panel.
+2. The find track input field can be either an edit field or a search history combo box. The search history combo box will be used if "keep search history" option is enabled from NVDA's browse mode settings panel.
 3. Search history is kept as long as NVDA is running.
 
 #### Column Search
