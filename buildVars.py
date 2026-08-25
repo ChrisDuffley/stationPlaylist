@@ -28,7 +28,7 @@ addon_info = AddonInfo(
 	# Translators: what's new content for the add-on version to be shown in the add-on store
 	addon_changelog=_("""* NVDA will once again report menu item labels in local and Remote Studio, Track Tool, and Creator. This is a temporary backport of the same fix from NVDA 2026.3 to earlier 2026.x releases.
 * Reintroduced find track search history with up to 20 search history entries if running NVDA 2026.3 or later. Search history is kept as long as NVDA is running. In NVDA 2026.2 and earlier or if "keep search history" is disabled from browse mode settings in NVDA 2026.3 or later, find track dialog will use the search text field.
-* NVDA's browse mode find dialog (Control+NVDA+F) search terms will no longer be made available when invoking track finder (Control+NVDA+F) from local and Remote Studio to improve compatibility with future NVDA releases."""),
+* NVDA's browse mode find dialog (Control+NVDA+F) search terms are no longer available when invoking track finder (Control+NVDA+F) from local and Remote Studio to improve compatibility with future NVDA releases."""),
 	# Author(s)
 	addon_author="Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)",
 	# URL for the add-on documentation support
