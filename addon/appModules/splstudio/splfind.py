@@ -162,7 +162,6 @@ class SPLFindDialog(wx.Dialog):
 		# Find entry (text field/history combo box) presentation depends on browse mode/search history setting
 		# (NVDA 2026.3 and later).
 		if config.conf["virtualBuffers"].get("findHistory", False):
-			print(searchEntries)
 			self.findEntry = findSizerHelper.addLabeledControl(
 				findPrompt,
 				wx.ComboBox,
