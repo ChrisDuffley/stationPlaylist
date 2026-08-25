@@ -1284,6 +1284,7 @@ class AppModule(splappmod.AppModule):
 				title,
 				directionForward=directionForward,
 				columnSearch=columnSearch,
+				searchEntries=splfind.searchEntries,
 			)
 			gui.mainFrame.prePopup()
 			d.Raise()
