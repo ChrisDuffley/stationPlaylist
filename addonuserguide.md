@@ -1023,7 +1023,7 @@ As of 2026, the following long-term support versions were released to support th
 * 7.x/15.x (April 2016-April 2018; 15.x since October 2016),: Studio 5.0x
 * 18.09.x (September 2018-December 2019): Studio 5.1x
 * 20.09.x (September 2020-April 2021): Studio 5.20
-* 25.06.x: Studio 5.50 and earlier
+* 25.06.x (June 2025-December 2025): Studio 5.50 and earlier
 * 26.07.x (July 2026-present): Studio 6.0x and 32-bit NVDA
 
 Q. Which versions of Studio are supported by which add-on releases?
