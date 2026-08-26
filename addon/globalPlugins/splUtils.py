@@ -393,16 +393,19 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.script_finish()
 
 	def script_remainingTime(self, gesture: inputCore.InputGesture):
-		# Perform Studio app command (including announcing voice track remaining time in local Studio)
-		# if there is a track playing.
-		# The only exception is carts (playback status is "stopped" even though a cart is playing).
+		# Report track remaining time for both local and Remote Studio if there is a track playing.
+		# For local Studio, cart playback is not affected by overall track playback status.
 		if (
 			(
 				self.activeStudioComponent == "splstudio"
 				and splbase.studioAPI(2, SPLCartPlaybackTime) not in (None, -1)
 			) or splbase.studioAPI(0, SPLStatusInfo, splComponent=self.activeStudioComponent)
 		):
-			studioAppModuleCommand("announceTrackTime", "remaining")
+			# Call the correct app module for the active Studio component (window object).
+			studioAppMod = getNVDAObjectFromEvent(
+				user32.FindWindowW(self.activeStudioComponent, None), OBJID_CLIENT, 0
+			).appModule
+			studioAppMod.announceTrackTime("remaining")
 		else:
 			# Translators: Presented when no track is playing in StationPlaylist Studio.
 			ui.message(_("There is no track playing."))
