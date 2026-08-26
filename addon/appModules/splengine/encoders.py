@@ -31,7 +31,7 @@ addonHandler.initTranslation()
 
 # Various SPL IPC tags.
 SPLPlay = 12
-SPL_TrackPlaybackStatus = 104
+SPLTrackPlaybackStatus = 104
 
 # Needed in Encoder support:
 # Encoder labels dictionary.
@@ -462,7 +462,7 @@ class Encoder(IAccessible):
 			splbase.focusToSPLWindow(studioWindowChecked=True)
 		if self.playAfterConnecting:
 			# Do not interupt the currently playing track.
-			if splbase.studioAPI(0, SPL_TrackPlaybackStatus) == 0:
+			if splbase.studioAPI(0, SPLTrackPlaybackStatus) == 0:
 				splbase.studioAPI(0, SPLPlay)
 
 	# Now the flag configuration scripts.
