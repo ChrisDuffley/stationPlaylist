@@ -33,7 +33,7 @@ def __getattr__(attribute: str):
 			# Return the appropriate status messages based on local Studio version (lparam = 2).
 			# Base services is supposed to be a separate entity.
 			from . import splbase
-			if (studioVersion := splbase.studioAPI(0, 2)) is not None and studioVersion >= 620:
+			if (studioVersion := splbase.studioAPI(0, splbase.SPLVersion)) is not None and studioVersion >= 620:
 				return _studio620StatusMessages
 			else:
 				return _studioStatusMessages
