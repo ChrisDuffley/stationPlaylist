@@ -873,8 +873,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		labelText = _("Check to enable metadata streaming, uncheck to disable.")
 		metadataSizerHelper.addItem(wx.StaticText(self, label=labelText))
 
-		SPLMetadataStreaming = 36
-		streams = [splbase.studioAPI(pos, SPLMetadataStreaming) for pos in range(5)]
+		streams = [splbase.studioAPI(pos, splbase.SPLMetadataStreaming) for pos in range(5)]
 		self.checkedStreams = metadataSizerHelper.addLabeledControl(
 			# Translators: the label for a setting in SPL add-on settings
 			# to configure streaming status for metadata streams.
@@ -911,10 +910,9 @@ class MetadataStreamingDialog(wx.Dialog):
 		# Prepare checkbox values first for various reasons.
 		# #76: traverse check list box and build boolean list accordingly.
 		metadataEnabled = [self.checkedStreams.IsChecked(url) for url in range(5)]
-		SPLMetadataStreaming = 36
 		for url in range(5):
 			dataLo = 0x00010000 if metadataEnabled[url] else 0xFFFF0000
-			splbase.studioAPI(dataLo | url, SPLMetadataStreaming)
+			splbase.studioAPI(dataLo | url, splbase.SPLMetadataStreaming)
 		# Store just toggled settings to profile if told to do so.
 		if self.applyCheckbox.Value:
 			splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = metadataEnabled
@@ -975,10 +973,9 @@ class MetadataStreamingPanel(gui.settingsDialogs.SettingsPanel):
 		metadataEnabled = [self.checkedStreams.IsChecked(url) for url in range(5)]
 		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = metadataEnabled
 		# Try connecting to metadata streaming servers if any.
-		SPLMetadataStreaming = 36
 		for url in range(5):
 			dataLo = 0x00010000 if metadataEnabled[url] else 0xFFFF0000
-			splbase.studioAPI(dataLo | url, SPLMetadataStreaming)
+			splbase.studioAPI(dataLo | url, splbase.SPLMetadataStreaming)
 
 
 # Column announcement manager.
@@ -1434,7 +1431,7 @@ class AdvancedOptionsPanel(gui.settingsDialogs.SettingsPanel):
 			or (
 				"splstudio" in splconfig.SPLConfig.splComponents
 				and splbase.studioIsRunning(justChecking=True)
-				and (splVersion := splbase.studioAPI(0, 2)) is not None
+				and (splVersion := splbase.studioAPI(0, splbase.SPLVersion)) is not None
 				and splVersion >= 620
 			)
 		)
