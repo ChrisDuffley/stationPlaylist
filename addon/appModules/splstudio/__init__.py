@@ -1703,89 +1703,11 @@ class AppModule(splappmod.AppModule):
 	# Data to be gathered comes from a set of flags.
 	# By default, playlist duration (including shortest and average),
 	# category summary and other statistics will be gathered.
+	# Call the splpls version for compatibility.
 	def playlistSnapshots(
 		self, obj: NVDAObject, end: NVDAObject | None, snapshotFlags: list[str] | None = None
 	) -> dict[str, Any]:
-		# Track count and total duration are always included.
-		# #155: annotate snapshot map to avoid type annotation issues when assigning key/value pairs.
-		snapshot: dict[str, Any] = {}
-		if snapshotFlags is None:
-			snapshotFlags = [
-				flag
-				for flag in splconfig.SPLConfig["PlaylistSnapshots"]
-				if splconfig.SPLConfig["PlaylistSnapshots"][flag]
-			]
-		duration = obj.indexOf("Duration")
-		title = obj.indexOf("Title")
-		# A tuple list of duration in seconds (integer) and track titles.
-		# Used to obtain total duration, average, shortest, and longest tracks.
-		trackLengths = []
-		totalDuration = 0
-		artist = obj.indexOf("Artist")
-		artists = []
-		category = obj.indexOf("Category")
-		categories = []
-		genre = obj.indexOf("Genre")
-		genres = []
-		# A specific version of the playlist duration loop is needed in order to gather statistics.
-		while obj not in (None, end):
-			segue = obj._getColumnContentRaw(duration)
-			trackTitle = obj._getColumnContentRaw(title)
-			categories.append(obj._getColumnContentRaw(category))
-			# Don't record artist and genre information for an hour marker (reported by a broadcaster).
-			# In Remote Studio, hour marker sets "00:00" as duration, so don't add segue either.
-			if categories[-1] != "Hour Marker":
-				artists.append(obj._getColumnContentRaw(artist))
-				genres.append(obj._getColumnContentRaw(genre))
-			else:
-				segue = None
-			# Convert segue to an integer for ease of min/max comparison.
-			# NVDA returns an empty string instead of None in order to
-			# avoid errors with 64-bit SysListView32 controls.
-			# For compatibility, check both None and an empty string.
-			if segue not in (None, ""):
-				hms = segue.split(":")
-				segue = (int(hms[-2]) * 60) + int(hms[-1])
-				if len(hms) == 3:
-					segue += int(hms[0]) * 3600
-				totalDuration += segue
-				trackLengths.append((segue, trackTitle))
-			obj = obj.next
-		# Count track categories (for a complete playlist snapshot, categories count equals item count).
-		snapshot["PlaylistItemCount"] = len(categories)
-		snapshot["PlaylistTrackCount"] = len(artists)
-		snapshot["PlaylistDurationTotal"] = self._ms2time(totalDuration, ms=False)
-		# Shortest and longest tracks.
-		if "DurationMinMax" in snapshotFlags:
-			trackDurations = [track[0] for track in trackLengths]
-			# #159: do not record shortest/longest tracks if the playlist consists of hour markers.
-			if len(trackDurations) > 0:
-				shortest = min(trackDurations)
-				shortestIndex = trackDurations.index(shortest)
-				snapshot["PlaylistDurationMin"] = "{} ({})".format(
-					trackLengths[shortestIndex][1], self._ms2time(trackLengths[shortestIndex][0], ms=False)
-				)
-				longest = max(trackDurations)
-				longestIndex = trackDurations.index(longest)
-				snapshot["PlaylistDurationMax"] = "{} ({})".format(
-					trackLengths[longestIndex][1], self._ms2time(trackLengths[longestIndex][0], ms=False)
-				)
-		if "DurationAverage" in snapshotFlags:
-			# #57: zero division error may occur if the playlist consists of hour markers only.
-			try:
-				# Track count is an integer, so use floor division.
-				snapshot["PlaylistDurationAverage"] = self._ms2time(
-					totalDuration // snapshot["PlaylistTrackCount"], ms=False
-				)
-			except ZeroDivisionError:
-				snapshot["PlaylistDurationAverage"] = "00:00"
-		if "CategoryCount" in snapshotFlags:
-			snapshot["PlaylistCategoryCount"] = collections.Counter(categories)
-		if "ArtistCount" in snapshotFlags:
-			snapshot["PlaylistArtistCount"] = collections.Counter(artists)
-		if "GenreCount" in snapshotFlags:
-			snapshot["PlaylistGenreCount"] = collections.Counter(genres)
-		return snapshot
+		return splpls.playlistSnapshots(obj, end, snapshotFlags=snapshotFlags)
 
 	# Output formatter for playlist snapshots.
 	# Pressing once will speak and/or braille it, pressing twice or more will output this info to an HTML file.
