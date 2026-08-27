@@ -20,11 +20,6 @@ from NVDAObjects import NVDAObject
 from . import splstudio
 from .splcommon import splconfig, splbase, splcarts
 
-# Various SPL IPC tags.
-SPLStatusInfo = 39
-SPLTrackPlaybackStatus = 104
-SPLCurTrackPlaybackTime = 105
-
 # Return a tuple of column headers.
 # This is just a thinly disguised indexOf function from Studio's track item class.
 def indexOf(rsVersion: str) -> tuple[str, ...]:

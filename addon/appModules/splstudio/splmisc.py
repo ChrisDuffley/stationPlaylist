@@ -16,9 +16,6 @@ from ..splcommon import splbase, splconfig
 
 addonHandler.initTranslation()
 
-# Various SPL IPC tags.
-SPLMetadataStreaming = 36
-
 # Metadata and encoders management, including connection, announcement and so on.
 
 

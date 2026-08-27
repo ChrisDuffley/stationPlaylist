@@ -23,26 +23,6 @@ from winBindings.user32 import dll as user32
 addonHandler.initTranslation()
 
 
-# SPL Studio uses WM messages to send and receive data, similar to Winamp.
-# See NVDA source/appModules/winamp.py for more information.
-
-# Various SPL IPC tags.
-SPLVersion = 2
-SPLPlay = 12
-SPLStop = 13
-SPLNextTrack = 14
-SPLPause = 15
-SPLAutomate = 16
-SPLMic = 17
-SPLLineIn = 18
-SPLCartPlayer = 19
-SPLLibraryScanCount = 32
-SPLCartPlaybackTime = 34
-SPLListenerCount = 35
-SPLStatusInfo = 39
-SPLTrackPlaybackStatus = 104
-SPLCurTrackPlaybackTime = 105
-
 # Translators: the text for SPL Controller help.
 SPLConHelp = _("""After entering SPL Controller or Remote Controller, press:
 A: Turn automation on.

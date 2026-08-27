@@ -29,10 +29,6 @@ import addonHandler
 
 addonHandler.initTranslation()
 
-# Various SPL IPC tags.
-SPLPlay = 12
-SPLTrackPlaybackStatus = 104
-
 # Needed in Encoder support:
 # Encoder labels dictionary.
 SPLEncoderLabels = {}

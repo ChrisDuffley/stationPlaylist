@@ -18,10 +18,6 @@ from ..skipTranslation import translate
 
 addonHandler.initTranslation()
 
-# Various SPL IPC tags.
-SPLFileDuration = 30
-SPLTrackFilename = 211
-
 # SPL add-on's own find text for track finder
 # Search text and history entries are kept as long as NVDA is running.
 findText: str = ""
