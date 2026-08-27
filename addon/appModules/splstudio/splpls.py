@@ -21,6 +21,30 @@ from ..skipTranslation import translate
 
 addonHandler.initTranslation()
 
+# Return total duration of a range of tracks.
+# This is used in track time analysis when multiple tracks are selected.
+# This is also called from playlist duration scripts.
+def playlistDuration(start: NVDAObject | None = None, end: NVDAObject | None = None) -> int:
+	if start is None:
+		start = api.getFocusObject()
+	duration = start.indexOf("Duration")
+	totalDuration = 0
+	obj = start
+	while obj not in (None, end):
+		# Technically segue.
+		segue = obj._getColumnContentRaw(duration)
+		# NVDA returns an empty string instead of None in order to
+		# avoid errors with 64-bit SysListView32 controls.
+		# For compatibility, check both None and an empty string.
+		if segue not in (None, "", "00:00"):
+			hms = segue.split(":")
+			totalDuration += (int(hms[-2]) * 60) + int(hms[-1])
+			if len(hms) == 3:
+				totalDuration += int(hms[0]) * 3600
+		obj = obj.next
+	return totalDuration
+
+
 # Playlist transcripts processor
 # Takes a snapshot of the active playlist (a 2-D array) and transforms it into various formats.
 # To account for expansions, let a master function call different formatters based on output format.
