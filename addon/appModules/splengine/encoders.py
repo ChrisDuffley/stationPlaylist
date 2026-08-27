@@ -462,8 +462,8 @@ class Encoder(IAccessible):
 			splbase.focusToSPLWindow(studioWindowChecked=True)
 		if self.playAfterConnecting:
 			# Do not interupt the currently playing track.
-			if splbase.studioAPI(0, SPLTrackPlaybackStatus) == 0:
-				splbase.studioAPI(0, SPLPlay)
+			if splbase.studioAPI(0, splbase.SPLTrackPlaybackStatus) == 0:
+				splbase.studioAPI(0, splbase.SPLPlay)
 
 	# Now the flag configuration scripts.
 
