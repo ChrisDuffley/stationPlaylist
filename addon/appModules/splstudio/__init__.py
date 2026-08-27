@@ -1695,25 +1695,9 @@ class AppModule(splappmod.AppModule):
 	# Return total duration of a range of tracks.
 	# This is used in track time analysis when multiple tracks are selected.
 	# This is also called from playlist duration scripts.
+	# Call the splpls version for compatibility.
 	def playlistDuration(self, start: NVDAObject | None = None, end: NVDAObject | None = None) -> int:
-		if start is None:
-			start = api.getFocusObject()
-		duration = start.indexOf("Duration")
-		totalDuration = 0
-		obj = start
-		while obj not in (None, end):
-			# Technically segue.
-			segue = obj._getColumnContentRaw(duration)
-			# NVDA returns an empty string instead of None in order to
-			# avoid errors with 64-bit SysListView32 controls.
-			# For compatibility, check both None and an empty string.
-			if segue not in (None, "", "00:00"):
-				hms = segue.split(":")
-				totalDuration += (int(hms[-2]) * 60) + int(hms[-1])
-				if len(hms) == 3:
-					totalDuration += int(hms[0]) * 3600
-			obj = obj.next
-		return totalDuration
+		return splpls.playlistDuration(start=start, end=end)
 
 	# Playlist snapshots
 	# Data to be gathered comes from a set of flags.
