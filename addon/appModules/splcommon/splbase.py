@@ -24,8 +24,14 @@ from winBindings.user32 import dll as user32
 
 addonHandler.initTranslation()
 
+# Studio API handler
+# Studio (local and Remote) uses user32.dll::SendMessage function for data/message exchange
+# (SendMessage(HWND, user (1024), wParam (API specific argument), lParam (API message)))
+# e.g. SendMessage(HWND, 1024, 0, 1 (quit Studio)).
+
 # The API handler requires Studio components to define their own API's.
 # This is the case for local (original) and Remote Studio.
+# Some API messages are the same for local and Remote Studio.
 class StudioAPIAvailability(enum.IntEnum):
 	NOAPI = 0  # No API, screen traversal is required
 	LOCALAPI = 1  # Local (original) Studio
@@ -35,8 +41,30 @@ class StudioAPIAvailability(enum.IntEnum):
 # Record window handles for local and Remote Studio for use from API handlers.
 _SPLWindowHandles: dict[str, int | None] = {}
 
-# Various SPL IPC tags.
+# Various Studio API/IPC tags (unless noted otherwise, tags apply to local and Remote Studio;
+# source: Studio API documentation for developers).
+SPLVersion = 2
+SPLPlay = 12
+SPLStop = 13
+SPLNextTrack = 14
+SPLPause = 15
+SPLAutomate = 16
+SPLMic = 17
+SPLLineIn = 18
+SPLCartPlayer = 19  # Local Studio
+SPLPlaylistHourDuration = 27
+SPLFileDuration = 30  # Local Studio
+SPLLibraryScanCount = 32  # Local Studio
+SPLCartPlaybackTime = 34  # Local Studio
+SPLListenerCount = 35  # Local Studio
+SPLMetadataStreaming = 36  #Local Studio
+SPLVoiceTrackPlaybackTime = 37  # Local Studio
+SPLStatusInfo = 39
+SPLTrackPlaybackStatus = 104
+SPLCurTrackPlaybackTime = 105
 SPLSelectTrack = 121
+SPLTrackCount = 124  # Local Studio
+SPLTrackFilename = 211
 
 # Check if Studio itself is running.
 # This is to make sure custom commands for SPL Assistant commands
