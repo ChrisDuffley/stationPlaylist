@@ -225,7 +225,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Setting SPL Controller scope requires Studio 6.20, otherwise force local Studio only option.
 		if (
 			"splstudio" in activeStudioComponents
-			and (splVersion := splbase.studioAPI(0, SPLVersion)) is not None
+			and (splVersion := splbase.studioAPI(0, splbase.SPLVersion)) is not None
 			and splVersion < 620
 		):
 			return [None, "splstudio"]
@@ -313,68 +313,68 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Calls user32.SendMessage method (via splbase.studioAPI) for each script.
 
 	def script_play(self, gesture: inputCore.InputGesture):
-		splbase.studioAPI(0, SPLPlay, splComponent=self.activeStudioComponent)
+		splbase.studioAPI(0, splbase.SPLPlay, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	def script_pause(self, gesture: inputCore.InputGesture):
-		playingNow = splbase.studioAPI(0, SPLTrackPlaybackStatus, splComponent=self.activeStudioComponent)
+		playingNow = splbase.studioAPI(0, splbase.SPLTrackPlaybackStatus, splComponent=self.activeStudioComponent)
 		if not playingNow:
 			# Translators: Presented when no track is playing in StationPlaylist Studio.
 			ui.message(_("There is no track playing. Try pausing while a track is playing."))
 		elif playingNow == 3:
-			splbase.studioAPI(0, SPLPause, splComponent=self.activeStudioComponent)
+			splbase.studioAPI(0, splbase.SPLPause, splComponent=self.activeStudioComponent)
 		else:
-			splbase.studioAPI(1, SPLPause, splComponent=self.activeStudioComponent)
+			splbase.studioAPI(1, splbase.SPLPause, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	def script_stopFade(self, gesture: inputCore.InputGesture):
-		splbase.studioAPI(0, SPLStop, splComponent=self.activeStudioComponent)
+		splbase.studioAPI(0, splbase.SPLStop, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	def script_stopInstant(self, gesture: inputCore.InputGesture):
-		splbase.studioAPI(1, SPLStop, splComponent=self.activeStudioComponent)
+		splbase.studioAPI(1, splbase.SPLStop, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	def script_nextTrack(self, gesture: inputCore.InputGesture):
-		splbase.studioAPI(0, SPLNextTrack, splComponent=self.activeStudioComponent)
+		splbase.studioAPI(0, splbase.SPLNextTrack, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	def script_automateOn(self, gesture: inputCore.InputGesture):
-		splbase.studioAPI(1, SPLAutomate, splComponent=self.activeStudioComponent)
+		splbase.studioAPI(1, splbase.SPLAutomate, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	def script_automateOff(self, gesture: inputCore.InputGesture):
-		splbase.studioAPI(0, SPLAutomate, splComponent=self.activeStudioComponent)
+		splbase.studioAPI(0, splbase.SPLAutomate, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	def script_micOn(self, gesture: inputCore.InputGesture):
-		splbase.studioAPI(1, SPLMic, splComponent=self.activeStudioComponent)
+		splbase.studioAPI(1, splbase.SPLMic, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	def script_micOff(self, gesture: inputCore.InputGesture):
-		splbase.studioAPI(0, SPLMic, splComponent=self.activeStudioComponent)
+		splbase.studioAPI(0, splbase.SPLMic, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	def script_micNoFade(self, gesture: inputCore.InputGesture):
-		splbase.studioAPI(2, SPLMic, splComponent=self.activeStudioComponent)
+		splbase.studioAPI(2, splbase.SPLMic, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	def script_lineInOn(self, gesture: inputCore.InputGesture):
-		splbase.studioAPI(1, SPLLineIn, splComponent=self.activeStudioComponent)
+		splbase.studioAPI(1, splbase.SPLLineIn, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	def script_lineInOff(self, gesture: inputCore.InputGesture):
-		splbase.studioAPI(0, SPLLineIn, splComponent=self.activeStudioComponent)
+		splbase.studioAPI(0, splbase.SPLLineIn, splComponent=self.activeStudioComponent)
 		self.script_finish()
 
 	@localStudioOnly
 	def script_libraryScanProgress(self, gesture: inputCore.InputGesture):
-		scanned = splbase.studioAPI(1, SPLLibraryScanCount)
+		scanned = splbase.studioAPI(1, splbase.SPLLibraryScanCount)
 		if scanned is not None and scanned >= 0:
 			ui.message(_("{itemCount} items scanned").format(itemCount=scanned))
 		else:
 			ui.message(_("Scan complete with {itemCount} items").format(
-				itemCount=splbase.studioAPI(0, SPLLibraryScanCount)
+				itemCount=splbase.studioAPI(0, splbase.SPLLibraryScanCount)
 			))
 		self.script_finish()
 
@@ -383,7 +383,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		ui.message(
 			# Translators: Announces number of stream listeners.
 			_("Listener count: {listenerCount}").format(
-				listenerCount=splbase.studioAPI(0, SPLListenerCount)
+				listenerCount=splbase.studioAPI(0, splbase.SPLListenerCount)
 			)
 		)
 		self.script_finish()
@@ -394,8 +394,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if (
 			(
 				self.activeStudioComponent == "splstudio"
-				and splbase.studioAPI(2, SPLCartPlaybackTime) not in (None, -1)
-			) or splbase.studioAPI(0, SPLStatusInfo, splComponent=self.activeStudioComponent)
+				and splbase.studioAPI(2, splbase.SPLCartPlaybackTime) not in (None, -1)
+			) or splbase.studioAPI(0, splbase.SPLStatusInfo, splComponent=self.activeStudioComponent)
 		):
 			# Call the correct app module for the active Studio component (window object).
 			studioAppMod = getNVDAObjectFromEvent(
@@ -455,7 +455,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Remote Studio does not support record to file and cart edit/insert modes.
 		statusInfo = [
 			splconsts.studioStatusMessages[status][splbase.studioAPI(
-				status, SPLStatusInfo, splComponent=activeStudioComponent
+				status, splbase.SPLStatusInfo, splComponent=activeStudioComponent
 			)] for status in range(4)  # Playback/automation/mic/line-in across local and Remote Studio
 		]
 		if (
@@ -463,10 +463,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			and splConScope in (None, "splstudio")
 		):
 			# Local Studio only: record to file
-			statusInfo.append(splconsts.studioStatusMessages[4][splbase.studioAPI(4, SPLStatusInfo)])
+			statusInfo.append(splconsts.studioStatusMessages[4][splbase.studioAPI(4, splbase.SPLStatusInfo)])
 			# Local Studio only: special handling for cart edit/insert.
-			cartEdit = splbase.studioAPI(5, SPLStatusInfo)
-			cartInsert = splbase.studioAPI(6, SPLStatusInfo)
+			cartEdit = splbase.studioAPI(5, splbase.SPLStatusInfo)
+			cartInsert = splbase.studioAPI(6, splbase.SPLStatusInfo)
 			if cartEdit:
 				statusInfo.append("Cart Edit On")
 			elif not cartEdit and cartInsert:
@@ -495,7 +495,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		modifier = (None, "shift", "ctrl", "alt").index(modifier) * 24
 		# Add 1 to cart index to comply with Studio API.
 		cart = splcarts.cartKeys.index(cart) + 1
-		splbase.studioAPI(cart + modifier, SPLCartPlayer)
+		splbase.studioAPI(cart + modifier, splbase.SPLCartPlayer)
 		self.script_finish()
 
 	def script_conHelp(self, gesture: inputCore.InputGesture):
