@@ -658,7 +658,7 @@ class AppModule(splappmod.AppModule):
 		# when library scan is happening via Insert Tracks dialog.
 		# #92: if Studio dies, zero will be returned, so check for window handle once more.
 		# #155: library scan count must be an integer.
-		libScanCount: int | None = splbase.studioAPI(1, SPLLibraryScanCount)
+		libScanCount: int | None = splbase.studioAPI(1, splbase.SPLLibraryScanCount)
 		if libScanCount and libScanCount >= 0:
 			if not splbase.studioIsRunning(justChecking=True):
 				return
@@ -666,7 +666,7 @@ class AppModule(splappmod.AppModule):
 				self.script_libraryScanMonitor(None)
 		# #86: certain internal markers require presence of a playlist,
 		# otherwise unexpected things may happen.
-		trackCount = splbase.studioAPI(0, SPLTrackCount)
+		trackCount = splbase.studioAPI(0, splbase.SPLTrackCount)
 		if not trackCount:
 			if self._focusedTrack is not None:
 				self._focusedTrack = None
@@ -823,7 +823,7 @@ class AppModule(splappmod.AppModule):
 							)
 					if not self.libraryScanning:
 						self.libraryScanning = True
-				elif not obj.name and splbase.studioAPI(1, SPLLibraryScanCount) in (None, -1):
+				elif not obj.name and splbase.studioAPI(1, splbase.SPLLibraryScanCount) in (None, -1):
 					# Make sure library scan is finished from local Studio (API) side (reports None or -1).
 					if (
 						splconfig.SPLConfig["General"]["LibraryScanAnnounce"] != "off"
@@ -831,12 +831,12 @@ class AppModule(splappmod.AppModule):
 					):
 						if splconfig.SPLConfig["General"]["BeepAnnounce"]:
 							tones.beep(370, 100)
-							ui.message("{}".format(splbase.studioAPI(0, SPLLibraryScanCount)))
+							ui.message("{}".format(splbase.studioAPI(0, splbase.SPLLibraryScanCount)))
 						else:
 							ui.message(
 								# Translators: Presented when library scan is complete.
 								_("Scan complete with {itemCount} items").format(
-									itemCount=splbase.studioAPI(0, SPLLibraryScanCount)
+									itemCount=splbase.studioAPI(0, splbase.SPLLibraryScanCount)
 								)
 							)
 					if self.libraryScanning:
@@ -864,7 +864,7 @@ class AppModule(splappmod.AppModule):
 						splconfig.SPLConfig["General"]["BrailleTimer"] in ("outro", "both")
 						and api.getForegroundObject().processID == self.processID
 						# #165: only braille if end of track text is within track outro alarm threshold.
-						and splbase.studioAPI(3, SPLCurTrackPlaybackTime, splComponent=self.appName) < (
+						and splbase.studioAPI(3, splbase.SPLCurTrackPlaybackTime, splComponent=self.appName) < (
 							splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] * 1000  # Milliseconds
 						)
 					):
@@ -881,7 +881,7 @@ class AppModule(splappmod.AppModule):
 						splconfig.SPLConfig["General"]["BrailleTimer"] in ("intro", "both")
 						and api.getForegroundObject().processID == self.processID
 						# #165: only braille if track ramp text is within track intro alarm threshold.
-						and splbase.studioAPI(4, SPLCurTrackPlaybackTime, splComponent=self.appName) < (
+						and splbase.studioAPI(4, splbase.SPLCurTrackPlaybackTime, splComponent=self.appName) < (
 							splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"] * 1000  # Milliseconds
 						)
 					):
@@ -987,7 +987,7 @@ class AppModule(splappmod.AppModule):
 	def actionProfileSwitched(self) -> None:
 		# #38: obtain microphone alarm status
 		# (only if Studio is still alive and Studio API says something).
-		status = splbase.studioAPI(2, SPLStatusInfo)
+		status = splbase.studioAPI(2, splbase.SPLStatusInfo)
 		if splbase.studioIsRunning(justChecking=True) and status is not None:
 			self.doExtraAction(splconsts.studioStatusMessages[2][status])
 
@@ -1000,7 +1000,7 @@ class AppModule(splappmod.AppModule):
 		if micAlarmT2 is not None:
 			micAlarmT2.Stop()
 		micAlarmT2 = None
-		status = splbase.studioAPI(2, SPLStatusInfo)
+		status = splbase.studioAPI(2, splbase.SPLStatusInfo)
 		if splbase.studioIsRunning(justChecking=True) and status is not None:
 			self.doExtraAction(splconsts.studioStatusMessages[2][status])
 
@@ -1075,9 +1075,9 @@ class AppModule(splappmod.AppModule):
 		match trackTime:
 			case "remaining":
 				# Work with track/voice track/cart remaining times.
-				remainingTime: Any = splbase.studioAPI(3, SPLCurTrackPlaybackTime)
-				vtRemainingTime: Any = splbase.studioAPI(2, SPLVoiceTrackPlaybackTime)
-				cartRemainingTime: Any = splbase.studioAPI(2, SPLCartPlaybackTime)
+				remainingTime: Any = splbase.studioAPI(3, splbase.SPLCurTrackPlaybackTime)
+				vtRemainingTime: Any = splbase.studioAPI(2, splbase.SPLVoiceTrackPlaybackTime)
+				cartRemainingTime: Any = splbase.studioAPI(2, splbase.SPLCartPlaybackTime)
 				# Cart -> voice track -> regular track (in this order)
 				# because carts can play on top of track/voice track.
 				# Regular track will not play while a voice track is playing.
@@ -1089,9 +1089,9 @@ class AppModule(splappmod.AppModule):
 					self.announceTime(remainingTime, offset=1)
 			case "elapsed":
 				# Work with track/voice track/cart remaining times.
-				elapsedTime: Any = splbase.studioAPI(0, SPLCurTrackPlaybackTime)
-				vtElapsedTime: Any = splbase.studioAPI(0, SPLVoiceTrackPlaybackTime)
-				cartElapsedTime: Any = splbase.studioAPI(0, SPLCartPlaybackTime)
+				elapsedTime: Any = splbase.studioAPI(0, splbase.SPLCurTrackPlaybackTime)
+				vtElapsedTime: Any = splbase.studioAPI(0, splbase.SPLVoiceTrackPlaybackTime)
+				cartElapsedTime: Any = splbase.studioAPI(0, splbase.SPLCartPlaybackTime)
 				# Cart -> voice track -> regular track (in this order)
 				# because carts can play on top of track/voice track.
 				# Regular track will not play while a voice track is playing.
@@ -1490,13 +1490,13 @@ class AppModule(splappmod.AppModule):
 		):
 			return
 		# #155: ideally library scan count would be an integer.
-		libScanCount: int | None = splbase.studioAPI(1, SPLLibraryScanCount)
+		libScanCount: int | None = splbase.studioAPI(1, splbase.SPLLibraryScanCount)
 		if libScanCount is not None and libScanCount < 0:
 			self.libraryScanning = False
 			return
 		time.sleep(0.1)
 		# Is library scan count still an integer?
-		libScanCount = splbase.studioAPI(1, SPLLibraryScanCount)
+		libScanCount = splbase.studioAPI(1, splbase.SPLLibraryScanCount)
 		if libScanCount is None:
 			self.libraryScanning = False
 			return
@@ -1505,7 +1505,7 @@ class AppModule(splappmod.AppModule):
 			self.libraryScanning = False
 			# Translators: Presented when library scanning is finished.
 			ui.message(_("{itemCount} items in the library").format(
-				itemCount=splbase.studioAPI(0, SPLLibraryScanCount)
+				itemCount=splbase.studioAPI(0, splbase.SPLLibraryScanCount)
 			))
 		else:
 			libScanT = threading.Thread(target=self.libraryScanReporter)
@@ -1514,7 +1514,7 @@ class AppModule(splappmod.AppModule):
 
 	def libraryScanReporter(self) -> None:
 		scanIter = 0
-		scanCount: int | None = splbase.studioAPI(1, SPLLibraryScanCount)
+		scanCount: int | None = splbase.studioAPI(1, splbase.SPLLibraryScanCount)
 		while scanCount is not None and scanCount >= 0:
 			if not self.libraryScanning or not splbase.studioIsRunning(justChecking=True):
 				return
@@ -1523,7 +1523,7 @@ class AppModule(splappmod.AppModule):
 			if api.getForegroundObject().windowClassName == "TTrackInsertForm" or not self.libraryScanning:
 				return
 			# Scan count may have changed during sleep.
-			scanCount = splbase.studioAPI(1, SPLLibraryScanCount)
+			scanCount = splbase.studioAPI(1, splbase.SPLLibraryScanCount)
 			# Return early if scan count is None (Studio dies).
 			# This also means library scan progress will not be announced (makes sense since Studio is gone).
 			if scanCount is None:
@@ -1547,11 +1547,11 @@ class AppModule(splappmod.AppModule):
 		if splconfig.SPLConfig and splconfig.SPLConfig["General"]["LibraryScanAnnounce"] != "off":
 			if splconfig.SPLConfig["General"]["BeepAnnounce"]:
 				tones.beep(370, 100)
-				wx.CallAfter(ui.message, "{}".format(splbase.studioAPI(0, SPLLibraryScanCount)))
+				wx.CallAfter(ui.message, "{}".format(splbase.studioAPI(0, splbase.SPLLibraryScanCount)))
 			else:
 				wx.CallAfter(ui.message,
 					_("Scan complete with {itemCount} items").format(
-						itemCount=splbase.studioAPI(0, SPLLibraryScanCount)
+						itemCount=splbase.studioAPI(0, splbase.SPLLibraryScanCount)
 					)
 				)
 
@@ -1642,7 +1642,7 @@ class AppModule(splappmod.AppModule):
 
 	# Check to make sure a playlist is indeed loaded by asking Studio API.
 	def playlistLoaded(self) -> bool:
-		return bool(splbase.studioAPI(0, SPLTrackCount))
+		return bool(splbase.studioAPI(0, splbase.SPLTrackCount))
 
 	def canPerformPlaylistCommands(
 		self, playlistViewerRequired: bool = True, mustSelectTrack: bool = False, announceErrors: bool = True
@@ -2168,7 +2168,7 @@ class AppModule(splappmod.AppModule):
 	# Local Studio: Studio API can be used.
 	def sayStatus(self, index: int) -> None:
 		# No, status index must be an integer.
-		studioStatus = splbase.studioAPI(index, SPLStatusInfo)
+		studioStatus = splbase.studioAPI(index, splbase.SPLStatusInfo)
 		if studioStatus is None:
 			return
 		status = splconsts.studioStatusMessages[index][studioStatus]
@@ -2180,7 +2180,7 @@ class AppModule(splappmod.AppModule):
 	# API can be used in local and remote Studio.
 	def announcePlaylistTimes(self, index: int) -> None:
 		# Playlist times index is an integer.
-		playlistTime = splbase.studioAPI(index, SPLPlaylistHourDuration, splComponent=self.appName)
+		playlistTime = splbase.studioAPI(index, splbase.SPLPlaylistHourDuration, splComponent=self.appName)
 		match index:
 			case 0 | 1:  # 0 = hour duration, 1 = hour remaining
 				self.announceTime(playlistTime)
@@ -2233,8 +2233,8 @@ class AppModule(splappmod.AppModule):
 	@localStudioOnly
 	def script_sayCartEditStatus(self, gesture: inputCore.InputGesture):
 		# Because cart edit status also shows cart insert status, verbosity control will not apply.
-		cartEdit = splbase.studioAPI(5, SPLStatusInfo)
-		cartInsert = splbase.studioAPI(6, SPLStatusInfo)
+		cartEdit = splbase.studioAPI(5, splbase.SPLStatusInfo)
+		cartInsert = splbase.studioAPI(6, splbase.SPLStatusInfo)
 		if cartEdit:
 			ui.message("Cart Edit On")
 		elif not cartEdit and cartInsert:
@@ -2331,7 +2331,7 @@ class AppModule(splappmod.AppModule):
 			self.script_finish()
 			return
 		try:
-			if not splbase.studioAPI(0, SPLStatusInfo, splComponent=self.appName):
+			if not splbase.studioAPI(0, splbase.SPLStatusInfo, splComponent=self.appName):
 				# Message comes from Foobar 2000 app module, part of NVDA Core.
 				currentTrack = translate("No track playing")
 			else:
@@ -2486,13 +2486,13 @@ class AppModule(splappmod.AppModule):
 	def script_libraryScanMonitor(self, gesture: inputCore.InputGesture):
 		if not self.libraryScanning:
 			# #155: if library scan count is None, then final scan count would also be None.
-			libScanCount = splbase.studioAPI(1, SPLLibraryScanCount)
+			libScanCount = splbase.studioAPI(1, splbase.SPLLibraryScanCount)
 			# Do nothing if library scan count is indeed None.
 			if libScanCount is None:
 				return
 			if libScanCount < 0:
 				ui.message(_("{itemCount} items in the library").format(
-					itemCount=splbase.studioAPI(0, SPLLibraryScanCount)
+					itemCount=splbase.studioAPI(0, splbase.SPLLibraryScanCount)
 				))
 				return
 			self.libraryScanning = True
@@ -2556,7 +2556,7 @@ class AppModule(splappmod.AppModule):
 		# 0 is DSP encoder status, others are servers.
 		metadataStreams = ("DSP encoder", "URL 1", "URL 2", "URL 3", "URL 4")
 		url = int(gesture.displayName[-1])
-		if splbase.studioAPI(url, SPLMetadataStreaming):
+		if splbase.studioAPI(url, splbase.SPLMetadataStreaming):
 			ui.message(
 				# Translators: Status message for metadata streaming.
 				_("Metadata streaming on {URLPosition} enabled").format(URLPosition=metadataStreams[url])

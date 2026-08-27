@@ -162,10 +162,10 @@ class AppModule(splstudio.AppModule):
 		# Track time parameter can be either "remaining" or "elapsed".
 		match trackTime:
 			case "remaining":
-				remainingTime = splbase.studioAPI(3, SPLCurTrackPlaybackTime, splComponent="remotestudio")
+				remainingTime = splbase.studioAPI(3, splbase.SPLCurTrackPlaybackTime, splComponent="remotestudio")
 				self.announceTime(remainingTime)
 			case "elapsed":
-				elapsedTime = splbase.studioAPI(0, SPLCurTrackPlaybackTime, splComponent="remotestudio")
+				elapsedTime = splbase.studioAPI(0, splbase.SPLCurTrackPlaybackTime, splComponent="remotestudio")
 				self.announceTime(elapsedTime)
 			case _:
 				raise ValueError(f"Unrecognized track time announcement command: {trackTime}")
@@ -263,13 +263,13 @@ class AppModule(splstudio.AppModule):
 	@override
 	def sayStatus(self, index: int) -> None:
 		# No, status index must be an integer (compatibility with local Studio).
-		studioStatus = splbase.studioAPI(index, SPLStatusInfo, splComponent="remotestudio")
+		studioStatus = splbase.studioAPI(index, splbase.SPLStatusInfo, splComponent="remotestudio")
 		if studioStatus is None:
 			return
 		# Special handling for playback (playing/stopped/paused)
 		if index == 0 and studioStatus == 1:  # Playing/paused
 			# Set status to 2 (paused) if the remote track is paused.
-			if splbase.studioAPI(0, SPLTrackPlaybackStatus, splComponent="remotestudio") == 3:
+			if splbase.studioAPI(0, splbase.SPLTrackPlaybackStatus, splComponent="remotestudio") == 3:
 				studioStatus = 2
 		status = self._studioStatusMessages[index][studioStatus]
 		if splconfig.SPLConfig["General"]["MessageVerbosity"] == "advanced":

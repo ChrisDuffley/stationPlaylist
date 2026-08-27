@@ -26,7 +26,7 @@ SPLMetadataStreaming = 36
 # Raise runtime error if list is nothing
 # (thankfully the splbase's StudioAPI will return None if Studio handle is not found).
 def metadataList() -> list[int | None]:
-	metadata = [splbase.studioAPI(pos, SPLMetadataStreaming) for pos in range(5)]
+	metadata = [splbase.studioAPI(pos, splbase.SPLMetadataStreaming) for pos in range(5)]
 	# Make sure None is not included in metadata list, otherwise it results in no metadata data for streams.
 	# This could happen if Studio dies while retrieving metadata list with some items returning None.
 	if None in metadata:
@@ -42,7 +42,7 @@ def metadataConnector(servers: list[bool] | None = None) -> None:
 		servers = splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"]
 	for url in range(5):
 		dataLo = 0x00010000 if servers[url] else 0xFFFF0000
-		splbase.studioAPI(dataLo | url, SPLMetadataStreaming)
+		splbase.studioAPI(dataLo | url, splbase.SPLMetadataStreaming)
 
 
 # Metadata status formatter (say something if Studio handle is not found).

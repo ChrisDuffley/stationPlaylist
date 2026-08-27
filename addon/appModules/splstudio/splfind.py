@@ -245,8 +245,8 @@ def timeRangeFinder(
 	# Manually locate tracks.
 	while obj is not None:
 		if obj.appModule._localStudioAPIRequired:
-			filename = splbase.studioAPI(obj.IAccessibleChildID - 1, SPLTrackFilename)
-			trackDuration = splbase.studioAPI(filename, SPLFileDuration)
+			filename = splbase.studioAPI(obj.IAccessibleChildID - 1, splbase.SPLTrackFilename)
+			trackDuration = splbase.studioAPI(filename, splbase.SPLFileDuration)
 		else:
 			trackDuration = obj._getColumnContentRaw(obj.indexOf("Duration"))
 			# Python says "01:00:00" < "59:59" thanks to string value comparison.
