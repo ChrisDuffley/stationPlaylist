@@ -130,6 +130,7 @@ class AppModule(splstudio.AppModule):
 			elif "match" in obj.name:
 				# Announce search/match results from insert tracks dialog.
 				# Only announce match count as the whole thing is very verbose.
+				# This is a duplicate of local Studio because the "else" clause can cover other status messages.
 				if splconfig.SPLConfig["General"]["BeepAnnounce"]:
 					tones.beep(370, 40)
 				ui.message(" ".join(obj.name.split()[:2]))
