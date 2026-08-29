@@ -91,7 +91,9 @@ def setStudioWindowHandle(hwnd: int | None, splComponent: str = "splstudio") -> 
 	if hwnd:
 		_SPLWindowHandles[splComponent] = hwnd
 	else:
-		del _SPLWindowHandles[splComponent]
+		# When an expired demo version starts, Studio window handle would not be defined.
+		if splComponent in _SPLWindowHandles:
+			del _SPLWindowHandles[splComponent]
 
 
 # Use SPL Studio API to obtain needed values.
