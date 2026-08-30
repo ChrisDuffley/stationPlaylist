@@ -155,6 +155,7 @@ def focusToSPLWindow(studioWindowChecked: bool = False) -> None:
 
 
 # Layer commands manager, including the wrapped "finally" function (source: Tyler Spivey's code).
+# Other parts of layered commands include low error tone playback and getScript methods (source: Tyler Spivey).
 # Type hinted as "Any" because arguments are methods (including the inner wrapped function).
 def finally_(func: Any, final: Any):
 	"""Calls final after func, even if it fails."""
