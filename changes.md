@@ -2,6 +2,10 @@
 
 This page lists the complete changelog for StationPlaylist add-on releases.
 
+## Version 26.07.5-LTS
+
+* NVDA will no longer announce wrong information when reporting remaining time for a playing track via SPL Controller layer (R) when running both local and Remote Studio. Specifically, NVDA will no longer include cart remaining time when SPL Controler coverage is set to Remote Studio.
+
 ## Version 26.07.4-LTS
 
 * Reintroduced find track search history with up to 20 search history entries if running NVDA 2026.3 or later. Search history is kept as long as NVDA is running. In NVDA 2026.2 and earlier or if "keep search history" is disabled from browse mode settings in NVDA 2026.3 or later, find track dialog will use the search text field.
