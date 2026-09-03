@@ -649,7 +649,7 @@ def initStudioExtraSteps() -> None:
 	try:
 		with open(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.json"), "rb") as f:
 			trackComments = json.load(f)
-	except (IOError, EOFError, FileNotFoundError, json.JSONDecodeError):
+	except (OSError, EOFError, FileNotFoundError, json.JSONDecodeError):
 		pass
 	if len(_configLoadStatus):
 		messages = []

@@ -14,5 +14,5 @@ def onInstall():
 		newProfiles = os.path.join(os.path.dirname(__file__), "profiles")
 		try:
 			shutil.copytree(profiles, newProfiles)
-		except IOError:
+		except OSError:
 			pass
