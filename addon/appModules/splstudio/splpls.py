@@ -565,7 +565,7 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 			raise RuntimeError("An instance of playlist transcripts dialog is opened")
 		instance = SPLPlaylistTranscriptsDialog._instance()
 		if instance is None:
-			return super(SPLPlaylistTranscriptsDialog, cls).__new__(cls, *args, **kwargs)
+			return super().__new__(cls, *args, **kwargs)
 		return instance
 
 	def __init__(self, parent: gui.MainFrame, obj: NVDAObject):

@@ -852,7 +852,7 @@ class MetadataStreamingDialog(wx.Dialog):
 			raise RuntimeError("An instance of metadata streaming dialog is opened")
 		instance = MetadataStreamingDialog._instance()
 		if instance is None:
-			return super(MetadataStreamingDialog, cls).__new__(cls, *args, **kwargs)
+			return super().__new__(cls, *args, **kwargs)
 		return instance
 
 	def __init__(self, parent: gui.MainFrame):

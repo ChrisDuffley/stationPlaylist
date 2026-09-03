@@ -778,7 +778,7 @@ Thank you.""")
 		# Make this a singleton.
 		instance = WelcomeDialog._instance()
 		if instance is None:
-			return super(WelcomeDialog, cls).__new__(cls, *args, **kwargs)
+			return super().__new__(cls, *args, **kwargs)
 		return instance
 
 	def __init__(self, parent: gui.MainFrame):

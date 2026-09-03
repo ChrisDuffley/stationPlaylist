@@ -216,7 +216,7 @@ class EncoderConfigDialog(wx.Dialog):
 			raise RuntimeError("An instance of encoder settings dialog is opened")
 		instance = EncoderConfigDialog._instance()
 		if instance is None:
-			return super(EncoderConfigDialog, cls).__new__(cls, *args, **kwargs)
+			return super().__new__(cls, *args, **kwargs)
 		return instance
 
 	def __init__(self, parent: gui.MainFrame, obj: NVDAObject):
