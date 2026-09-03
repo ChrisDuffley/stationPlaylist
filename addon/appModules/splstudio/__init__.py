@@ -519,12 +519,9 @@ class AppModule(splappmod.AppModule):
 			)
 			raise RuntimeError("Unsupported version of Studio is running, exiting app module")
 		# Announce app version if minimal startup flag is not set.
-		try:
-			if not globalVars.appArgs.minimal:
-				# No translation.
-				ui.message("{} {}".format(self.productName, self.productVersion))
-		except Exception:
-			pass
+		if not globalVars.appArgs.minimal:
+			# No translation.
+			ui.message("{} {}".format(self.productName, self.productVersion))
 		# Does this SPL component rely on full (local) Studio API?
 		self._localStudioAPIRequired = self._SPLAPILevel == splbase.StudioAPIAvailability.LOCALAPI
 		# #40: react to profile switches.

@@ -121,12 +121,9 @@ class AppModule(splappmod.AppModule):
 	def __init__(self, processID: int, appName: str | None=None):
 		super().__init__(processID, appName)
 		# Announce app version at startup unless minimal flag is set.
-		try:
-			if not globalVars.appArgs.minimal:
-				# No translation.
-				ui.message("{} {}".format(self.productName, self.productVersion))
-		except Exception:
-			pass
+		if not globalVars.appArgs.minimal:
+			# No translation.
+			ui.message("{} {}".format(self.productName, self.productVersion))
 		# Load config database and user interface.
 		self.onAppModuleInit()
 
