@@ -284,9 +284,10 @@ class AppModule(splappmod.AppModule):
 				playlistHour = playlistDateTime.simpleNext
 				playlistDay = playlistHour.simpleNext.simpleNext
 				self._playlistEditorStatusCache[self.SPLEditorDateTime] = [playlistHour, playlistDay]
+			# Cache can report None at times (especially when status bar is empty), raising TypeError exception.
 			try:
 				ui.message(" ".join([playlistDay.value, playlistHour.value]))
-			except Exception:
+			except TypeError:
 				ui.message("")
 
 	@scriptHandler.script(gesture="kb:alt+NVDA+2", speakOnDemand=True)
