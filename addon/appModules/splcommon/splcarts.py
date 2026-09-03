@@ -74,8 +74,7 @@ def _populateCarts(
 			cartName = entry.split('"')[1]
 		cart = cartKeys[pos] if not modifier else "+".join([modifier, cartKeys[pos]])
 		if noEntry and refresh:
-			if cart in carts:
-				del carts[cart]
+			carts.pop(cart)
 		else:
 			carts[cart] = cartName
 
