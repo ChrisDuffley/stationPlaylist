@@ -160,7 +160,7 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 						)
 			trackName = "; ".join(trackNamePieces)
 		else:
-			trackName = super(StudioPlaylistViewerItem, self).name
+			trackName = super().name
 		return trackName
 
 	def event_stateChange(self):

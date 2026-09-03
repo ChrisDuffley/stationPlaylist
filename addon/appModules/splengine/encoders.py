@@ -320,7 +320,7 @@ class Encoder(IAccessible):
 
 	def _get_name(self):
 		encoderLabel = self.encoderLabel
-		name = super(Encoder, self).name
+		name = super().name
 		# Announce encoder label if it exists.
 		if encoderLabel is not None:
 			try:
@@ -649,7 +649,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 
 	def _moveToRow(self, row: NVDAObject | None):
 		# In addition to moving to the next or previous encoder entry, set focus on the new encoder entry once more.
-		super(SAMEncoder, self)._moveToRow(row)
+		super()._moveToRow(row)
 		if row is not None:
 			row.setFocus()
 
