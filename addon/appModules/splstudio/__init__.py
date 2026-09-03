@@ -559,10 +559,7 @@ class AppModule(splappmod.AppModule):
 			wx.CallAfter(t.start)
 		# Display startup dialogs if any (but not when minimal startup flag is set).
 		# Sometimes, wxPython 4 says wx.App isn't ready.
-		try:
-			wx.CallAfter(splconfig.showStartupDialogs)
-		except Exception:
-			pass
+		wx.CallAfter(splconfig.showStartupDialogs)
 
 	# Save configuration and perform other tasks when terminating.
 	def terminate(self):
@@ -619,11 +616,8 @@ class AppModule(splappmod.AppModule):
 			splbase.setStudioWindowHandle(hwnd)
 			log.debug(f"SPL: Studio handle is {hwnd}")
 		# #41: start background monitor unless Studio is exiting.
-		try:
-			self._SPLStudioMonitor = wx.PyTimer(self.studioAPIMonitor)
-			wx.CallAfter(self._SPLStudioMonitor.Start, 1000)
-		except Exception:
-			pass
+		self._SPLStudioMonitor = wx.PyTimer(self.studioAPIMonitor)
+		wx.CallAfter(self._SPLStudioMonitor.Start, 1000)
 		# Remind me to broadcast metadata information.
 		# Also when delayed action is needed
 		# because metadata action handler couldn't locate Studio handle itself.
