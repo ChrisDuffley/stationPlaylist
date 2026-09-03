@@ -1670,7 +1670,7 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		return actualCategoryClasses
 
 	def makeSettings(self, settingsSizer: wx.BoxSizer):
-		super(SPLConfigDialog, self).makeSettings(settingsSizer)
+		super().makeSettings(settingsSizer)
 		global _configDialogOpened
 		# #40: respond to app terminate notification by closing this dialog.
 		# All top-level dialogs will be affected by this, and apart from this one, others will check for flags also.
@@ -1679,12 +1679,12 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		_configDialogOpened = True
 
 	def onOk(self, evt: wx.CommandEvent):
-		super(SPLConfigDialog, self).onOk(evt)
+		super().onOk(evt)
 		global _configDialogOpened
 		_configDialogOpened = False
 
 	def onCancel(self, evt: wx.CommandEvent):
-		super(SPLConfigDialog, self).onCancel(evt)
+		super().onCancel(evt)
 		global _configDialogOpened
 		_configDialogOpened = False
 
