@@ -1307,9 +1307,10 @@ class ColumnsExplorerDialog(wx.Dialog):
 			columns = sizer.addLabeledControl(
 				_("Slot {position}").format(position=slot + 1), wx.Choice, choices=cols
 			)
+			# IndexError = not enough column indecies, ValueError = wrong column name.
 			try:
 				columns.SetSelection(cols.index(slots[slot]))
-			except Exception:
+			except (IndexError, ValueError):
 				pass
 			self.columnSlots.append(columns)
 		colExplorerHelper.addItem(sizer.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
@@ -1321,7 +1322,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 			)
 			try:
 				columns.SetSelection(cols.index(slots[slot]))
-			except Exception:
+			except (IndexError, ValueError):
 				pass
 			self.columnSlots.append(columns)
 		colExplorerHelper.addItem(sizer.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
