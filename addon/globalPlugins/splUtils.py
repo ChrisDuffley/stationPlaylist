@@ -408,11 +408,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				ui.message(_("SPL Studio is not running."))
 			self.script_finish()
 			return
-		try:
-			announceEncoderConnectionStatus()
-		except Exception:
-			# Translators: presented if encoder connection status cannot be obtained.
-			ui.message(_("Cannot obtain encoder connection status"))
+		announceEncoderConnectionStatus()
 		self.script_finish()
 
 	@scriptHandler.script(
