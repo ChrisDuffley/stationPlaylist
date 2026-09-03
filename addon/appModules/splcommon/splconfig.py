@@ -131,7 +131,7 @@ class ConfigHub(ChainMap[Any, Any]):
 							)
 						)
 						self.profileNames.append(name)
-			except WindowsError:
+			except OSError:
 				pass
 		# Runtime flags (profiles and profile switching flag come from NVDA Core's ConfigManager).
 		self.profiles = self.maps
@@ -326,7 +326,7 @@ class ConfigHub(ChainMap[Any, Any]):
 		oldProfile = self.profiles[configPos].filename
 		try:
 			os.rename(oldProfile, newProfile)
-		except WindowsError:
+		except OSError:
 			pass
 		self.profileNames[profilePos] = newName
 		self.profiles[configPos].name = newName
@@ -342,7 +342,7 @@ class ConfigHub(ChainMap[Any, Any]):
 		profilePos = self.profileNames.index(name)
 		try:
 			os.remove(self.profiles[configPos].filename)
-		except WindowsError:
+		except OSError:
 			pass
 		del self.profiles[configPos]
 		del self.profileNames[profilePos]
