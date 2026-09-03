@@ -902,20 +902,14 @@ class AppModule(splappmod.AppModule):
 			if msg.endswith("Off"):
 				if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner":
 					wavFile = os.path.join(os.path.dirname(__file__), "SPL_off.wav")
-					try:
-						messageSound(wavFile, msg)
-					except Exception:
-						pass
+					messageSound(wavFile, msg)
 				else:
 					tones.beep(500, 100)
 					braille.handler.message(msg)
 			elif msg.endswith("On"):
 				if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner":
 					wavFile = os.path.join(os.path.dirname(__file__), "SPL_on.wav")
-					try:
-						messageSound(wavFile, msg)
-					except Exception:
-						pass
+					messageSound(wavFile, msg)
 				else:
 					tones.beep(1000, 100)
 					braille.handler.message(msg)
