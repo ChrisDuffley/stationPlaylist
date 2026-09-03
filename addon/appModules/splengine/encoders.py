@@ -424,7 +424,7 @@ class Encoder(IAccessible):
 				ui.message("{}: {}".format(self.encoderId, message))
 			else:
 				ui.message(message)
-		except Exception:
+		except wx._core.wxAssertionError:
 			pass
 
 	# Encoder connection reporter thread.
