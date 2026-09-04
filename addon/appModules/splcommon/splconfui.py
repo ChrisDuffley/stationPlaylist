@@ -1562,7 +1562,8 @@ class ResetDialog(wx.Dialog):
 			return
 		# Reset all profiles.
 		# Only a priveleged thread should do this, otherwise unexpected things may happen.
-		with threading.Lock():
+		configResetLock = threading.Lock()
+		with configResetLock:
 			global _configDialogOpened
 			# Call config reset method.
 			# Without an exception, reset will continue.
