@@ -1056,9 +1056,9 @@ class AppModule(splappmod.AppModule):
 				# because carts can play on top of track/voice track.
 				# Regular track will not play while a voice track is playing.
 				if cartRemainingTime > 0:
-					ui.message("{} (cart)".format(self._ms2time(cartRemainingTime, offset=1)))
+					ui.message(f"{self._ms2time(cartRemainingTime, offset=1)} (cart)")
 				elif vtRemainingTime > 0:
-					ui.message("{} (voice track)".format(self._ms2time(vtRemainingTime, offset=1)))
+					ui.message(f"{self._ms2time(vtRemainingTime, offset=1)} (voice track)")
 				else:
 					self.announceTime(remainingTime, offset=1)
 			case "elapsed":
