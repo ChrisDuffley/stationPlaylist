@@ -207,22 +207,18 @@ class BroadcastProfilesDialog(wx.Dialog):
 			return
 		name = self.profiles.GetStringSelection().split(" <")[0]
 		# Ask once more if deleting an active profile.
-		if name == self.activeProfile:
-			if (
-				gui.messageBox(
-					# Translators: The confirmation prompt displayed
-					# when the user requests to delete the active broadcast profile.
-					_(
-						"You are about to delete the currently active profile. Select yes if you wish to proceed."
-					),
-					# Translators: The title of the confirmation dialog for deletion of a profile.
-					_("Delete active profile"),
-					wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION,
-					self,
-				)
-				== wx.NO
-			):
-				return
+		if name == self.activeProfile and gui.messageBox(
+			# Translators: The confirmation prompt displayed
+			# when the user requests to delete the active broadcast profile.
+			_(
+				"You are about to delete the currently active profile. Select yes if you wish to proceed."
+			),
+			# Translators: The title of the confirmation dialog for deletion of a profile.
+			_("Delete active profile"),
+			wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION,
+			self,
+		) == wx.NO:
+			return
 		index = self.profiles.Selection
 		profilePos = self.profileNames.index(name)
 		if (
