@@ -153,9 +153,7 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 						continue
 					content = self._getColumnContentRaw(index)
 					if content:
-						trackNamePieces.append(
-							"{}: {}".format(header, content) if includeColumnHeaders else content
-						)
+						trackNamePieces.append(f"{header}: {content}" if includeColumnHeaders else content)
 			trackName = "; ".join(trackNamePieces)
 		else:
 			trackName = super().name
@@ -212,7 +210,7 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 			# Add track check status to column data if needed by using a customized move to column number method.
 			cell = self.getChild(colNumber)
 			if colNumber is not None and colNumber > 0 and self.firstChild.name:
-				cell.name = "{} {}".format(self.firstChild.name, cell.name)
+				cell.name = f"{self.firstChild.name} {cell.name}"
 			self._moveToColumn(cell)
 		# Let the app module keep a reference to this track.
 		self.appModule._focusedTrack = self
