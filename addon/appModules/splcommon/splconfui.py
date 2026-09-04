@@ -1567,16 +1567,14 @@ class ResetDialog(wx.Dialog):
 				splconfig.SPLConfig.reset(factoryDefaults=True, resetViaConfigDialog=True)
 			except RuntimeError:
 				return
-			if self.resetInstantProfileCheckbox.Value:
-				if splconfig.SPLConfig.instantSwitch is not None:
-					splconfig.SPLConfig.instantSwitch = None
-					splconfig.SPLConfig.prevProfile = None
+			if self.resetInstantProfileCheckbox.Value and splconfig.SPLConfig.instantSwitch is not None:
+				splconfig.SPLConfig.instantSwitch = None
+				splconfig.SPLConfig.prevProfile = None
 			if self.resetTrackCommentsCheckbox.Value:
 				splconfig.trackComments.clear()
-			if self.resetEncodersCheckbox.Value:
-				if "appModules.splengine.encoders" in sys.modules:
-					from appModules.splengine import encoders
-					encoders.resetEncoderConfig(factoryDefaults=True)
+			if self.resetEncodersCheckbox.Value and "appModules.splengine.encoders" in sys.modules:
+				from appModules.splengine import encoders
+				encoders.resetEncoderConfig(factoryDefaults=True)
 			_configDialogOpened = False
 			wx.CallAfter(
 				# Translators: A dialog message shown when settings were reset to defaults.
