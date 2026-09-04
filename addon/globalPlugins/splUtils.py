@@ -2,7 +2,7 @@
 # Copyright 2013-2026 Joseph Lee, released under GPL.
 # Adds a few utility features such as switching focus to the SPL Studio window and some global scripts.
 
-from typing import Any
+from typing import Any, ClassVar
 import sys
 import globalPluginHandler
 import api
@@ -485,7 +485,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		ui.browseableMessage(SPLConHelp, title=helpTitle, closeButton=True)
 		self.script_finish()
 
-	__SPLControllerGestures = {
+	__SPLControllerGestures: ClassVar = {
 		"kb:p": "play",
 		"kb:enter": "play",
 		"kb:u": "pause",
