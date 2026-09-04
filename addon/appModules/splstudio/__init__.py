@@ -811,7 +811,7 @@ class AppModule(splappmod.AppModule):
 					):
 						if splconfig.SPLConfig["General"]["BeepAnnounce"]:
 							tones.beep(370, 100)
-							ui.message("{}".format(splbase.studioAPI(0, splbase.SPLLibraryScanCount)))
+							ui.message(f"{splbase.studioAPI(0, splbase.SPLLibraryScanCount)}")
 						else:
 							ui.message(
 								# Translators: Presented when library scan is complete.
@@ -1521,7 +1521,7 @@ class AppModule(splappmod.AppModule):
 		if splconfig.SPLConfig and splconfig.SPLConfig["General"]["LibraryScanAnnounce"] != "off":
 			if splconfig.SPLConfig["General"]["BeepAnnounce"]:
 				tones.beep(370, 100)
-				wx.CallAfter(ui.message, "{}".format(splbase.studioAPI(0, splbase.SPLLibraryScanCount)))
+				wx.CallAfter(ui.message, f"{splbase.studioAPI(0, splbase.SPLLibraryScanCount)}")
 			else:
 				wx.CallAfter(ui.message,
 					_("Scan complete with {itemCount} items").format(
@@ -1540,7 +1540,7 @@ class AppModule(splappmod.AppModule):
 			if splconfig.SPLConfig["General"]["BeepAnnounce"]:
 				tones.beep(550, 100)
 				# No need to provide translatable string - just use index.
-				ui.message("{}".format(count))
+				ui.message(f"{count}")
 			else:
 				# Translators: Presented when library scan is in progress.
 				ui.message(_("{itemCount} items scanned").format(itemCount=count))
