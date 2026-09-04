@@ -2029,7 +2029,7 @@ class AppModule(splappmod.AppModule):
 			# but might be useful for some broadcasters with mixers.
 			if splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"]:
 				player = self.status(self.SPLNextPlayer).name
-				ui.message(", ".join([player, nextTrack]))
+				ui.message(f"{player}, {nextTrack}")
 			else:
 				ui.message(nextTrack)
 		except RuntimeError:
@@ -2059,7 +2059,7 @@ class AppModule(splappmod.AppModule):
 			# #34: see the note on next track script above.
 			if splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"]:
 				player = self.status(self.SPLCurrentPlayer).name
-				ui.message(", ".join([player, currentTrack]))
+				ui.message(f"{player}, {currentTrack}")
 			else:
 				ui.message(currentTrack)
 		except RuntimeError:
