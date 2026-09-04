@@ -456,10 +456,9 @@ class Encoder(IAccessible):
 		# #150: announce a message if Studio window is minimized.
 		if self.focusToStudio:
 			splbase.focusToSPLWindow(studioWindowChecked=True)
-		if self.playAfterConnecting:
-			# Do not interupt the currently playing track.
-			if splbase.studioAPI(0, splbase.SPLTrackPlaybackStatus) == 0:
-				splbase.studioAPI(0, splbase.SPLPlay)
+		# Do not interupt the currently playing track if told to start playing.
+		if self.playAfterConnecting and splbase.studioAPI(0, splbase.SPLTrackPlaybackStatus) == 0:
+			splbase.studioAPI(0, splbase.SPLPlay)
 
 	# Now the flag configuration scripts.
 
