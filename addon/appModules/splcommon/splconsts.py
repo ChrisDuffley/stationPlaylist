@@ -38,4 +38,4 @@ def __getattr__(attribute: str):
 			else:
 				return _studioStatusMessages
 		case _:
-			raise AttributeError(f"module {repr(__name__)} has no attribute {repr(attribute)}")
+			raise AttributeError(f"module {__name__!r} has no attribute {attribute!r}")
