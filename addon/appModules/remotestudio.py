@@ -264,10 +264,12 @@ class AppModule(splstudio.AppModule):
 		if studioStatus is None:
 			return
 		# Special handling for playback (playing/stopped/paused)
-		if index == 0 and studioStatus == 1:  # Playing/paused
+		if (
+			index == 0 and studioStatus == 1  # Playing/paused
 			# Set status to 2 (paused) if the remote track is paused.
-			if splbase.studioAPI(0, splbase.SPLTrackPlaybackStatus, splComponent="remotestudio") == 3:
-				studioStatus = 2
+			and splbase.studioAPI(0, splbase.SPLTrackPlaybackStatus, splComponent="remotestudio") == 3
+		):
+			studioStatus = 2
 		status = self._studioStatusMessages[index][studioStatus]
 		if splconfig.SPLConfig["General"]["MessageVerbosity"] == "advanced":
 			status = status.split()[-1]
