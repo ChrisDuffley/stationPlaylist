@@ -6,7 +6,7 @@
 # For UI surrounding this module, see splconfui module.
 # For the add-on settings specification, see splconfspec module.
 
-from typing import Any, override
+from typing import Any, override, ClassVar
 import os
 import json
 from collections import ChainMap
@@ -169,7 +169,7 @@ class ConfigHub(ChainMap[Any, Any]):
 		return self.normalProfileOnly or self.configInMemory or globalVars.appArgs.secure
 
 	# Profile switching flags.
-	_profileSwitchFlags: dict[str, int] = {"instant": 0x1}
+	_profileSwitchFlags: ClassVar[dict[str, int]] = {"instant": 0x1}
 
 	@property
 	def switchProfileFlags(self) -> int:
