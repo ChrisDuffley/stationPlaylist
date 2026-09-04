@@ -424,7 +424,7 @@ def playlist2msaa(
 		for column, content in enumerate(columnContents):
 			if content:
 				filteredContent.append("{}: {}".format(columnHeaders[column], content))
-		playlistTranscripts.append("{0}{1}{2}".format(prefix, "; ".join(filteredContent), suffix))
+		playlistTranscripts.append("{}{}{}".format(prefix, "; ".join(filteredContent), suffix))
 		obj = obj.next
 	return playlistTranscripts
 
@@ -507,12 +507,12 @@ SPLPlaylistTranscriptFormats.append(("mdtable", playlist2mdTable, "Table in Mark
 def playlist2csv(start: NVDAObject, end: NVDAObject | None, transcriptAction: int) -> None:
 	playlistTranscripts = []
 	columnHeaders = columnPresentationOrder()
-	playlistTranscripts.append('"{0}"\n'.format('","'.join([col for col in columnHeaders])))
+	playlistTranscripts.append('"{}"\n'.format('","'.join([col for col in columnHeaders])))
 	obj = start
 	columnPos = [obj.indexOf(column) for column in columnHeaders]
 	while obj not in (None, end):
 		columnContents = obj._getColumnContents(columns=columnPos, readable=True)
-		playlistTranscripts.append('"{0}"\n'.format('","'.join([content for content in columnContents])))
+		playlistTranscripts.append('"{}"\n'.format('","'.join([content for content in columnContents])))
 		obj = obj.next
 	postTranscriptsAction(playlistTranscripts, transcriptAction, "csv")
 
