@@ -686,7 +686,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				return
 			# Status and description are two separate texts.
 			if not messageCache.startswith(status):
-				messageCache = "; ".join([status, statusDetails])
+				messageCache = f"{status}; {statusDetails}"
 				if not messageCache:
 					return
 				if not messageCache.startswith("Encoding"):
