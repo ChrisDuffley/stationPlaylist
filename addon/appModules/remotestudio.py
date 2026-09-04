@@ -5,7 +5,7 @@
 # Basic support for StationPlaylist Remote Studio.
 # Borrows heavily from Studio as the user interface is quite similar with changes specific to Remote Studio.
 
-from typing import Any, override
+from typing import Any, override, ClassVar
 import collections.abc
 import time
 import threading
@@ -231,7 +231,7 @@ class AppModule(splstudio.AppModule):
 	# Table of child constants based on versions
 	# Same as local Studio: scattered around the screen, so use foreground.getChild(index) to fetch them
 	# As of 2026, the below table is based on local Studio 6.11 interface.
-	statusObjs = {
+	statusObjs: ClassVar = {
 		"6": {
 			SPLRemoteStatus: [2, 0],  # Remote Studio status bar
 			SPLNextTrackTitle: [2, 2, 2, 0],
@@ -243,7 +243,7 @@ class AppModule(splstudio.AppModule):
 		},
 	}
 
-	_cachedStatusObjs: dict[int, Any] = {}
+	_cachedStatusObjs: ClassVar[dict[int, Any]] = {}
 
 	# Remote Studio status bar messages (distinct from local Studio).
 	# For playback, Remote Studio can also say "Paused".

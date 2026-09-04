@@ -10,7 +10,7 @@
 # For SPL Studio Controller, focus movement and other utilities,
 # see the global plugin version of this app module.
 
-from typing import Any, NamedTuple, override
+from typing import Any, NamedTuple, override, ClassVar
 import os
 import time
 import threading
@@ -1823,7 +1823,7 @@ class AppModule(splappmod.AppModule):
 	# As of 2026, the below table is based on Studio 6.1x.
 	# #119: a list indicates iterative descent to locate the actual objects.
 	# Index is backwards (Remote Studio status is inserted in the beginning, displacing index by 1).
-	statusObjs = {
+	statusObjs: ClassVar = {
 		"6": {
 			SPLPlayStatus: [-1, -3],  # Play status, mic, control keys, etc.
 			SPLSystemStatus: [-1, -2],  # The second status bar containing system status such as up time.
@@ -1847,7 +1847,7 @@ class AppModule(splappmod.AppModule):
 		},
 	}
 
-	_cachedStatusObjs: dict[int, Any] = {}
+	_cachedStatusObjs: ClassVar[dict[int, Any]] = {}
 
 	# Called in the layer commands requiring screen traversal.
 	def status(self, infoIndex: int) -> NVDAObject:
