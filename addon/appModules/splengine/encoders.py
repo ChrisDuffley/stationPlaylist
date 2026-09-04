@@ -421,7 +421,7 @@ class Encoder(IAccessible):
 			# (multiple encoder types can be monitored at once).
 			# Include encoder ID if multiple encoders have one encoder entry being monitored.
 			if len([thread for thread in SPLBackgroundMonitorThreads.values() if thread.is_alive()]) > 1:
-				ui.message("{}: {}".format(self.encoderId, message))
+				ui.message(f"{self.encoderId}: {message}")
 			else:
 				ui.message(message)
 		except wx._core.wxAssertionError:
