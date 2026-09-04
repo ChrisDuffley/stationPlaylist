@@ -624,7 +624,7 @@ class Encoder(IAccessible):
 
 	# Announce encoder specific data (located in columns unless noted otherwise).
 	def announceEncoderData(self, column: int) -> None:
-		ui.message("{}: {}".format(self.getChild(column).columnHeaderText, self.getChild(column).name))
+		ui.message(f"{self.getChild(column).columnHeaderText}: {self.getChild(column).name}")
 
 	def initOverlayClass(self):
 		# Load encoder settings upon request.
