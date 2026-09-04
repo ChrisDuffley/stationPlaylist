@@ -202,7 +202,6 @@ class ConfigHub(ChainMap[Any, Any]):
 			return SPLConfigCheckpoint
 		# For the rest.
 		# To be mutated only during unlock routine.
-		global _configLoadStatus
 		# Profiles other than normal profile contains profile-specific sections only.
 		# This speeds up profile loading routine significantly
 		# as there is no need to call a function to strip global settings.
@@ -233,7 +232,6 @@ class ConfigHub(ChainMap[Any, Any]):
 	def _validateConfig(
 		self, SPLConfigCheckpoint: ConfigObj, profileName: str = "", prefill: bool = False
 	) -> None:
-		global _configLoadStatus
 		configTest = SPLConfigCheckpoint.validate(_val, copy=prefill, preserve_errors=True)
 		# Validator may return "True" if everything is okay,
 		# "False" for unrecoverable error, or a dictionary of failed keys.
@@ -257,7 +255,6 @@ class ConfigHub(ChainMap[Any, Any]):
 
 	# Extra initialization steps such as converting value types.
 	def _extraInitSteps(self, conf: ConfigObj, profileName: str = "") -> None:
-		global _configLoadStatus
 		columnOrder = conf["ColumnAnnouncement"]["ColumnOrder"]
 		# Catch suttle errors.
 		fields = SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
