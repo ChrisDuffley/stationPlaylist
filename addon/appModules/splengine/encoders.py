@@ -437,7 +437,7 @@ class Encoder(IAccessible):
 		):
 			return
 		statusThread = threading.Thread(
-			target=self.reportConnectionStatus, kwargs=dict(manualConnect=manualConnect)
+			target=self.reportConnectionStatus, kwargs={"manualConnect": manualConnect}
 		)
 		statusThread.start()
 		SPLBackgroundMonitorThreads[self.encoderId] = statusThread
