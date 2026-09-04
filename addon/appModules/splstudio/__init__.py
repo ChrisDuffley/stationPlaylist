@@ -106,8 +106,6 @@ def indexOf(studioVersion: str) -> tuple[str, ...]:
 class SPLStudioTrackItem(splbase.SPLTrackItem):
 	"""A representative class of Studio track items outside of Playlist Viewer."""
 
-	pass
-
 
 class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 	"""A class representing items found in Playlist Viewer (main window).

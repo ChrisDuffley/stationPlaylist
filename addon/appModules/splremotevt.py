@@ -19,8 +19,6 @@ addonHandler.initTranslation()
 class SPLRemotePlaylistEditorItem(splcreator.SPLPlaylistEditorItem):
 	"""An entry in SPL VT Remote Playlist Editor."""
 
-	pass
-
 
 class AppModule(splcreator.AppModule):
 	@override

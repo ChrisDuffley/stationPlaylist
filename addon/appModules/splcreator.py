@@ -86,8 +86,6 @@ def indexOfPlaylistEditor(editorVersion: str) -> tuple[str, ...]:
 class SPLCreatorItem(splbase.SPLTrackItem):
 	"""A representative class of Creator list (including track) items outside of track list."""
 
-	pass
-
 
 class CreatorTrackListItem(splbase.SPLTrackItem):
 	"""An entry in SPL Creator (mostly tracks in track list tab)."""
