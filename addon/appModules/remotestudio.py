@@ -105,7 +105,7 @@ class AppModule(splstudio.AppModule):
 			# Refresh carts if cart explorer is active and Remote Studio settings have changed.
 			if self.cartExplorer:
 				self.carts = splcarts.cartExplorerRefresh(obj.name, self.carts, remoteStudio=True)
-				if "refresh" in self.carts and self.carts["refresh"]:
+				if self.carts.get("refresh"):
 					del self.carts["refresh"]
 					queueHandler.queueFunction(
 						queueHandler.eventQueue, ui.message, _("Cart explorer is active")
