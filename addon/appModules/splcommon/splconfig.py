@@ -535,7 +535,7 @@ class ConfigHub(ChainMap[Any, Any]):
 			# Translators: A flag indicating the broadcast profile is an instant switch profile.
 			flags.add(_("instant switch"))
 		if not contained:
-			return name if len(flags) == 0 else "{0} <{1}>".format(name, ", ".join(flags))
+			return name if len(flags) == 0 else "{} <{}>".format(name, ", ".join(flags))
 		else:
 			return flags
 

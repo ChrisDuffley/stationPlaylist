@@ -282,7 +282,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 		action = getattr(flags, action)
 		action(flag)
 		self.profiles.SetString(
-			index, profile if not len(flags) else "{0} <{1}>".format(profile, ", ".join(flags))
+			index, profile if not len(flags) else "{} <{}>".format(profile, ", ".join(flags))
 		)
 
 	def onChangeState(self, evt: wx.CommandEvent):
