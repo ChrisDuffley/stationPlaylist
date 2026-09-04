@@ -612,7 +612,8 @@ class AppModule(splappmod.AppModule):
 				self.noMoreHandle.clear()
 				return
 		# Only this thread will have privilege of notifying Studio handle's existence.
-		with threading.Lock():
+		hwndLock = threading.Lock()
+		with hwndLock:
 			splbase.setStudioWindowHandle(hwnd)
 			log.debug(f"SPL: Studio handle is {hwnd}")
 		# #41: start background monitor unless Studio is exiting.

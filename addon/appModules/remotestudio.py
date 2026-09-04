@@ -75,7 +75,8 @@ class AppModule(splstudio.AppModule):
 				self.noMoreHandle.clear()
 				return
 		# Only this thread will have privilege of notifying Studio handle's existence.
-		with threading.Lock():
+		hwndLock = threading.Lock()
+		with hwndLock:
 			splbase.setStudioWindowHandle(hwnd, splComponent="remotestudio")
 			log.debug(f"SPL: Remote Studio handle is {hwnd}")
 
