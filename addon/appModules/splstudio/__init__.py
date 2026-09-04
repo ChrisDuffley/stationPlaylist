@@ -1111,27 +1111,27 @@ class AppModule(splappmod.AppModule):
 		# Parse the local time and say it similar to how Studio presents broadcaster time.
 		localtime = time.localtime()
 		# For both broadcaster time and top of hour, minute is needed.
-		m = localtime[4]
+		minute = localtime[4]
 		if scriptHandler.getLastScriptRepeatCount() == 0:
-			h = localtime[3]
-			if h not in (0, 12):
-				h %= 12
-			if m == 0:
-				if h == 0:
-					h += 12
+			hour = localtime[3]
+			if hour not in (0, 12):
+				hour %= 12
+			if minute == 0:
+				if hour == 0:
+					hour += 12
 				# Messages in this method should not be translated.
-				ui.message("{hour} o'clock".format(hour=h))
-			elif 1 <= m <= 30:
-				if h == 0:
-					h += 12
-				ui.message("{minute} min past {hour}".format(minute=m, hour=h))
+				ui.message(f"{hour} o'clock")
+			elif 1 <= minute <= 30:
+				if hour == 0:
+					hour += 12
+				ui.message(f"{minute} min past {hour}")
 			else:
-				if h == 12:
-					h = 1
-				m = 60 - m
-				ui.message("{minute} min to {hour}".format(minute=m, hour=h + 1))
+				if hour == 12:
+					hour = 1
+				minute = 60 - minute
+				ui.message(f"{minute} min to {hour + 1}")
 		else:
-			self.announceTime(3600 - (m * 60 + localtime[5]), ms=False)
+			self.announceTime(3600 - (minute * 60 + localtime[5]), ms=False)
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
