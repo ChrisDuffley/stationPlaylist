@@ -4,7 +4,7 @@
 
 # Basic support for StationPlaylist Creator.
 
-from typing import Any, override
+from typing import Any, override, ClassVar
 import collections.abc
 import addonHandler
 import scriptHandler
@@ -171,7 +171,7 @@ class AppModule(splappmod.AppModule):
 		super().chooseNVDAObjectOverlayClasses(obj, clsList)
 
 	# Cache status bar objects to improve status bar retrieval performance.
-	_statusBarObjs = {}
+	_statusBarObjs: ClassVar = {}
 
 	def _get_statusBar(self):
 		# Obtaining Creator status bar is slow.
@@ -271,7 +271,7 @@ class AppModule(splappmod.AppModule):
 	SPLEditorDateTime = 0
 	SPLEditorDuration = 1
 	SPLEditorStatusBar = 2
-	_playlistEditorStatusCache: dict[int, Any] = {}
+	_playlistEditorStatusCache: ClassVar[dict[int, Any]] = {}
 
 	@scriptHandler.script(gesture="kb:alt+NVDA+1", speakOnDemand=True)
 	def script_playlistDateTime(self, gesture: inputCore.InputGesture):

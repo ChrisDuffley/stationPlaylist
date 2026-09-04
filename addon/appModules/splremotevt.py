@@ -5,7 +5,7 @@
 # Basic support for StationPlaylist Remote VT Client.
 # Borrows heavily from creator as the user interface is quite similar with changes specific to VT Client.
 
-from typing import Any, override
+from typing import Any, override, ClassVar
 import addonHandler
 import controlTypes
 from NVDAObjects import NVDAObject
@@ -41,8 +41,8 @@ class AppModule(splcreator.AppModule):
 
 	# Cache status bar objects to improve status bar retrieval performance.
 	# This is a separate cache from Creator.
-	_statusBarObjs = {}
+	_statusBarObjs: ClassVar = {}
 	# Playlist editor is same as Creator except it responds a bit faster.
 	# Without keeping a copy of status cache, NVDA will announce wrong values
 	# as Creator app module's cache will be used.
-	_playlistEditorStatusCache: dict[int, Any] = {}
+	_playlistEditorStatusCache: ClassVar[dict[int, Any]] = {}
