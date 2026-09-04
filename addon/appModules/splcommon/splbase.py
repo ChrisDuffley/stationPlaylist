@@ -71,7 +71,6 @@ SPLTrackFilename = 211
 # and other app module gestures display appropriate error messages.
 # Some checks will need to omit message output.
 def studioIsRunning(justChecking: bool = False, splComponent: str = "splstudio") -> bool:
-	global _SPLWindowHandles
 	# Keep the boolean flag handy because of message output.
 	hwnd = _SPLWindowHandles.get(splComponent)
 	isStudioAlive = (hwnd is not None and hwnd == user32.FindWindowW(splComponent, None)) or (
@@ -87,7 +86,6 @@ def studioIsRunning(justChecking: bool = False, splComponent: str = "splstudio")
 
 # Set Studio window handle to the given value so the handle itself can remain private.
 def setStudioWindowHandle(hwnd: int | None, splComponent: str = "splstudio") -> None:
-	global _SPLWindowHandles
 	if hwnd:
 		_SPLWindowHandles[splComponent] = hwnd
 	else:
@@ -103,7 +101,6 @@ def setStudioWindowHandle(hwnd: int | None, splComponent: str = "splstudio") -> 
 # #92: SendMessage function returns something from anything (including from dead window handles),
 # so really make sure Studio window handle is alive.
 def studioAPI(arg: int, command: int, splComponent: str = "splstudio") -> int | None:
-	global _SPLWindowHandles
 	if not studioIsRunning(justChecking=True, splComponent=splComponent):
 		return None
 	# Global plugin can also call this function with no Studio window handle value defined.
