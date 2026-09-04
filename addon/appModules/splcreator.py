@@ -205,12 +205,11 @@ class AppModule(splappmod.AppModule):
 
 	def event_nameChange(self, obj: NVDAObject, nextHandler: collections.abc.Callable[[], None]):
 		# Announce search/match results from insert tracks dialog.
-		if obj.windowClassName == "TTntStatusBar.UnicodeClass" and obj.name:
-			if "match" in obj.name:
-				# Unlike Studio (local and remote), everything must be announced.
-				if splconfig.SPLConfig["General"]["BeepAnnounce"]:
-					tones.beep(370, 40)
-				ui.message(obj.name)
+		if obj.windowClassName == "TTntStatusBar.UnicodeClass" and obj.name and "match" in obj.name:
+			# Unlike Studio (local and remote), everything must be announced.
+			if splconfig.SPLConfig["General"]["BeepAnnounce"]:
+				tones.beep(370, 40)
+			ui.message(obj.name)
 		nextHandler()
 
 	# Handle native Creator commands.
