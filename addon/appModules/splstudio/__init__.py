@@ -1541,7 +1541,7 @@ class AppModule(splappmod.AppModule):
 			if splconfig.SPLConfig["General"]["BeepAnnounce"]:
 				tones.beep(550, 100)
 				# No need to provide translatable string - just use index.
-				ui.message("{0}".format(count))
+				ui.message("{}".format(count))
 			else:
 				# Translators: Presented when library scan is in progress.
 				ui.message(_("{itemCount} items scanned").format(itemCount=count))
