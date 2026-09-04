@@ -1909,9 +1909,7 @@ class AppModule(splappmod.AppModule):
 				# Highly unlikely but None check is done to satisfy type checkers.
 				if playlistTime is not None:
 					overtimePrefix = "+" if playlistTime >= 0 else "-"
-					ui.message("{}{}".format(
-						overtimePrefix, self._ms2time(abs(playlistTime), includeHours=False)
-					))
+					ui.message(f"{overtimePrefix}{self._ms2time(abs(playlistTime), includeHours=False)}")
 			case 3:  # Scheduled/track starts
 				# Scheduled is the time originally specified in Studio,
 				# scheduled to play is broadcast time based on current time.
