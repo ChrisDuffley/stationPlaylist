@@ -852,7 +852,7 @@ class AppModule(splappmod.AppModule):
 						braille.handler.message(obj.name)
 					if (
 						obj.name
-						== "00:{0:02d}".format(splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"])
+						== "00:{:02d}".format(splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"])
 						and splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"]
 					):
 						self.alarmAnnounce(obj.name, 440, 200)
@@ -869,7 +869,7 @@ class AppModule(splappmod.AppModule):
 						braille.handler.message(obj.name)
 					if (
 						obj.name
-						== "00:{0:02d}".format(splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"])
+						== "00:{:02d}".format(splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"])
 						and splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"]
 					):
 						self.alarmAnnounce(obj.name, 512, 400, intro=True)
