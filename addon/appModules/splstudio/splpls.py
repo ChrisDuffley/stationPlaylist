@@ -366,7 +366,7 @@ def savePlaylistTranscriptsToFile(playlistTranscripts: list[str], extension: str
 	if not os.path.exists(transcriptFileLocation):
 		os.mkdir(transcriptFileLocation)
 	transcriptTimestamp = datetime.datetime.now()
-	transcriptFilename = "{0}{1:02d}{2:02d}-{3:02d}{4:02d}{5:02d}-splPlaylistTranscript.{6}".format(
+	transcriptFilename = "{}{:02d}{:02d}-{:02d}{:02d}{:02d}-splPlaylistTranscript.{}".format(
 		transcriptTimestamp.year,
 		transcriptTimestamp.month,
 		transcriptTimestamp.day,
