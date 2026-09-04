@@ -121,7 +121,7 @@ class AppModule(splappmod.AppModule):
 		# Announce app version at startup unless minimal flag is set.
 		if not globalVars.appArgs.minimal:
 			# No translation.
-			ui.message("{} {}".format(self.productName, self.productVersion))
+			ui.message(f"{self.productName} {self.productVersion}")
 		# Load config database and user interface.
 		self.onAppModuleInit()
 

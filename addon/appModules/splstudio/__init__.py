@@ -519,7 +519,7 @@ class AppModule(splappmod.AppModule):
 		# Announce app version if minimal startup flag is not set.
 		if not globalVars.appArgs.minimal:
 			# No translation.
-			ui.message("{} {}".format(self.productName, self.productVersion))
+			ui.message(f"{self.productName} {self.productVersion}")
 		# Does this SPL component rely on full (local) Studio API?
 		self._localStudioAPIRequired = self._SPLAPILevel == splbase.StudioAPIAvailability.LOCALAPI
 		# #40: react to profile switches.
