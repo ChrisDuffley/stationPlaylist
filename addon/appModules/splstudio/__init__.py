@@ -1556,9 +1556,7 @@ class AppModule(splappmod.AppModule):
 		# No, only list items can become place marker tracks.
 		if track.role != controlTypes.Role.LISTITEM:
 			raise ValueError("Only list items can be marked as a place marker track")
-		if self.placeMarker == track._getColumnContentRaw(track.indexOf("Filename")):
-			return True
-		return False
+		return self.placeMarker == track._getColumnContentRaw(track.indexOf("Filename"))
 
 	# Used in delete track workaround routine.
 	def preTrackRemoval(self) -> None:
