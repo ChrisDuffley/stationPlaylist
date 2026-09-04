@@ -660,9 +660,7 @@ def initStudioExtraSteps() -> None:
 			messages.append("One or more broadcast profiles had issues:\n\n")
 			for profile in _configLoadStatus:
 				error = _configErrors[_configLoadStatus[profile]]
-				messages.append(
-					"{profileName}: {errorMessage}".format(profileName=profile, errorMessage=error)
-				)
+				messages.append(f"{profile}: {error}")
 		_configLoadStatus.clear()
 		wx.CallAfter(
 			gui.messageBox,
