@@ -33,7 +33,7 @@ MAX_SEARCH_HISTORY_ENTRIES = 20
 def trackFinder(
 	text: str, obj: NVDAObject, directionForward: bool = True, column: list[int] | None = None
 ) -> None:
-	global findText, searchEntries
+	global findText
 	# Optimization/alignment with NVDA Core: do nothing if text is empty.
 	if not text:
 		return
@@ -96,7 +96,6 @@ _findDialogOpened = False
 
 # Track Finder error dialog.
 def finderError() -> None:
-	global _findDialogOpened
 	if _findDialogOpened:
 		gui.messageBox(
 			# Translators: Text of the dialog when another find dialog is open.
