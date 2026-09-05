@@ -423,7 +423,7 @@ def playlist2msaa(
 		# #148: work directly with column content and position rather than going through column pos index.
 		for column, content in enumerate(columnContents):
 			if content:
-				filteredContent.append("{}: {}".format(columnHeaders[column], content))
+				filteredContent.append(f"{columnHeaders[column]}: {content}")
 		playlistTranscripts.append("{}{}{}".format(prefix, "; ".join(filteredContent), suffix))
 		obj = obj.next
 	return playlistTranscripts
