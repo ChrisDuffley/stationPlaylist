@@ -150,7 +150,8 @@ def saveEncoderConfig() -> None:
 	encoderConfig["NoConnectionTone"] = list(SPLNoConnectionTone)
 	encoderConfig["ConnectionStopOnError"] = list(SPLConnectionStopOnError)
 	# To save disk space, remove empty data.
-	for key in encoderConfig.keys():
+	# Use a copy of the encoder config keys to avoid iteraiton issues.
+	for key in encoderConfig.keys():  # noqa
 		if not len(encoderConfig[key]):
 			del encoderConfig[key]
 	encoderConfig.write()
