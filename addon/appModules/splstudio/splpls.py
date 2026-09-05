@@ -370,15 +370,7 @@ def savePlaylistTranscriptsToFile(playlistTranscripts: list[str], extension: str
 	# Parse the datetime in the date/time format noted above.
 	transcriptTimestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")  # noqa
 	# Formatted string literal for transcript filename is too long (hence marked noqa).
-	transcriptFilename = "{}{:02d}{:02d}-{:02d}{:02d}{:02d}-splPlaylistTranscript.{}".format(  # noqa
-		transcriptTimestamp.year,
-		transcriptTimestamp.month,
-		transcriptTimestamp.day,
-		transcriptTimestamp.hour,
-		transcriptTimestamp.minute,
-		transcriptTimestamp.second,
-		extension,
-	)
+	transcriptFilename = "{}-splPlaylistTranscript.{}".format(transcriptTimestamp, extension)  # noqa
 	transcriptPath = os.path.join(transcriptFileLocation, transcriptFilename)
 	with open(transcriptPath, "w") as transcript:
 		transcript.writelines(playlistTranscripts)
