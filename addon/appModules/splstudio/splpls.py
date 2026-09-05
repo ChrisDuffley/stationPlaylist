@@ -366,8 +366,10 @@ def savePlaylistTranscriptsToFile(playlistTranscripts: list[str], extension: str
 	)
 	if not os.path.exists(transcriptFileLocation):
 		os.mkdir(transcriptFileLocation)
-	transcriptTimestamp = datetime.datetime.now()
-	transcriptFilename = "{}{:02d}{:02d}-{:02d}{:02d}{:02d}-splPlaylistTranscript.{}".format(
+	# Timezone (tz) argument is optional (local time is used when creating transcripts file).
+	transcriptTimestamp = datetime.datetime.now()  # noqa
+	# Formatted string literal for transcript filename is too long (hence marked noqa).
+	transcriptFilename = "{}{:02d}{:02d}-{:02d}{:02d}{:02d}-splPlaylistTranscript.{}".format(  # noqa
 		transcriptTimestamp.year,
 		transcriptTimestamp.month,
 		transcriptTimestamp.day,
