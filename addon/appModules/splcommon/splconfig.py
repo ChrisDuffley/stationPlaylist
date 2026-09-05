@@ -423,7 +423,8 @@ class ConfigHub(ChainMap[Any, Any]):
 	) -> None:
 		if resetViaConfigDialog:
 			askForConfirmation = bool(factoryDefaults and self._switchProfileFlags)
-		if askForConfirmation:
+		# Separate conditions because config must remain active if instant switch profile is active.
+		if askForConfirmation:  # noqa
 			# present a confirmation message from the main thread.
 			# #96: this is more so if a switch profile is active.
 			# If this is done from add-on settings/reset panel, communicate 'no' with an exception.
