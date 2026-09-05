@@ -112,14 +112,15 @@ def playlistSnapshots(
 		trackDurations = [track[0] for track in trackLengths]
 		# #159: do not record shortest/longest tracks if the playlist consists of hour markers.
 		if len(trackDurations) > 0:
+			# Mark min/max duration recording lines with noqa (formatted string literal is too long).
 			shortest = min(trackDurations)
 			shortestIndex = trackDurations.index(shortest)
-			snapshot["PlaylistDurationMin"] = "{} ({})".format(
+			snapshot["PlaylistDurationMin"] = "{} ({})".format(  # noqa
 				trackLengths[shortestIndex][1], _ms2time(trackLengths[shortestIndex][0], ms=False)
 			)
 			longest = max(trackDurations)
 			longestIndex = trackDurations.index(longest)
-			snapshot["PlaylistDurationMax"] = "{} ({})".format(
+			snapshot["PlaylistDurationMax"] = "{} ({})".format(  # noqa
 				trackLengths[longestIndex][1], _ms2time(trackLengths[longestIndex][0], ms=False)
 			)
 	if "DurationAverage" in snapshotFlags:
