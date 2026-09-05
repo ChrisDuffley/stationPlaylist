@@ -170,7 +170,8 @@ class AppModule(splstudio.AppModule):
 	# Cart explorer (Remote Studio)
 	cartExplorer = False
 	# The carts dictionary (key = cart gesture, item = cart name).
-	carts: dict[str, Any] = {}
+	# Same as base local Studio app module (hence not a true class variable).
+	carts: dict[str, Any] = {}  # noqa
 
 	# Toggle cart explorer (private method)
 	# Remote Studio: no need to check Studio title.

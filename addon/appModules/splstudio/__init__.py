@@ -1338,7 +1338,8 @@ class AppModule(splappmod.AppModule):
 	# Cart explorer
 	cartExplorer = False
 	# The carts dictionary (key = cart gesture, item = cart name).
-	carts: dict[str, Any] = {}
+	# Overridden in the Remote Studio app module (not a true class variable).
+	carts: dict[str, Any] = {}  # noqa
 
 	# Toggle cart explorer (private method)
 	# Local Studio: check Studio title.
