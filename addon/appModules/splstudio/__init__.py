@@ -872,7 +872,8 @@ class AppModule(splappmod.AppModule):
 					):
 						self.alarmAnnounce(obj.name, 512, 400, intro=True)
 		# Perform actions such as changing cart explorer dictionary when the Studio window title changes.
-		elif obj.windowClassName == "TStudioForm":
+		# Intentionally marked "noqa" for potential future expansion.
+		elif obj.windowClassName == "TStudioForm":  # noqa
 			if self.cartExplorer:
 				self.carts.clear()
 				splcarts.cartEditTimestamps = []
