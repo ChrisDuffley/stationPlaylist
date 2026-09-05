@@ -1711,7 +1711,8 @@ class AppModule(splappmod.AppModule):
 	@scriptHandler.script(gesture="kb:escape")
 	def script_escape(self, gesture: inputCore.InputGesture):
 		gesture.send()
-		if self.libraryScanning:
+		# The nested conditional is not a simple and/or comparison (hence noqa).
+		if self.libraryScanning:  # noqa
 			if not libScanT or (libScanT and not libScanT.is_alive()):
 				self.monitorLibraryScan()
 
