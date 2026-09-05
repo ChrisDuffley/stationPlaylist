@@ -223,7 +223,7 @@ def playlistSnapshotOutput(snapshot: dict[str, Any], scriptCount: int) -> None:
 						info = _("{artistName} ({artistCount})").format(
 							artistName=artist, artistCount=count
 						)
-					artistList.append("<li>{}</li>".format(info))
+					artistList.append(f"<li>{info}</li>")
 				statusInfo.append("".join([header, "<ol>", "\n".join(artistList), "</ol>"]))
 	if "PlaylistCategoryCount" in snapshot:
 		categoryCount = splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"]
@@ -250,7 +250,7 @@ def playlistSnapshotOutput(snapshot: dict[str, Any], scriptCount: int) -> None:
 				info = _("{categoryName} ({categoryCount})").format(
 					categoryName=category, categoryCount=count
 				)
-				categoryList.append("<li>{}</li>".format(info))
+				categoryList.append(f"<li>{info}</li>")
 			statusInfo.append("".join([header, "<ol>", "\n".join(categoryList), "</ol>"]))
 	if "PlaylistGenreCount" in snapshot:
 		genreCount = splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"]
@@ -290,7 +290,7 @@ def playlistSnapshotOutput(snapshot: dict[str, Any], scriptCount: int) -> None:
 						# Translators: one of the results for playlist snapshots feature
 						# for genre count information.
 						info = _("{genreName} ({genreCount})").format(genreName=genre, genreCount=count)
-					genreList.append("<li>{}</li>".format(info))
+					genreList.append(f"<li>{info}</li>")
 				statusInfo.append("".join([header, "<ol>", "\n".join(genreList), "</ol>"]))
 	if scriptCount == 0:
 		ui.message(", ".join(statusInfo))
