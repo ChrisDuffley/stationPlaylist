@@ -1775,7 +1775,8 @@ class AppModule(splappmod.AppModule):
 		# Choose the required compatibility layer.
 		compatibilityLayer = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
 		# Scripts will be bound to commands outlined in the gestures tuple.
-		SPLAssistantGestures = NamedTuple(
+		# typing.NamedTuple functional syntax is used.
+		SPLAssistantGestures = NamedTuple(  # noqa
 			"SPLAssistantGestures", [
 				("script", str),
 				("off", str),
