@@ -378,7 +378,7 @@ def savePlaylistTranscriptsToFile(playlistTranscripts: list[str], extension: str
 	transcriptPath = os.path.join(transcriptFileLocation, transcriptFilename)
 	with open(transcriptPath, "w") as transcript:
 		transcript.writelines(playlistTranscripts)
-	ui.message("Playlist transcripts saved at {location}".format(location=transcriptPath))
+	ui.message(_("Playlist transcripts saved at {location}").format(location=transcriptPath))
 
 
 def postTranscriptsAction(
