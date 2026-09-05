@@ -626,7 +626,8 @@ class AppModule(splappmod.AppModule):
 
 	def studioAPIMonitor(self) -> None:
 		# Only proceed if Studio handle is valid (Studio is fully operational).
-		if not splbase.studioIsRunning(justChecking=True):
+		# The first check will check for no presence of Studio window handle (thus noqa).
+		if not splbase.studioIsRunning(justChecking=True):  # noqa
 			if self._SPLStudioMonitor is not None:
 				self._SPLStudioMonitor.Stop()
 				self._SPLStudioMonitor = None
