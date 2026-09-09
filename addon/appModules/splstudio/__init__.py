@@ -1606,7 +1606,8 @@ class AppModule(splappmod.AppModule):
 	# as well as remaining playlist duration command also fall under playlist analyzer.
 	# A playlist must be loaded and visible in order for these to work,
 	# or for some, most recent focused track must be known.
-	# Bulk of playlist analyzer are housed in splpls module.
+	# Mechanics of playlist analyzer (playlist duration/snapshots/transcripts) are housed in splpls module
+	# with app module scripts and methods calling appropriate functions.
 
 	# Possible playlist errors.
 	SPLPlaylistNoErrors = 0
