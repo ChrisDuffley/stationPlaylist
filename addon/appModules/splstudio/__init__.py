@@ -1683,13 +1683,6 @@ class AppModule(splappmod.AppModule):
 	def playlistDuration(self, start: NVDAObject | None = None, end: NVDAObject | None = None) -> int:
 		return splpls.playlistDuration(start=start, end=end)
 
-	# Output formatter for playlist snapshots.
-	# Pressing once will speak and/or braille it, pressing twice or more will output this info to an HTML file.
-	# Call the splpls version for compatibility.
-
-	def playlistSnapshotOutput(self, snapshot: dict[str, Any], scriptCount: int) -> None:
-		splpls.playlistSnapshotOutput(snapshot, scriptCount)
-
 	# Some handlers for native commands.
 
 	@scriptHandler.script(gestures=["kb:Shift+delete", "kb:Shift+numpadDelete"])
