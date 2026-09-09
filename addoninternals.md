@@ -2,7 +2,7 @@
 
 Author: Joseph Lee
 
-Based on StationPlaylist Add-on for NVDA 26.07
+Based on StationPlaylist Add-on for NVDA 26.09
 
 ## 2021 Preface and notes
 
@@ -30,7 +30,7 @@ While the add-on source code has gone through major changes and refactoring incl
 
 Last time I (Joseph Lee) wrote a preface and notes, I was busy with add-on code restructuring, notably working on a common services module. The change did not stop there.
 
-One of the reason for adding a second preface and notes in 2025 is changes made with the debut of Remote Studio. Largely based on SPL Studio interface, Remote Studio is designed to let broadcasters conduct shows from a remote location, away from a studio with local Studio installed. Because local (original) Studio and Remote Studio share some features, most of the command sets and features are the same or limited in Remote Studio.
+One reason for adding a second preface and notes in 2025 is changes made with the debut of Remote Studio. Largely based on SPL Studio interface, Remote Studio is designed to let broadcasters conduct shows from a remote location, away from a studio with local Studio installed. Because local (original) Studio and Remote Studio share some features, most of the command sets and features are the same or limited in Remote Studio.
 
 Because of the shared lineage, I decided to write Remote Studio app module as a derived app module on top of original Studio app module, similar to the approach taken with Creator and Remote VT. This meant editing the original (base) Studio app module to account for Remote Studio usage, notably introduction of a decorator that wraps scripts defined in the app module and presenting a message if the script cannot be used from Remote Studio. The decorator approach is more Pythonic than an idea I had - creating a dedicated function to force the local Studio only scripts to return early if running on Remote Studio; in short, the new decorator does just that.
 
@@ -123,6 +123,7 @@ Highlights of past major releases and subsequent maintenance releases include:
 * 25.11: Remote Studio, 64-bit NVDA compatibility.
 * 26.01: Refactored unlabeled control labeler.
 * 26.07: Sixth LTS release, command priority for conflicting commands between NVDA and Studio, removed SPL touch mode, StationPlaylist Recorder support. This is the last version to support Studio 6.01 and 32-bit NVDA (2025.3.3 and earlier).
+* 26.08: Fully transitioned to requiring 64-bit NVDA.
 
 Throughout this document, you'll get a chance to see how the add-on works, design philosophy and how the add-on is being developed, with glimpses into the past and future. My hope is that this add-on internals document would be a valuable reference for users and developers - for users to see the inner workings of this add-on, and for developers to use this add-on as an example of how an add-on is planned, implemented, tested, released and maintained.
 
@@ -149,7 +150,7 @@ In short, all components of StationPlaylist add-on emphasize studio app module -
 The source code consists of:
 
 * appModules: This folder contains the main splstudio (app module) package and the app modules for Track Tool, Creator, VT Recorder, Remote VT client, Remote Studio, SPL Recorder, and SPL DSP Engine app module package to support SPL Engine, Streamer, and encoders. The common services package is also stored in this folder.
-* The SPL Studio package consists of various modules, which include __init__ (main app module and track item classes) and miscellaneous services (splmisc) as well as support modules and various wave files used by the add-on.
+* The SPL Studio package consists of various modules, which include __init__ (main app module and track item classes), track finder (splfind), playlist analyzer mechanics (splpls, described later), miscellaneous services (splmisc), as well as support modules and various wave files used by the add-on.
 * The SPL Engine package consists of main Engine module and encoder support module.
 * The SPL common services package includes the add-on base services (splbase), SPL suite base app module (splappmod), configuration manager (splconfig) and add-on settings interface (splconfui), carts handler (splcarts), and constants collection (splconsts).
 * The Studio main app module file is divided into sections. First, the overlay classes for track items are defined, then comes the app module, further divided into four sections: fundamental methods (constructor, events and others), time commands (end of track, broadcaster time, etc.), other commands (track Finder, cart explorer and others) and SPL Assistant layer. This allows me to identify where a bug is coming from and to add features in appropriate sections.
@@ -593,9 +594,9 @@ We'll come back to track items when talking about columns later. For now, let's 
 
 Track Finder allows you to search for tracks with the given artist or song title. This is done by performing a "linear search" - examining one track item to the next until the search term is found. This feature was partly inspired by similar features in other screen readers and NVDA's own find facility (cursorManager.FindDialog and its friends).
 
-Track finder is not limited to searching for artist or title: a variation of this dialog (called Column Search) allows you to search for text in specific columns such as duration, file name and so on. Another variation of this dialog, called Time Range Finder (which is a separate dialog of its own (splmisc.SPLTimeRangeDialog) but modeled after Track Finder) uses Studio API to locate tracks with duration between minimum and maximum specified by a user.
+Track finder is not limited to searching for artist or title: a variation of this dialog (called Column Search) allows you to search for text in specific columns such as duration, file name and so on. Another variation of this dialog, called Time Range Finder (which is a separate dialog of its own (splfind.SPLTimeRangeDialog) but modeled after Track Finder) uses Studio API to locate tracks with duration between minimum and maximum specified by a user.
 
-In reality, Track Finder and Column Search are a single dialog (splmisc.SPLFindDialog) that presents two dialogs (does this sound familiar?). For now, we'll talk about how the original Track Finder (add-on 2.x to 5.x) works (stay tuned for the next section to learn more about Column Search and the complete refactoring of track finder and its applications).
+In reality, Track Finder and Column Search are a single dialog (splfind.SPLFindDialog) that presents two dialogs (does this sound familiar?). For now, we'll talk about how the original Track Finder (add-on 2.x to 5.x) works (stay tuned for the next section to learn more about Column Search and the complete refactoring of track finder and its applications).
 
 #### Original track Finder: commands, routines and controls
 
@@ -731,7 +732,7 @@ Column Search dialog adds a second control to Track Finder: a list of columns. O
 
 So what causes one dialog to present both Track Finder and Column Search dialog? It's all thanks to the arguments passed into the find dialog constructor. The signature is:
 
-	splmisc.SPLFindDialog(parent, obj, text, title, columnSearch=False)
+	splfind.SPLFindDialog(parent, obj, text, title, columnSearch=False)
 
 The last argument (columnSearch) determines which version of the dialog to present. The object (obj) is needed to tell NVDA where to begin the search and to call the track finder routine defined in the object's app module.
 
@@ -905,7 +906,7 @@ Since Python comes with a library to handle CSV files and since cart banks are C
 5. Back at the cartExplorerInit function, if no erorrs were found while parsing a cart bank, it'll move onto the next one, otherwise it will inform the Studio app module by modifying a flag value in the carts dictionary (stored as an integer, representing number of cart bankks with errors).
 6. By now cartExplorerInit is desperate to pass the carts dictionary to someone, and this someone turns out to be the Studio app module - once picked up by the app module, carts dictionary is hired by you to look up cart names for cart keys while you use Cart Explorer (to fire the carts dictionary, simply deactivate Cart Explorer by pressing Control+NVDA+3).
 
-In effect, the routine above (the "magic" behind Cart Explorer) replaced a hand-written cart bank parser and simplified the add-on code (I regret not investigating CSV module in 2014). As far as user experience is concerned, this is same as Cart Explorer 1, with the difference being the parsing routine. With the addition of splmisc.cartExplorerInit, the majority of the splmisc module (miscellaneous services, containing the Track Finder/Column Search combo dialog, column retriever and Cart Explorer preparation tool) was completed. But the innovations continued.
+In effect, the routine above (the "magic" behind Cart Explorer) replaced a hand-written cart bank parser and simplified the add-on code (I regret not investigating CSV module in 2014). As far as user experience is concerned, this is same as Cart Explorer 1, with the difference being the parsing routine. With the addition of splmisc.cartExplorerInit, the majority of the early verison of the splmisc module (miscellaneous services, containing the Track Finder/Column Search combo dialog, column retriever and Cart Explorer preparation tool) was completed. But the innovations continued.
 
 ### Enter Cart Explorer version 3: file modification timestamps
 
@@ -970,7 +971,7 @@ Another addition to SPL Assistant layer is ability to emulate layer commands pro
 Once you invoke SPL Assistant layer (a beep will be heard), you can perform one of the following operations:
 
 * Status announcements (automation, microphone, etc.).
-* Tools (library scan, track time analysis, obtaining playlist snapshots and transcripts and so on).
+* Tools (library scan, track time analysis, obtaining playlist snapshots and transcripts and so on, the latter three grouped under "playlist analyzer").
 * Configuration (switching broadcast profiles).
 * Ask for help (opening SPL Assistant help document or the online user guide).
 * Until 18.12, checking for add-on updates (manually).
@@ -1018,7 +1019,7 @@ Before the new style routines were written, all commands used object navigation.
 
 The commands which utilizes object navigation steps above include:
 
-* A. Automation.
+* A: Automation.
 * C: Title of the currently playing track.
 * I: Listener count (I have tried using Studio API to obtain this information, but after experimenting with it, object navigation routine was more stable).
 * L: Line in.
@@ -1071,6 +1072,8 @@ These are miscellaneous commands in SPL Assistant, and three of them use Studio 
 * F9: Marks the current position of the playlist as start of track time analysis (more on this feature below).
 * F10: Performs track time analysis (add-on 6.0).
 
+The first four features to be described below - Track time analysis, playlist remainder announcement, playlist snapshots, and playlist transcripts - are collectively known as playlist analyzer with mechanics housed in the splpls module.
+
 ##### Track time analysis: Duration of "selected" tracks
 
 During a Skype chat with a number of add-on users in early 2015, someone suggested a feature where NVDA will tell you how long it'll take to play selected tracks. Since I was familiar with this concept from JAWS scripts, I decided to work on it as part of add-on 6.0.
@@ -1094,7 +1097,7 @@ Technically, a combination of column content fetching and track navigation routi
 
 ##### Playlist snapshots and transcripts
 
-Although similar in appearance, playlist snapshots and transcripts are two different things. Both uses a combination of object navigation and Windows API, work by retrieving and analyzing column content for tracks, and involve SPL Assistant followed by F8 with or without modifiers. Whereas a snapshot is used to gather statistics about the loaded playlist, a transcript is the entire playlist formatted in different ways. Also, after invoking SPL Assistant layer, just pressing F8 will launch snapshots, whereas you need to press Shift+F8 to obtain a playlist transcript and choose appropriate action such as transcript range, output format and so on via the dialog that appears afterwards.
+Although similar in appearance, playlist snapshots and transcripts are two different things. Both use a combination of object navigation and Windows API, work by retrieving and analyzing column content for tracks. However, whereas a snapshot is used to gather statistics about the loaded playlist, a transcript is the entire playlist formatted in different ways. Also, after invoking SPL Assistant layer, just pressing F8 will launch snapshots, whereas you need to press Shift+F8 to obtain a playlist transcript and choose appropriate action such as transcript range, output format and so on via the dialog that appears afterwards.
 
 A playlist snapshot presents statistics about the currently loaded playlist (or parts of it). Information gathered include how many items (including hour markers) are loaded, longest and shortest tracks, and average track duration. Also, if asked to do so, up to top ten artists, categories, and/or track genres are recorded. This information is presented either via speech and braille, or if the command is pressed twice, in a browse mode window.
 
@@ -1561,7 +1564,7 @@ A LTS version is a major version or a major periodic release of the SPL add-on w
 * Studio version supported: A LTS version is the last version to support the oldest supported Studio version. This is designed to give people plenty of time to upgrade to newer Studio releases.
 * Last version with old NVDA technology in use: in some cases, LTS releases are made to support users of old NVDA releases. After the LTS release is created, add-on source code will shift to using newer code from NVDA. This criteria was first applied in 18.09 as a result of NVDA's end of support for Windows XP, Vista and 7 without Service Pack 1, as well as transition to Python 3. In 2026, 26.07.x was designated as LTS release to offer support for 32-bit NVDA with future add-on releases moving to requiring 64-bit NVDA.
 
-As of July 2026, the most recent LTS version is add-on 26.07.x (July 2026 to December 2026). Previous LTS releases have included 25.06.x (June 2025 to December 2025), 20.09.x (September 2020 to April 2021), 18.09.x (September 2018 to December 2019), 15.x (formerly 7.x until October 2016; October 2016 to April 2018) and 3.x (September 2014 to June 2015). For example, add-on 3.x was maintained thus:
+As of September 2026, the most recent LTS version is add-on 26.07.x (July 2026 to December 2026). Previous LTS releases have included 25.06.x (June 2025 to December 2025), 20.09.x (September 2020 to April 2021), 18.09.x (September 2018 to December 2019), 15.x (formerly 7.x until October 2016; October 2016 to April 2018) and 3.x (September 2014 to June 2015). For example, add-on 3.x was maintained thus:
 
 1. Add-on 3.0 was released in September 2014.
 2. Add-on 3.5 (December 2014) could have been the last maintenance version for add-on 3.x if it was not a LTS version.
