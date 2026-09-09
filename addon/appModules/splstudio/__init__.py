@@ -2006,7 +2006,7 @@ class AppModule(splappmod.AppModule):
 			obj = api.getFocusObject()
 			if obj.role == controlTypes.Role.LIST:
 				obj = obj.firstChild
-			self.announceTime(self.playlistDuration(start=obj), ms=False)
+			self.announceTime(splpls.playlistDuration(start=obj), ms=False)
 
 	def script_sayHourOvertime(self, gesture: inputCore.InputGesture):
 		self.announcePlaylistTimes(2)
