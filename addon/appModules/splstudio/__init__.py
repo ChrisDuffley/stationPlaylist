@@ -1676,13 +1676,6 @@ class AppModule(splappmod.AppModule):
 			case _:
 				return True
 
-	# Return total duration of a range of tracks.
-	# This is used in track time analysis when multiple tracks are selected.
-	# This is also called from playlist duration scripts.
-	# Call the splpls version for compatibility.
-	def playlistDuration(self, start: NVDAObject | None = None, end: NVDAObject | None = None) -> int:
-		return splpls.playlistDuration(start=start, end=end)
-
 	# Some handlers for native commands.
 
 	@scriptHandler.script(gestures=["kb:Shift+delete", "kb:Shift+numpadDelete"])
