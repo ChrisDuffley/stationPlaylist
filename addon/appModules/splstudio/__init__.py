@@ -2179,7 +2179,7 @@ class AppModule(splappmod.AppModule):
 			start = obj.parent.getChild(analysisBegin)
 			end = obj.parent.getChild(analysisEnd).next
 		# Speak and braille on the first press, display a decorated HTML message for subsequent presses.
-		self.playlistSnapshotOutput(self.playlistSnapshots(start, end), scriptCount)
+		splpls.playlistSnapshotOutput(splpls.playlistSnapshots(start, end), scriptCount)
 		self.script_finish()
 
 	def script_playlistTranscripts(self, gesture: inputCore.InputGesture):
