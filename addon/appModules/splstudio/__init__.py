@@ -2128,7 +2128,7 @@ class AppModule(splappmod.AppModule):
 			analysisBegin = min(self._analysisMarker, trackPos)
 			analysisEnd = max(self._analysisMarker, trackPos)
 			analysisRange = analysisEnd - analysisBegin + 1
-			totalLength = self.playlistDuration(
+			totalLength = splpls.playlistDuration(
 				start=focus.parent.getChild(analysisBegin), end=focus.parent.getChild(analysisEnd + 1)
 			)
 			# Playlist duration method returns raw seconds, so do not force milliseconds,
