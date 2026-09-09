@@ -1683,16 +1683,6 @@ class AppModule(splappmod.AppModule):
 	def playlistDuration(self, start: NVDAObject | None = None, end: NVDAObject | None = None) -> int:
 		return splpls.playlistDuration(start=start, end=end)
 
-	# Playlist snapshots
-	# Data to be gathered comes from a set of flags.
-	# By default, playlist duration (including shortest and average),
-	# category summary and other statistics will be gathered.
-	# Call the splpls version for compatibility.
-	def playlistSnapshots(
-		self, obj: NVDAObject, end: NVDAObject | None, snapshotFlags: list[str] | None = None
-	) -> dict[str, Any]:
-		return splpls.playlistSnapshots(obj, end, snapshotFlags=snapshotFlags)
-
 	# Output formatter for playlist snapshots.
 	# Pressing once will speak and/or braille it, pressing twice or more will output this info to an HTML file.
 	# Call the splpls version for compatibility.
