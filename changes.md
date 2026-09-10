@@ -4,7 +4,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 
 ## Version 26.07.5-LTS
 
-* NVDA will no longer announce wrong information when reporting remaining time for a playing track via SPL Controller layer (R) when running both local and Remote Studio. Specifically, NVDA will no longer include cart remaining time when SPL Controler coverage is set to Remote Studio.
+* NVDA will no longer announce wrong information when reporting remaining time for a playing track via SPL Controller layer (R) when running both local and Remote Studio. Specifically, NVDA will no longer include cart remaining time when SPL Controller coverage is set to Remote Studio.
 
 ## Version 26.07.4-LTS
 
@@ -13,7 +13,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 
 ## Version 26.07.2-LTS
 
-* NVDA will announce an error message in braille when performing a command that is not part of SPL Assistant and SPL Controler layers.
+* NVDA will announce an error message in braille when performing a command that is not part of SPL Assistant and SPL Controller layers.
 
 ## Version 26.07.1-LTS
 
