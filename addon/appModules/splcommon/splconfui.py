@@ -520,7 +520,8 @@ class GeneralSettingsPanel(gui.settingsDialogs.SettingsPanel):
 		if _splComponent not in ("splcreator", "splremotevt", "tracktool"):
 			# Translators: The label for a setting in SPL add-on dialog to set vertical column.
 			verticalColLabel = _("&Vertical column navigation announcement:")
-			verticalColChoices = [
+			# Pyright incorrectly interprets SPL defaults/column order as string instead of a list.
+			verticalColChoices = [  # type: ignore
 				# Translators: One of the options for vertical column navigation
 				# denoting NVDA will announce current column position (e.g. second column position from the left).
 				_("whichever column I am reviewing")
