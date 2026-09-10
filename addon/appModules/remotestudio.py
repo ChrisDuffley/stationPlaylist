@@ -34,7 +34,8 @@ SPLCurTrackPlaybackTime = 105
 def indexOf(rsVersion: str) -> tuple[str, ...]:
 	# Remote Studio 6.20 defines Studio 6.11 column headers.
 	# Therefore, the version parameter is not needed.
-	return tuple(["Status"] + splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])
+	# Pyright incorrectly interprets SPL defaults/column order as string instead of a list.
+	return tuple(["Status"] + splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])  # type: ignore
 
 
 class RemoteStudioPlaylistViewerItem(splstudio.StudioPlaylistViewerItem):
