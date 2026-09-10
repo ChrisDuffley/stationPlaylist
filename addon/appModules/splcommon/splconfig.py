@@ -270,8 +270,9 @@ class ConfigHub(ChainMap[Any, Any]):
 			conf["ColumnAnnouncement"]["ColumnOrder"] = fields
 		conf["ColumnAnnouncement"]["IncludedColumns"] = set(conf["ColumnAnnouncement"]["IncludedColumns"])
 		# Artist and Title must be present at all times (quite redundant, but just in case).
-		conf["ColumnAnnouncement"]["IncludedColumns"].add("Artist")
-		conf["ColumnAnnouncement"]["IncludedColumns"].add("Title")
+		# Pyright incorrectly interprets the included columns set as a string.
+		conf["ColumnAnnouncement"]["IncludedColumns"].add("Artist")  # type: ignore
+		conf["ColumnAnnouncement"]["IncludedColumns"].add("Title")  # type: ignore
 		# Same thing for included columns in Playlist Transcripts.
 		conf["PlaylistTranscripts"]["IncludedColumns"] = set(conf["PlaylistTranscripts"]["IncludedColumns"])
 		# Perform a similar check for metadata streaming.
