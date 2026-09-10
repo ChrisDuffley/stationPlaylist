@@ -93,11 +93,12 @@ _SPLCategoryTones = {
 # Return a tuple of column headers.
 # Studio 6.1x and 6.20 track items have different column headers.
 def indexOf(studioVersion: str) -> tuple[str, ...]:
+	# Pyright incorrectly interprets SPL defaults/column order as string instead of a list.
 	if studioVersion < "6.20":
-		columnHeaders = ["Status"] + splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+		columnHeaders = ["Status"] + splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]  # type: ignore
 	else:
 		# Studio 6.20 renamed "Time Scheduled" to "Time" and moved it to the left.
-		columnHeaders = ["Status", "Time"] + splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"][:-1]
+		columnHeaders = ["Status", "Time"] + splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"][:-1]  # type: ignore
 	return tuple(columnHeaders)
 
 
