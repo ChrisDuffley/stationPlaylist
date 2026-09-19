@@ -2,7 +2,7 @@
 
 Thank you for your interest in contributing to StationPlaylist NVDA add-on. The purpose of this document is to outline the overall add-on contribution requirements, development process, and offer tips when contributing.
 
-## About StationPlaylist ad-on
+## About StationPlaylist add-on
 
 StationPlaylist NVDA add-on provides improved accessibility and usability for StationPlaylist (SPL) suite of applications, including Studio, Creator, Track Tool, and encoders. Inspired by SPL suite scripts for JAWS for Windows, StationPlaylist add-on includes features such as announcing changes to status such as automation, reviewing columns for track/playlist entries, reporting elapsed and remaining time for the playing track, track comments, playlist analysis, encoder connection status reporting, and a set of layer commands to operate Studio from other programs.
 
@@ -29,11 +29,11 @@ You can contribute to StationPlaylist add-on in several ways:
 
 You can contribute by testing the add-on. To facilitate this, a development snapshot of this add-on is released from time to time so people can test latest changes.
 
-To test the add-on, you must be running the latest stable or development build of NVDA, latest StationPlaylist release,  and latest stable or development build of StationPlaylist add-on. You can obtain latest StationPlaylist add-on via NV Access add-on store (NVDA menu/Tools/add-on store, available or updatable add-ons tab). You can obtain StationPlaylist suite of programs from stationplaylist.com website.
+To test the add-on, you must be running the latest stable or development build of NVDA, latest StationPlaylist release, and latest stable or development build of StationPlaylist add-on. You can obtain latest StationPlaylist add-on via NV Access add-on store (NVDA menu/Tools/add-on store, available or updatable add-ons tab). You can obtain StationPlaylist suite of programs from stationplaylist.com website.
 
 Before testing the add-on:
 
-1. Install the latest availible NVDA release.
+1. Install the latest available NVDA release.
 2. If you haven't, install the latest StationPlaylist suite of programs. At a minimum, StationPlaylist Studio must be installed.
 3. Visit NV Access add-on store (NVDA menu/tools/add-on store).
 4. Check StationPlaylist add-on channel from installed add-ons tab. You can test the stable add-on release, but to test latest code, we recommend switching to beta or dev channel.
@@ -49,7 +49,7 @@ Testing the add-on simply involves using NVDA with StationPlaylist programs as u
 2. Enable one add-on at a time to make sure the issue is not related to add-ons other than StationPlaylist.
 3. If the issue occurs after enabling StationPlaylist, note the steps to reproduce the issue.
 4. Use GitHub and submit a new issue (https://github.com/chrisduffley/stationplaylist/issues/new). Be sure to include NVDA version, add-on version, StationPlaylist program name and version, Windows version, and steps to reproduce the problem.
-5. Sometimes the author will ask for a debug log. If so, restart NvDA with debug logging enabled, try reproducing the issue, then either attach the debug log as part of the GitHub issue or copy and paste the relevant log fragment from the log viewer (NVDA+F1).
+5. Sometimes the author will ask for a debug log. If so, restart NVDA with debug logging enabled, try reproducing the issue, then either attach the debug log as part of the GitHub issue or copy and paste the relevant log fragment from the log viewer (NVDA+F1).
 
 ### Offering code and pull requests
 
