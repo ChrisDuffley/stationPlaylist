@@ -1,0 +1,576 @@
+[
+  {
+    "ID": 1,
+    "name": "-- free break note --",
+    "type": "text",
+    "helpTextKey": "-- free break note --",
+    "code": "",
+    "isFavourite": true
+  },
+  {
+    "ID": 2,
+    "name": "announce feels like temperature",
+    "type": "noParm",
+    "helpTextKey": "announce feels like temperature",
+    "code": "Feel",
+    "isFavourite": false
+  },
+  {
+    "ID": 3,
+    "name": "announce humidity",
+    "type": "noParm",
+    "helpTextKey": "announce humidity",
+    "code": "Humid",
+    "isFavourite": false
+  },
+  {
+    "ID": 4,
+    "name": "announce temperature",
+    "type": "noParm",
+    "helpTextKey": "announce temperature",
+    "code": "Temp",
+    "isFavourite": false
+  },
+  {
+    "ID": 5,
+    "name": "announce time",
+    "type": "noParm",
+    "helpTextKey": "announce time",
+    "code": "Time",
+    "isFavourite": false
+  },
+  {
+    "ID": 6,
+    "name": "automation mode",
+    "type": "onOff",
+    "helpTextKey": "automation mode",
+    "code": "A",
+    "isFavourite": true
+  },
+  {
+    "ID": 7,
+    "name": "break note line-in control",
+    "type": "onOff",
+    "helpTextKey": "break note line-in control",
+    "code": "L",
+    "isFavourite": false
+  },
+  {
+    "ID": 8,
+    "name": "break note overlap intro time",
+    "type": "number",
+    "helpTextKey": "break note overlap intro time",
+    "code": "BI",
+    "minimum": 0,
+    "maximum": 9,
+    "kind": "value",
+    "unit": "seconds",
+    "allowZero": true,
+    "isFavourite": false,
+    "allowEmpty": false
+  },
+  {
+    "ID": 9,
+    "name": "break note overlap outro time",
+    "type": "number",
+    "helpTextKey": "break note overlap outro time",
+    "code": "BO",
+    "minimum": 0,
+    "maximum": 9,
+    "kind": "value",
+    "unit": "seconds",
+    "allowZero": true,
+    "isFavourite": false,
+    "allowEmpty": false
+  },
+  {
+    "ID": 10,
+    "name": "change record folder",
+    "type": "dir",
+    "helpTextKey": "change record folder",
+    "code": "RF",
+    "isFavourite": false
+  },
+  {
+    "ID": 11,
+    "name": "change request intro folder",
+    "type": "dir",
+    "helpTextKey": "change request intro folder",
+    "code": "RIF",
+    "isFavourite": false
+  },
+  {
+    "ID": 12,
+    "name": "change search folder",
+    "type": "dir",
+    "helpTextKey": "change search folder",
+    "code": "Search",
+    "isFavourite": false
+  },
+  {
+    "ID": 13,
+    "name": "change speed/pitch",
+    "type": "number",
+    "helpTextKey": "change speed/pitch",
+    "code": "Speed=",
+    "minimum": -1.25,
+    "maximum": 1.25,
+    "kind": "value",
+    "unit": "percent",
+    "allowZero": true,
+    "isFavourite": false,
+    "allowEmpty": false
+  },
+  {
+    "ID": 14,
+    "name": "change top up folder",
+    "type": "dir",
+    "helpTextKey": "change top up folder",
+    "code": "T",
+    "isFavourite": false
+  },
+  {
+    "ID": 15,
+    "name": "change weather station ID",
+    "type": "number",
+    "helpTextKey": "change weather station ID",
+    "code": "Temp=",
+    "minimum": 1,
+    "maximum": 1000000,
+    "kind": "ID",
+    "unit": "",
+    "allowZero": false,
+    "isFavourite": false,
+    "allowEmpty": false
+  },
+  {
+    "ID": 16,
+    "name": "close and terminate studio",
+    "type": "noParm",
+    "helpTextKey": "close and terminate studio",
+    "code": "Close",
+    "isFavourite": true
+  },
+  {
+    "ID": 17,
+    "name": "crossfade songs",
+    "type": "onOff",
+    "helpTextKey": "crossfade songs",
+    "code": "F",
+    "isFavourite": false
+  },
+  {
+    "ID": 18,
+    "name": "delete all requests",
+    "type": "noParm",
+    "helpTextKey": "delete all requests",
+    "code": "DelRequests",
+    "isFavourite": false
+  },
+  {
+    "ID": 19,
+    "name": "DsP-Toggle",
+    "type": "special",
+    "helpTextKey": "DsP-Toggle",
+    "code": "Dsp",
+    "isFavourite": false
+  },
+  {
+    "ID": 20,
+    "name": "enable/disable top-of-hour timing via auto speed",
+    "type": "onOff",
+    "helpTextKey": "enable/disable top-of-hour timing via auto speed",
+    "code": "AutoSpeed",
+    "isFavourite": false
+  },
+  {
+    "ID": 21,
+    "name": "enable/disable top-of-hour timing via song outro times",
+    "type": "onOff",
+    "helpTextKey": "enable/disable top-of-hour timing via song outro times",
+    "code": "TOHOutro",
+    "isFavourite": false
+  },
+  {
+    "ID": 22,
+    "name": "execute a file",
+    "type": "file",
+    "helpTextKey": "execute a file",
+    "code": "File",
+    "isFavourite": false
+  },
+  {
+    "ID": 23,
+    "name": "extra text for Metadata output %X",
+    "type": "text",
+    "helpTextKey": "extra text for Metadata output %X",
+    "code": "Extra",
+    "isFavourite": false
+  },
+  {
+    "ID": 24,
+    "name": "folder - insert all files",
+    "type": "typeAndDir",
+    "helpTextKey": "folder - insert all files",
+    "code": "Dir",
+    "isFavourite": false
+  },
+  {
+    "ID": 25,
+    "name": "folder - insert file with position",
+    "type": "typeAndDir",
+    "helpTextKey": "folder - insert file with Position",
+    "code": "Dir",
+    "kind": "position",
+    "minimum": 0,
+    "maximum": 1000,
+    "allowZero": true,
+    "isFavourite": false
+  },
+  {
+    "ID": 26,
+    "name": "folder - insert all files randomly",
+    "type": "typeAndDir",
+    "helpTextKey": "folder - insert all files randomly",
+    "code": "Dirr",
+    "isFavourite": false
+  },
+  {
+    "ID": 27,
+    "name": "hook playback",
+    "type": "special",
+    "helpTextKey": "hook playback",
+    "code": "Hook",
+    "kind": "track",
+    "minimum": 1,
+    "maximum": 1000,
+    "allowZero": false,
+    "allowEmpty": false,
+    "isFavourite": false
+  },
+  {
+    "ID": 28,
+    "name": "hour marker (temporary)",
+    "type": "menu",
+    "helpTextKey": "hour marker (temporary)",
+    "code": "H",
+    "menuItems": [
+      "ignore",
+      "play next",
+      "instant"
+    ],
+    "isFavourite": false
+  },
+  {
+    "ID": 29,
+    "name": "hour marker (permanent)",
+    "type": "menu",
+    "helpTextKey": "hour marker (permanent)",
+    "code": "H=",
+    "menuItems": [
+      "ignore",
+      "play next",
+      "instant"
+    ],
+    "isFavourite": true
+  },
+  {
+    "ID": 30,
+    "name": "ignore timed events",
+    "type": "onOff",
+    "helpTextKey": "ignore timed events",
+    "code": "I",
+    "isFavourite": false
+  },
+  {
+    "ID": 31,
+    "name": "insert a cart sequentially",
+    "type": "special",
+    "helpTextKey": "insert a cart sequentially",
+    "code": "C",
+    "kind": "position",
+    "minimum": 0,
+    "maximum": 1000,
+    "allowZero": true,
+    "allowEmpty": true,
+    "isFavourite": false
+  },
+  {
+    "ID": 32,
+    "name": "insert a cart overlapping",
+    "type": "special",
+    "helpTextKey": "insert a cart overlapping",
+    "code": "O",
+    "isFavourite": false
+  },
+  {
+    "ID": 33,
+    "name": "insert request if exists",
+    "type": "noParm",
+    "helpTextKey": "insert request if exists",
+    "code": "Request",
+    "isFavourite": false
+  },
+  {
+    "ID": 34,
+    "name": "insert top up",
+    "type": "noParm",
+    "helpTextKey": "insert top up",
+    "code": "T",
+    "isFavourite": false
+  },
+  {
+    "ID": 35,
+    "name": "load a still image in the video window",
+    "type": "file",
+    "helpTextKey": "load a still image in the video window",
+    "code": "Image",
+    "isFavourite": false
+  },
+  {
+    "ID": 36,
+    "name": "metadata change",
+    "type": "text",
+    "helpTextKey": "metadata change",
+    "code": "Metadata",
+    "isFavourite": false
+  },
+  {
+    "ID": 37,
+    "name": "maximum auto speed",
+    "type": "number",
+    "helpTextKey": "maximum auto speed",
+    "code": "MaxSpeed=",
+    "minimum": 0,
+    "maximum": 10,
+    "kind": "value",
+    "unit": "",
+    "allowZero": true,
+    "isFavourite": false,
+    "allowEmpty": false
+  },
+  {
+    "ID": 38,
+    "name": "minimum auto speed",
+    "type": "number",
+    "helpTextKey": "minimum auto speed",
+    "code": "MinSpeed=",
+    "minimum": -5,
+    "maximum": 5,
+    "kind": "value",
+    "unit": "",
+    "allowZero": true,
+    "isFavourite": false,
+    "allowEmpty": false
+  },
+  {
+    "ID": 39,
+    "name": "no fade",
+    "type": "noParm",
+    "helpTextKey": "no fade",
+    "code": "NoFade",
+    "isFavourite": false
+  },
+  {
+    "ID": 40,
+    "name": "now playing template",
+    "type": "text",
+    "helpTextKey": "now playing template",
+    "code": "Template",
+    "isFavourite": false
+  },
+  {
+    "ID": 41,
+    "name": "on short hours",
+    "type": "menu",
+    "helpTextKey": "on short hours",
+    "code": "Short",
+    "menuItems": [
+      "Repeat the last hour",
+      "Insert Top Up Tracks",
+      "Start the next hour early",
+      "Start early based on next hour"
+    ],
+    "isFavourite": false
+  },
+  {
+    "ID": 42,
+    "name": "overlap fade",
+    "type": "noParm",
+    "helpTextKey": "overlap fade",
+    "code": "OverlapFade",
+    "isFavourite": false
+  },
+  {
+    "ID": 43,
+    "name": "play a file",
+    "type": "typeAndFile",
+    "helpTextKey": "play a file",
+    "code": "Play",
+    "isFavourite": false
+  },
+  {
+    "ID": 44,
+    "name": "player volumes",
+    "type": "special",
+    "helpTextKey": "player volumes",
+    "code": "PlayerVol",
+    "isFavourite": false
+  },
+  {
+    "ID": 45,
+    "name": "record to file",
+    "type": "onOff",
+    "helpTextKey": "record to file",
+    "code": "R",
+    "isFavourite": true
+  },
+  {
+    "ID": 46,
+    "name": "record to file (all parameters)",
+    "type": "special",
+    "helpTextKey": "record to file (all parameters)",
+    "code": "R",
+    "kind": "duration",
+    "unit": "seconds",
+    "minimum": 0,
+    "maximum": 99999,
+    "allowZero": false,
+    "allowEmpty": true,
+    "isFavourite": true
+  },
+  {
+    "ID": 47,
+    "name": "reload playlist",
+    "type": "noParm",
+    "helpTextKey": "reload playlist",
+    "code": "Reload",
+    "isFavourite": false
+  },
+  {
+    "ID": 48,
+    "name": "replace blank album",
+    "type": "text",
+    "helpTextKey": "replace blank album",
+    "code": "npba",
+    "isFavourite": false
+  },
+  {
+    "ID": 49,
+    "name": "rescan search folder",
+    "type": "noParm",
+    "helpTextKey": "rescan search folder",
+    "code": "Search=rescan",
+    "isFavourite": false
+  },
+  {
+    "ID": 50,
+    "name": "rescan top up folder",
+    "type": "noParm",
+    "helpTextKey": "rescan top up folder",
+    "code": "T=rescan",
+    "isFavourite": false
+  },
+  {
+    "ID": 51,
+    "name": "script execution",
+    "type": "text",
+    "helpTextKey": "script execution",
+    "code": "Script",
+    "isFavourite": false
+  },
+  {
+    "ID": 52,
+    "name": "short intro delay",
+    "type": "onOff",
+    "helpTextKey": "short intro delay",
+    "code": "D",
+    "isFavourite": false
+  },
+  {
+    "ID": 53,
+    "name": "skip next track if now feels like temperature available",
+    "type": "noParm",
+    "helpTextKey": "skip next track if now feels like temperature available",
+    "code": "SkipNoFeel",
+    "isFavourite": false
+  },
+  {
+    "ID": 54,
+    "name": "skip next track if no temperature available",
+    "type": "noParm",
+    "helpTextKey": "skip next track if no temperature available",
+    "code": "SkipNoTemp",
+    "isFavourite": false
+  },
+  {
+    "ID": 55,
+    "name": "stop cart playing",
+    "type": "noParm",
+    "helpTextKey": "stop cart playing",
+    "code": "O0",
+    "isFavourite": false
+  },
+  {
+    "ID": 56,
+    "name": "test mode",
+    "type": "onOff",
+    "helpTextKey": "test mode",
+    "code": "TestMode",
+    "isFavourite": false
+  },
+  {
+    "ID": 57,
+    "name": "time checking",
+    "type": "onOff",
+    "helpTextKey": "time checking",
+    "code": "K",
+    "isFavourite": false
+  },
+  {
+    "ID": 58,
+    "name": "time marker",
+    "type": "noParm",
+    "helpTextKey": "time marker",
+    "code": "TM",
+    "isFavourite": false
+  },
+  {
+    "ID": 59,
+    "name": "track info popup file",
+    "type": "file",
+    "helpTextKey": "track info popup file",
+    "code": "InfoFile",
+    "isFavourite": false
+  },
+  {
+    "ID": 60,
+    "name": "truncation delay",
+    "type": "number",
+    "helpTextKey": "truncation delay",
+    "code": "Q=",
+    "minimum": 0,
+    "maximum": 9000,
+    "kind": "duration",
+    "unit": "milliseconds",
+    "allowZero": true,
+    "isFavourite": false,
+    "allowEmpty": true
+  },
+  {
+    "ID": 61,
+    "name": "voice track/intro overlapping",
+    "type": "onOff",
+    "helpTextKey": "voice track/intro overlapping",
+    "code": "P",
+    "isFavourite": false
+  },
+  {
+    "ID": 62,
+    "name": "user change",
+    "type": "text",
+    "helpTextKey": "user change",
+    "code": "User",
+    "isFavourite": false
+  }
+]
