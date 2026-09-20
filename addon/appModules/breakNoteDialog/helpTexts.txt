@@ -1,0 +1,318 @@
+[-- free break note --]
+You can enter your own break note e.g. for storing additional infos in the play list.
+
+[announce feels like temperature]
+Replaces this break note with a filename matching the current "feels like" temperature.
+See the Time & Temperature chapter.
+
+[announce humidity]
+Replaces this break note with a filename matching the current humidity percentage.
+See the Time & Temperature chapter.
+
+[announce temperature]
+Replaces this break note with a filename matching the current temperature.
+See the Time & Temperature chapter.
+
+[announce time]
+Replaces this break note with a filename matching the current time.
+See the Time & Temperature chapter.
+
+[automation mode]
+Automation Mode may be switched on and off, off means switch to live assist.
+When in live assistance mode, *A0 break note entries cannot be checked (ticked) in the Playlist Viewer.  This may be useful when used in combination with the Tick all tracks when playlist loaded option in the General Options, or the Tick All/Remaining Tracks Edit Menu option, to pre-plan when announcements should be spoken by a live DJ.
+
+On: will switch automation mode on automatically when it is scheduled as a Fixed Timed Event, provided there are no previous unplayed timed events.
+
+With the exception of a Timed Event, a *A1 break note entry will automatically be checked (ticked) when loaded into Studio in live assistance mode.  This may be used to remind the DJ to start automation mode when he/she finishes his live shift by simply clicking the Play button.
+
+[break note line-in control]
+The Break Note Line-in Control checkbox in the Line Input options may be enabled and disabled with this break note.
+Use this code when some Break Notes need to take audio from the Line Input, and when some don't. Apply a duration to the break note to open the line input for the specified duration, or until an instant event terminates it.
+
+[break note overlap intro time]
+The Break Note Overlap intro time option in the Line Input options may be manipulated with this break note.
+the Intro time is specified in seconds from 0 to 9.
+
+[break note overlap outro time]
+The Break Note Overlap outro time option in the Line Input options may be manipulated with this break note.
+the outro time is specified in seconds from 0 to 9.
+
+[change record folder]
+Record Folder may be changed for the Record To File feature.
+
+[change request intro folder]
+Request Intro Folder may be changed to have song request introduction files inserted from a different folder.
+Note that subfolders for the current Studio User is supported so different DJ's can have different introduction files without using this break note.
+
+[change search folder]
+This will change the Search Folder in the Folder Locations options.
+This may be useful when using the Song Requester feature while a specific genre show is playing. Multiple folders may be entered separated with a semicolon ";".
+Leave the field blank will empty the folder list.
+
+[change speed/pitch]
+Sets this option in the Output options / Main Player tab. 
+This may be useful to change speed at different times of the day.
+Values with a decimal point are allowed, e.g. 1.25.
+
+[change top up folder]
+This will change the Top Up Folder in the Folder Locations options.
+This enables a specific genre of Top Up tracks to be selected while a specific genre show is playing. Multiple paths may be entered separated with a semicolon ";".
+
+[change weather station ID]
+The Station ID option in the Time & Temperature options may be changed to a different ID.
+This may be useful in a radio network situation where a temperature from different cities may be announced every hour, for example.
+This syntax does not activate a temperature announcement. It only changes the ID ready for the next *Temp break note.  There will need to be a few seconds between changing the ID and using a *Temp break note, to allow time for the temperature to be read via the internet.
+
+[close and terminate studio]
+This closes and terminates Studio. 
+A duration of 1 or 2 seconds on the break note is recommended to let the current track finish.
+
+[crossfade songs]
+Crossfade Songs checkbox in the File Input options may be modified with this break note.
+This may be useful if crossfading should not occur during periods of the day, such when classical music is scheduled.
+
+[delete all requests]
+Removes all unplayed requests.
+This may be useful to schedule at the start of a new show containing different genres, so unplayed requests made during the last show are not played in the next show.
+
+[DsP-Toggle]
+This break note may be used to toggle a DSP on or off, on the Mixer tab of the Output Options.
+The number of DSP represents the position of the DSP in the list.
+
+[enable/disable top-of-hour timing via auto speed]
+Enable/Disable Top-Of-Hour Timing via Auto Speed in the Advanced options.
+
+[enable/disable top-of-hour timing via song outro times]
+Enable/Disable Top-Of-Hour Timing via Song Outro Times in the Advanced options.
+
+[execute a file]
+This may be used to load a PDF or TXT file, for example, for a DJ to read an advertisement.
+It may also execute applications or batch files, etc.
+The break note supports date/time replaceable parameters and '?' wildcards.
+
+[folder - insert all files]
+Insert all tracks in a folder.
+All tracks in a folder may be inserted into Studio's playlist viewer at the time the break note is executed.  This may be useful for playing 1 or more files which regularly change in name, such as downloaded news files.  Tracks are inserted in alphabetical order.
+
+Note: Track Insert Separation and Schedule Restrictions are taken into account. Song & artist separation only applies to songs/general tracks.
+Note: Executing this break note from a Script or Cart will insert the track(s) immediately after the current track playing, and will start them playing instantly.
+
+The break note supports date/time replaceable parameters and '?' wildcards.
+
+[folder - insert file with Position]
+Insert one track based on position.
+One track in a folder may be inserted based on the alphabetical position of the track in the folder, starting at 1.
+The last track alphabetically in the folder may also be inserted by leaving the track number blank.
+
+Note: Track Insert Separation and Schedule Restrictions are taken into account. Song & artist separation only applies to songs/general tracks.
+Note: Executing this break note from a Script or Cart will insert the track(s) immediately after the current track playing, and will start them playing instantly.
+
+The break note supports date/time replaceable parameters and '?' wildcards.
+
+[folder - insert all files randomly]
+Insert all tracks in a folder randomized:
+All tracks in a folder may be inserted into Studio's playlist viewer at the time the break note is executed.
+the tracks will be randomized before being inserted in the playlist viewer.
+The break note supports date/time replaceable parameters and '?' wildcards.
+
+[hook playback]
+This may be used to play a short excerpt of a song upcoming in the playlist.
+This can hook listeners in to staying tuned longer.  Often several *Hook break notes are scheduled back to back.
+You can specify to play the hook for the current or the next hour.
+The number to enter represents the xth song from the current position in the playlist.
+e.g. 6 will play a hook for the 6th song below the break note.
+
+The Track Tool is used to enter hook timings for all songs.  Any songs without a Hook Start will use the Intro Time of the song if available, otherwise the Hook Timings set in the Advanced options will be used.
+
+Hooks may also be selected from random songs in a category scheduled by StationPlaylist Creator Pro 5.20 or later by using a Hook button in Rotation Properties. See the Creator documentation for more details.
+
+[hour marker (temporary)]
+The Hour Markers option may be set temporarily using this break note.
+A Temporary change will revert the option back to its original setting when play is stopped.
+
+Switching to Ignore using a break note code, Hour Markers will still be inserted but ignored, and Timed Events will still function. This contrasts with what occurs when the option is set manually in the Advanced options.
+
+[hour marker (permanent)]
+The Hour Markers option may be set permanently using this break note.
+A Permanent change will stay set permanently, even when Studio is closed down. This may be useful when preparing for a DJ to do a live show.
+
+Switching to Ignore using a break note code, Hour Markers will still be inserted but ignored, and Timed Events will still function. This contrasts with what occurs when the option is set manually in the Advanced options.
+
+[ignore timed events]
+The Ignore Timed Events checkbox option may be controlled by this break note.
+
+[insert a cart sequentially]
+Cart Slots may be inserted into the playlist and played.
+the cart track is played sequentially with the other tracks in the playlist.
+Cart Break Notes can act just like voice tracks when the Play Break Note Cart as VT's option is enabled.
+Individual tracks are selected in order from top to bottom in the cart list. 
+
+[insert a cart overlapping]
+Cart Slots may be inserted into the playlist and played. the cart is played simultaneously with the next track, equivalent to the cart slot being played manually.
+A duration applied to the break note will delay the following track from starting for this length of time.
+eg. a duration of 2 seconds will play the file associated with the cart. Studio will then wait for 2 seconds before playing the next track in the playlist, while the cart slot is still playing.
+As with manual carts, the volume of the Main Player will be reduced while the cart plays.
+
+[insert request if exists]
+Specify the position a Listener Request will be inserted automatically if one exists.
+Song requests may be received via the TCP Server or Serial Input functions, usually from the Song Requester website script.  See the Communications options.  The Song Requester options are on the TCP Communications page.
+
+[insert top up]
+This break note will be replaced with a random Top Up Track.
+
+[load a still image in the video window]
+Loads a still image in the Video Window.
+BMP, GIF, and JPG images are supported. The Video Window will appear if it is not already visible.
+The break note supports date/time replaceable parameters and '?' wildcards.
+
+[metadata change]
+This break note will force a change to the Song Title (%t) parameter in the Now Playing system while spots are playing.
+The change will take effect until the next song or lengthy spot plays.
+eg. be in to win [1000. See our website.
+The Song Artist (%a), Song Title (%t), and Album Title (%T) may also be filled using a dash-space-dash delimiter ( - ). eg.
+Artist - Title - Album.
+
+All non-track Now Playing template parameters may be included in the text, including %u(user), %l(listeners),%p(temperature),%d(date),%h(time).
+
+The metadata may be read from a text file with a .txt file extension, eg.
+filename.txt
+
+Off/On. With this alternate syntax, it is possible to disable the Now Playing system from all automated updates. While disabled, only *Metadata break notes can update the Now Playing, and songs playing will not.
+
+Note: All metadata output will be disabled when Test Mode is enabled in the Controls menu.
+
+[maximum auto speed]
+Configure the maximum for Auto Speed.
+Sets the Max Speed setting in the Advanced options.
+Negative values are allowed.
+Note: setting min speed and max speed to 0 will disable Auto Speed.
+
+[minimum auto speed]
+Configure the minimum for Auto Speed.
+Sets the Min Speed setting in the Advanced options.
+Negative values are allowed.
+Note: setting min speed and max speed to 0 will disable Auto Speed.
+
+[no fade]
+NoFade may be used with a Line Input feed. 
+When used, a Line Input feed will not fade the preceding track at all, enabling a low volume music bed to play under the feed.
+
+[now playing template]
+The Now Playing Template may be altered from a playlist using this break note.
+For example...
+Sample.xml
+The file specified must exist in the Studio\Templates folder on the hard drive.
+
+[on short hours]
+The On Short Hours option may be controlled by this break note.
+Some settings are not valid depending on the Hour Markers option above. See the Advanced options chapter.
+
+[overlap fade]
+OverlapFade may be used with a Line Input feed. When used, a Line Input feed will fade the preceding track to the level set in the Output options / Voice Track Player tab but continue playing the track. 
+This enables a music bed to play under the feed.
+
+[play a file]
+Replaces the break note with an audio file, or audio files from a M3U playlist, and plays them. 
+This enables a specific track or set of tracks to be placed directly into a rotation in Creator without creating a spot group. The break note supports date/time replaceable parameters and '?' wildcards.
+
+Note: Executing this break note with a M3U playlist from a Script or Cart will insert the tracks immediately after the current track playing, and will start them playing instantly.
+
+[player volumes]
+Player Volumes on the Output options player tabs may the adjusted using this break note.
+Nnumbers go from 0 to 100.  0 = silent, 100 = maximum volume.
+
+[record to file]
+Switches recorder on or off.
+
+[record to file (all parameters)]
+Record to file may be switched on and off.  Optionally with a duration, and a new File Format may also be specified.
+You can specify a duration to record in seconds up to 99999)
+If you specify a file name and switch recording off, e.g. filename, the File Format changes without switching recording on.
+If you specify a file name and switch recording on, e.g. yymmdd".ogg", the File Format is changed just before recording starts.  
+Note this is just the filename and not the folder where the file will be created. See change record folder.
+
+This break note scheduled as an Instant Concurrent timed event may be used to record audio entering the line input of the soundcard, such as a satellite program, and play it back later.  Studio supports playing timeshifted audio currently being recorded in SPL Recorder.
+
+Note 1: Quotation marks must be placed around literal constants.  See the Record Output chapter for details on the File Format.
+
+Note 2: It is possible to execute *R0*R1 on the same break note track to have recording stop, and restart with a new filename.
+
+[reload playlist]
+Trigger a reload of the playlists currently loaded in the playlist viewer, roughly 10 seconds after the next song starts.
+This may be useful to reload embedded M3U or PLS playlists that contain other audio files that can change regularly.
+
+[replace blank album]
+The Replace Blank Album Now Playing option may be altered within a playlist.
+It may be useful to remove the Album name or change it for specific shows.
+
+[rescan search folder]
+This will initiate a rescan of the Search Folders.
+
+[rescan top up folder]
+This will initiate a rescan of the top up folders.
+
+[script execution]
+Scripts may be executed.
+abcd will execute the script abcd.scp stored in the Studio\Scripts folder.
+
+[short intro delay]
+The Short Intro Delay checkbox may be controlled by this break note.
+
+[skip next track if now feels like temperature available]
+This will skip playing the next track in the playlist if no "feels like" temperature will be played.
+This will be useful if an introduction for the temperature appears next in the playlist followed by a *Feel break note code.
+
+[skip next track if no temperature available]
+This will skip playing the next track in the playlist if no temperature is available.
+This will be useful if an introduction for the temperature appears next in the playlist followed by a *Temp break note code.
+
+[stop cart playing]
+Stops playing a cart.
+
+[test mode]
+This break note may be used to toggle Test Mode on or off in the Controls menu.
+
+[time checking]
+The Time Checking checkbox may be controlled by this break note.
+
+[time marker]
+This will insert a Time Marker, which should be set as a timed event, either Instant or Play Next.
+A Time Marker provides for the situation where the current play position must be moved down the playlist to a new position at a specified time.  Tracks in between the current position and the Time Marker will be skipped and not played, similar to an Hour Marker.
+
+If the current position in the playlist is below the Time Marker when the event time occurs, the Time Marker will be ignored.  If it is important the tracks following the Time Marker must start precisely at this time, an extra track or two should be scheduled before each Time Marker.
+
+This feature may be used to schedule in 30 minute blocks of time, for example, rather than a whole hour.  It also makes it possible to follow a stop set or commercial break with specific programming such as specific categories of music.  In some cases, this feature may replace the need for multiple timed spots in a row.
+
+Time Markers are usually scheduled in StationPlaylist Creator's Rotation Properties.
+
+Unpredictable results could occur if a Time Marker is scheduled close to other timed events.
+
+[track info popup file]
+Text from a file may be displayed via the Track Info Popup feature when hovering the mouse over the break note track icon.
+for example...
+filename.txt
+
+[truncation delay]
+Truncation Delay in the Event Times options may be modified.
+Entering a number means a truncation delay in miliseconds.
+eg. 9000 will set the option to 9000 milliseconds.  
+Leaving the field blank will revert the option to it's original value. The setting is temporary and will reset to the original value if the options dialog is loaded, or Studio is restarted.
+
+This code may be used to fade a song at the top of the hour for a longer period than usual, before an instant event occurs.
+
+[voice track/intro overlapping]
+The Voice Track/Intro Overlapping checkbox may be controlled by this break note.
+
+[user change]
+The Studio User Name may be changed within a playlist using this break note.
+This will load any Carts previously configured for the user so user specific jingles may be played using break notes.
+Changing users within the playlist can also be useful when the %u parameter is used in the Now Playing routine.  See also the Change User option on the View menu.
+If the User Name is empty, Studio will display the Change User dialog on the screen for the DJ to select.
+The User Name is limited to 45 characters.
+
+Note: This break note is ignored if User is Windows Logon name is enabled in the Advanced options.
+
+[extra text for Metadata output %X]
+Set text for the Now Playing parameter %X
+@@
+EndMessages
