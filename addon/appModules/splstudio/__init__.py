@@ -41,6 +41,10 @@ import textInfos
 import tones
 from ..splcommon import splbase, splconsts, splactions, splconfig, splconfui, splcarts, splappmod
 from . import splmisc, splfind, splpls
+from ..breakNoteDialog import (
+	breakNoteDialogOverlay,
+	canUseBreakNoteDialogInStudio,
+)
 import addonHandler
 from ..skipTranslation import translate
 
@@ -665,6 +669,9 @@ class AppModule(splappmod.AppModule):
 	@override
 	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
 		role = obj.role
+		# check if breakNoteDialog can be used before checking unlabeled controls.
+		if canUseBreakNoteDialogInStudio(obj) and breakNoteDialogOverlay not in clsList:
+				clsList.insert(0, breakNoteDialogOverlay)
 		# Detect unlabeled controls whose labels are next to them (written to the screen).
 		# Return right after detecting these.
 		if splbase.useScreenLabelForUnlabeledObject(
@@ -693,8 +700,6 @@ class AppModule(splappmod.AppModule):
 			# Recognize known dialogs.
 			case "TDemoRegForm" | "TOpenPlaylist" | "TAboutForm":
 				clsList.insert(0, Dialog)
-			case _:
-				pass
 		super().chooseNVDAObjectOverlayClasses(obj, clsList)
 
 	# Let the global plugin know if SPLController passthrough is allowed.

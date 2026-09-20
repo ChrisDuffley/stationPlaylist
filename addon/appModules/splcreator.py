@@ -19,6 +19,7 @@ import winUser
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32, getNVDAObjectFromEvent
 from NVDAObjects.behaviors import Dialog
+from .breakNoteDialog import breakNoteDialogOverlay
 from .splcommon import splconfig, splbase, splcarts, splappmod
 from .skipTranslation import translate
 
@@ -166,6 +167,12 @@ class AppModule(splappmod.AppModule):
 				clsList.insert(0, sysListView32.List)
 		elif obj.windowClassName in ("TDemoRegForm", "TAboutForm"):
 			clsList.insert(0, Dialog)
+		elif (
+			obj.windowClassName == "TTntMemo.UnicodeClass"
+			and obj.role == controlTypes.Role.EDITABLETEXT
+			and breakNoteDialogOverlay not in clsList
+		):
+				clsList.insert(0, breakNoteDialogOverlay)
 		super().chooseNVDAObjectOverlayClasses(obj, clsList)
 
 	# Cache status bar objects to improve status bar retrieval performance.
