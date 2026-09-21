@@ -7,4 +7,3 @@ addon/doc/en/
 *.pyc
 *.nvda-addon
 .sconsign.dblite
-addon/appModules/breakNoteDialog/elementValues.json
