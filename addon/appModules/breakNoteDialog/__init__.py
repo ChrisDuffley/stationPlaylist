@@ -11,6 +11,7 @@ import api
 import speech
 import winUser
 import eventHandler
+import globalVars
 import NVDAObjects
 import controlTypes
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent
@@ -100,8 +101,9 @@ class BreakNoteElement:
   duration: str = ""
 
 
-ELEMENTS_FILE = Path(__file__).with_name("elements.json")
-ELEMENT_VALUES_FILE = Path(__file__).with_name("elementValues.json")
+ELEMENTS_FILE = Path(__file__).with_name("breakNotes.json")
+BREAK_NOTE_SETTINGS_DIR = Path(globalVars.appArgs.configPath) / "SPLSuite"
+ELEMENT_VALUES_FILE = BREAK_NOTE_SETTINGS_DIR / "breakNoteSettings.json"
 HELP_TEXTS_FILE = Path(__file__).with_name("helpTexts.txt")
 LAST_SELECTED_ELEMENT_KEY = "_lastSelectedElementID"
 FILTER_SELECTION_KEY = "_filterSelection"
@@ -393,6 +395,7 @@ class breakNoteDialogOverlay(NVDAObjects.NVDAObject):
       values[LAST_SELECTED_ELEMENT_KEY] = selectedElementID
     values[FILTER_SELECTION_KEY] = self.filterSelection
 
+    path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="\n") as valuesFile:
       json.dump(values, valuesFile, ensure_ascii=False, indent=2)
       valuesFile.write("\n")
