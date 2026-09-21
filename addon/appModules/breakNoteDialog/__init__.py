@@ -8,7 +8,6 @@ from pathlib import Path
 import gui
 import wx
 import api
-import speech
 import winUser
 import eventHandler
 import globalVars
@@ -17,12 +16,13 @@ import controlTypes
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 from scriptHandler import script
 from logHandler import log
+import ui
 
 WM_REPLACESEL = 0x00C2
 WM_SETTEXT = 0x000C
 
 
-BREAK_NOTE_DIALOG_HINT = "Enter your break note"
+BREAK_NOTE_DIALOG_HINT = "Enter a break note"
 
 
 def getBreakNoteDialogHint():
@@ -213,7 +213,7 @@ def breakNoteDialogAllowed(
       )
       and controlTypes.State.CHECKED in curObj.states
     ):
-      obj.name = getBreakNoteDialogHint()
+      ui.message (getBreakNoteDialogHint())
       return True
     curObj = curObj.simpleNext
   return False
@@ -990,7 +990,7 @@ class breakNoteDialogOverlay(NVDAObjects.NVDAObject):
         )
         return
       if selectedElement.type == bnType.noParm:
-        speech.speakMessage ("This break note has no parameters to select!")
+        ui.message ("This break note has no parameters to select!")
         return
       if selectedElement.type in (bnType.typeAndDir, bnType.typeAndFile):
         value = self.getTypeAndPathValue(dialog, selectedElement)
@@ -1164,7 +1164,7 @@ class breakNoteDialogOverlay(NVDAObjects.NVDAObject):
       result = f"{selectedElement.duration}:{result}"
 
     if result is None:
-      wx.CallLater(100, speech.speakMessage, "Break note insertion canceled!")
+      wx.CallLater(100, ui.message, "Break note insertion canceled!")
       return
 
     emptyBuffer = ctypes.create_unicode_buffer("")
@@ -1181,4 +1181,4 @@ class breakNoteDialogOverlay(NVDAObjects.NVDAObject):
       True,
       ctypes.addressof(textBuffer),
     )
-    wx.CallLater(100, speech.speakMessage, "Break note inserted into text field.")
+    wx.CallLater(100, ui.message, "Break note inserted into text field.")
