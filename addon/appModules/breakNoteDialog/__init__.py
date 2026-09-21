@@ -7,10 +7,13 @@ from pathlib import Path
 
 import gui
 import wx
+import api
 import speech
 import winUser
+import eventHandler
 import NVDAObjects
 import controlTypes
+from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 from scriptHandler import script
 from logHandler import log
 
@@ -91,25 +94,85 @@ CART_NAMES = tuple(
 )
 
 
-def canUseBreakNoteDialogInStudio(obj: NVDAObjects.NVDAObject) -> bool:
+def breakNoteDialogAllowed(
+  obj: NVDAObjects.NVDAObject,
+  windowClassName: str,
+) -> bool:
   if (
-    obj.windowClassName != "TMemo"
+    obj.windowClassName != windowClassName
     or obj.role != controlTypes.Role.EDITABLETEXT
   ):
     return False
-  log.info("name und rolle stimmen!")
-  ancestor = obj
-  while ancestor is not None:
-    if ancestor.name == "Insert Tracks":
-      break
-    parent = ancestor.parent
-    if parent is ancestor:
-      return False
-    ancestor = parent
-  else:
+  # check if dialog title is correct
+  curObj = api.getForegroundObject()
+  if (
+    curObj is None
+    or curObj.name != "Insert Tracks"
+  ):
+    log.info("Dialogtitle is wrong!")
+    if curObj:
+      log.info(curObj.name)
     return False
-  log.info("Jetzt wird gleich true zurückgegeben!")
-  return True
+  # The edit box is usually in the "Additional Parameters" group.
+  # Some versions nest the group differently, so fall back to the parent chain.
+  parent = obj.simpleParent or obj.parent
+  if parent is None:
+    return False
+  if (
+    parent.name != "Additional Parameters"
+    or parent.windowClassName != "TGroupBox"
+  ):
+    ancestor = parent
+    while ancestor is not None:
+      if (
+        ancestor.name == "Additional Parameters"
+        and ancestor.windowClassName == "TGroupBox"
+      ):
+        parent = ancestor
+        break
+      nextAncestor = ancestor.simpleParent or ancestor.parent
+      if nextAncestor is ancestor:
+        break
+      ancestor = nextAncestor
+    if (
+      parent is None
+      or parent.name != "Additional Parameters"
+      or parent.windowClassName != "TGroupBox"
+    ):
+      return False
+  curObj = parent.simpleNext
+  if curObj is None:
+    return False
+  # in Studio this should be the Group of radio buttons for track type,
+  # in creator the radio buttons itself.
+  if (
+    curObj.name == "Track Type"
+    and curObj.windowClassName == "TRadioGroup"
+  ):
+    curObj = curObj.simpleFirstChild
+  if (
+    curObj is None
+    or curObj.windowClassName not in ("TGroupButton", "TRadioButton")
+  ):
+    return False
+  # we are on a radio button, now go to the first one
+  firstSibling = curObj
+  while firstSibling.simplePrevious:
+    firstSibling = firstSibling.simplePrevious
+  curObj = firstSibling
+  # iterate through all siblings and find the checked Break Note radio button.
+  while curObj:
+    if (
+      (
+        curObj.name == "Break Note"
+        or curObj.name == "Timed Break Note"
+      )
+      and controlTypes.State.CHECKED in curObj.states
+    ):
+      obj.name = "Enter your break note!"
+      return True
+    curObj = curObj.simpleNext
+  return False
 
 class breakNoteDialogOverlay(NVDAObjects.NVDAObject):
   @script(
@@ -678,7 +741,7 @@ class breakNoteDialogOverlay(NVDAObjects.NVDAObject):
 
   def showBreakNoteDialog(self, elements):
     dialog = wx.Dialog(
-      gui.mainFrame,
+      None,
       title="Create a break note",
     )
     mainSizer = wx.BoxSizer(wx.VERTICAL)
@@ -973,7 +1036,37 @@ class breakNoteDialogOverlay(NVDAObjects.NVDAObject):
 
     dialog.SetSizerAndFit(mainSizer)
     updateElementList()
-    elementList.SetFocus()
+
+    def notifyNVDAFocus():
+      if not dialog.IsShown():
+        return
+      dialog.Raise()
+      elementList.SetFocus()
+      try:
+        focusObject = getNVDAObjectFromEvent(
+          elementList.GetHandle(),
+          winUser.OBJID_CLIENT,
+          0,
+        )
+      except LookupError:
+        return
+      eventHandler.queueEvent("gainFocus", focusObject)
+
+    def setInitialFocus(event=None):
+      if event is not None:
+        event.Skip()
+      if dialog.IsShown():
+        notifyNVDAFocus()
+
+    def focusShownDialog(event):
+      event.Skip()
+      if event.IsShown():
+        # Focus can be restored to the source control while the modal dialog
+        # is being shown, so set it again after wx has activated the dialog.
+        wx.CallAfter(notifyNVDAFocus)
+
+    dialog.Bind(wx.EVT_SHOW, focusShownDialog)
+    wx.CallAfter(setInitialFocus)
 
     try:
       result = gui.displayDialogAsModal(dialog)
