@@ -700,6 +700,8 @@ class AppModule(splappmod.AppModule):
 			# Recognize known dialogs.
 			case "TDemoRegForm" | "TOpenPlaylist" | "TAboutForm":
 				clsList.insert(0, Dialog)
+			case _:
+				pass
 		super().chooseNVDAObjectOverlayClasses(obj, clsList)
 
 	# Let the global plugin know if SPLController passthrough is allowed.
