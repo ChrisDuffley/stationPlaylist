@@ -21,6 +21,48 @@ WM_REPLACESEL = 0x00C2
 WM_SETTEXT = 0x000C
 
 
+BREAK_NOTE_DIALOG_HINT = "Enter your break note"
+
+
+def getBreakNoteDialogHint():
+  import inputCore
+
+  gestureNameByIdentifier = {
+    gesture: None
+    for gesture, scriptName in getattr(
+      breakNoteDialogOverlay,
+      "_breakNoteDialogOverlay__gestures",
+      {},
+    ).items()
+    if scriptName == "breakNoteDialog"
+  }
+  for gestureMap in (
+    inputCore.manager.localeGestureMap,
+    inputCore.manager.userGestureMap,
+  ):
+    mappings = {}
+    for cls, gesture, scriptName in gestureMap.getScriptsForAllGestures():
+      if cls is breakNoteDialogOverlay:
+        mappings.setdefault(gesture, []).append(scriptName)
+    for gesture, scriptNames in mappings.items():
+      if scriptNames[-1] == "breakNoteDialog":
+        gestureNameByIdentifier[gesture] = None
+      else:
+        gestureNameByIdentifier.pop(gesture, None)
+
+  for gesture in gestureNameByIdentifier:
+    try:
+      gestureName = inputCore.getDisplayTextForGestureIdentifier(gesture)[1]
+    except LookupError:
+      log.exception("Unable to determine the break note dialog gesture.")
+      continue
+    return (
+      f"{BREAK_NOTE_DIALOG_HINT} or press {gestureName} "
+      "to open break note dialog."
+    )
+  return BREAK_NOTE_DIALOG_HINT
+
+
 class bnType(Enum):
   noParm = "noParm"
   file = "file"
@@ -169,7 +211,7 @@ def breakNoteDialogAllowed(
       )
       and controlTypes.State.CHECKED in curObj.states
     ):
-      obj.name = "Enter your break note!"
+      obj.name = getBreakNoteDialogHint()
       return True
     curObj = curObj.simpleNext
   return False
@@ -178,6 +220,7 @@ class breakNoteDialogOverlay(NVDAObjects.NVDAObject):
   @script(
     gesture="kb:windows+alt+i")
   def script_breakNoteDialog(self, gesture):
+    """Open the break note dialog."""
     wx.CallAfter(self.createBreakNote)
 
   def initOverlayClass(self):
