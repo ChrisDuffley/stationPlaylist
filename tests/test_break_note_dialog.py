@@ -1,8 +1,3 @@
-import types
-
-BREAK_NOTE_DIALOG_HINT = "Enter your break note"
-
-
 class FakeObj:
     def __init__(
         self,
@@ -92,7 +87,6 @@ def build_break_note_dialog_allowed():
                 current.name in ("Break Note", "Timed Break Note")
                 and "CHECKED" in current.states
             ):
-                obj.name = BREAK_NOTE_DIALOG_HINT
                 return True
             current = current.simpleNext
 
@@ -122,9 +116,7 @@ def test_normal_layout():
         role="EDITABLETEXT",
         simpleParent=group,
     )
-
     assert breakNoteDialogAllowed(edit, "TTntMemo.UnicodeClass") is True
-    assert edit.name == BREAK_NOTE_DIALOG_HINT
 
 
 def test_nested_group_layout():
