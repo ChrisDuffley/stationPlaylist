@@ -19,7 +19,7 @@ import winUser
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32, getNVDAObjectFromEvent
 from NVDAObjects.behaviors import Dialog
-from .breakNoteDialog import breakNoteDialogOverlay
+from .breakNoteDialog import breakNoteDialogAllowed, breakNoteDialogOverlay
 from .splcommon import splconfig, splbase, splcarts, splappmod
 from .skipTranslation import translate
 
@@ -168,8 +168,7 @@ class AppModule(splappmod.AppModule):
 		elif obj.windowClassName in ("TDemoRegForm", "TAboutForm"):
 			clsList.insert(0, Dialog)
 		elif (
-			obj.windowClassName == "TTntMemo.UnicodeClass"
-			and obj.role == controlTypes.Role.EDITABLETEXT
+			breakNoteDialogAllowed(obj, "TTntMemo.UnicodeClass")
 			and breakNoteDialogOverlay not in clsList
 		):
 				clsList.insert(0, breakNoteDialogOverlay)
