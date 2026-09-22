@@ -19,7 +19,7 @@ import winUser
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32, getNVDAObjectFromEvent
 from NVDAObjects.behaviors import Dialog
-from .breakNoteDialog import breakNoteDialogAllowed, breakNoteDialogOverlay
+from .splcommon.breakNoteDialog import breakNoteDialogAllowed, breakNoteDialogOverlay
 from .splcommon import splconfig, splbase, splcarts, splappmod
 from .skipTranslation import translate
 
