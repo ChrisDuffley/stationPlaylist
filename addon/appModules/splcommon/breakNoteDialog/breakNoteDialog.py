@@ -33,7 +33,7 @@ class BreakNoteDialog:
 		self.storage.filterSelection = self.filterSelection
 		self.storage.saveElementValues(elements, path)
 
-	def saveElementFavourites(self, elements, path=ELEMENTS_FILE):
+	def saveElementFavourites(self, elements, path=ELEMENT_VALUES_FILE):
 		self.storage.saveElementFavourites(elements, path)
 
 	def editElementFavourites(self, parent, elements):
