@@ -4,56 +4,49 @@
     "name": "-- free break note --",
     "type": "text",
     "helpTextKey": "-- free break note --",
-    "code": "",
-    "isFavourite": true
+    "code": ""
   },
   {
     "ID": 2,
     "name": "announce feels like temperature",
     "type": "noParm",
     "helpTextKey": "announce feels like temperature",
-    "code": "Feel",
-    "isFavourite": false
+    "code": "Feel"
   },
   {
     "ID": 3,
     "name": "announce humidity",
     "type": "noParm",
     "helpTextKey": "announce humidity",
-    "code": "Humid",
-    "isFavourite": false
+    "code": "Humid"
   },
   {
     "ID": 4,
     "name": "announce temperature",
     "type": "noParm",
     "helpTextKey": "announce temperature",
-    "code": "Temp",
-    "isFavourite": false
+    "code": "Temp"
   },
   {
     "ID": 5,
     "name": "announce time",
     "type": "noParm",
     "helpTextKey": "announce time",
-    "code": "Time",
-    "isFavourite": false
+    "code": "Time"
   },
   {
     "ID": 6,
     "name": "automation mode",
     "type": "onOff",
     "helpTextKey": "automation mode",
-    "code": "A",
-    "isFavourite": true
+    "code": "A"
   },
   {
     "ID": 7,
     "name": "break note line-in control",
     "type": "onOff",
     "helpTextKey": "break note line-in control",
-    "code": "L",
-    "isFavourite": false
+    "code": "L"
   },
   {
     "ID": 8,
@@ -66,7 +59,6 @@
     "kind": "value",
     "unit": "seconds",
     "allowZero": true,
-    "isFavourite": false,
     "allowEmpty": false
   },
   {
@@ -80,7 +72,6 @@
     "kind": "value",
     "unit": "seconds",
     "allowZero": true,
-    "isFavourite": false,
     "allowEmpty": false
   },
   {
@@ -88,24 +79,21 @@
     "name": "change record folder",
     "type": "dir",
     "helpTextKey": "change record folder",
-    "code": "RF",
-    "isFavourite": false
+    "code": "RF"
   },
   {
     "ID": 11,
     "name": "change request intro folder",
     "type": "dir",
     "helpTextKey": "change request intro folder",
-    "code": "RIF",
-    "isFavourite": false
+    "code": "RIF"
   },
   {
     "ID": 12,
     "name": "change search folder",
     "type": "dir",
     "helpTextKey": "change search folder",
-    "code": "Search",
-    "isFavourite": false
+    "code": "Search"
   },
   {
     "ID": 13,
@@ -118,7 +106,6 @@
     "kind": "value",
     "unit": "percent",
     "allowZero": true,
-    "isFavourite": false,
     "allowEmpty": false
   },
   {
@@ -126,8 +113,7 @@
     "name": "change top up folder",
     "type": "dir",
     "helpTextKey": "change top up folder",
-    "code": "T",
-    "isFavourite": false
+    "code": "T"
   },
   {
     "ID": 15,
@@ -140,7 +126,6 @@
     "kind": "ID",
     "unit": "",
     "allowZero": false,
-    "isFavourite": false,
     "allowEmpty": false
   },
   {
@@ -148,72 +133,63 @@
     "name": "close and terminate studio",
     "type": "noParm",
     "helpTextKey": "close and terminate studio",
-    "code": "Close",
-    "isFavourite": true
+    "code": "Close"
   },
   {
     "ID": 17,
     "name": "crossfade songs",
     "type": "onOff",
     "helpTextKey": "crossfade songs",
-    "code": "F",
-    "isFavourite": true
+    "code": "F"
   },
   {
     "ID": 18,
     "name": "delete all requests",
     "type": "noParm",
     "helpTextKey": "delete all requests",
-    "code": "DelRequests",
-    "isFavourite": false
+    "code": "DelRequests"
   },
   {
     "ID": 19,
     "name": "DsP-Toggle",
     "type": "special",
     "helpTextKey": "DsP-Toggle",
-    "code": "Dsp",
-    "isFavourite": false
+    "code": "Dsp"
   },
   {
     "ID": 20,
     "name": "enable/disable top-of-hour timing via auto speed",
     "type": "onOff",
     "helpTextKey": "enable/disable top-of-hour timing via auto speed",
-    "code": "AutoSpeed",
-    "isFavourite": false
+    "code": "AutoSpeed"
   },
   {
     "ID": 21,
     "name": "enable/disable top-of-hour timing via song outro times",
     "type": "onOff",
     "helpTextKey": "enable/disable top-of-hour timing via song outro times",
-    "code": "TOHOutro",
-    "isFavourite": false
+    "code": "TOHOutro"
   },
   {
     "ID": 22,
     "name": "execute a file",
     "type": "file",
     "helpTextKey": "execute a file",
-    "code": "File",
-    "isFavourite": false
+    "code": "File"
   },
   {
     "ID": 23,
     "name": "extra text for Metadata output %X",
     "type": "text",
     "helpTextKey": "extra text for Metadata output %X",
-    "code": "Extra",
-    "isFavourite": true
+    "code": "Extra"
   },
   {
     "ID": 24,
     "name": "folder - insert all files",
     "type": "typeAndDir",
     "helpTextKey": "folder - insert all files",
-    "code": "Dir",
-    "isFavourite": false
+    "code": "Dir"
   },
   {
     "ID": 25,
@@ -224,16 +200,14 @@
     "kind": "position",
     "minimum": 0,
     "maximum": 1000,
-    "allowZero": true,
-    "isFavourite": false
+    "allowZero": true
   },
   {
     "ID": 26,
     "name": "folder - insert all files randomly",
     "type": "typeAndDir",
     "helpTextKey": "folder - insert all files randomly",
-    "code": "Dirr",
-    "isFavourite": false
+    "code": "Dirr"
   },
   {
     "ID": 27,
@@ -245,8 +219,7 @@
     "minimum": 1,
     "maximum": 1000,
     "allowZero": false,
-    "allowEmpty": false,
-    "isFavourite": false
+    "allowEmpty": false
   },
   {
     "ID": 28,
@@ -258,8 +231,7 @@
       "ignore",
       "play next",
       "instant"
-    ],
-    "isFavourite": false
+    ]
   },
   {
     "ID": 29,
@@ -271,16 +243,14 @@
       "ignore",
       "play next",
       "instant"
-    ],
-    "isFavourite": true
+    ]
   },
   {
     "ID": 30,
     "name": "ignore timed events",
     "type": "onOff",
     "helpTextKey": "ignore timed events",
-    "code": "I",
-    "isFavourite": false
+    "code": "I"
   },
   {
     "ID": 31,
@@ -292,48 +262,42 @@
     "minimum": 0,
     "maximum": 1000,
     "allowZero": true,
-    "allowEmpty": true,
-    "isFavourite": true
+    "allowEmpty": true
   },
   {
     "ID": 32,
     "name": "insert a cart overlapping",
     "type": "special",
     "helpTextKey": "insert a cart overlapping",
-    "code": "O",
-    "isFavourite": true
+    "code": "O"
   },
   {
     "ID": 33,
     "name": "insert request if exists",
     "type": "noParm",
     "helpTextKey": "insert request if exists",
-    "code": "Request",
-    "isFavourite": false
+    "code": "Request"
   },
   {
     "ID": 34,
     "name": "insert top up",
     "type": "noParm",
     "helpTextKey": "insert top up",
-    "code": "T",
-    "isFavourite": false
+    "code": "T"
   },
   {
     "ID": 35,
     "name": "load a still image in the video window",
     "type": "file",
     "helpTextKey": "load a still image in the video window",
-    "code": "Image",
-    "isFavourite": false
+    "code": "Image"
   },
   {
     "ID": 36,
     "name": "metadata change",
     "type": "text",
     "helpTextKey": "metadata change",
-    "code": "Metadata",
-    "isFavourite": false
+    "code": "Metadata"
   },
   {
     "ID": 37,
@@ -346,7 +310,6 @@
     "kind": "value",
     "unit": "",
     "allowZero": true,
-    "isFavourite": false,
     "allowEmpty": false
   },
   {
@@ -360,7 +323,6 @@
     "kind": "value",
     "unit": "",
     "allowZero": true,
-    "isFavourite": false,
     "allowEmpty": false
   },
   {
@@ -368,16 +330,14 @@
     "name": "no fade",
     "type": "noParm",
     "helpTextKey": "no fade",
-    "code": "NoFade",
-    "isFavourite": false
+    "code": "NoFade"
   },
   {
     "ID": 40,
     "name": "now playing template",
     "type": "text",
     "helpTextKey": "now playing template",
-    "code": "Template",
-    "isFavourite": false
+    "code": "Template"
   },
   {
     "ID": 41,
@@ -390,40 +350,35 @@
       "Insert Top Up Tracks",
       "Start the next hour early",
       "Start early based on next hour"
-    ],
-    "isFavourite": false
+    ]
   },
   {
     "ID": 42,
     "name": "overlap fade",
     "type": "noParm",
     "helpTextKey": "overlap fade",
-    "code": "OverlapFade",
-    "isFavourite": false
+    "code": "OverlapFade"
   },
   {
     "ID": 43,
     "name": "play a file",
     "type": "typeAndFile",
     "helpTextKey": "play a file",
-    "code": "Play",
-    "isFavourite": false
+    "code": "Play"
   },
   {
     "ID": 44,
     "name": "player volumes",
     "type": "special",
     "helpTextKey": "player volumes",
-    "code": "PlayerVol",
-    "isFavourite": false
+    "code": "PlayerVol"
   },
   {
     "ID": 45,
     "name": "record to file",
     "type": "onOff",
     "helpTextKey": "record to file",
-    "code": "R",
-    "isFavourite": true
+    "code": "R"
   },
   {
     "ID": 46,
@@ -436,112 +391,98 @@
     "minimum": 0,
     "maximum": 99999,
     "allowZero": false,
-    "allowEmpty": true,
-    "isFavourite": true
+    "allowEmpty": true
   },
   {
     "ID": 47,
     "name": "reload playlist",
     "type": "noParm",
     "helpTextKey": "reload playlist",
-    "code": "Reload",
-    "isFavourite": false
+    "code": "Reload"
   },
   {
     "ID": 48,
     "name": "replace blank album",
     "type": "text",
     "helpTextKey": "replace blank album",
-    "code": "npba",
-    "isFavourite": false
+    "code": "npba"
   },
   {
     "ID": 49,
     "name": "rescan search folder",
     "type": "noParm",
     "helpTextKey": "rescan search folder",
-    "code": "Search=rescan",
-    "isFavourite": false
+    "code": "Search=rescan"
   },
   {
     "ID": 50,
     "name": "rescan top up folder",
     "type": "noParm",
     "helpTextKey": "rescan top up folder",
-    "code": "T=rescan",
-    "isFavourite": false
+    "code": "T=rescan"
   },
   {
     "ID": 51,
     "name": "script execution",
     "type": "text",
     "helpTextKey": "script execution",
-    "code": "Script",
-    "isFavourite": false
+    "code": "Script"
   },
   {
     "ID": 52,
     "name": "short intro delay",
     "type": "onOff",
     "helpTextKey": "short intro delay",
-    "code": "D",
-    "isFavourite": false
+    "code": "D"
   },
   {
     "ID": 53,
     "name": "skip next track if now feels like temperature available",
     "type": "noParm",
     "helpTextKey": "skip next track if now feels like temperature available",
-    "code": "SkipNoFeel",
-    "isFavourite": false
+    "code": "SkipNoFeel"
   },
   {
     "ID": 54,
     "name": "skip next track if no temperature available",
     "type": "noParm",
     "helpTextKey": "skip next track if no temperature available",
-    "code": "SkipNoTemp",
-    "isFavourite": false
+    "code": "SkipNoTemp"
   },
   {
     "ID": 55,
     "name": "stop cart playing",
     "type": "noParm",
     "helpTextKey": "stop cart playing",
-    "code": "O0",
-    "isFavourite": false
+    "code": "O0"
   },
   {
     "ID": 56,
     "name": "test mode",
     "type": "onOff",
     "helpTextKey": "test mode",
-    "code": "TestMode",
-    "isFavourite": false
+    "code": "TestMode"
   },
   {
     "ID": 57,
     "name": "time checking",
     "type": "onOff",
     "helpTextKey": "time checking",
-    "code": "K",
-    "isFavourite": false
+    "code": "K"
   },
   {
     "ID": 58,
     "name": "time marker",
     "type": "noParm",
     "helpTextKey": "time marker",
-    "code": "TM",
-    "isFavourite": true
+    "code": "TM"
   },
   {
     "ID": 59,
     "name": "track info popup file",
     "type": "file",
     "helpTextKey": "track info popup file",
-    "code": "InfoFile",
-    "isFavourite": false
+    "code": "InfoFile"
   },
   {
     "ID": 60,
@@ -554,7 +495,6 @@
     "kind": "duration",
     "unit": "milliseconds",
     "allowZero": true,
-    "isFavourite": false,
     "allowEmpty": true
   },
   {
@@ -562,15 +502,13 @@
     "name": "voice track/intro overlapping",
     "type": "onOff",
     "helpTextKey": "voice track/intro overlapping",
-    "code": "P",
-    "isFavourite": false
+    "code": "P"
   },
   {
     "ID": 62,
     "name": "user change",
     "type": "text",
     "helpTextKey": "user change",
-    "code": "User",
-    "isFavourite": false
+    "code": "User"
   }
 ]
