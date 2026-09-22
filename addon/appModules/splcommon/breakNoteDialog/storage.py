@@ -12,6 +12,7 @@ ELEMENT_VALUES_FILE = BREAK_NOTE_SETTINGS_DIR / "breakNoteSettings.json"
 HELP_TEXTS_FILE = Path(__file__).with_name("helpTexts.txt")
 LAST_SELECTED_ELEMENT_KEY = "_lastSelectedElementID"
 FILTER_SELECTION_KEY = "_filterSelection"
+FAVOURITE_ELEMENT_IDS_KEY = "_favouriteElementIDs"
 
 
 class BreakNoteStorage:
@@ -59,6 +60,14 @@ class BreakNoteStorage:
 				raise ValueError("The element values file must contain a JSON object.")
 		else:
 			elementValues = {}
+
+		favouriteElementIDs = elementValues.get(FAVOURITE_ELEMENT_IDS_KEY, [])
+		if not isinstance(favouriteElementIDs, list) or any(
+			not isinstance(elementID, int) or isinstance(elementID, bool) or elementID <= 0
+			for elementID in favouriteElementIDs
+		):
+			raise ValueError(f"{FAVOURITE_ELEMENT_IDS_KEY} must be a list of positive integers.")
+		favouriteIDSet = set(favouriteElementIDs)
 
 		lastSelectedElementID = elementValues.get(LAST_SELECTED_ELEMENT_KEY)
 		self.filterSelection = elementValues.get(FILTER_SELECTION_KEY, 0)
@@ -126,11 +135,6 @@ class BreakNoteStorage:
 				raise ValueError(
 					f"Menu element {value['name']!r} must define menuItems."
 				)
-			isFavourite = value.get("isFavourite", False)
-			if not isinstance(isFavourite, bool):
-				raise ValueError(
-					f"Element {value['name']!r} must define isFavourite as a boolean."
-				)
 			storedValues = elementValues.get(value["name"], {})
 			if not isinstance(storedValues, dict):
 				raise ValueError(
@@ -143,7 +147,7 @@ class BreakNoteStorage:
 					type=elementType,
 					helpText=helpTexts[value["helpTextKey"]],
 					code=value["code"],
-					isFavourite=isFavourite,
+					isFavourite=elementID in favouriteIDSet,
 					isLastSelected=elementID == lastSelectedElementID,
 					value=0 if elementType == bnType.onOff else None,
 					minimum=minimum,
@@ -171,9 +175,12 @@ class BreakNoteStorage:
 		# breakNotes.json so updates to the add-on can change their metadata.
 		values = {}
 		selectedElementID = None
+		favouriteElementIDs = []
 		for element in elements:
 			if element.isLastSelected:
 				selectedElementID = element.ID
+			if element.isFavourite:
+				favouriteElementIDs.append(element.ID)
 			storedValue = {}
 			if element.textInPlaylist:
 				storedValue["textInPlaylist"] = element.textInPlaylist
@@ -185,6 +192,8 @@ class BreakNoteStorage:
 				values[element.name] = storedValue
 		if selectedElementID is not None:
 			values[LAST_SELECTED_ELEMENT_KEY] = selectedElementID
+		if favouriteElementIDs:
+			values[FAVOURITE_ELEMENT_IDS_KEY] = favouriteElementIDs
 		values[FILTER_SELECTION_KEY] = self.filterSelection
 
 		path.parent.mkdir(parents=True, exist_ok=True)
@@ -192,14 +201,19 @@ class BreakNoteStorage:
 			json.dump(values, valuesFile, ensure_ascii=False, indent=2)
 			valuesFile.write("\n")
 
-	def saveElementFavourites(self, elements, path=ELEMENTS_FILE):
-		with path.open(encoding="utf-8") as elementsFile:
-			values = json.load(elementsFile)
-		elementsByID = {element.ID: element for element in elements}
-		for value in values:
-			element = elementsByID.get(value.get("ID"))
-			if element is not None:
-				value["isFavourite"] = element.isFavourite
-		with path.open("w", encoding="utf-8", newline="\n") as elementsFile:
-			json.dump(values, elementsFile, ensure_ascii=False, indent=2)
-			elementsFile.write("\n")
+	def saveElementFavourites(self, elements, path=ELEMENT_VALUES_FILE):
+		# Store favourite flags in the user config file instead of mutating the
+		# add-on definition file, so the defaults remain clean and updateable.
+		values = {}
+		if path.exists():
+			with path.open(encoding="utf-8") as valuesFile:
+				values = json.load(valuesFile)
+			if not isinstance(values, dict):
+				raise ValueError("The element values file must contain a JSON object.")
+		values[FAVOURITE_ELEMENT_IDS_KEY] = [
+			element.ID for element in elements if element.isFavourite
+		]
+		path.parent.mkdir(parents=True, exist_ok=True)
+		with path.open("w", encoding="utf-8", newline="\n") as valuesFile:
+			json.dump(values, valuesFile, ensure_ascii=False, indent=2)
+			valuesFile.write("\n")
