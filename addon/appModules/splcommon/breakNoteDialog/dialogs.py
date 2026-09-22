@@ -1,5 +1,6 @@
 import gui
 import wx
+from gui.nvdaControls import CustomCheckListBox
 
 from .types import CART_NAMES, CART_TYPES, DIR_FILE_TYPES, PLAYER_NAMES
 
@@ -223,7 +224,6 @@ class FavouriteDialog(wx.Dialog):
 	def __init__(self, parent, elements):
 		super().__init__(parent, title="Edit favourites", size=(500, 600))
 		self.elements = elements
-		self.favouriteStates = [element.isFavourite for element in elements]
 		dialogSizer = wx.BoxSizer(wx.VERTICAL)
 		dialogSizer.Add(
 			wx.StaticText(self, label="&Select favourite break notes:"),
@@ -231,12 +231,15 @@ class FavouriteDialog(wx.Dialog):
 			wx.LEFT | wx.RIGHT | wx.TOP,
 			10,
 		)
-		self.favouriteList = wx.ListBox(self, style=wx.LB_SINGLE)
-		dialogSizer.Add(self.favouriteList, 1, wx.ALL | wx.EXPAND, 10)
-		self.favouriteList.SetItems(
-			[self.getFavouriteLabel(index) for index in range(len(elements))]
+		self.favouriteList = CustomCheckListBox(
+			self,
+			choices=[element.name for element in elements],
 		)
-		self.favouriteList.Bind(wx.EVT_KEY_DOWN, self.onKeyDown)
+		dialogSizer.Add(self.favouriteList, 1, wx.ALL | wx.EXPAND, 10)
+		for index, element in enumerate(elements):
+			self.favouriteList.Check(index, check=element.isFavourite)
+		if elements:
+			self.favouriteList.SetSelection(0)
 		dialogSizer.Add(
 			self.CreateStdDialogButtonSizer(wx.OK | wx.CANCEL),
 			0,
@@ -245,27 +248,15 @@ class FavouriteDialog(wx.Dialog):
 		)
 		self.SetSizer(dialogSizer)
 		self.Layout()
-
-	def getFavouriteLabel(self, index):
-		status = "checked" if self.favouriteStates[index] else "not checked"
-		return f"{self.elements[index].name} [{status}]"
-
-	def onKeyDown(self, event):
-		if event.GetKeyCode() == wx.WXK_SPACE:
-			selection = self.favouriteList.GetSelection()
-			if selection >= 0:
-				self.favouriteStates[selection] = not self.favouriteStates[selection]
-				self.favouriteList.SetString(
-					selection,
-					self.getFavouriteLabel(selection),
-				)
-			return
-		event.Skip()
+		self.favouriteList.SetFocus()
 
 	def getValues(self):
 		try:
 			if gui.displayDialogAsModal(self) != wx.ID_OK:
 				return None
-			return self.favouriteStates
+			return [
+				self.favouriteList.IsChecked(index)
+				for index in range(len(self.elements))
+			]
 		finally:
 			self.Destroy()
