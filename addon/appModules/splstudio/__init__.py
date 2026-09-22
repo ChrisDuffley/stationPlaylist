@@ -41,7 +41,7 @@ import textInfos
 import tones
 from ..splcommon import splbase, splconsts, splactions, splconfig, splconfui, splcarts, splappmod
 from . import splmisc, splfind, splpls
-from ..breakNoteDialog import (
+from ..splcommon.breakNoteDialog import (
 	breakNoteDialogOverlay,
 	breakNoteDialogAllowed,
 )
