@@ -157,7 +157,7 @@
     "type": "onOff",
     "helpTextKey": "crossfade songs",
     "code": "F",
-    "isFavourite": false
+    "isFavourite": true
   },
   {
     "ID": 18,
@@ -205,7 +205,7 @@
     "type": "text",
     "helpTextKey": "extra text for Metadata output %X",
     "code": "Extra",
-    "isFavourite": false
+    "isFavourite": true
   },
   {
     "ID": 24,
@@ -293,7 +293,7 @@
     "maximum": 1000,
     "allowZero": true,
     "allowEmpty": true,
-    "isFavourite": false
+    "isFavourite": true
   },
   {
     "ID": 32,
@@ -301,7 +301,7 @@
     "type": "special",
     "helpTextKey": "insert a cart overlapping",
     "code": "O",
-    "isFavourite": false
+    "isFavourite": true
   },
   {
     "ID": 33,
@@ -533,7 +533,7 @@
     "type": "noParm",
     "helpTextKey": "time marker",
     "code": "TM",
-    "isFavourite": false
+    "isFavourite": true
   },
   {
     "ID": 59,
