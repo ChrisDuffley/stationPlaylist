@@ -24,6 +24,7 @@ FAVORITE_ELEMENT_IDS_KEY = "_favoriteElementIDs"
 
 class BreakNoteStorage:
 	def __init__(self, filterSelection=0):
+		super().__init__()
 		self.filterSelection = filterSelection
 
 	def loadHelpTexts(self, path=HELP_TEXTS_FILE):

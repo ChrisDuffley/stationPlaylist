@@ -46,6 +46,7 @@ class BreakNoteDialog:
 		# Use a weakref so the instance can die.
 		BreakNoteDialog._instance = weakref.ref(self)
 
+		super().__init__()
 		self.elements = elements
 		self.storage = storage
 		self.filterSelection = filterSelection
