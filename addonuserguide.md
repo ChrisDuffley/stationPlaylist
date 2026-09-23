@@ -2,7 +2,7 @@
 
 Revision: September 2026 for StationPlaylist add-on 26.09.1/26.07.5-LTS
 
-Author: Christopher Duffley (formerly Joseph Lee)
+Author: Christopher Duffley, Marco Steinebach (formerly Joseph Lee)
 
 IMPORTANT: as of March 24, 2023, Joseph Lee no longer maintains this add-on.
 
