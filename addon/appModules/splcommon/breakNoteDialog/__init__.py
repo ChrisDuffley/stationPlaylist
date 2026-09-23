@@ -6,14 +6,11 @@
 # helpTexts.txt for the corresponding help texts.
 
 import ctypes
-import gui
 import wx
 import api
 import winUser
-import eventHandler
 import NVDAObjects
 import controlTypes
-from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 from scriptHandler import script
 import ui
 
@@ -24,7 +21,7 @@ from .storage import (
 	HELP_TEXTS_FILE,
 	BreakNoteStorage,
 )
-from .types import NUMBER_PATTERN, PLAYER_NAMES, bnType
+from .types import bnType
 
 WM_REPLACESEL = 0x00C2
 WM_SETTEXT = 0x000C
