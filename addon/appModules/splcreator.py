@@ -167,11 +167,12 @@ class AppModule(splappmod.AppModule):
 				clsList.insert(0, sysListView32.List)
 		elif obj.windowClassName in ("TDemoRegForm", "TAboutForm"):
 			clsList.insert(0, Dialog)
+		# #173: detect break note edit field so insert break note dialog can be opened.
 		elif (
 			breakNoteDialogAllowed(obj, "TTntMemo.UnicodeClass")
 			and breakNoteDialogOverlay not in clsList
 		):
-				clsList.insert(0, breakNoteDialogOverlay)
+			clsList.insert(0, breakNoteDialogOverlay)
 		super().chooseNVDAObjectOverlayClasses(obj, clsList)
 
 	# Cache status bar objects to improve status bar retrieval performance.
