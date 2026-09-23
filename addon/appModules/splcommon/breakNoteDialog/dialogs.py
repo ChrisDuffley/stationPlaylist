@@ -91,6 +91,7 @@ class FileTypeDialog(wx.SingleChoiceDialog):
 
 class PathDialog:
 	def __init__(self, parent, selectDirectory):
+		super().__init__()
 		self.parent = parent
 		self.selectDirectory = selectDirectory
 
