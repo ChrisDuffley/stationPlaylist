@@ -349,8 +349,6 @@ class BreakNoteDialog:
 			selectedElementID = (
 				getSelectedElement().ID if elementList.GetSelection() >= 0 else None
 			)
-			# Remnant of previous break note dialog design (part of the overlay class)
-			showFavorites = elementFilter.GetSelection() == 1  # type: ignore
 			visibleElements = [
 				element for element in elements
 				if self.filterSelection == 0 or element.isFavorite
