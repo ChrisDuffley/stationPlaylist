@@ -693,9 +693,9 @@ class AppModule(splappmod.AppModule):
 	# Some controls which needs special routines.
 	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
 		role = obj.role
-		# check if breakNoteDialog can be used before checking unlabeled controls.
+		# #173: check if breakNoteDialog can be used before checking unlabeled controls.
 		if breakNoteDialogAllowed(obj, "TMemo") and breakNoteDialogOverlay not in clsList:
-				clsList.insert(0, breakNoteDialogOverlay)
+			clsList.insert(0, breakNoteDialogOverlay)
 		# Detect unlabeled controls whose labels are next to them (written to the screen).
 		# Return right after detecting these.
 		if splbase.useScreenLabelForUnlabeledObject(
