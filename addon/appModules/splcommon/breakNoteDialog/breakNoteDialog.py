@@ -67,7 +67,6 @@ class BreakNoteDialog:
 		self.saveElementFavorites(elements)
 		return True
 
-
 	def _formatNumericValue(self, value):
 		if isinstance(value, int):
 			return str(value)
@@ -77,7 +76,6 @@ class BreakNoteDialog:
 		if normalized in ("-0", "-0.0"):
 			return "0"
 		return normalized or "0"
-
 
 	def getNumberValue(self, parent, element):
 		kind = element.kind
@@ -129,7 +127,6 @@ class BreakNoteDialog:
 				parent,
 			)
 
-
 	def getTextValue(self, parent, element):
 		enteredText = TextDialog(parent, element.textValues).getValue()
 		if enteredText is None:
@@ -148,14 +145,12 @@ class BreakNoteDialog:
 			element.textValues += (enteredText,)
 		return enteredText
 
-
 	def getTypeAndPathValue(self, parent, element):
 		typeCode = FileTypeDialog(parent).getValue()
 		if typeCode is None:
 			return None
 		path = PathDialog(parent, element.type == bnType.typeAndDir).getValue()
 		return None if path is None else (typeCode, path)
-
 
 	def getPlayerVolumeValue(self, parent):
 		playerNumber = PlayerDialog(parent).getValue()
@@ -180,7 +175,6 @@ class BreakNoteDialog:
 				parent,
 			)
 
-
 	def getCartValue(self, parent, breakNoteCode, element):
 		cartTypeCode = CartTypeDialog(parent).getValue()
 		if cartTypeCode is None:
@@ -201,7 +195,6 @@ class BreakNoteDialog:
 				cartValue += f"={position}"
 		return cartValue
 
-
 	def getRecordValue(self, parent, element):
 		duration = self.getNumberValue(parent, element)
 		if duration is None:
@@ -213,7 +206,6 @@ class BreakNoteDialog:
 
 		return (f"[{duration}]" if duration else "") + fileName
 
-
 	def getHookValue(self, parent, element):
 		hookPrefix = HookHourDialog(parent).getValue()
 		if hookPrefix is None:
@@ -223,7 +215,6 @@ class BreakNoteDialog:
 		if trackNumber is None:
 			return None
 		return f"={hookPrefix}{trackNumber}"
-
 
 	def getDSPValue(self, parent):
 		while True:
@@ -247,13 +238,11 @@ class BreakNoteDialog:
 
 		return f"{effectNumber}={state}"
 
-
 	def getElementLabel(self, element):
 		if element.type == bnType.onOff:
 			state = "on" if element.value == 1 else "off"
 			return f"{element.name} ({state})"
 		return element.name
-
 
 	def showBreakNoteDialog(self):
 		elements = self.elements
