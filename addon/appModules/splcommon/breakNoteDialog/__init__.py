@@ -1,8 +1,8 @@
-# part of stationPlaylist addOn for NVDA
+# Part of stationPlaylist add-on for NVDA
 # Copyright 2026 Marco Steinebach <studio@windyradio.de>, released under GPL.
 
-# provides a dialog to easily create command-break notes for studio and creator.
-# uses breakNotes.json to save the breakNotes itself and 
+# Provides a dialog to easily create command-break notes for studio and creator.
+# Uses breakNotes.json to save the breakNotes itself and
 # helpTexts.txt for the corresponding help texts.
 
 import ctypes
