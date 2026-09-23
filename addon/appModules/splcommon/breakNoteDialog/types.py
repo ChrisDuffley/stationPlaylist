@@ -5,8 +5,6 @@
 # uses breakNotes.json to save the breakNotes itself and 
 # helpTexts.txt for the corresponding help texts.
 
-from __future__ import annotations
-
 import re
 from dataclasses import dataclass
 from enum import Enum
