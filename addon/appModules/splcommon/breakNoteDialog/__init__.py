@@ -161,7 +161,12 @@ class breakNoteDialogOverlay(NVDAObjects.NVDAObject):
 		if elements is None:
 			elements = self.loadElements()
 
-		dialog = BreakNoteDialog(elements, self.storage, self.filterSelection)
+		# #176: present an error message if a break note dialog is already opened.
+		try:
+			dialog = BreakNoteDialog(elements, self.storage, self.filterSelection)
+		except RuntimeError:
+			ui.message(_("A break note dialog is already open"))
+			return
 		selectedElement = dialog.showBreakNoteDialog()
 		self.filterSelection = dialog.filterSelection
 		result = (
