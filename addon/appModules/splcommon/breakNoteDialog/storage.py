@@ -19,7 +19,7 @@ ELEMENT_VALUES_FILE = BREAK_NOTE_SETTINGS_DIR / "breakNoteSettings.json"
 HELP_TEXTS_FILE = Path(__file__).with_name("helpTexts.txt")
 LAST_SELECTED_ELEMENT_KEY = "_lastSelectedElementID"
 FILTER_SELECTION_KEY = "_filterSelection"
-FAVOURITE_ELEMENT_IDS_KEY = "_favouriteElementIDs"
+FAVORITE_ELEMENT_IDS_KEY = "_favoriteElementIDs"
 
 
 class BreakNoteStorage:
@@ -68,13 +68,13 @@ class BreakNoteStorage:
 		else:
 			elementValues = {}
 
-		favouriteElementIDs = elementValues.get(FAVOURITE_ELEMENT_IDS_KEY, [])
-		if not isinstance(favouriteElementIDs, list) or any(
+		favoriteElementIDs = elementValues.get(FAVORITE_ELEMENT_IDS_KEY, [])
+		if not isinstance(favoriteElementIDs, list) or any(
 			not isinstance(elementID, int) or isinstance(elementID, bool) or elementID <= 0
-			for elementID in favouriteElementIDs
+			for elementID in favoriteElementIDs
 		):
-			raise ValueError(f"{FAVOURITE_ELEMENT_IDS_KEY} must be a list of positive integers.")
-		favouriteIDSet = set(favouriteElementIDs)
+			raise ValueError(f"{FAVORITE_ELEMENT_IDS_KEY} must be a list of positive integers.")
+		favoriteIDSet = set(favoriteElementIDs)
 
 		lastSelectedElementID = elementValues.get(LAST_SELECTED_ELEMENT_KEY)
 		self.filterSelection = elementValues.get(FILTER_SELECTION_KEY, 0)
@@ -154,7 +154,7 @@ class BreakNoteStorage:
 					type=elementType,
 					helpText=helpTexts[value["helpTextKey"]],
 					code=value["code"],
-					isFavourite=elementID in favouriteIDSet,
+					isFavorite=elementID in favoriteIDSet,
 					isLastSelected=elementID == lastSelectedElementID,
 					value=0 if elementType == bnType.onOff else None,
 					minimum=minimum,
@@ -182,12 +182,12 @@ class BreakNoteStorage:
 		# breakNotes.json so updates to the add-on can change their metadata.
 		values = {}
 		selectedElementID = None
-		favouriteElementIDs = []
+		favoriteElementIDs = []
 		for element in elements:
 			if element.isLastSelected:
 				selectedElementID = element.ID
-			if element.isFavourite:
-				favouriteElementIDs.append(element.ID)
+			if element.isFavorite:
+				favoriteElementIDs.append(element.ID)
 			storedValue = {}
 			if element.textInPlaylist:
 				storedValue["textInPlaylist"] = element.textInPlaylist
@@ -199,8 +199,8 @@ class BreakNoteStorage:
 				values[element.name] = storedValue
 		if selectedElementID is not None:
 			values[LAST_SELECTED_ELEMENT_KEY] = selectedElementID
-		if favouriteElementIDs:
-			values[FAVOURITE_ELEMENT_IDS_KEY] = favouriteElementIDs
+		if favoriteElementIDs:
+			values[FAVORITE_ELEMENT_IDS_KEY] = favoriteElementIDs
 		values[FILTER_SELECTION_KEY] = self.filterSelection
 
 		path.parent.mkdir(parents=True, exist_ok=True)
@@ -208,8 +208,8 @@ class BreakNoteStorage:
 			json.dump(values, valuesFile, ensure_ascii=False, indent=2)
 			valuesFile.write("\n")
 
-	def saveElementFavourites(self, elements, path=ELEMENT_VALUES_FILE):
-		# Store favourite flags in the user config file instead of mutating the
+	def saveElementFavorites(self, elements, path=ELEMENT_VALUES_FILE):
+		# Store favorite flags in the user config file instead of mutating the
 		# add-on definition file, so the defaults remain clean and updateable.
 		values = {}
 		if path.exists():
@@ -217,8 +217,8 @@ class BreakNoteStorage:
 				values = json.load(valuesFile)
 			if not isinstance(values, dict):
 				raise ValueError("The element values file must contain a JSON object.")
-		values[FAVOURITE_ELEMENT_IDS_KEY] = [
-			element.ID for element in elements if element.isFavourite
+		values[FAVORITE_ELEMENT_IDS_KEY] = [
+			element.ID for element in elements if element.isFavorite
 		]
 		path.parent.mkdir(parents=True, exist_ok=True)
 		with path.open("w", encoding="utf-8", newline="\n") as valuesFile:

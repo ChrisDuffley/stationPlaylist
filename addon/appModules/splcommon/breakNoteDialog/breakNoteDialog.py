@@ -16,7 +16,7 @@ from .dialogs import (
 	CartTypeDialog,
 	DSPEffectNumberDialog,
 	DSPEffectStateDialog,
-	FavouriteDialog,
+	FavoriteDialog,
 	FileTypeDialog,
 	HookHourDialog,
 	NumberDialog,
@@ -40,16 +40,16 @@ class BreakNoteDialog:
 		self.storage.filterSelection = self.filterSelection
 		self.storage.saveElementValues(elements, path)
 
-	def saveElementFavourites(self, elements, path=ELEMENT_VALUES_FILE):
-		self.storage.saveElementFavourites(elements, path)
+	def saveElementFavorites(self, elements, path=ELEMENT_VALUES_FILE):
+		self.storage.saveElementFavorites(elements, path)
 
-	def editElementFavourites(self, parent, elements):
-		favouriteStates = FavouriteDialog(parent, elements).getValues()
-		if favouriteStates is None:
+	def editElementFavorites(self, parent, elements):
+		favoriteStates = FavoriteDialog(parent, elements).getValues()
+		if favoriteStates is None:
 			return False
-		for element, isFavourite in zip(elements, favouriteStates):
-			element.isFavourite = isFavourite
-		self.saveElementFavourites(elements)
+		for element, isFavorite in zip(elements, favoriteStates):
+			element.isFavorite = isFavorite
+		self.saveElementFavorites(elements)
 		return True
 
 
@@ -264,15 +264,15 @@ class BreakNoteDialog:
 			dialog,
 			choices=[
 				"show all break notes",
-				"show favourite break notes",
+				"show favorite break notes",
 			],
 			style=wx.CB_READONLY,
 		)
 		elementFilter.SetSelection(self.filterSelection)
 		filterSizer.Add(filterLabel, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 5)
 		filterSizer.Add(elementFilter, 1, wx.RIGHT | wx.EXPAND, 10)
-		editFavouritesButton = wx.Button(dialog, label="&Edit favourites")
-		filterSizer.Add(editFavouritesButton, 0)
+		editFavoritesButton = wx.Button(dialog, label="&Edit favorites")
+		filterSizer.Add(editFavoritesButton, 0)
 		mainSizer.Add(filterSizer, 0, wx.LEFT | wx.RIGHT | wx.EXPAND, 10)
 
 		listLabel = wx.StaticText(
@@ -337,17 +337,17 @@ class BreakNoteDialog:
 
 		def updateElementList(event=None):
 			nonlocal visibleElements
-			# Rebuild the list after changing the filter or favourite flags while
+			# Rebuild the list after changing the filter or favorite flags while
 			# retaining the current selection whenever possible.
 			self.filterSelection = elementFilter.GetSelection()
 			self.saveElementValues(elements)
 			selectedElementID = (
 				getSelectedElement().ID if elementList.GetSelection() >= 0 else None
 			)
-			showFavourites = elementFilter.GetSelection() == 1
+			showFavorites = elementFilter.GetSelection() == 1
 			visibleElements = [
 				element for element in elements
-				if self.filterSelection == 0 or element.isFavourite
+				if self.filterSelection == 0 or element.isFavorite
 			]
 			elementList.SetItems(
 				[self.getElementLabel(element) for element in visibleElements]
@@ -377,12 +377,12 @@ class BreakNoteDialog:
 
 		elementFilter.Bind(wx.EVT_COMBOBOX, updateElementList)
 
-		def editFavourites(event):
-			if self.editElementFavourites(dialog, elements):
+		def editFavorites(event):
+			if self.editElementFavorites(dialog, elements):
 				updateElementList()
 			event.Skip()
 
-		editFavouritesButton.Bind(wx.EVT_BUTTON, editFavourites)
+		editFavoritesButton.Bind(wx.EVT_BUTTON, editFavorites)
 
 		def updateTextInPlaylist(event):
 			selectedElement = getSelectedElement()

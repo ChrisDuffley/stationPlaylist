@@ -131,8 +131,8 @@ class breakNoteDialogOverlay(NVDAObjects.NVDAObject):
 		self.storage.filterSelection = self.filterSelection
 		self.storage.saveElementValues(elements, path)
 
-	def saveElementFavourites(self, elements, path=ELEMENT_VALUES_FILE):
-		self.storage.saveElementFavourites(elements, path)
+	def saveElementFavorites(self, elements, path=ELEMENT_VALUES_FILE):
+		self.storage.saveElementFavorites(elements, path)
 
 	def createTextFromBreakNote(self, element):
 		# Convert the structured selection back to StationPlaylist's break-note

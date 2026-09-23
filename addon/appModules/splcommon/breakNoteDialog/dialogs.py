@@ -227,26 +227,26 @@ class DSPEffectStateDialog(wx.SingleChoiceDialog):
 			self.Destroy()
 
 
-class FavouriteDialog(wx.Dialog):
+class FavoriteDialog(wx.Dialog):
 	def __init__(self, parent, elements):
-		super().__init__(parent, title="Edit favourites", size=(500, 600))
+		super().__init__(parent, title="Edit favorites", size=(500, 600))
 		self.elements = elements
 		dialogSizer = wx.BoxSizer(wx.VERTICAL)
 		dialogSizer.Add(
-			wx.StaticText(self, label="&Select favourite break notes:"),
+			wx.StaticText(self, label="&Select favorite break notes:"),
 			0,
 			wx.LEFT | wx.RIGHT | wx.TOP,
 			10,
 		)
-		self.favouriteList = CustomCheckListBox(
+		self.favoriteList = CustomCheckListBox(
 			self,
 			choices=[element.name for element in elements],
 		)
-		dialogSizer.Add(self.favouriteList, 1, wx.ALL | wx.EXPAND, 10)
+		dialogSizer.Add(self.favoriteList, 1, wx.ALL | wx.EXPAND, 10)
 		for index, element in enumerate(elements):
-			self.favouriteList.Check(index, check=element.isFavourite)
+			self.favoriteList.Check(index, check=element.isFavorite)
 		if elements:
-			self.favouriteList.SetSelection(0)
+			self.favoriteList.SetSelection(0)
 		dialogSizer.Add(
 			self.CreateStdDialogButtonSizer(wx.OK | wx.CANCEL),
 			0,
@@ -255,14 +255,14 @@ class FavouriteDialog(wx.Dialog):
 		)
 		self.SetSizer(dialogSizer)
 		self.Layout()
-		self.favouriteList.SetFocus()
+		self.favoriteList.SetFocus()
 
 	def getValues(self):
 		try:
 			if gui.displayDialogAsModal(self) != wx.ID_OK:
 				return None
 			return [
-				self.favouriteList.IsChecked(index)
+				self.favoriteList.IsChecked(index)
 				for index in range(len(self.elements))
 			]
 		finally:

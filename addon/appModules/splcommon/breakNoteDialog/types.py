@@ -30,7 +30,7 @@ class BreakNoteElement:
 	type: bnType
 	helpText: str
 	code: str
-	isFavourite: bool = False
+	isFavorite: bool = False
 	isLastSelected: bool = False
 	value: int | str | tuple[str, str] | None = None
 	position: str = ""
