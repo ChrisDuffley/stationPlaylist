@@ -558,14 +558,6 @@ class BreakNoteDialog:
 				return
 			dialog.Raise()
 			elementList.SetFocus()
-			try:
-				focusObject = getNVDAObjectFromEvent(
-					elementList.GetHandle(),
-					winUser.OBJID_CLIENT,
-					0,
-				)
-			except LookupError:
-				return
 
 		def setInitialFocus(event=None):
 			if event is not None:
