@@ -141,9 +141,8 @@ class breakNoteDialogOverlay(NVDAObjects.NVDAObject):
 		value = "" if element.value is None else element.value
 		if element.code == "TestMode":
 			value = f"={'on' if value == 1 else 'off'}"
-		if element.type == bnType.text and value:
-			if element.code:
-				value = f"{'' if element.code.endswith('=') else '='}{value}"
+		if element.type == bnType.text and value and element.code:
+			value = f"{'' if element.code.endswith('=') else '='}{value}"
 		if element.type in (bnType.typeAndDir, bnType.typeAndFile):
 			if value is None:
 				value = ""
