@@ -28,7 +28,7 @@ addon_info = AddonInfo(
 	# Translators: what's new content for the add-on version to be shown in the add-on store
 	addon_changelog=_("""* NVDA will no longer announce wrong information when reporting remaining time for a playing track via SPL Controller layer (R) when running both local and Remote Studio. Specifically, NVDA will no longer include cart remaining time when SPL Controller coverage is set to Remote Studio."""),
 	# Author(s)
-	addon_author="Christopher Duffley <nvda@chrisduffley.com> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)",
+	addon_author="Christopher Duffley <nvda@chrisduffley.com>, Marco Steinebach <studio@windyradio.de> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)",
 	# URL for the add-on documentation support
 	addon_url="https://github.com/ChrisDuffley/stationPlaylist",
 	# URL for the add-on repository where the source code can be found
