@@ -2,6 +2,10 @@
 
 This page lists the complete changelog for StationPlaylist add-on releases.
 
+## Version 26.10/26.07.6-LTS
+
+* Added break note insertion dialog (Alt+Windows+I while focused on break note edit field in insert tracks dialog in Studio and Creator; contributed by MooSteinebach).
+
 ## Version 26.09.1/26.07.5-LTS
 
 * NVDA will no longer announce wrong information when reporting remaining time for a playing track via SPL Controller layer (R) when running both local and Remote Studio. Specifically, NVDA will no longer include cart remaining time when SPL Controller coverage is set to Remote Studio.
