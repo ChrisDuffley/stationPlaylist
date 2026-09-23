@@ -562,7 +562,6 @@ class BreakNoteDialog:
 				)
 			except LookupError:
 				return
-			eventHandler.queueEvent("gainFocus", focusObject)
 
 		def setInitialFocus(event=None):
 			if event is not None:
