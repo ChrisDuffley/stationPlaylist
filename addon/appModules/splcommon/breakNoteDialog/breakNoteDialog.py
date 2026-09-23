@@ -36,7 +36,7 @@ class BreakNoteDialog:
 		# Make this a singleton.
 		instance = cls._instance() if cls._instance else None
 		if instance is None:
-			return super(BreakNoteDialog, cls).__new__(cls)
+			return super().__new__(cls)
 		raise RuntimeError("An instance of BreakNoteDialog is active")
 
 	def __init__(self, elements, storage: BreakNoteStorage, filterSelection=0):
