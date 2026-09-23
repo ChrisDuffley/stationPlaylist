@@ -175,7 +175,7 @@ class breakNoteDialogOverlay(NVDAObjects.NVDAObject):
 			result = f"{selectedElement.duration}:{result}"
 
 		if result is None:
-			wx.CallLater(100, ui.message, "Break note insertion canceled!")
+			wx.CallLater(100, ui.message, "Break note insertion canceled")
 			return
 
 		# Replace the source field's contents through the Win32 edit-control
@@ -194,4 +194,4 @@ class breakNoteDialogOverlay(NVDAObjects.NVDAObject):
 			True,
 			ctypes.addressof(textBuffer),
 		)
-		wx.CallLater(100, ui.message, "Break note inserted into text field.")
+		wx.CallLater(100, ui.message, "Break note inserted into the text field")
