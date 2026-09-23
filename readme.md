@@ -24,7 +24,7 @@ Most of these will work in Studio only unless otherwise specified. Unless noted 
 * Alt+Shift+T from Studio window: announce elapsed time for the currently playing track, voice track, or cart.
 * Control+Alt+T from Studio window: announce remaining time for the currently playing track, voice track, or cart.
 * NVDA+Shift+F12 from Studio window: announces broadcaster time such as 5 minutes to top of the hour. Pressing this command twice will announce minutes and seconds till top of the hour.
-* Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens alarms category in Studio add-on configuration dialog (does not support speak on demand).
+* Alt+NVDA+1 from Studio window: Opens alarms category in Studio add-on configuration dialog (does not support speak on demand).
 * Alt+NVDA+1 from Creator's Playlist Editor and Remote VT playlist editor: Announces scheduled time for the loaded playlist.
 * Alt+NVDA+2 from Creator's Playlist Editor and Remote VT playlist editor: Announces total playlist duration.
 * Alt+NVDA+3 from Studio window: Toggles cart explorer to learn cart assignments (does not support speak on demand).
@@ -39,7 +39,7 @@ Most of these will work in Studio only unless otherwise specified. Unless noted 
 * Control+NVDA+- (hyphen while focused on a track in local and Remote Studio, Creator, Remote VT, and Track Tool): display data for all columns in a track on a browse mode window (does not support speak on demand).
 * NVDA+V while focused on a track (Studio's playlist viewer only): toggles track column announcement between screen order and custom order (does not support speak on demand).
 * Alt+NVDA+C while focused on a track (Studio's playlist viewer only): announces track comments if any.
-* Alt+NVDA+0 (two finger flick left in SPL mode) from local and Remote Studio, Creator, Remote VT, and Track Tool: Opens the Studio add-on configuration dialog (does not support speak on demand).
+* Alt+NVDA+0 from local and Remote Studio, Creator, Remote VT, and Track Tool: Opens the Studio add-on configuration dialog (does not support speak on demand).
 * Alt+NVDA+P from Studio window: Opens the Studio broadcast profiles dialog (does not support speak on demand).
 * Alt+Windows+I from insert tracks windows in Studio and Creator while track type is set to break note or timed break note: open insert break notes dialog.
 * Alt+NVDA+F1: Open welcome dialog (does not support speak on demand).
