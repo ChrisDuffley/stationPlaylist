@@ -5,11 +5,10 @@
 # Uses breakNotes.json to save the breakNotes itself and
 # helpTexts.txt for the corresponding help texts.
 
+import weakref
 import gui
 import ui
 import wx
-from NVDAObjects.IAccessible import getNVDAObjectFromEvent
-import winUser
 
 from .dialogs import (
 	CartDialog,
@@ -31,7 +30,22 @@ from .types import NUMBER_PATTERN, PLAYER_NAMES, bnType
 
 
 class BreakNoteDialog:
+	_instance: "weakref.ReferenceType[BreakNoteDialog] | None" = None
+
+	def __new__(cls, *args, **kwargs):
+		# Make this a singleton.
+		instance = cls._instance() if cls._instance else None
+		if instance is None:
+			return super(BreakNoteDialog, cls).__new__(cls)
+		raise RuntimeError("An instance of BreakNoteDialog is active")
+
 	def __init__(self, elements, storage: BreakNoteStorage, filterSelection=0):
+		inst = BreakNoteDialog._instance() if BreakNoteDialog._instance else None
+		if inst:
+			return
+		# Use a weakref so the instance can die.
+		BreakNoteDialog._instance = weakref.ref(self)
+
 		self.elements = elements
 		self.storage = storage
 		self.filterSelection = filterSelection
