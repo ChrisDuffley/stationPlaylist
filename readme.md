@@ -41,6 +41,7 @@ Most of these will work in Studio only unless otherwise specified. Unless noted 
 * Alt+NVDA+C while focused on a track (Studio's playlist viewer only): announces track comments if any.
 * Alt+NVDA+0 (two finger flick left in SPL mode) from local and Remote Studio, Creator, Remote VT, and Track Tool: Opens the Studio add-on configuration dialog (does not support speak on demand).
 * Alt+NVDA+P from Studio window: Opens the Studio broadcast profiles dialog (does not support speak on demand).
+* Alt+Windows+I from insert tracks windows in Studio and Creator while track type is set to break note or timed break note: open insert break notes dialog.
 * Alt+NVDA+F1: Open welcome dialog (does not support speak on demand).
 
 ## Unassigned commands
@@ -196,6 +197,10 @@ You can press SPL Assistant, F8 while focused on a playlist in Studio to obtain 
 ## Playlist Transcripts
 
 Pressing SPL Assistant, Shift+F8 will present a dialog to let you request playlist transcripts in numerous formats, including in a plain text format, an HTML table or a list.
+
+## Inser break note
+
+After opening insert tracks dialog from Studio and Creator and track type is set to break note or timed break note, press Alt+Windows+I while focused on the note edit field to open insert break note dialog. You can select the break note type, duratoin if any, set confcurrent note flag, add text associated with the break note, and manage favorite break note types.
 
 ## Configuration dialog
 
