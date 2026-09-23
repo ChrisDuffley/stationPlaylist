@@ -332,7 +332,8 @@ class BreakNoteDialog:
 			selection = elementList.GetSelection()
 			if selection >= 0:
 				selectedElement = visibleElements[selection]
-				for elementIndex, element in enumerate(elements):
+				# Remnant of previous break note dialog design (part of the overlay class)
+				for elementIndex, element in enumerate(elements):  # type: ignore
 					element.isLastSelected = element is selectedElement
 				self.saveElementValues(elements)
 			updateHelpText(event)
@@ -348,7 +349,8 @@ class BreakNoteDialog:
 			selectedElementID = (
 				getSelectedElement().ID if elementList.GetSelection() >= 0 else None
 			)
-			showFavorites = elementFilter.GetSelection() == 1
+			# Remnant of previous break note dialog design (part of the overlay class)
+			showFavorites = elementFilter.GetSelection() == 1  # type: ignore
 			visibleElements = [
 				element for element in elements
 				if self.filterSelection == 0 or element.isFavorite
