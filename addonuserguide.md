@@ -221,7 +221,7 @@ As you work with SPL Studio, the following commands are available to obtain vari
 * SPL Assistant, F8: Takes a snapshot of the current playlist and presents information about the playlist on a window. These include total duration of the playlist (from start to finish), name of the longest track, number of categories and so on.
 * SPL Assistant, Shift+F8: transcribes playlist data in a number of formats. See Playlist Transcripts section for details.
 
-In addition, you can assign a command via NVDA's Input Gestures dialog to announce time in hours, minutes and seconds as reported by Studio.
+In addition, you can assign a command via NVDA's Input Gestures dialog to announce time in hours, minutes and seconds as reported by Studio. You can also configure Windows (11) to display seconds on the system clock display which will cause NVDA to also include seconds in its time and date command (NVDA+F12).
 
 Note: for current and next track commands, you can ask NVDA to announce internal player used for playback, as Studio uses multiple internal players for track playback.
 
@@ -885,7 +885,7 @@ Remote Studio is a limited version of local Studio intended for remote live broa
 
 Q. How can I tell NVDA to use a different sound card from the card used for streaming radio shows?
 
-To change sound cards for NVDA, open NVDA menu, go to Preferences, Settings, then select audio settings category (you can also open this window directly by pressing Control+NVDA+U). Go to output device combo box, select the desired sound card for NVDA, then press ENTER. To switch back to the original sound card, repeat these steps, then choose the original sound card from output device combo box.
+To change sound cards for NVDA, open NVDA menu, go to Preferences, Settings, then select audio settings category (you can also open this window directly by pressing Control+NVDA+U). From audio settings, go to output device combo box, select the desired sound card for NVDA, then press ENTER. To switch back to the original sound card, repeat these steps, then choose the original sound card from output device combo box.
 
 Alternatively, you can have different sound cards configured via a manually activated configuration profile that you can switch to while using Studio. First, open Configuration profiles dialog (Control+NVDA+P) and define a new manual profile. With the new profile active, select a sound card. Then switch back to the normal profile.
 
@@ -943,7 +943,7 @@ Q. Can I save and reset encoder settings by pressing save and reset commands?
 
 Yes as long as an encoder is in use. You can save and reset encoder settings - no reload. Note that when resetting settings, any background monitoring announcements will be stopped.
 
-Q. Besides reloading saved settings versus resetting settings to defaults, what are some things to be aware of when pressing Control+NVDA+R once or three times?
+Q. Besides reloading saved settings versus resetting settings to defaults, what are some things to be aware of when pressing Control+NVDA+R once (reload) or three times (reset)?
 
 1. If you are using a broadcast profile other than normal profile, reloading saved settings won't change the active profile, whereas resetting settings will switch you to normal profile.
 2. Metadata streaming settings won't be affected, but the settings applied may show different values as opposed to what is happening on air.
@@ -1014,6 +1014,10 @@ Q. When I press SPL Controller, then number row key to play carts, NVDA just pla
 
 SPL Studio Standard will not let you assign carts to number row keys (1 through 9, 0, hyphen, equals), thus SPL Controller will honor which Studio edition you're using by preventing you from playing number row carts when using Studio Standard.
 
+Q. Can I have NVDA include seconds in time announcement (NVDA+F12) similar to what is shown in Studio?
+
+Yes. If you are using Windows 11 2023 Update (Version 23H2) or later, you can configure Windows to display seconds in the system clock display (Settings (Windows+I)/Time and language/Date and time, expand "Show time and date in the System tray" settings, then check "Show seconds in system tray clock (uses more power)"). This will cause NVDA to include seconds in addition to hour and minute when announcing time (NVDA+F12 is pressed once), similar to the clock display in Studio.
+
 Q. What is the best way to suggest new features, send bug reports or connect with other add-on users?
 
 There is a dedicated mailing list for users of NVDA and SPL, which can be found at https://nvda-spl.groups.io/g/nvda-spl.
@@ -1062,7 +1066,7 @@ Q. From 2023, can I use the add-on on Windows versions prior to Windows 10?
 
 Windows 7 and 8.x are out of support from Microsoft from January 2023. You can use the add-on on these Windows releases but note that support will not be provided. Add-on 23.01 and later will not install on unsupported Windows releases, and version 25.05 no longer supports Windows 7 and 8.
 
-Q. Will the add-on work with 64-bit NVDA?
+Q. Does the add-on work with 64-bit NVDA?
 
 Yes.
 
@@ -1135,6 +1139,7 @@ Credits: I (Joseph) would like to thank the following people for giving me and o
 * Jerry Mader: For useful suggestions and feature testing.
 * Jerry Jicha: For useful feedback and feature testing.
 * Christopher Duffley: for maintaining and championing the add-on since 2023.
+* Marco Steinebach: for introducing break notes insertion dialog.
 * And many other supporters and testers.
 
 End of StationPlaylist Add-on Guide
