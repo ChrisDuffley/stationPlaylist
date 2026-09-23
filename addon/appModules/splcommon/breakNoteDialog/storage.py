@@ -57,8 +57,9 @@ class BreakNoteStorage:
 		with path.open(encoding="utf-8") as elementsFile:
 			values = json.load(elementsFile)
 
+		# ValueErorr is acceptable since what is sought is values array.
 		if not isinstance(values, list):
-			raise ValueError("The elements file must contain a JSON array.")
+			raise ValueError("The elements file must contain a JSON array.")  # noqa
 
 		helpTexts = self.loadHelpTexts()
 		if ELEMENT_VALUES_FILE.exists():
@@ -144,8 +145,9 @@ class BreakNoteStorage:
 					f"Menu element {value['name']!r} must define menuItems."
 				)
 			storedValues = elementValues.get(value["name"], {})
+			# ValueErorr is acceptable since what is sought is values mapping/object.
 			if not isinstance(storedValues, dict):
-				raise ValueError(
+				raise ValueError(  # noqa
 					f"Values for element {value['name']!r} must be a JSON object."
 				)
 			elements.append(
