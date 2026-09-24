@@ -105,7 +105,7 @@ def breakNoteDialogAllowed(
 		curObj = curObj.simpleNext
 	return False
 
-class breakNoteDialogOverlay(NVDAObjects.NVDAObject):
+class SPLBreakNoteEntryField(NVDAObjects.NVDAObject):
 	@script(
 		gesture="kb:windows+alt+i")
 	def script_breakNoteDialog(self, gesture):
