@@ -42,7 +42,7 @@ import tones
 from ..splcommon import splbase, splconsts, splactions, splconfig, splconfui, splcarts, splappmod
 from . import splmisc, splfind, splpls
 from ..splcommon.breakNoteDialog import (
-	breakNoteDialogOverlay,
+	SPLBreakNoteEntryField,
 	breakNoteDialogAllowed,
 )
 import addonHandler
@@ -670,8 +670,8 @@ class AppModule(splappmod.AppModule):
 	def chooseNVDAObjectOverlayClasses(self, obj: NVDAObject, clsList: list[NVDAObject]) -> None:
 		role = obj.role
 		# #173: check if breakNoteDialog can be used before checking unlabeled controls.
-		if breakNoteDialogAllowed(obj, "TMemo") and breakNoteDialogOverlay not in clsList:
-			clsList.insert(0, breakNoteDialogOverlay)
+		if breakNoteDialogAllowed(obj, "TMemo") and SPLBreakNoteEntryField not in clsList:
+			clsList.insert(0, SPLBreakNoteEntryField)
 		# Detect unlabeled controls whose labels are next to them (written to the screen).
 		# Return right after detecting these.
 		if splbase.useScreenLabelForUnlabeledObject(

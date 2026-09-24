@@ -19,7 +19,7 @@ import winUser
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import sysListView32, getNVDAObjectFromEvent
 from NVDAObjects.behaviors import Dialog
-from .splcommon.breakNoteDialog import breakNoteDialogAllowed, breakNoteDialogOverlay
+from .splcommon.breakNoteDialog import breakNoteDialogAllowed, SPLBreakNoteEntryField
 from .splcommon import splconfig, splbase, splcarts, splappmod
 from .skipTranslation import translate
 
@@ -170,9 +170,9 @@ class AppModule(splappmod.AppModule):
 		# #173: detect break note edit field so insert break note dialog can be opened.
 		elif (
 			breakNoteDialogAllowed(obj, "TTntMemo.UnicodeClass")
-			and breakNoteDialogOverlay not in clsList
+			and SPLBreakNoteEntryField not in clsList
 		):
-			clsList.insert(0, breakNoteDialogOverlay)
+			clsList.insert(0, SPLBreakNoteEntryField)
 		super().chooseNVDAObjectOverlayClasses(obj, clsList)
 
 	# Cache status bar objects to improve status bar retrieval performance.
