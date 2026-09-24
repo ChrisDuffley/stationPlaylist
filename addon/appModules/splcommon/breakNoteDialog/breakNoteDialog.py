@@ -460,7 +460,7 @@ class BreakNoteDialog:
 				)
 				return
 			if selectedElement.type == bnType.noParm:
-				ui.message ("Parameters not allowed for the selected break note")
+				ui.message(_("No parameters for the selected break note"))
 				return
 			if selectedElement.type in (bnType.typeAndDir, bnType.typeAndFile):
 				value = self.getTypeAndPathValue(dialog, selectedElement)
