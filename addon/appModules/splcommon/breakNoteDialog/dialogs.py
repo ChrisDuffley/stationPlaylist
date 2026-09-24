@@ -46,7 +46,7 @@ class TextDialog(wx.Dialog):
 	def __init__(self, parent, values):
 		super().__init__(parent, title="Enter text")
 		dialogSizer = wx.BoxSizer(wx.VERTICAL)
-		dialogSizer.Add(wx.StaticText(self, label="Enter &text:"), 0, wx.ALL, 10)
+		dialogSizer.Add(wx.StaticText(self, label="Enter text:"), 0, wx.ALL, 10)
 		self.field = wx.ComboBox(
 			self,
 			choices=list(values),
@@ -75,7 +75,7 @@ class FileTypeDialog(wx.SingleChoiceDialog):
 	def __init__(self, parent):
 		super().__init__(
 			parent,
-			"Select the &file type:",
+			"Select the file type:",
 			"Select file type",
 			[label for label, _ in DIR_FILE_TYPES],
 		)
@@ -118,7 +118,7 @@ class PathDialog:
 
 class PlayerDialog(wx.SingleChoiceDialog):
 	def __init__(self, parent):
-		super().__init__(parent, "Select the &player:", "Select player", PLAYER_NAMES)
+		super().__init__(parent, "Select the player:", "Select player", PLAYER_NAMES)
 
 	def getValue(self):
 		try:
@@ -134,7 +134,7 @@ class VolumeDialog(NumberDialog):
 		super().__init__(
 			parent,
 			"Player volume",
-			f"Enter &volume, between 0 and 100, for {playerName}:",
+			f"Enter volume, between 0 and 100, for {playerName}:",
 		)
 
 
@@ -142,7 +142,7 @@ class CartTypeDialog(wx.SingleChoiceDialog):
 	def __init__(self, parent):
 		super().__init__(
 			parent,
-			"Select the cart &type:",
+			"Select the cart type:",
 			"Select cart type",
 			[cartType[0] for cartType in CART_TYPES],
 		)
@@ -158,7 +158,7 @@ class CartTypeDialog(wx.SingleChoiceDialog):
 
 class CartDialog(wx.SingleChoiceDialog):
 	def __init__(self, parent):
-		super().__init__(parent, "Select the &cart:", "Select cart", CART_NAMES)
+		super().__init__(parent, "Select the cart:", "Select cart", CART_NAMES)
 
 	def getValue(self):
 		try:
@@ -173,7 +173,7 @@ class RecordFileDialog(wx.TextEntryDialog):
 	def __init__(self, parent):
 		super().__init__(
 			parent,
-			"Enter the &file name, or leave empty for the default:",
+			"Enter the file name, or leave empty for the default:",
 			"Record to a file",
 			"",
 		)
@@ -191,7 +191,7 @@ class HookHourDialog(wx.SingleChoiceDialog):
 	def __init__(self, parent):
 		super().__init__(
 			parent,
-			"Select the &hour to hook:",
+			"Select the hour to hook:",
 			"Select hook hour",
 			("Current hour", "Next hour"),
 		)
@@ -207,14 +207,14 @@ class HookHourDialog(wx.SingleChoiceDialog):
 
 class DSPEffectNumberDialog(NumberDialog):
 	def __init__(self, parent):
-		super().__init__(parent, "DSP effect", "Enter the DSP effect &number (1-20):")
+		super().__init__(parent, "DSP effect", "Enter the DSP effect number (1-20):")
 
 
 class DSPEffectStateDialog(wx.SingleChoiceDialog):
 	def __init__(self, parent):
 		super().__init__(
 			parent,
-			"Select the DSP effect &state:",
+			"Select the DSP effect state:",
 			"DSP effect state",
 			("on", "off"),
 		)
