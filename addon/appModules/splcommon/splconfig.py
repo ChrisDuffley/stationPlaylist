@@ -756,6 +756,7 @@ Highlights of StationPlaylist add-on include:
 * Various ways to find tracks
 * Tools to analyze the loaded playlist
 * Cart Explorer to learn cart assignments
+* An easy to use interface for inserting and managing break notes
 * Comprehensive settings and documentation
 * Completely free, open-source and community-driven
 * And much more
