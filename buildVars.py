@@ -23,7 +23,7 @@ addon_info = AddonInfo(
 	# Translators: Long description to be shown for this add-on on add-on information from add-on store
 	addon_description=_("Enhances support for StationPlaylist apps. In addition, adds global commands for the Studio application from everywhere."),
 	# version
-	addon_version="26.09",
+	addon_version="26.10",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
 	addon_changelog=_("""* Added break note insertion dialog (Alt+Windows+I while focused on break note edit field in insert tracks dialog in Studio and Creator; contributed by MooSteinebach)."""),
