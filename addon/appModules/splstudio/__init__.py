@@ -1306,12 +1306,19 @@ class AppModule(splappmod.AppModule):
 	def findTrackDispatch(
 		self, directionForward: bool = True, columnSearch: bool = False, incrementalFind: bool = False
 	) -> None:
+		startObj = api.getFocusObject()
+		# #178: call browse mode find if tree interceptor is active (particularly while Studio help is open).
+		if startObj.treeInterceptor is not None:
+			browseModeFindScript = "script_find"
+			if incrementalFind:
+				browseModeFindScript = "script_findNext" if directionForward else "script_findPrevious"
+			getattr(startObj.treeInterceptor, browseModeFindScript)(None)
+			return
 		if not self._trackFinderCheck(1 if columnSearch else 0):
 			return
 		if not splfind.findText or not incrementalFind:
 			self.trackFinderGUI(directionForward=directionForward, columnSearch=columnSearch)
 		else:
-			startObj = api.getFocusObject()
 			if (
 				api.getForegroundObject().windowClassName == "TStudioForm"
 				and startObj.role == controlTypes.Role.LIST
