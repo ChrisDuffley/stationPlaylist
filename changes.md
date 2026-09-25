@@ -2,6 +2,10 @@
 
 This page lists the complete changelog for StationPlaylist add-on releases.
 
+## Version 26.07.7-LTS
+
+* In local and Remote Studio, NVDA will no longer present track finder dialog when find command (Control+NVDA+F, NVDA+F3, NVDA+Shift+F3) is performed while Studio documentation is open with NVDA browse mode active.
+
 ## Version 26.07.6-LTS
 
 * Added break note insertion dialog (Alt+Windows+I while focused on break note edit field in insert tracks dialog in Studio and Creator; contributed by MooSteinebach).
