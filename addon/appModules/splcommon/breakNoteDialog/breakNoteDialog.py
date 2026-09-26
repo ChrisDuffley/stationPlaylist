@@ -21,7 +21,7 @@ from .dialogs import (
 	NumberDialog,
 	PathDialog,
 	PlayerDialog,
-	RecordFileDialog,
+	RecordAllDialog,
 	TextDialog,
 	VolumeDialog,
 )
@@ -195,16 +195,8 @@ class BreakNoteDialog:
 				cartValue += f"={position}"
 		return cartValue
 
-	def getRecordValue(self, parent, element):
-		duration = self.getNumberValue(parent, element)
-		if duration is None:
-			return None
-
-		fileName = RecordFileDialog(parent).getValue()
-		if fileName is None:
-			return None
-
-		return (f"[{duration}]" if duration else "") + fileName
+	def getRecordAllValue(self, parent):
+		return RecordAllDialog(parent).getValue()
 
 	def getHookValue(self, parent, element):
 		hookPrefix = HookHourDialog(parent).getValue()
@@ -439,7 +431,7 @@ class BreakNoteDialog:
 					selectedElement.value = value
 				return
 			if selectedElement.ID == 46:
-				value = self.getRecordValue(dialog, selectedElement)
+				value = self.getRecordAllValue(dialog)
 				if value is not None:
 					selectedElement.value = value
 				return
