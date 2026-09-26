@@ -222,9 +222,6 @@ Player Volumes on the Output options player tabs may the adjusted using this bre
 Nnumbers go from 0 to 100.  0 = silent, 100 = maximum volume.
 
 [record to file]
-Switches recorder on or off.
-
-[record to file (all parameters)]
 Record to file may be switched on and off.  Optionally with a duration, and a new File Format may also be specified.
 You can specify a duration to record in seconds up to 99999)
 If you specify a file name and switch recording off, e.g. filename, the File Format changes without switching recording on.
