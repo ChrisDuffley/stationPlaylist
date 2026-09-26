@@ -169,24 +169,6 @@ class CartDialog(wx.SingleChoiceDialog):
 			self.Destroy()
 
 
-class RecordFileDialog(wx.TextEntryDialog):
-	def __init__(self, parent):
-		super().__init__(
-			parent,
-			"Enter the file name, or leave empty for the default:",
-			"Record to a file",
-			"",
-		)
-
-	def getValue(self):
-		try:
-			if gui.displayDialogAsModal(self) != wx.ID_OK:
-				return None
-			return self.GetValue()
-		finally:
-			self.Destroy()
-
-
 class HookHourDialog(wx.SingleChoiceDialog):
 	def __init__(self, parent):
 		super().__init__(
@@ -224,6 +206,91 @@ class DSPEffectStateDialog(wx.SingleChoiceDialog):
 			if gui.displayDialogAsModal(self) != wx.ID_OK:
 				return None
 			return "1" if self.GetSelection() == 0 else "0"
+		finally:
+			self.Destroy()
+
+
+class RecordAllDialog(wx.Dialog):
+	def __init__(self, parent):
+		super().__init__(parent, title="Record to file")
+		dialogSizer = wx.BoxSizer(wx.VERTICAL)
+
+		modeLabel = wx.StaticText(self, label="Record &mode:")
+		self.modeCombo = wx.ComboBox(
+			self,
+			choices=["on", "off", "only set file"],
+			style=wx.CB_READONLY,
+		)
+		self.modeCombo.SetSelection(0)
+		dialogSizer.Add(modeLabel, 0, wx.LEFT | wx.RIGHT | wx.TOP | wx.EXPAND, 10)
+		dialogSizer.Add(self.modeCombo, 0, wx.LEFT | wx.RIGHT | wx.EXPAND, 10)
+
+		durationLabel = wx.StaticText(self, label="Enter a duration between 1 and 99999")
+		self.durationField = wx.TextCtrl(self)
+		dialogSizer.Add(durationLabel, 0, wx.LEFT | wx.RIGHT | wx.TOP | wx.EXPAND, 10)
+		dialogSizer.Add(self.durationField, 0, wx.LEFT | wx.RIGHT | wx.EXPAND, 10)
+
+		def updateDurationVisibility(event=None):
+			visible = self.modeCombo.GetSelection() == 0
+			durationLabel.Show(visible)
+			self.durationField.Show(visible)
+			if not visible:
+				self.durationField.SetValue("")
+			self.Layout()
+
+		self.modeCombo.Bind(wx.EVT_COMBOBOX, updateDurationVisibility)
+		updateDurationVisibility()
+
+		fileNameLabel = wx.StaticText(self, label="&File name:")
+		fileNameSizer = wx.BoxSizer(wx.HORIZONTAL)
+		self.fileNameField = wx.TextCtrl(self)
+		fileNameSizer.Add(self.fileNameField, 1, wx.RIGHT, 5)
+		browseButton = wx.Button(self, label="&Browse...")
+		fileNameSizer.Add(browseButton, 0)
+		dialogSizer.Add(fileNameLabel, 0, wx.LEFT | wx.RIGHT | wx.TOP | wx.EXPAND, 10)
+		dialogSizer.Add(fileNameSizer, 0, wx.LEFT | wx.RIGHT | wx.EXPAND, 10)
+
+		def browseForFile(event):
+			with wx.FileDialog(
+				self,
+				message="Select a file",
+				style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST,
+			) as fileDialog:
+				if gui.displayDialogAsModal(fileDialog) == wx.ID_OK:
+					self.fileNameField.SetValue(fileDialog.GetPath())
+
+		browseButton.Bind(wx.EVT_BUTTON, browseForFile)
+
+		dialogSizer.Add(
+			self.CreateStdDialogButtonSizer(wx.OK | wx.CANCEL),
+			0,
+			wx.ALL | wx.EXPAND,
+			10,
+		)
+		self.SetSizerAndFit(dialogSizer)
+		self.modeCombo.SetFocus()
+
+	def getValue(self):
+		try:
+			if gui.displayDialogAsModal(self) != wx.ID_OK:
+				return None
+			mode = self.modeCombo.GetSelection()
+			duration = self.durationField.GetValue().strip()
+			if duration and (not duration.isdigit() or not 1 <= int(duration) <= 99999):
+				wx.MessageBox(
+					"Duration must be empty or a number between 1 and 99999.",
+					"Invalid duration",
+					wx.OK | wx.ICON_ERROR,
+					self,
+				)
+				return self.getValue()
+			fileName = self.fileNameField.GetValue().strip()
+			if " " in fileName and not (fileName.startswith('"') and fileName.endswith('"')):
+				fileName = f'"{fileName}"'
+			modeSuffix = ("1", "0", "")[mode]
+			durationPart = f"[{duration}]" if duration else ""
+			fileNamePart = f"={fileName}" if fileName else ""
+			return f"{modeSuffix}{durationPart}{fileNamePart}"
 		finally:
 			self.Destroy()
 

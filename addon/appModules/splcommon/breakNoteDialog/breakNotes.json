@@ -374,17 +374,10 @@
     "code": "PlayerVol"
   },
   {
-    "ID": 45,
-    "name": "record to file",
-    "type": "onOff",
-    "helpTextKey": "record to file",
-    "code": "R"
-  },
-  {
     "ID": 46,
-    "name": "record to file (all parameters)",
+    "name": "record to file",
     "type": "special",
-    "helpTextKey": "record to file (all parameters)",
+    "helpTextKey": "record to file",
     "code": "R",
     "kind": "duration",
     "unit": "seconds",
