@@ -12,18 +12,17 @@ import wx
 
 from .dialogs import (
 	CartDialog,
-	CartTypeDialog,
-	DSPEffectNumberDialog,
-	DSPEffectStateDialog,
+	DSPEffectDialog,
 	FavoriteDialog,
 	FileTypeDialog,
-	HookHourDialog,
+	FolderDialog,
+	HookDialog,
 	NumberDialog,
 	PathDialog,
-	PlayerDialog,
+	PlayFileDialog,
+	PlayerVolumeDialog,
 	RecordAllDialog,
 	TextDialog,
-	VolumeDialog,
 )
 from .storage import ELEMENT_VALUES_FILE, BreakNoteStorage
 from .types import NUMBER_PATTERN, PLAYER_NAMES, bnType
@@ -86,7 +85,6 @@ class BreakNoteDialog:
 			title += f", between {element.minimum} and {element.maximum}"
 		label = kind
 		allowEmpty = element.allowEmpty
-		allowZero = element.allowZero
 		minimum = element.minimum
 		maximum = element.maximum
 
@@ -112,7 +110,7 @@ class BreakNoteDialog:
 				numberValue is not None
 				and (minimum is None or numberValue >= minimum)
 				and (maximum is None or numberValue <= maximum)
-				and (numberValue != 0 or allowZero)
+				and numberValue != 0
 			):
 				return self._formatNumericValue(numberValue)
 
@@ -128,7 +126,11 @@ class BreakNoteDialog:
 			)
 
 	def getTextValue(self, parent, element):
-		enteredText = TextDialog(parent, element.textValues).getValue()
+		enteredText = TextDialog(
+			parent,
+			element.textValues,
+			title=f"Enter text for {element.name}",
+		).getValue()
 		if enteredText is None:
 			return None
 
@@ -152,83 +154,27 @@ class BreakNoteDialog:
 		path = PathDialog(parent, element.type == bnType.typeAndDir).getValue()
 		return None if path is None else (typeCode, path)
 
-	def getPlayerVolumeValue(self, parent):
-		playerNumber = PlayerDialog(parent).getValue()
-		if playerNumber is None:
-			return None
-
-		while True:
-			enteredValue = VolumeDialog(
-				parent,
-				PLAYER_NAMES[playerNumber - 1],
-			).getValue()
-			if enteredValue is None:
-				return None
-
-			if enteredValue.isdigit() and 0 <= int(enteredValue) <= 100:
-				return f"{playerNumber}={int(enteredValue)}"
-
-			wx.MessageBox(
-				"Please enter a whole number between 0 and 100.",
-				"Invalid volume",
-				wx.OK | wx.ICON_ERROR,
-				parent,
-			)
+	def getPlayerVolumeValue(self, parent, element):
+		return PlayerVolumeDialog(parent, element).getValue()
 
 	def getCartValue(self, parent, breakNoteCode, element):
-		cartTypeCode = CartTypeDialog(parent).getValue()
-		if cartTypeCode is None:
-			return None
-		cartNumber = CartDialog(parent).getValue()
-		if cartNumber is None:
-			return None
+		showPosition = breakNoteCode == "C"
+		return CartDialog(parent, element, showPosition=showPosition).getValue()
 
-		cartValue = f"{cartTypeCode}{cartNumber:02d}"
-		if breakNoteCode == "C":
-			position = self.getNumberValue(
-				parent,
-				element,
-			)
-			if position is None:
-				return None
-			if position:
-				cartValue += f"={position}"
-		return cartValue
-
-	def getRecordAllValue(self, parent):
-		return RecordAllDialog(parent).getValue()
+	def getRecordAllValue(self, parent, element):
+		return RecordAllDialog(parent, element).getValue()
 
 	def getHookValue(self, parent, element):
-		hookPrefix = HookHourDialog(parent).getValue()
-		if hookPrefix is None:
-			return None
+		return HookDialog(parent, element).getValue()
 
-		trackNumber = self.getNumberValue(parent, element)
-		if trackNumber is None:
-			return None
-		return f"={hookPrefix}{trackNumber}"
+	def getDSPValue(self, parent, element):
+		return DSPEffectDialog(parent, element).getValue()
 
-	def getDSPValue(self, parent):
-		while True:
-			effectNumber = DSPEffectNumberDialog(parent).getValue()
-			if effectNumber is None:
-				return None
+	def getFolderValue(self, parent, element, showPosition=False):
+		return FolderDialog(parent, element, showPosition=showPosition).getValue()
 
-			if effectNumber.isdigit() and 1 <= int(effectNumber) <= 20:
-				break
-
-			wx.MessageBox(
-				"Please enter a whole number between 1 and 20.",
-				"Invalid DSP effect",
-				wx.OK | wx.ICON_ERROR,
-				parent,
-			)
-
-		state = DSPEffectStateDialog(parent).getValue()
-		if state is None:
-			return None
-
-		return f"{effectNumber}={state}"
+	def getPlayFileValue(self, parent):
+		return PlayFileDialog(parent).getValue()
 
 	def getElementLabel(self, element):
 		if element.type == bnType.onOff:
@@ -420,28 +366,56 @@ class BreakNoteDialog:
 
 			# Some break notes need dedicated dialogs because their parameter
 			# syntax combines several values (for example cart type and number).
+			# ID 44: player volumes
 			if selectedElement.code == "PlayerVol":
-				value = self.getPlayerVolumeValue(dialog)
+				value = self.getPlayerVolumeValue(dialog, selectedElement)
 				if value is not None:
 					selectedElement.value = value
 				return
+			# ID 31: insert a cart sequentially, ID 32: insert a cart overlapping
 			if selectedElement.code in ("C", "O"):
 				value = self.getCartValue(dialog, selectedElement.code, selectedElement)
 				if value is not None:
 					selectedElement.value = value
 				return
+			# ID 46: record to file
 			if selectedElement.ID == 46:
-				value = self.getRecordAllValue(dialog)
+				value = self.getRecordAllValue(dialog, selectedElement)
 				if value is not None:
 					selectedElement.value = value
 				return
+			# ID 27: hook playback
 			if selectedElement.ID == 27:
 				value = self.getHookValue(dialog, selectedElement)
 				if value is not None:
 					selectedElement.value = value
 				return
 			if selectedElement.code == "Dsp":
-				value = self.getDSPValue(dialog)
+				value = self.getDSPValue(dialog, selectedElement)
+				if value is not None:
+					selectedElement.value = value
+				return
+			# ID 24: folder - insert all files
+			if selectedElement.ID == 24:
+				value = self.getFolderValue(dialog, selectedElement)
+				if value is not None:
+					selectedElement.value = value
+				return
+			# ID 25: folder - insert file with position
+			if selectedElement.ID == 25:
+				value = self.getFolderValue(dialog, selectedElement, showPosition=True)
+				if value is not None:
+					selectedElement.value = value
+				return
+			# ID 26: folder - insert all files randomly
+			if selectedElement.ID == 26:
+				value = self.getFolderValue(dialog, selectedElement)
+				if value is not None:
+					selectedElement.value = value
+				return
+			# ID 43: play a file
+			if selectedElement.ID == 43:
+				value = self.getPlayFileValue(dialog)
 				if value is not None:
 					selectedElement.value = value
 				return
@@ -458,20 +432,12 @@ class BreakNoteDialog:
 				value = self.getTypeAndPathValue(dialog, selectedElement)
 				if value is None:
 					return
-				if selectedElement.ID == 25:
-					position = self.getNumberValue(
-						dialog,
-						selectedElement,
-					)
-					if position is None:
-						return
-					selectedElement.position = position
 				selectedElement.value = value
 				return
 			if selectedElement.type == bnType.file:
 				with wx.FileDialog(
 					dialog,
-					message="Select a file",
+					message=f"Select a file for {selectedElement.name}",
 					style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST,
 				) as fileDialog:
 					if gui.displayDialogAsModal(fileDialog) == wx.ID_OK:
@@ -480,7 +446,7 @@ class BreakNoteDialog:
 			if selectedElement.type == bnType.dir:
 				with wx.DirDialog(
 					dialog,
-					message="Select a folder",
+					message=f"Select a folder for {selectedElement.name}",
 					style=wx.DD_DEFAULT_STYLE | wx.DD_DIR_MUST_EXIST,
 				) as dirDialog:
 					if gui.displayDialogAsModal(dirDialog) == wx.ID_OK:

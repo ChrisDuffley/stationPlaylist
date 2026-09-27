@@ -38,7 +38,6 @@ class BreakNoteElement:
 	maximum: int | float | None = None
 	kind: str = ""
 	unit: str = ""
-	allowZero: bool = False
 	allowEmpty: bool = False
 	menuItems: tuple[str, ...] = ()
 	isConcurrent: bool = False
