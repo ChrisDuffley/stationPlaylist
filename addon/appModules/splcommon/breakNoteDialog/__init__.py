@@ -148,9 +148,13 @@ class SPLBreakNoteEntryField(NVDAObjects.NVDAObject):
 			if value is None:
 				value = ""
 			else:
-				typeCode, path = value
+				if len(value) == 3:
+					typeCode, path, position = value
+					position = f"[{position}]" if position else ""
+				else:
+					typeCode, path = value
+					position = f"[{element.position}]" if element.position else ""
 				path = f'"{path}"' if " " in path else path
-				position = f"[{element.position}]" if element.position else ""
 				value = f"{typeCode}{position}{path}"
 		if element.type in (bnType.dir, bnType.file) and " " in str(value):
 			value = f'"{value}"'

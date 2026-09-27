@@ -116,16 +116,11 @@ class BreakNoteStorage:
 			maximum = value.get("maximum")
 			kind = value.get("kind", "")
 			unit = value.get("unit", "")
-			allowZero = value.get("allowZero")
 			allowEmpty = value.get("allowEmpty", False)
 			menuItems = tuple(value.get("menuItems", ()))
 			if elementType == bnType.number and (minimum is None or maximum is None):
 				raise ValueError(
 					f"Number element {value['name']!r} must define minimum and maximum."
-				)
-			if elementType == bnType.number and not isinstance(allowZero, bool):
-				raise ValueError(
-					f"Number element {value['name']!r} must define allowZero as a boolean."
 				)
 			if elementType == bnType.number and not isinstance(allowEmpty, bool):
 				raise ValueError(
@@ -162,8 +157,7 @@ class BreakNoteStorage:
 					maximum=maximum,
 					kind=kind,
 					unit=unit,
-					allowZero=allowZero if isinstance(allowZero, bool) else False,
-					allowEmpty=allowEmpty if isinstance(allowEmpty, bool) else False,
+						allowEmpty=allowEmpty if isinstance(allowEmpty, bool) else False,
 					menuItems=menuItems,
 					isConcurrent=value.get("isConcurrent", False),
 					textInPlaylist=storedValues.get(

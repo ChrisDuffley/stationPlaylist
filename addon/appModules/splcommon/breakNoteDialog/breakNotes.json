@@ -58,7 +58,6 @@
     "maximum": 9,
     "kind": "value",
     "unit": "seconds",
-    "allowZero": true,
     "allowEmpty": false
   },
   {
@@ -71,7 +70,6 @@
     "maximum": 9,
     "kind": "value",
     "unit": "seconds",
-    "allowZero": true,
     "allowEmpty": false
   },
   {
@@ -105,7 +103,6 @@
     "maximum": 1.25,
     "kind": "value",
     "unit": "percent",
-    "allowZero": true,
     "allowEmpty": false
   },
   {
@@ -125,7 +122,6 @@
     "maximum": 1000000,
     "kind": "ID",
     "unit": "",
-    "allowZero": false,
     "allowEmpty": false
   },
   {
@@ -154,7 +150,11 @@
     "name": "DsP-Toggle",
     "type": "special",
     "helpTextKey": "DsP-Toggle",
-    "code": "Dsp"
+    "code": "Dsp",
+    "kind": "Number of DSP",
+    "minimum": 1,
+    "maximum": 20,
+    "allowEmpty": false
   },
   {
     "ID": 20,
@@ -200,7 +200,7 @@
     "kind": "position",
     "minimum": 0,
     "maximum": 1000,
-    "allowZero": true
+    "allowEmpty": false
   },
   {
     "ID": 26,
@@ -215,10 +215,9 @@
     "type": "special",
     "helpTextKey": "hook playback",
     "code": "Hook",
-    "kind": "track",
+    "kind": "track to hook",
     "minimum": 1,
     "maximum": 1000,
-    "allowZero": false,
     "allowEmpty": false
   },
   {
@@ -228,9 +227,9 @@
     "helpTextKey": "hour marker (temporary)",
     "code": "H",
     "menuItems": [
-      "ignore",
-      "play next",
-      "instant"
+      "&ignore",
+      "&play next",
+      "i&nstant"
     ]
   },
   {
@@ -240,9 +239,9 @@
     "helpTextKey": "hour marker (permanent)",
     "code": "H=",
     "menuItems": [
-      "ignore",
-      "play next",
-      "instant"
+      "&ignore",
+      "&play next",
+      "i&nstant"
     ]
   },
   {
@@ -258,10 +257,9 @@
     "type": "special",
     "helpTextKey": "insert a cart sequentially",
     "code": "C",
-    "kind": "position",
+    "kind": "position of track in cart",
     "minimum": 0,
     "maximum": 1000,
-    "allowZero": true,
     "allowEmpty": true
   },
   {
@@ -309,7 +307,6 @@
     "maximum": 10,
     "kind": "value",
     "unit": "",
-    "allowZero": true,
     "allowEmpty": false
   },
   {
@@ -322,7 +319,6 @@
     "maximum": 5,
     "kind": "value",
     "unit": "",
-    "allowZero": true,
     "allowEmpty": false
   },
   {
@@ -346,10 +342,10 @@
     "helpTextKey": "on short hours",
     "code": "Short",
     "menuItems": [
-      "Repeat the last hour",
-      "Insert Top Up Tracks",
-      "Start the next hour early",
-      "Start early based on next hour"
+      "&Repeat the last hour",
+      "&Insert Top Up Tracks",
+      "&Start the next hour early",
+      "Start &early based on next hour"
     ]
   },
   {
@@ -371,7 +367,11 @@
     "name": "player volumes",
     "type": "special",
     "helpTextKey": "player volumes",
-    "code": "PlayerVol"
+    "code": "PlayerVol",
+    "minimum": 0,
+    "maximum": 100,
+    "kind": "volume",
+    "allowEmpty": false
   },
   {
     "ID": 46,
@@ -379,11 +379,9 @@
     "type": "special",
     "helpTextKey": "record to file",
     "code": "R",
-    "kind": "duration",
-    "unit": "seconds",
-    "minimum": 0,
+    "kind": "duration in seconds",
+    "minimum": 1,
     "maximum": 99999,
-    "allowZero": false,
     "allowEmpty": true
   },
   {
@@ -487,7 +485,6 @@
     "maximum": 9000,
     "kind": "duration",
     "unit": "milliseconds",
-    "allowZero": true,
     "allowEmpty": true
   },
   {
