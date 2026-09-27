@@ -287,10 +287,13 @@ class BreakNoteDialog:
 			selectedElementID = (
 				getSelectedElement().ID if elementList.GetSelection() >= 0 else None
 			)
-			visibleElements = [
-				element for element in elements
-				if self.filterSelection == 0 or element.isFavorite
-			]
+			visibleElements = sorted(
+				[
+					element for element in elements
+					if self.filterSelection == 0 or element.isFavorite
+				],
+				key=lambda element: element.name.lower(),
+			)
 			elementList.SetItems(
 				[self.getElementLabel(element) for element in visibleElements]
 			)
