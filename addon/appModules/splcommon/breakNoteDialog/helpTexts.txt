@@ -311,5 +311,4 @@ Note: This break note is ignored if User is Windows Logon name is enabled in the
 
 [extra text for Metadata output %X]
 Set text for the Now Playing parameter %X
-@@
-EndMessages
+
