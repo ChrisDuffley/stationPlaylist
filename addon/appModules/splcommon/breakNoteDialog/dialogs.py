@@ -285,7 +285,7 @@ class DSPEffectDialog(wx.Dialog):
 
 class RecordAllDialog(wx.Dialog):
 	def __init__(self, parent, element):
-		super().__init__(parent, title=f"Record to file - {element.name}")
+		super().__init__(parent, title=f"{element.name}")
 		self.element = element
 		dialogSizer = wx.BoxSizer(wx.VERTICAL)
 
