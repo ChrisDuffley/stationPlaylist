@@ -197,7 +197,7 @@
     "type": "typeAndDir",
     "helpTextKey": "folder - insert file with Position",
     "code": "Dir",
-    "kind": "position",
+    "kind": "position of the file",
     "minimum": 0,
     "maximum": 1000,
     "allowEmpty": false
