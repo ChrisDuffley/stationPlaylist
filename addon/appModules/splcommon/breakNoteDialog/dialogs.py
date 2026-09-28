@@ -213,7 +213,7 @@ class DSPEffectDialog(wx.Dialog):
 		dialogSizer = wx.BoxSizer(wx.VERTICAL)
 
 		effectNumberLabel = wx.StaticText(
-			self, label=f"Enter the &{element.kind}:"
+			self, label=f"Enter the &{element.kind} between {element.minimum} and {element.maximum}:"
 		)
 		self.effectNumberField = wx.TextCtrl(self)
 		dialogSizer.Add(
@@ -378,7 +378,7 @@ class RecordAllDialog(wx.Dialog):
 
 class PlayerVolumeDialog(wx.Dialog):
 	def __init__(self, parent, element):
-		super().__init__(parent, title=f"Player volume - {element.name}")
+		super().__init__(parent, title=f"{element.name}")
 		self.element = element
 		dialogSizer = wx.BoxSizer(wx.VERTICAL)
 
