@@ -77,21 +77,21 @@
     "name": "change record folder",
     "type": "dir",
     "helpTextKey": "change record folder",
-    "code": "RF"
+    "code": "RF="
   },
   {
     "ID": 11,
     "name": "change request intro folder",
     "type": "dir",
     "helpTextKey": "change request intro folder",
-    "code": "RIF"
+    "code": "RIF="
   },
   {
     "ID": 12,
     "name": "change search folder",
     "type": "dir",
     "helpTextKey": "change search folder",
-    "code": "Search"
+    "code": "Search="
   },
   {
     "ID": 13,
@@ -110,7 +110,7 @@
     "name": "change top up folder",
     "type": "dir",
     "helpTextKey": "change top up folder",
-    "code": "T"
+    "code": "T="
   },
   {
     "ID": 15,
