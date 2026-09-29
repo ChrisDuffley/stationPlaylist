@@ -340,7 +340,7 @@
     "name": "on short hours",
     "type": "menu",
     "helpTextKey": "on short hours",
-    "code": "Short",
+    "code": "Short=",
     "menuItems": [
       "&Repeat the last hour",
       "&Insert Top Up Tracks",
