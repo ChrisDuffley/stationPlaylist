@@ -25,7 +25,7 @@ from .dialogs import (
 	TextDialog,
 )
 from .storage import ELEMENT_VALUES_FILE, BreakNoteStorage
-from .types import NUMBER_PATTERN, PLAYER_NAMES, bnType
+from .types import NUMBER_PATTERN, bnType
 
 
 class BreakNoteDialog:
