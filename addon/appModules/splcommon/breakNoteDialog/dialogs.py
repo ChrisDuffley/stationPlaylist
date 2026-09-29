@@ -136,7 +136,7 @@ class CartDialog(wx.Dialog):
 		cartNameLabel = wx.StaticText(self, label="Select the cart:")
 		self.cartNameCombo = wx.ComboBox(
 			self,
-			choices=CART_NAMES,
+			choices=self.getCartNames(),
 			style=wx.CB_READONLY,
 		)
 		self.cartNameCombo.SetSelection(0)
@@ -163,6 +163,9 @@ class CartDialog(wx.Dialog):
 		)
 		self.SetSizerAndFit(dialogSizer)
 		self.cartTypeCombo.SetFocus()
+
+	def getCartNames(self):
+		return CART_NAMES
 
 	def getValue(self):
 		try:
