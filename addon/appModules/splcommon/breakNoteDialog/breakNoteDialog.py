@@ -292,7 +292,8 @@ class BreakNoteDialog:
 					element for element in elements
 					if self.filterSelection == 0 or element.isFavorite
 				],
-				key=lambda element: element.name.lower(),
+				# There is no easy way to add types to lambda function arguments/return values.
+				key=lambda element: element.name.lower(),  # type: ignore
 			)
 			elementList.SetItems(
 				[self.getElementLabel(element) for element in visibleElements]
