@@ -353,7 +353,6 @@ class RecordAllDialog(wx.Dialog):
 				return None
 			mode = self.modeCombo.GetSelection()
 			duration = self.durationField.GetValue().strip()
-			allowEmpty = self.element.allowEmpty
 			minimum = self.element.minimum
 			maximum = self.element.maximum
 			if duration and (not duration.isdigit() or not minimum <= int(duration) <= maximum):
