@@ -175,7 +175,7 @@
     "name": "execute a file",
     "type": "file",
     "helpTextKey": "execute a file",
-    "code": "File"
+    "code": "File="
   },
   {
     "ID": 23,
@@ -288,7 +288,7 @@
     "name": "load a still image in the video window",
     "type": "file",
     "helpTextKey": "load a still image in the video window",
-    "code": "Image"
+    "code": "Image="
   },
   {
     "ID": 36,
@@ -473,7 +473,7 @@
     "name": "track info popup file",
     "type": "file",
     "helpTextKey": "track info popup file",
-    "code": "InfoFile"
+    "code": "InfoFile="
   },
   {
     "ID": 60,
