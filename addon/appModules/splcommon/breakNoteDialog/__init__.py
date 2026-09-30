@@ -155,7 +155,8 @@ class SPLBreakNoteEntryField(NVDAObjects.NVDAObject):
 					typeCode, path = value
 					position = f"[{element.position}]" if element.position else ""
 				path = f'"{path}"' if " " in path else path
-				value = f"{typeCode}{position}{path}"
+				separator = "=" if element.type == bnType.typeAndFile else ""
+				value = f"{typeCode}{position}{separator}{path}"
 		if element.type in (bnType.dir, bnType.file) and " " in str(value):
 			value = f'"{value}"'
 		return f"*{concurrentPrefix}{element.code}{value}"
