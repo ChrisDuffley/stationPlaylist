@@ -349,28 +349,6 @@ class BreakNoteDialog(wx.Dialog):
 		updateElementList()
 		self.elementList.SetFocus()
 
-		def notifyNVDAFocus():
-			if not self.IsShown():
-				return
-			self.Raise()
-			elementList.SetFocus()
-
-		def setInitialFocus(event=None):
-			if event is not None:
-				event.Skip()
-			if self.IsShown():
-				notifyNVDAFocus()
-
-		def focusShownDialog(event):
-			event.Skip()
-			if event.IsShown():
-				# Focus can be restored to the source control while the modal dialog
-				# is being shown, so set it again after wx has activated the dialog.
-				wx.CallAfter(notifyNVDAFocus)
-
-		self.Bind(wx.EVT_SHOW, focusShownDialog)
-		wx.CallAfter(setInitialFocus)
-
 		try:
 			result = gui.displayDialogAsModal(self)
 			if result == wx.ID_OK:
