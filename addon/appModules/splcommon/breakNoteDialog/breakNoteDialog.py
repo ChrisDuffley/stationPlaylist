@@ -50,7 +50,6 @@ class BreakNoteDialog(wx.Dialog):
 		self.storage = storage
 		self.filterSelection = filterSelection
 
-	def showBreakNoteDialog(self):
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		sHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
