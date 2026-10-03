@@ -84,7 +84,7 @@ class BreakNoteDialog(wx.Dialog):
 		)
 
 		textInPlaylist = sHelper.addLabeledControl("&Text to be displayed in the playlist:", wx.TextCtrl)
-		duration = sHelper.addLabeledControl("&Duration:", wx.TextCtrl)
+		self.duration = sHelper.addLabeledControl("&Duration:", wx.TextCtrl)
 
 		mainSizer.Add(sHelper.sizer, flag=wx.ALL, border=gui.guiHelper.BORDER_FOR_DIALOGS)
 		mainSizer.Fit(self)
@@ -106,7 +106,7 @@ class BreakNoteDialog(wx.Dialog):
 			textInPlaylist.ChangeValue(
 				selectedElement.textInPlaylist if selectedElement else ""
 			)
-			duration.ChangeValue(selectedElement.duration if selectedElement else "")
+			self.duration.ChangeValue(selectedElement.duration if selectedElement else "")
 			checkbox.SetValue(
 				selectedElement.isConcurrent if selectedElement else False
 			)
@@ -189,13 +189,13 @@ class BreakNoteDialog(wx.Dialog):
 
 		def updateDuration(event):
 			selectedElement = getSelectedElement()
-			value = duration.GetValue().strip()
+			value = self.duration.GetValue().strip()
 			if selectedElement and (not value or value.isdigit() and int(value) > 0):
 				selectedElement.duration = value
 				self.saveElementValues(elements)
 			event.Skip()
 
-		duration.Bind(wx.EVT_TEXT, updateDuration)
+		self.duration.Bind(wx.EVT_TEXT, updateDuration)
 
 		checkbox = wx.CheckBox(self, label="This is a &concurrent break note")
 
@@ -345,21 +345,6 @@ class BreakNoteDialog(wx.Dialog):
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
 		mainSizer.Add(buttonSizer.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 
-		def validateDuration(event):
-			value = duration.GetValue().strip()
-			if value and (not value.isdigit() or int(value) <= 0):
-				wx.MessageBox(
-					"Duration must be empty or a number greater than 0.",
-					"Invalid duration",
-					wx.OK | wx.ICON_ERROR,
-					self,
-				)
-				duration.SetFocus()
-				return
-			event.Skip()
-
-		okButton.Bind(wx.EVT_BUTTON, validateDuration)
-
 		self.SetSizerAndFit(mainSizer)
 		updateElementList()
 
@@ -394,7 +379,21 @@ class BreakNoteDialog(wx.Dialog):
 		finally:
 			self.Destroy()
 
+	def validateDuration(self, event):
+		value = self.duration.GetValue().strip()
+		if value and (not value.isdigit() or int(value) <= 0):
+			wx.MessageBox(
+				"Duration must be empty or a number greater than 0.",
+				"Invalid duration",
+				wx.OK | wx.ICON_ERROR,
+				self,
+			)
+			self.duration.SetFocus()
+			return
+		event.Skip()
+
 	def onOk(self, evt: wx.CommandEvent):
+		self.validateDuration(evt)
 		self.Destroy()
 
 	def onCancel(self, evt: wx.CommandEvent):
