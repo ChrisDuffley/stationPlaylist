@@ -53,15 +53,11 @@ class BreakNoteDialog(wx.Dialog):
 	def showBreakNoteDialog(self):
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
-		description = wx.TextCtrl(
-			dialog,
-			value=(
-				"select a break note in the list. Press the space bar to edit the "
-				"parameters of the selected break note, if any."
-			),
-			style=wx.TE_READONLY,
-		)
-		mainSizer.Add(description, 0, wx.ALL | wx.EXPAND, 10)
+		description = wx.StaticText(self, wx.ID_ANY, label=(
+			"select a break note in the list. Press the space bar to edit the "
+			"parameters of the selected break note, if any."
+		))
+		mainSizer.Add(description, border=20, flag=wx.LEFT | wx.RIGHT | wx.TOP)
 
 		filterSizer = wx.BoxSizer(wx.HORIZONTAL)
 		filterLabel = wx.StaticText(dialog, label="&Filter:")
