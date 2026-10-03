@@ -77,13 +77,13 @@ class BreakNoteDialog(wx.Dialog):
 		mainSizer.Add(filterSizer, 0, wx.LEFT | wx.RIGHT | wx.EXPAND, 10)
 
 		listLabel = wx.StaticText(
-			dialog,
+			self,
 			label="&Select a break note to create:",
 		)
-		elementList = wx.ListBox(dialog)
-		helpLabel = wx.StaticText(dialog, label="&Help text:")
+		elementList = wx.ListBox(self)
+		helpLabel = wx.StaticText(self, label="&Help text:")
 		helpField = wx.TextCtrl(
-			dialog,
+			self,
 			style=wx.TE_MULTILINE | wx.TE_READONLY,
 		)
 
