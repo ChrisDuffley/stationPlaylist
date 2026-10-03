@@ -340,9 +340,9 @@ class BreakNoteDialog(wx.Dialog):
 
 		mainSizer.Add(checkbox, 0, wx.ALL, 10)
 
-		buttonSizer = dialog.CreateStdDialogButtonSizer(wx.OK | wx.CANCEL)
+		buttonSizer = self.CreateStdDialogButtonSizer(wx.OK | wx.CANCEL)
 		mainSizer.Add(buttonSizer, 0, wx.ALL | wx.EXPAND, 10)
-		okButton = dialog.FindWindowById(wx.ID_OK)
+		okButton = self.FindWindowById(wx.ID_OK)
 		if okButton is None:
 			raise RuntimeError("The dialog OK button could not be found.")
 
@@ -353,7 +353,7 @@ class BreakNoteDialog(wx.Dialog):
 					"Duration must be empty or a number greater than 0.",
 					"Invalid duration",
 					wx.OK | wx.ICON_ERROR,
-					dialog,
+					self,
 				)
 				duration.SetFocus()
 				return
