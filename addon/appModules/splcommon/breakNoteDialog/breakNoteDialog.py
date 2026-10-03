@@ -339,11 +339,11 @@ class BreakNoteDialog(wx.Dialog):
 
 		mainSizer.Add(checkbox, 0, wx.ALL, 10)
 
-		buttonSizer = self.CreateStdDialogButtonSizer(wx.OK | wx.CANCEL)
-		mainSizer.Add(buttonSizer, 0, wx.ALL | wx.EXPAND, 10)
-		okButton = self.FindWindowById(wx.ID_OK)
-		if okButton is None:
-			raise RuntimeError("The dialog OK button could not be found.")
+		buttonSizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+		buttonSizer.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
+		mainSizer.Add(buttonSizer.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 
 		def validateDuration(event):
 			value = duration.GetValue().strip()
@@ -393,6 +393,12 @@ class BreakNoteDialog(wx.Dialog):
 				return None
 		finally:
 			self.Destroy()
+
+	def onOk(self, evt: wx.CommandEvent):
+		self.Destroy()
+
+	def onCancel(self, evt: wx.CommandEvent):
+		self.Destroy()
 
 	def saveElementValues(self, elements, path=ELEMENT_VALUES_FILE):
 		self.storage.filterSelection = self.filterSelection
