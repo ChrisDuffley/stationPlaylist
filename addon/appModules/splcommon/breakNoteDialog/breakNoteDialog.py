@@ -52,6 +52,7 @@ class BreakNoteDialog(wx.Dialog):
 
 	def showBreakNoteDialog(self):
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
+		sHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
 		description = wx.StaticText(self, wx.ID_ANY, label=(
 			"select a break note in the list. Press the space bar to edit the "
@@ -87,18 +88,11 @@ class BreakNoteDialog(wx.Dialog):
 			style=wx.TE_MULTILINE | wx.TE_READONLY,
 		)
 
-		textInPlaylistLabel = wx.StaticText(
-			dialog,
-			label="&Text to be displayed in the playlist:",
-		)
-		textInPlaylist = wx.TextCtrl(dialog)
-		durationLabel = wx.StaticText(dialog, label="&Duration:")
-		duration = wx.TextCtrl(dialog)
+		textInPlaylist = sHelper.addLabeledControl("&Text to be displayed in the playlist:", wx.TextCtrl)
+		duration = sHelper.addLabeledControl("&Duration:", wx.TextCtrl)
 
-		mainSizer.Add(durationLabel, 0, wx.LEFT | wx.RIGHT | wx.EXPAND, 10)
-		mainSizer.Add(duration, 0, wx.LEFT | wx.RIGHT | wx.EXPAND, 10)
-		mainSizer.Add(textInPlaylistLabel, 0, wx.LEFT | wx.RIGHT | wx.EXPAND, 10)
-		mainSizer.Add(textInPlaylist, 0, wx.LEFT | wx.RIGHT | wx.EXPAND, 10)
+		mainSizer.Add(sHelper.sizer, flag=wx.ALL, border=gui.guiHelper.BORDER_FOR_DIALOGS)
+		mainSizer.Fit(self)
 		mainSizer.Add(listLabel, 0, wx.ALL, 10)
 		mainSizer.Add(elementList, 1, wx.LEFT | wx.RIGHT | wx.EXPAND, 10)
 		mainSizer.Add(helpLabel, 0, wx.TOP | wx.LEFT | wx.RIGHT, 10)
