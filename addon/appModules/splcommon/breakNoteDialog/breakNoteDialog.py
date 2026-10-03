@@ -361,19 +361,19 @@ class BreakNoteDialog(wx.Dialog):
 
 		okButton.Bind(wx.EVT_BUTTON, validateDuration)
 
-		dialog.SetSizerAndFit(mainSizer)
+		self.SetSizerAndFit(mainSizer)
 		updateElementList()
 
 		def notifyNVDAFocus():
-			if not dialog.IsShown():
+			if not self.IsShown():
 				return
-			dialog.Raise()
+			self.Raise()
 			elementList.SetFocus()
 
 		def setInitialFocus(event=None):
 			if event is not None:
 				event.Skip()
-			if dialog.IsShown():
+			if self.IsShown():
 				notifyNVDAFocus()
 
 		def focusShownDialog(event):
@@ -383,17 +383,17 @@ class BreakNoteDialog(wx.Dialog):
 				# is being shown, so set it again after wx has activated the dialog.
 				wx.CallAfter(notifyNVDAFocus)
 
-		dialog.Bind(wx.EVT_SHOW, focusShownDialog)
+		self.Bind(wx.EVT_SHOW, focusShownDialog)
 		wx.CallAfter(setInitialFocus)
 
 		try:
-			result = gui.displayDialogAsModal(dialog)
+			result = gui.displayDialogAsModal(self)
 			if result == wx.ID_OK:
 				return getSelectedElement()
 			else:
 				return None
 		finally:
-			dialog.Destroy()
+			self.Destroy()
 
 	def saveElementValues(self, elements, path=ELEMENT_VALUES_FILE):
 		self.storage.filterSelection = self.filterSelection
