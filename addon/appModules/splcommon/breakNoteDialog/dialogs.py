@@ -5,6 +5,8 @@
 # Uses breakNotes.json to save the breakNotes itself and
 # helpTexts.txt for the corresponding help texts.
 
+from typing import Any
+
 import gui
 import wx
 from gui.nvdaControls import CustomCheckListBox
@@ -121,6 +123,7 @@ class CartDialog(wx.Dialog):
 	def __init__(self, parent, element, showPosition=False):
 		super().__init__(parent, title=f"{element.name}")
 		self.element = element
+		self._carts: dict[str, Any] | None = None
 		dialogSizer = wx.BoxSizer(wx.VERTICAL)
 
 		cartTypeLabel = wx.StaticText(self, label="Select the cart &type:")
@@ -142,6 +145,7 @@ class CartDialog(wx.Dialog):
 		self.cartNameCombo.SetSelection(0)
 		dialogSizer.Add(cartNameLabel, 0, wx.LEFT | wx.RIGHT | wx.TOP | wx.EXPAND, 10)
 		dialogSizer.Add(self.cartNameCombo, 0, wx.LEFT | wx.RIGHT | wx.EXPAND, 10)
+		self.cartTypeCombo.Bind(wx.EVT_COMBOBOX, self.onCartTypeChange)
 
 		if showPosition:
 			positionLabel = wx.StaticText(
@@ -165,7 +169,39 @@ class CartDialog(wx.Dialog):
 		self.cartTypeCombo.SetFocus()
 
 	def getCartNames(self):
-		return CART_NAMES
+		from NVDAObjects.IAccessible import getNVDAObjectFromEvent
+		from winBindings.user32 import dll as user32
+		from winUser import OBJID_CLIENT, getWindowText
+		from .. import splcarts
+
+		studioApp = getNVDAObjectFromEvent(
+			user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0
+		)
+		if studioApp == None:
+			return CART_NAMES
+		if studioApp.windowHandle == None:
+			return CART_NAMES
+		windowTitle = getWindowText(studioApp.windowHandle)
+		if self._carts is None:
+			self._carts = splcarts.cartExplorerInit(windowTitle)
+		carts = self._carts
+		cartTypeCode = CART_TYPES[self.cartTypeCombo.GetSelection()][1]
+		cartModifier = {"M": "", "S": "shift", "C": "ctrl", "A": "alt"}[cartTypeCode]
+		cartKeys = tuple(
+			f"{cartModifier}+{cartKey}" if cartModifier else cartKey
+			for cartKey in splcarts.cartKeys
+		)
+		return tuple(
+			f"{cartLabel} {carts[cartKey]}".rstrip()
+			if carts.get(cartKey)
+			else cartLabel.removesuffix(" -")
+			for cartKey, cartLabel in zip(cartKeys, CART_NAMES)
+		)
+
+	def onCartTypeChange(self, event):
+		self.cartNameCombo.SetItems(self.getCartNames())
+		self.cartNameCombo.SetSelection(0)
+		event.Skip()
 
 	def getValue(self):
 		try:
