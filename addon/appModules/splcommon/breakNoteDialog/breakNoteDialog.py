@@ -76,7 +76,7 @@ class BreakNoteDialog(wx.Dialog):
 			self,
 			label="&Select a break note to create:",
 		)
-		elementList = wx.ListBox(self)
+		self.elementList = wx.ListBox(self)
 		helpLabel = wx.StaticText(self, label="&Help text:")
 		helpField = wx.TextCtrl(
 			self,
@@ -89,7 +89,7 @@ class BreakNoteDialog(wx.Dialog):
 		mainSizer.Add(sHelper.sizer, flag=wx.ALL, border=gui.guiHelper.BORDER_FOR_DIALOGS)
 		mainSizer.Fit(self)
 		mainSizer.Add(listLabel, 0, wx.ALL, 10)
-		mainSizer.Add(elementList, 1, wx.LEFT | wx.RIGHT | wx.EXPAND, 10)
+		mainSizer.Add(self.elementList, 1, wx.LEFT | wx.RIGHT | wx.EXPAND, 10)
 		mainSizer.Add(helpLabel, 0, wx.TOP | wx.LEFT | wx.RIGHT, 10)
 		mainSizer.Add(helpField, 0, wx.LEFT | wx.RIGHT | wx.EXPAND, 10)
 
@@ -97,7 +97,7 @@ class BreakNoteDialog(wx.Dialog):
 
 		def getSelectedElement():
 			# The list contains only the currently visible subset of elements.
-			selection = elementList.GetSelection()
+			selection = self.elementList.GetSelection()
 			return visibleElements[selection] if selection >= 0 else None
 
 		def updateHelpText(event):
@@ -112,10 +112,10 @@ class BreakNoteDialog(wx.Dialog):
 			)
 			event.Skip()
 
-		elementList.Bind(wx.EVT_LISTBOX, updateHelpText)
+		self.elementList.Bind(wx.EVT_LISTBOX, updateHelpText)
 
 		def saveSelectedElement(event):
-			selection = elementList.GetSelection()
+			selection = self.elementList.GetSelection()
 			if selection >= 0:
 				selectedElement = visibleElements[selection]
 				# Remnant of previous break note dialog design (part of the overlay class)
@@ -124,7 +124,7 @@ class BreakNoteDialog(wx.Dialog):
 				self.saveElementValues(elements)
 			updateHelpText(event)
 
-		elementList.Bind(wx.EVT_LISTBOX, saveSelectedElement)
+		self.elementList.Bind(wx.EVT_LISTBOX, saveSelectedElement)
 
 		def updateElementList(event=None):
 			nonlocal visibleElements
@@ -133,7 +133,7 @@ class BreakNoteDialog(wx.Dialog):
 			self.filterSelection = elementFilter.GetSelection()
 			self.saveElementValues(elements)
 			selectedElementID = (
-				getSelectedElement().ID if elementList.GetSelection() >= 0 else None
+				getSelectedElement().ID if self.elementList.GetSelection() >= 0 else None
 			)
 			visibleElements = sorted(
 				[
@@ -143,7 +143,7 @@ class BreakNoteDialog(wx.Dialog):
 				# There is no easy way to add types to lambda function arguments/return values.
 				key=lambda element: element.name.lower(),  # type: ignore
 			)
-			elementList.SetItems(
+			self.elementList.SetItems(
 				[self.getElementLabel(element) for element in visibleElements]
 			)
 			selectedIndex = next(
@@ -164,7 +164,7 @@ class BreakNoteDialog(wx.Dialog):
 					wx.NOT_FOUND,
 				)
 			if selectedIndex != wx.NOT_FOUND:
-				elementList.SetSelection(selectedIndex)
+				self.elementList.SetSelection(selectedIndex)
 				updateHelpText(wx.CommandEvent())
 			else:
 				updateHelpText(wx.CommandEvent())
@@ -273,8 +273,8 @@ class BreakNoteDialog(wx.Dialog):
 				return
 			if selectedElement.type == bnType.onOff:
 				selectedElement.value = 0 if selectedElement.value == 1 else 1
-				elementList.SetString(
-					elementList.GetSelection(), self.getElementLabel(selectedElement)
+				self.elementList.SetString(
+					self.elementList.GetSelection(), self.getElementLabel(selectedElement)
 				)
 				return
 			if selectedElement.type == bnType.noParm:
@@ -330,12 +330,12 @@ class BreakNoteDialog(wx.Dialog):
 					menu.Bind(wx.EVT_MENU, saveMenuValue, menuItem)
 
 				try:
-					elementList.PopupMenu(menu)
+					self.elementList.PopupMenu(menu)
 				finally:
 					menu.Destroy()
 				return
 
-		elementList.Bind(wx.EVT_KEY_DOWN, showElementMenu)
+		self.elementList.Bind(wx.EVT_KEY_DOWN, showElementMenu)
 
 		mainSizer.Add(checkbox, 0, wx.ALL, 10)
 
@@ -347,6 +347,7 @@ class BreakNoteDialog(wx.Dialog):
 
 		self.SetSizerAndFit(mainSizer)
 		updateElementList()
+		self.elementList.SetFocus()
 
 		def notifyNVDAFocus():
 			if not self.IsShown():
