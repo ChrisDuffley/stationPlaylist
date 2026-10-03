@@ -198,7 +198,7 @@ class BreakNoteDialog(wx.Dialog):
 
 		duration.Bind(wx.EVT_TEXT, updateDuration)
 
-		checkbox = wx.CheckBox(dialog, label="This is a &concurrent break note")
+		checkbox = wx.CheckBox(self, label="This is a &concurrent break note")
 
 		def updateCheckbox(event):
 			selectedElement = getSelectedElement()
