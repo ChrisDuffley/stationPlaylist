@@ -28,7 +28,7 @@ from .storage import ELEMENT_VALUES_FILE, BreakNoteStorage
 from .types import NUMBER_PATTERN, bnType
 
 
-class BreakNoteDialog:
+class BreakNoteDialog(wx.Dialog):
 	_instance: "weakref.ReferenceType[BreakNoteDialog] | None" = None
 
 	def __new__(cls, *args, **kwargs):
