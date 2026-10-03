@@ -221,54 +221,54 @@ class BreakNoteDialog(wx.Dialog):
 			# syntax combines several values (for example cart type and number).
 			# ID 44: player volumes
 			if selectedElement.code == "PlayerVol":
-				value = self.getPlayerVolumeValue(dialog, selectedElement)
+				value = self.getPlayerVolumeValue(self, selectedElement)
 				if value is not None:
 					selectedElement.value = value
 				return
 			# ID 31: insert a cart sequentially, ID 32: insert a cart overlapping
 			if selectedElement.code in ("C", "O"):
-				value = self.getCartValue(dialog, selectedElement.code, selectedElement)
+				value = self.getCartValue(self, selectedElement.code, selectedElement)
 				if value is not None:
 					selectedElement.value = value
 				return
 			# ID 46: record to file
 			if selectedElement.ID == 46:
-				value = self.getRecordAllValue(dialog, selectedElement)
+				value = self.getRecordAllValue(self, selectedElement)
 				if value is not None:
 					selectedElement.value = value
 				return
 			# ID 27: hook playback
 			if selectedElement.ID == 27:
-				value = self.getHookValue(dialog, selectedElement)
+				value = self.getHookValue(self, selectedElement)
 				if value is not None:
 					selectedElement.value = value
 				return
 			if selectedElement.code == "Dsp":
-				value = self.getDSPValue(dialog, selectedElement)
+				value = self.getDSPValue(self, selectedElement)
 				if value is not None:
 					selectedElement.value = value
 				return
 			# ID 24: folder - insert all files
 			if selectedElement.ID == 24:
-				value = self.getFolderValue(dialog, selectedElement)
+				value = self.getFolderValue(self, selectedElement)
 				if value is not None:
 					selectedElement.value = value
 				return
 			# ID 25: folder - insert file with position
 			if selectedElement.ID == 25:
-				value = self.getFolderValue(dialog, selectedElement, showPosition=True)
+				value = self.getFolderValue(self, selectedElement, showPosition=True)
 				if value is not None:
 					selectedElement.value = value
 				return
 			# ID 26: folder - insert all files randomly
 			if selectedElement.ID == 26:
-				value = self.getFolderValue(dialog, selectedElement)
+				value = self.getFolderValue(self, selectedElement)
 				if value is not None:
 					selectedElement.value = value
 				return
 			# ID 43: play a file
 			if selectedElement.ID == 43:
-				value = self.getPlayFileValue(dialog)
+				value = self.getPlayFileValue(self)
 				if value is not None:
 					selectedElement.value = value
 				return
@@ -282,14 +282,14 @@ class BreakNoteDialog(wx.Dialog):
 				ui.message(_("No parameters for the selected break note"))
 				return
 			if selectedElement.type in (bnType.typeAndDir, bnType.typeAndFile):
-				value = self.getTypeAndPathValue(dialog, selectedElement)
+				value = self.getTypeAndPathValue(self, selectedElement)
 				if value is None:
 					return
 				selectedElement.value = value
 				return
 			if selectedElement.type == bnType.file:
 				with wx.FileDialog(
-					dialog,
+					self,
 					message=f"Select a file for {selectedElement.name}",
 					style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST,
 				) as fileDialog:
@@ -298,7 +298,7 @@ class BreakNoteDialog(wx.Dialog):
 				return
 			if selectedElement.type == bnType.dir:
 				with wx.DirDialog(
-					dialog,
+					self,
 					message=f"Select a folder for {selectedElement.name}",
 					style=wx.DD_DEFAULT_STYLE | wx.DD_DIR_MUST_EXIST,
 				) as dirDialog:
@@ -306,12 +306,12 @@ class BreakNoteDialog(wx.Dialog):
 						selectedElement.value = dirDialog.GetPath()
 				return
 			if selectedElement.type == bnType.number:
-				numberValue = self.getNumberValue(dialog, selectedElement)
+				numberValue = self.getNumberValue(self, selectedElement)
 				if numberValue is not None:
 					selectedElement.value = numberValue
 				return
 			if selectedElement.type == bnType.text:
-				enteredText = self.getTextValue(dialog, selectedElement)
+				enteredText = self.getTextValue(self, selectedElement)
 				if enteredText is not None:
 					selectedElement.value = enteredText
 					self.saveElementValues(elements)
