@@ -60,22 +60,18 @@ class BreakNoteDialog(wx.Dialog):
 		))
 		mainSizer.Add(description, border=20, flag=wx.LEFT | wx.RIGHT | wx.TOP)
 
-		filterSizer = wx.BoxSizer(wx.HORIZONTAL)
-		filterLabel = wx.StaticText(dialog, label="&Filter:")
-		elementFilter = wx.ComboBox(
-			dialog,
-			choices=[
+		filterSizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
+		elementFilter = filterSizer.addLabeledControl(
+			"&Filter:", wx.Choice, choices=[
 				"show all break notes",
 				"show favorite break notes",
-			],
-			style=wx.CB_READONLY,
+			]
 		)
 		elementFilter.SetSelection(self.filterSelection)
-		filterSizer.Add(filterLabel, 0, wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, 5)
-		filterSizer.Add(elementFilter, 1, wx.RIGHT | wx.EXPAND, 10)
-		editFavoritesButton = wx.Button(dialog, label="&Edit favorites")
-		filterSizer.Add(editFavoritesButton, 0)
-		mainSizer.Add(filterSizer, 0, wx.LEFT | wx.RIGHT | wx.EXPAND, 10)
+		editFavoritesButton = wx.Button(self, label="&Edit favorites")
+		filterSizer.addItem(editFavoritesButton)
+		mainSizer.Add(filterSizer.sizer, flag=wx.ALL, border=gui.guiHelper.BORDER_FOR_DIALOGS)
+		mainSizer.Fit(self)
 
 		listLabel = wx.StaticText(
 			self,
