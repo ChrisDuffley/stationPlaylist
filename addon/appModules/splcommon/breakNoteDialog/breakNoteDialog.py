@@ -358,7 +358,8 @@ class BreakNoteDialog(wx.Dialog):
 		finally:
 			self.Destroy()
 
-	def validateDuration(self, event):
+	def onOk(self, evt: wx.CommandEvent):
+		# Validate duration field vlaue (must be empty or number above 0).
 		value = self.duration.GetValue().strip()
 		if value and (not value.isdigit() or int(value) <= 0):
 			wx.MessageBox(
@@ -369,10 +370,6 @@ class BreakNoteDialog(wx.Dialog):
 			)
 			self.duration.SetFocus()
 			return
-		event.Skip()
-
-	def onOk(self, evt: wx.CommandEvent):
-		self.validateDuration(evt)
 		self.Destroy()
 
 	def onCancel(self, evt: wx.CommandEvent):
