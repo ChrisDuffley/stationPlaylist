@@ -50,138 +50,6 @@ class BreakNoteDialog:
 		self.storage = storage
 		self.filterSelection = filterSelection
 
-	def saveElementValues(self, elements, path=ELEMENT_VALUES_FILE):
-		self.storage.filterSelection = self.filterSelection
-		self.storage.saveElementValues(elements, path)
-
-	def saveElementFavorites(self, elements, path=ELEMENT_VALUES_FILE):
-		self.storage.saveElementFavorites(elements, path)
-
-	def editElementFavorites(self, parent, elements):
-		favoriteStates = FavoriteDialog(parent, elements).getValues()
-		if favoriteStates is None:
-			return False
-		for element, isFavorite in zip(elements, favoriteStates):
-			element.isFavorite = isFavorite
-		self.saveElementFavorites(elements)
-		return True
-
-	def _formatNumericValue(self, value):
-		if isinstance(value, int):
-			return str(value)
-		normalized = format(value, "f")
-		if "." in normalized:
-			normalized = normalized.rstrip("0").rstrip(".")
-		if normalized in ("-0", "-0.0"):
-			return "0"
-		return normalized or "0"
-
-	def getNumberValue(self, parent, element):
-		kind = element.kind
-		title = f"enter {kind} for {element.name}"
-		if element.unit:
-			title += f" in {element.unit}"
-		if element.minimum is not None and element.maximum is not None:
-			title += f", between {element.minimum} and {element.maximum}"
-		label = kind
-		allowEmpty = element.allowEmpty
-		minimum = element.minimum
-		maximum = element.maximum
-
-		while True:
-			enteredValue = NumberDialog(parent, title, f"&{label}").getValue()
-			if enteredValue is None:
-				return None
-
-			if allowEmpty and not enteredValue:
-				return ""
-			if not enteredValue or enteredValue in {"+", "-", ".", "+.", "-."}:
-				numberValue = None
-			else:
-				if not NUMBER_PATTERN.fullmatch(enteredValue):
-					numberValue = None
-				else:
-					try:
-						numberValue = float(enteredValue)
-					except ValueError:
-						numberValue = None
-
-			if (
-				numberValue is not None
-				and (minimum is None or numberValue >= minimum)
-				and (maximum is None or numberValue <= maximum)
-				and numberValue != 0
-			):
-				return self._formatNumericValue(numberValue)
-
-			wx.MessageBox(
-				(
-					f"Please enter a number between {minimum} and {maximum}."
-					if minimum is not None and maximum is not None
-					else "Please enter a number."
-				),
-				"Invalid number",
-				wx.OK | wx.ICON_ERROR,
-				parent,
-			)
-
-	def getTextValue(self, parent, element):
-		enteredText = TextDialog(
-			parent,
-			element.textValues,
-			title=f"Enter text for {element.name}",
-		).getValue()
-		if enteredText is None:
-			return None
-
-		if not enteredText.strip():
-			wx.MessageBox(
-				"Please enter some text.",
-				"Invalid text",
-				wx.OK | wx.ICON_ERROR,
-				parent,
-			)
-			return None
-
-		if enteredText not in element.textValues:
-			element.textValues += (enteredText,)
-		return enteredText
-
-	def getTypeAndPathValue(self, parent, element):
-		typeCode = FileTypeDialog(parent).getValue()
-		if typeCode is None:
-			return None
-		path = PathDialog(parent, element.type == bnType.typeAndDir).getValue()
-		return None if path is None else (typeCode, path)
-
-	def getPlayerVolumeValue(self, parent, element):
-		return PlayerVolumeDialog(parent, element).getValue()
-
-	def getCartValue(self, parent, breakNoteCode, element):
-		showPosition = breakNoteCode == "C"
-		return CartDialog(parent, element, showPosition=showPosition).getValue()
-
-	def getRecordAllValue(self, parent, element):
-		return RecordAllDialog(parent, element).getValue()
-
-	def getHookValue(self, parent, element):
-		return HookDialog(parent, element).getValue()
-
-	def getDSPValue(self, parent, element):
-		return DSPEffectDialog(parent, element).getValue()
-
-	def getFolderValue(self, parent, element, showPosition=False):
-		return FolderDialog(parent, element, showPosition=showPosition).getValue()
-
-	def getPlayFileValue(self, parent):
-		return PlayFileDialog(parent).getValue()
-
-	def getElementLabel(self, element):
-		if element.type == bnType.onOff:
-			state = "on" if element.value == 1 else "off"
-			return f"{element.name} ({state})"
-		return element.name
-
 	def showBreakNoteDialog(self):
 		elements = self.elements
 		dialog = wx.Dialog(
@@ -545,3 +413,135 @@ class BreakNoteDialog:
 				return None
 		finally:
 			dialog.Destroy()
+
+	def saveElementValues(self, elements, path=ELEMENT_VALUES_FILE):
+		self.storage.filterSelection = self.filterSelection
+		self.storage.saveElementValues(elements, path)
+
+	def saveElementFavorites(self, elements, path=ELEMENT_VALUES_FILE):
+		self.storage.saveElementFavorites(elements, path)
+
+	def editElementFavorites(self, parent, elements):
+		favoriteStates = FavoriteDialog(parent, elements).getValues()
+		if favoriteStates is None:
+			return False
+		for element, isFavorite in zip(elements, favoriteStates):
+			element.isFavorite = isFavorite
+		self.saveElementFavorites(elements)
+		return True
+
+	def _formatNumericValue(self, value):
+		if isinstance(value, int):
+			return str(value)
+		normalized = format(value, "f")
+		if "." in normalized:
+			normalized = normalized.rstrip("0").rstrip(".")
+		if normalized in ("-0", "-0.0"):
+			return "0"
+		return normalized or "0"
+
+	def getNumberValue(self, parent, element):
+		kind = element.kind
+		title = f"enter {kind} for {element.name}"
+		if element.unit:
+			title += f" in {element.unit}"
+		if element.minimum is not None and element.maximum is not None:
+			title += f", between {element.minimum} and {element.maximum}"
+		label = kind
+		allowEmpty = element.allowEmpty
+		minimum = element.minimum
+		maximum = element.maximum
+
+		while True:
+			enteredValue = NumberDialog(parent, title, f"&{label}").getValue()
+			if enteredValue is None:
+				return None
+
+			if allowEmpty and not enteredValue:
+				return ""
+			if not enteredValue or enteredValue in {"+", "-", ".", "+.", "-."}:
+				numberValue = None
+			else:
+				if not NUMBER_PATTERN.fullmatch(enteredValue):
+					numberValue = None
+				else:
+					try:
+						numberValue = float(enteredValue)
+					except ValueError:
+						numberValue = None
+
+			if (
+				numberValue is not None
+				and (minimum is None or numberValue >= minimum)
+				and (maximum is None or numberValue <= maximum)
+				and numberValue != 0
+			):
+				return self._formatNumericValue(numberValue)
+
+			wx.MessageBox(
+				(
+					f"Please enter a number between {minimum} and {maximum}."
+					if minimum is not None and maximum is not None
+					else "Please enter a number."
+				),
+				"Invalid number",
+				wx.OK | wx.ICON_ERROR,
+				parent,
+			)
+
+	def getTextValue(self, parent, element):
+		enteredText = TextDialog(
+			parent,
+			element.textValues,
+			title=f"Enter text for {element.name}",
+		).getValue()
+		if enteredText is None:
+			return None
+
+		if not enteredText.strip():
+			wx.MessageBox(
+				"Please enter some text.",
+				"Invalid text",
+				wx.OK | wx.ICON_ERROR,
+				parent,
+			)
+			return None
+
+		if enteredText not in element.textValues:
+			element.textValues += (enteredText,)
+		return enteredText
+
+	def getTypeAndPathValue(self, parent, element):
+		typeCode = FileTypeDialog(parent).getValue()
+		if typeCode is None:
+			return None
+		path = PathDialog(parent, element.type == bnType.typeAndDir).getValue()
+		return None if path is None else (typeCode, path)
+
+	def getPlayerVolumeValue(self, parent, element):
+		return PlayerVolumeDialog(parent, element).getValue()
+
+	def getCartValue(self, parent, breakNoteCode, element):
+		showPosition = breakNoteCode == "C"
+		return CartDialog(parent, element, showPosition=showPosition).getValue()
+
+	def getRecordAllValue(self, parent, element):
+		return RecordAllDialog(parent, element).getValue()
+
+	def getHookValue(self, parent, element):
+		return HookDialog(parent, element).getValue()
+
+	def getDSPValue(self, parent, element):
+		return DSPEffectDialog(parent, element).getValue()
+
+	def getFolderValue(self, parent, element, showPosition=False):
+		return FolderDialog(parent, element, showPosition=showPosition).getValue()
+
+	def getPlayFileValue(self, parent):
+		return PlayFileDialog(parent).getValue()
+
+	def getElementLabel(self, element):
+		if element.type == bnType.onOff:
+			state = "on" if element.value == 1 else "off"
+			return f"{element.name} ({state})"
+		return element.name
