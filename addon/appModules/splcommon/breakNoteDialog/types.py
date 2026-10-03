@@ -73,5 +73,6 @@ CART_TYPES = (
 )
 CART_NAMES = tuple(
 	[f"F{index} -" for index in range(1, 13)]
-	+ [f"{index} -" for index in range(1, 13)]
+	+ [f"{index} -" for index in range(1, 10)]
+	+ ["0 -", "- -", "= -"]
 )
