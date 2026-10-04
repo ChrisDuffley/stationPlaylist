@@ -371,6 +371,7 @@ class BreakNoteDialog(wx.Dialog):
 			)
 			self.duration.SetFocus()
 			return
+		self.obj.insertBreakNote(self.getSelectedElement(), self.filterSelection)
 		self.Destroy()
 
 	def onCancel(self, evt: wx.CommandEvent):
