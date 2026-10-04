@@ -83,239 +83,21 @@ class BreakNoteDialog(wx.Dialog):
 
 		self.visibleElements = []
 
-		def updateHelpText(event):
-			selectedElement = self.getSelectedElement()
-			self.helpField.SetValue(selectedElement.helpText if selectedElement else "")
-			self.textInPlaylist.ChangeValue(
-				selectedElement.textInPlaylist if selectedElement else ""
-			)
-			self.duration.ChangeValue(selectedElement.duration if selectedElement else "")
-			self.concurrentBreakNoteCheckbox.SetValue(
-				selectedElement.isConcurrent if selectedElement else False
-			)
-			event.Skip()
-
 		self.elementList.Bind(wx.EVT_LISTBOX, updateHelpText)
-
-		def saveSelectedElement(event):
-			selection = self.elementList.GetSelection()
-			if selection >= 0:
-				selectedElement = self.visibleElements[selection]
-				# Remnant of previous break note dialog design (part of the overlay class)
-				for elementIndex, element in enumerate(elements):  # type: ignore
-					element.isLastSelected = element is selectedElement
-				self.saveElementValues(elements)
-			updateHelpText(event)
 
 		self.elementList.Bind(wx.EVT_LISTBOX, saveSelectedElement)
 
-		def updateElementList(event=None):
-			# Rebuild the list after changing the filter or favorite flags while
-			# retaining the current selection whenever possible.
-			self.filterSelection = self.elementFilter.GetSelection()
-			self.saveElementValues(elements)
-			selectedElementID = (
-				self.getSelectedElement().ID if self.elementList.GetSelection() >= 0 else None
-			)
-			self.visibleElements = sorted(
-				[
-					element for element in elements
-					if self.filterSelection == 0 or element.isFavorite
-				],
-				# There is no easy way to add types to lambda function arguments/return values.
-				key=lambda element: element.name.lower(),  # type: ignore
-			)
-			self.elementList.SetItems(
-				[self.getElementLabel(element) for element in self.visibleElements]
-			)
-			selectedIndex = next(
-				(
-					elementIndex
-					for elementIndex, element in enumerate(self.visibleElements)
-					if element.ID == (selectedElementID or 0)
-				),
-				wx.NOT_FOUND,
-			)
-			if selectedIndex == wx.NOT_FOUND and not selectedElementID:
-				selectedIndex = next(
-					(
-						elementIndex
-						for elementIndex, element in enumerate(self.visibleElements)
-						if element.isLastSelected
-					),
-					wx.NOT_FOUND,
-				)
-			if selectedIndex != wx.NOT_FOUND:
-				self.elementList.SetSelection(selectedIndex)
-				updateHelpText(wx.CommandEvent())
-			else:
-				updateHelpText(wx.CommandEvent())
-
 		self.elementFilter.Bind(wx.EVT_CHOICE, updateElementList)
-
-		def editFavorites(event):
-			if self.editElementFavorites(self, elements):
-				updateElementList()
-			event.Skip()
 
 		editFavoritesButton.Bind(wx.EVT_BUTTON, editFavorites)
 
-		def updateTextInPlaylist(event):
-			selectedElement = self.getSelectedElement()
-			if selectedElement:
-				selectedElement.textInPlaylist = self.textInPlaylist.GetValue()
-				self.saveElementValues(elements)
-			event.Skip()
-
 		self.textInPlaylist.Bind(wx.EVT_TEXT, updateTextInPlaylist)
-
-		def updateDuration(event):
-			selectedElement = self.getSelectedElement()
-			value = self.duration.GetValue().strip()
-			if selectedElement and (not value or value.isdigit() and int(value) > 0):
-				selectedElement.duration = value
-				self.saveElementValues(elements)
-			event.Skip()
 
 		self.duration.Bind(wx.EVT_TEXT, updateDuration)
 
 		self.concurrentBreakNoteCheckbox = breakNoteHelper.addItem(wx.CheckBox(self, label="This is a &concurrent break note"))
 
-		def updateCheckbox(event):
-			selectedElement = self.getSelectedElement()
-			if selectedElement:
-				selectedElement.isConcurrent = self.concurrentBreakNoteCheckbox.GetValue()
-			event.Skip()
-
 		self.concurrentBreakNoteCheckbox.Bind(wx.EVT_CHECKBOX, updateCheckbox)
-
-		def showElementMenu(event):
-			if event.GetKeyCode() != wx.WXK_SPACE:
-				event.Skip()
-				return
-
-			selectedElement = self.getSelectedElement()
-			if selectedElement is None:
-				return
-
-			# Some break notes need dedicated dialogs because their parameter
-			# syntax combines several values (for example cart type and number).
-			# ID 44: player volumes
-			if selectedElement.code == "PlayerVol":
-				value = self.getPlayerVolumeValue(self, selectedElement)
-				if value is not None:
-					selectedElement.value = value
-				return
-			# ID 31: insert a cart sequentially, ID 32: insert a cart overlapping
-			if selectedElement.code in ("C", "O"):
-				value = self.getCartValue(self, selectedElement.code, selectedElement)
-				if value is not None:
-					selectedElement.value = value
-				return
-			# ID 46: record to file
-			if selectedElement.ID == 46:
-				value = self.getRecordAllValue(self, selectedElement)
-				if value is not None:
-					selectedElement.value = value
-				return
-			# ID 27: hook playback
-			if selectedElement.ID == 27:
-				value = self.getHookValue(self, selectedElement)
-				if value is not None:
-					selectedElement.value = value
-				return
-			if selectedElement.code == "Dsp":
-				value = self.getDSPValue(self, selectedElement)
-				if value is not None:
-					selectedElement.value = value
-				return
-			# ID 24: folder - insert all files
-			if selectedElement.ID == 24:
-				value = self.getFolderValue(self, selectedElement)
-				if value is not None:
-					selectedElement.value = value
-				return
-			# ID 25: folder - insert file with position
-			if selectedElement.ID == 25:
-				value = self.getFolderValue(self, selectedElement, showPosition=True)
-				if value is not None:
-					selectedElement.value = value
-				return
-			# ID 26: folder - insert all files randomly
-			if selectedElement.ID == 26:
-				value = self.getFolderValue(self, selectedElement)
-				if value is not None:
-					selectedElement.value = value
-				return
-			# ID 43: play a file
-			if selectedElement.ID == 43:
-				value = self.getPlayFileValue(self)
-				if value is not None:
-					selectedElement.value = value
-				return
-			if selectedElement.type == bnType.onOff:
-				selectedElement.value = 0 if selectedElement.value == 1 else 1
-				self.elementList.SetString(
-					self.elementList.GetSelection(), self.getElementLabel(selectedElement)
-				)
-				return
-			if selectedElement.type == bnType.noParm:
-				ui.message(_("No parameters for the selected break note"))
-				return
-			if selectedElement.type in (bnType.typeAndDir, bnType.typeAndFile):
-				value = self.getTypeAndPathValue(self, selectedElement)
-				if value is None:
-					return
-				selectedElement.value = value
-				return
-			if selectedElement.type == bnType.file:
-				with wx.FileDialog(
-					self,
-					message=f"Select a file for {selectedElement.name}",
-					style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST,
-				) as fileDialog:
-					if gui.displayDialogAsModal(fileDialog) == wx.ID_OK:
-						selectedElement.value = fileDialog.GetPath()
-				return
-			if selectedElement.type == bnType.dir:
-				with wx.DirDialog(
-					self,
-					message=f"Select a folder for {selectedElement.name}",
-					style=wx.DD_DEFAULT_STYLE | wx.DD_DIR_MUST_EXIST,
-				) as dirDialog:
-					if gui.displayDialogAsModal(dirDialog) == wx.ID_OK:
-						selectedElement.value = dirDialog.GetPath()
-				return
-			if selectedElement.type == bnType.number:
-				numberValue = self.getNumberValue(self, selectedElement)
-				if numberValue is not None:
-					selectedElement.value = numberValue
-				return
-			if selectedElement.type == bnType.text:
-				enteredText = self.getTextValue(self, selectedElement)
-				if enteredText is not None:
-					selectedElement.value = enteredText
-					self.saveElementValues(elements)
-				return
-			if selectedElement.type == bnType.menu:
-				menu = wx.Menu()
-				menuItems = {}
-				for menuIndex, menuLabel in enumerate(selectedElement.menuItems):
-					menuItem = menu.Append(wx.ID_ANY, menuLabel)
-					menuItems[menuItem.GetId()] = menuIndex
-
-				def saveMenuValue(menuEvent):
-					selectedElement.value = menuItems[menuEvent.GetId()]
-					menuEvent.Skip()
-
-				for menuItem in menu.GetMenuItems():
-					menu.Bind(wx.EVT_MENU, saveMenuValue, menuItem)
-
-				try:
-					self.elementList.PopupMenu(menu)
-				finally:
-					menu.Destroy()
-				return
 
 		self.elementList.Bind(wx.EVT_KEY_DOWN, showElementMenu)
 
@@ -325,7 +107,7 @@ class BreakNoteDialog(wx.Dialog):
 		mainSizer.Add(breakNoteHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 
 		self.SetSizerAndFit(mainSizer)
-		updateElementList()
+		self.updateElementList()
 		# Sometimes filter combo box receives system focus, so queue a corrective focus event.
 		wx.CallAfter(self.elementList.SetFocus)
 
@@ -333,6 +115,224 @@ class BreakNoteDialog(wx.Dialog):
 		# The list contains only the currently visible subset of elements.
 		selection = self.elementList.GetSelection()
 		return self.visibleElements[selection] if selection >= 0 else None
+
+	def updateHelpText(self, event):
+		selectedElement = self.getSelectedElement()
+		self.helpField.SetValue(selectedElement.helpText if selectedElement else "")
+		self.textInPlaylist.ChangeValue(
+			selectedElement.textInPlaylist if selectedElement else ""
+		)
+		self.duration.ChangeValue(selectedElement.duration if selectedElement else "")
+		self.concurrentBreakNoteCheckbox.SetValue(
+			selectedElement.isConcurrent if selectedElement else False
+		)
+		event.Skip()
+
+	def saveSelectedElement(self, event):
+		selection = self.elementList.GetSelection()
+		if selection >= 0:
+			selectedElement = self.visibleElements[selection]
+			# Remnant of previous break note dialog design (part of the overlay class)
+			for elementIndex, element in enumerate(self.elements):  # type: ignore
+				element.isLastSelected = element is selectedElement
+			self.saveElementValues(self.elements)
+		self.updateHelpText(event)
+
+	def updateElementList(self, event=None):
+		# Rebuild the list after changing the filter or favorite flags while
+		# retaining the current selection whenever possible.
+		self.filterSelection = self.elementFilter.GetSelection()
+		self.saveElementValues(self.elements)
+		selectedElementID = (
+			self.getSelectedElement().ID if self.elementList.GetSelection() >= 0 else None
+		)
+		self.visibleElements = sorted(
+			[
+				element for element in self.elements
+				if self.filterSelection == 0 or element.isFavorite
+			],
+			# There is no easy way to add types to lambda function arguments/return values.
+			key=lambda element: element.name.lower(),  # type: ignore
+		)
+		self.elementList.SetItems(
+			[self.getElementLabel(element) for element in self.visibleElements]
+		)
+		selectedIndex = next(
+			(
+				elementIndex
+				for elementIndex, element in enumerate(self.visibleElements)
+				if element.ID == (selectedElementID or 0)
+			),
+			wx.NOT_FOUND,
+		)
+		if selectedIndex == wx.NOT_FOUND and not selectedElementID:
+			selectedIndex = next(
+				(
+					elementIndex
+					for elementIndex, element in enumerate(self.visibleElements)
+					if element.isLastSelected
+				),
+				wx.NOT_FOUND,
+			)
+		if selectedIndex != wx.NOT_FOUND:
+			self.elementList.SetSelection(selectedIndex)
+			self.updateHelpText(wx.CommandEvent())
+		else:
+			self.updateHelpText(wx.CommandEvent())
+
+	def editFavorites(self, event):
+		if self.editElementFavorites(self, self.elements):
+			self.updateElementList()
+		event.Skip()
+
+	def updateTextInPlaylist(self, event):
+		selectedElement = self.getSelectedElement()
+		if selectedElement:
+			selectedElement.textInPlaylist = self.textInPlaylist.GetValue()
+			self.saveElementValues(self.elements)
+		event.Skip()
+
+	def updateDuration(self, event):
+		selectedElement = self.getSelectedElement()
+		value = self.duration.GetValue().strip()
+		if selectedElement and (not value or value.isdigit() and int(value) > 0):
+			selectedElement.duration = value
+			self.saveElementValues(self.elements)
+		event.Skip()
+
+	def updateCheckbox(self, event):
+		selectedElement = self.getSelectedElement()
+		if selectedElement:
+			selectedElement.isConcurrent = self.concurrentBreakNoteCheckbox.GetValue()
+		event.Skip()
+
+	def showElementMenu(self, event):
+		if event.GetKeyCode() != wx.WXK_SPACE:
+			event.Skip()
+			return
+
+		selectedElement = self.getSelectedElement()
+		if selectedElement is None:
+			return
+
+		# Some break notes need dedicated dialogs because their parameter
+		# syntax combines several values (for example cart type and number).
+		# ID 44: player volumes
+		if selectedElement.code == "PlayerVol":
+			value = self.getPlayerVolumeValue(self, selectedElement)
+			if value is not None:
+				selectedElement.value = value
+			return
+		# ID 31: insert a cart sequentially, ID 32: insert a cart overlapping
+		if selectedElement.code in ("C", "O"):
+			value = self.getCartValue(self, selectedElement.code, selectedElement)
+			if value is not None:
+				selectedElement.value = value
+			return
+		# ID 46: record to file
+		if selectedElement.ID == 46:
+			value = self.getRecordAllValue(self, selectedElement)
+			if value is not None:
+				selectedElement.value = value
+			return
+		# ID 27: hook playback
+		if selectedElement.ID == 27:
+			value = self.getHookValue(self, selectedElement)
+			if value is not None:
+				selectedElement.value = value
+			return
+		if selectedElement.code == "Dsp":
+			value = self.getDSPValue(self, selectedElement)
+			if value is not None:
+				selectedElement.value = value
+			return
+		# ID 24: folder - insert all files
+		if selectedElement.ID == 24:
+			value = self.getFolderValue(self, selectedElement)
+			if value is not None:
+				selectedElement.value = value
+			return
+		# ID 25: folder - insert file with position
+		if selectedElement.ID == 25:
+			value = self.getFolderValue(self, selectedElement, showPosition=True)
+			if value is not None:
+				selectedElement.value = value
+			return
+		# ID 26: folder - insert all files randomly
+		if selectedElement.ID == 26:
+			value = self.getFolderValue(self, selectedElement)
+			if value is not None:
+				selectedElement.value = value
+			return
+		# ID 43: play a file
+		if selectedElement.ID == 43:
+			value = self.getPlayFileValue(self)
+			if value is not None:
+				selectedElement.value = value
+			return
+		if selectedElement.type == bnType.onOff:
+			selectedElement.value = 0 if selectedElement.value == 1 else 1
+			self.elementList.SetString(
+				self.elementList.GetSelection(), self.getElementLabel(selectedElement)
+			)
+			return
+		if selectedElement.type == bnType.noParm:
+			ui.message(_("No parameters for the selected break note"))
+			return
+		if selectedElement.type in (bnType.typeAndDir, bnType.typeAndFile):
+			value = self.getTypeAndPathValue(self, selectedElement)
+			if value is None:
+				return
+			selectedElement.value = value
+			return
+		if selectedElement.type == bnType.file:
+			with wx.FileDialog(
+				self,
+				message=f"Select a file for {selectedElement.name}",
+				style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST,
+			) as fileDialog:
+				if gui.displayDialogAsModal(fileDialog) == wx.ID_OK:
+					selectedElement.value = fileDialog.GetPath()
+			return
+		if selectedElement.type == bnType.dir:
+			with wx.DirDialog(
+				self,
+				message=f"Select a folder for {selectedElement.name}",
+				style=wx.DD_DEFAULT_STYLE | wx.DD_DIR_MUST_EXIST,
+			) as dirDialog:
+				if gui.displayDialogAsModal(dirDialog) == wx.ID_OK:
+					selectedElement.value = dirDialog.GetPath()
+			return
+		if selectedElement.type == bnType.number:
+			numberValue = self.getNumberValue(self, selectedElement)
+			if numberValue is not None:
+				selectedElement.value = numberValue
+			return
+		if selectedElement.type == bnType.text:
+			enteredText = self.getTextValue(self, selectedElement)
+			if enteredText is not None:
+				selectedElement.value = enteredText
+				self.saveElementValues(self.elements)
+			return
+		if selectedElement.type == bnType.menu:
+			menu = wx.Menu()
+			menuItems = {}
+			for menuIndex, menuLabel in enumerate(selectedElement.menuItems):
+				menuItem = menu.Append(wx.ID_ANY, menuLabel)
+				menuItems[menuItem.GetId()] = menuIndex
+
+			def saveMenuValue(menuEvent):
+				selectedElement.value = menuItems[menuEvent.GetId()]
+				menuEvent.Skip()
+
+			for menuItem in menu.GetMenuItems():
+				menu.Bind(wx.EVT_MENU, saveMenuValue, menuItem)
+
+			try:
+				self.elementList.PopupMenu(menu)
+			finally:
+				menu.Destroy()
+			return
 
 	def onOk(self, evt: wx.CommandEvent):
 		# Validate duration field vlaue (must be empty or number above 0).
