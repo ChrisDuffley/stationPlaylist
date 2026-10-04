@@ -342,7 +342,8 @@ class BreakNoteDialog(wx.Dialog):
 
 		self.SetSizerAndFit(mainSizer)
 		updateElementList()
-		self.elementList.SetFocus()
+		# Sometimes filter combo box receives system focus, so queue a corrective focus event.
+		wx.CallAfter(self.elementList.SetFocus)
 
 	def getSelectedElement(self):
 		# The list contains only the currently visible subset of elements.
