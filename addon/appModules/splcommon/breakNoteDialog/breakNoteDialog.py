@@ -38,7 +38,7 @@ class BreakNoteDialog(wx.Dialog):
 			return super().__new__(cls)
 		raise RuntimeError("An instance of BreakNoteDialog is active")
 
-	def __init__(self, parent: gui.MainFrame, elements, storage: BreakNoteStorage, filterSelection=0):
+	def __init__(self, parent: gui.MainFrame, obj, elements, storage: BreakNoteStorage, filterSelection=0):
 		inst = BreakNoteDialog._instance() if BreakNoteDialog._instance else None
 		if inst:
 			return
@@ -46,6 +46,7 @@ class BreakNoteDialog(wx.Dialog):
 		BreakNoteDialog._instance = weakref.ref(self)
 
 		super().__init__(parent, wx.ID_ANY, title="Create a break note")
+		self.obj = obj
 		self.elements = elements
 		self.storage = storage
 		self.filterSelection = filterSelection
