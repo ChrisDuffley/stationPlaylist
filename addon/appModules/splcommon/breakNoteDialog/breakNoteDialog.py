@@ -83,23 +83,23 @@ class BreakNoteDialog(wx.Dialog):
 
 		self.visibleElements = []
 
-		self.elementList.Bind(wx.EVT_LISTBOX, updateHelpText)
+		self.elementList.Bind(wx.EVT_LISTBOX, self.updateHelpText)
 
-		self.elementList.Bind(wx.EVT_LISTBOX, saveSelectedElement)
+		self.elementList.Bind(wx.EVT_LISTBOX, self.saveSelectedElement)
 
-		self.elementFilter.Bind(wx.EVT_CHOICE, updateElementList)
+		self.elementFilter.Bind(wx.EVT_CHOICE, self.updateElementList)
 
-		editFavoritesButton.Bind(wx.EVT_BUTTON, editFavorites)
+		editFavoritesButton.Bind(wx.EVT_BUTTON, self.editFavorites)
 
-		self.textInPlaylist.Bind(wx.EVT_TEXT, updateTextInPlaylist)
+		self.textInPlaylist.Bind(wx.EVT_TEXT, self.updateTextInPlaylist)
 
-		self.duration.Bind(wx.EVT_TEXT, updateDuration)
+		self.duration.Bind(wx.EVT_TEXT, self.updateDuration)
 
 		self.concurrentBreakNoteCheckbox = breakNoteHelper.addItem(wx.CheckBox(self, label="This is a &concurrent break note"))
 
-		self.concurrentBreakNoteCheckbox.Bind(wx.EVT_CHECKBOX, updateCheckbox)
+		self.concurrentBreakNoteCheckbox.Bind(wx.EVT_CHECKBOX, self.updateCheckbox)
 
-		self.elementList.Bind(wx.EVT_KEY_DOWN, showElementMenu)
+		self.elementList.Bind(wx.EVT_KEY_DOWN, self.showElementMenu)
 
 		breakNoteHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
