@@ -94,15 +94,10 @@ class BreakNoteDialog(wx.Dialog):
 		mainSizer.Add(helpLabel, 0, wx.TOP | wx.LEFT | wx.RIGHT, 10)
 		mainSizer.Add(helpField, 0, wx.LEFT | wx.RIGHT | wx.EXPAND, 10)
 
-		visibleElements = []
-
-		def getSelectedElement():
-			# The list contains only the currently visible subset of elements.
-			selection = self.elementList.GetSelection()
-			return visibleElements[selection] if selection >= 0 else None
+		self.visibleElements = []
 
 		def updateHelpText(event):
-			selectedElement = getSelectedElement()
+			selectedElement = self.getSelectedElement()
 			helpField.SetValue(selectedElement.helpText if selectedElement else "")
 			textInPlaylist.ChangeValue(
 				selectedElement.textInPlaylist if selectedElement else ""
@@ -118,7 +113,7 @@ class BreakNoteDialog(wx.Dialog):
 		def saveSelectedElement(event):
 			selection = self.elementList.GetSelection()
 			if selection >= 0:
-				selectedElement = visibleElements[selection]
+				selectedElement = self.visibleElements[selection]
 				# Remnant of previous break note dialog design (part of the overlay class)
 				for elementIndex, element in enumerate(elements):  # type: ignore
 					element.isLastSelected = element is selectedElement
@@ -128,15 +123,14 @@ class BreakNoteDialog(wx.Dialog):
 		self.elementList.Bind(wx.EVT_LISTBOX, saveSelectedElement)
 
 		def updateElementList(event=None):
-			nonlocal visibleElements
 			# Rebuild the list after changing the filter or favorite flags while
 			# retaining the current selection whenever possible.
 			self.filterSelection = elementFilter.GetSelection()
 			self.saveElementValues(elements)
 			selectedElementID = (
-				getSelectedElement().ID if self.elementList.GetSelection() >= 0 else None
+				self.getSelectedElement().ID if self.elementList.GetSelection() >= 0 else None
 			)
-			visibleElements = sorted(
+			self.visibleElements = sorted(
 				[
 					element for element in elements
 					if self.filterSelection == 0 or element.isFavorite
@@ -145,12 +139,12 @@ class BreakNoteDialog(wx.Dialog):
 				key=lambda element: element.name.lower(),  # type: ignore
 			)
 			self.elementList.SetItems(
-				[self.getElementLabel(element) for element in visibleElements]
+				[self.getElementLabel(element) for element in self.visibleElements]
 			)
 			selectedIndex = next(
 				(
 					elementIndex
-					for elementIndex, element in enumerate(visibleElements)
+					for elementIndex, element in enumerate(self.visibleElements)
 					if element.ID == (selectedElementID or 0)
 				),
 				wx.NOT_FOUND,
@@ -159,7 +153,7 @@ class BreakNoteDialog(wx.Dialog):
 				selectedIndex = next(
 					(
 						elementIndex
-						for elementIndex, element in enumerate(visibleElements)
+						for elementIndex, element in enumerate(self.visibleElements)
 						if element.isLastSelected
 					),
 					wx.NOT_FOUND,
@@ -180,7 +174,7 @@ class BreakNoteDialog(wx.Dialog):
 		editFavoritesButton.Bind(wx.EVT_BUTTON, editFavorites)
 
 		def updateTextInPlaylist(event):
-			selectedElement = getSelectedElement()
+			selectedElement = self.getSelectedElement()
 			if selectedElement:
 				selectedElement.textInPlaylist = textInPlaylist.GetValue()
 				self.saveElementValues(elements)
@@ -189,7 +183,7 @@ class BreakNoteDialog(wx.Dialog):
 		textInPlaylist.Bind(wx.EVT_TEXT, updateTextInPlaylist)
 
 		def updateDuration(event):
-			selectedElement = getSelectedElement()
+			selectedElement = self.getSelectedElement()
 			value = self.duration.GetValue().strip()
 			if selectedElement and (not value or value.isdigit() and int(value) > 0):
 				selectedElement.duration = value
@@ -201,7 +195,7 @@ class BreakNoteDialog(wx.Dialog):
 		checkbox = wx.CheckBox(self, label="This is a &concurrent break note")
 
 		def updateCheckbox(event):
-			selectedElement = getSelectedElement()
+			selectedElement = self.getSelectedElement()
 			if selectedElement:
 				selectedElement.isConcurrent = checkbox.GetValue()
 			event.Skip()
@@ -213,7 +207,7 @@ class BreakNoteDialog(wx.Dialog):
 				event.Skip()
 				return
 
-			selectedElement = getSelectedElement()
+			selectedElement = self.getSelectedElement()
 			if selectedElement is None:
 				return
 
