@@ -344,15 +344,6 @@ class BreakNoteDialog(wx.Dialog):
 		updateElementList()
 		self.elementList.SetFocus()
 
-		try:
-			result = gui.displayDialogAsModal(self)
-			if result == wx.ID_OK:
-				return getSelectedElement()
-			else:
-				return None
-		finally:
-			self.Destroy()
-
 	def getSelectedElement(self):
 		# The list contains only the currently visible subset of elements.
 		selection = self.elementList.GetSelection()
