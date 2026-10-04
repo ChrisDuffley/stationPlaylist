@@ -353,6 +353,11 @@ class BreakNoteDialog(wx.Dialog):
 		finally:
 			self.Destroy()
 
+	def getSelectedElement(self):
+		# The list contains only the currently visible subset of elements.
+		selection = self.elementList.GetSelection()
+		return self.visibleElements[selection] if selection >= 0 else None
+
 	def onOk(self, evt: wx.CommandEvent):
 		# Validate duration field vlaue (must be empty or number above 0).
 		value = self.duration.GetValue().strip()
