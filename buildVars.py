@@ -26,10 +26,7 @@ addon_info = AddonInfo(
 	addon_version="26.10.2",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""* Added break note insertion dialog (Alt+Windows+I while focused on break note edit field in insert tracks dialog in Studio and Creator; contributed by MooSteinebach).
-* In local and Remote Studio, NVDA will no longer present track finder dialog when find command (Control+NVDA+F, NVDA+F3, NVDA+Shift+F3) is performed while Studio documentation is open with NVDA browse mode active.
-* In local Studio and Creator, improved break note insertion workflow by combining separate dialogs into a single dialog for break notes including cart insertion, player volume, and record to file (contributed by MooSteinebach).
-* Corrected break note code syntax generation when inserting the selected code into the "note" field in local Studio and Creator."""),
+	addon_changelog=_("""* In break notes insertion dialog opened from local Studio, selecting insert cart (overlap/sequential) will present cart names if defined (contributed by MooSteinebach)."""),
 	# Author(s)
 	addon_author="Christopher Duffley <nvda@chrisduffley.com>, Marco Steinebach <studio@windyradio.de> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)",
 	# URL for the add-on documentation support
