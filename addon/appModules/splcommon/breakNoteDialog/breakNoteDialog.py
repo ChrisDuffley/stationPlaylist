@@ -54,11 +54,10 @@ class BreakNoteDialog(wx.Dialog):
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		breakNoteHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
-		description = wx.StaticText(self, wx.ID_ANY, label=(
+		breakNoteHelper.addItem(wx.StaticText(self, label=(
 			"select a break note in the list. Press the space bar to edit the "
 			"parameters of the selected break note, if any."
-		))
-		mainSizer.Add(description, border=20, flag=wx.LEFT | wx.RIGHT | wx.TOP)
+		)))
 
 		filterSizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		elementFilter = filterSizer.addLabeledControl(
@@ -70,29 +69,17 @@ class BreakNoteDialog(wx.Dialog):
 		elementFilter.SetSelection(self.filterSelection)
 		editFavoritesButton = wx.Button(self, label="&Edit favorites")
 		filterSizer.addItem(editFavoritesButton)
-		mainSizer.Add(filterSizer.sizer, flag=wx.ALL, border=gui.guiHelper.BORDER_FOR_DIALOGS)
-		mainSizer.Fit(self)
+		breakNoteHelper.addItem(filterSizer.sizer, flag=wx.ALL, border=gui.guiHelper.BORDER_FOR_DIALOGS)
 
-		listLabel = wx.StaticText(
-			self,
-			label="&Select a break note to create:",
-		)
-		self.elementList = wx.ListBox(self)
-		helpLabel = wx.StaticText(self, label="&Help text:")
-		helpField = wx.TextCtrl(
+		self.elementList = breakNoteHelper.addLabeledControl("&Select a break note to create:", wx.ListBox)
+		self.helpLabel = breakNoteHelper.addItem(wx.StaticText(self, label="&Help text:"))
+		helpField = breakNoteHelper.addItem(wx.TextCtrl(
 			self,
 			style=wx.TE_MULTILINE | wx.TE_READONLY,
-		)
+		), flag=wx.LEFT | wx.RIGHT | wx.EXPAND)
 
-		textInPlaylist = sHelper.addLabeledControl("&Text to be displayed in the playlist:", wx.TextCtrl)
-		self.duration = sHelper.addLabeledControl("&Duration:", wx.TextCtrl)
-
-		mainSizer.Add(sHelper.sizer, flag=wx.ALL, border=gui.guiHelper.BORDER_FOR_DIALOGS)
-		mainSizer.Fit(self)
-		mainSizer.Add(listLabel, 0, wx.ALL, 10)
-		mainSizer.Add(self.elementList, 1, wx.LEFT | wx.RIGHT | wx.EXPAND, 10)
-		mainSizer.Add(helpLabel, 0, wx.TOP | wx.LEFT | wx.RIGHT, 10)
-		mainSizer.Add(helpField, 0, wx.LEFT | wx.RIGHT | wx.EXPAND, 10)
+		textInPlaylist = breakNoteHelper.addLabeledControl("&Text to be displayed in the playlist:", wx.TextCtrl)
+		self.duration = breakNoteHelper.addLabeledControl("&Duration:", wx.TextCtrl)
 
 		self.visibleElements = []
 
@@ -192,7 +179,7 @@ class BreakNoteDialog(wx.Dialog):
 
 		self.duration.Bind(wx.EVT_TEXT, updateDuration)
 
-		checkbox = wx.CheckBox(self, label="This is a &concurrent break note")
+		checkbox = breakNoteHelper.addItem(wx.CheckBox(self, label="This is a &concurrent break note"))
 
 		def updateCheckbox(event):
 			selectedElement = self.getSelectedElement()
