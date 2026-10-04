@@ -231,6 +231,7 @@ class BreakNoteDialog(wx.Dialog):
 			if value is not None:
 				selectedElement.value = value
 			return
+		# ID 19: DSP toggle
 		if selectedElement.code == "Dsp":
 			value = self.getDSPValue(self, selectedElement)
 			if value is not None:
