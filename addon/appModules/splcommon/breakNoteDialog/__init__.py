@@ -170,19 +170,8 @@ class SPLBreakNoteEntryField(NVDAObjects.NVDAObject):
 			value = f'"{value}"'
 		return f"*{concurrentPrefix}{element.code}{value}"
 
-
-	def createBreakNote(self, elements=None):
-		if elements is None:
-			elements = self.loadElements()
-
-		# #176: present an error message if a break note dialog is already opened.
-		try:
-			dialog = BreakNoteDialog(elements, self.storage, self.filterSelection)
-		except RuntimeError:
-			ui.message(_("A break note dialog is already open"))
-			return
-		selectedElement = dialog.showBreakNoteDialog()
-		self.filterSelection = dialog.filterSelection
+	def insertBreakNote(self, selectedElement, filterSelection):
+		self.filterSelection = filterSelection
 		result = (
 			self.createTextFromBreakNote(selectedElement)
 			if selectedElement is not None
