@@ -60,37 +60,37 @@ class BreakNoteDialog(wx.Dialog):
 		)))
 
 		filterSizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
-		elementFilter = filterSizer.addLabeledControl(
+		self.elementFilter = filterSizer.addLabeledControl(
 			"&Filter:", wx.Choice, choices=[
 				"show all break notes",
 				"show favorite break notes",
 			]
 		)
-		elementFilter.SetSelection(self.filterSelection)
+		self.elementFilter.SetSelection(self.filterSelection)
 		editFavoritesButton = wx.Button(self, label="&Edit favorites")
 		filterSizer.addItem(editFavoritesButton)
 		breakNoteHelper.addItem(filterSizer.sizer, flag=wx.ALL, border=gui.guiHelper.BORDER_FOR_DIALOGS)
 
 		self.elementList = breakNoteHelper.addLabeledControl("&Select a break note to create:", wx.ListBox)
 		self.helpLabel = breakNoteHelper.addItem(wx.StaticText(self, label="&Help text:"))
-		helpField = breakNoteHelper.addItem(wx.TextCtrl(
+		self.helpField = breakNoteHelper.addItem(wx.TextCtrl(
 			self,
 			style=wx.TE_MULTILINE | wx.TE_READONLY,
 		), flag=wx.LEFT | wx.RIGHT | wx.EXPAND)
 
-		textInPlaylist = breakNoteHelper.addLabeledControl("&Text to be displayed in the playlist:", wx.TextCtrl)
+		self.textInPlaylist = breakNoteHelper.addLabeledControl("&Text to be displayed in the playlist:", wx.TextCtrl)
 		self.duration = breakNoteHelper.addLabeledControl("&Duration:", wx.TextCtrl)
 
 		self.visibleElements = []
 
 		def updateHelpText(event):
 			selectedElement = self.getSelectedElement()
-			helpField.SetValue(selectedElement.helpText if selectedElement else "")
-			textInPlaylist.ChangeValue(
+			self.helpField.SetValue(selectedElement.helpText if selectedElement else "")
+			self.textInPlaylist.ChangeValue(
 				selectedElement.textInPlaylist if selectedElement else ""
 			)
 			self.duration.ChangeValue(selectedElement.duration if selectedElement else "")
-			checkbox.SetValue(
+			self.concurrentBreakNoteCheckbox.SetValue(
 				selectedElement.isConcurrent if selectedElement else False
 			)
 			event.Skip()
@@ -112,7 +112,7 @@ class BreakNoteDialog(wx.Dialog):
 		def updateElementList(event=None):
 			# Rebuild the list after changing the filter or favorite flags while
 			# retaining the current selection whenever possible.
-			self.filterSelection = elementFilter.GetSelection()
+			self.filterSelection = self.elementFilter.GetSelection()
 			self.saveElementValues(elements)
 			selectedElementID = (
 				self.getSelectedElement().ID if self.elementList.GetSelection() >= 0 else None
@@ -151,7 +151,7 @@ class BreakNoteDialog(wx.Dialog):
 			else:
 				updateHelpText(wx.CommandEvent())
 
-		elementFilter.Bind(wx.EVT_CHOICE, updateElementList)
+		self.elementFilter.Bind(wx.EVT_CHOICE, updateElementList)
 
 		def editFavorites(event):
 			if self.editElementFavorites(self, elements):
@@ -163,11 +163,11 @@ class BreakNoteDialog(wx.Dialog):
 		def updateTextInPlaylist(event):
 			selectedElement = self.getSelectedElement()
 			if selectedElement:
-				selectedElement.textInPlaylist = textInPlaylist.GetValue()
+				selectedElement.textInPlaylist = self.textInPlaylist.GetValue()
 				self.saveElementValues(elements)
 			event.Skip()
 
-		textInPlaylist.Bind(wx.EVT_TEXT, updateTextInPlaylist)
+		self.textInPlaylist.Bind(wx.EVT_TEXT, updateTextInPlaylist)
 
 		def updateDuration(event):
 			selectedElement = self.getSelectedElement()
@@ -179,15 +179,15 @@ class BreakNoteDialog(wx.Dialog):
 
 		self.duration.Bind(wx.EVT_TEXT, updateDuration)
 
-		checkbox = breakNoteHelper.addItem(wx.CheckBox(self, label="This is a &concurrent break note"))
+		self.concurrentBreakNoteCheckbox = breakNoteHelper.addItem(wx.CheckBox(self, label="This is a &concurrent break note"))
 
 		def updateCheckbox(event):
 			selectedElement = self.getSelectedElement()
 			if selectedElement:
-				selectedElement.isConcurrent = checkbox.GetValue()
+				selectedElement.isConcurrent = self.concurrentBreakNoteCheckbox.GetValue()
 			event.Skip()
 
-		checkbox.Bind(wx.EVT_CHECKBOX, updateCheckbox)
+		self.concurrentBreakNoteCheckbox.Bind(wx.EVT_CHECKBOX, updateCheckbox)
 
 		def showElementMenu(event):
 			if event.GetKeyCode() != wx.WXK_SPACE:
