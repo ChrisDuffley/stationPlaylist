@@ -324,25 +324,6 @@ class BreakNoteDialog(wx.Dialog):
 				menu.Destroy()
 			return
 
-	def onOk(self, evt: wx.CommandEvent):
-		# Validate duration field vlaue (must be empty or number above 0).
-		value = self.duration.GetValue().strip()
-		if value and (not value.isdigit() or int(value) <= 0):
-			wx.MessageBox(
-				"Duration must be empty or a number greater than 0.",
-				"Invalid duration",
-				wx.OK | wx.ICON_ERROR,
-				self,
-			)
-			self.duration.SetFocus()
-			return
-		self.obj.insertBreakNote(self.getSelectedElement(), self.filterSelection)
-		self.Destroy()
-
-	def onCancel(self, evt: wx.CommandEvent):
-		self.Destroy()
-		wx.CallLater(100, ui.message, "Break note insertion canceled")
-
 	def saveElementValues(self, elements, path=ELEMENT_VALUES_FILE):
 		self.storage.filterSelection = self.filterSelection
 		self.storage.saveElementValues(elements, path)
@@ -474,3 +455,22 @@ class BreakNoteDialog(wx.Dialog):
 			state = "on" if element.value == 1 else "off"
 			return f"{element.name} ({state})"
 		return element.name
+
+	def onOk(self, evt: wx.CommandEvent):
+		# Validate duration field vlaue (must be empty or number above 0).
+		value = self.duration.GetValue().strip()
+		if value and (not value.isdigit() or int(value) <= 0):
+			wx.MessageBox(
+				"Duration must be empty or a number greater than 0.",
+				"Invalid duration",
+				wx.OK | wx.ICON_ERROR,
+				self,
+			)
+			self.duration.SetFocus()
+			return
+		self.obj.insertBreakNote(self.getSelectedElement(), self.filterSelection)
+		self.Destroy()
+
+	def onCancel(self, evt: wx.CommandEvent):
+		self.Destroy()
+		wx.CallLater(100, ui.message, "Break note insertion canceled")
