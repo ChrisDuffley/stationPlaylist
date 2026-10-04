@@ -167,7 +167,7 @@ class BreakNoteDialog(wx.Dialog):
 		elementFilter.Bind(wx.EVT_CHOICE, updateElementList)
 
 		def editFavorites(event):
-			if self.editElementFavorites(dialog, elements):
+			if self.editElementFavorites(self, elements):
 				updateElementList()
 			event.Skip()
 
