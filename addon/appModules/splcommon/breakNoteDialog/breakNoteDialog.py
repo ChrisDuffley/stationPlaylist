@@ -366,6 +366,7 @@ class BreakNoteDialog(wx.Dialog):
 
 	def onCancel(self, evt: wx.CommandEvent):
 		self.Destroy()
+		wx.CallLater(100, ui.message, "Break note insertion canceled")
 
 	def saveElementValues(self, elements, path=ELEMENT_VALUES_FILE):
 		self.storage.filterSelection = self.filterSelection
