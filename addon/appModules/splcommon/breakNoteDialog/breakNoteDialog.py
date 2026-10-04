@@ -52,7 +52,7 @@ class BreakNoteDialog(wx.Dialog):
 		self.filterSelection = filterSelection
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
-		sHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+		breakNoteHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
 		description = wx.StaticText(self, wx.ID_ANY, label=(
 			"select a break note in the list. Press the space bar to edit the "
@@ -332,13 +332,10 @@ class BreakNoteDialog(wx.Dialog):
 
 		self.elementList.Bind(wx.EVT_KEY_DOWN, showElementMenu)
 
-		mainSizer.Add(checkbox, 0, wx.ALL, 10)
-
-		buttonSizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
-		buttonSizer.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
+		breakNoteHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
-		mainSizer.Add(buttonSizer.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+		mainSizer.Add(breakNoteHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 
 		self.SetSizerAndFit(mainSizer)
 		updateElementList()
