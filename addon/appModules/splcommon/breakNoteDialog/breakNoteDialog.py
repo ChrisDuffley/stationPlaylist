@@ -67,11 +67,17 @@ class BreakNoteDialog(wx.Dialog):
 			]
 		)
 		self.elementFilter.SetSelection(self.filterSelection)
+		self.elementFilter.Bind(wx.EVT_CHOICE, self.updateElementList)
 		editFavoritesButton = wx.Button(self, label="&Edit favorites")
+		editFavoritesButton.Bind(wx.EVT_BUTTON, self.editFavorites)
 		filterSizer.addItem(editFavoritesButton)
 		breakNoteHelper.addItem(filterSizer.sizer, flag=wx.ALL, border=gui.guiHelper.BORDER_FOR_DIALOGS)
 
 		self.elementList = breakNoteHelper.addLabeledControl("&Select a break note to create:", wx.ListBox)
+		self.visibleElements = []
+		self.elementList.Bind(wx.EVT_LISTBOX, self.updateHelpText)
+		self.elementList.Bind(wx.EVT_LISTBOX, self.saveSelectedElement)
+		self.elementList.Bind(wx.EVT_KEY_DOWN, self.showElementMenu)
 		self.helpLabel = breakNoteHelper.addItem(wx.StaticText(self, label="&Help text:"))
 		self.helpField = breakNoteHelper.addItem(wx.TextCtrl(
 			self,
@@ -79,27 +85,11 @@ class BreakNoteDialog(wx.Dialog):
 		), flag=wx.LEFT | wx.RIGHT | wx.EXPAND)
 
 		self.textInPlaylist = breakNoteHelper.addLabeledControl("&Text to be displayed in the playlist:", wx.TextCtrl)
-		self.duration = breakNoteHelper.addLabeledControl("&Duration:", wx.TextCtrl)
-
-		self.visibleElements = []
-
-		self.elementList.Bind(wx.EVT_LISTBOX, self.updateHelpText)
-
-		self.elementList.Bind(wx.EVT_LISTBOX, self.saveSelectedElement)
-
-		self.elementFilter.Bind(wx.EVT_CHOICE, self.updateElementList)
-
-		editFavoritesButton.Bind(wx.EVT_BUTTON, self.editFavorites)
-
 		self.textInPlaylist.Bind(wx.EVT_TEXT, self.updateTextInPlaylist)
-
+		self.duration = breakNoteHelper.addLabeledControl("&Duration:", wx.TextCtrl)
 		self.duration.Bind(wx.EVT_TEXT, self.updateDuration)
-
 		self.concurrentBreakNoteCheckbox = breakNoteHelper.addItem(wx.CheckBox(self, label="This is a &concurrent break note"))
-
 		self.concurrentBreakNoteCheckbox.Bind(wx.EVT_CHECKBOX, self.updateConcurrentBreakNoteCheckbox)
-
-		self.elementList.Bind(wx.EVT_KEY_DOWN, self.showElementMenu)
 
 		breakNoteHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
