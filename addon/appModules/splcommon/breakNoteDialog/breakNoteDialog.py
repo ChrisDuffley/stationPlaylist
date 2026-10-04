@@ -97,7 +97,7 @@ class BreakNoteDialog(wx.Dialog):
 
 		self.concurrentBreakNoteCheckbox = breakNoteHelper.addItem(wx.CheckBox(self, label="This is a &concurrent break note"))
 
-		self.concurrentBreakNoteCheckbox.Bind(wx.EVT_CHECKBOX, self.updateCheckbox)
+		self.concurrentBreakNoteCheckbox.Bind(wx.EVT_CHECKBOX, self.updateConcurrentBreakNoteCheckbox)
 
 		self.elementList.Bind(wx.EVT_KEY_DOWN, self.showElementMenu)
 
@@ -200,7 +200,7 @@ class BreakNoteDialog(wx.Dialog):
 			self.saveElementValues(self.elements)
 		event.Skip()
 
-	def updateCheckbox(self, event):
+	def updateConcurrentBreakNoteCheckbox(self, event):
 		selectedElement = self.getSelectedElement()
 		if selectedElement:
 			selectedElement.isConcurrent = self.concurrentBreakNoteCheckbox.GetValue()
