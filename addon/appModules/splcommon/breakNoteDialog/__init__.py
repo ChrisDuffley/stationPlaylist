@@ -6,6 +6,7 @@
 # helpTexts.txt for the corresponding help texts.
 
 import ctypes
+import gui
 import wx
 import api
 import winUser
@@ -110,7 +111,16 @@ class SPLBreakNoteEntryField(NVDAObjects.NVDAObject):
 		gesture="kb:windows+alt+i")
 	def script_breakNoteDialog(self, gesture):
 		"""Open the break note dialog."""
-		wx.CallAfter(self.createBreakNote)
+		elements = self.loadElements()
+		# #176: present an error message if a break note dialog is already opened.
+		try:
+			d = BreakNoteDialog(gui.mainFrame, self, elements, self.storage, self.filterSelection)
+			gui.mainFrame.prePopup()
+			d.Raise()
+			d.Show()
+			gui.mainFrame.postPopup()
+		except RuntimeError:
+			ui.message(_("A break note dialog is already open"))
 
 	def initOverlayClass(self):
 		self.filterSelection = 0
