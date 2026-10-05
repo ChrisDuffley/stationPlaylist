@@ -205,125 +205,122 @@ class BreakNoteDialog(wx.Dialog):
 		if selectedElement is None:
 			return
 
-		# Some break notes need dedicated dialogs because their parameter
-		# syntax combines several values (for example cart type and number).
-		# ID 44: player volumes
-		if selectedElement.code == "PlayerVol":
-			value = self.getPlayerVolumeValue(self, selectedElement)
-			if value is not None:
+		# Check element type (options/configuration interface).
+		match selectedElement.type:
+			case bnType.onOff:
+				selectedElement.value = 0 if selectedElement.value == 1 else 1
+				self.elementList.SetString(
+					self.elementList.GetSelection(), self.getElementLabel(selectedElement)
+				)
+			case bnType.number:
+				numberValue = self.getNumberValue(self, selectedElement)
+				if numberValue is not None:
+					selectedElement.value = numberValue
+			case bnType.text:
+				enteredText = self.getTextValue(self, selectedElement)
+				if enteredText is not None:
+					selectedElement.value = enteredText
+					self.saveElementValues(self.elements)
+			case bnType.typeAndDir | bnType.typeAndFile:
+				value = self.getTypeAndPathValue(self, selectedElement)
+				if value is None:
+					return
 				selectedElement.value = value
-			return
-		# ID 31: insert a cart sequentially, ID 32: insert a cart overlapping
-		if selectedElement.code in ("C", "O"):
-			value = self.getCartValue(self, selectedElement.code, selectedElement)
-			if value is not None:
-				selectedElement.value = value
-			return
-		# ID 46: record to file
-		if selectedElement.ID == 46:
-			value = self.getRecordAllValue(self, selectedElement)
-			if value is not None:
-				selectedElement.value = value
-			return
-		# ID 27: hook playback
-		if selectedElement.ID == 27:
-			value = self.getHookValue(self, selectedElement)
-			if value is not None:
-				selectedElement.value = value
-			return
-		# ID 19: DSP toggle
-		if selectedElement.code == "Dsp":
-			value = self.getDSPValue(self, selectedElement)
-			if value is not None:
-				selectedElement.value = value
-			return
-		# ID 24: folder - insert all files
-		if selectedElement.ID == 24:
-			value = self.getFolderValue(self, selectedElement)
-			if value is not None:
-				selectedElement.value = value
-			return
-		# ID 25: folder - insert file with position
-		if selectedElement.ID == 25:
-			value = self.getFolderValue(self, selectedElement, showPosition=True)
-			if value is not None:
-				selectedElement.value = value
-			return
-		# ID 26: folder - insert all files randomly
-		if selectedElement.ID == 26:
-			value = self.getFolderValue(self, selectedElement)
-			if value is not None:
-				selectedElement.value = value
-			return
-		# ID 43: play a file
-		if selectedElement.ID == 43:
-			value = self.getPlayFileValue(self)
-			if value is not None:
-				selectedElement.value = value
-			return
-		if selectedElement.type == bnType.onOff:
-			selectedElement.value = 0 if selectedElement.value == 1 else 1
-			self.elementList.SetString(
-				self.elementList.GetSelection(), self.getElementLabel(selectedElement)
-			)
-			return
-		if selectedElement.type == bnType.noParm:
-			ui.message(_("No parameters for the selected break note"))
-			return
-		if selectedElement.type in (bnType.typeAndDir, bnType.typeAndFile):
-			value = self.getTypeAndPathValue(self, selectedElement)
-			if value is None:
-				return
-			selectedElement.value = value
-			return
-		if selectedElement.type == bnType.file:
-			with wx.FileDialog(
-				self,
-				message=f"Select a file for {selectedElement.name}",
-				style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST,
-			) as fileDialog:
-				if gui.displayDialogAsModal(fileDialog) == wx.ID_OK:
-					selectedElement.value = fileDialog.GetPath()
-			return
-		if selectedElement.type == bnType.dir:
-			with wx.DirDialog(
-				self,
-				message=f"Select a folder for {selectedElement.name}",
-				style=wx.DD_DEFAULT_STYLE | wx.DD_DIR_MUST_EXIST,
-			) as dirDialog:
-				if gui.displayDialogAsModal(dirDialog) == wx.ID_OK:
-					selectedElement.value = dirDialog.GetPath()
-			return
-		if selectedElement.type == bnType.number:
-			numberValue = self.getNumberValue(self, selectedElement)
-			if numberValue is not None:
-				selectedElement.value = numberValue
-			return
-		if selectedElement.type == bnType.text:
-			enteredText = self.getTextValue(self, selectedElement)
-			if enteredText is not None:
-				selectedElement.value = enteredText
-				self.saveElementValues(self.elements)
-			return
-		if selectedElement.type == bnType.menu:
-			menu = wx.Menu()
-			menuItems = {}
-			for menuIndex, menuLabel in enumerate(selectedElement.menuItems):
-				menuItem = menu.Append(wx.ID_ANY, menuLabel)
-				menuItems[menuItem.GetId()] = menuIndex
+			case bnType.file:
+				with wx.FileDialog(
+					self,
+					message=f"Select a file for {selectedElement.name}",
+					style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST,
+				) as fileDialog:
+					if gui.displayDialogAsModal(fileDialog) == wx.ID_OK:
+						selectedElement.value = fileDialog.GetPath()
+			case bnType.dir:
+				with wx.DirDialog(
+					self,
+					message=f"Select a folder for {selectedElement.name}",
+					style=wx.DD_DEFAULT_STYLE | wx.DD_DIR_MUST_EXIST,
+				) as dirDialog:
+					if gui.displayDialogAsModal(dirDialog) == wx.ID_OK:
+						selectedElement.value = dirDialog.GetPath()
+			case bnType.menu:
+				menu = wx.Menu()
+				menuItems = {}
+				for menuIndex, menuLabel in enumerate(selectedElement.menuItems):
+					menuItem = menu.Append(wx.ID_ANY, menuLabel)
+					menuItems[menuItem.GetId()] = menuIndex
 
-			def saveMenuValue(menuEvent):
-				selectedElement.value = menuItems[menuEvent.GetId()]
-				menuEvent.Skip()
+				def saveMenuValue(menuEvent):
+					selectedElement.value = menuItems[menuEvent.GetId()]
+					menuEvent.Skip()
 
-			for menuItem in menu.GetMenuItems():
-				menu.Bind(wx.EVT_MENU, saveMenuValue, menuItem)
+				for menuItem in menu.GetMenuItems():
+					menu.Bind(wx.EVT_MENU, saveMenuValue, menuItem)
 
-			try:
-				self.elementList.PopupMenu(menu)
-			finally:
-				menu.Destroy()
-			return
+				try:
+					self.elementList.PopupMenu(menu)
+				finally:
+					menu.Destroy()
+			# Some break notes need dedicated dialogs because their parameter
+			# syntax combines several values (for example cart type and number).
+			case bnType.special:
+				# ID 44: player volumes
+				if selectedElement.code == "PlayerVol":
+					value = self.getPlayerVolumeValue(self, selectedElement)
+					if value is not None:
+						selectedElement.value = value
+					return
+				# ID 31: insert a cart sequentially, ID 32: insert a cart overlapping
+				if selectedElement.code in ("C", "O"):
+					value = self.getCartValue(self, selectedElement.code, selectedElement)
+					if value is not None:
+						selectedElement.value = value
+					return
+				# ID 46: record to file
+				if selectedElement.ID == 46:
+					value = self.getRecordAllValue(self, selectedElement)
+					if value is not None:
+						selectedElement.value = value
+					return
+				# ID 27: hook playback
+				if selectedElement.ID == 27:
+					value = self.getHookValue(self, selectedElement)
+					if value is not None:
+						selectedElement.value = value
+					return
+				# ID 19: DSP toggle
+				if selectedElement.code == "Dsp":
+					value = self.getDSPValue(self, selectedElement)
+					if value is not None:
+						selectedElement.value = value
+					return
+			case bnType.typeAndDir:
+				# ID 24: folder - insert all files
+				if selectedElement.ID == 24:
+					value = self.getFolderValue(self, selectedElement)
+					if value is not None:
+						selectedElement.value = value
+					return
+				# ID 25: folder - insert file with position
+				if selectedElement.ID == 25:
+					value = self.getFolderValue(self, selectedElement, showPosition=True)
+					if value is not None:
+						selectedElement.value = value
+					return
+				# ID 26: folder - insert all files randomly
+				if selectedElement.ID == 26:
+					value = self.getFolderValue(self, selectedElement)
+					if value is not None:
+						selectedElement.value = value
+					return
+			case bnType.typeAndFile:
+				# ID 43: play a file
+				if selectedElement.ID == 43:
+					value = self.getPlayFileValue(self)
+					if value is not None:
+						selectedElement.value = value
+					return
+			case _:  # No parameters or unknown element type
+				ui.message(_("No parameters for the selected break note"))
 
 	def saveElementValues(self, elements, path=ELEMENT_VALUES_FILE):
 		self.storage.filterSelection = self.filterSelection
