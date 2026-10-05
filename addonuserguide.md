@@ -468,9 +468,18 @@ Note: to monitor the progress of a library scan from insert tracks window, do no
 
 Studio offers the option to insert so-called break notes. In the simplest case, these are notes for a DJ, e.g., "next song has a Cold ending." However, SPLStudio also offers the option to trigger changes or execute commands. For example, recording can be started via a break note, the time can be output via a break note, the contents of a folder can be inserted at the current position, and much more.
 
-While powerful, break note syntax is not intuitive. Therefore, the add-on provides a dialog with which such command break notes can be created and inserted. After opening insert tracks dialog from Studio (and Creator) and selecting "break note" or "timed break note" as track type and moving to "note" field, press Alt+Windows+I to open insert break note dialog.
+While powerful and documented in the SPL Studio user guide, break note syntax is not intuitive. Therefore, the add-on provides a dialog with which such command break notes can be created and inserted. After opening insert tracks dialog from Studio (and Creator) and selecting "break note" or "timed break note" as track type and moving to "note" field, press Alt+Windows+I to open insert break note dialog.
 
-When the dialog opens, you will be in the list of all break notes and can use the up/down arrow keys to locate the desired break note. If the parameters of a break note can be changed, e.g., "record to file (on or off)", you press the spacebar. If a break note requires further input, e.g., selecting a file, you can also reach this dialog by pressing the spacebar. In the dialog, a help text is displayed for the currently selected break note. Likewise, you can define the text displayed in the Studio playlist and the duration for the selected break note, as well as whether the break note to be inserted is a concurrent break note, meaning that playback of the current track should not be interrupted. After clicking the OK button, the break note is inserted into the corresponding text field. The displayed text, the duration, and all texts entered for a break note are automatically saved separately for each break note, making it even easier to fill out.
+When the dialog opens, you will be in the list of all break notes and can use the up/down arrow keys to locate the desired break note and press the Space key to configure break note parameters for most entries. The dialog also shows a help text for the currently selected break note. Also, you can define the text displayed in the Studio playlist and the duration for the selected break note, as well as whether the break note to be inserted is a concurrent break note, meaning that playback of the current track should not be interrupted. After clicking the OK button, the break note is inserted into the corresponding text field. The displayed text, the duration, and all texts entered for a break note are automatically saved separately for each break note, making it even easier to fill out.
+
+While in the list of break note codes, pressing Space will cause NVDA to do one of the following:
+
+* No parameters: NVDA will report that a break note code does not accept parameter such as terminating Studio.
+* Toggle (on/offf): NVDA will announce the newly toggled state the code represents such as turning on automation.
+* Menu: NVDA will present a menu of options such as short hour handling.
+* Single parameter entry: NVDA will show a dialog to enter numbers and texts such as defining a text for a free break note code.
+* Multi-part code: for code such as inserting a cart, NVDA will present a dialog with available options for each part such as cart bank and cart position.
+* File browser: for code such as executing a file, NVDA will present a file/folder browse dialog for locating files and folders.
 
 ##### Favorites
 
