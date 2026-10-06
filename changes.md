@@ -4,6 +4,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 
 ## Version 26.11/26.07.9-LTS
 
+* 26.11: NVDA 2026.3 or later is required.
 * Improved break note insertion dialog user interface presentation.
 
 ## Version 26.10.3/26.07.9-LTS

@@ -26,7 +26,8 @@ addon_info = AddonInfo(
 	addon_version="26.10.2",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""* Improved break note insertion dialog user interface presentation.
+	addon_changelog=_("""* NVDA 2026.3 or later is required.
+* Improved break note insertion dialog user interface presentation.
 * In break notes insertion dialog opened from local Studio, selecting insert cart (overlap/sequential) will present cart names if defined (contributed by MooSteinebach)."""),
 	# Author(s)
 	addon_author="Christopher Duffley <nvda@chrisduffley.com>, Marco Steinebach <studio@windyradio.de> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)",
