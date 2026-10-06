@@ -2,7 +2,7 @@
 
 This page lists the complete changelog for StationPlaylist add-on releases.
 
-## Version 26.11/26.07.9-LTS
+## Version 26.10.3/26.07.9-LTS
 
 * In break notes insertion dialog opened from local Studio, selecting insert cart (overlap/sequential) will present cart names if defined (contributed by MooSteinebach).
 
