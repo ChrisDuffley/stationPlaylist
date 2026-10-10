@@ -1,0 +1,89 @@
+breakNotes.json format
+======================
+
+The file contains a JSON array. Each array element describes one available
+break-note command.
+
+Common fields
+-------------
+
+ID
+	Integer. Unique numeric identifier for the command.
+
+name
+	String. Display name of the command.
+
+type
+	String. Defines the command's input behavior. Current values are:
+	- dir
+	- file
+	- menu
+	- noParm
+	- number
+	- onOff
+	- special
+	- text
+	- typeAndDir
+	- typeAndFile
+
+helpTextKey
+	String. Translation key for the command help text.
+
+code
+	String. StationPlaylist break-note command code.
+
+Optional fields
+---------------
+
+kind
+	String. Label or semantic description of the command value.
+
+minimum
+	Integer or number. Inclusive minimum value for numeric input.
+
+maximum
+	Integer or number. Inclusive maximum value for numeric input.
+
+unit
+	String. Unit displayed for a numeric value. It can be an empty string.
+
+allowEmpty
+	Boolean. Whether the value may be left empty.
+
+menuItems
+	Array of strings. Choices for commands whose type is "menu".
+
+Field usage by type
+-------------------
+
+dir
+	Uses the common fields. Accepts a directory path.
+
+file
+	Uses the common fields. Accepts a file path.
+
+menu
+	Uses the common fields and menuItems.
+
+noParm
+	Uses the common fields only. The command has no parameter.
+
+number
+	Uses the common fields. Usually also uses minimum, maximum, kind, unit,
+	and allowEmpty.
+
+onOff
+	Uses the common fields only. Represents an enabled/disabled option.
+
+special
+	Uses the common fields. May use kind, minimum, maximum, and allowEmpty.
+
+text
+	Uses the common fields. Accepts free text.
+
+typeAndDir
+	Uses the common fields. May use kind, minimum, maximum, and allowEmpty.
+	Accepts a directory and, where applicable, a numeric value.
+
+typeAndFile
+	Uses the common fields. Accepts a file path.
