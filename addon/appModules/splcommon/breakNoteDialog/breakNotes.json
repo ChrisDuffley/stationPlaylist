@@ -182,7 +182,7 @@
     "name": "extra text for Metadata output %X",
     "type": "text",
     "helpTextKey": "extra text for Metadata output %X",
-    "code": "Extra"
+    "code": "Extra="
   },
   {
     "ID": 24,
@@ -295,7 +295,7 @@
     "name": "metadata change",
     "type": "text",
     "helpTextKey": "metadata change",
-    "code": "Metadata"
+    "code": "Metadata="
   },
   {
     "ID": 37,
@@ -333,7 +333,7 @@
     "name": "now playing template",
     "type": "text",
     "helpTextKey": "now playing template",
-    "code": "Template"
+    "code": "Template="
   },
   {
     "ID": 41,
@@ -360,7 +360,7 @@
     "name": "play a file",
     "type": "typeAndFile",
     "helpTextKey": "play a file",
-    "code": "Play"
+    "code": "Play="
   },
   {
     "ID": 44,
@@ -396,7 +396,7 @@
     "name": "replace blank album",
     "type": "text",
     "helpTextKey": "replace blank album",
-    "code": "npba"
+    "code": "npba="
   },
   {
     "ID": 49,
@@ -417,7 +417,7 @@
     "name": "script execution",
     "type": "text",
     "helpTextKey": "script execution",
-    "code": "Script"
+    "code": "Script="
   },
   {
     "ID": 52,
@@ -499,6 +499,6 @@
     "name": "user change",
     "type": "text",
     "helpTextKey": "user change",
-    "code": "User"
+    "code": "User="
   }
 ]
