@@ -326,16 +326,13 @@ class BreakNoteDialog(wx.Dialog):
 		self.storage.filterSelection = self.filterSelection
 		self.storage.saveElementValues(elements, path)
 
-	def saveElementFavorites(self, elements, path=ELEMENT_VALUES_FILE):
-		self.storage.saveElementFavorites(elements, path)
-
 	def editElementFavorites(self, parent, elements):
 		favoriteStates = FavoriteDialog(parent, elements).getValues()
 		if favoriteStates is None:
 			return False
 		for element, isFavorite in zip(elements, favoriteStates):
 			element.isFavorite = isFavorite
-		self.saveElementFavorites(elements)
+		self.saveElementValues(elements)
 		return True
 
 	def _formatNumericValue(self, value):

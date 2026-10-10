@@ -204,20 +204,3 @@ class BreakNoteStorage:
 		with path.open("w", encoding="utf-8", newline="\n") as valuesFile:
 			json.dump(values, valuesFile, ensure_ascii=False, indent=2)
 			valuesFile.write("\n")
-
-	def saveElementFavorites(self, elements, path=ELEMENT_VALUES_FILE):
-		# Store favorite flags in the user config file instead of mutating the
-		# add-on definition file, so the defaults remain clean and updateable.
-		values = {}
-		if path.exists():
-			with path.open(encoding="utf-8") as valuesFile:
-				values = json.load(valuesFile)
-			if not isinstance(values, dict):
-				raise ValueError("The element values file must contain a JSON object.")
-		values[FAVORITE_ELEMENT_IDS_KEY] = [
-			element.ID for element in elements if element.isFavorite
-		]
-		path.parent.mkdir(parents=True, exist_ok=True)
-		with path.open("w", encoding="utf-8", newline="\n") as valuesFile:
-			json.dump(values, valuesFile, ensure_ascii=False, indent=2)
-			valuesFile.write("\n")
