@@ -148,8 +148,6 @@ class SPLBreakNoteEntryField(NVDAObjects.NVDAObject):
 		value = "" if element.value is None else element.value
 		if element.code == "TestMode":
 			value = f"={'on' if value == 1 else 'off'}"
-		if element.type == bnType.text and value and element.code:
-			value = f"{'' if element.code.endswith('=') else '='}{value}"
 		if element.type in (bnType.typeAndDir, bnType.typeAndFile):
 			if value is None:
 				value = ""
@@ -161,8 +159,7 @@ class SPLBreakNoteEntryField(NVDAObjects.NVDAObject):
 					typeCode, path = value
 					position = f"[{element.position}]" if element.position else ""
 				path = f'"{path}"' if " " in path else path
-				separator = "=" if element.type == bnType.typeAndFile else ""
-				value = f"{typeCode}{position}{separator}{path}"
+				value = f"{typeCode}{position}{path}"
 		if element.type in (bnType.dir, bnType.file) and " " in str(value):
 			value = f'"{value}"'
 		return f"*{concurrentPrefix}{element.code}{value}"
