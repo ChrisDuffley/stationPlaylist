@@ -227,9 +227,8 @@ class BreakNoteDialog(wx.Dialog):
 					setElementValue(enteredText)
 			case bnType.typeAndDir | bnType.typeAndFile:
 				value = self.getTypeAndPathValue(self, selectedElement)
-				if value is None:
-					return
-				setElementValue(value)
+				if value is not None:
+					setElementValue(value)
 			case bnType.file:
 				with wx.FileDialog(
 					self,
