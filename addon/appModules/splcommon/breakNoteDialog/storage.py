@@ -27,6 +27,10 @@ class BreakNoteStorage:
 		super().__init__()
 		self.filterSelection = filterSelection
 
+	def clear(self, path=ELEMENT_VALUES_FILE) -> None:
+		"""Remove all saved break note dialog customizations."""
+		path.unlink(missing_ok=True)
+
 	def loadHelpTexts(self, path=HELP_TEXTS_FILE):
 		helpTexts = {}
 		currentKey = None

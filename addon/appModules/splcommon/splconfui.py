@@ -1595,6 +1595,8 @@ class ResetDialog(wx.Dialog):
 				if "appModules.splengine.encoders" in sys.modules:
 					from appModules.splengine import encoders
 					encoders.resetEncoderConfig(factoryDefaults=True)
+			if self.resetBreakNoteDialogCheckbox.Value:
+				breakNoteDialog.resetBreakNoteConfig(factoryDefaults=True)
 			_configDialogOpened = False
 			wx.CallAfter(
 				# Translators: A dialog message shown when settings were reset to defaults.

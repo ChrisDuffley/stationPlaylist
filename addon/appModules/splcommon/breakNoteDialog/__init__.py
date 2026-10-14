@@ -35,6 +35,11 @@ def isBreakNoteDialogOpen() -> bool:
 	return _breakNoteDialogOpen
 
 
+def resetBreakNoteConfig(factoryDefaults: bool = False) -> None:
+	if factoryDefaults:
+		BreakNoteStorage().clear()
+
+
 def breakNoteDialogAllowed(
 	obj: NVDAObjects.NVDAObject,
 	windowClassName: str,
