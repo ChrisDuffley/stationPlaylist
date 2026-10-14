@@ -1581,6 +1581,8 @@ class ResetDialog(wx.Dialog):
 				splconfig.SPLConfig.prevProfile = None
 			if self.resetTrackCommentsCheckbox.Value:
 				splconfig.trackComments.clear()
+			if self.resetBreakNoteDialogCheckbox.Value:
+				breakNoteDialog.resetBreakNoteConfig(factoryDefaults=True)
 			if self.resetEncodersCheckbox.Value and "appModules.splengine.encoders" in sys.modules:
 				from appModules.splengine import encoders
 				encoders.resetEncoderConfig(factoryDefaults=True)
