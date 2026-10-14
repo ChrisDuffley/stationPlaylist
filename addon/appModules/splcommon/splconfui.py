@@ -1533,6 +1533,13 @@ class ResetDialog(wx.Dialog):
 			wx.CheckBox(self, label=resetTrackCommentsLabel)
 		)
 
+		# Translators: the label for a checkbox in SPL add-on settings
+		# to reset BreakNoteDialog settings.
+		resetBreakNoteDialogLabel = _("Erase user-settings for break note dialog")
+		self.resetBreakNoteDialogCheckbox = resetHelper.addItem(
+			wx.CheckBox(self, label=resetBreakNoteDialogLabel)
+		)
+
 		resetHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
