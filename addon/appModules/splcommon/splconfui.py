@@ -21,6 +21,7 @@ from winUser import OBJID_CLIENT
 import tones
 import addonHandler
 from . import splactions, splconfig, splbase
+from . import breakNoteDialog
 from ..skipTranslation import translate
 
 addonHandler.initTranslation()
@@ -1779,7 +1780,7 @@ def onBroadcastProfilesDialog(evt: wx.CommandEvent):
 # Disable instant profile switching if a config dialogs (including broadcast profiles dialog) is open.
 def instantProfileSwitchConfigUICheck() -> None:
 	# #118: do not allow profile switching while add-on settings screen is shown.
-	if _configDialogOpened:
+	if _configDialogOpened or breakNoteDialog.isBreakNoteDialogOpen():
 		# Translators: Presented when trying to switch to an instant switch profile
 		# when add-on settings dialog is active.
 		ui.message(_("Add-on settings dialog is open, cannot switch profiles"))

@@ -27,6 +27,13 @@ from .types import bnType
 WM_REPLACESEL = 0x00C2
 WM_SETTEXT = 0x000C
 
+# true if breakNoteDialog is open, to avoid a reset while it's open
+_breakNoteDialogOpen: bool = False
+
+
+def isBreakNoteDialogOpen() -> bool:
+	return _breakNoteDialogOpen
+
 
 def breakNoteDialogAllowed(
 	obj: NVDAObjects.NVDAObject,
@@ -119,6 +126,8 @@ class SPLBreakNoteEntryField(NVDAObjects.NVDAObject):
 			d.Raise()
 			d.Show()
 			gui.mainFrame.postPopup()
+			global _breakNoteDialogOpen
+			_breakNoteDialogOpen = True
 		except RuntimeError:
 			ui.message(_("A break note dialog is already open"))
 
@@ -176,7 +185,9 @@ class SPLBreakNoteEntryField(NVDAObjects.NVDAObject):
 		if result is not None and selectedElement.duration:
 			result = f"{selectedElement.duration}:{result}"
 
+		global _breakNoteDialogOpen
 		if result is None:
+			_breakNoteDialogOpen = False
 			wx.CallLater(100, ui.message, "Break note insertion canceled")
 			return
 
@@ -196,4 +207,5 @@ class SPLBreakNoteEntryField(NVDAObjects.NVDAObject):
 			True,
 			ctypes.addressof(textBuffer),
 		)
+		_breakNoteDialogOpen = False
 		wx.CallLater(100, ui.message, "Break note inserted into the text field")

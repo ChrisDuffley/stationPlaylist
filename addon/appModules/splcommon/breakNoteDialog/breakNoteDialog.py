@@ -94,6 +94,7 @@ class BreakNoteDialog(wx.Dialog):
 		breakNoteHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
+		self.Bind(wx.EVT_CLOSE, self.onClose)
 		mainSizer.Add(breakNoteHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 
 		self.SetSizerAndFit(mainSizer)
@@ -470,5 +471,9 @@ class BreakNoteDialog(wx.Dialog):
 		self.Destroy()
 
 	def onCancel(self, evt: wx.CommandEvent):
+		self.obj.insertBreakNote(None, self.filterSelection)
 		self.Destroy()
-		wx.CallLater(100, ui.message, "Break note insertion canceled")
+
+	def onClose(self, evt: wx.CloseEvent):
+		self.obj.insertBreakNote(None, self.filterSelection)
+		evt.Skip()
