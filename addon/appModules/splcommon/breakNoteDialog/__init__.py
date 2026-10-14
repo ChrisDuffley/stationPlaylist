@@ -27,12 +27,16 @@ from .types import bnType
 WM_REPLACESEL = 0x00C2
 WM_SETTEXT = 0x000C
 
-# true if breakNoteDialog is open, to avoid a reset while it's open
+# True if breakNoteDialog is open.
 _breakNoteDialogOpen: bool = False
 
 
 def isBreakNoteDialogOpen() -> bool:
 	return _breakNoteDialogOpen
+
+
+def closeBreakNoteDialog() -> None:
+	BreakNoteDialog.closeOpenDialog()
 
 
 def resetBreakNoteConfig(factoryDefaults: bool = False) -> None:
