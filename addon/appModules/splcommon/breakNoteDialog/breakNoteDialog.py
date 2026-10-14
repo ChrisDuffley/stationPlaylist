@@ -31,6 +31,12 @@ from .types import NUMBER_PATTERN, bnType
 class BreakNoteDialog(wx.Dialog):
 	_instance: "weakref.ReferenceType[BreakNoteDialog] | None" = None
 
+	@classmethod
+	def closeOpenDialog(cls) -> None:
+		instance = cls._instance() if cls._instance else None
+		if instance is not None:
+			instance.Close()
+
 	def __new__(cls, *args, **kwargs):
 		# Make this a singleton.
 		instance = cls._instance() if cls._instance else None

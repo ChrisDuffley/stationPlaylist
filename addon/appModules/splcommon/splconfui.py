@@ -1579,6 +1579,8 @@ class ResetDialog(wx.Dialog):
 		# Only a priveleged thread should do this, otherwise unexpected things may happen.
 		with threading.Lock():
 			global _configDialogOpened
+			if breakNoteDialog.isBreakNoteDialogOpen():
+				breakNoteDialog.closeBreakNoteDialog()
 			# Call config reset method.
 			# Without an exception, reset will continue.
 			try:
