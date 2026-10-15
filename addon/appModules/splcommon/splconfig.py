@@ -22,6 +22,7 @@ import wx
 from logHandler import log
 from . import splactions
 from .splconfspec import confspec
+from . import breakNoteDialog
 import addonHandler
 from ..skipTranslation import translate
 
@@ -676,6 +677,17 @@ def initStudioExtraSteps() -> None:
 		)
 
 
+# Register config reset action handler for break notes dialog (local Studio and Creator)
+def registerBreakNoteConfigResetHandler(splComponent: str) -> None:
+	if splComponent not in ("splstudio", "splcreator"):
+		return
+	componentToCheck = "splcreator" if splComponent == "splstudio" else "splstudio"
+	# Reset handler is already registered.
+	if componentToCheck in SPLConfig.splComponents:
+		return
+	config.post_configReset.register(breakNoteDialog.resetBreakNoteConfig)
+
+
 # Close config database if needed.
 def closeConfig(splComponent: str) -> None:
 	global SPLConfig
@@ -711,6 +723,17 @@ def terminateStudioExtraSteps() -> None:
 			json.dump(trackComments, f)
 	trackComments.clear()
 	trackComments = {}
+
+
+# Unregister config reset action handler for break notes dialog (local Studio and Creator)
+def unregisterBreakNoteConfigResetHandler(splComponent: str) -> None:
+	if splComponent not in ("splstudio", "splcreator"):
+		return
+	componentToCheck = "splcreator" if splComponent == "splstudio" else "splstudio"
+	# The component to check is still active, so do not unregister break note reset action yet.
+	if componentToCheck in SPLConfig.splComponents:
+		return
+	config.post_configReset.unregister(breakNoteDialog.resetBreakNoteConfig)
 
 
 # Called from within the app module.
