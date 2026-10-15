@@ -23,7 +23,7 @@ addon_info = AddonInfo(
 	# Translators: Long description to be shown for this add-on on add-on information from add-on store
 	addon_description=_("Enhances support for StationPlaylist apps. In addition, adds global commands for the Studio application from everywhere."),
 	# version
-	addon_version="26.07.8",
+	addon_version="26.07.9",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
 	addon_changelog=_("""* In break notes insertion dialog opened from local Studio, selecting insert cart (overlap/sequential) will present cart names if defined (contributed by MooSteinebach)."""),
