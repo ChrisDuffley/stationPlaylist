@@ -6,6 +6,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 
 * 26.11: NVDA 2026.3 or later is required.
 * Improved break note insertion dialog user interface presentation.
+* Break notes data including favorite codes can be reinitialized from add-on settings/reset settings panel as well as when pressing Control+NVDA+R three times to reset NVDA settings to defaults (contributed by MooSteinebach).
 
 ## Version 26.10.3/26.07.9-LTS
 
