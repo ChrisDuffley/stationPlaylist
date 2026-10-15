@@ -558,6 +558,8 @@ class AppModule(splappmod.AppModule):
 		self.onAppModuleInit()
 		# Load Studio specific config subsystems (notably track comments).
 		splconfig.initStudioExtraSteps()
+		# Register config reset action handler for break notes dialog if not already done so.
+		splconfig.registerBreakNoteConfigResetHandler(self.appName)
 		# Announce status changes while using other programs.
 		eventHandler.requestEvents(
 			eventName="nameChange", processId=self.processID, windowClassName="TStatusBar"
@@ -603,6 +605,8 @@ class AppModule(splappmod.AppModule):
 		if micAlarmT2 is not None:
 			micAlarmT2.Stop()
 		micAlarmT2 = None
+		# Unregister config reset action handler for break notes dialog if not already done so.
+		splconfig.unregisterBreakNoteConfigResetHandler(self.appName)
 		# Terminate Studio specific config subsystems (notably track comments).
 		splconfig.terminateStudioExtraSteps()
 		# Close base app module subsystems, config, and the user interface.

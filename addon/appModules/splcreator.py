@@ -181,9 +181,13 @@ class AppModule(splappmod.AppModule):
 			pass
 		# Load config database and user interface.
 		self.onAppModuleInit()
+		# Register config reset action handler for break notes dialog if not already done so.
+		splconfig.registerBreakNoteConfigResetHandler(self.appName)
 
 	def terminate(self):
 		super().terminate()
+		# Unregister config reset action handler for break notes dialog if not already done so.
+		splconfig.unregisterBreakNoteConfigResetHandler(self.appName)
 		# Close app module subsystems, config, and the user interface.
 		self.onAppModuleTerminate()
 		# Clear Playlist Editor status cache,
