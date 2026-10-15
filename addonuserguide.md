@@ -611,7 +611,7 @@ After configuring the above settings, select OK from main settings dialog to sav
 
 Notes:
 
-* You can use this dialog to reset add-on settings and other data to default values (applied to all profiles). To do this, ggo to Reset category, select Reset settings button, check the checkboxes for various data items (instant switch flag, encoder settings and track comments), then answer yes when prompted. If no checkboxes are checked, only add-on settings will be returned to defaults. The add-on configuration dialog will close automatically once default settings are applied. Reset category is unavailable if NVDA is running in secure mode.
+* You can use this dialog to reset add-on settings and other data to default values (applied to all profiles). To do this, ggo to Reset category, select Reset settings button, check the checkboxes for various data items (instant switch flag, encoder settings, track comments, break note dialog data), then answer yes when prompted. If no checkboxes are checked, only add-on settings will be returned to defaults. The add-on configuration dialog will close automatically once default settings are applied, and if a break note dialog is opened, it will be closed if you choose to reset break note dialog data also. Reset category is unavailable if NVDA is running in secure mode.
 * If you attempt to reset settings while an instant switch profile is active, you'll be asked to confirm once more. If you say "no", settings won't return to defaults.
 * Settings dialog will be closed automatically when you exit an SPL application.
 
@@ -944,9 +944,9 @@ Q. Can I save or reset Studio add-on settings using commands used to save or res
 
 Yes. You can perform the following commands or select the appropriate item from NVDA menu while Studio is running:
 
-* Save settings: press Control+NVDA+C to save Studio add-on settings along with NVDA settings.
-* Reload saved settings from disk: press Control+NVDA+R once to reload saved settings, including Studio add-on settings.
-* Reset settings to defaults: press Control+NVDA+R three times quickly to reset settings to defaults.
+* Save settings: press Control+NVDA+C to save Studio add-on settings along with NVDA settings (does not apply to break note dialog content as it is saved when the dialog is closed).
+* Reload saved settings from disk (except break note dialog content): press Control+NVDA+R once to reload saved settings, including Studio add-on settings.
+* Reset settings to defaults: press Control+NVDA+R three times quickly to reset settings to defaults (an open break note dialog will not be closed when reset happens).
 
 Q. Can I save and reset encoder settings by pressing save and reset commands?
 
@@ -958,10 +958,11 @@ Q. Besides reloading saved settings versus resetting settings to defaults, what 
 2. Metadata streaming settings won't be affected, but the settings applied may show different values as opposed to what is happening on air.
 3. If you are using a different sound card via a manually activated NVDA configuration profile, the default sound card you've configured from normal configuration will become active.
 4. If you ask NVDA to monitor connection status for an encoder in the background, pressing Control+NVDA+R three times will stop this process.
+5. An open break note dialog will not be closed when pressing Control+NVDA+R three times to reset NVDA settings. This will result in NVDA reporting that a break note dialog is open when trying to insert a break note.
 
 Q. Are there times when I should not press Control+NVDA+R three times to reset Studio settings?
 
-You should not reset Studio add-on settings (and in some cases, NVDA settings to defaults along with add-on settings when pressing Control+NVDA+R three times quickly) while broadcasting.
+You should not reset Studio add-on settings (and in some cases, NVDA settings to defaults along with add-on settings when pressing Control+NVDA+R three times quickly) while broadcasting or while a break note dialog is open.
 
 Q. When announcing tracks in local or Remote Studio playlist viewer, which columns can NVDA suppress and reorder?
 
