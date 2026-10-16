@@ -4,6 +4,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 
 ## Version 26.07.10-LTS
 
+* Initial support for StationPlaylist suite 6.21.
 * Improved break note insertion dialog user interface presentation.
 * Break notes data including favorite codes can be reinitialized from add-on settings/reset settings panel as well as when pressing Control+NVDA+R three times to reset NVDA settings to defaults (contributed by MooSteinebach).
 
