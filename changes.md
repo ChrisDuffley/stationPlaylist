@@ -8,6 +8,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 * Initial support for StationPlaylist suite 6.21.
 * Improved break note insertion dialog user interface presentation.
 * Break notes data including favorite codes can be reinitialized from add-on settings/reset settings panel as well as when pressing Control+NVDA+R three times to reset NVDA settings to defaults (contributed by MooSteinebach).
+* Listener count message from SPL Controller will now resemble local Studio's listener count display (count Listeners).
 
 ## Version 26.10.3/26.07.9-LTS
 
