@@ -27,6 +27,7 @@ addon_info = AddonInfo(
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
 	addon_changelog=_("""* NVDA 2026.3 or later is required.
+* Initial support for StationPlaylist suite 6.21.
 * Improved break note insertion dialog user interface presentation.
 * Break notes data including favorite codes can be reinitialized from add-on settings/reset settings panel as well as when pressing Control+NVDA+R three times to reset NVDA settings to defaults."""),
 	# Author(s)
