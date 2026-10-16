@@ -360,9 +360,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	@localStudioOnly
 	def script_listenerCount(self, gesture: inputCore.InputGesture):
+		# #192: identical to Studio's listener count display (count Listeners)
 		ui.message(
 			# Translators: Announces number of stream listeners.
-			_("Listener count: {listenerCount}").format(
+			_("{listenerCount} Listeners").format(
 				listenerCount=splbase.studioAPI(0, splbase.SPLListenerCount)
 			)
 		)
