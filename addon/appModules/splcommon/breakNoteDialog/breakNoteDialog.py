@@ -26,6 +26,7 @@ from .dialogs import (
 )
 from .storage import ELEMENT_VALUES_FILE, BreakNoteStorage
 from .types import NUMBER_PATTERN, bnType
+from .. import splactions
 
 
 class BreakNoteDialog(wx.Dialog):
@@ -57,6 +58,7 @@ class BreakNoteDialog(wx.Dialog):
 		self.storage = storage
 		self.filterSelection = filterSelection
 		self.productVersion = obj.appModule.productVersion
+		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		breakNoteHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
@@ -485,3 +487,7 @@ class BreakNoteDialog(wx.Dialog):
 	def onClose(self, evt: wx.CloseEvent):
 		self.obj.insertBreakNote(None, self.filterSelection)
 		evt.Skip()
+
+	def onAppTerminate(self):
+		self.obj.insertBreakNote(None, self.filterSelection, showMessage=False)
+		self.Destroy()
