@@ -965,7 +965,7 @@ The break notes defined by Studio, while powerful, are complex. Therefore, Studi
 The break notes interface components consist of:
 
 * High-level driver: the __init__ file contains an overlay class for detecting break note insertion edit field (from insert tracks dialog. Whe nthe overlay class loads, it loads the break notes database hwich is then passed to the break notes insertion interface.
-* Break note codes collection: a json file records all available break note codes, their type, values and interface options (if any), and instructions for the insertion interface on what to do with the break note entry (see below). A companion text file documents help messages for break note codes.
+* Break note codes collection: a json file documenting all available break note codes, their type, values and interface options (if any), and instructions for the insertion interface on what to do with the break note entry (see below). A companion text file documents help messages for break note codes.
 * Break notes insertion interface: two dialog modules are used to present the insert break notes dialog, including the main break notes dialog consisting of codes list, a favorite codes editor, and a dilaogs module defining dialogs for some break note codes.
 * Storage manager: loads, stores, and resets user's break note codes collection.
 
@@ -987,6 +987,7 @@ The add-on includes a json file defining all available break note codes. Each en
 * Type (string): break note code type and interface directives (currently defined types are dir (directory), file (file entry), menu (a pop-up menu of options), noParm (no parameters), number, onOff (simple toggle), special (needs special handling), text (text entry), typeAndDir (folder), typeAndFile (file and code type))
 * Help text (dictionary key): the key used to lookup the code's help message
 * Code (string): the actual code defined in Studio
+* Version (string): the version the code is introduced
 * Kind (optional): semantic description of the associated code
 * Minimum and maximum (integer, optional): minimum and maximum value allowed for the associated code
 * Unit (optional): code unit such as seconds and percentage
