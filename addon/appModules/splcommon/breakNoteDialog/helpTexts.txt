@@ -300,6 +300,10 @@ This code may be used to fade a song at the top of the hour for a longer period 
 [voice track/intro overlapping]
 The Voice Track/Intro Overlapping checkbox may be controlled by this break note.
 
+[voice track player / MP reduction]
+Changes the Voice Track Player's Main Player Reduction setting in decibels. Only whole numbers are supported.
+eg. *VTMPR=-12
+
 [user change]
 The Studio User Name may be changed within a playlist using this break note.
 This will load any Carts previously configured for the user so user specific jingles may be played using break notes.
@@ -311,4 +315,3 @@ Note: This break note is ignored if User is Windows Logon name is enabled in the
 
 [extra text for Metadata output %X]
 Set text for the Now Playing parameter %X
-
