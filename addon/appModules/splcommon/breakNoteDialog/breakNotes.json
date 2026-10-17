@@ -555,6 +555,19 @@
     "version": ""
   },
   {
+    "ID": 63,
+    "name": "voice track player / MP reduction",
+    "type": "number",
+    "helpTextKey": "voice track player / MP reduction",
+    "code": "VTMPR=",
+    "minimum": -36,
+    "maximum": 0,
+    "kind": "reduction",
+    "unit": "dB",
+    "allowEmpty": false,
+    "version": "6.21"
+  },
+  {
     "ID": 62,
     "name": "user change",
     "type": "text",
