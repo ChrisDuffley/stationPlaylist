@@ -2,7 +2,7 @@
 
 Author: Joseph Lee
 
-Based on StationPlaylist Add-on for NVDA 26.09
+Based on StationPlaylist Add-on for NVDA 26.11
 
 ## 2021 Preface and notes
 
@@ -88,7 +88,9 @@ But the most significant change up to that point happened a year later. Througho
 
 Just like 2019, 2023 was another significant year. As I entered a doctoral program, it became clear that I will not be able to maintain the add-on, thus I asked the NVDA add-ons community to maintain this add-on. Thankfully, Chris Duffley, a broadcaster and user of the add-on, agreed to maintain the add-on since March 2023. Chris and I continue to discuss the add-on maintenance, with both of us agreeing to review Python 3.7 to 3.11 transition work in 2024 and working on major refactoring work in 2025. All of these changes were packaged into the 2025 LTS release (25.06.x), ending more than a decade's long journey on supporting Studio 5.x.
 
-More work happened in 2025, and along with it, became the final year of me (Joseph) leading the add-on maintenance. The restructuring work continued beyond 25.06.x releases, resulting in the creation of SPL common services module (documented below). Later, I worked on getting 64-bit NVDA to read Studio track content (it was challenging as SPL suite is 32-bit applications). Most significantly, the introduction of Remote Studio in November 2025 led to the redesign of some of the original Studio app module subsystem (this is because original (local) and the remote versions share some of the user interface as Remote Studio is designed to be a studio on the move and communicate with a local Studio version installed somewhere else). The work on Remote Studio was the last project I personally worked on, and with its completion (or at least having basic support in place), I (Joseph) have retired from active maintainer role in late 2025.
+More work happened in 2025, and along with it, became the final year of me (Joseph) leading the add-on maintenance. The restructuring work continued beyond 25.06.x releases, resulting in the creation of SPL common services module (documented below). Later, I worked on getting 64-bit NVDA to read Studio track content (it was challenging as SPL suite is 32-bit applications). Most significantly, the introduction of Remote Studio in November 2025 led to the redesign of some of the original Studio app module subsystem (this is because original (local) and the remote versions share some of the user interface as Remote Studio is designed to be a studio on the move and communicate with a local Studio version installed somewhere else). The work on Remote Studio was the last project I personally worked on, and with its completion (or at least having basic support in place), I (Joseph) have retired from active maintainer role in late 2025, or I thought I was done with Studio then.
+
+2026 turned out to be an interesting year for SPL add-on development. In addition to officially supporting 64-bit NVDA releases only, a new contributor, Marco Steinebach joined the team. Most notably, Marco brought break notes intsertion interface from JAWS scripts, allowing broadcasters to insert complex break notes in the Studio playlist to enrich their shows.
 
 Highlights of past major releases and subsequent maintenance releases include:
 
@@ -124,6 +126,7 @@ Highlights of past major releases and subsequent maintenance releases include:
 * 26.01: Refactored unlabeled control labeler.
 * 26.07: Sixth LTS release, command priority for conflicting commands between NVDA and Studio, removed SPL touch mode, StationPlaylist Recorder support. This is the last version to support Studio 6.01 and 32-bit NVDA (2025.3.3 and earlier).
 * 26.08: Fully transitioned to requiring 64-bit NVDA.
+* 26.10: Break notes insertion interface introduced.
 
 Throughout this document, you'll get a chance to see how the add-on works, design philosophy and how the add-on is being developed, with glimpses into the past and future. My hope is that this add-on internals document would be a valuable reference for users and developers - for users to see the inner workings of this add-on, and for developers to use this add-on as an example of how an add-on is planned, implemented, tested, released and maintained.
 
@@ -133,11 +136,13 @@ To download the add-on, visit NV Access add-on store.
 
 ### Overall design and source code layout
 
-StationPlaylist add-on for NVDA consists of nine app modules (including two app module packages), a common services package (housed along with app modules and includes a base blueprint app module to house features common to SPL suite), and a global plugin. Because Studio and Creator come with Track Tool for managing tracks, the add-on includes an app module for Track Tool in addition to the main app module package for Studio, as well as an app module for StationPlaylist Creator. A fourth app module for Voice Track Recorder is present which is used for event tracking purposes. Remote VT client is the fifth app module and is mainly used to support remote playlist editor. The other two app modules deal with Streamer and SPL DSP Engine, with SPL Engine being an app module package due to inclusion of encoders support module which is also used by Streamer. The seventh module, Streamer, does not exist - it is an alias of SPL Engine app module. The eighth module for Remote Studio borrows heavily from the original Studio app module as they share common features and commands. Lastly, StationPlaylist Recorder app module adds labels for unlabeled controls.
+StationPlaylist add-on for NVDA consists of nine app modules (including two app module packages), a common services package (housed along with app modules and includes a base blueprint app module to house features common to SPL suite and a break notes insertion interface package), and a global plugin. Because Studio and Creator come with Track Tool for managing tracks, the add-on includes an app module for Track Tool in addition to the main app module package for Studio, as well as an app module for StationPlaylist Creator. A fourth app module for Voice Track Recorder is present which is used for event tracking purposes. Remote VT client is the fifth app module and is mainly used to support remote playlist editor. The other two app modules deal with Streamer and SPL DSP Engine, with SPL Engine being an app module package due to inclusion of encoders support module which is also used by Streamer. The seventh module, Streamer, does not exist - it is an alias of SPL Engine app module. The eighth module for Remote Studio borrows heavily from the original Studio app module as they share common features and commands. Lastly, StationPlaylist Recorder app module adds labels for unlabeled controls.
 
-As part of the app modules package, a common services collection package (splcommon) is included to house functions, classes, and constants common across the ap modules and the global plugin. Contents include Studio API wrapper, cart key definitions, configuration management, a base app module for the SPL suite, and status messages colection. The common services module resembles Studio app module package in prior add-on releases as majority of its contents indeed come from the Studio app module package, thus the common services serves as an extension of the Studio app module.
+As part of the app modules package, a common services collection package (splcommon) is included to house functions, classes, and constants common across the ap modules and the global plugin. Contents include Studio API wrapper, cart key definitions, configuration management, a base app module for the SPL suite, status messages colection, and a package defining the mechanics of break notes insertion interface. The common services module resembles Studio app module package in prior add-on releases as majority of its contents indeed come from the Studio app module package, thus the common services serves as an extension of the Studio app module.
 
 The SPL suite base app module housed in SPL common services package provides base services for features found across the SPL suite. Deriving from Studio and Track Tool app modules, it includes configuration opening and closing routines, script category definition for the add-on, and a script to open SPL add-on settings dialog. Any SPL suite app module wishing to use these services are expected to inherit from the base app module.
+
+The break notes dialog package (contributed by Marco Steinebach) is home to break notes insertion interface. It consists of the break note insertion dialog interface, break notes collection storage functions, and an overlay class to let broadcasters open the break notes dialog (available in Studio and Creator). The package also contains a json file defining available break note codes and their config specifications as well as a text file documenting help messages for break note codes.
 
 The overall add-on design is that of a partnership between the main (local) Studio app module and the Studio Utilities (SPLUtils) global plugin. Studio app module performs things expected from scripts such as responding to key presses, announcing status information, configuration management and so forth, while the global plugin is responsible for running Studio commands from anywhere, and in older add-on releases, for encoder support (the add-on supports SAM, SPL, and AltaCast encoders). In reality, the global plugin is subordinate to the app module, as the app module controls overall functionality of the add-on and because the global plugin requires Studio to be running to unlock some features (here, unlock means using layer commands and parts of encoder support).
 
@@ -152,7 +157,7 @@ The source code consists of:
 * appModules: This folder contains the main splstudio (app module) package and the app modules for Track Tool, Creator, VT Recorder, Remote VT client, Remote Studio, SPL Recorder, and SPL DSP Engine app module package to support SPL Engine, Streamer, and encoders. The common services package is also stored in this folder.
 * The SPL Studio package consists of various modules, which include __init__ (main app module and track item classes), track finder (splfind), playlist analyzer mechanics (splpls, described later), miscellaneous services (splmisc), as well as support modules and various wave files used by the add-on.
 * The SPL Engine package consists of main Engine module and encoder support module.
-* The SPL common services package includes the add-on base services (splbase), SPL suite base app module (splappmod), configuration manager (splconfig) and add-on settings interface (splconfui), carts handler (splcarts), and constants collection (splconsts).
+* The SPL common services package includes the add-on base services (splbase), SPL suite base app module (splappmod), configuration manager (splconfig) and add-on settings interface (splconfui), carts handler (splcarts), and constants collection (splconsts). It also includes breakNotesDialog package for handling break notes insertion interface.
 * The Studio main app module file is divided into sections. First, the overlay classes for track items are defined, then comes the app module, further divided into four sections: fundamental methods (constructor, events and others), time commands (end of track, broadcaster time, etc.), other commands (track Finder, cart explorer and others) and SPL Assistant layer. This allows me to identify where a bug is coming from and to add features in appropriate sections.
 * globalPlugins: This folder contains SPLUtils module, consisting of main global plugin code and SPL Controller layer.
 
@@ -220,7 +225,7 @@ Until 2018, Studio app module and other components of the add-on called FindWind
 
 Note: For the rest of this article, you'll see some portions of the source code to let you better understand how something works (mostly pseudo code will be provided). Also, certain things will require explaining how NVDA Core (the screen reader itself) works (so you'll learn several things at once).
 
-Important: most of the discussion on SPL Studio is applicable to Remote Studio.
+Important: most of the discussion on SPL Studio is applicable to Remote Studio. Break notes insertion is applicable to Creator also.
 
 ### SPL Studio app module and friends: design and code overview
 
@@ -319,8 +324,9 @@ Once the Studio app module is ready, you can then move to Studio window and perf
 * Perform SPL Assistant gestures.
 * For 6.0 and later, manage broadcast profiles (we'll talk about broadcast profiles in configuration management section).
 * For 17.12 and later, respond to actions such as broadcast profile switches.
+* Insert break notes.
 
-For Creator, Remote VT, and Track Tool, it will let you review column data, including playlist editor content in Creator and Remote VT. Due to its purpose, Remote Studio borrows some features from original Studio app module and others are unavailable (for example, metadata stream management feature is unavailable in Remote Studio).
+For Creator, Remote VT, and Track Tool, it will let you review column data, including playlist editor content in Creator and Remote VT. Break notes insertion interface is also accessible from Creator. Due to its purpose, Remote Studio borrows some features from original Studio app module and others are unavailable (for example, metadata stream management feature is unavailable in Remote Studio).
 
 #### Extension points
 
@@ -945,6 +951,47 @@ The Remote Studio cart bank parser works as follows:
 Cart Explorer has come a long way; from a simple suggestion to the CSV parsing routine above to checking timestamps for cart assignment changes and working across two applications and 32-bit and 64-bit NVDA, Cart Explorer has changed to meet the needs of broadcasters using Studio and NVDA. I would like to improve this further in future releases (another suggestion I received was ability to specify cart file names for individual banks, and I'm thinking about implementing this in the near future).
 
 One of the things you may have noticed as you read this article so far is how I and other developers continue to research better ways of accomplishing something. You also saw a glimpse of how developers and users shape a feature and how much work is involved to bring a feature suggestion to life. These activities (research and feature development collaboration) are just two of the pillars of this add-on, and highlights how design philosophy and product development approach affects future course of product development.
+
+## Break notes: enriching the playlist, simplified
+
+Broadcasting a show is more than defining and playing a list of tracks and jingle carts. It also involves timely announcement of commercials, streaming network programming, toggling automation automatically, adjusting player volume, and other complex tasks. To enable these advanced tasks, Studio (and Creator) defines break notes, a coded sequence of instructions performed by Studio when told by a broadcaster.
+
+Studio defines dozens of break note codes for tasks, including recording to files, playing carts sequentially, executing a script, and others. These break notes can be inserted into a playlist from insert tracks dialog after selecting break note or timed break note category. Once inserted, the break notes will perform the action specified by the broadcaster when the playback position reaches the defined break note code/position.
+
+The break notes defined by Studio, while powerful, are complex. Therefore, Studio add-on includes a break note insertion interface to ease break note insertion. The mechanics of this dialog is housed in breakNotesDialog package included in the common services (splcommon) package, consisting of two dialog modules, an overlay class detector, the break notes collection and help messages, and a storage manager.
+
+### Break notes interface components
+
+The break notes interface components consist of:
+
+* High-level driver: the __init__ file contains an overlay class for detecting break note insertion edit field (from insert tracks dialog. Whe nthe overlay class loads, it loads the break notes database hwich is then passed to the break notes insertion interface.
+* Break note codes collection: a json file records all available break note codes, their type, values and interface options (if any), and instructions for the insertion interface on what to do with the break note entry (see below). A companion text file documents help messages for break note codes.
+* Break notes insertion interface: two dialog modules are used to present the insert break notes dialog, including the main break notes dialog consisting of codes list, a favorite codes editor, and a dilaogs module defining dialogs for some break note codes.
+* Storage manager: loads, stores, and resets user's break note codes collection.
+
+### Break notes insertion procedure
+
+1. From Studio, open insert tracks dialog.
+2. Select "break note" or "timed break note" from track categories list.
+3. Go to "note" field. This causes NVDA to load the break note overlay class and consequetnly load the break notes collection.
+4. Press Alt+Windows+I to open insert break notes dialog.
+5. Navigate through break notes list and press Space to configure optoins.
+6. Once all options are configured, click OK to insert the brek note.
+
+### Break note codes specification
+
+The add-on includes a json file defining all available break note codes. Each entry in this file consist of:
+
+* ID (integer): the break note code entry identifier
+* Name (string): break note code entry label
+* Type (string): break note code type and interface directives (currently defined types are dir (directory), file (file entry), menu (a pop-up menu of options), noParm (no parameters), number, onOff (simple toggle), special (needs special handling), text (text entry), typeAndDir (folder), typeAndFile (file and code type))
+* Help text (dictionary key): the key used to lookup the code's help message
+* Code (string): the actual code defined in Studio
+* Kind (optional): semantic description of the associated code
+* Minimum and maximum (integer, optional): minimum and maximum value allowed for the associated code
+* Unit (optional): code unit such as seconds and percentage
+* Allow empty (true/false, optional): some codes can be left empty
+* Menu items (list, optional): list of choices for the options pop-up menu for some codes
 
 This ends our detailed tour of internals of major features in Studio app module. When we come back, we'll visit our friend from the past: SPL Assistant layer and inner workings of various layer commands.
 
