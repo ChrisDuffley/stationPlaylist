@@ -29,9 +29,9 @@ addon_info = AddonInfo(
 	addon_changelog=_("""* NVDA 2026.3 or later is required.
 * Initial support for StationPlaylist suite 6.21.
 * Improved break note insertion dialog user interface presentation.
-* In break notes dialog, codes unavailable for the Studio version in use will not be shown (conributed by MooSteinebach).
+* In break notes dialog, codes unavailable for the Studio version in use will not be shown (contributed by MooSteinebach).
 * Added voice tracker volume adjustment break note code (Studio 6.21, contributed by MooSteinebach).
-* Break notes data including favorite codes can be reinitialized from add-on settings/reset settings panel as well as when pressing Control+NVDA+R three times to reset NVDA settings to defaults.
+* Break notes data including favorite codes can be reinitialized from add-on settings/reset settings panel as well as when pressing Control+NVDA+R three times to reset NVDA settings to defaults (contributed by MooSteinebach).
 * Listener count message from SPL Controller will now resemble local Studio's listener count display (count Listeners)."""),
 	# Author(s)
 	addon_author="Christopher Duffley <nvda@chrisduffley.com>, Marco Steinebach <studio@windyradio.de> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)",
