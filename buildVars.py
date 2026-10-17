@@ -28,6 +28,8 @@ addon_info = AddonInfo(
 	# Translators: what's new content for the add-on version to be shown in the add-on store
 	addon_changelog=_("""* Initial support for StationPlaylist suite 6.21.
 * Improved break note insertion dialog user interface presentation.
+* In break notes dialog, codes unavailable for the Studio version in use will not be shown (conributed by MooSteinebach).
+* Added voice tracker volume adjustment break note code (Studio 6.21, contributed by MooSteinebach).
 * Break notes data including favorite codes can be reinitialized from add-on settings/reset settings panel as well as when pressing Control+NVDA+R three times to reset NVDA settings to defaults (contributed by MooSteinebach).
 * Listener count message from SPL Controller will now resemble local Studio's listener count display (count Listeners)."""),
 	# Author(s)
