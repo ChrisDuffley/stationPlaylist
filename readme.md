@@ -198,9 +198,9 @@ You can press SPL Assistant, F8 while focused on a playlist in Studio to obtain 
 
 Pressing SPL Assistant, Shift+F8 will present a dialog to let you request playlist transcripts in numerous formats, including in a plain text format, an HTML table or a list.
 
-## Inser break note
+## Insert break note
 
-After opening insert tracks dialog from Studio and Creator and track type is set to break note or timed break note, press Alt+Windows+I while focused on the note edit field to open insert break note dialog. You can select the break note type, duratoin if any, set confcurrent note flag, add text associated with the break note, and manage favorite break note types.
+After opening insert tracks dialog from Studio and Creator and track type is set to break note or timed break note, press Alt+Windows+I while focused on the note edit field to open insert break note dialog. You can select the break note type, duration if any, set concurrent note flag, add text associated with the break note, and manage favorite break note types.
 
 ## Configuration dialog
 
