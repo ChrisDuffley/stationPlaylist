@@ -44,6 +44,18 @@ class BreakNoteElement:
 	textInPlaylist: str = ""
 	textValues: tuple[str, ...] = ()
 	duration: str = ""
+	version: str = ""
+
+	def isAvailableInVersion(self, productVersion: str) -> bool:
+		"""Return whether this break note is supported by the running application."""
+		if not self.version:
+			return True
+		currentParts = parseVersion(productVersion)
+		requiredParts = parseVersion(self.version)
+		partCount = max(len(currentParts), len(requiredParts))
+		return currentParts + (0,) * (partCount - len(currentParts)) >= requiredParts + (0,) * (
+			partCount - len(requiredParts)
+		)
 
 
 DIR_FILE_TYPES = (
@@ -65,6 +77,7 @@ PLAYER_NAMES = (
 	"Monitor Output",
 )
 NUMBER_PATTERN = re.compile(r"^[+-]?(?:\d+\.?\d*|\.\d+)$")
+VERSION_PATTERN = re.compile(r"^\d+(?:\.\d+)*$")
 CART_TYPES = (
 	("Main cart", "M"),
 	("Shift cart", "S"),
@@ -76,3 +89,9 @@ CART_NAMES = tuple(
 	+ [f"{index} -" for index in range(1, 10)]
 	+ ["0 -", "- -", "= -"]
 )
+
+
+def parseVersion(version: str) -> tuple[int, ...]:
+	if not VERSION_PATTERN.fullmatch(version):
+		raise ValueError(f"Invalid version: {version!r}.")
+	return tuple(int(part) for part in version.split("."))
