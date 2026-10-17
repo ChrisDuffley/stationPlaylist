@@ -56,6 +56,7 @@ class BreakNoteDialog(wx.Dialog):
 		self.elements = elements
 		self.storage = storage
 		self.filterSelection = filterSelection
+		self.productVersion = obj.appModule.productVersion
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		breakNoteHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
@@ -146,7 +147,8 @@ class BreakNoteDialog(wx.Dialog):
 		self.visibleElements = sorted(
 			[
 				element for element in self.elements
-				if self.filterSelection == 0 or element.isFavorite
+				if element.isAvailableInVersion(self.productVersion)
+				and (self.filterSelection == 0 or element.isFavorite)
 			],
 			# There is no easy way to add types to lambda function arguments/return values.
 			key=lambda element: element.name.lower(),  # type: ignore

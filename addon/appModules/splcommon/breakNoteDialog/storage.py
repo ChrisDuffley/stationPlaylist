@@ -10,7 +10,7 @@ from pathlib import Path
 
 import globalVars
 
-from .types import BreakNoteElement, bnType
+from .types import BreakNoteElement, bnType, parseVersion
 
 
 ELEMENTS_FILE = Path(__file__).with_name("breakNotes.json")
@@ -122,6 +122,13 @@ class BreakNoteStorage:
 			unit = value.get("unit", "")
 			allowEmpty = value.get("allowEmpty", False)
 			menuItems = tuple(value.get("menuItems", ()))
+			version = value.get("version", "")
+			if not isinstance(version, str):
+				raise TypeError(
+					f"Element {value['name']!r} must define version as an empty or numeric version string."
+				)
+			if version:
+				parseVersion(version)
 			if elementType == bnType.number and (minimum is None or maximum is None):
 				raise ValueError(
 					f"Number element {value['name']!r} must define minimum and maximum."
@@ -171,6 +178,7 @@ class BreakNoteStorage:
 						storedValues.get("textValues", value.get("textValues", ()))
 					),
 					duration=storedValues.get("duration", value.get("duration", "")),
+					version=version,
 				)
 			)
 
