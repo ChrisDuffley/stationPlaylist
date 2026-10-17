@@ -6,6 +6,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 
 * Initial support for StationPlaylist suite 6.21.
 * Improved break note insertion dialog user interface presentation.
+* Break notes dialog will be closed when closing local Studio and Creator.
 * In break notes dialog, codes unavailable for the Studio version in use will not be shown (contributed by MooSteinebach).
 * Added voice tracker volume adjustment break note code (Studio 6.21, contributed by MooSteinebach).
 * Break notes data including favorite codes can be reinitialized from add-on settings/reset settings panel as well as when pressing Control+NVDA+R three times to reset NVDA settings to defaults (contributed by MooSteinebach).
