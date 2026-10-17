@@ -182,7 +182,7 @@ class SPLBreakNoteEntryField(NVDAObjects.NVDAObject):
 			value = f'"{value}"'
 		return f"*{concurrentPrefix}{element.code}{value}"
 
-	def insertBreakNote(self, selectedElement, filterSelection):
+	def insertBreakNote(self, selectedElement, filterSelection, showMessage=True):
 		self.filterSelection = filterSelection
 		result = (
 			self.createTextFromBreakNote(selectedElement)
@@ -197,7 +197,8 @@ class SPLBreakNoteEntryField(NVDAObjects.NVDAObject):
 		global _breakNoteDialogOpen
 		if result is None:
 			_breakNoteDialogOpen = False
-			wx.CallLater(100, ui.message, "Break note insertion canceled")
+			if showMessage:
+				wx.CallLater(100, ui.message, "Break note insertion canceled")
 			return
 
 		# Replace the source field's contents through the Win32 edit-control
