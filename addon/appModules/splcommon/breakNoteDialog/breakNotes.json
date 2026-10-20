@@ -189,7 +189,7 @@
     "type": "onOff",
     "helpTextKey": "enable/disable top-of-hour timing via song outro times",
     "code": "TOHOutro",
-    "version": ""
+    "version": "6.01"
   },
   {
     "ID": 22,
