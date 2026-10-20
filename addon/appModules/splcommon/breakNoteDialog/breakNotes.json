@@ -205,7 +205,7 @@
     "type": "text",
     "helpTextKey": "extra text for Metadata output %X",
     "code": "Extra=",
-    "version": ""
+    "version": "6.10"
   },
   {
     "ID": 24,
