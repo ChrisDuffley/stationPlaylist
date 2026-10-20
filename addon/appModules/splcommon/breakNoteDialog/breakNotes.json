@@ -582,5 +582,18 @@
     "helpTextKey": "Randomize",
     "code": "Randomize",
     "version": "6.20"
+  },
+  {
+    "ID": 65,
+    "name": "now playing voice track output",
+    "type": "menu",
+    "helpTextKey": "now playing voice track output",
+    "code": "npvt=",
+    "menuItems": [
+      "none",
+      "VT Title",
+      "Live Text"
+    ],
+    "version": "6.11"
   }
 ]
