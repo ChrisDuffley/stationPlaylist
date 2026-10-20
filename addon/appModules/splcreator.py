@@ -26,62 +26,6 @@ from .skipTranslation import translate
 addonHandler.initTranslation()
 
 
-# Return a tuple of column headers.
-# This is just a thinly disguised indexOf function from Studio's track item class.
-def indexOf(creatorVersion: str) -> tuple[str, ...]:
-	return (
-		"Artist",
-		"Title",
-		"Position",
-		"Cue",
-		"Intro",
-		"Outro",
-		"Segue",
-		"Duration",
-		"Last Scheduled",
-		"7 Days",
-		"Restrictions",
-		"Year",
-		"Album",
-		"Genre",
-		"Mood",
-		"Energy",
-		"Tempo",
-		"BPM",
-		"Gender",
-		"Rating",
-		"File Created",
-		"Filename",
-		"Client",
-		"Other",
-		"Intro Link",
-		"Outro Link",
-		"Region",
-	)
-
-# Playlist editor version.
-def indexOfPlaylistEditor(editorVersion: str) -> tuple[str, ...]:
-	return (
-		"    Time",
-		"Artist",
-		"Title",
-		"Duration",
-		"Intro",
-		"Outro",
-		"Category",
-		"Year",
-		"Album",
-		"Genre",
-		"Mood",
-		"Energy",
-		"Tempo",
-		"Gender",
-		"Rating",
-		"Filename",
-		"Other",
-	)
-
-
 # SPL Playlist item (SPL add-on base object) is defined in splcommon.splbase module.
 # Classes pertaining to Creator app module will be defined here.
 class SPLCreatorItem(splbase.SPLTrackItem):
