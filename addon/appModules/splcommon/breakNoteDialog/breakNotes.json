@@ -365,7 +365,7 @@
     "type": "noParm",
     "helpTextKey": "no fade",
     "code": "NoFade",
-    "version": "6.0"
+    "version": ""
   },
   {
     "ID": 40,
@@ -395,7 +395,7 @@
     "type": "noParm",
     "helpTextKey": "overlap fade",
     "code": "OverlapFade",
-    "version": "6.0"
+    "version": ""
   },
   {
     "ID": 43,
