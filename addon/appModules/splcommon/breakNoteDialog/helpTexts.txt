@@ -315,3 +315,6 @@ Note: This break note is ignored if User is Windows Logon name is enabled in the
 
 [extra text for Metadata output %X]
 Set text for the Now Playing parameter %X
+
+[Randomize]
+This break note will execute the Randomize All Songs Edit menu function. Unlike the menu item, this code will function in automation mode.
