@@ -603,5 +603,13 @@
     "helpTextKey": "Play Break Note Carts as VT's",
     "code": "CartVT=",
     "version": "6.10"
+  },
+  {
+    "ID": 67,
+    "name": "Play Commercials as VT's",
+    "type": "onOff",
+    "helpTextKey": "Play Commercials as VT's",
+    "code": "CommVT=",
+    "version": "6.10"
   }
 ]

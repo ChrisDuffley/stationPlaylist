@@ -323,4 +323,7 @@ This break note will execute the Randomize All Songs Edit menu function. Unlike 
 The Voice Track OutputNow Playing option may be altered within a playlist.
 
 [Play Break Note Carts as VT's]
-This break note enable/disable the option "Play Break Note Carts as VT's" in the General options. eg. *CartVT=0 will cause carts to be inserted as a normal spot.
+This break note enables/disables the option "Play Break Note Carts as VT's" in the General options. eg. *CartVT=0 will cause carts to be inserted as a normal spot.
+
+[Play Commercials as VT's]
+This break note enables/disables the option "Play Commercials as VT's" in the General options. eg. *CommVT=0 will cause commercials to be inserted as a normal spot.
