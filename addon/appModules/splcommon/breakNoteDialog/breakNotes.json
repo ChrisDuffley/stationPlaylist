@@ -555,6 +555,14 @@
     "version": ""
   },
   {
+    "ID": 62,
+    "name": "user change",
+    "type": "text",
+    "helpTextKey": "user change",
+    "code": "User=",
+    "version": ""
+  },
+  {
     "ID": 63,
     "name": "voice track player / MP reduction",
     "type": "number",
@@ -568,11 +576,11 @@
     "version": "6.21"
   },
   {
-    "ID": 62,
-    "name": "user change",
-    "type": "text",
-    "helpTextKey": "user change",
-    "code": "User=",
-    "version": ""
+    "ID": 64,
+    "name": "Randomize",
+    "type": "noParm",
+    "helpTextKey": "Randomize",
+    "code": "Randomize",
+    "version": "6.20"
   }
 ]
