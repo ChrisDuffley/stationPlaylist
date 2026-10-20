@@ -106,7 +106,8 @@ class TrackToolItem(splbase.SPLTrackItem):
 
 	def reportFocus(self):
 		# Play a beep when intro exists.
-		if self._getColumnContentRaw(self.indexOf("Intro")) not in (None, ""):
+		# Hardcoded "intro" column position constant (sixth column as defined by Track Tool internal interface).
+		if self._getColumnContentRaw(5) not in (None, ""):
 			tones.beep(550, 100)
 		super().reportFocus()
 
