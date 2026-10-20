@@ -365,7 +365,7 @@
     "type": "noParm",
     "helpTextKey": "no fade",
     "code": "NoFade",
-    "version": ""
+    "version": "6.0"
   },
   {
     "ID": 40,
