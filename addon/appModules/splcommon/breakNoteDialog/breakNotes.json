@@ -181,7 +181,7 @@
     "type": "onOff",
     "helpTextKey": "enable/disable top-of-hour timing via auto speed",
     "code": "AutoSpeed",
-    "version": ""
+    "version": "6.01"
   },
   {
     "ID": 21,
