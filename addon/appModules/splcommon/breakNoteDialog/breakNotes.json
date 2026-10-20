@@ -595,5 +595,13 @@
       "Live Text"
     ],
     "version": "6.11"
+  },
+  {
+    "ID": 66,
+    "name": "Play Break Note Carts as VT's",
+    "type": "onOff",
+    "helpTextKey": "Play Break Note Carts as VT's",
+    "code": "CartVT=",
+    "version": "6.10"
   }
 ]
