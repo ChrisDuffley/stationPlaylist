@@ -110,12 +110,6 @@ class TrackToolItem(splbase.SPLTrackItem):
 			tones.beep(550, 100)
 		super().reportFocus()
 
-	def indexOf(self, columnHeader: str) -> int | None:
-		try:
-			return indexOf(self.appModule.productVersion).index(columnHeader)
-		except ValueError:
-			return None
-
 	@property
 	def exploreColumns(self) -> list[str]:
 		return splconfig.SPLConfig["ExploreColumns"]["TrackTool"]

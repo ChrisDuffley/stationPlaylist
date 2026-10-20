@@ -91,12 +91,6 @@ class SPLCreatorItem(splbase.SPLTrackItem):
 class CreatorTrackListItem(splbase.SPLTrackItem):
 	"""An entry in SPL Creator (mostly tracks in track list tab)."""
 
-	def indexOf(self, columnHeader: str) -> int | None:
-		try:
-			return indexOf(self.appModule.productVersion).index(columnHeader)
-		except ValueError:
-			return None
-
 	@property
 	def exploreColumns(self) -> list[str]:
 		return splconfig.SPLConfig["ExploreColumns"]["Creator"]
@@ -104,12 +98,6 @@ class CreatorTrackListItem(splbase.SPLTrackItem):
 
 class SPLPlaylistEditorItem(splbase.SPLTrackItem):
 	"""An entry in SPL Creator's Playlist Editor."""
-
-	def indexOf(self, columnHeader: str) -> int | None:
-		try:
-			return indexOfPlaylistEditor(self.appModule.productVersion).index(columnHeader)
-		except ValueError:
-			return None
 
 	@property
 	def exploreColumns(self) -> list[str]:
