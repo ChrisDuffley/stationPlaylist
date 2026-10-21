@@ -5,6 +5,7 @@
 # Uses breakNotes.json to save the breakNotes itself and
 # helpTexts.txt for the corresponding help texts.
 
+import os
 from typing import Any
 
 import gui
@@ -404,6 +405,17 @@ class RecordAllDialog(wx.Dialog):
 				self.durationField.SetFocus()
 				return self.getValue()
 			fileName = self.fileNameField.GetValue().strip()
+			if (
+				os.path.dirname(fileName)
+				and wx.MessageBox(
+					"this will change the record path in studios options. Proced?",
+					"Warning",
+					wx.YES_NO | wx.NO_DEFAULT | wx.ICON_WARNING,
+					self,
+				)
+				!= wx.YES
+			):
+				return None
 			if " " in fileName and not (fileName.startswith('"') and fileName.endswith('"')):
 				fileName = f'"{fileName}"'
 			modeSuffix = ("1", "0", "")[mode]
