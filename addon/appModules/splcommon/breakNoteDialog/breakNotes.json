@@ -181,7 +181,7 @@
     "type": "onOff",
     "helpTextKey": "enable/disable top-of-hour timing via auto speed",
     "code": "AutoSpeed",
-    "version": "6.01"
+    "version": ""
   },
   {
     "ID": 21,
@@ -189,7 +189,7 @@
     "type": "onOff",
     "helpTextKey": "enable/disable top-of-hour timing via song outro times",
     "code": "TOHOutro",
-    "version": "6.01"
+    "version": ""
   },
   {
     "ID": 22,
@@ -205,7 +205,7 @@
     "type": "text",
     "helpTextKey": "extra text for Metadata output %X",
     "code": "Extra=",
-    "version": "6.10"
+    "version": ""
   },
   {
     "ID": 24,
@@ -602,7 +602,7 @@
     "type": "onOff",
     "helpTextKey": "Play Break Note Carts as VT's",
     "code": "CartVT=",
-    "version": "6.10"
+    "version": ""
   },
   {
     "ID": 67,
@@ -610,6 +610,6 @@
     "type": "onOff",
     "helpTextKey": "Play Commercials as VT's",
     "code": "CommVT=",
-    "version": "6.10"
+    "version": ""
   }
 ]
