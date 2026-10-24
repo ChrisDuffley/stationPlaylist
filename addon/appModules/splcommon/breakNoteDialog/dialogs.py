@@ -408,7 +408,7 @@ class RecordAllDialog(wx.Dialog):
 			if (
 				os.path.dirname(fileName)
 				and wx.MessageBox(
-					"this will change the record path in studios options. Proced?",
+					"this will change the record path in studios options. Proceed?",
 					"Warning",
 					wx.YES_NO | wx.NO_DEFAULT | wx.ICON_WARNING,
 					self,
