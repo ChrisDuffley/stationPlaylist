@@ -212,6 +212,9 @@ class BreakNoteStorage:
 			values[FAVORITE_ELEMENT_IDS_KEY] = favoriteElementIDs
 		values[FILTER_SELECTION_KEY] = self.filterSelection
 
+		# #202: do not touch the file system if NVDA is running in secure mode.
+		if globalVars.appArgs.secure:
+			return
 		path.parent.mkdir(parents=True, exist_ok=True)
 		with path.open("w", encoding="utf-8", newline="\n") as valuesFile:
 			json.dump(values, valuesFile, ensure_ascii=False, indent=2)
