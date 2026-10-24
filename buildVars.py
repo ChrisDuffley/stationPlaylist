@@ -33,6 +33,7 @@ addon_info = AddonInfo(
 * Break notes dialog will be closed when closing local Studio and Creator.
 * In break notes dialog, codes unavailable for the Studio version in use will not be shown (contributed by MooSteinebach).
 * Added voice tracker volume adjustment break note code (Studio 6.21, contributed by MooSteinebach).
+* Added a warning when using break notes insertion interface to define record to file path (this changes local Studio behavior; contributed by MooSteinebach).
 * Break notes data including favorite codes can be reinitialized from add-on settings/reset settings panel as well as when pressing Control+NVDA+R three times to reset NVDA settings to defaults (contributed by MooSteinebach).
 * Listener count message from SPL Controller will now resemble local Studio's listener count display (count Listeners)."""),
 	# Author(s)
