@@ -28,6 +28,7 @@ addon_info = AddonInfo(
 	# Translators: what's new content for the add-on version to be shown in the add-on store
 	addon_changelog=_("""* Initial support for StationPlaylist suite 6.21.
 * Improved break note insertion dialog user interface presentation.
+* Break note code modifications will not be saved to disk if NVDA is running in secure mode.
 * Break notes dialog will be closed when closing local Studio and Creator.
 * In break notes dialog, codes unavailable for the Studio version in use will not be shown (contributed by MooSteinebach).
 * Added voice tracker volume adjustment break note code (Studio 6.21, contributed by MooSteinebach).
