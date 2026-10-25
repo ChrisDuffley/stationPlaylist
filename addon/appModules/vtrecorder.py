@@ -5,7 +5,6 @@
 # Basic support for SPL Voice Track Recorder.
 
 from dataclasses import dataclass
-
 import appModuleHandler
 from scriptHandler import script
 import api
@@ -25,13 +24,19 @@ TRACK_TEXT_WINDOW_CLASS = "TTntStaticText.UnicodeClass"
 
 
 @dataclass
-class RecorderState:
+class InfoParts:
 	recordState: str = ""
-	recordTime: str = ""
-	nextButton: str = ""
+	recordTime: str = "00:00.0"
+	nextButton: str = "Start Recording"
 
 
-recorderState = RecorderState()
+infoParts = InfoParts()
+
+
+def resetInfoParts() -> None:
+	infoParts.recordState = ""
+	infoParts.recordTime = "00:00.0"
+	infoParts.nextButton = "Start Recording"
 
 
 def brailleMessage(message: str) -> None:
@@ -44,19 +49,19 @@ def brailleMessage(message: str) -> None:
 
 
 def displayInfos() -> None:
-	text = f"{recorderState.recordState} {recorderState.recordTime} {recorderState.nextButton}"
+	text = f"{infoParts.recordState} {infoParts.recordTime} {infoParts.nextButton}"
 	brailleMessage(text)
 
 
 class CustomTPanel(IAccessible):
 	def event_nameChange(self):
-		recorderState.recordTime = self.name or ""
+		infoParts.recordTime = self.name or ""
 		displayInfos()
 
 
 class CustomTBitBtn(IAccessible):
 	def event_nameChange(self):
-		recorderState.nextButton = self.name or ""
+		infoParts.nextButton = self.name or ""
 		displayInfos()
 
 
@@ -71,7 +76,7 @@ class CustomTRadioButton(IAccessible):
 			"manual outgoing only": "out",
 			"manual incoming only": "in ",
 		}.get(name.casefold(), name)
-		recorderState.recordState = displayText
+		infoParts.recordState = displayText
 		displayInfos()
 
 
@@ -94,6 +99,7 @@ class AppModule(appModuleHandler.AppModule):
 		self.incomingTrackName = ""
 
 	def terminate(self):
+		resetInfoParts()
 		super().terminate()
 		if splbase.studioIsRunning(justChecking=True):
 			log.debug("SPL: VT Recorder is offline, enabling background event tracking for Studio")
