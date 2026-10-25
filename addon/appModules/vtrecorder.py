@@ -15,6 +15,7 @@ from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import IAccessible
 import config
 import braille
+import speech
 from .splcommon import splbase
 
 
@@ -159,33 +160,33 @@ class AppModule(appModuleHandler.AppModule):
 		elif obj.windowClassName == "TBitBtn":
 			clsList.insert(0, CustomTBitBtn)
 
-	@script(gesture="kb:Alt+3")
-	def script_sayAndBrailleOutgoingAndIncomingTrack(self, gesture):
+	@script(gesture="kb:NVDA+Control+1")
+	def script_sayOutgoingAndIncomingTrack(self, gesture):
 		self.checkOutgoingAndIncomingTrack()
-		ui.message(f"Outgoing: {self.outgoingTrackName} - incoming: {self.incomingTrackName}")
-		brailleMessage(f"Out: {self.outgoingTrackName}; in: {self.incomingTrackName}")
+		speech.speakMessage(f"Outgoing: {self.outgoingTrackName} - incoming: {self.incomingTrackName}")
 
-	@script(gesture="kb:Alt+4")
+	@script(gesture="kb:NVDA+Control+2")
+	def script_sayOutgoingTrack(self, gesture):
+		self.checkOutgoingAndIncomingTrack()
+		speech.speakMessage(self.outgoingTrackName)
+
+	@script(gesture="kb:NVDA+Control+3")
+	def script_sayIncomingTrack(self, gesture):
+		self.checkOutgoingAndIncomingTrack()
+		speech.speakMessage(self.incomingTrackName)
+
+	@script(gesture="kb:NVDA+Control+4")
 	def script_brailleOutgoingAndIncomingTrack(self, gesture):
 		self.checkOutgoingAndIncomingTrack()
 		brailleMessage(f"Out: {self.outgoingTrackName}; in: {self.incomingTrackName}")
 
-	@script(gesture="kb:Alt+5")
-	def script_brailleIncomingTrack(self, gesture):
-		self.checkOutgoingAndIncomingTrack()
-		brailleMessage(self.incomingTrackName)
-
-	@script(gesture="kb:Alt+6")
+	@script(gesture="kb:NVDA+Control+5")
 	def script_brailleOutgoingTrack(self, gesture):
 		self.checkOutgoingAndIncomingTrack()
 		brailleMessage(self.outgoingTrackName)
 
-	@script(gesture="kb:Alt+7")
-	def script_sayIncomingTrack(self, gesture):
+	@script(gesture="kb:NVDA+Control+6")
+	def script_brailleIncomingTrack(self, gesture):
 		self.checkOutgoingAndIncomingTrack()
-		ui.message(self.incomingTrackName)
+		brailleMessage(self.incomingTrackName)
 
-	@script(gesture="kb:Alt+8")
-	def script_sayOutgoingTrack(self, gesture):
-		self.checkOutgoingAndIncomingTrack()
-		ui.message(self.outgoingTrackName)
