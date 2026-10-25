@@ -81,6 +81,19 @@ class CustomTRadioButton(IAccessible):
 		displayInfos()
 
 
+class UnlabeledFields(IAccessible):
+	def event_gainFocus(self):
+		parent = self.parent
+		groupBox = parent.parent if parent else None
+		label = groupBox.firstChild if groupBox else None
+		if label and label.name:
+			labelName = label.name.split("  ", 1)[0]
+			if labelName.casefold() == "incoming track":
+				labelName = "offset"
+			ui.message(labelName)
+		super().event_gainFocus()
+
+
 class AppModule(appModuleHandler.AppModule):
 	def __init__(self, processID: int, appName: str | None = None):
 		super().__init__(processID, appName)
@@ -159,6 +172,8 @@ class AppModule(appModuleHandler.AppModule):
 			clsList.insert(0, CustomTRadioButton)
 		elif obj.windowClassName == "TBitBtn":
 			clsList.insert(0, CustomTBitBtn)
+		elif obj.windowClassName == "TSpinEditMS" or obj.windowClassName == "TTntComboBox.UnicodeClass":
+			clsList.insert(0, UnlabeledFields)
 
 	@script(gesture="kb:NVDA+Control+1")
 	def script_sayOutgoingAndIncomingTrack(self, gesture):
@@ -189,4 +204,3 @@ class AppModule(appModuleHandler.AppModule):
 	def script_brailleIncomingTrack(self, gesture):
 		self.checkOutgoingAndIncomingTrack()
 		brailleMessage(self.incomingTrackName)
-
