@@ -178,30 +178,42 @@ class AppModule(appModuleHandler.AppModule):
 
 	@script(gesture="kb:NVDA+Control+1")
 	def script_sayOutgoingAndIncomingTrack(self, gesture):
+		if api.getForegroundObject().windowClassName != "TVTRecorderForm":
+			return
 		self.checkOutgoingAndIncomingTrack()
 		speech.speakMessage(f"Outgoing: {self.outgoingTrackName} - incoming: {self.incomingTrackName}")
 
 	@script(gesture="kb:NVDA+Control+2")
 	def script_sayOutgoingTrack(self, gesture):
+		if api.getForegroundObject().windowClassName != "TVTRecorderForm":
+			return
 		self.checkOutgoingAndIncomingTrack()
 		speech.speakMessage(self.outgoingTrackName)
 
 	@script(gesture="kb:NVDA+Control+3")
 	def script_sayIncomingTrack(self, gesture):
+		if api.getForegroundObject().windowClassName != "TVTRecorderForm":
+			return
 		self.checkOutgoingAndIncomingTrack()
 		speech.speakMessage(self.incomingTrackName)
 
 	@script(gesture="kb:NVDA+Control+4")
 	def script_brailleOutgoingAndIncomingTrack(self, gesture):
+		if api.getForegroundObject().windowClassName != "TVTRecorderForm":
+			return
 		self.checkOutgoingAndIncomingTrack()
 		brailleMessage(f"Out: {self.outgoingTrackName}; in: {self.incomingTrackName}")
 
 	@script(gesture="kb:NVDA+Control+5")
 	def script_brailleOutgoingTrack(self, gesture):
+		if api.getForegroundObject().windowClassName != "TVTRecorderForm":
+			return
 		self.checkOutgoingAndIncomingTrack()
 		brailleMessage(self.outgoingTrackName)
 
 	@script(gesture="kb:NVDA+Control+6")
 	def script_brailleIncomingTrack(self, gesture):
+		if api.getForegroundObject().windowClassName != "TVTRecorderForm":
+			return
 		self.checkOutgoingAndIncomingTrack()
 		brailleMessage(self.incomingTrackName)
