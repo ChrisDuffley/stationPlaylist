@@ -36,12 +36,14 @@ infoParts = InfoParts()
 
 
 def resetInfoParts() -> None:
+	"""Restore the braille status fields to their initial recorder values."""
 	infoParts.recordState = ""
 	infoParts.recordTime = "00:00.0"
 	infoParts.nextButton = "Start Recording"
 
 
 def brailleMessage(message: str) -> None:
+	"""Display a braille message indefinitely without changing the user setting."""
 	oldShowBrailleMessages = config.conf["braille"]["showMessages"]
 	config.conf["braille"]["showMessages"] = ShowMessages.SHOW_INDEFINITELY
 	try:
@@ -51,24 +53,28 @@ def brailleMessage(message: str) -> None:
 
 
 def displayInfos() -> None:
+	"""Present the current recorder status fields on the braille display."""
 	text = f"{infoParts.recordState} {infoParts.recordTime} {infoParts.nextButton}"
 	brailleMessage(text)
 
 
 class CustomTPanel(IAccessible):
 	def event_nameChange(self):
+		"""Update the displayed recording time when the recorder panel changes."""
 		infoParts.recordTime = self.name or ""
 		displayInfos()
 
 
 class CustomTBitBtn(IAccessible):
 	def event_nameChange(self):
+		"""Update the displayed next-recording action when the button changes."""
 		infoParts.nextButton = self.name or ""
 		displayInfos()
 
 
 class CustomTRadioButton(IAccessible):
 	def event_gainFocus(self):
+		"""Abbreviate and display the selected recording overlap mode."""
 		super().event_gainFocus()
 		name = self.name or ""
 		displayText = {
@@ -84,6 +90,7 @@ class CustomTRadioButton(IAccessible):
 
 class UnlabeledFields(IAccessible):
 	def event_gainFocus(self):
+		"""Announce the containing group label for recorder fields without labels."""
 		parent = self.parent
 		groupBox = parent.parent if parent else None
 		label = groupBox.firstChild if groupBox else None
@@ -97,6 +104,7 @@ class UnlabeledFields(IAccessible):
 
 class AppModule(appModuleHandler.AppModule):
 	def __init__(self, processID: int, appName: str | None = None):
+		"""Initialize track caches and suspend Studio background event tracking."""
 		super().__init__(processID, appName)
 		if splbase.studioIsRunning(justChecking=True):
 			log.debug("SPL: VT Recorder is online, disabling background event tracking for Studio")
@@ -108,12 +116,14 @@ class AppModule(appModuleHandler.AppModule):
 					break
 		else:
 			log.debug("SPL: Studio is not running")
+		# for caching
 		self.outgoingTrack: NVDAObject | None = None
 		self.outgoingTrackName = ""
 		self.incomingTrack: NVDAObject | None = None
 		self.incomingTrackName = ""
 
 	def terminate(self):
+		"""Reset recorder state and restore Studio event tracking when applicable."""
 		resetInfoParts()
 		super().terminate()
 		if splbase.studioIsRunning(justChecking=True):
@@ -132,6 +142,7 @@ class AppModule(appModuleHandler.AppModule):
 			log.debug("SPL: Studio Recorder is offline and Studio is offline")
 
 	def checkOutgoingAndIncomingTrack(self):
+		"""Locate and cache the current outgoing and incoming track descriptions."""
 		if self.outgoingTrack == None:
 			self.outgoingTrack = self.findObject(OUTGOING_TRACK_GROUP, TRACK_TEXT_WINDOW_CLASS)
 			self.outgoingTrackName = self._normaliseTrackName(self.outgoingTrack, "Outgoing track not found.")
@@ -140,11 +151,13 @@ class AppModule(appModuleHandler.AppModule):
 			self.incomingTrackName = self._normaliseTrackName(self.incomingTrack, "Incoming track not found.")
 
 	def _normaliseTrackName(self, track: NVDAObject | None, notFoundMessage: str) -> str:
+		"""Convert a track object's multiline name into a single spoken string."""
 		if track is None or track.name is None:
 			return notFoundMessage
 		return " - ".join(track.name.splitlines())
 
 	def objectBelongsTo(self, obj: NVDAObject, groupBoxName: str) -> bool:
+		"""Return whether an object belongs to the named recorder group box."""
 		parent = obj.parent
 		if parent is None:
 			return False
@@ -157,6 +170,7 @@ class AppModule(appModuleHandler.AppModule):
 		return groupBoxLabel.name is not None and groupBoxLabel.name.startswith(groupBoxName)
 
 	def findObject(self, groupBoxName: str, windowClassName: str) -> NVDAObject | None:
+		"""Find the first foreground-window object matching a group and class."""
 		objectsToSearch = [api.getForegroundObject()]
 		while objectsToSearch:
 			obj = objectsToSearch.pop()
@@ -166,10 +180,14 @@ class AppModule(appModuleHandler.AppModule):
 		return None
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
+		"""Assign recorder-specific overlays to relevant accessible controls."""
 		if obj.windowClassName == "TPanel":
 			if self.objectBelongsTo(obj, "VT Recorder"):
 				clsList.insert(0, CustomTPanel)
-		elif obj.windowClassName == "TGroupButton":
+		elif (
+			api.getForegroundObject().windowClassName == "TVTRecorderForm"
+			and obj.windowClassName == "TGroupButton"
+		):
 			clsList.insert(0, CustomTRadioButton)
 		elif obj.windowClassName == "TBitBtn":
 			clsList.insert(0, CustomTBitBtn)
@@ -178,6 +196,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	@script(gesture="kb:NVDA+Control+1")
 	def script_sayOutgoingAndIncomingTrack(self, gesture):
+		"""Speak both tracks when VT Recorder is the foreground application."""
 		if api.getForegroundObject().windowClassName != "TVTRecorderForm":
 			return
 		self.checkOutgoingAndIncomingTrack()
@@ -185,6 +204,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	@script(gesture="kb:NVDA+Control+2")
 	def script_sayOutgoingTrack(self, gesture):
+		"""Speak the outgoing track when VT Recorder is the foreground application."""
 		if api.getForegroundObject().windowClassName != "TVTRecorderForm":
 			return
 		self.checkOutgoingAndIncomingTrack()
@@ -192,6 +212,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	@script(gesture="kb:NVDA+Control+3")
 	def script_sayIncomingTrack(self, gesture):
+		"""Speak the incoming track when VT Recorder is the foreground application."""
 		if api.getForegroundObject().windowClassName != "TVTRecorderForm":
 			return
 		self.checkOutgoingAndIncomingTrack()
@@ -199,6 +220,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	@script(gesture="kb:NVDA+Control+4")
 	def script_brailleOutgoingAndIncomingTrack(self, gesture):
+		"""Display both tracks in braille when VT Recorder is foreground."""
 		if api.getForegroundObject().windowClassName != "TVTRecorderForm":
 			return
 		self.checkOutgoingAndIncomingTrack()
@@ -206,6 +228,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	@script(gesture="kb:NVDA+Control+5")
 	def script_brailleOutgoingTrack(self, gesture):
+		"""Display the outgoing track in braille when VT Recorder is foreground."""
 		if api.getForegroundObject().windowClassName != "TVTRecorderForm":
 			return
 		self.checkOutgoingAndIncomingTrack()
@@ -213,6 +236,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	@script(gesture="kb:NVDA+Control+6")
 	def script_brailleIncomingTrack(self, gesture):
+		"""Display the incoming track in braille when VT Recorder is foreground."""
 		if api.getForegroundObject().windowClassName != "TVTRecorderForm":
 			return
 		self.checkOutgoingAndIncomingTrack()
