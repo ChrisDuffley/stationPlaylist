@@ -13,9 +13,10 @@ import eventHandler
 from logHandler import log
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import IAccessible
-import config
 import braille
+import config
 import speech
+from config.configFlags import ShowMessages
 from .splcommon import splbase
 
 
@@ -42,7 +43,7 @@ def resetInfoParts() -> None:
 
 def brailleMessage(message: str) -> None:
 	oldShowBrailleMessages = config.conf["braille"]["showMessages"]
-	config.conf["braille"]["showMessages"] = braille.ShowMessages.SHOW_INDEFINITELY
+	config.conf["braille"]["showMessages"] = ShowMessages.SHOW_INDEFINITELY
 	try:
 		braille.handler.message(message)
 	finally:
