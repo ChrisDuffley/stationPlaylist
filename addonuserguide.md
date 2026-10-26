@@ -569,6 +569,24 @@ Playlist Editor in creator and Remote VT client includes the following additiona
 * Alt+NVDA+3: Date and time for when the selected track is scheduled to play.
 * Alt+NVDA+4: Playlist category and rotation.
 
+#### StationPlaylist VT Recorder
+
+The add-on provides accessibility improvements and track information commands for StationPlaylist
+VT Recorder. The commands below work only while the VT Recorder window is in the foreground.
+
+The recording mode, elapsed recording time, and the action of the next recording button are kept
+up to date on the braille display. NVDA also announces the group name when focus moves to an
+otherwise unlabeled field. For the incoming-track group, this is announced as "offset".
+
+The following commands report the tracks adjacent to the voice track:
+
+* NVDA+Control+1: Announces both the outgoing and incoming tracks.
+* NVDA+Control+2: Announces the outgoing track.
+* NVDA+Control+3: Announces the incoming track.
+* NVDA+Control+4: Displays both the outgoing and incoming tracks on the braille display.
+* NVDA+Control+5: Displays the outgoing track on the braille display.
+* NVDA+Control+6: Displays the incoming track on the braille display.
+
 ## Studio add-on preferences
 
 NVDA includes a multi-page settings dialog accessible from NVDA's preferences menu to configure a variety of options, including voice, browse mode and so on. SPL add-on comes with its own multi-page settings dialog. As long as you are running at least one SPL app i.e. Studio (local and remote), Creator, Remote VT, and Track Tool, you can open this dialog by going to NVDA's preferences menu and selecting "SPL add-on settings" item or pressing Alt+NVDA+0 (zero) from SPL app window.
