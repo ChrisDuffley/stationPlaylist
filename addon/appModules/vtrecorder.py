@@ -17,9 +17,9 @@ from logHandler import log
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import IAccessible
 import braille
+import buildVersion
 import config
 import speech
-from config.configFlags import ShowMessages
 from .splcommon import splbase
 
 
@@ -43,12 +43,16 @@ def resetInfoParts() -> None:
 def brailleMessage(message: str) -> None:
 	"""Display a braille message indefinitely without changing the user setting."""
 	oldShowBrailleMessages = config.conf["braille"]["showMessages"]
-	config.conf["braille"]["showMessages"] = ShowMessages.SHOW_INDEFINITELY
+	if (buildVersion.version_year, buildVersion.version_major) >= (2026, 3):
+		from config.configFlags import ShowMessages
+
+		config.conf["braille"]["showMessages"] = ShowMessages.SHOW_INDEFINITELY
+	else:
+		config.conf["braille"]["showMessages"] = braille.ShowMessages.SHOW_INDEFINITELY
 	try:
 		braille.handler.message(message)
 	finally:
 		config.conf["braille"]["showMessages"] = oldShowBrailleMessages
-
 
 def displayInfos() -> None:
 	"""Present the current recorder status fields on the braille display."""
