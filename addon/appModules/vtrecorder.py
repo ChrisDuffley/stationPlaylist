@@ -5,11 +5,14 @@
 # Basic support for SPL Voice Track Recorder.
 
 from dataclasses import dataclass
+import collections.abc
 import appModuleHandler
 from scriptHandler import script
 import api
 import ui
 import eventHandler
+import controlTypes
+import core
 from logHandler import log
 from NVDAObjects import NVDAObject
 from NVDAObjects.IAccessible import IAccessible
@@ -53,6 +56,17 @@ def displayInfos() -> None:
 	brailleMessage(text)
 
 
+def recordStateText(name: str) -> str:
+	"""Return the compact braille representation of a recording overlap mode."""
+	return {
+		"automatic": "au ",
+		"no overlap": "no ",
+		"manual outgoing/incoming": "io ",
+		"manual outgoing only": "out",
+		"manual incoming only": "in ",
+	}.get(name.casefold(), name)
+
+
 class CustomTPanel(IAccessible):
 	def event_nameChange(self):
 		"""Update the displayed recording time when the recorder panel changes."""
@@ -71,15 +85,7 @@ class CustomTRadioButton(IAccessible):
 	def event_gainFocus(self):
 		"""Abbreviate and display the selected recording overlap mode."""
 		super().event_gainFocus()
-		name = self.name or ""
-		displayText = {
-			"automatic": "au ",
-			"no overlap": "no ",
-			"manual outgoing/incoming": "io ",
-			"manual outgoing only": "out",
-			"manual incoming only": "in ",
-		}.get(name.casefold(), name)
-		infoParts.recordState = displayText
+		infoParts.recordState = recordStateText(self.name or "")
 		displayInfos()
 
 
@@ -125,6 +131,7 @@ class AppModule(appModuleHandler.AppModule):
 		self.outgoingTrackName = ""
 		self.incomingTrack: NVDAObject | None = None
 		self.incomingTrackName = ""
+		self._statusInitialised = False
 
 	def terminate(self):
 		"""Reset recorder state and restore Studio event tracking when applicable."""
@@ -182,6 +189,40 @@ class AppModule(appModuleHandler.AppModule):
 				return obj
 			objectsToSearch.extend(reversed(obj.children))
 		return None
+
+	def _initialiseStatus(self) -> bool:
+		"""Set initial recording status values from the recorder controls."""
+		objectsToSearch = [api.getForegroundObject()]
+		recordStateFound = False
+		nextButtonFound = False
+		while objectsToSearch:
+			obj = objectsToSearch.pop()
+			if obj.windowClassName == "TGroupButton" and controlTypes.State.CHECKED in obj.states:
+				infoParts.recordState = recordStateText(obj.name or "")
+				recordStateFound = True
+			elif obj.windowClassName == "TBitBtn" and obj.name and obj.name.startswith("Start "):
+				infoParts.nextButton = obj.name
+				nextButtonFound = True
+			if recordStateFound and nextButtonFound:
+				return True
+			objectsToSearch.extend(obj.children)
+		return False
+
+	def _initialiseStatusAndDisplay(self) -> None:
+		"""Display the initial recorder status once its controls are available."""
+		if api.getForegroundObject().windowClassName != "TVTRecorderForm":
+			return
+		if self._initialiseStatus():
+			self._statusInitialised = True
+			displayInfos()
+
+	def event_foreground(self, obj: NVDAObject, nextHandler: collections.abc.Callable[[], None]) -> None:
+		if obj.windowClassName == "TVTRecorderForm":
+			if self._statusInitialised:
+				displayInfos()
+			else:
+				core.callLater(100, self._initialiseStatusAndDisplay)
+		nextHandler()
 
 	def _presentTrackNames(self, options: int) -> None:
 		"""Present selected track names through speech or braille."""
