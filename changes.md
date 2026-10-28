@@ -5,6 +5,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 ## Version 26.07.10-LTS
 
 * Initial support for StationPlaylist suite 6.21.
+* Improved reliability of restoring Studio from system tray (notification area; applicable to Studio 6.21, contributed by MooSteinebach).
 * Improved break note insertion dialog user interface presentation.
 * Break note code modifications will not be saved to disk if NVDA is running in secure mode.
 * Break notes dialog will be closed when closing local Studio and Creator.
