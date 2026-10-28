@@ -41,6 +41,8 @@ class StudioAPIAvailability(enum.IntEnum):
 _SPLWindowHandles: dict[str, int | None] = {}
 
 # Various SPL IPC tags.
+SPLVersion = 2
+SPLRestoreFromTNA = 3
 SPLSelectTrack = 121
 
 # Check if Studio itself is running.
@@ -121,6 +123,11 @@ def focusToSPLWindow(studioWindowChecked: bool = False) -> None:
 	# Only check if the caller did not check focused object first.
 	if not studioWindowChecked and "splstudio" in api.getForegroundObject().appModule.appName:
 		return
+	# SPLRestoreFromTNA, introduced in 6.21, will restore studio window from the TNA.
+	# If it's not minimized to TNA, nothing happens.
+	# After restoring if needed, the normal logic can take place.
+	if (studioVersion := studioAPI(0, SPLVersion)) is not None and studioVersion >= 621:
+		studioAPI(0, SPLRestoreFromTNA)
 	try:
 		studioWindow = windowUtils.findDescendantWindow(
 			api.getDesktopObject().windowHandle, visible=True, className="TStudioForm"
