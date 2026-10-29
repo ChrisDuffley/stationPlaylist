@@ -6,7 +6,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 
 * 26.11: NVDA 2026.3 or later is required.
 * Initial support for StationPlaylist suite 6.21.
-* Improved reliability of restoring Studio from system tray (notification area; applicable to Studio 6.21, contributed by MooSteinebach).
+* Improved reliability of restoring Studio window from system tray (notification area; applicable to Studio 6.21, contributed by MooSteinebach).
 * Improved break note insertion dialog user interface presentation.
 * Break note code modifications will not be saved to disk if NVDA is running in secure mode.
 * Break notes dialog will be closed when closing local Studio and Creator.
@@ -14,7 +14,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 * Added voice tracker volume adjustment break note code (Studio 6.21, contributed by MooSteinebach).
 * Added a warning when using break notes insertion interface to define record to file path (this changes local Studio behavior; contributed by MooSteinebach).
 * Break notes data including favorite codes can be reinitialized from add-on settings/reset settings panel as well as when pressing Control+NVDA+R three times to reset NVDA settings to defaults (contributed by MooSteinebach).
-* Listener count message from SPL Controller will now resemble local Studio's listener count display (count Listeners).
+* Listener count message from SPL Controller layer (I) will now resemble local Studio's listener count display (count Listeners).
 
 ## Version 26.10.3/26.07.9-LTS
 
