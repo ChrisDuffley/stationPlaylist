@@ -228,27 +228,24 @@ class AppModule(appModuleHandler.AppModule):
 		nextHandler()
 
 	def _presentTrackNames(self, options: int) -> None:
-		"""Present selected track names through speech or braille."""
+		"""Present selected track names through speech and/or braille."""
 		if api.getForegroundObject().windowClassName != "TVTRecorderForm" or not options:
 			return
 		self.checkOutgoingAndIncomingTrack()
-		if options & self.TN_OUTGOING and options & self.TN_INCOMING:
-			if options & self.TN_Speak:
+		match options:
+			case self.TN_OUTGOING_INCOMING:
 				speech.speakMessage(
 					f"Outgoing: {self.outgoingTrackName} - incoming: {self.incomingTrackName}"
 				)
-			else:
 				brailleMessage(f"Out: {self.outgoingTrackName}; in: {self.incomingTrackName}")
-		elif options & self.TN_OUTGOING:
-			if options & self.TN_Speak:
+			case self.TN_OUTGOING:
 				speech.speakMessage(self.outgoingTrackName)
-			else:
 				brailleMessage(self.outgoingTrackName)
-		elif options & self.TN_INCOMING:
-			if options & self.TN_Speak:
+			case self.TN_INCOMING:
 				speech.speakMessage(self.incomingTrackName)
-			else:
 				brailleMessage(self.incomingTrackName)
+			case _:
+				pass
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		"""Assign recorder-specific overlays to relevant accessible controls."""
