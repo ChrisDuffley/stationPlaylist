@@ -54,7 +54,7 @@ encoderConfig = None
 def loadEncoderConfig() -> None:
 	# Define global variables when first used, not here due to line length.
 	global encoderConfig
-	encoderConfigPath = os.path.join(globalVars.appArgs.configPath, "splencoders.ini")
+	encoderConfigPath = os.path.join(globalVars.appArgs.configPath, "stationPlaylist", "splencoders.ini")
 	# Make sure encoder settings map isn't corrupted.
 	try:
 		encoderConfig = configobj.ConfigObj(encoderConfigPath)

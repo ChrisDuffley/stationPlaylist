@@ -29,7 +29,7 @@ from ..skipTranslation import translate
 addonHandler.initTranslation()
 
 # Configuration management
-SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
+SPLIni = os.path.join(globalVars.appArgs.configPath, "stationPlaylist", "splstudio.ini")
 SPLProfiles = os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "profiles")
 # The following settings can be changed in profiles:
 mutatableSettings = ("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
@@ -647,7 +647,7 @@ def initStudioExtraSteps() -> None:
 	# Load track comments if they exist.
 	# This must be a separate (json) file.
 	try:
-		with open(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.json"), "rb") as f:
+		with open(os.path.join(globalVars.appArgs.configPath, "stationPlaylist", "spltrackcomments.json"), "rb") as f:
 			trackComments = json.load(f)
 	except (OSError, EOFError, FileNotFoundError, json.JSONDecodeError):
 		pass
@@ -716,7 +716,7 @@ def terminateStudioExtraSteps() -> None:
 	global trackComments
 	# Dump and clear track comments (but not in secure mode).
 	if not globalVars.appArgs.secure:
-		with open(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.json"), "w") as f:
+		with open(os.path.join(globalVars.appArgs.configPath, "stationPlaylist", "spltrackcomments.json"), "w") as f:
 			json.dump(trackComments, f)
 	trackComments.clear()
 	trackComments = {}
