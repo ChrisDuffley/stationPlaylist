@@ -112,10 +112,9 @@ class AppModule(appModuleHandler.AppModule):
 	INCOMING_TRACK_GROUP = "Incoming Track"
 	TRACK_TEXT_WINDOW_CLASS = "TTntStaticText.UnicodeClass"
 	# leading tn = track name
-	TN_Speak = 1
-	TN_BRAILLE = 2
-	TN_OUTGOING = 4
-	TN_INCOMING = 8
+	TN_OUTGOING_INCOMING = 1
+	TN_OUTGOING = 2
+	TN_INCOMING = 3
 
 	def __init__(self, processID: int, appName: str | None = None):
 		"""Initialize track caches and suspend Studio background event tracking."""
