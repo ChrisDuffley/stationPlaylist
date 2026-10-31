@@ -264,30 +264,15 @@ class AppModule(appModuleHandler.AppModule):
 
 	@script(gesture="kb:NVDA+Control+1", speakOnDemand=True)
 	def script_sayOutgoingAndIncomingTrack(self, gesture):
-		"""Speak both tracks when VT Recorder is the foreground application."""
-		self._presentTrackNames(self.TN_Speak | self.TN_OUTGOING | self.TN_INCOMING)
+		"""Report both outgoing and incoming tracks when VT Recorder is the foreground application."""
+		self._presentTrackNames(self.TN_OUTGOING_INCOMING)
 
 	@script(gesture="kb:NVDA+Control+2", speakOnDemand=True)
 	def script_sayOutgoingTrack(self, gesture):
-		"""Speak the outgoing track when VT Recorder is the foreground application."""
-		self._presentTrackNames(self.TN_Speak | self.TN_OUTGOING)
+		"""Report the outgoing track when VT Recorder is the foreground application."""
+		self._presentTrackNames(self.TN_OUTGOING)
 
 	@script(gesture="kb:NVDA+Control+3", speakOnDemand=True)
 	def script_sayIncomingTrack(self, gesture):
-		"""Speak the incoming track when VT Recorder is the foreground application."""
-		self._presentTrackNames(self.TN_Speak | self.TN_INCOMING)
-
-	@script(gesture="kb:NVDA+Control+4")
-	def script_brailleOutgoingAndIncomingTrack(self, gesture):
-		"""Display both tracks in braille when VT Recorder is foreground."""
-		self._presentTrackNames(self.TN_BRAILLE | self.TN_OUTGOING | self.TN_INCOMING)
-
-	@script(gesture="kb:NVDA+Control+5")
-	def script_brailleOutgoingTrack(self, gesture):
-		"""Display the outgoing track in braille when VT Recorder is foreground."""
-		self._presentTrackNames(self.TN_BRAILLE | self.TN_OUTGOING)
-
-	@script(gesture="kb:NVDA+Control+6")
-	def script_brailleIncomingTrack(self, gesture):
-		"""Display the incoming track in braille when VT Recorder is foreground."""
-		self._presentTrackNames(self.TN_BRAILLE | self.TN_INCOMING)
+		"""Report the incoming track when VT Recorder is the foreground application."""
+		self._presentTrackNames(self.TN_INCOMING)
