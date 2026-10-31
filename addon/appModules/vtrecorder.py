@@ -266,17 +266,17 @@ class AppModule(appModuleHandler.AppModule):
 		elif obj.windowClassName == "TSpinEditMS" or obj.windowClassName == "TTntComboBox.UnicodeClass":
 			clsList.insert(0, UnlabeledFields)
 
-	@script(gesture="kb:NVDA+Control+1")
+	@script(gesture="kb:NVDA+Control+1", speakOnDemand=True)
 	def script_sayOutgoingAndIncomingTrack(self, gesture):
 		"""Speak both tracks when VT Recorder is the foreground application."""
 		self._presentTrackNames(self.TN_Speak | self.TN_OUTGOING | self.TN_INCOMING)
 
-	@script(gesture="kb:NVDA+Control+2")
+	@script(gesture="kb:NVDA+Control+2", speakOnDemand=True)
 	def script_sayOutgoingTrack(self, gesture):
 		"""Speak the outgoing track when VT Recorder is the foreground application."""
 		self._presentTrackNames(self.TN_Speak | self.TN_OUTGOING)
 
-	@script(gesture="kb:NVDA+Control+3")
+	@script(gesture="kb:NVDA+Control+3", speakOnDemand=True)
 	def script_sayIncomingTrack(self, gesture):
 		"""Speak the incoming track when VT Recorder is the foreground application."""
 		self._presentTrackNames(self.TN_Speak | self.TN_INCOMING)
