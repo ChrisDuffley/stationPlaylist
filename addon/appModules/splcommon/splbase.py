@@ -326,8 +326,8 @@ def relocateSPLFile(filename: str) -> None:
 	newSPLFilePath = os.path.join(globalVars.appArgs.configPath, "stationPlaylist", filename)
 	if os.path.isfile(newSPLFilePath):
 		return
-	originalSPLFilePath = os.path.join(globalVars.appArgs.configPath, filename)
+	legacySPLFilePath = os.path.join(globalVars.appArgs.configPath, filename)
 	try:
-		shutil.copy2(originalSPLFilePath, newSPLFilePath)
+		shutil.copy2(legacySPLFilePath, newSPLFilePath)
 	except OSError:
 		pass
