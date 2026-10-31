@@ -2,6 +2,10 @@
 
 This page lists the complete changelog for StationPlaylist add-on releases.
 
+## Version 27.01
+
+* Due to SPL add-on data location change, it is mandatory to install add-on 27.01. Once installed, you cannot go back to an earlier version of the add-on.
+
 ## Version 26.12
 
 * Add-on configuration files such as settings data are now located in 'stationPlaylist' subfolder of the user configuration folder.

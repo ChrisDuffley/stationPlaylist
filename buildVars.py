@@ -26,12 +26,7 @@ addon_info = AddonInfo(
 	addon_version="26.11",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""* Add-on configuration files such as settings data are now located in 'stationPlaylist' subfolder of the user configuration folder.
-* VT (voice track) Recorder (local Studio):
-	* Added commands to announce outgoing and incoming tracks. Control+NVDA+1 announces both outgoing and incoming tracks, Control+NVDA+2 announces outgoing track title, and Control+NVDA+3 reports incoming track name (contributed by MooSteinebach).
-	* Most of the unlabeled controls now hav accessible labels (contributed by MooSteinebach).
-	* NVDA will announce names of radio button groupings such as VT overlap.
-	* NVDA will display track time abbreviations when reporting outgoing and/or incoming track in braille with messages staying on the display until dismissed or moving to a different control (contributed vy MooSteinebach)."""),
+	addon_changelog=_("""* Due to SPL add-on data location change, it is mandatory to install add-on 27.01. Once installed, you cannot go back to an earlier version of the add-on."""),
 	# Author(s)
 	addon_author="Christopher Duffley <nvda@chrisduffley.com>, Marco Steinebach <studio@windyradio.de> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)",
 	# URL for the add-on documentation support
