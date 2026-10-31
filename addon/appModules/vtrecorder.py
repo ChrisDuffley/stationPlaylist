@@ -230,7 +230,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def _presentTrackNames(self, options: int) -> None:
 		"""Present selected track names through speech or braille."""
-		if api.getForegroundObject().windowClassName != "TVTRecorderForm":
+		if api.getForegroundObject().windowClassName != "TVTRecorderForm" or not options:
 			return
 		self.checkOutgoingAndIncomingTrack()
 		if options & self.TN_OUTGOING and options & self.TN_INCOMING:
