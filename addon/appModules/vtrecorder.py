@@ -247,6 +247,11 @@ class AppModule(appModuleHandler.AppModule):
 			case _:
 				pass
 
+	def event_NVDAObject_init(self, obj):
+		# Radio button groups are seen as windows when they are groupings.
+		if obj.windowClassName == "TRadioGroup":
+			obj.role = controlTypes.Role.GROUPING
+
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		"""Assign recorder-specific overlays to relevant accessible controls."""
 		if obj.windowClassName == "TPanel":
