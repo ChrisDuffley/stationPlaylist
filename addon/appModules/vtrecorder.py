@@ -254,18 +254,17 @@ class AppModule(appModuleHandler.AppModule):
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		"""Assign recorder-specific overlays to relevant accessible controls."""
-		if obj.windowClassName == "TPanel":
-			if self.objectBelongsTo(obj, "VT Recorder"):
+		match obj.windowClassName:
+			case "TPanel" if self.objectBelongsTo(obj, "VT Recorder"):
 				clsList.insert(0, CustomTPanel)
-		elif (
-			api.getForegroundObject().windowClassName == "TVTRecorderForm"
-			and obj.windowClassName == "TGroupButton"
-		):
-			clsList.insert(0, CustomTRadioButton)
-		elif obj.windowClassName == "TBitBtn":
-			clsList.insert(0, CustomTBitBtn)
-		elif obj.windowClassName == "TSpinEditMS" or obj.windowClassName == "TTntComboBox.UnicodeClass":
-			clsList.insert(0, UnlabeledFields)
+			case "TGroupButton" if api.getForegroundObject().windowClassName == "TVTRecorderForm":
+				clsList.insert(0, CustomTRadioButton)
+			case "TBitBtn":
+				clsList.insert(0, CustomTBitBtn)
+			case "TSpinEditMS" | "TTntComboBox.UnicodeClass":
+				clsList.insert(0, UnlabeledFields)
+			case _:
+				pass
 
 	@script(gesture="kb:NVDA+Control+1", speakOnDemand=True)
 	def script_sayOutgoingAndIncomingTrack(self, gesture):
