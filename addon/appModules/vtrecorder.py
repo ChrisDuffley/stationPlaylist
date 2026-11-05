@@ -155,43 +155,26 @@ class AppModule(appModuleHandler.AppModule):
 		else:
 			log.debug("SPL: Studio Recorder is offline and Studio is offline")
 
-	def checkOutgoingAndIncomingTrack(self):
-		"""Locate and cache the current outgoing and incoming track descriptions."""
-		if self.outgoingTrack == None:
-			self.outgoingTrack = self.findObject(self.OUTGOING_TRACK_GROUP, self.TRACK_TEXT_WINDOW_CLASS)
-			self.outgoingTrackName = self._normaliseTrackName(self.outgoingTrack, "Outgoing track not found.")
-		if self.incomingTrack == None:
-			self.incomingTrack = self.findObject(self.INCOMING_TRACK_GROUP, self.TRACK_TEXT_WINDOW_CLASS)
-			self.incomingTrackName = self._normaliseTrackName(self.incomingTrack, "Incoming track not found.")
+	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
+		"""Assign recorder-specific overlays to relevant accessible controls."""
+		match obj.windowClassName:
+			case "TPanel" if self.objectBelongsTo(obj, "VT Recorder"):
+				clsList.insert(0, CustomTPanel)
+			case "TGroupButton" if api.getForegroundObject().windowClassName == "TVTRecorderForm":
+				clsList.insert(0, CustomTRadioButton)
+			case "TBitBtn":
+				clsList.insert(0, CustomTBitBtn)
+			case "TSpinEditMS" | "TTntComboBox.UnicodeClass":
+				clsList.insert(0, UnlabeledFields)
+			case _:
+				pass
 
-	def _normaliseTrackName(self, track: NVDAObject | None, notFoundMessage: str) -> str:
-		"""Convert a track object's multiline name into a single spoken string."""
-		if track is None or track.name is None:
-			return notFoundMessage
-		return " - ".join(track.name.splitlines())
+	def event_NVDAObject_init(self, obj):
+		# Radio button groups are seen as windows when they are groupings.
+		if obj.windowClassName == "TRadioGroup":
+			obj.role = controlTypes.Role.GROUPING
 
-	def objectBelongsTo(self, obj: NVDAObject, groupBoxName: str) -> bool:
-		"""Return whether an object belongs to the named recorder group box."""
-		parent = obj.parent
-		if parent is None:
-			return False
-		groupBox = parent.parent
-		if groupBox is None or groupBox.windowClassName != "TGroupBox":
-			return False
-		groupBoxLabel = groupBox.firstChild
-		if groupBoxLabel is None:
-			return False
-		return groupBoxLabel.name is not None and groupBoxLabel.name.startswith(groupBoxName)
-
-	def findObject(self, groupBoxName: str, windowClassName: str) -> NVDAObject | None:
-		"""Find the first foreground-window object matching a group and class."""
-		objectsToSearch = [api.getForegroundObject()]
-		while objectsToSearch:
-			obj = objectsToSearch.pop()
-			if obj.windowClassName == windowClassName and self.objectBelongsTo(obj, groupBoxName):
-				return obj
-			objectsToSearch.extend(reversed(obj.children))
-		return None
+	# Identify, prepare, and display VT Recorder controls
 
 	def _initialiseStatus(self) -> bool:
 		"""Set initial recording status values from the recorder controls."""
@@ -227,6 +210,21 @@ class AppModule(appModuleHandler.AppModule):
 				core.callLater(100, self._initialiseStatusAndDisplay)
 		nextHandler()
 
+	def objectBelongsTo(self, obj: NVDAObject, groupBoxName: str) -> bool:
+		"""Return whether an object belongs to the named recorder group box."""
+		parent = obj.parent
+		if parent is None:
+			return False
+		groupBox = parent.parent
+		if groupBox is None or groupBox.windowClassName != "TGroupBox":
+			return False
+		groupBoxLabel = groupBox.firstChild
+		if groupBoxLabel is None:
+			return False
+		return groupBoxLabel.name is not None and groupBoxLabel.name.startswith(groupBoxName)
+
+	# Outgoing/incoming track announcement scripts and helpers
+
 	def _presentTrackNames(self, options: int) -> None:
 		"""Present selected track names through speech and/or braille."""
 		if api.getForegroundObject().windowClassName != "TVTRecorderForm" or not options:
@@ -247,24 +245,30 @@ class AppModule(appModuleHandler.AppModule):
 			case _:
 				pass
 
-	def event_NVDAObject_init(self, obj):
-		# Radio button groups are seen as windows when they are groupings.
-		if obj.windowClassName == "TRadioGroup":
-			obj.role = controlTypes.Role.GROUPING
+	def checkOutgoingAndIncomingTrack(self):
+		"""Locate and cache the current outgoing and incoming track descriptions."""
+		if self.outgoingTrack == None:
+			self.outgoingTrack = self.findObject(self.OUTGOING_TRACK_GROUP, self.TRACK_TEXT_WINDOW_CLASS)
+			self.outgoingTrackName = self._normaliseTrackName(self.outgoingTrack, "Outgoing track not found.")
+		if self.incomingTrack == None:
+			self.incomingTrack = self.findObject(self.INCOMING_TRACK_GROUP, self.TRACK_TEXT_WINDOW_CLASS)
+			self.incomingTrackName = self._normaliseTrackName(self.incomingTrack, "Incoming track not found.")
 
-	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
-		"""Assign recorder-specific overlays to relevant accessible controls."""
-		match obj.windowClassName:
-			case "TPanel" if self.objectBelongsTo(obj, "VT Recorder"):
-				clsList.insert(0, CustomTPanel)
-			case "TGroupButton" if api.getForegroundObject().windowClassName == "TVTRecorderForm":
-				clsList.insert(0, CustomTRadioButton)
-			case "TBitBtn":
-				clsList.insert(0, CustomTBitBtn)
-			case "TSpinEditMS" | "TTntComboBox.UnicodeClass":
-				clsList.insert(0, UnlabeledFields)
-			case _:
-				pass
+	def findObject(self, groupBoxName: str, windowClassName: str) -> NVDAObject | None:
+		"""Find the first foreground-window object matching a group and class."""
+		objectsToSearch = [api.getForegroundObject()]
+		while objectsToSearch:
+			obj = objectsToSearch.pop()
+			if obj.windowClassName == windowClassName and self.objectBelongsTo(obj, groupBoxName):
+				return obj
+			objectsToSearch.extend(reversed(obj.children))
+		return None
+
+	def _normaliseTrackName(self, track: NVDAObject | None, notFoundMessage: str) -> str:
+		"""Convert a track object's multiline name into a single spoken string."""
+		if track is None or track.name is None:
+			return notFoundMessage
+		return " - ".join(track.name.splitlines())
 
 	@script(gesture="kb:NVDA+Control+1", speakOnDemand=True)
 	def script_sayOutgoingAndIncomingTrack(self, gesture):
