@@ -205,8 +205,8 @@ Note: in order to use this, StationPlaylist must be set to pop up requests windo
 
 As you work with SPL Studio, the following commands are available to obtain various information about current playlist and the currently playing track:
 
-* Alt+Shift+T: announces elapsed time for the currently playing track. In local Studio, this command can also announce elapsed time for the currently playing voice track and/or cart.
-* Control+Alt+T: Announces the remaining time for the currently playing track. In local Studio, this command can also announce remaining time for the currently playing voice track and/or cart.
+* Alt+Shift+T: announces elapsed time for the currently playing track. In local Studio, this command can also announce elapsed time for the currently playing voice track and/or cart or live assist elapsed time for Studio 6.21 if enabled from Studio options.
+* Control+Alt+T: Announces the remaining time for the currently playing track. In local Studio, this command can also announce remaining time for the currently playing voice track and/or cart or live assist elapsed time for Studio 6.21 if enabled from Studio options.
 * NVDA+Shift+F12: Announces broadcaster time (time as reported by Studio such as 5 minutes to 2). Pressing this command twice will announce minutes and secondsl eft until top of the next hour.
 * SPL Assistant, H: Announces the duration of the playlist for the hour slot.
 * SPL Assistant, Shift+H: Announces remaining track duration for the current hour slot.
