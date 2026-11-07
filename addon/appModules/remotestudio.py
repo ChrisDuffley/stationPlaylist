@@ -23,10 +23,14 @@ from .splcommon import splconfig, splbase, splcarts
 # Return a tuple of column headers.
 # This is just a thinly disguised indexOf function from Studio's track item class.
 def indexOf(rsVersion: str) -> tuple[str, ...]:
-	# Remote Studio 6.20 defines Studio 6.11 column headers.
-	# Therefore, the version parameter is not needed.
+	# Remote Studio 6.20 defines Studio 6.11 column headers
+	# whereas 6.21 presents local Studio 6.21 columns i.e. "time" as the leftmost column.
 	# Pyright incorrectly interprets SPL defaults/column order as string instead of a list.
-	return tuple(["Status"] + splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])  # type: ignore
+	if rsVersion < "6.21":
+		columnHeaders = ["Status"] + splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]  # type: ignore
+	else:
+		columnHeaders = ["Status", "Time"] + splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"][:-1]  # type: ignore
+	return tuple(columnHeaders)
 
 
 class RemoteStudioPlaylistViewerItem(splstudio.StudioPlaylistViewerItem):
