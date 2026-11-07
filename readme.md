@@ -21,8 +21,8 @@ IMPORTANT NOTES:
 
 Most of these will work in Studio only unless otherwise specified. Unless noted otherwise, these commands support speak on demand mode.
 
-* Alt+Shift+T from Studio window: announce elapsed time for the currently playing track, voice track, or cart.
-* Control+Alt+T from Studio window: announce remaining time for the currently playing track, voice track, or cart.
+* Alt+Shift+T from Studio window: announce elapsed time for the currently playing track, voice track, or cart. In local Studio 6.21, it also announces live assist elapsed timer if enabled from Studio options.
+* Control+Alt+T from Studio window: announce remaining time for the currently playing track, voice track, or cart.  In local Studio 6.21, it also announces live assist elapsed timer if enabled from Studio options.
 * NVDA+Shift+F12 from Studio window: announces broadcaster time such as 5 minutes to top of the hour. Pressing this command twice will announce minutes and seconds till top of the hour.
 * Alt+NVDA+1 from Studio window: Opens alarms category in Studio add-on configuration dialog (does not support speak on demand).
 * Alt+NVDA+1 from Creator's Playlist Editor and Remote VT playlist editor: Announces scheduled time for the loaded playlist.
