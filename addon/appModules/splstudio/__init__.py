@@ -1086,6 +1086,7 @@ class AppModule(splappmod.AppModule):
 		if not splbase.studioIsRunning():
 			return
 		# Track time parameter can be either "remaining" or "elapsed".
+		# In Studio 6.21, elapsed/remaining time can also report live asisst timer if enabled from Studio options.
 		match trackTime:
 			case "remaining":
 				# Work with track/voice track/cart remaining times.
