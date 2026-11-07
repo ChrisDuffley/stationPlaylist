@@ -11,6 +11,11 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 	* NVDA will announce names of radio button groupings such as VT overlap.
 	* NVDA will display track time abbreviations when reporting outgoing and/or incoming track in braille with messages staying on the display until dismissed or moving to a different control (contributed vy MooSteinebach).
 
+## Version 26.11.2/26.07.12-LTS
+
+* In local Studio 6.21, pressing Control+Alt+T and Alt+Shift+T to obtain track remaining and elapsed time will report live assist elapsed time if live assist elapsed timer is enabled from Studio options.
+* In Remote Studio 6.21, NVDA will no longer present wrong track column information for features such as playlist transcripts.
+
 ## Version 26.11/26.07.10-LTS
 
 * 26.11: NVDA 2026.3 or later is required.
