@@ -1,6 +1,6 @@
 # StationPlaylist Add-on User Guide
 
-Revision: November 2026 for StationPlaylist add-on 26.07.10-LTS
+Revision: November 2026 for StationPlaylist add-on 26.07.12-LTS
 
 Author: Christopher Duffley, Marco Steinebach (formerly Joseph Lee)
 
@@ -164,11 +164,11 @@ By default, the following columns or slots are defined:
 9. Genre
 10. Mood
 
-Note: Position 10 is 0 (zero) key. Notice that these are the first ten columns from left to right unless reordered. In local Studio 6.20, Time column is to the left of Artist column.
+Note: Position 10 is 0 (zero) key. Notice that these are the first ten columns from left to right unless reordered. In local Studio 6.20 and Remote Studio 6.21, Time column is to the left of Artist column.
 
 To configure column slots, open add-on settings, select Columns Explorer category, then click "Columns Explorer for SPL Studio" button. You'll be greeted with ten combo boxes (one per column slot) where you can select columns you'd like to explore when Control+NVDA+column slot (1 through 0) keys are pressed.
 
-Note: in local Studio 6.20, when you select "Time Scheduled" from columns explorer and column order/inclusion settings (next section), NVDA will report "Time" column content. Time scheduled and time columns are not the same thing.
+Note: in local Studio 6.20 and Remote Studio 6.21, when you select "Time Scheduled" from columns explorer and column order/inclusion settings (next section), NVDA will report "Time" column content. Time scheduled and time columns are not the same thing.
 
 #### Customizing column announcements
 
@@ -428,7 +428,7 @@ The cart commands are:
 
 Hint: because Alt+F4 is a cart command, press Control+Alt+X to quit local Studio.
 
-Note: for local Studio, the modifier assigns carts to "banks". There are four cart banks included with SPL Studio: main (without modifier), and one each for shift, control (CTRL) and alt. You can access each cart bank from the menu bar.
+Note: for local Studio, the modifier assigns carts to "banks". There are four cart banks included with SPL Studio: main (without modifier), and one each for shift, control (CTRL), and alt. You can access each cart bank from the menu bar.
 
 To help you learn what jingle or remote cart slot will play when a given cart key is pressed, NVDA allows you to explore cart assignments. Press Alt+NVDA+3 to enter Cart Explorer. When you press the cart key once, NVDA will tell you which jingle is assigned to that cart key. When pressed twice, the jingle associated with the cart command will be played. Once you've explored the cart assignments, press Alt+NVDA+3 to leave Cart Explorer.
 
@@ -904,9 +904,9 @@ Q. How can I view latest cart assignments?
 
 When you exit cart edit mode, cart explorer will reflect latest cart assignments so you can view cart assignments right away.
 
-Q. Will NVDA announce updated cart assignments after switching Studio users?
+Q. Will NVDA announce updated cart assignments after switching local Studio users?
 
-Yes. When switching Studio users while cart explorer is active, NVDA will refresh cart assignments and announce assignments for the new user.
+Yes. When switching local Studio users while cart explorer is active, NVDA will refresh cart assignments and announce assignments for the new user.
 
 Q. When I try to switch to Studio, NVDA says, "SPL minimized."
 
@@ -986,7 +986,7 @@ You can customize announcement and/or order of announcement for the following co
 * Rating
 * Tempo
 * BPM
-* Time scheduled (Time in local Studio 6.20)
+* Time scheduled (Time in local Studio 6.20 and Remote Studio 6.21)
 
 Notice that these are the columns shown in Studio's playlist viewer.
 
@@ -1064,9 +1064,9 @@ Q. Which versions of Studio are supported by which add-on releases?
 * Studio 5.3x: Add-on 17.11 to 22.12 (November 2017-December 2022)
 * Studio 5.40: Add-on 19.11 to 25.05.4 (November 2019-May 2025)
 * Studio 5.50: Add-on 20.11 to 25.06.12 (November 2020-December 2025)
-* Studio 6.0x: Add-on 21.11 to 26.07.10 (November 2021-November 2026)
-* Studio 6.1x: Add-on 24.03 to 26.07.10 (April 2024-November 2026)
-* Studio 6.2x: Add-on 25.11 to 26.07.10 (November 2025-November 2026)
+* Studio 6.0x: Add-on 21.11 to 26.07.12 (November 2021-November 2026)
+* Studio 6.1x: Add-on 24.03 to 26.07.12 (April 2024-November 2026)
+* Studio 6.2x: Add-on 25.11 to 26.07.12 (November 2025-November 2026)
 
 Note: the schedule above is subject to change.
 
