@@ -119,7 +119,7 @@ class AppModule(splstudio.AppModule):
 
 	@override
 	def event_nameChange(self, obj: NVDAObject, nextHandler: collections.abc.Callable[[], None]):
-		if obj.windowClassName == "TStatusBar":
+		if obj.windowClassName == "TStatusBar" and obj.name is not None:
 			# Only announce the changed parts of the status bar except when connecting the first time.
 			if "|" in obj.name:
 				if self._pastStatusBarContent:
