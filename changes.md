@@ -6,6 +6,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 
 * In local Studio 6.21, pressing Control+Alt+T and Alt+Shift+T to obtain track remaining and elapsed time will report live assist elapsed time if live assist elapsed timer is enabled from Studio options.
 * In Remote Studio 6.21, NVDA will no longer present wrong track column information for features such as playlist transcripts.
+* NVDA will no longer do nothing or play error tones when announcing screen changes right after launching local and Remote Studio.
 
 ## Version 26.11/26.07.10-LTS
 
