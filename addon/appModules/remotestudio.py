@@ -35,7 +35,9 @@ def indexOf(rsVersion: str) -> tuple[str, ...]:
 
 class RemoteStudioPlaylistViewerItem(splstudio.StudioPlaylistViewerItem):
 	"""Track items found in Remote Studio.
-	Columns are based on Studio 6.11 and earlier.
+	Columns are based on:
+	* Remote Studio 6.20: Studio 6.11 and earlier
+	* Remote Studio 6.21: Studio 6.20 and later
 	"""
 
 	@override
@@ -46,14 +48,20 @@ class RemoteStudioPlaylistViewerItem(splstudio.StudioPlaylistViewerItem):
 
 	@override
 	def indexOf(self, columnHeader: str) -> int | None:
+		# Convert "Time Scheduled" to "Time" in Remote Studio 6.21.
+		if self.appModule.productVersion >= "6.21" and columnHeader == "Time Scheduled":
+			columnHeader = "Time"
 		try:
 			return indexOf(self.appModule.productVersion).index(columnHeader)
 		except ValueError:
 			return None
 
-	# Update column headers shown on screen (which does nothing in Remote Studio).
+	# Update column headers shown on screen (which does nothing in Remote Studio 6.20 only).
 	@override
 	def updateColumnHeader(self, header: str) -> str:
+		# Convert "Time Scheduled" to "Time" in Remote Studio 6.21.
+		if self.appModule.productVersion >= "6.21" and header == "Time Scheduled":
+			return "Time"
 		return header
 
 
