@@ -183,7 +183,8 @@ def _cartExplorerInitRemote(
 	# Each cart entry is on its own line (starting at line 14 for Remote Studio 6.20).
 	# A local file or local Studio slot can be assigned (twelve slots, F1 through F12).
 	# Local file: path (the entire path is recorded)
-	# Studio cart: "* ({bankFile}{position})" e.g. MF05 for F5 (main cart position 5)
+	# Studio cart: "*{cartName} ({bankFile}{position})" e.g. MF05 for F5 (main cart position 5)
+	# Remote Studio 6.21 requires Studio cart to have a name.
 	log.debug(f"SPL: examining carts from file {cartFile}")
 	with open(cartFile) as cartInfo:
 		# Twelve cart slots in Remote Studio (starting on line 14)
@@ -192,8 +193,8 @@ def _cartExplorerInitRemote(
 		if entry:
 			remoteCartEntry = entry[0]
 			if remoteCartEntry.startswith("*"):
-				# Studio (remote) cart (parse the cart bank+position string of the form * ({cartBank}{pos}))
-				remoteCartEntry = remoteCartEntry.partition("(")[-1][:-1]
+				# Studio (remote) cart (parse the string of the form *{name} ({cartBank}{pos}))
+				remoteCartEntry = remoteCartEntry.rpartition("(")[-1][:-1]
 				bank, position = remoteCartEntry[:2], int(remoteCartEntry[2:]) - 1
 				# At least Studio cart position is known, so obtain it from cart keys.
 				position = cartKeys[position]
