@@ -25,7 +25,7 @@ addonHandler.initTranslation()
 # Takes a snapshot of the active playlist (a 2-D array) and transforms it into various formats.
 # To account for expansions, let a master function call different formatters based on output format.
 SPLPlaylistTranscriptFormats = []
-# Local Studio 6.20 changes "Time Scheduled" to "Time".
+# Local Studio 6.20 and Remote Studio 6.21 changes "Time Scheduled" to "Time".
 # Present the correct column title.
 _timeScheduled2Time: bool = False
 
