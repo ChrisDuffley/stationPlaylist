@@ -118,6 +118,9 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 	This class provides utility scripts when Playlist Viewer entries are focused,
 	such as location text and enhanced column navigation."""
 
+	# Local Studio 6.20 changes "Time Scheduled" to "Time" and repositions it as the leftmost column.
+	timeScheduled2timeVersion: str = "6.20"
+
 	@property
 	def screenColumnOrder(self):
 		# Return the actual default column order based on Studio release.

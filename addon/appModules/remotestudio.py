@@ -40,6 +40,9 @@ class RemoteStudioPlaylistViewerItem(splstudio.StudioPlaylistViewerItem):
 	* Remote Studio 6.21: Studio 6.20 and later
 	"""
 
+	# Remote Studio 6.21 changes "Time Scheduled" to "Time" and repositions it as the leftmost column.
+	timeScheduled2timeVersion: str = "6.21"
+
 	@override
 	@property
 	def screenColumnOrder(self):
