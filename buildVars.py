@@ -30,6 +30,7 @@ addon_info = AddonInfo(
 * Improved reliability of restoring Studio window from system tray (notification area; applicable to Studio 6.21, contributed by MooSteinebach).
 * In local Studio 6.21, pressing Control+Alt+T and Alt+Shift+T to obtain track remaining and elapsed time will report live assist elapsed time if live assist elapsed timer is enabled from Studio options.
 * In Remote Studio 6.21, NVDA will no longer present wrong track column information for features such as playlist transcripts.
+* NVDA will no longer do nothing or play error tones when announcing screen changes right after launching local and Remote Studio.
 * Listener count message from SPL Controller layer (I) will now resemble local Studio's listener count display (count Listeners).
 * Break notes dialog/interface (local Studio and Creator):
 	* Improved break note insertion dialog user interface presentation.
