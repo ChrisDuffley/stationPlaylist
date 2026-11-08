@@ -125,7 +125,7 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 	@property
 	def screenColumnOrder(self):
 		# Return the actual default column order based on Studio release.
-		return indexOf(self.appModule.productVersion)[1:]
+		return indexOf(self.appModule.productVersion, self.timeScheduled2timeVersion)[1:]
 
 	def _get_name(self):
 		# Build name pieces, as SysListView32.ListItem class nullifies description.
@@ -185,7 +185,7 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 	# #142: do not ignore Status column (0) just because it is the name of the track as reported by MSAA.
 	def indexOf(self, columnHeader: str) -> int | None:
 		# Convert "Time Scheduled" to "Time" in Studio 6.20.
-		if self.appModule.productVersion >= "6.20" and columnHeader == "Time Scheduled":
+		if self.appModule.productVersion >= self.timeScheduled2timeVersion and columnHeader == "Time Scheduled":
 			columnHeader = "Time"
 		try:
 			return indexOf(self.appModule.productVersion).index(columnHeader)
@@ -195,7 +195,7 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 	# Inform columns explorer about updated column headers on screen.
 	def updateColumnHeader(self, header: str) -> str:
 		# Convert "Time Scheduled" to "Time" in Studio 6.20.
-		if self.appModule.productVersion >= "6.20" and header == "Time Scheduled":
+		if self.appModule.productVersion >= self.timeScheduled2timeVersion and header == "Time Scheduled":
 			return "Time"
 		return header
 
