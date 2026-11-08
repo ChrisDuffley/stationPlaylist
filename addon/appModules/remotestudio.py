@@ -43,30 +43,6 @@ class RemoteStudioPlaylistViewerItem(splstudio.StudioPlaylistViewerItem):
 	# Remote Studio 6.21 changes "Time Scheduled" to "Time" and repositions it as the leftmost column.
 	timeScheduled2timeVersion: str = "6.21"
 
-	@override
-	@property
-	def screenColumnOrder(self):
-		# Return the actual default column order based on Studio release.
-		return indexOf(self.appModule.productVersion)[1:]
-
-	@override
-	def indexOf(self, columnHeader: str) -> int | None:
-		# Convert "Time Scheduled" to "Time" in Remote Studio 6.21.
-		if self.appModule.productVersion >= "6.21" and columnHeader == "Time Scheduled":
-			columnHeader = "Time"
-		try:
-			return indexOf(self.appModule.productVersion).index(columnHeader)
-		except ValueError:
-			return None
-
-	# Update column headers shown on screen (which does nothing in Remote Studio 6.20 only).
-	@override
-	def updateColumnHeader(self, header: str) -> str:
-		# Convert "Time Scheduled" to "Time" in Remote Studio 6.21.
-		if self.appModule.productVersion >= "6.21" and header == "Time Scheduled":
-			return "Time"
-		return header
-
 
 class AppModule(splstudio.AppModule):
 	# Remote Studio API is available for some features.
