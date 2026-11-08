@@ -27,10 +27,11 @@ addon_info = AddonInfo(
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
 	addon_changelog=_("""* NVDA 2026.3 or later is required.
-* Initial support for StationPlaylist suite 6.21.
-* Improved reliability of restoring Studio window from system tray (notification area; applicable to Studio 6.21, contributed by MooSteinebach).
-* In local Studio 6.21, pressing Control+Alt+T and Alt+Shift+T to obtain track remaining and elapsed time will report live assist elapsed time if live assist elapsed timer is enabled from Studio options.
-* In Remote Studio 6.21, NVDA will no longer present wrong track column information for features such as playlist transcripts.
+* Initial support for StationPlaylist suite 6.21. Changes include:
+	* Improved reliability of restoring local Studio window from system tray (notification area; contributed by MooSteinebach).
+	* In local Studio, pressing Control+Alt+T and Alt+Shift+T to obtain track remaining and elapsed time will report live assist elapsed time if live assist elapsed timer is enabled from Studio options.
+	* In Remote Studio, NVDA will no longer present wrong track column information for features such as playlist transcripts.
+	* Reviewing cart assignments via Cart Explorer in Remote Studio will also announce cart name if defined.
 * NVDA will no longer do nothing or play error tones when announcing screen changes right after launching local and Remote Studio.
 * Listener count message from SPL Controller layer (I) will now resemble local Studio's listener count display (count Listeners).
 * Break notes dialog/interface (local Studio and Creator):
