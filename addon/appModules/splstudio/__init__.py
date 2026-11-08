@@ -809,7 +809,7 @@ class AppModule(splappmod.AppModule):
 		if not obj.name and obj.IAccessibleChildID not in (2, 3):
 			return
 		# Only announce changes in status bar objects when told to do so.
-		if obj.windowClassName == "TStatusBar" and self._TStatusBarChanged(obj):
+		if obj.windowClassName == "TStatusBar" and obj.name is not None and self._TStatusBarChanged(obj):
 			# Special handling for Play Status
 			if obj.IAccessibleChildID == 1 and "Play status" in obj.name:
 				# Strip off "  Play status: " for brevity only in main playlist window.
