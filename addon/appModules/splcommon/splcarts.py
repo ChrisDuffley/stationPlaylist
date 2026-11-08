@@ -194,8 +194,9 @@ def _cartExplorerInitRemote(
 			remoteCartEntry = entry[0]
 			if remoteCartEntry.startswith("*"):
 				# Studio (remote) cart (parse the string of the form *{name} ({cartBank}{pos}))
-				remoteCartEntry = remoteCartEntry.rpartition("(")[-1][:-1]
-				bank, position = remoteCartEntry[:2], int(remoteCartEntry[2:]) - 1
+				remoteCartEntry = remoteCartEntry.rpartition("(")
+				remoteCartName, remoteCartKey = remoteCartEntry[0][1:-1], remoteCartEntry[-1][:-1]
+				bank, position = remoteCartKey[:2], int(remoteCartKey[2:]) - 1
 				# At least Studio cart position is known, so obtain it from cart keys.
 				position = cartKeys[position]
 				# Add appropriate modifiers (SF = Shift, CF = Control, AF = Alt, MF = none)
@@ -208,7 +209,11 @@ def _cartExplorerInitRemote(
 						remoteCartEntry = f"Alt+{position}"
 					case _:
 						remoteCartEntry = position
-				remoteCartEntry = f"Studio cart ({remoteCartEntry})"
+				# Include cart name (Remote Studio 6.21).
+				if remoteCartName:
+					remoteCartEntry = f"Studio cart ({remoteCartName}, {remoteCartEntry})"
+				else:
+					remoteCartEntry = f"Studio cart ({remoteCartEntry})"
 			else:
 				# Local cart (only include base file name without the extension)
 				remoteCartEntry = os.path.basename(remoteCartEntry).rpartition(".")[0]
