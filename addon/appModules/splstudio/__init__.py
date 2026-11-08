@@ -128,6 +128,7 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 		# 19.06: have the column inclusion and order keys handy in order to avoid attribute lookup.
 		# 25.11/25.06.9-LTS: create a copy of included columns and column order
 		# so "Time Scheduled" can become "Time" in local Studio 6.20.
+		# 26.11.2/26.07.12-LTS: also applicable to Remote Studio 6.21.
 		columnsToInclude = set(splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"])
 		columnOrder = list(splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"])
 		if "Time" in self.screenColumnOrder:
