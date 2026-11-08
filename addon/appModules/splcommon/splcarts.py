@@ -194,7 +194,7 @@ def _cartExplorerInitRemote(
 		if entry:
 			remoteCartEntry = entry[0]
 			if remoteCartEntry.startswith("*"):
-				# Studio (remote) cart (parse the string of the form *{name} ({cartBank}{pos}))
+				# Studio (remote) cart (parse the string of the form "*{name} ({cartBank}{pos})")
 				remoteCartEntry = remoteCartEntry.rpartition("(")
 				remoteCartName, remoteCartKey = remoteCartEntry[0][1:-1], remoteCartEntry[-1][:-1]
 				bank, position = remoteCartKey[:2], int(remoteCartKey[2:]) - 1
