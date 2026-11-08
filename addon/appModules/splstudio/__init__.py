@@ -184,7 +184,7 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 	# But first, find where the requested column lives.
 	# #142: do not ignore Status column (0) just because it is the name of the track as reported by MSAA.
 	def indexOf(self, columnHeader: str) -> int | None:
-		# Convert "Time Scheduled" to "Time" in Studio 6.20.
+		# Convert "Time Scheduled" to "Time" in Studio 6.20/Remote Studio 6.21.
 		if self.appModule.productVersion >= self.timeScheduled2timeVersion and columnHeader == "Time Scheduled":
 			columnHeader = "Time"
 		try:
@@ -194,7 +194,7 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 
 	# Inform columns explorer about updated column headers on screen.
 	def updateColumnHeader(self, header: str) -> str:
-		# Convert "Time Scheduled" to "Time" in Studio 6.20.
+		# Convert "Time Scheduled" to "Time" in Studio 6.20/Remote Studio 6.21.
 		if self.appModule.productVersion >= self.timeScheduled2timeVersion and header == "Time Scheduled":
 			return "Time"
 		return header
