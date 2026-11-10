@@ -74,6 +74,8 @@ def recordStateText(name: str) -> str:
 class CustomTPanel(IAccessible):
 	def event_nameChange(self):
 		"""Update the displayed recording time when the recorder panel changes."""
+		if api.getForegroundObject().windowClassName != "TVTRecorderForm":
+			return
 		infoParts.recordTime = self.name or ""
 		displayInfos()
 
