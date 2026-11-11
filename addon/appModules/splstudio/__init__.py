@@ -188,7 +188,7 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 		if self.appModule.productVersion >= self.timeScheduled2timeVersion and columnHeader == "Time Scheduled":
 			columnHeader = "Time"
 		try:
-			return indexOf(self.appModule.productVersion).index(columnHeader)
+			return indexOf(self.appModule.productVersion, self.timeScheduled2timeVersion).index(columnHeader)
 		except ValueError:
 			return None
 
