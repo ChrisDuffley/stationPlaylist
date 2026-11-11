@@ -94,19 +94,6 @@ _SPLCategoryTones = {
 }
 
 
-# Return a tuple of column headers.
-# Studio 6.1x and 6.20 track items have different column headers.
-# Also applicable to Remote Studio (6.20 (Studio 6.1x columns) versus 6.21 (Studio 6.20 columns)).
-def indexOf(studioVersion: str, columnHeaderChangedVersion: str) -> tuple[str, ...]:
-	# Pyright incorrectly interprets SPL defaults/column order as string instead of a list.
-	if studioVersion < columnHeaderChangedVersion:
-		columnHeaders = ["Status"] + splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]  # type: ignore
-	else:
-		# Studio 6.20/Remote Studio 6.21 renamed "Time Scheduled" to "Time" and moved it to the left.
-		columnHeaders = ["Status", "Time"] + splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"][:-1]  # type: ignore
-	return tuple(columnHeaders)
-
-
 # SPL Playlist item (SPL add-on base object) is defined in splcommon.splbase module.
 # Classes pertaining to Studio app module will be defined here.
 class SPLStudioTrackItem(splbase.SPLTrackItem):
