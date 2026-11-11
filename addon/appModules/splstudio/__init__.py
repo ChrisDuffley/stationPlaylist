@@ -123,9 +123,17 @@ class StudioPlaylistViewerItem(splbase.SPLTrackItem):
 	timeScheduled2timeVersion: str = "6.20"
 
 	@property
-	def screenColumnOrder(self):
-		# Return the actual default column order based on Studio release.
-		return indexOf(self.appModule.productVersion, self.timeScheduled2timeVersion)[1:]
+	def screenColumnOrder(self) -> tuple[str, ...]:
+		# Return the actual default column order tuple based on Studio release.
+		# Studio 6.1x and 6.20 track items have different column headers.
+		# Also applicable to Remote Studio (6.20 (Studio 6.1x columns) versus 6.21 (Studio 6.20 columns)).
+		# Pyright incorrectly interprets SPL defaults/column order as string instead of a list.
+		if self.appModule.productVersion < self.timeScheduled2timeVersion:
+			columnHeaders = ["Status"] + splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]  # type: ignore
+		else:
+			# Studio 6.20/Remote Studio 6.21 renamed "Time Scheduled" to "Time" and moved it to the left.
+			columnHeaders = ["Status", "Time"] + splconfig.SPLDefaults["ColumnAnnouncement"]["ColumnOrder"][:-1]  # type: ignore
+		return tuple(columnHeaders)[1:]
 
 	def _get_name(self):
 		# Build name pieces, as SysListView32.ListItem class nullifies description.
