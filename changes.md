@@ -2,9 +2,9 @@
 
 This page lists the complete changelog for StationPlaylist add-on releases.
 
-## Version 26.12
+## Version 26.12/26.07.13-LTS
 
-* Add-on configuration files such as settings data are now located in 'stationPlaylist' subfolder of the user configuration folder.
+* 26.12: Add-on configuration files such as settings data are now located in 'stationPlaylist' subfolder of the user configuration folder.
 * VT (voice track) Recorder (local Studio):
 	* Added commands to announce outgoing and incoming tracks. Control+NVDA+1 announces both outgoing and incoming tracks, Control+NVDA+2 announces outgoing track title, and Control+NVDA+3 reports incoming track name (contributed by MooSteinebach).
 	* Most of the unlabeled controls now report accessible labels (contributed by MooSteinebach).
