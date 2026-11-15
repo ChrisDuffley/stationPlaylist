@@ -34,7 +34,7 @@ addon_info = AddonInfo(
 * NVDA will no longer do nothing or play error tones when announcing screen changes right after launching local and Remote Studio.
 * VT (voice track) Recorder (local Studio):
 	* Added commands to announce outgoing and incoming tracks. Control+NVDA+1 announces both outgoing and incoming tracks, Control+NVDA+2 announces outgoing track title, and Control+NVDA+3 reports incoming track name (contributed by MooSteinebach).
-	* Most of the unlabeled controls now hav accessible labels (contributed by MooSteinebach).
+	* Most of the unlabeled controls now report accessible labels (contributed by MooSteinebach).
 	* NVDA will announce names of radio button groupings such as VT overlap.
 	* NVDA will display track time abbreviations when reporting outgoing and/or incoming track in braille with messages staying on the display until dismissed or moving to a different control (contributed vy MooSteinebach)."""),
 	# Author(s)
