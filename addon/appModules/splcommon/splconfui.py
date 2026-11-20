@@ -10,7 +10,6 @@ import threading
 import gui
 from gui.nvdaControls import CustomCheckListBox
 import os
-import weakref
 import api
 import wx
 import ui
@@ -834,97 +833,8 @@ Track count and total duration are always included.""")
 
 # Metadata reminder controller.
 # Select notification/streaming URL's for metadata streaming.
+# The dialog (quick settings) version is defined in local Studio/splmetadata module.
 metadataStreamLabels = ("DSP encoder", "URL 1", "URL 2", "URL 3", "URL 4")
-
-
-class MetadataStreamingDialog(wx.Dialog):
-	"""A dialog to toggle metadata streaming quickly and optionally save changes to add-on configuration."""
-
-	@classmethod
-	def _instance(cls):
-		return None
-
-	def __new__(cls, *args, **kwargs):
-		# Make this a singleton and prompt an error dialog if it isn't.
-		if _configDialogOpened:
-			raise RuntimeError("An instance of metadata streaming dialog is opened")
-		instance = MetadataStreamingDialog._instance()
-		if instance is None:
-			return super().__new__(cls, *args, **kwargs)
-		return instance
-
-	def __init__(self, parent: gui.MainFrame):
-		global _configDialogOpened
-		if MetadataStreamingDialog._instance() is not None:
-			return
-		# Use a weakref so the instance can die.
-		MetadataStreamingDialog._instance = weakref.ref(self)
-
-		# Translators: Title of a dialog to configure metadata streaming status
-		# for DSP encoder and four additional URL's.
-		super().__init__(parent, title=_("Metadata streaming options"))
-		mainSizer = wx.BoxSizer(wx.VERTICAL)
-		metadataSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
-		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
-
-		# Translators: dialog description for metadata streaming options dialog.
-		labelText = _("Check to enable metadata streaming, uncheck to disable.")
-		metadataSizerHelper.addItem(wx.StaticText(self, label=labelText))
-
-		streams = [splbase.studioAPI(pos, splbase.SPLMetadataStreaming) for pos in range(5)]
-		self.checkedStreams = metadataSizerHelper.addLabeledControl(
-			# Translators: the label for a setting in SPL add-on settings
-			# to configure streaming status for metadata streams.
-			_("&Stream:"),
-			CustomCheckListBox,
-			choices=metadataStreamLabels,
-		)
-		for stream in range(5):
-			self.checkedStreams.Check(stream, check=streams[stream])
-		self.checkedStreams.SetSelection(0)
-
-		# Translators: A checkbox to let metadata streaming status
-		# be applied to the currently active broadcast profile.
-		applyLabel = _("&Apply streaming changes to the selected profile")
-		self.applyCheckbox = metadataSizerHelper.addItem(wx.CheckBox(self, label=applyLabel))
-		self.applyCheckbox.SetValue(True)
-		# Security: no, apply to config checkbox should be disabled in secure mode.
-		# Although metadata streaming settings may appear to be saved, it is ultimately discarded in the end.
-		if globalVars.appArgs.secure:
-			self.applyCheckbox.Disable()
-
-		metadataSizerHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
-		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
-		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
-		mainSizer.Add(metadataSizerHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
-		mainSizer.Fit(self)
-		self.Sizer = mainSizer
-		self.checkedStreams.SetFocus()
-		self.CenterOnScreen()
-		_configDialogOpened = True
-
-	def onOk(self, evt: wx.CommandEvent):
-		global _configDialogOpened
-		# Prepare checkbox values first for various reasons.
-		# #76: traverse check list box and build boolean list accordingly.
-		metadataEnabled = [self.checkedStreams.IsChecked(url) for url in range(5)]
-		for url in range(5):
-			dataLo = 0x00010000 if metadataEnabled[url] else 0xFFFF0000
-			splbase.studioAPI(dataLo | url, splbase.SPLMetadataStreaming)
-		# Store just toggled settings to profile if told to do so.
-		if self.applyCheckbox.Value:
-			splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = metadataEnabled
-		self.Destroy()
-		_configDialogOpened = False
-
-	def onCancel(self, evt: wx.CommandEvent):
-		global _configDialogOpened
-		self.Destroy()
-		_configDialogOpened = False
-
-	def onAppTerminate(self):
-		self.onCancel(None)
-
 
 class MetadataStreamingPanel(gui.settingsDialogs.SettingsPanel):
 	# Translators: title of a panel to configure metadata streaming status

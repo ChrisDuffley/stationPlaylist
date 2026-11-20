@@ -7,13 +7,18 @@
 
 import os
 import threading
+import weakref
 import api
+import globalVars
 import nvwave
 import queueHandler
 import speech
 import ui
+import gui
+from gui.nvdaControls import CustomCheckListBox
+import wx
 import addonHandler
-from ..splcommon import splbase, splconfig
+from ..splcommon import splactions, splbase, splconfig, splconfui
 
 addonHandler.initTranslation()
 
@@ -166,3 +171,88 @@ def metadata_actionProfileSwitched(configDialogActive: bool = False, settingsRes
 # The only job of this action handler is to call profile switch handler above with special flags.
 def metadata_actionSettingsReset(factoryDefaults: bool = False) -> None:
 	metadata_actionProfileSwitched(settingsReset=True)
+
+# Quickly configure metadata streaming settings and optionally save it to the active broadcast profile.
+# The add-on settings UI is used for formal configuratoin )(save settings) including startup notificatoin.
+class MetadataStreamingDialog(wx.Dialog):
+	@classmethod
+	def _instance(cls):
+		return None
+
+	def __new__(cls, *args, **kwargs):
+		# Make this a singleton and prompt an error dialog if it isn't.
+		if splconfui.configDialogOpened():
+			raise RuntimeError("An instance of metadata streaming dialog is opened")
+		instance = MetadataStreamingDialog._instance()
+		if instance is None:
+			return super().__new__(cls, *args, **kwargs)
+		return instance
+
+	def __init__(self, parent: gui.MainFrame):
+		if MetadataStreamingDialog._instance() is not None:
+			return
+		# Use a weakref so the instance can die.
+		MetadataStreamingDialog._instance = weakref.ref(self)
+
+		# Translators: Title of a dialog to configure metadata streaming status
+		# for DSP encoder and four additional URL's.
+		super().__init__(parent, title=_("Metadata streaming options"))
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+		metadataSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
+
+		# Translators: dialog description for metadata streaming options dialog.
+		labelText = _("Check to enable metadata streaming, uncheck to disable.")
+		metadataSizerHelper.addItem(wx.StaticText(self, label=labelText))
+
+		streams = [splbase.studioAPI(pos, splbase.SPLMetadataStreaming) for pos in range(5)]
+		self.checkedStreams = metadataSizerHelper.addLabeledControl(
+			# Translators: the label for a setting in SPL add-on settings
+			# to configure streaming status for metadata streams.
+			_("&Stream:"),
+			CustomCheckListBox,
+			choices=splconfui.metadataStreamLabels,
+		)
+		for stream in range(5):
+			self.checkedStreams.Check(stream, check=streams[stream])
+		self.checkedStreams.SetSelection(0)
+
+		# Translators: A checkbox to let metadata streaming status
+		# be applied to the currently active broadcast profile.
+		applyLabel = _("&Apply streaming changes to the selected profile")
+		self.applyCheckbox = metadataSizerHelper.addItem(wx.CheckBox(self, label=applyLabel))
+		self.applyCheckbox.SetValue(True)
+		# Security: no, apply to config checkbox should be disabled in secure mode.
+		# Although metadata streaming settings may appear to be saved, it is ultimately discarded in the end.
+		if globalVars.appArgs.secure:
+			self.applyCheckbox.Disable()
+
+		metadataSizerHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
+		mainSizer.Add(metadataSizerHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+		mainSizer.Fit(self)
+		self.Sizer = mainSizer
+		self.checkedStreams.SetFocus()
+		self.CenterOnScreen()
+		splconfui.setConfigDialogOpened(True)
+
+	def onOk(self, evt: wx.CommandEvent):
+		# Prepare checkbox values first for various reasons.
+		# #76: traverse check list box and build boolean list accordingly.
+		metadataEnabled = [self.checkedStreams.IsChecked(url) for url in range(5)]
+		for url in range(5):
+			dataLo = 0x00010000 if metadataEnabled[url] else 0xFFFF0000
+			splbase.studioAPI(dataLo | url, splbase.SPLMetadataStreaming)
+		# Store just toggled settings to profile if told to do so.
+		if self.applyCheckbox.Value:
+			splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = metadataEnabled
+		self.Destroy()
+		splconfui.setConfigDialogOpened(False)
+
+	def onCancel(self, evt: wx.CommandEvent):
+		self.Destroy()
+		splconfui.setConfigDialogOpened(False)
+
+	def onAppTerminate(self):
+		self.onCancel(None)
