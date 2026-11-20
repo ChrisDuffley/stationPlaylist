@@ -1739,6 +1739,13 @@ def terminate() -> None:
 
 # Open various add-on settings dialogs.
 
+# Check and/or modify config dialog open global flag from places other than the config UI module.
+def configDialogOpened() -> bool:
+	return _configDialogOpened
+
+def setConfigDialogOpened(flag: bool) -> None:
+	global _configDialogOpened
+	_configDialogOpened = flag
 
 # Centralize error handling for various SPL add-on settings dialogs.
 # The below error message came directly from NVDA Core's settings dialog opener method (credit: NV Access)
