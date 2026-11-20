@@ -68,7 +68,7 @@ def messageSound(wavFile: str, message: str) -> None:
 # A special version for microphone alarm (continuous or not).
 def _micAlarmAnnouncer() -> None:
 	if splconfig.SPLConfig["General"]["AlarmAnnounce"] in ("beep", "both"):
-		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_MicAlarm.wav"))
+		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "..", "sounds", "SPL_MicAlarm.wav"))
 	if splconfig.SPLConfig["General"]["AlarmAnnounce"] in ("message", "both"):
 		# Translators: Presented when microphone has been active for a while.
 		ui.message(_("Microphone active"))
@@ -906,14 +906,14 @@ class AppModule(splappmod.AppModule):
 			# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
 			if msg.endswith("Off"):
 				if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner":
-					wavFile = os.path.join(os.path.dirname(__file__), "SPL_off.wav")
+					wavFile = os.path.join(os.path.dirname(__file__), "..", "sounds", "SPL_off.wav")
 					messageSound(wavFile, msg)
 				else:
 					tones.beep(500, 100)
 					braille.handler.message(msg)
 			elif msg.endswith("On"):
 				if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner":
-					wavFile = os.path.join(os.path.dirname(__file__), "SPL_on.wav")
+					wavFile = os.path.join(os.path.dirname(__file__), "..", "sounds", "SPL_on.wav")
 					messageSound(wavFile, msg)
 				else:
 					tones.beep(1000, 100)
@@ -946,7 +946,7 @@ class AppModule(splappmod.AppModule):
 			micAlarmT2 = None
 		else:
 			# Play an alarm sound (courtesy of Jerry Mader from Mader Radio).
-			micAlarmWav = os.path.join(os.path.dirname(__file__), "SPL_MicAlarm.wav")
+			micAlarmWav = os.path.join(os.path.dirname(__file__), "..", "sounds", "SPL_MicAlarm.wav")
 			# Translators: Presented when microphone was on for more than a specified time in microphone alarm dialog.
 			micAlarmMessage = _("Warning: Microphone active")
 			# Use a timer to play a tone when microphone was active for more than the specified amount.
@@ -1010,7 +1010,7 @@ class AppModule(splappmod.AppModule):
 
 	def event_show(self, obj: NVDAObject, nextHandler: collections.abc.Callable[[], None]):
 		if obj.windowClassName == "TRequests" and splconfig.SPLConfig["General"]["RequestsAlert"]:
-			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Requests.wav"))
+			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "..", "sounds", "SPL_Requests.wav"))
 		nextHandler()
 
 	# A few time related scripts (elapsed time, remaining time, etc.).

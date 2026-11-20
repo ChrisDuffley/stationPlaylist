@@ -94,7 +94,7 @@ def _metadataAnnouncerInternal(status: str, startup: bool = False) -> None:
 	if not startup:
 		speech.cancelSpeech()
 	queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
-	nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Metadata.wav"))
+	nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "..", "sounds", "SPL_Metadata.wav"))
 	# #51: close link to metadata announcer thread when finished.
 	global _earlyMetadataAnnouncer
 	_earlyMetadataAnnouncer = None
