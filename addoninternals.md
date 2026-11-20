@@ -2,7 +2,7 @@
 
 Author: Joseph Lee
 
-Based on StationPlaylist Add-on for NVDA 26.11
+Based on StationPlaylist Add-on for NVDA 26.12
 
 ## 2021 Preface and notes
 
@@ -155,7 +155,7 @@ In short, all components of StationPlaylist add-on emphasize studio app module -
 The source code consists of:
 
 * appModules: This folder contains the main splstudio (app module) package and the app modules for Track Tool, Creator, VT Recorder, Remote VT client, Remote Studio, SPL Recorder, and SPL DSP Engine app module package to support SPL Engine, Streamer, and encoders. The common services package is also stored in this folder.
-* The SPL Studio package consists of various modules, which include __init__ (main app module and track item classes), track finder (splfind), playlist analyzer mechanics (splpls, described later), miscellaneous services (splmisc), as well as support modules and various wave files used by the add-on.
+* The SPL Studio package consists of various modules, which include __init__ (main app module and track item classes), track finder (splfind), playlist analyzer mechanics (splpls, described later), and metadata streaming manager (splmetadata; formerly miscellaneous services (splmisc)).
 * The SPL Engine package consists of main Engine module and encoder support module.
 * The SPL common services package includes the add-on base services (splbase), SPL suite base app module (splappmod), configuration manager (splconfig) and add-on settings interface (splconfui), carts handler (splcarts), and constants collection (splconsts). It also includes breakNotesDialog package for handling break notes insertion interface.
 * The Studio main app module file is divided into sections. First, the overlay classes for track items are defined, then comes the app module, further divided into four sections: fundamental methods (constructor, events and others), time commands (end of track, broadcaster time, etc.), other commands (track Finder, cart explorer and others) and SPL Assistant layer. This allows me to identify where a bug is coming from and to add features in appropriate sections.
