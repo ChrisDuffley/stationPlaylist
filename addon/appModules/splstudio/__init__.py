@@ -40,7 +40,7 @@ from NVDAObjects.behaviors import Dialog
 import textInfos
 import tones
 from ..splcommon import splbase, splconsts, splactions, splconfig, splconfui, splcarts, splappmod
-from . import splmisc, splfind, splpls
+from . import splfind, splmetadata, splpls
 from ..splcommon.breakNoteDialog import (
 	SPLBreakNoteEntryField,
 	breakNoteDialogAllowed,
@@ -531,9 +531,9 @@ class AppModule(splappmod.AppModule):
 		splactions.SPLActionProfileSwitched.register(self.actionProfileSwitched)
 		splactions.SPLActionSettingsReset.register(self.actionSettingsReset)
 		# To avoid a resource leak, metadata actions must be registered here,
-		# not when splmisc module is being imported.
-		splactions.SPLActionProfileSwitched.register(splmisc.metadata_actionProfileSwitched)
-		splactions.SPLActionSettingsReset.register(splmisc.metadata_actionSettingsReset)
+		# not when splmetadata module is being imported.
+		splactions.SPLActionProfileSwitched.register(splmetadata.metadata_actionProfileSwitched)
+		splactions.SPLActionSettingsReset.register(splmetadata.metadata_actionSettingsReset)
 		# Load base config database and user interface.
 		self.onAppModuleInit()
 		# Load Studio specific config subsystems (notably track comments).
@@ -572,8 +572,8 @@ class AppModule(splappmod.AppModule):
 		splactions.SPLActionProfileSwitched.unregister(self.actionProfileSwitched)
 		splactions.SPLActionSettingsReset.unregister(self.actionSettingsReset)
 		# Don't forget about metadata connection announcement handlers.
-		splactions.SPLActionProfileSwitched.unregister(splmisc.metadata_actionProfileSwitched)
-		splactions.SPLActionSettingsReset.unregister(splmisc.metadata_actionSettingsReset)
+		splactions.SPLActionProfileSwitched.unregister(splmetadata.metadata_actionProfileSwitched)
+		splactions.SPLActionSettingsReset.unregister(splmetadata.metadata_actionSettingsReset)
 		# #39: terminate microphone alarm/interval threads, otherwise errors are seen.
 		global micAlarmT, micAlarmT2
 		if micAlarmT is not None:
@@ -629,7 +629,7 @@ class AppModule(splappmod.AppModule):
 		# Also when delayed action is needed
 		# because metadata action handler couldn't locate Studio handle itself.
 		# Pass in Studio init event so the below function can ask the event to wait.
-		splmisc.startupMetadataReminder(self._initStudioWindowFocused)
+		splmetadata.startupMetadataReminder(self._initStudioWindowFocused)
 
 	# Studio API heartbeat.
 	# Although useful for library scan detection, it can be extended to cover other features.
@@ -2267,7 +2267,7 @@ class AppModule(splappmod.AppModule):
 
 	@localStudioOnly
 	def script_metadataStreamingAnnouncer(self, gesture: inputCore.InputGesture):
-		ui.message(splmisc.metadataStatus())
+		ui.message(splmetadata.metadataStatus())
 
 	# Gesture(s) for the following script cannot be changed by users.
 	@localStudioOnly
