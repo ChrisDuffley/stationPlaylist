@@ -1,7 +1,8 @@
-# SPL Studio Miscellaneous User Interfaces and internal services
+# SPL Studio metadata streaming manager
 # An app module and global plugin package for NVDA
 # Copyright 2015-2026 Joseph Lee, released under GPL.
-# Miscellaneous functions and user interfaces
+# Metadata and encoders management, including connection, announcement and so on.
+# Formerly splmisc module housing miscellaneous services and interfaces (renamed to splmetadata in 2026)
 # Split from config module in 2015.
 
 import os
@@ -15,8 +16,6 @@ import addonHandler
 from ..splcommon import splbase, splconfig
 
 addonHandler.initTranslation()
-
-# Metadata and encoders management, including connection, announcement and so on.
 
 
 # Gather streaming flags into a list.
