@@ -1608,16 +1608,13 @@ class AppModule(splappmod.AppModule):
 			ui.message(_("Unavailable in Remote Studio"))
 			return
 		try:
-			# #44: do not rely on Studio API function object as its workings (including arguments) may change.
-			# Use a flag to tell the streaming dialog that this is
-			# invoked from somewhere other than add-on settings dialog.
-			d = splconfui.MetadataStreamingDialog(gui.mainFrame)
+			d = splmetadata.MetadataStreamingDialog(gui.mainFrame)
 			gui.mainFrame.prePopup()
 			d.Raise()
 			d.Show()
 			gui.mainFrame.postPopup()
 		except RuntimeError:
-			# #125: call centralized error handler.
+			# #125: call centralized config dialog error handler.
 			wx.CallAfter(splconfui.configDialogOpenError)
 
 	# Playlist Analyzer
