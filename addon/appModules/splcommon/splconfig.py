@@ -20,7 +20,7 @@ import ui
 import gui
 import wx
 from logHandler import log
-from . import splactions, splbase
+from . import splactions
 from .splconfspec import confspec
 from . import breakNoteDialog
 import addonHandler
@@ -626,8 +626,6 @@ def openConfig(splComponent: str) -> None:
 	global SPLConfig
 	# #64: skip this step if another SPL component (such as Creator) opened this.
 	if SPLConfig is None:
-		# #188 (temporary): transfer config data from root user config folder to "stationPlaylist" folder.
-		splbase.relocateSPLFile("splstudio.ini")
 		SPLConfig = ConfigHub(splComponent=splComponent)
 	else:
 		SPLConfig.splComponents.add(splComponent)
@@ -648,8 +646,6 @@ def initStudioExtraSteps() -> None:
 		SPLConfig.instantSwitch = None
 	# Load track comments if they exist.
 	# This must be a separate (json) file.
-	# #188 (temporary): transfer track comments data from root user config folder to "stationPlaylist" folder.
-	splbase.relocateSPLFile("spltrackcomments.json")
 	try:
 		with open(os.path.join(globalVars.appArgs.configPath, "stationPlaylist", "spltrackcomments.json"), "rb") as f:
 			trackComments = json.load(f)

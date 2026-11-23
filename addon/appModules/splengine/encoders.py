@@ -54,8 +54,6 @@ encoderConfig = None
 def loadEncoderConfig() -> None:
 	# Define global variables when first used, not here due to line length.
 	global encoderConfig
-	# #188 (temporary): transfer encoder config data from root user config folder to "stationPlaylist" folder.
-	splbase.relocateSPLFile("splencoders.ini")
 	encoderConfigPath = os.path.join(globalVars.appArgs.configPath, "stationPlaylist", "splencoders.ini")
 	# Make sure encoder settings map isn't corrupted.
 	try:
