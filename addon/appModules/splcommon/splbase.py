@@ -324,10 +324,14 @@ class SPLUnlabeledControl(NVDAObject):
 # Stage 1 (26.12): copy file (preserve path compatibility with 26.07.x); stage 2 (27.01): move file.
 def relocateSPLFile(filename: str) -> None:
 	newSPLFilePath = os.path.join(globalVars.appArgs.configPath, "stationPlaylist", filename)
-	if os.path.isfile(newSPLFilePath):
-		return
 	legacySPLFilePath = os.path.join(globalVars.appArgs.configPath, filename)
-	try:
-		shutil.copy2(legacySPLFilePath, newSPLFilePath)
-	except OSError:
-		pass
+	if os.path.isfile(newSPLFilePath):
+		try:
+			os.remove(legacySPLFilePath)
+		except OSError:
+			pass
+	else:
+		try:
+			shutil.move(legacySPLFilePath, newSPLFilePath)
+		except OSError:
+			pass
