@@ -532,8 +532,10 @@ class AppModule(splappmod.AppModule):
 		splactions.SPLActionSettingsReset.register(self.actionSettingsReset)
 		# To avoid a resource leak, metadata actions must be registered here,
 		# not when splmetadata module is being imported.
-		splactions.SPLActionProfileSwitched.register(splmetadata.metadata_actionProfileSwitched)
-		splactions.SPLActionSettingsReset.register(splmetadata.metadata_actionSettingsReset)
+		# Local Studio only
+		if self._localStudioAPIRequired:
+			splactions.SPLActionProfileSwitched.register(splmetadata.metadata_actionProfileSwitched)
+			splactions.SPLActionSettingsReset.register(splmetadata.metadata_actionSettingsReset)
 		# Load base config database and user interface.
 		self.onAppModuleInit()
 		# Load Studio specific config subsystems (notably track comments).
@@ -572,8 +574,10 @@ class AppModule(splappmod.AppModule):
 		splactions.SPLActionProfileSwitched.unregister(self.actionProfileSwitched)
 		splactions.SPLActionSettingsReset.unregister(self.actionSettingsReset)
 		# Don't forget about metadata connection announcement handlers.
-		splactions.SPLActionProfileSwitched.unregister(splmetadata.metadata_actionProfileSwitched)
-		splactions.SPLActionSettingsReset.unregister(splmetadata.metadata_actionSettingsReset)
+		# Local Studio only
+		if self._localStudioAPIRequired:
+			splactions.SPLActionProfileSwitched.unregister(splmetadata.metadata_actionProfileSwitched)
+			splactions.SPLActionSettingsReset.unregister(splmetadata.metadata_actionSettingsReset)
 		# #39: terminate microphone alarm/interval threads, otherwise errors are seen.
 		global micAlarmT, micAlarmT2
 		if micAlarmT is not None:
