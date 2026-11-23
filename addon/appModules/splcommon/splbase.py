@@ -9,8 +9,6 @@ from typing import Any
 import ctypes
 from functools import wraps
 import enum
-import os
-import shutil
 import ui
 import api
 import windowUtils
@@ -319,19 +317,3 @@ class SPLUnlabeledControl(NVDAObject):
 	def _get_value(self):
 		# For time pickers, window text shows control value.
 		return self.windowText if self.windowClassName == "TDateTimePicker" else super().value
-
-# #188 (temporary): store add-on files and data in "stationPlaylist" folder inside the user config folder.
-# Stage 1 (26.12): copy file (preserve path compatibility with 26.07.x); stage 2 (27.01): move file.
-def relocateSPLFile(filename: str) -> None:
-	newSPLFilePath = os.path.join(globalVars.appArgs.configPath, "stationPlaylist", filename)
-	legacySPLFilePath = os.path.join(globalVars.appArgs.configPath, filename)
-	if os.path.isfile(newSPLFilePath):
-		try:
-			os.remove(legacySPLFilePath)
-		except OSError:
-			pass
-	else:
-		try:
-			shutil.move(legacySPLFilePath, newSPLFilePath)
-		except OSError:
-			pass
