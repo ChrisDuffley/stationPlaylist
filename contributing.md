@@ -9,7 +9,7 @@ StationPlaylist NVDA add-on provides improved accessibility and usability for St
 ## Contribution requirements
 
 1. The latest available stable version of NVDA at the time of your contributions. Using beta or alpha NVDA builds is useful but not recommended unless contribution states otherwise such as supporting an upcoming NVDA feature.
-2. Latest available SPL suite releases (6.20 as of April 2026)
+2. Latest available SPL suite releases (6.201 as of December 2026)
 3. Windows 11
 4. To package your modifications into an add-on build, you must be using Python 3.13 (64-bit) or later.
 
