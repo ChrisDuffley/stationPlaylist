@@ -4,6 +4,7 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 
 ## Version 27.01
 
+* NVDA 2026.3.2 or later is required.
 * Due to SPL add-on data location change, it is mandatory to install add-on 27.01. Once installed, you cannot go back to an earlier version of the add-on.
 
 ## Version 26.12/26.07.13-LTS

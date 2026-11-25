@@ -26,7 +26,8 @@ addon_info = AddonInfo(
 	addon_version="26.12",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""* Due to SPL add-on data location change, it is mandatory to install add-on 27.01. Once installed, you cannot go back to an earlier version of the add-on."""),
+	addon_changelog=_("""* NVDA 2026.3.2 or later is required.
+* Due to SPL add-on data location change, it is mandatory to install add-on 27.01. Once installed, you cannot go back to an earlier version of the add-on."""),
 	# Author(s)
 	addon_author="Christopher Duffley <nvda@chrisduffley.com>, Marco Steinebach <studio@windyradio.de> (formerly Joseph Lee <joseph.lee22590@gmail.com>, originally by Geoff Shang and other contributors)",
 	# URL for the add-on documentation support
