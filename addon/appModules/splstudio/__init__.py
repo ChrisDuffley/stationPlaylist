@@ -2048,6 +2048,17 @@ class AppModule(splappmod.AppModule):
 		if self.cartExplorer:
 			self.cartsBuilder()
 
+	# Run a timer if a layer script can be pressed multiple times.
+	_layerExpirationTimer = None
+	_lastLayerScript = None
+
+	def delayFinish(self) -> None:
+		# Delay calling the finish script until repeated key press timer expires.
+		if self._layerExpirationTimer and self._layerExpirationTimer.IsRunning():
+			wx.CallAfter(self._layerExpirationTimer.Stop)
+		self._layerExpirationTimer = wx.PyTimer(self.script_finish)
+		wx.CallAfter(self._layerExpirationTimer.StartOnce, config.conf["keyboard"]["multiPressTimeout"])
+
 	def script_error(self, gesture: inputCore.InputGesture):
 		tones.beep(120, 100)
 		# Translators: shown when a non-SPL Assistant layer command is performed.
