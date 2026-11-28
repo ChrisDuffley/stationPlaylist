@@ -1726,7 +1726,9 @@ class AppModule(splappmod.AppModule):
 		script = splappmod.AppModule.getScript(self, gesture)
 		if not script:
 			script = self.script_error
-		return splbase.finally_(script, self.script_finish)
+		if self._layerExpirationTimer and self._layerExpirationTimer.IsRunning():
+			self._lastLayerScript = scriptHandler.getScriptName(script)
+		return splbase.finally_(script, self.delayFinish if hasattr(script, "layerScriptCanRepeat") else self.script_finish)
 
 	@scriptHandler.script(speakOnDemand=True)
 	def script_finish(self):
