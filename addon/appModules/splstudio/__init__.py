@@ -2174,12 +2174,19 @@ class AppModule(splappmod.AppModule):
 		if not self._trackAnalysisAllowed(mustSelectTrack=False):
 			self.script_finish()
 			return
+		# Deactivate the layer if a gesture other than the default layer gesture (F8) is pressed.
+		if gesture.displayName.lower() != "f8":
+			self.script_finish()
 		obj = api.getFocusObject()
 		if obj.role == controlTypes.Role.LIST:
 			obj = obj.firstChild
 		scriptCount = scriptHandler.getLastScriptRepeatCount()
 		# Display the decorated HTML window on the first press if told to do so.
-		if splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"]:
+		# Also increment the repeat count if repeat key press timer is running and this script is invoked again.
+		if (
+			splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"]
+			or self._lastLayerScript == "takePlaylistSnapshots"
+		):
 			scriptCount += 1
 		# Never allow this to be invoked more than twice, as it causes
 		# performance degredation and multiple HTML windows are opened.
