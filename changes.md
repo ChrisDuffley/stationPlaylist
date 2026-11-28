@@ -7,6 +7,10 @@ This page lists the complete changelog for StationPlaylist add-on releases.
 * NVDA 2026.3.2 or later is required.
 * Due to SPL add-on data location change, it is mandatory to install add-on 27.01. Once installed, you cannot go back to an earlier version of the add-on.
 
+## Version 26.12.1/26.07.14-LTS
+
+* In local and Remote Studio, resolved a long-standing limitation in SPL Assistant where it was impossible to press layer commands more than once to perform different actions (for example, press F8 twice quickly to view playlist snapshots in a browse mode window).
+
 ## Version 26.12/26.07.13-LTS
 
 * 26.12: Add-on configuration files such as settings data are now located in 'stationPlaylist' subfolder of the user configuration folder.
