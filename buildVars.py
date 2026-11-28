@@ -27,6 +27,7 @@ addon_info = AddonInfo(
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
 	addon_changelog=_("""* Add-on configuration files such as settings data are now located in 'stationPlaylist' subfolder of the user configuration folder.
+* In local and Remote Studio, resolved a long-standing limitation in SPL Assistant where it was impossible to press layer commands more than once to perform different actions (for example, press F8 twice quickly to view playlist snapshots in a browse mode window).
 * VT (voice track) Recorder (local Studio):
 	* Added commands to announce outgoing and incoming tracks. Control+NVDA+1 announces both outgoing and incoming tracks, Control+NVDA+2 announces outgoing track title, and Control+NVDA+3 reports incoming track name (contributed by MooSteinebach).
 	* Most of the unlabeled controls now report accessible labels (contributed by MooSteinebach).
