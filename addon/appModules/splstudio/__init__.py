@@ -2045,6 +2045,7 @@ class AppModule(splappmod.AppModule):
 	@scriptHandler.script(speakOnDemand=True)
 	def script_finish(self):
 		self.SPLAssistant = False
+		self._lastLayerScript = None
 		self.clearGestureBindings()
 		self.bindGestures(self.__gestures)
 		if self.cartExplorer:
