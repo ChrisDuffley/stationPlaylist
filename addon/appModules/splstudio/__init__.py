@@ -2111,14 +2111,19 @@ class AppModule(splappmod.AppModule):
 		description=_("Marks focused track as start marker for various playlist analysis commands")
 	)
 	def script_markTrackForAnalysis(self, gesture: inputCore.InputGesture):
-		self.script_finish()
+		# Deactivate the layer if a gesture other than the default layer gesture (F9) is pressed.
+		if gesture.displayName.lower() != "f9":
+			self.script_finish()
 		if self._trackAnalysisAllowed():
 			focus = api.getFocusObject()
-			if scriptHandler.getLastScriptRepeatCount() == 0:
+			scriptRepeatCount = scriptHandler.getLastScriptRepeatCount()
+			if self._lastLayerScript == "markTrackForAnalysis":
+				scriptRepeatCount += 1
+			if scriptRepeatCount == 0:
 				self._analysisMarker = focus.IAccessibleChildID - 1
 				# Translators: Presented when track time analysis is turned on.
 				ui.message(_("Playlist analysis activated"))
-			else:
+			elif self._layerExpirationTimer.IsRunning() or scriptHandler.getLastScriptRepeatCount() > 0:
 				self._analysisMarker = None
 				# Translators: Presented when track time analysis is turned off.
 				ui.message(_("Playlist analysis deactivated"))
