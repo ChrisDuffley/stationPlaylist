@@ -2440,7 +2440,7 @@ class AppModule(splappmod.AppModule):
 				self._analysisMarker = focus.IAccessibleChildID - 1
 				# Translators: Presented when track time analysis is turned on.
 				ui.message(_("Playlist analysis activated"))
-			elif self._layerExpirationTimer.IsRunning() or scriptHandler.getLastScriptRepeatCount() > 0:
+			else:
 				self._analysisMarker = None
 				# Translators: Presented when track time analysis is turned off.
 				ui.message(_("Playlist analysis deactivated"))
