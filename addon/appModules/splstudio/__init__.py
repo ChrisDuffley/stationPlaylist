@@ -2119,6 +2119,7 @@ class AppModule(splappmod.AppModule):
 				self._analysisMarker = None
 				# Translators: Presented when track time analysis is turned off.
 				ui.message(_("Playlist analysis deactivated"))
+	setattr(script_markTrackForAnalysis, "layerScriptCanRepeat", True)
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
@@ -2189,7 +2190,7 @@ class AppModule(splappmod.AppModule):
 			end = obj.parent.getChild(analysisEnd).next
 		# Speak and braille on the first press, display a decorated HTML message for subsequent presses.
 		splpls.playlistSnapshotOutput(splpls.playlistSnapshots(start, end), scriptCount)
-		self.script_finish()
+	setattr(script_takePlaylistSnapshots, "layerScriptCanRepeat", True)
 
 	def script_playlistTranscripts(self, gesture: inputCore.InputGesture):
 		if self._localStudioAPIRequired and not splbase.studioIsRunning():
